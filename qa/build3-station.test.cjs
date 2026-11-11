@@ -47,6 +47,10 @@ const current=()=>json('StationView.currentRecord()');
   assert.equal(json('StationView.results().returns').receiverDelta.value,2.25);assert.match(words('[data-station-return-result]'),/39.00/);assert.match(words('[data-station-return-result]'),/\+2.25/);assert.match(words('[data-station-return-result]'),/tolerance unknown/i);
   set('returns','tolerance','0');assert.match(words('[data-station-return-result]'),/outside/i);set('returns','tolerance','');
  });
+ await check('Recorded electronic EQ or tilt can be signed while physical insertion loss and pad stay nonnegative',()=>{
+  set('returns','eq','-2.5');assert.equal(current().stages.before.returns.eq,'-2.5');assert(!/nonnegative/.test(words('[data-station-return-result]')),'a signed electronic setting is retained without a physical-loss error');
+  set('returns','pad','-1');assert.match(words('[data-station-return-result]'),/nonnegative/);set('returns','pad','0');
+ });
  await check('Before and after snapshots keep separate readings and timestamps',()=>{
   const before=current().stages.before;set('record','stage','after','change');assert.equal(d.querySelector('[data-station-scope="returns"][data-station-field="actualInjection"]').value,'');set('returns','actualInjection','40');
   assert.deepEqual(current().stages.before,before);assert.equal(current().stages.after.returns.actualInjection,'40');assert(current().stages.after.updatedAt);set('record','stage','before','change');
@@ -79,8 +83,13 @@ const current=()=>json('StationView.currentRecord()');
   set('forward','targetLow','99');assert.deepEqual(json('state'),before);assert(![...d.querySelectorAll('[data-station-target] option')].some(o=>/active_gm_ubt_aux/.test(o.value)));
  });
  await check('Job library switching and JSON backup restore preserve identical station outputs and independent dates',async()=>{
-  fixture();select('r1');set('forward','targetLow','39');set('returns','referencePointTarget','19');set('returns','insertionLoss','20');set('balanced','date','2026-11-10','change');set('swept','date','2026-11-11','change');
+  fixture();select('r1');
+  for(const [k,v] of Object.entries({lowMHz:'54',highMHz:'860',measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',pad:'6',eq:'9'}))set('forward',k,v,['pad','eq'].includes(k)?'change':'input');
+  for(const [k,v] of Object.entries({referencePointTarget:'19',insertionLoss:'20',actualInjection:'39',receiverReading:'-1.25',receiverReference:'-3.5'}))set('returns',k,v);
+  set('balanced','date','2026-11-10','change');set('swept','date','2026-11-11','change');
+  assert.equal(json('StationView.results().forward').catalog.pad.to,7);assert.equal(json('StationView.results().returns').receiverDelta.value,2.25);
   ev('state.job.name="STATION SYNTH A";JobsUI.saveNamed()');const id=ev('state.job.id'),before=json('StationView.results()'),records=json('StationView.records(state)');
+  const copyId=ev(`JobsUI.duplicate(${JSON.stringify(id)})`);assert.deepEqual(json(`StationView.records(JobsUI.snapshots().find(s=>s.job.id===${JSON.stringify(copyId)}))`),records);
   const backup=ev('JSON.stringify(state)');ev('loadState(TrainingJob.makePractice("aoi-six-active"));state.job.name="STATION SYNTH B";JobsUI.saveNamed()');select('r1');assert.equal(current().stages.before.forward.targetLow,'');await ev(`JobsUI.open(${JSON.stringify(id)})`);
   ev('WorkflowUI.go("station")');assert.deepEqual(json('StationView.results()'),before);assert.deepEqual(json('StationView.records(JobsUI.snapshots().find(s=>s.job.id===state.job.id))'),records);
   ev(`openProjectText(${JSON.stringify(backup)},true)`);await flush();ev('WorkflowUI.go("station")');assert.deepEqual(json('StationView.results()'),before);assert.deepEqual(json('StationView.records(state)'),records);
@@ -102,6 +111,32 @@ const current=()=>json('StationView.currentRecord()');
   ev('loadState({version:1,setup:{...defaultSetup,sourceType:"active",sourceModel:"active_gm_hgd"},rows:[]});WorkflowUI.go("station")');set('returns','referencePointTarget','19');
   const identity=ev('state.setup.stationIdentity');ev('JobsUI.beforeProjectOpen({confirmed:true})');
   assert(json('JobsUI.snapshots()').some(s=>s.setup.stationIdentity===identity&&s.stationView),'source-only worksheet retained in named jobs');
+ });
+ await check('Changing a launch node asset, port or module archives its readings and done records',()=>{
+  fixture();select('source');
+  for(const field of ['asset','port','module']){
+   set('returns','referencePointTarget','19');set('returns','insertionLoss','20');set('balanced','date','2026-11-10','change');const done=d.querySelector('[data-station-scope="balanced"][data-station-field="done"]');done.checked=true;done.dispatchEvent(new w.Event('change',{bubbles:true}));
+   const identity=ev('state.setup.stationIdentity');ev('WorkflowUI.go("setup")');const control=d.querySelector(`[data-launch-node="${field}"]`);control.value='SYNTHETIC changed '+field;control.dispatchEvent(new w.Event('input',{bubbles:true}));ev('WorkflowUI.go("station")');
+   assert.equal(json('StationView.results().returns.requiredInjection').ok,false,field+' does not inherit injection');assert.equal(current().balanced.done,false);assert.equal(current().balanced.date,'');assert.equal(json(`state.stationView.stations[${JSON.stringify(identity)}]`).balanced.done,true,'old source retained');
+  }
+ });
+ await check('Changing an active launch asset or output port cannot inherit a same-model worksheet',()=>{
+  ev('loadState({version:1,setup:{...defaultSetup,sourceType:"active",sourceModel:"active_gm_hgd",sourceAsset:"SYNTH A",sourcePort:"main"},rows:[]});WorkflowUI.go("station")');
+  for(const field of ['sourceAsset','sourcePort']){
+   set('returns','referencePointTarget','19');set('returns','insertionLoss','20');ev('WorkflowUI.go("setup")');const control=d.querySelector(`[data-launch-source="${field}"]`);control.value='SYNTH changed '+field;control.dispatchEvent(new w.Event('input',{bubbles:true}));ev('WorkflowUI.go("station")');assert.equal(json('StationView.results().returns.requiredInjection').ok,false,field);
+  }
+ });
+ await check('Imported operands hidden by number inputs never calculate; accepted decimal selects stay visible',()=>{
+  fixture();select('r1');
+  for(const [k,v] of Object.entries({lowMHz:'54',highMHz:'860',measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',pad:'6',eq:'9'}))set('forward',k,v,['pad','eq'].includes(k)?'change':'input');set('returns','insertionLoss','20');
+  const baseline=json('state'),identity=ev('state.rows[0].stationIdentity');
+  for(const value of ['+19',' 19 ','0x10','0b10','19.','1e309']){
+   const imported=structuredClone(baseline),r=imported.stationView.stations[identity];r.stages.before.returns.referencePointTarget=value;r.stages.before.forward.targetLow=value;
+   ev(`loadState(${JSON.stringify(imported)});WorkflowUI.go('station')`);const before=json('state');
+   assert.equal(d.querySelector('[data-station-scope="returns"][data-station-field="referencePointTarget"]').value,'');assert.equal(json('StationView.results().returns.requiredInjection').ok,false,value);assert.equal(json('StationView.results().forward').ok,false,value);ev('StationView.render()');assert.deepEqual(json('state'),before,'raw import retained without calculation');
+  }
+  const accepted=structuredClone(baseline),r=accepted.stationView.stations[identity];r.stages.before.forward.pad='6.0';r.stages.before.forward.eq='9e0';r.stages.before.returns.referencePointTarget='1.9e1';ev(`loadState(${JSON.stringify(accepted)});WorkflowUI.go('station')`);
+  assert.equal(d.querySelector('[data-station-scope="forward"][data-station-field="pad"]').value,'6');assert.equal(d.querySelector('[data-station-scope="forward"][data-station-field="eq"]').value,'9');assert.equal(json('StationView.results().returns.requiredInjection').value,39);
  });
  console.log('Build3 station: '+checks+' checks passed');app.close();
 })().catch(e=>{console.error(e);app.close();process.exitCode=1;});

@@ -1,10 +1,12 @@
 /* Per-station field worksheet. Saved measurements are separate from route predictions.
    No new target is assumed; balance and sweep are independent technician records. */
 const StationMath=(()=>{
- const number=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
+ // Match HTML number inputs: no hex/binary, leading plus, whitespace or trailing
+ // decimal point that the browser would erase while the worksheet calculated it.
+ const number=x=>{if(typeof x==='number')return Number.isFinite(x)?x:null;if(typeof x!=='string'||x.trim()!==x||!/^\-?(?:\d+(?:\.\d+)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(x))return null;return Number.isFinite(Number(x))?Number(x):null;};
  const fail=error=>({ok:false,error});
- function level(value,label){const n=number(value);return n===null?fail(label+' unknown — enter a finite level.'):Math.abs(n)>200?fail(label+' must be within ±200 dBmV (worksheet range).'):{ok:true,value:n===0?0:n};}
- function loss(value,label='Insertion loss'){const n=number(value);return n===null?fail(label+' unknown — enter a finite value.'):n<0||n>200?fail(label+' must be nonnegative and no more than 200 dB (worksheet range).'):{ok:true,value:n===0?0:n};}
+ function level(value,label){const n=number(value);return n===null?fail(label+' unknown or invalid — enter a finite decimal level shown in the field.'):Math.abs(n)>200?fail(label+' must be within ±200 dBmV (worksheet range).'):{ok:true,value:n===0?0:n};}
+ function loss(value,label='Insertion loss'){const n=number(value);return n===null?fail(label+' unknown or invalid — enter a finite decimal value shown in the field.'):n<0||n>200?fail(label+' must be nonnegative and no more than 200 dB (worksheet range).'):{ok:true,value:n===0?0:n};}
  function difference(a,b,label){if(!a.ok)return a;if(!b.ok)return b;const v=a.value-b.value;return Number.isFinite(v)?{ok:true,value:v===0?0:v}:fail(label+' is outside the worksheet range.');}
  function returnResults(input={}){
   const target=level(input.referencePointTarget,'Reference-point target'),insertion=loss(input.insertionLoss);
@@ -13,7 +15,12 @@ const StationMath=(()=>{
   return {requiredInjection,injectionDelta:difference(actual,requiredInjection,'Injection delta'),receiverDelta:difference(reading,reference,'Receiver delta')};
  }
  function validDate(value){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value));if(!m||Number(m[1])<1)return false;const date=new Date(value+'T00:00:00Z');return Number.isFinite(date.getTime())&&date.getUTCFullYear()===Number(m[1])&&date.getUTCMonth()+1===Number(m[2])&&date.getUTCDate()===Number(m[3]);}
- function results(stage={},equipment={}){return {forward:Alignment.solve(stage.forward||{},{forwardBand:equipment.forwardBand,profile:Alignment.profileFor(equipment.id),pad:stage.forward?.pad,eq:stage.forward?.eq}),returns:returnResults(stage.returns)};}
+ function results(stage={},equipment={}){
+  const input=stage.forward||{},names={lowMHz:'low pilot frequency',highMHz:'high pilot frequency',measuredLow:'low reading',measuredHigh:'high reading',targetLow:'low target',targetHigh:'high target',pad:'installed input pad',eq:'installed input EQ',levelTolerance:'level tolerance',tiltTolerance:'tilt tolerance'};
+  const hidden=Object.keys(names).find(key=>input[key]!==undefined&&input[key]!==''&&number(input[key])===null);
+  const forward=hidden?fail('Enter '+names[hidden]+' using finite decimal notation shown in the field.'):Alignment.solve(input,{forwardBand:equipment.forwardBand,profile:Alignment.profileFor(equipment.id),pad:input.pad,eq:input.eq});
+  return {forward,returns:returnResults(stage.returns)};
+ }
  return {number,level,loss,returnResults,validDate,results};
 })();
 
@@ -36,7 +43,7 @@ const StationView=(()=>{
   if(value.stations!==undefined&&(!object(value.stations)||Object.keys(value.stations).length>1000))throw Error('Invalid station records (maximum 1,000).');
   for(const [id,r] of Object.entries(value.stations||{})){
    if(!safeKey(id))throw Error('Invalid station identity.');allowed(r,['pointId','equipmentId','equipmentContext','stage','stages','balanced','swept'],'record');
-   for(const f of ['pointId','equipmentId','equipmentContext'])if(r[f]!==undefined)text(r[f]);
+   for(const f of ['pointId','equipmentId','equipmentContext'])if(r[f]!==undefined)text(r[f],f==='equipmentContext'?2500:500);
    if(r.stage!==undefined&&!['before','after'].includes(r.stage))throw Error('Invalid station stage.');
    if(r.stages!==undefined){allowed(r.stages,['before','after'],'stages');for(const stage of Object.values(r.stages)){
     allowed(stage,['forward','returns','updatedAt'],'stage');if(stage.updatedAt!==undefined)text(stage.updatedAt,50);
@@ -56,7 +63,10 @@ const StationView=(()=>{
   for(const [i,row] of (owner.rows||[]).entries()){
    const d=devices.find(x=>x.id===row.device);if(d?.active)list.push({key:row.id,id:d.id,label:(row.name||'Point '+(i+1))+' · '+d.label,forwardBand:d.publishedGain?.forwardBand,returnCeiling:d.publishedGain?.reverseBand?.[1],readOnly:!!d.retired,holder:row});
   }
-  return list.map(t=>({...t,split:t.returnCeiling===42&&t.forwardBand?.[0]===54?'42':t.returnCeiling===204&&t.forwardBand?.[0]===258?'204':'',context:JSON.stringify([t.id,t.returnCeiling??null,t.forwardBand||null])}));
+  return list.map(t=>{
+   const source=t.key==='source'?(type==='node'?['node',owner.node?.asset||'',owner.node?.port||'',owner.node?.module||'']:['active',owner.setup?.sourceAsset||'',owner.setup?.sourcePort||'']):[];
+   return {...t,split:t.returnCeiling===42&&t.forwardBand?.[0]===54?'42':t.returnCeiling===204&&t.forwardBand?.[0]===258?'204':'',context:JSON.stringify([t.id,t.returnCeiling??null,t.forwardBand||null,...source])};
+  });
  }
  function data(owner=own()){return object(owner.stationView)?owner.stationView:{selected:'',stations:{}};}
  function target(owner=own()){const list=targets(owner);return list.find(t=>t.key===(selections.get(owner)||data(owner).selected))||list[0]||null;}
@@ -95,7 +105,7 @@ const StationView=(()=>{
  function forwardMarkup(t,r){
   const p=Alignment.profileFor(t.id),f=r.stages[r.stage].forward;
   const numeric=(k,label,source='')=>field('forward',k,label,f[k],source,'number');
-  const choices=(key,label,items)=>`<label>${label}<select data-station-scope="forward" data-station-field="${key}"><option value="">Choose installed value</option>${items.map(x=>`<option value="${x.value}"${String(f[key])===String(x.value)?' selected':''}>${escape(x.label||x.value+' dB')}</option>`).join('')}</select></label>`;
+  const choices=(key,label,items)=>`<label>${label}<select data-station-scope="forward" data-station-field="${key}"><option value="">Choose installed value</option>${items.map(x=>`<option value="${x.value}"${StationMath.number(f[key])!==null&&StationMath.number(f[key])===x.value?' selected':''}>${escape(x.label||x.value+' dB')}</option>`).join('')}</select></label>`;
   return `<section class="calc-card"><h3>Forward pilots</h3><p class="note">Record readings and targets at the same output plane and channel-power convention. Apply test-point correction once before entering readings. ${tag('calc.alignment.balance')}</p><div class="calc-fields">${numeric('lowMHz','Low pilot (MHz)')}${numeric('highMHz','High pilot (MHz)')}${numeric('targetLow','Low target (dBmV)','station.forward.targetLow')}${numeric('targetHigh','High target (dBmV)','station.forward.targetHigh')}${numeric('measuredLow','Low reading (dBmV)')}${numeric('measuredHigh','High reading (dBmV)')}${p?choices('pad','Installed input pad (dB)',p.pads.values.map(value=>({value})))+choices('eq','Installed input EQ (dB)',[...(p.eqs.unpublished||[]),...p.eqs.items]):''}${field('forward','plane','Output plane / port and power convention',f.plane)}</div><details><summary>Company comparison tolerances</summary><div class="calc-fields">${numeric('levelTolerance','Level tolerance (± dB)','station.forward.levelTolerance')}${numeric('tiltTolerance','Tilt tolerance (± dB)','station.forward.tiltTolerance')}</div></details><div data-station-forward-result role="status" aria-live="polite"></div></section>`;
  }
  function returnMarkup(r){const f=r.stages[r.stage].returns,numeric=(k,label,source='')=>field('returns',k,label,f[k],source,'number');return `<section class="calc-card"><h3>Return unity-gain worksheet ${tag('station.return.injection')}</h3><p class="note">Required injection = reference-point target + net insertion loss to that point. Enter total applicable loss, including EQ and test point / lead losses once; do not add meter compensation twice. This is a physical source-level budget, not an automatic ONX setting. For Return Sweepless Sweep, use only verified absolute same-plane readings; referenced dB response alone cannot fill dBmV receiver fields.</p><div class="calc-fields">${field('returns','referencePoint','Reference point / injection plane and convention',f.referencePoint)}${numeric('referencePointTarget','Reference-point target (dBmV)','station.return.referencePointTarget')}${numeric('insertionLoss','Net insertion loss (dB)')}${numeric('actualInjection','Actual injection (dBmV)')}${numeric('receiverReading','Receiver reading (dBmV)')}${numeric('receiverReference','Receiver reference (dBmV)','station.return.receiverReference')}${field('returns','receiverPlane','Receiver plane / power convention',f.receiverPlane)}${field('returns','referenceId','Saved receiver reference ID / source',f.referenceId)}${numeric('pad','Recorded return pad / attenuation (dB)')}${numeric('eq','Recorded return EQ / tilt (dB)')}</div><p class="note">Return pad and EQ record the installed setting; this worksheet does not choose return parts. Quantum18 uses electronic adjustments. The 38 dBmV TX reference, SCU-1800 recommended 0 dBmV input, CMTS receive set point and Quantum18 recommended 9 dBmV input are different references at different planes; none fills this worksheet. ${tag('station.return.planes')}</p><details><summary>Company return tolerance</summary><div class="calc-fields">${numeric('tolerance','Receiver tolerance (± dB)','station.return.tolerance')}</div><p class="note">No universal return tolerance was found. Leave unknown until your company supplies one.</p></details><div data-station-return-result role="status" aria-live="polite"></div></section>`;}
@@ -116,7 +126,8 @@ const StationView=(()=>{
   }
   if(returns){const v=res.returns,metric=(k,label,unit)=>`<p><strong>${label}: ${v[k].ok?signed(v[k].value)+' '+unit:'Unknown'}</strong>${v[k].ok?'':' — '+escape(v[k].error)}</p>`;
    returns.innerHTML=metric('requiredInjection','Required injection','dBmV')+metric('injectionDelta','Actual minus required injection','dB')+metric('receiverDelta','Receiver minus saved reference','dB')+`<p class="note">${escape(v.receiverDelta.ok?comparison(v.receiverDelta.value,stage.returns.tolerance,'Receiver'):'Receiver tolerance unknown until comparable receiver levels are entered.')}</p>`;
-   for(const [key,label] of [['pad','Recorded return pad / attenuation'],['eq','Recorded return EQ / tilt']])if(stage.returns[key]!==''&&!StationMath.loss(stage.returns[key],label).ok)returns.innerHTML+=`<p class="status warning">${escape(StationMath.loss(stage.returns[key],label).error)}</p>`;
+   if(stage.returns.pad!==''&&!StationMath.loss(stage.returns.pad,'Recorded return pad / attenuation').ok)returns.innerHTML+=`<p class="status warning">${escape(StationMath.loss(stage.returns.pad,'Recorded return pad / attenuation').error)}</p>`;
+   const eq=StationMath.number(stage.returns.eq);if(stage.returns.eq!==''&&(eq===null||Math.abs(eq)>200))returns.innerHTML+='<p class="status warning">Recorded return EQ / tilt must be finite and within ±200 dB (worksheet range).</p>';
   }
   if(done)done.innerHTML=['balanced','swept'].map(key=>{const status=r[key];return `<p>${key==='balanced'?'Balanced':'Swept'}: ${status.done?'recorded by technician':'not recorded'} · ${escape(status.date||'date unknown')}${status.date&&!StationMath.validDate(status.date)||status.done&&!StationMath.validDate(status.date)?' — enter a valid calendar date (YYYY-MM-DD).':''}</p>`;}).join('');
   const status=document.querySelector('[data-station-status]');if(status)status.textContent=message;
