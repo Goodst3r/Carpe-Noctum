@@ -14,6 +14,8 @@
 #stationPanel .station-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
 #stationPanel .source-tag{min-width:44px;min-height:44px;width:auto;flex:none;align-self:center}
 #stationPanel .station-field>input{width:100%}
+#stationPanel .station-input-feedback{margin:0;overflow-wrap:anywhere}
+#stationPanel [data-station-field][aria-invalid="true"]{border:3px double var(--warn);outline:1px solid var(--warn);outline-offset:2px}
 @media(max-width:600px){#stationPanel .calc-fields{grid-template-columns:minmax(0,1fr)}}
 @media(min-width:1000px){.station-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media print{#stationPanel{display:none!important}}
