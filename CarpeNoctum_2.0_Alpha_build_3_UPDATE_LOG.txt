@@ -107,8 +107,11 @@ CHANGES
    - Company windows (lowest and highest level) start unknown, blank is
      never zero, and they are saved on this device only under the new
      browser-storage key nightsweep-docsis-windows-v1. They are not part of
-     a job, its full backup or the job file format; one set serves every job
-     and both plants. Existing storage keys and the job format are unchanged.
+     a job, its full backup or the job file format. Each plant (42/54 and
+     204/258 MHz) has its own windows, chosen by the job's plant in Test ->
+     Meter setup; an untouched plant stays unknown. A number box holding
+     text that is not a number is refused, never read as a blank. Existing
+     storage keys and the job format are unchanged.
    - Ten new registry rows (six spec or expert, four company) appear in
      Test -> Limits. Sources and what was re-read:
      research/build3/DOCSIS_HEALTH_SOURCES.md.
@@ -135,6 +138,11 @@ CHANGES
      outside jobs and their backups. Existing storage keys and the job
      format are unchanged. The screen asks for a pole, tap or cross street,
      never customer names, addresses or account numbers.
+   - A number box holding text that is not a number (a lone minus sign) is
+     refused with its reason: it never clears a saved company setting and
+     is never read as "not given". A blank detector-check date or a cleared
+     repair date is refused and the record is left alone; the date boxes
+     start as today and what was chosen is what is kept.
    - Twelve registry rows (seven spec, one spec secondary for 47 CFR 76.614,
      two expert flagged secondary, two company). Sources and what was read:
      research/build3/LEAKAGE_SOURCES.md.
