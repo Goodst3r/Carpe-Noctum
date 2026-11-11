@@ -6,6 +6,7 @@ Uses throwaway scripts in a temp folder. Nothing in the repository is written.
 from pathlib import Path
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -17,10 +18,16 @@ from evidence_path import SCRATCH, evidence_path, writes_tracked  # noqa: E402
 from release_receipts import RECEIPT_FILES, missing_receipts, receipts_message  # noqa: E402
 
 checks = []
+skipped = []
 
 
 def check(name, fn):
-    fn()
+    """A check that returns text was skipped, and says why. A skipped check is never counted as passed."""
+    note = fn()
+    if isinstance(note, str):
+        skipped.append(name)
+        print('SKIP ' + name + ': ' + note)
+        return
     checks.append(name)
     print('PASS ' + name)
 
@@ -107,9 +114,28 @@ def evidence_node():
     require('inside the repository' in out['bad'], 'node rejects escaping paths')
 
 
+def tracked_files():
+    """Git's list of tracked files, or None when this tree has no usable Git metadata.
+
+    A distributed Source ZIP or a GitHub archive has no .git, a machine may have no git program, and a
+    tree unpacked inside some other repository would list that repository's files. None means: skip.
+    """
+    try:
+        top = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=ROOT, capture_output=True, text=True)
+        if top.returncode != 0 or Path(top.stdout.strip()).resolve() != ROOT.resolve():
+            return None
+        listed = subprocess.run(['git', 'ls-files'], cwd=ROOT, capture_output=True, text=True)
+    except OSError:
+        return None
+    return set(listed.stdout.splitlines()) if listed.returncode == 0 else None
+
+
 def tracked_writers_use_the_redirect():
     # Every test that writes a file tracked by git must go through the redirect.
-    tracked = set(subprocess.run(['git', 'ls-files'], cwd=ROOT, capture_output=True, text=True, check=True).stdout.splitlines())
+    tracked = tracked_files()
+    if tracked is None:
+        return ('this tree has no usable git metadata (a source archive, or git is not installed), so the scan for '
+                'direct writes to tracked evidence files did not run; run it from a git checkout')
     offenders = []
     for test in sorted((ROOT / 'qa').glob('*.cjs')) + sorted((ROOT / 'qa').glob('*.js')) + sorted((ROOT / 'qa').glob('*.py')):
         text = test.read_text()
@@ -120,6 +146,39 @@ def tracked_writers_use_the_redirect():
                         and 'evidencePath' not in line and 'evidence_path' not in line:
                     offenders.append(f'{test.name}:{line_no} writes {path} directly')
     require(not offenders, 'direct writes to tracked evidence: ' + '; '.join(offenders))
+
+
+GATE_FILES = ('gate-reliability.test.py', 'suite_runner.py', 'evidence_path.py', 'evidence-path.cjs', 'release_receipts.py')
+
+
+def source_archive_without_git():
+    """Run this suite from a copy that has no .git, once with no git metadata and once with no git program."""
+    if tracked_files() is None:
+        return 'already running without git metadata, so the nested run would repeat this very case'
+    with tempfile.TemporaryDirectory() as tmp:
+        tree = Path(tmp) / 'tree'
+        (tree / 'qa').mkdir(parents=True)
+        for name in GATE_FILES:
+            shutil.copy(ROOT / 'qa' / name, tree / 'qa' / name)
+        require(not (tree / '.git').exists(), 'the copy must not carry .git')
+        bin_dir = Path(tmp) / 'bin'
+        bin_dir.mkdir()
+        for program in ('python3', 'node'):
+            found = shutil.which(program)
+            require(found, program + ' is needed to run this suite')
+            (bin_dir / program).symlink_to(found)
+        runs = {'no .git folder': dict(os.environ),
+                'no git program': {**os.environ, 'PATH': str(bin_dir)}}
+        for label, env in runs.items():
+            env.pop('NIGHTSWEEP_WRITE_EVIDENCE', None)
+            done = subprocess.run([sys.executable, str(tree / 'qa' / 'gate-reliability.test.py')], cwd=tree, env=env,
+                                  capture_output=True, text=True, timeout=300)
+            require(done.returncode == 0, f'suite fails with {label}: ' + (done.stdout + done.stderr)[-600:])
+            require('SKIP No QA script writes a tracked evidence file' in done.stdout, f'{label}: skipped scope not reported')
+            # two skips in the copy: the git scan, and this nested run (it would only repeat itself)
+            require('did not run' in done.stdout and ', 2 skipped (the scope is named above)' in done.stdout, f'{label}: skip not stated in the summary')
+            for kept in ('Suite runner records run time', 'Python evidence paths', 'Node evidence paths', 'Missing Android receipts'):
+                require('PASS ' + kept in done.stdout, f'{label}: {kept} check did not run')
 
 
 def receipts_message_text():
@@ -142,4 +201,5 @@ check('Python evidence paths go to qa/evidence-out unless NIGHTSWEEP_WRITE_EVIDE
 check('Node evidence paths go to qa/evidence-out unless NIGHTSWEEP_WRITE_EVIDENCE=1', evidence_node)
 check('No QA script writes a tracked evidence file without the redirect', tracked_writers_use_the_redirect)
 check('Missing Android receipts produce a clear message', receipts_message_text)
-print(f'Gate reliability: {len(checks)} checks passed')
+check('The suite still runs from a source archive with no .git or no git program, and says what it skipped', source_archive_without_git)
+print(f'Gate reliability: {len(checks)} checks passed' + (f', {len(skipped)} skipped (the scope is named above)' if skipped else ''))
