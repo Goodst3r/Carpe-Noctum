@@ -75,27 +75,43 @@ suites=[
  ('Training, guide and app text names real screens and buttons','ui-names.test.cjs',r'UI names: (\d+) checks passed'),
  ('Built-in reference calculations','../night-sweep/selfcheck.js',None),
  ('Catalog structure','catalog-audit.cjs',None),
+ ('Test gate: time limit, evidence redirect, receipts message','gate-reliability.test.py',r'Gate reliability: (\d+) checks passed'),
 ]
-results=[]
-for name,script,pattern in suites:
-    command=['python3' if script.endswith('.py') else 'node','qa/'+script]
+import sys,time
+sys.path.insert(0,str(root/'qa'))
+from suite_runner import run_suite,suite_timeout
+try:timeout=suite_timeout()
+except ValueError as error:
+    print('ERROR: '+str(error),flush=True);raise SystemExit(2)
+
+def worktree_state():
+    """Hash of every modified or untracked (not ignored) file; None when git is unavailable."""
     try:
-        proc=subprocess.run(command,cwd=root,text=True,capture_output=True,timeout=150,env={**os.environ,'NIGHTSWEEP_RELEASE_TEST':'1'})
-        output=proc.stdout+proc.stderr;passed=proc.returncode==0
-    except subprocess.TimeoutExpired as exc:
-        output='TIMEOUT after 150s\n'+str(exc.stdout or '')+str(exc.stderr or '');passed=False
-    match=re.search(pattern,output) if pattern else None
-    if pattern and not match:passed=False;output+='\nExpected suite completion/check count was missing.'
-    count=int(match.group(1)) if match and passed else 0
-    if pattern and passed and count<1:passed=False;output+='\nSuite ran no checks.'
-    if script=='../night-sweep/selfcheck.js' and passed:count=len(re.findall(r'^PASS ',output,re.M))
-    (logs/(Path(script).name+'.txt')).write_text(output)
-    result={'name':name,'script':script,'passed':passed,'checks':count};results.append(result)
-    print(name+': '+('PASS' if passed else 'FAIL')+' ('+str(count)+' checks)',flush=True)
-    if not passed:print(output,flush=True)
+        listed=subprocess.run(['git','ls-files','-m','-o','--exclude-standard','-z'],cwd=root,capture_output=True,check=True).stdout.decode().split('\0')
+    except (OSError,subprocess.CalledProcessError):
+        return None
+    return {name:(hashlib.sha256((root/name).read_bytes()).hexdigest() if (root/name).is_file() else 'missing') for name in sorted(set(filter(None,listed)))}
+write_evidence=os.environ.get('NIGHTSWEEP_WRITE_EVIDENCE')=='1'
+tree_before=worktree_state()
+results=[];gate_started=time.monotonic()
+print('Per-suite limit: '+str(timeout)+' s (NIGHTSWEEP_SUITE_TIMEOUT)'+('; tracked evidence files may be rewritten (NIGHTSWEEP_WRITE_EVIDENCE=1)' if write_evidence else ''),flush=True)
+for name,script,pattern in suites:
+    result,output=run_suite(root,name,script,pattern,timeout,logs)
+    results.append(result)
+    print(name+': '+('PASS' if result['passed'] else 'FAIL')+' ('+str(result['checks'])+' checks, '+str(result['seconds'])+' s)',flush=True)
+    if not result['passed']:print(output,flush=True)
+total_seconds=round(time.monotonic()-gate_started,1)
+slowest=sorted(results,key=lambda x:-x['seconds'])[:5]
+print('Total suite time '+str(total_seconds)+' s; slowest: '+', '.join(x['script']+' '+str(x['seconds'])+' s' for x in slowest),flush=True)
 release=json.loads((root/'dist/release.json').read_text())
 unchanged=tested_build==snapshot()
-report={'release':release['version'],'version':release['appVersion'],'suites':results,'checks':sum(x['checks'] for x in results),'all_passed':all(x['passed'] for x in results) and unchanged,'build_unchanged_during_tests':unchanged,'html_sha256':hashlib.sha256((root/'dist/index.html').read_bytes()).hexdigest(),'standalone_sha256':hashlib.sha256((root/'outputs/Night_Sweep.html').read_bytes()).hexdigest(),'worker_sha256':hashlib.sha256((root/'dist'/release['worker']).read_bytes()).hexdigest(),'scope':'Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim.'}
+tree_after=worktree_state()
+if write_evidence or tree_before is None or tree_after is None:tree_unchanged=None
+else:tree_unchanged=tree_before==tree_after
+if tree_unchanged is False:
+    touched=sorted(name for name in {*tree_before,*tree_after} if tree_before.get(name)!=tree_after.get(name))
+    print('FAIL: the tests changed files in the working tree (set NIGHTSWEEP_WRITE_EVIDENCE=1 only to refresh evidence on purpose):\n  '+'\n  '.join(touched[:40]),flush=True)
+report={'release':release['version'],'version':release['appVersion'],'suites':results,'checks':sum(x['checks'] for x in results),'suite_timeout_seconds':timeout,'total_seconds':total_seconds,'all_passed':all(x['passed'] for x in results) and unchanged and tree_unchanged is not False,'build_unchanged_during_tests':unchanged,'worktree_unchanged_during_tests':tree_unchanged,'html_sha256':hashlib.sha256((root/'dist/index.html').read_bytes()).hexdigest(),'standalone_sha256':hashlib.sha256((root/'outputs/Night_Sweep.html').read_bytes()).hexdigest(),'worker_sha256':hashlib.sha256((root/'dist'/release['worker']).read_bytes()).hexdigest(),'scope':'Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim.'}
 if not unchanged:print('FAIL: Generated build changed during testing. Rerun against a frozen build.',flush=True)
 (root/'qa/pwa-test-results.json').write_text(json.dumps(report,indent=2)+'\n')
 raise SystemExit(0 if report['all_passed'] else 1)

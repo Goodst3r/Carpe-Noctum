@@ -7,11 +7,13 @@ from threading import Thread
 import hashlib
 import json
 import os
+import sys
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / 'research/build2/browser'
-OUT.mkdir(parents=True, exist_ok=True)
+sys.path.insert(0, str(ROOT / 'qa'))
+from evidence_path import evidence_path
+OUT = evidence_path('research/build2/browser/results.json').parent
 EXPORTS = {
     'complete': 'NightSweep_1.8_Alpha_build_2_Training_Job.json',
     'aoi-six-active': 'NightSweep_1.8_Alpha_build_2_Six_Active_Practice.json',
@@ -85,7 +87,7 @@ try:
                     ready(page)
                     bundle = page.evaluate('evidenceExportProject(state)')
                     checked(exercise['id'] + ' retains synthetic identity', bundle['job']['training'] == 'guided-1.5')
-                    (ROOT / 'release' / EXPORTS[exercise['id']]).write_text(json.dumps(bundle, indent=2) + '\n')
+                    evidence_path('release/' + EXPORTS[exercise['id']]).write_text(json.dumps(bundle, indent=2) + '\n')
                     if exercise['id'] == 'complete':
                         fleet = page.evaluate('''() => ({
                             node: state.node.model,
