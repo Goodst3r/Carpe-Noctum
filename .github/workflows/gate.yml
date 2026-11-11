@@ -1,0 +1,91 @@
+name: QA gate
+
+# Runs the project's full gate on pull requests into build3 (the integration
+# branch) and on demand. It reproduces the commands in docs/DEVELOPER_BUILD.md:
+# build, the automated suites, the two rendered Chromium suites, and a check that
+# the committed generated files match a fresh build and the tree stays clean.
+# It does not build or sign an APK, deploy, publish or read any secret.
+on:
+  pull_request:
+    branches: [build3]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      # Per-suite limit in seconds; see qa/suite_runner.py. Hosted runners are slower
+      # than a developer machine, so allow well over the 150 s default.
+      NIGHTSWEEP_SUITE_TIMEOUT: "600"
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: qa/runtime/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install QA dependencies and Chromium
+        run: |
+          npm ci --prefix qa/runtime --no-audit --no-fund
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Build the standalone app and the PWA
+        run: |
+          python3 night-sweep/build.py
+          python3 build-pwa.py
+
+      - name: Committed generated files match a fresh build
+        run: |
+          if [ -n "$(git status --porcelain -- outputs dist)" ]; then
+            git status --porcelain -- outputs dist
+            echo "::error::outputs/ or dist/ differs from a fresh build. Run python3 night-sweep/build.py and python3 build-pwa.py, then commit the result."
+            exit 1
+          fi
+
+      - name: Automated suites (qa/run-pwa.py)
+        run: python3 qa/run-pwa.py
+
+      - name: Rendered Chromium - build 3 layout
+        run: python3 qa/build3-layout.test.py
+
+      - name: Rendered Chromium - browser smoke
+        run: python3 qa/browser-smoke.py
+
+      - name: The gate leaves the working tree clean
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            echo "::error::The gate changed files in the working tree. Tests must write evidence only to qa/evidence-out (see qa/evidence_path.py)."
+            exit 1
+          fi
+
+      - name: Keep the run record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-results
+          path: |
+            qa/pwa-test-results.json
+            qa/pwa-testlogs/
+            qa/build3-layout-results.json
+          if-no-files-found: ignore
+          retention-days: 14
