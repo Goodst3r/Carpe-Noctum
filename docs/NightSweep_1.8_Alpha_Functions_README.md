@@ -4,7 +4,7 @@
 
 This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 26 task screens and 43 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 43. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 42, and a five-station handoff practice step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 43, and a five-station handoff practice step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -703,8 +703,8 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
-| 42 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
-| 43 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
+| 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
+| 43 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
