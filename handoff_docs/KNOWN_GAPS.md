@@ -19,7 +19,7 @@ Updated November 11, 2026 by Lane B (task B3). Everything here is something that
 | Quantum18 HGD, HGBT and LE pad and EQ values are not public (AOI's English data sheets are behind a request form), so the solver offers none. The BA's 0/2/4/6 dB pad list comes from a preliminary data sheet. | `research/build3/PAD_EQ_SOURCES.md` |
 | Two existing app approximations are labeled Unknown in the registry: the 0.1 %/°F cable-loss temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). | `night-sweep/thresholds.js`, `research/build3/SOURCE_VERIFICATION.md` |
 | Older screens' example targets are not in the registry: Test → References workbook 32/43 dBmV and sample 34/46 dBmV targets, anchor pairs, plant-picker starting levels. | `NightSweep_Project_Status.md` |
-| Exact GaN, Quantum18 LE/BA, EN9000-RFAM-RPD and DSIM-A commissioning procedures remain documentation gaps. Native ONX proprietary decoding and OCR are not added. | `NightSweep_Project_Status.md` |
+| Exact GaN, Quantum18 LE/BA, EN9000-RFAM-RPD and DSIM-A commissioning procedures remain documentation gaps. Other proprietary ONX decoding and OCR are not added; A4 only supports the two inspected typed JSON layouts described below. | `NightSweep_Project_Status.md` |
 | Cisco GainMaker line extender, data sheet and reverse EQ items in the station-view research are marked "not re-verified" because research credits ran out. The reverse pad values and EQ loss charts were confirmed earlier. | `research/build3/STATION_VIEW_SOURCES.md`, `station-view-research.json` |
 | SCTE 297 2025r1: the PDF release history lists no r1 row, while CableLabs and the catalog label it 2025r1. Its section 6 procedure was not read. | `research/build3/station-view-research.json` |
 
@@ -46,3 +46,13 @@ Every company target and tolerance starts **unknown** and must never be filled i
 | Until task B1 lands, a full gate run rewrites tracked evidence files under `release/` and `research/` (run `git checkout -- release research` before committing), the per-suite limit is a fixed 150 s, and `qa/alpha18-release.test.py` fails with a traceback instead of a clear message when `build-readiness.json` says an APK was built but its receipts are not in the checkout. | `handoff_docs/PARALLEL_TASKS.md` |
 | `docs/ROADMAP.md` and `docs/BUILD_LIST.md` are also open as pull requests #1 and #2 against `main`. They merge cleanly with the copies on `build3`, but the owner has not decided them. | `handoff_docs/PARALLEL_TASKS.md` |
 | Release-time packaging scripts (`release/package_build2.py` and relatives) still describe build 2. Build 3 has no delivery package. | `docs/DEVELOPER_BUILD.md` |
+
+
+## A4 native import and grading scope (Lane A, Nov 11)
+
+- Only the two inspected typed JSON structures are supported, including bounded gzip/single-JSON ZIP. Other versions/layouts, multiple nonempty candidate traces or unavailable browser decompression remain attachment-only with a reason. Raw unreferenced sampled PTV is not normalized continuous-band ripple or official acceptance; measurement plane/reference and all company criteria remain explicit/unknown.
+- A valid unsigned ZIP descriptor whose CRC equals optional signature 0x08074b50 is safely rejected. The original still attaches and survives portable export/restore exactly; no grade is produced. Nonblocking compatibility follow-up.
+- A skipped empty opposing chart can contribute misleading unknown-direction warning wording despite the selected nonempty chart's correct direction. Samples and opposite-direction grading guard remain correct. Nonblocking wording follow-up.
+- The optional Station saved-slot mismatch was corrected at 04bb5ae, with real-handler scoped review and a new full gate. Original private files remain excluded; committed fixtures are invented. Physical meter/reference-plane and device verification remain unperformed.
+
+Evidence: handoff_docs/reviews/codex-sweep-grading.md, its historical whole-feature/scoped-review reports and handoff_docs/lanes/codex-a4-validation.json on PR #14. This section does not close the unrelated older B9 reconciliation rows above.

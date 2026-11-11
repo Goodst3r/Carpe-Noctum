@@ -4,11 +4,11 @@
   "item": "A4 / item 13 imported sweep grading",
   "preparation_base": "4350abcf5a33dce911361a357df891abe6a386ad",
   "published_integration_base": "79b0735c6face341d1a78a098a2303f4bdf6fc96",
-  "tested_source_head": "16634625836a7d4f9f4e908df323d2c9b5a239f7",
+  "tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
   "execution_attribution": {
     "full_gate_and_separate_existing_rendered_checks": "Lane A implementation agent; actual local execution at the tested source head",
     "private_file_browser_proof": "Lane A coordinator; distinct local execution at the same tested source head",
-    "independent_review": "Lane A independent review agent; five focused synthetic integration checks, not another full gate"
+    "independent_review": "Historical whole-branch review at 1663462: five synthetic focused checks. Follow-up scoped Station fix review at 04bb5ae: fresh35-check suite and independent real PR8 persistence old/fixed comparison. Neither claims a second full gate."
   },
   "commands": [
     "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py",
@@ -16,7 +16,7 @@
     "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py"
   ],
   "gate": {
-    "release": "9847a6b147298f8c1257",
+    "release": "13066065a93d606e9fbd",
     "version": "2.0 Alpha build 3",
     "suites": [
       {
@@ -24,21 +24,21 @@
         "script": "build3-registry.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 6.2
+        "seconds": 7.0
       },
       {
         "name": "Build 3 field calculators against independent references",
         "script": "build3-field-calcs.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 3.5
+        "seconds": 3.4
       },
       {
         "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
         "script": "build3-alignment.test.cjs",
         "passed": true,
         "checks": 12,
-        "seconds": 3.1
+        "seconds": 3.4
       },
       {
         "name": "Build 3 native JSON and archive evidence",
@@ -58,15 +58,15 @@
         "name": "Build 3 grading UI and original identity integration",
         "script": "sweep-grading-ui.test.cjs",
         "passed": true,
-        "checks": 30,
-        "seconds": 12.6
+        "checks": 35,
+        "seconds": 17.4
       },
       {
         "name": "Build 3 rendered grading controls",
         "script": "sweep-grading-layout.test.py",
         "passed": true,
         "checks": 47,
-        "seconds": 5.8
+        "seconds": 5.3
       },
       {
         "name": "2.0 Alpha design changes",
@@ -115,35 +115,35 @@
         "script": "build2-frontend.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 15.0
+        "seconds": 15.5
       },
       {
         "name": "Build 2 rendered cascade and lazy-chart layout",
         "script": "build2-layout.test.py",
         "passed": true,
         "checks": 55,
-        "seconds": 31.7
+        "seconds": 32.6
       },
       {
         "name": "Build 2 original-byte limits and atomic job operations",
         "script": "build2-reliability.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 18.0
+        "seconds": 18.3
       },
       {
         "name": "Build 2 native filename and print lifecycle",
         "script": "android-native-edge.test.py",
         "passed": true,
         "checks": 12,
-        "seconds": 0.8
+        "seconds": 0.7
       },
       {
         "name": "1.8 profile acceptance guards",
         "script": "alpha18-math.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.8 independent arithmetic and curve integrity",
@@ -157,49 +157,49 @@
         "script": "complete-workflow-math.test.cjs",
         "passed": true,
         "checks": 17,
-        "seconds": 2.9
+        "seconds": 2.0
       },
       {
         "name": "1.8 release identity and documentation",
         "script": "alpha18-release.test.py",
         "passed": true,
         "checks": 6,
-        "seconds": 0.3
+        "seconds": 0.1
       },
       {
         "name": "Android source identity and rejected artifact isolation",
         "script": "android-preview.test.py",
         "passed": true,
         "checks": 18,
-        "seconds": 0.4
+        "seconds": 0.5
       },
       {
         "name": "1.8 imported route and power ID boundaries",
         "script": "import-id-boundaries.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 1.6
+        "seconds": 1.5
       },
       {
         "name": "1.8 seven practice exercises and seeded feature coverage",
         "script": "training-library.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 48.7
+        "seconds": 53.0
       },
       {
         "name": "1.6 to current release migration and portable example",
         "script": "upgrade01617.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 7.7
+        "seconds": 8.4
       },
       {
         "name": "1.7 stable workflow rendering",
         "script": "alpha17-render.test.cjs",
         "passed": true,
         "checks": 3,
-        "seconds": 1.9
+        "seconds": 1.8
       },
       {
         "name": "1.7 source and equipment reports",
@@ -213,49 +213,49 @@
         "script": "launch-source.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 2.9
+        "seconds": 2.6
       },
       {
         "name": "1.7 equipment setup and DSIM",
         "script": "equipment-setup.test.cjs",
         "passed": true,
         "checks": 39,
-        "seconds": 1.5
+        "seconds": 1.6
       },
       {
         "name": "1.7 local operator targets and available carriers",
         "script": "local-operator-preset.test.cjs",
         "passed": true,
         "checks": 19,
-        "seconds": 5.7
+        "seconds": 5.3
       },
       {
         "name": "1.7 DSIM historical pilot-code lookup",
         "script": "dsim-pilot-codes.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 separate installed gain-control paths",
         "script": "equipment-control.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.7
+        "seconds": 0.5
       },
       {
         "name": "1.7 current node setup references",
         "script": "node-setup-refresh.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 retired UBT compatibility",
         "script": "retired-equipment.test.cjs",
         "passed": true,
         "checks": 7,
-        "seconds": 2.5
+        "seconds": 1.9
       },
       {
         "name": "1.7 fresh independent numerical references",
@@ -269,7 +269,7 @@
         "script": "alpha17-engine.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "1.7 evidence job context",
@@ -304,49 +304,49 @@
         "script": "sweep-setup.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 12.6
+        "seconds": 11.8
       },
       {
         "name": "Equipment reference catalog",
         "script": "equipment-reference.test.cjs",
         "passed": true,
         "checks": 18,
-        "seconds": 1.7
+        "seconds": 1.5
       },
       {
         "name": "PWA package and service worker",
         "script": "pwa-worker.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 0.4
+        "seconds": 0.3
       },
       {
         "name": "PWA install and update interface",
         "script": "pwa-client.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 1.8
+        "seconds": 2.1
       },
       {
         "name": "Browser file export and sharing",
         "script": "browser-files.test.cjs",
         "passed": true,
         "checks": 23,
-        "seconds": 2.0
+        "seconds": 1.8
       },
       {
         "name": "Guided training job and preserved work",
         "script": "training-job.test.cjs",
         "passed": true,
         "checks": 41,
-        "seconds": 26.2
+        "seconds": 29.5
       },
       {
         "name": "Production training buttons and fleet split",
         "script": "training-controls.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 23.4
+        "seconds": 23.0
       },
       {
         "name": "RF and power engine",
@@ -360,7 +360,7 @@
         "script": "route14.test.cjs",
         "passed": true,
         "checks": 34,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "Project records and acceptance",
@@ -374,28 +374,28 @@
         "script": "frequency-regression.cjs",
         "passed": true,
         "checks": 16,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "Retained interface behavior",
         "script": "dom-tests.cjs",
         "passed": true,
         "checks": 38,
-        "seconds": 4.5
+        "seconds": 4.8
       },
       {
         "name": "Active and TDR interface calculations",
         "script": "alpha14-ui.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 8.2
+        "seconds": 8.5
       },
       {
         "name": "Technician task navigation and live controls",
         "script": "alpha15-ui.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 9.3
+        "seconds": 7.0
       },
       {
         "name": "Node profiles and current curves",
@@ -430,42 +430,42 @@
         "script": "named-jobs-storage.test.cjs",
         "passed": true,
         "checks": 5,
-        "seconds": 9.1
+        "seconds": 8.6
       },
       {
         "name": "Legacy upgrade and portable backup",
         "script": "alpha011-integration.cjs",
         "passed": true,
         "checks": 21,
-        "seconds": 9.3
+        "seconds": 9.0
       },
       {
         "name": "Retained field tools and named jobs",
         "script": "alpha012.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 13.0
+        "seconds": 12.6
       },
       {
         "name": "0.13 APK backup migration",
         "script": "upgrade01314.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 5.1
+        "seconds": 4.6
       },
       {
         "name": "1.4 backup and active/TDR migration",
         "script": "upgrade01415.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 5.0
+        "seconds": 4.4
       },
       {
         "name": "Training, guide and app text names real screens and buttons",
         "script": "ui-names.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 13.7
+        "seconds": 12.9
       },
       {
         "name": "Built-in reference calculations",
@@ -479,41 +479,41 @@
         "script": "catalog-audit.cjs",
         "passed": true,
         "checks": 0,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Test gate: time limit, evidence redirect, receipts message",
         "script": "gate-reliability.test.py",
         "passed": true,
         "checks": 7,
-        "seconds": 13.2
+        "seconds": 13.3
       }
     ],
-    "checks": 1359,
+    "checks": 1364,
     "suite_timeout_seconds": 3600,
-    "total_seconds": 344.1,
+    "total_seconds": 350.2,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "html_sha256": "2c098dca87b6d40147e4ee85cc012abd1c68f56a9d8ba943c3640ef600dea0f0",
-    "standalone_sha256": "9d459ee512f963b6c56d7de9a392efc5dff8c16d696c78d36554104608ef50a6",
-    "worker_sha256": "c98220b06530a38510ba0a3e516593a44c7684d6337315c4070fcfdfaf5af3fb",
+    "html_sha256": "ab224b0827497ab0d0cb36719ec9b4eac54ec30f7606a377529d1030232c79e2",
+    "standalone_sha256": "b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a",
+    "worker_sha256": "f1c5cc6e670da6147cf7467971d3ac72b9d61a70cb9d2e36eee051cd2ce923c9",
     "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
   },
   "source_binding": {
-    "source_head": "16634625836a7d4f9f4e908df323d2c9b5a239f7",
+    "source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
     "clean": true,
     "readme_copies_equal": true,
     "suites": 67,
-    "checks": 1359,
-    "seconds": 344.1,
+    "checks": 1364,
+    "seconds": 350.2,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "receipt_sha256": "902c5e47ae22fb4cfb818e9e756006c7e88f15b387c505ccdfd917ed5a4b1f69",
-    "standalone_sha256": "9d459ee512f963b6c56d7de9a392efc5dff8c16d696c78d36554104608ef50a6",
-    "html_sha256": "2c098dca87b6d40147e4ee85cc012abd1c68f56a9d8ba943c3640ef600dea0f0",
-    "worker_sha256": "c98220b06530a38510ba0a3e516593a44c7684d6337315c4070fcfdfaf5af3fb"
+    "receipt_sha256": "19d826039ddf6566060649ce373d97f6ee4f85f6e84354b9bfb5b78db6930c01",
+    "standalone_sha256": "b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a",
+    "html_sha256": "ab224b0827497ab0d0cb36719ec9b4eac54ec30f7606a377529d1030232c79e2",
+    "worker_sha256": "f1c5cc6e670da6147cf7467971d3ac72b9d61a70cb9d2e36eee051cd2ce923c9"
   },
   "separate_rendered_checks": {
     "build3_layout": {
@@ -536,6 +536,7 @@
     "phone_width_390": true,
     "portable_roundtrip": true,
     "raw_samples_equal": true,
+    "tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
     "scope": "Two owner-supplied original containers were used only locally in an incognito Chromium session with all non-loopback page requests blocked. Every raw pair was compared against an independently decoded local source; actual file-picker import, portable export, identity-remapped restore and re-export preserved original compressed bytes. No private filename, source value, identifier or original checksum is recorded here."
   },
   "not_run": [
@@ -549,7 +550,8 @@
   ],
   "limitations": [
     "Raw unreferenced samples are not normalized ripple or official acceptance. Company criteria start unknown.",
-    "Two nonblocking native-parser compatibility/warning limitations are recorded in ../reviews/codex-sweep-grading.md.",
+    "Two nonblocking native-parser compatibility/warning limitations remain in ../reviews/codex-sweep-grading.md. The optional Station saved-shape finding is addressed with a scoped review and new full gate.",
     "Metadata-only handoff commits after tested_source_head do not change app, tests, generated files or public guides."
-  ]
+  ],
+  "supersedes_tested_source_head": "16634625836a7d4f9f4e908df323d2c9b5a239f7"
 }

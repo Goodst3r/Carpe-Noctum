@@ -2,7 +2,7 @@
 
 Lane A, November 11, 2026. Draft review handoff into `build3`.
 
-Preparation started at `4350abcf5a33dce911361a357df891abe6a386ad`; the independently checked core was frozen at `8d1a0edc3b1a5ea5101d5e17cd315de809be64b1`. The feature integrates published build3 `79b0735c6face341d1a78a098a2303f4bdf6fc96`. Final tested application/source is **`16634625836a7d4f9f4e908df323d2c9b5a239f7`**. Subsequent handoff commits change only review/status/receipt metadata. The exact ending handoff commit is the PR head; this avoids inventing a self-referential commit hash inside its own content.
+Preparation started at `4350abcf5a33dce911361a357df891abe6a386ad`; the independently checked core was frozen at `8d1a0edc3b1a5ea5101d5e17cd315de809be64b1`. The feature integrates published build3 `79b0735c6face341d1a78a098a2303f4bdf6fc96`. Final tested application/source is **`04bb5ae6ef3568990076bd2e1789e8351ad92337`**. Subsequent handoff commits change only review/status/receipt metadata. The exact ending handoff commit is the PR head; this avoids inventing a self-referential commit hash inside its own content.
 
 ## Behavior and files
 
@@ -20,7 +20,7 @@ The owner's two supplied formats were inspected locally to verify technical fiel
 
 ## Actual verification and attribution
 
-The Lane A implementation agent ran these exact final commands at frozen source `1663462`; these are local execution results, separate from the independent review and the coordinator's private-file proof:
+The Lane A implementation agent ran these exact final commands at frozen source `04bb5ae`; these are local execution results, separate from the independent review and the coordinator's private-file proof:
 
 ```sh
 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py
@@ -28,11 +28,11 @@ NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py
 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py
 ```
 
-- Full gate: **67/67 suites, 1,359 checks**, 344.1 seconds, exit 0. Build and worktree unchanged; clean without restoring evidence. Grading UI **30** and configured-phone grading **47** checks are included in 1,359.
+- Full gate: **67/67 suites, 1,364 checks**, 350.2 seconds, exit 0. Build and worktree unchanged; clean without restoring evidence. Grading UI **35** and configured-phone grading **47** checks are included in 1,364.
 - Separate existing rendered Chromium checks: layout **141**, smoke **331**, both exit 0. These are desktop browser viewport checks.
-- `python3 night-sweep/build.py`, `python3 build-pwa.py`, `git diff --check`, main README-copy comparison and guide rendering passed before the freeze. Final standalone SHA-256: `9d459ee512f963b6c56d7de9a392efc5dff8c16d696c78d36554104608ef50a6`.
+- `python3 night-sweep/build.py`, `python3 build-pwa.py`, `git diff --check`, main README-copy comparison and guide rendering passed before the freeze. Final standalone SHA-256: `b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a`.
 - Coordinator separately used the actual file picker in incognito Chromium at 390 px, blocked every non-loopback page request, independently decoded both local originals and compared **every raw sample pair**. Actual compressed bytes survived portable export, evidence-ID-remapped restore and re-export exactly; no automatic grade or criteria appeared. Only sanitized booleans enter [the validation receipt](../lanes/codex-a4-validation.json); no private source content is published.
-- Independent core/native/UI reviews closed the identified Important defects. A fresh whole-branch reviewer ran five synthetic cross-module probes and read-only assembly/hash checks at the frozen head; [full independent report](codex-sweep-grading-final-review.md) approves scope/quality with the two Minor findings below. This is internal technical review, not Lane B approval or permission to self-merge.
+- Independent core/native/UI reviews closed the original Important defects. The [historical whole-branch report at 1663462](codex-sweep-grading-final-review.md) ran five synthetic probes but missed the optional Station saved-slot mismatch. The coordinator subsequently reproduced it; the one-line correction now captures actual stationView.stations, with five new durable regression cases. A [fresh scoped review at 04bb5ae](codex-sweep-grading-station-context-review.md) independently passed 35 checks and compared old/fixed builds through the real PR8 Station persistence handler: Current demotes, pending away-and-back work rejects and history stays unchanged. The new full gate and private browser proof above are at 04bb5ae. This is internal technical review, not Lane B approval or permission to self-merge.
 
 Earlier broad green runs were superseded by narrow red/green fixes for failed-original freshness, away-and-back context edits, actual Add/Remove mutations, saved-criteria overflow and large valid contexts. Their counts are not substituted for the final receipt. Immutable history, original SHA failure, duplicate-SHA identity remap, all blank profiles, exact markers and raw 1/2.5/4 dB PTV at an entered 3 dB limit have direct regressions.
 
