@@ -146,3 +146,10 @@ Receipt and reports: handoff_docs/lanes/codex-a3-validation.json and
 handoff_docs/reviews/codex-sweep-due*.md. Draft needs Lane B review/merge;
 no emulator, physical phone, Safari/WebView, hardware, field, APK/signing
 or deployment claim. D2-D5 remain open.
+
+
+### Sweep due — reviewed CI-only base integration (November 11, 2026)
+
+Ordinary merge `ea2e5deb6a458173bb23058b895542ed0450c73b` → `9b40ea0a6ee2d85eef7791feb9ad0cd0ccced7c3` adds reviewed build3 `14bfc06ff62e000dc624e46d57cf8d4beda98ce0`, whose tree equals CI head `e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8`. Only `.github/workflows/gate.yml` and `qa/ci_layout_diagnose.py` were added; every one of the 559 preexisting file hashes and staged entries stayed exact. Product, registered QA/runner, guides/references and generated app bytes are unchanged. No rebuild, full or focused feature test ran at the CI-only merge/publication head. The existing feature gate remains attributed to `52fac6902d2f2872ec28ca42115589df814cf5a3`: 70 suites / 1,482 checks; separate layout374 / smoke340. These are historical executed feature results, not a new integrated-head run.
+
+Incoming CI itself passed Lane A's fresh exact-e77 run68/1328 (459.2s), separate layout374/smoke337, all549 tracked hashes/semantic guards unchanged and clean. Optional record delivery is best effort; a green gate does not guarantee an artifact. Hosted successor remains observed queued, without a completed hosted claim; prior upload cause unknown. Sources: reviewed source/diff, exact Git parent/tree/file-hash proofs, original feature receipts and CI report. Commands for this integration were the ordinary Git merge and SHA256/staged/tree/status comparisons documented in `handoff_docs/reviews/codex-a3-ci-only-integration.md`; this metadata publication uses JSON/link/diff/hash checks only. Lane B owes fresh same-head review/gate/merge; Lane A cannot self-merge. D1 complete, D2–D5 open. Emulator/device/Safari/WebView, hardware/field and APK/signing/deployment remain untested/unperformed.

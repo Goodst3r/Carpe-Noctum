@@ -922,5 +922,23 @@
     "layout": 374,
     "smoke": 340
   },
-  "no_restore_commands_used": true
+  "no_restore_commands_used": true,
+  "ci_only_integration": {
+    "reviewed_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
+    "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
+    "starting_published_head": "ea2e5deb6a458173bb23058b895542ed0450c73b",
+    "ci_merge_head": "9b40ea0a6ee2d85eef7791feb9ad0cd0ccced7c3",
+    "changed_paths": [
+      ".github/workflows/gate.yml",
+      "qa/ci_layout_diagnose.py"
+    ],
+    "preexisting_tracked_files": 559,
+    "exact_preexisting_file_hashes_at_ci_merge": true,
+    "exact_preexisting_staged_entries_at_ci_merge": true,
+    "ci_files_match_reviewed_base": true,
+    "proof_sha256": "da1505c5c84ac9a4b793eca13658816fecee2b975e806a59b845291cd53c3432",
+    "report": "../reviews/codex-a3-ci-only-integration.md",
+    "no_new_full_gate": true,
+    "gate_attribution": "All existing feature gate counts/commands still belong to tested_commit, not this CI-only merge or subsequent metadata head. Lane B must freshly gate the final published head before merging."
+  }
 }
