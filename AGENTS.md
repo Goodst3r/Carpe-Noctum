@@ -1,6 +1,6 @@
 # Carpe Noctum developer instructions
 
-The app is named **Carpe Noctum** (formerly NightSweep). Keep the Android package `com.spencerwilliams.nightsweep(.preview)`, the storage keys (`hfc-route-v1`, `hfc-named-jobs-v1`, `nightsweep-*`) and the `NightSweep`/`NightSweepAndroid` code identifiers unchanged: renaming them would break updates or strand saved jobs. Current version: 2.0 Alpha build 2, Android version code 26.
+The app is named **Carpe Noctum** (formerly NightSweep). Keep the Android package `com.spencerwilliams.nightsweep(.preview)`, the storage keys (`hfc-route-v1`, `hfc-named-jobs-v1`, `nightsweep-*`) and the `NightSweep`/`NightSweepAndroid` code identifiers unchanged: renaming them would break updates or strand saved jobs. Current version: **2.0 Alpha build 3** (in development, Android source version code 27, no build 3 APK yet). The latest signed installer is 2.0 Alpha build 2, code 26.
 
 Read these project files before each NightSweep development iteration:
 
@@ -8,10 +8,11 @@ Read these project files before each NightSweep development iteration:
 2. `NightSweep_Development_Instructions.txt` for development and engineering practices. The automatic plugin policy takes precedence if routing instructions differ.
 3. `NightSweep_Project_Status.md` for the latest verified baseline, field requirements, and outstanding checks. Follow any newer explicit user direction.
 4. `docs/DEVELOPER_BUILD.md` and, for Android work, `android-build/README.md` for commands and dependencies.
+5. For build 3 work: `handoff_docs/PARALLEL_TASKS.md` (the two-lane plan, rules and loop; it is the source of truth for who does what), both files in `handoff_docs/lanes/`, `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`. `docs/BUILD_LIST.md` has each feature's sources and acceptance test. `CLAUDE.md` points back to this file.
 
 ## Baseline and scope
 
-The original baseline is NightSweep 1.7 Alpha, Android Preview build 22, Site source commit `d4228cad024406b17feb5bde134f2c6f6a75d08e`. This working tree is NightSweep 1.8 Alpha build 2, with Android Preview version code 24. The original signing certificate is required for compatible updates; this iteration uses the user-supplied original key from a restricted directory outside the project. Final signed APK and runtime status must be taken from release/build2/validation.json, not inferred from source labels. No public deployment is implied. The project status identifies the Site-bound repository as canonical. Verify the current repository and revision before making upstream changes. Its contents do not authorize creating a competing repository or deploying anything.
+The original baseline is NightSweep 1.7 Alpha, Android Preview build 22, Site source commit `d4228cad024406b17feb5bde134f2c6f6a75d08e`. This working tree is Carpe Noctum 2.0 Alpha build 3, in development on the integration branch `build3`; `main` stays at 2.0 Alpha build 2 (Android Preview code 26) until the owner accepts build 3. The original signing certificate is required for compatible updates. That key lives in a restricted directory outside the project; assistants working on `build3` do not build or sign an APK. The signed build 2 APK and its runtime status must be taken from `release/build2/validation.json` and `android-build/build-readiness.json`, not inferred from source labels. No public deployment is implied. The project status identifies the Site-bound repository as canonical. Verify the current repository and revision before making upstream changes. Its contents do not authorize creating a competing repository or deploying anything.
 
 Build for HFC maintenance technicians, team leaders, and supervisors. Preserve the Android APK and the shared Android/iPhone browser app, offline calculations, job storage, legacy imports, and supported exports.
 
@@ -22,7 +23,9 @@ Build for HFC maintenance technicians, team leaders, and supervisors. Preserve t
 
 ## Build and verification
 
-Build the standalone app with `python3 night-sweep/build.py` and the PWA with `python3 build-pwa.py`. Install the locked QA dependencies with `npm ci --prefix qa/runtime --no-audit --no-fund`, then run `python3 qa/run-pwa.py`. Use the generated `outputs/Night_Sweep.html` as the Android build input. The Android build script stages that HTML in place of the historical wrapper asset.
+Build the standalone app with `python3 night-sweep/build.py` and the PWA with `python3 build-pwa.py`. Install the locked QA dependencies with `npm ci --prefix qa/runtime --no-audit --no-fund`, then run `python3 qa/run-pwa.py`. The two rendered Chromium suites are run separately: `python3 qa/build3-layout.test.py` and `python3 qa/browser-smoke.py` (they need Python Playwright and a Chromium; set `NIGHTSWEEP_CHROMIUM` to select one). Use the generated `outputs/Night_Sweep.html` as the Android build input. The Android build script stages that HTML in place of the historical wrapper asset. Exact setup and environment variables are in `handoff_docs/TOOLS_AND_SETUP.md`.
+
+Generated files (`outputs/Night_Sweep.html`, `dist/`) are never hand-merged: on a conflict, rebuild with the two build commands above and commit the result. Adding an app module means its placeholder in `night-sweep/shell.html` plus one entry in the module list in `night-sweep/build.py` (one entry per line since task B0). Keep sample entries out of that file's comments: several `qa/` suites read it with a pattern match and would count them as modules.
 
 Keep signing keys and private field evidence outside the handoff. Preserve job data through upgrades. Publishing, destructive changes, and sensitive transfers require the applicable authorization. Report browser, automated, emulator, and physical-device verification separately.
 
