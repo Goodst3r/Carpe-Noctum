@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Technician Markdown copies byte-identical",
+    "Seven current guide IDs unique and internal fragments resolve"
+  ],
+  "guides": [
+    {
+      "file": "docs/NightSweep_1.8_Alpha_README.html",
+      "bytes": 135532,
+      "uniqueIds": 83,
+      "internalFragments": 31,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/NightSweep_1.8_Equipment_Coverage.html",
+      "bytes": 37385,
+      "uniqueIds": 14,
+      "internalFragments": 9,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/NightSweep_1.8_Math_Audit.html",
+      "bytes": 5327,
+      "uniqueIds": 0,
+      "internalFragments": 0,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/NightSweep_1.8_Setup_Guide.html",
+      "bytes": 38496,
+      "uniqueIds": 29,
+      "internalFragments": 8,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/NightSweep_1.8_Training_Coverage.html",
+      "bytes": 15866,
+      "uniqueIds": 8,
+      "internalFragments": 7,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/Android_Install.html",
+      "bytes": 18863,
+      "uniqueIds": 6,
+      "internalFragments": 6,
+      "duplicates": [],
+      "missingFragments": []
+    },
+    {
+      "file": "docs/iPhone_Install.html",
+      "bytes": 22507,
+      "uniqueIds": 12,
+      "internalFragments": 7,
+      "duplicates": [],
+      "missingFragments": []
+    }
+  ],
+  "completeTrainingPowerAnswers": {
+    "reference": "complete-workflow-application.json",
+    "scope": "Corrected GS7K/GainMaker GaN example; synthetic planning inputs only",
+    "supplyCurrentA": 2.0474402709640938,
+    "loadingPercent": 13.649601806427292,
+    "minimumEquipmentVoltageV": 88.82671076049279,
+    "trialSupplyCurrentA": 2.797522071849567,
+    "trialLoadingPercent": 18.65014714566378,
+    "trialVoltageV": 87.36717152772124,
+    "correctedReadme": true
+  }
+}

@@ -1,0 +1,323 @@
+PASS 360px loads current app
+PASS 360px Home fits viewport
+PASS 360px setup navigation
+PASS 360px setup fits viewport
+PASS 360px route navigation
+PASS 360px route fits viewport
+PASS 360px gain navigation
+PASS 360px gain fits viewport
+PASS 360px equipmentSetup navigation
+PASS 360px equipmentSetup fits viewport
+PASS 360px parts navigation
+PASS 360px parts fits viewport
+PASS 360px tdr navigation
+PASS 360px tdr fits viewport
+PASS 360px sweepSetup navigation
+PASS 360px sweepSetup fits viewport
+PASS 360px sweep navigation
+PASS 360px sweep fits viewport
+PASS 360px frequency navigation
+PASS 360px frequency fits viewport
+PASS 360px readings navigation
+PASS 360px readings fits viewport
+PASS 360px references navigation
+PASS 360px references fits viewport
+PASS 360px power navigation
+PASS 360px power fits viewport
+PASS 360px trial navigation
+PASS 360px trial fits viewport
+PASS 360px projects navigation
+PASS 360px projects fits viewport
+PASS 360px evidence navigation
+PASS 360px evidence fits viewport
+PASS 360px checklists navigation
+PASS 360px checklists fits viewport
+PASS 360px records navigation
+PASS 360px records fits viewport
+PASS 360px runsheet navigation
+PASS 360px runsheet fits viewport
+PASS 360px help navigation
+PASS 360px help fits viewport
+PASS 360px no JavaScript runtime errors
+PASS 390px loads current app
+PASS 390px Home fits viewport
+PASS 390px setup navigation
+PASS 390px setup fits viewport
+PASS 390px route navigation
+PASS 390px route fits viewport
+PASS 390px gain navigation
+PASS 390px gain fits viewport
+PASS 390px equipmentSetup navigation
+PASS 390px equipmentSetup fits viewport
+PASS 390px parts navigation
+PASS 390px parts fits viewport
+PASS 390px tdr navigation
+PASS 390px tdr fits viewport
+PASS 390px sweepSetup navigation
+PASS 390px sweepSetup fits viewport
+PASS 390px sweep navigation
+PASS 390px sweep fits viewport
+PASS 390px frequency navigation
+PASS 390px frequency fits viewport
+PASS 390px readings navigation
+PASS 390px readings fits viewport
+PASS 390px references navigation
+PASS 390px references fits viewport
+PASS 390px power navigation
+PASS 390px power fits viewport
+PASS 390px trial navigation
+PASS 390px trial fits viewport
+PASS 390px projects navigation
+PASS 390px projects fits viewport
+PASS 390px evidence navigation
+PASS 390px evidence fits viewport
+PASS 390px checklists navigation
+PASS 390px checklists fits viewport
+PASS 390px records navigation
+PASS 390px records fits viewport
+PASS 390px runsheet navigation
+PASS 390px runsheet fits viewport
+PASS 390px help navigation
+PASS 390px help fits viewport
+PASS Seven loadable examples exposed
+PASS complete retains synthetic identity
+PASS Complete workflow launches from GS7K
+PASS Complete workflow uses GainMaker GaN actives
+PASS Complete workflow selects 42/54 sweep setup
+PASS Complete workflow contains Scientific-Atlanta passives
+PASS Complete workflow contains GigaXtend passives
+PASS Complete workflow contains Technetix passives
+PASS complete portable rows/evidence round trip
+PASS aoi-six-active retains synthetic identity
+PASS Serial ancestry reaches six actives
+PASS aoi-six-active portable rows/evidence round trip
+PASS custom-curves retains synthetic identity
+PASS custom-curves portable rows/evidence round trip
+PASS gainmaker-oem retains synthetic identity
+PASS gainmaker-oem portable rows/evidence round trip
+PASS gainmaker-dsim retains synthetic identity
+PASS gainmaker-dsim portable rows/evidence round trip
+PASS gainmaker-manual retains synthetic identity
+PASS gainmaker-manual portable rows/evidence round trip
+PASS gs7k-node retains synthetic identity
+PASS gs7k-node portable rows/evidence round trip
+PASS Feature library covers every task screen
+PASS Feature loads seeded example: home
+PASS Feature reveals its control: home
+PASS Feature home fits viewport
+PASS Feature loads seeded example: help
+PASS Feature reveals its control: help
+PASS Feature help fits viewport
+PASS Feature loads seeded example: setup
+PASS Feature reveals its control: setup
+PASS Feature setup fits viewport
+PASS Feature loads seeded example: route
+PASS Feature reveals its control: route
+PASS Feature route fits viewport
+PASS Feature loads seeded example: gain
+PASS Feature reveals its control: gain
+PASS Feature gain fits viewport
+PASS Feature loads seeded example: equipmentSetup
+PASS Feature reveals its control: equipmentSetup
+PASS Feature equipmentSetup fits viewport
+PASS Feature loads seeded example: parts
+PASS Feature reveals its control: parts
+PASS Feature parts fits viewport
+PASS Feature loads seeded example: sweepSetup
+PASS Feature reveals its control: sweepSetup
+PASS Feature sweepSetup fits viewport
+PASS Feature loads seeded example: tdr
+PASS Feature reveals its control: tdr
+PASS Feature tdr fits viewport
+PASS Feature loads seeded example: sweep
+PASS Feature reveals its control: sweep
+PASS Feature sweep fits viewport
+PASS Feature loads seeded example: frequency
+PASS Feature reveals its control: frequency
+PASS Feature frequency fits viewport
+PASS Feature loads seeded example: readings
+PASS Feature reveals its control: readings
+PASS Feature readings fits viewport
+PASS Feature loads seeded example: references
+PASS Feature reveals its control: references
+PASS Feature references fits viewport
+PASS Feature loads seeded example: power
+PASS Feature reveals its control: power
+PASS Feature power fits viewport
+PASS Feature loads seeded example: trial
+PASS Feature reveals its control: trial
+PASS Feature trial fits viewport
+PASS Feature loads seeded example: projects
+PASS Feature reveals its control: projects
+PASS Feature projects fits viewport
+PASS Feature loads seeded example: evidence
+PASS Feature reveals its control: evidence
+PASS Feature evidence fits viewport
+PASS Feature loads seeded example: checklists
+PASS Feature reveals its control: checklists
+PASS Feature checklists fits viewport
+PASS Feature loads seeded example: records
+PASS Feature reveals its control: records
+PASS Feature records fits viewport
+PASS Feature loads seeded example: runsheet
+PASS Feature reveals its control: runsheet
+PASS Feature runsheet fits viewport
+PASS Feature loads seeded example: six-active-cascade
+PASS Feature reveals its control: six-active-cascade
+PASS Feature six-active-cascade fits viewport
+PASS Feature loads seeded example: gain-table
+PASS Feature reveals its control: gain-table
+PASS Feature gain-table fits viewport
+PASS Feature loads seeded example: gain-test-points
+PASS Feature reveals its control: gain-test-points
+PASS Feature gain-test-points fits viewport
+PASS Feature loads seeded example: tap-drop
+PASS Feature reveals its control: tap-drop
+PASS Feature tap-drop fits viewport
+PASS Feature loads seeded example: map-arithmetic
+PASS Feature reveals its control: map-arithmetic
+PASS Feature map-arithmetic fits viewport
+PASS Feature loads seeded example: custom-tables
+PASS Feature reveals its control: custom-tables
+PASS Feature custom-tables fits viewport
+PASS Feature loads seeded example: launch-table
+PASS Feature reveals its control: launch-table
+PASS Feature launch-table fits viewport
+PASS Feature loads seeded example: reverse-tdr
+PASS Feature reveals its control: reverse-tdr
+PASS Feature reverse-tdr fits viewport
+PASS Feature loads seeded example: available-carriers
+PASS Feature reveals its control: available-carriers
+PASS Feature available-carriers fits viewport
+PASS Feature loads seeded example: oem-agc
+PASS Feature reveals its control: oem-agc
+PASS Feature oem-agc fits viewport
+PASS Feature loads seeded example: dsim-pilot
+PASS Feature reveals its control: dsim-pilot
+PASS Feature dsim-pilot fits viewport
+PASS Feature loads seeded example: manual-thermal
+PASS Feature reveals its control: manual-thermal
+PASS Feature manual-thermal fits viewport
+PASS Feature loads seeded example: gs7k-setup
+PASS Feature reveals its control: gs7k-setup
+PASS Feature gs7k-setup fits viewport
+PASS Feature loads seeded example: db-units
+PASS Feature reveals its control: db-units
+PASS Feature db-units fits viewport
+PASS Feature loads seeded example: return-injection
+PASS Feature reveals its control: return-injection
+PASS Feature return-injection fits viewport
+PASS Feature loads seeded example: evidence-comparison
+PASS Feature reveals its control: evidence-comparison
+PASS Feature evidence-comparison fits viewport
+PASS Feature loads seeded example: backup-roundtrip
+PASS Feature reveals its control: backup-roundtrip
+PASS Feature backup-roundtrip fits viewport
+PASS Offline persistence probe contains six real bundled originals
+PASS Offline reload comes from service worker
+PASS Offline reload retains saved practice job and six originals
+PASS New tab reopens app while offline
+PASS Offline guide: guide.html
+PASS guide.html fits viewport
+PASS Offline guide: setup-guide.html
+PASS setup-guide.html fits viewport
+PASS Offline guide: equipment-coverage.html
+PASS equipment-coverage.html fits viewport
+PASS Offline guide: math-audit.html
+PASS math-audit.html fits viewport
+PASS Offline guide: install.html
+PASS install.html fits viewport
+PASS Offline guide: android.html
+PASS android.html fits viewport
+PASS Offline guide: iphone.html
+PASS iphone.html fits viewport
+PASS Offline guide: functions-guide.html
+PASS functions-guide.html fits viewport
+PASS Offline guide: phone-installation.html
+PASS phone-installation.html fits viewport
+PASS Offline guide: training-coverage.html
+PASS training-coverage.html fits viewport
+PASS 390px no JavaScript runtime errors
+PASS 768px loads current app
+PASS 768px Home fits viewport
+PASS 768px setup navigation
+PASS 768px setup fits viewport
+PASS 768px route navigation
+PASS 768px route fits viewport
+PASS 768px gain navigation
+PASS 768px gain fits viewport
+PASS 768px equipmentSetup navigation
+PASS 768px equipmentSetup fits viewport
+PASS 768px parts navigation
+PASS 768px parts fits viewport
+PASS 768px tdr navigation
+PASS 768px tdr fits viewport
+PASS 768px sweepSetup navigation
+PASS 768px sweepSetup fits viewport
+PASS 768px sweep navigation
+PASS 768px sweep fits viewport
+PASS 768px frequency navigation
+PASS 768px frequency fits viewport
+PASS 768px readings navigation
+PASS 768px readings fits viewport
+PASS 768px references navigation
+PASS 768px references fits viewport
+PASS 768px power navigation
+PASS 768px power fits viewport
+PASS 768px trial navigation
+PASS 768px trial fits viewport
+PASS 768px projects navigation
+PASS 768px projects fits viewport
+PASS 768px evidence navigation
+PASS 768px evidence fits viewport
+PASS 768px checklists navigation
+PASS 768px checklists fits viewport
+PASS 768px records navigation
+PASS 768px records fits viewport
+PASS 768px runsheet navigation
+PASS 768px runsheet fits viewport
+PASS 768px help navigation
+PASS 768px help fits viewport
+PASS 768px no JavaScript runtime errors
+PASS 1280px loads current app
+PASS 1280px Home fits viewport
+PASS 1280px setup navigation
+PASS 1280px setup fits viewport
+PASS 1280px route navigation
+PASS 1280px route fits viewport
+PASS 1280px gain navigation
+PASS 1280px gain fits viewport
+PASS 1280px equipmentSetup navigation
+PASS 1280px equipmentSetup fits viewport
+PASS 1280px parts navigation
+PASS 1280px parts fits viewport
+PASS 1280px tdr navigation
+PASS 1280px tdr fits viewport
+PASS 1280px sweepSetup navigation
+PASS 1280px sweepSetup fits viewport
+PASS 1280px sweep navigation
+PASS 1280px sweep fits viewport
+PASS 1280px frequency navigation
+PASS 1280px frequency fits viewport
+PASS 1280px readings navigation
+PASS 1280px readings fits viewport
+PASS 1280px references navigation
+PASS 1280px references fits viewport
+PASS 1280px power navigation
+PASS 1280px power fits viewport
+PASS 1280px trial navigation
+PASS 1280px trial fits viewport
+PASS 1280px projects navigation
+PASS 1280px projects fits viewport
+PASS 1280px evidence navigation
+PASS 1280px evidence fits viewport
+PASS 1280px checklists navigation
+PASS 1280px checklists fits viewport
+PASS 1280px records navigation
+PASS 1280px records fits viewport
+PASS 1280px runsheet navigation
+PASS 1280px runsheet fits viewport
+PASS 1280px help navigation
+PASS 1280px help fits viewport
+PASS 1280px no JavaScript runtime errors
+Chromium rendered checks: 322 passed

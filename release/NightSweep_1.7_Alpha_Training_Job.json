@@ -1,0 +1,902 @@
+{
+  "version": 1,
+  "example": false,
+  "setup": {
+    "lowF": 261,
+    "highF": 993,
+    "lowLevel": 14,
+    "highLevel": 26,
+    "liveMax": 993,
+    "launchMode": "sqrt",
+    "launchTable": "261, 34\n711, 42\n993, 46",
+    "extendLaunch": false,
+    "basis": "nominal",
+    "temperature": 86,
+    "graphMode": "absolute",
+    "viewStart": 261,
+    "viewEnd": 1002,
+    "referenceF": 261,
+    "sourceType": "node",
+    "launchTestPoint": true,
+    "launchCoupling": 20,
+    "launchCouplingChoice": "20",
+    "launchTpReference": "Synthetic Vecima EN9000 selected RF TP example"
+  },
+  "rows": [
+    {
+      "id": "r1",
+      "name": "TRAIN HGD A1",
+      "parent": "source",
+      "length": 800,
+      "slack": 20,
+      "cable": "p3_750",
+      "device": "active_aoi_hgd",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "activeMode": "anchors",
+      "gainLowF": 261,
+      "gainHighF": 993,
+      "gainLow": 9,
+      "gainHigh": 18,
+      "targetLow": 34,
+      "targetHigh": 46,
+      "reserve": 3,
+      "outputLoss": 0,
+      "outputLimitLow": 42,
+      "outputLimitHigh": 54,
+      "measureF": 261,
+      "measureIn": 7.1,
+      "measureInTP": 20,
+      "measureOut": 16.1,
+      "measureOutTP": 20,
+      "meters": {
+        "through": {
+          "frequency": 261,
+          "reading": 16.1,
+          "testPoint": true,
+          "coupling": 20,
+          "couplingChoice": "20"
+        }
+      },
+      "asBuiltNote": "SYNTHETIC: 800 ft map span plus 20 ft riser/slack. Configured gain and output limits are teaching inputs; verify the installed plant independently.",
+      "family": "AOI Quantum18",
+      "passiveType": "active"
+    },
+    {
+      "id": "r2",
+      "name": "TRAIN Tap A",
+      "parent": "r1::through",
+      "length": 250,
+      "slack": 10,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "toolFrequency": 993,
+      "asBuiltNote": "SYNTHETIC: 23 dB face selected. The trunk continues through; the tap port is a separate output.",
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r3",
+      "name": "TRAIN LE A2",
+      "parent": "r2::through",
+      "length": 600,
+      "slack": 20,
+      "cable": "qr_715",
+      "device": "active_aoi_le",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "activeMode": "table",
+      "activeGainTable": "261, 8\n711, 12\n993, 15",
+      "targetLow": 34,
+      "targetHigh": 46,
+      "reserve": 3,
+      "outputLoss": 0,
+      "outputLimitLow": 42,
+      "outputLimitHigh": 54,
+      "meters": {
+        "through": {
+          "frequency": 993,
+          "reading": 27,
+          "testPoint": true,
+          "coupling": 20,
+          "couplingChoice": "20"
+        }
+      },
+      "asBuiltNote": "SYNTHETIC: QR .715 span; gain table belongs only to this illustrative installed LE. Reserve warnings are learning prompts.",
+      "family": "AOI Quantum18",
+      "passiveType": "active"
+    },
+    {
+      "id": "r4",
+      "name": "TRAIN Split S1",
+      "parent": "r3::through",
+      "length": 100,
+      "slack": 10,
+      "cable": "p3_625",
+      "device": "technetix-xg-1-8-ghz-mainline--xgs1800-33",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "asBuiltNote": "SYNTHETIC: unbalanced mainline splitter. Main leg uses low-loss-output; branch uses high-loss-output. Confirm actual output labels and power-passing separately.",
+      "family": "Technetix XG 1.8 GHz mainline",
+      "passiveType": "split3u"
+    },
+    {
+      "id": "r5",
+      "name": "TRAIN Main Tap B",
+      "parent": "r4::low-loss-output",
+      "length": 300,
+      "slack": 10,
+      "cable": "p3_500",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "asBuiltNote": "SYNTHETIC TDR exercise: corrected distance 1970 ft lands 160 ft into this 310 ft incoming span.",
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r6",
+      "name": "TRAIN EOL Tap C",
+      "parent": "r5::through",
+      "length": 250,
+      "slack": 10,
+      "cable": "p3_500",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "toolFrequency": 261,
+      "meters": {
+        "tap": {
+          "frequency": 261,
+          "reading": 7.5,
+          "testPoint": false,
+          "coupling": 0,
+          "couplingChoice": ""
+        }
+      },
+      "drop": {
+        "port": "tap",
+        "length": 75,
+        "customCable": "261, 3.2\n711, 5.4\n993, 6.5",
+        "splitter": "workbook-cmc5002h-a",
+        "customLoss": ""
+      },
+      "asBuiltNote": "SYNTHETIC: main path is 2380 ft including slack. RG-6 table is an illustrative input at temperature, not a sourced cable specification. Premises splitter does not carry mainline power.",
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r7",
+      "name": "TRAIN Branch Tap D",
+      "parent": "r4::high-loss-output",
+      "length": 200,
+      "slack": 10,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "meters": {
+        "tap": {
+          "frequency": 993,
+          "reading": 14,
+          "testPoint": false,
+          "coupling": 0
+        }
+      },
+      "asBuiltNote": "SYNTHETIC: this branch distance is independent of the end of the main leg.",
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r8",
+      "name": "TRAIN Custom inline loss",
+      "parent": "r7::through",
+      "length": 100,
+      "slack": 0,
+      "cable": "p3_625",
+      "device": "custom-passive",
+      "customLoss": "261, 1, 10\n993, 2, 11",
+      "customCable": "",
+      "terminal": false,
+      "asBuiltNote": "SYNTHETIC custom path: explicit through and tap/branch loss table. No curve is inferred from the housing name.",
+      "family": "Manual / unidentified legacy",
+      "passiveType": "custom"
+    },
+    {
+      "id": "r9",
+      "name": "TRAIN Cable-only end",
+      "parent": "r8::through",
+      "length": 100,
+      "slack": 0,
+      "cable": "p3_500",
+      "device": "none",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "asBuiltNote": "SYNTHETIC: cable-only route point; no passive loss. Use the arithmetic to see the preceding custom through loss.",
+      "family": "Cable-only",
+      "passiveType": "none"
+    }
+  ],
+  "equipmentSetup": {
+    "selected": "source",
+    "stations": {
+      "source": {
+        "checks": {},
+        "notes": "SYNTHETIC 1.7 Vecima EN9000 source example. Match installed RFAM / RPD, split and applicable manufacturer procedure; the product brief alone is not a complete setup manual. No setup or acceptance is recorded."
+      },
+      "r1": {
+        "checks": {},
+        "notes": "SYNTHETIC AOI HGD manual review example; manufacturer instructions and approved local targets still required."
+      },
+      "r3": {
+        "checks": {},
+        "notes": "SYNTHETIC LE: exact installation manual remains required. Do not substitute a Quantum12 guide."
+      }
+    }
+  },
+  "node": {
+    "model": "vecima-en9000",
+    "band": "1",
+    "asset": "TRAIN-NODE-01",
+    "port": "A",
+    "module": "SYNTHETIC RFAM / RPD configuration — installed modules unverified",
+    "operatingUpper": 1218,
+    "notes": "SYNTHETIC Vecima EN9000 / AOI 204/258 MHz deployment. Selected EN9000 hardware band reaches 1794 MHz; entered operating upper is 1218 MHz and live spectrum is only 993 MHz. Other active equipment in this deployment uses 42/54 MHz."
+  },
+  "job": {
+    "name": "TRAINING — Cedar Lane practice job",
+    "sample": true,
+    "training": "guided-1.5",
+    "trainingSteps": "",
+    "node": "TRAIN-NODE-01",
+    "date": "2026-11-10",
+    "lead": "Practice technician",
+    "workOrder": "TRAIN-017",
+    "address": "Synthetic Cedar Lane route — no real address",
+    "symptom": "Practice a branched route, gain reserve, TDR location and evidence workflow.",
+    "weather": "Synthetic: dry, 86°F cable temperature",
+    "startTime": "2026-11-10T09:00",
+    "endTime": "2026-11-10T10:00",
+    "resolution": "Training only. Review every tab and export a backup; no physical repair or acceptance is recorded.",
+    "partsUsed": "Synthetic practice inventory only — no parts installed"
+  },
+  "routeTools": {
+    "frequency": 993,
+    "endpoint": "r6",
+    "start": "r3",
+    "direction": "forward",
+    "distance": 295,
+    "lead": 25,
+    "setVF": 0.87,
+    "actualVF": 0.87,
+    "vfEnabled": true
+  },
+  "frequency": {
+    "cable": "p3_625",
+    "length": 200,
+    "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+    "port": "through",
+    "quantity": 1,
+    "returnCeiling": 204,
+    "forwardFloor": 258,
+    "equipmentUpper": 1794,
+    "plannedUpper": 1218,
+    "liveUpper": 993,
+    "quickF": 993,
+    "points": {
+      "993": {
+        "cable": 2.2,
+        "passive": 1.4,
+        "launch": 46
+      }
+    },
+    "endpoint": "r6::tap"
+  },
+  "power": {
+    "supplyVoltage": 90,
+    "supplyRating": 15,
+    "temperatureF": 86,
+    "resistanceAlpha": 0.004,
+    "rows": [
+      {
+        "id": "p1",
+        "name": "TRAIN Power junction",
+        "parent": "supply",
+        "length": 50,
+        "cable": "p3_750",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "custom",
+        "mode": "amps",
+        "load": 0,
+        "pf": 1,
+        "minV": ""
+      },
+      {
+        "id": "p2",
+        "name": "TRAIN Vecima EN9000 — SYNTHETIC 0.75 A entered load",
+        "parent": "p1",
+        "length": 50,
+        "cable": "p3_625",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "vecima-en9000-manual",
+        "mode": "amps",
+        "load": 0.75,
+        "pf": 1,
+        "minV": ""
+      },
+      {
+        "id": "p3",
+        "name": "TRAIN HGD A1",
+        "parent": "p1",
+        "length": 820,
+        "cable": "p3_750",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "aoi_quantum18_hgd_v09052024",
+        "mode": "curve",
+        "load": "",
+        "pf": 1,
+        "minV": 45
+      },
+      {
+        "id": "p4",
+        "name": "TRAIN LE A2",
+        "parent": "p3",
+        "length": 880,
+        "cable": "qr_715",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "aoi_quantum18_le_v09052024",
+        "mode": "curve",
+        "load": "",
+        "pf": 1,
+        "minV": 45
+      },
+      {
+        "id": "p5",
+        "name": "TRAIN Custom branch load",
+        "parent": "p1",
+        "length": 250,
+        "cable": "p3_500",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "custom",
+        "mode": "watts",
+        "load": 20,
+        "pf": 0.9,
+        "minV": 45
+      }
+    ],
+    "whatIf": {
+      "parent": "p4",
+      "cable": "p3_625",
+      "length": 300,
+      "amps": 0.75,
+      "minV": 45
+    }
+  },
+  "fieldReferences": {
+    "anchorPreset": "sample993",
+    "tapPoint": "r6",
+    "targets": {
+      "lowMin": 32,
+      "lowMax": 36,
+      "highMin": 44,
+      "highMax": 48,
+      "tolerance": 2,
+      "reference": "current"
+    },
+    "cable": {
+      "id": "p3_625",
+      "frequency": 993
+    }
+  },
+  "fieldWork": {
+    "leakage": {
+      "checks": {
+        "connectors": true,
+        "shielding": true,
+        "unusedPorts": false,
+        "dropPremises": false,
+        "retest": false
+      },
+      "notes": "SYNTHETIC practice observations: inspect a hypothetical loose fitting and compare the before/after ingress files. No field patrol occurred.",
+      "conversion": {
+        "value": "72",
+        "from": "dbuv"
+      }
+    },
+    "maintenance": {
+      "checks": {
+        "powerSupply": {
+          "done": true,
+          "notes": "SYNTHETIC: compare 90 V / 15 A planning supply with AOI curve-based loads and a synthetic 0.75 A EN9000 entry. EN9000 typical consumption is not established."
+        },
+        "bonding": {
+          "done": false,
+          "notes": "Practice recording local-procedure findings."
+        },
+        "endOfLine": {
+          "done": true,
+          "notes": "SYNTHETIC: Tap C comparison is at 261 MHz, with no TP correction."
+        },
+        "amplifierUnity": {
+          "done": false,
+          "notes": "Compare both marker reserves and selected-output limits."
+        },
+        "leakagePatrol": {
+          "done": false,
+          "notes": "No actual patrol. Retain synthetic evidence labels."
+        }
+      }
+    }
+  },
+  "project": {
+    "meta": {
+      "lead": "Practice technician",
+      "job": "TRAIN-017",
+      "node": "TRAIN-NODE-01",
+      "revision": "Synthetic exercise 1.7",
+      "meter": "SYNTHETIC DATA — no physical meter",
+      "reference": "SYNTHETIC-SWEEP-REFERENCE",
+      "reviewer": "Practice supervisor",
+      "disposition": "Training only — not accepted",
+      "notes": "Every value and finding in this job is synthetic. No field test occurred. Do not use these records as plant acceptance."
+    },
+    "generator": {
+      "desired": 40,
+      "coupling": 20,
+      "lead": 1
+    },
+    "selectedProfile": "1200",
+    "profiles": [
+      {
+        "id": "550",
+        "plannedUpper": "550",
+        "approved": "No"
+      },
+      {
+        "id": "750",
+        "plannedUpper": "750",
+        "approved": "No",
+        "forwardLow": 55,
+        "forwardHigh": 750,
+        "launchLow": 32,
+        "launchHigh": 43,
+        "control": "GainMaker / DSIM",
+        "markerBasis": "Original example; confirm"
+      },
+      {
+        "id": "875",
+        "plannedUpper": "875",
+        "approved": "No"
+      },
+      {
+        "id": "1002",
+        "plannedUpper": "1002",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1200",
+        "plannedUpper": 1218,
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Vecima EN9000 / AOI practice configuration",
+        "markerBasis": "Synthetic 261 / 993 exercise; 1218 MHz operating upper, live spectrum above 993 MHz unverified",
+        "equipmentUpper": 1794,
+        "launchLow": 34,
+        "launchHigh": 46,
+        "fLevelTol": 2,
+        "fTiltTol": 2,
+        "fRippleMax": 2,
+        "minMer": 35,
+        "returnLow": 10,
+        "returnHigh": 204,
+        "receiverLow": 0,
+        "receiverHigh": 0,
+        "rLevelTol": 2,
+        "rTiltTol": 2,
+        "rRippleMax": 2,
+        "injectionLow": 40,
+        "injectionHigh": 40,
+        "injectionTol": 1
+      },
+      {
+        "id": "1218",
+        "plannedUpper": "1218",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1794",
+        "plannedUpper": "1794",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1800",
+        "plannedUpper": "1800",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      }
+    ],
+    "forward": [
+      {
+        "date": "2026-11-10T09:00",
+        "node": "TRAIN-NODE-01 / A",
+        "station": "TRAIN HGD A1",
+        "profile": "1200",
+        "plane": "SYNTHETIC selected output test point",
+        "basis": "Planning",
+        "lowMHz": 261,
+        "highMHz": 993,
+        "addLow": 20,
+        "addHigh": 20,
+        "targetLow": 34,
+        "targetHigh": 46,
+        "ripple": 0.5,
+        "traceSaved": "Yes",
+        "reviewer": "Practice supervisor",
+        "notes": "SYNTHETIC teaching values. Planning only; no physical measurement or acceptance.",
+        "stage": "Before",
+        "rawLow": 12.5,
+        "rawHigh": 23.5,
+        "mer": 38,
+        "trace": "SYNTHETIC_Sweep_Before.csv",
+        "model": "AOI Quantum18 HGD",
+        "inputPad": 1,
+        "inputEq": "Practice EQ",
+        "interstage": "Practice trim",
+        "control": "AOI practice only"
+      },
+      {
+        "date": "2026-11-10T09:00",
+        "node": "TRAIN-NODE-01 / A",
+        "station": "TRAIN HGD A1",
+        "profile": "1200",
+        "plane": "SYNTHETIC selected output test point",
+        "basis": "Planning",
+        "lowMHz": 261,
+        "highMHz": 993,
+        "addLow": 20,
+        "addHigh": 20,
+        "targetLow": 34,
+        "targetHigh": 46,
+        "ripple": 0.5,
+        "traceSaved": "Yes",
+        "reviewer": "Practice supervisor",
+        "notes": "SYNTHETIC teaching values. Planning only; no physical measurement or acceptance.",
+        "stage": "After",
+        "rawLow": 14,
+        "rawHigh": 26,
+        "mer": 40,
+        "trace": "SYNTHETIC_Sweep_After.csv",
+        "model": "AOI Quantum18 HGD",
+        "inputPad": 1,
+        "inputEq": "Practice EQ",
+        "interstage": "Practice trim",
+        "control": "AOI practice only"
+      }
+    ],
+    "returns": [
+      {
+        "date": "2026-11-10T09:00",
+        "node": "TRAIN-NODE-01 / A",
+        "station": "TRAIN return receiver",
+        "profile": "1200",
+        "plane": "SYNTHETIC receiver plane",
+        "basis": "Planning",
+        "lowMHz": 10,
+        "highMHz": 204,
+        "addLow": 0,
+        "addHigh": 0,
+        "targetLow": 0,
+        "targetHigh": 0,
+        "ripple": 0.7,
+        "traceSaved": "Yes",
+        "reviewer": "Practice supervisor",
+        "notes": "SYNTHETIC receiver numbers are a separate planning exercise. Attached ingress CSV illustrates noise; it does not prove injected-tone receiver levels or return acceptance.",
+        "stage": "After",
+        "rawLow": -0.5,
+        "rawHigh": 0.5,
+        "injectedLow": 40,
+        "injectedHigh": 40,
+        "existingPad": 3,
+        "ingress": "No",
+        "returnEq": "Practice only",
+        "injectionSource": "Synthetic generator example",
+        "trace": "SYNTHETIC_Ingress_After.csv"
+      }
+    ],
+    "punch": [
+      {
+        "item": "TRAIN-P01",
+        "station": "TRAIN Main Tap B",
+        "category": "Practice cable inspection",
+        "finding": "Synthetic TDR location in incoming span",
+        "action": "Practice documenting inspection, repair and retest",
+        "owner": "Practice technician",
+        "due": "2026-11-10",
+        "status": "Open",
+        "retest": "No actual retest performed",
+        "reviewer": "Practice supervisor",
+        "notes": "Leave open until the exercise is reviewed; this is not a real defect."
+      }
+    ],
+    "dsim": [
+      {
+        "station": "TRAIN LEGACY DSIM — separate exercise",
+        "node": "Not on the AOI route",
+        "ampModel": "GainMaker practice station",
+        "dsimModel": "DSIM-SG practice only",
+        "upper": 750,
+        "route": "Aerial",
+        "modeBefore": "MGC",
+        "modeAfter": "AGC",
+        "pilot": 711,
+        "pilotType": "QAM",
+        "locked": "No",
+        "fallback": "No",
+        "ambient": 86,
+        "s1": 0,
+        "agcPad": 0,
+        "backoffMHz": 750,
+        "backoff": 0,
+        "tgc": 0,
+        "verified": "No",
+        "technician": "Practice technician",
+        "date": "2026-11-10",
+        "confirmed": "No",
+        "notes": "SYNTHETIC separate legacy-form exercise. Do not apply DSIM controls to AOI equipment. Values require installed-model procedure; no setup was performed."
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "id": "ev_32bd87416c24169148cca6ab815f072e",
+      "name": "SYNTHETIC_Sweep_Before.csv",
+      "size": 59,
+      "type": "text/csv",
+      "kind": "Sweep",
+      "stage": "Before",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Supported interchange CSV; not a raw ONX export and not an actual measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "1e680aa2da04a6d865eab1cbe3396005180d9a036c7bf3a43ff35982e6ea7c00",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    },
+    {
+      "id": "ev_fcee27b484ba21b3e7ec88a4db8c7f4b",
+      "name": "SYNTHETIC_Sweep_After.csv",
+      "size": 57,
+      "type": "text/csv",
+      "kind": "Sweep",
+      "stage": "After",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Supported interchange CSV; not a raw ONX export and not an actual measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "d87ece53943c30733bb26b18fb9250339644e84252eadda2353e7051352f3372",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    },
+    {
+      "id": "ev_1fac126b1dd2ec8d235b1ba4088f1f80",
+      "name": "SYNTHETIC_Ingress_Before.csv",
+      "size": 60,
+      "type": "text/csv",
+      "kind": "Ingress",
+      "stage": "Before",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Supported interchange CSV; not a raw ONX export and not an actual measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "232cccf98f93ba37603bfa96be2230431b19363cb219ceeda9ee970d4a3ccc44",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    },
+    {
+      "id": "ev_bcfaf9dd5ac642d35a3e9d76da7911a5",
+      "name": "SYNTHETIC_Ingress_After.csv",
+      "size": 60,
+      "type": "text/csv",
+      "kind": "Ingress",
+      "stage": "After",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Supported interchange CSV; not a raw ONX export and not an actual measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "7ba280e9795e45c5f8a461b27d579bb839219474f9a9bb5576c59858080d59e4",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    },
+    {
+      "id": "ev_2d7f2c8e1552b56b61d4875ffd8be505",
+      "name": "SYNTHETIC_OneCheck_After.csv",
+      "size": 129,
+      "type": "text/csv",
+      "kind": "OneCheck",
+      "stage": "After",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Supported interchange CSV; not a raw ONX export and not an actual measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "1af006d1c956f89d34e8264883de227288cb308ae8e3a758a9ce0cfcd88300f7",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    },
+    {
+      "id": "ev_6c21b7978978cf96030d33edfa19535e",
+      "name": "SYNTHETIC_Practice_Diagram.svg",
+      "size": 653,
+      "type": "image/svg+xml",
+      "kind": "Sweep",
+      "stage": "Reference",
+      "asset": "TRAIN-NODE-01 synthetic exercise",
+      "notes": "SYNTHETIC teaching data, generated by NightSweep. Practice diagram preserved as an original attachment; not a meter capture or decoded measurement.",
+      "importedAt": "2026-11-10T09:00:00.000Z",
+      "sha256": "1b0d92f7e3db5f69c11599a8930dd5f4ab15d46c537fe3f957788928e68fc491",
+      "parse": {
+        "status": "attachment",
+        "message": "Original preserved. Readable CSV previews are rebuilt from verified saved bytes."
+      }
+    }
+  ],
+  "sweepSetup": {
+    "version": 1,
+    "selected": "204",
+    "profiles": {
+      "42": {
+        "station": "",
+        "leg": "",
+        "equipment": "",
+        "method": "manual",
+        "procedure": "",
+        "plan": "",
+        "reference": "",
+        "referenceDate": "",
+        "referenceSource": "",
+        "plane": "",
+        "forwardUpper": "",
+        "forwardAvailable": "",
+        "coverage": "",
+        "notes": "",
+        "comparisonMode": "relative",
+        "lowMHz": "",
+        "highMHz": "",
+        "measuredLow": "",
+        "measuredHigh": "",
+        "addLow": "",
+        "addHigh": "",
+        "targetLow": "",
+        "targetHigh": "",
+        "desiredInjection": "",
+        "injectionCoupling": "",
+        "leadLoss": "",
+        "generatorMaximum": "",
+        "referencePlan": "",
+        "currentBandwidth": "",
+        "referenceBandwidth": "",
+        "currentView": "",
+        "referenceView": "",
+        "txReference": "",
+        "txReferenceChannels": "",
+        "step": "",
+        "steps": {}
+      },
+      "204": {
+        "station": "TRAIN AOI HGD A1",
+        "leg": "TRAIN-NODE-01 / A",
+        "equipment": "Vecima EN9000 launch / AOI Quantum18 HGD and LE — synthetic configuration",
+        "method": "aoi",
+        "procedure": "",
+        "plan": "",
+        "reference": "",
+        "referenceDate": "",
+        "referenceSource": "",
+        "plane": "",
+        "forwardUpper": "1218",
+        "forwardAvailable": "993",
+        "coverage": "",
+        "notes": "SYNTHETIC 204/258 MHz practice only. Vecima nodes and AOI gear are high split in this deployment; other active equipment uses 42/54 MHz. No physical setup, compatible reference, meter capability or acceptance is verified. The 61 dBmV connector-output budget is arithmetic, not an ONX Injection setting or a verified meter limit.",
+        "comparisonMode": "relative",
+        "lowMHz": "",
+        "highMHz": "",
+        "measuredLow": "",
+        "measuredHigh": "",
+        "addLow": "",
+        "addHigh": "",
+        "targetLow": "",
+        "targetHigh": "",
+        "desiredInjection": "40",
+        "injectionCoupling": "20",
+        "leadLoss": "1",
+        "generatorMaximum": "",
+        "referencePlan": "",
+        "currentBandwidth": "",
+        "referenceBandwidth": "",
+        "currentView": "",
+        "referenceView": "",
+        "txReference": "",
+        "txReferenceChannels": "",
+        "step": "",
+        "steps": {}
+      }
+    },
+    "history": []
+  },
+  "evidenceFiles": [
+    {
+      "id": "ev_32bd87416c24169148cca6ab815f072e",
+      "base64": "ZnJlcXVlbmN5X21oeixyZXNwb25zZV9kYgoyNjEsMAo0NTAsLTAuNAo3MTEsLTEuMgo5OTMsLTIuMAo="
+    },
+    {
+      "id": "ev_fcee27b484ba21b3e7ec88a4db8c7f4b",
+      "base64": "ZnJlcXVlbmN5X21oeixyZXNwb25zZV9kYgoyNjEsMAo0NTAsMC4xCjcxMSwtMC4xCjk5MywwLjIK"
+    },
+    {
+      "id": "ev_1fac126b1dd2ec8d235b1ba4088f1f80",
+      "base64": "ZnJlcXVlbmN5X21oeixsZXZlbF9kYm12CjUsLTQwCjEwLC0zOAozMCwtMjMKODUsLTM5CjIwNCwtNDEK"
+    },
+    {
+      "id": "ev_bcfaf9dd5ac642d35a3e9d76da7911a5",
+      "base64": "ZnJlcXVlbmN5X21oeixsZXZlbF9kYm12CjUsLTQyCjEwLC00MgozMCwtNDAKODUsLTQxCjIwNCwtNDIK"
+    },
+    {
+      "id": "ev_2d7f2c8e1552b56b61d4875ffd8be505",
+      "base64": "Y2hhbm5lbCxmcmVxdWVuY3lfbWh6LGxldmVsX2RibXYsbWVyX2RiClRSQUlOMzAsMjYxLDEyLjMsMzkuOApUUkFJTjMxLDI2NywxMi40LDQwLjIKVFJBSU4zMiwyNzMsMTIuNSw0MC4xClRSQUlOOTkzLDk5MywxOC4wLDM5LjUK"
+    },
+    {
+      "id": "ev_6c21b7978978cf96030d33edfa19535e",
+      "base64": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MjAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgNzIwIDIyMCI+PHJlY3Qgd2lkdGg9IjcyMCIgaGVpZ2h0PSIyMjAiIGZpbGw9IiMxMDJmM2MiLz48ZyBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+PHRleHQgeD0iMjQiIHk9IjM4IiBmb250LXNpemU9IjIyIj5TWU5USEVUSUMgVFJBSU5JTkcg4oCUIE5PIEZJRUxEIERBVEE8L3RleHQ+PHRleHQgeD0iMjQiIHk9IjcyIiBmb250LXNpemU9IjE2Ij5DYWJsZS1zaWRlIFREUiBleGVyY2lzZSBhZnRlciB0aGUgTEUgb3V0cHV0PC90ZXh0Pjx0ZXh0IHg9IjI0IiB5PSIxMjgiIGZvbnQtc2l6ZT0iMTkiPkxFIEEyIOKGkiAxMTAgZnQg4oaSIFNwbGl0IFMxIOKGkiAxNjAgZnQg4oaSIHByYWN0aWNlIGV2ZW50PC90ZXh0Pjx0ZXh0IHg9IjI0IiB5PSIxNzIiIGZvbnQtc2l6ZT0iMTYiPjI5NSBmdCBkaXNwbGF5ZWQg4oiSIDI1IGZ0IGxlYWQgPSAyNzAgZnQgZnJvbSBMRSBvdXRwdXQ8L3RleHQ+PHRleHQgeD0iMjQiIHk9IjIwMiIgZm9udC1zaXplPSIxNCI+Tm90IGEgbWV0ZXIgY2FwdHVyZSwgbWVhc3VyZWQgdHJhY2Ugb3IgY29uc3RydWN0aW9uIGRyYXdpbmcuPC90ZXh0PjwvZz48L3N2Zz4="
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "version": "1.7 Alpha",
+  "version_code": 20,
+  "launcher_label": "NightSweep 1.7 Preview",
+  "package": "com.spencerwilliams.nightsweep.preview",
+  "standalone_frozen": true,
+  "final_apk_built": true,
+  "toolchain": {
+    "platform": "35 r2",
+    "build_tools": "35.0.0",
+    "ecj": "3.40.0",
+    "java": "21",
+    "official_checksums_verified": true
+  },
+  "certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+  "prior_16_build19_certificate_matches": true,
+  "checks_passed": [
+    "preview package/version/provider and exact asset staging",
+    "standard package/provider staging",
+    "canonical native sources and assets remain byte-identical during staging",
+    "changed frozen HTML rejected before compile/sign",
+    "all private signing/toolchain/build/dist paths ignored",
+    "pinned toolchain downloader remains trackable"
+  ],
+  "physical_device_tests": false,
+  "html_sha256": "e90854101b81bd7e2ed9a145c26e3c2e6d653d60e662283943e92a842e03bb76",
+  "apk_sha256": "a9fa05256a1433140e91b8e695e013a596f62bc6fe26b70991101d2fd74dc265",
+  "apk_size_bytes": 246300,
+  "final_checks": [
+    "independent package/version/launcher recheck",
+    "independent signer v2/v3 and certificate recheck",
+    "independent ZIP alignment recheck",
+    "embedded HTML byte equality and frozen SHA256 recheck"
+  ],
+  "candidate_apk_built": true,
+  "candidate_status": "Final frozen standalone successfully built and independently verified; physical-device tests pending."
+}

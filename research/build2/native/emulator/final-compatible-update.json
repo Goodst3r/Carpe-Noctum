@@ -1,0 +1,83 @@
+{
+  "scope": "Actual direct Build22 to final Build24 compatible update on API35 software emulator; generic private fixture file, not a saved NightSweep job",
+  "commands": [
+    {
+      "args": [
+        "wait-for-device"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.004,
+      "output": ""
+    },
+    {
+      "args": [
+        "shell",
+        "am",
+        "force-stop",
+        "com.spencerwilliams.nightsweep.preview"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.409,
+      "output": ""
+    },
+    {
+      "args": [
+        "shell",
+        "mkdir",
+        "-p",
+        "/data/user/0/com.spencerwilliams.nightsweep.preview/files"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.792,
+      "output": ""
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "android-build/dist/preview/NightSweep-1.8-build2-preview.apk"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.785,
+      "output": "Serving...\nPerforming Incremental Install\nSuccess\nInstall command complete in 5059 ms\nAll files should be loaded. Notifying the device.\n"
+    },
+    {
+      "args": [
+        "exec-out",
+        "cat",
+        "/data/user/0/com.spencerwilliams.nightsweep.preview/files/nightsweep-emulator-retention-fixture.txt"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.792,
+      "output": "Synthetic emulator-only Build22-to-Build24 private file retention fixture"
+    },
+    {
+      "args": [
+        "shell",
+        "dumpsys",
+        "package",
+        "com.spencerwilliams.nightsweep.preview"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.41,
+      "output": "    pkg=Package{ac5111c com.spencerwilliams.nightsweep.preview}\n    codePath=/data/app/~~RfivpCzBNuNlCi9TEZFTaQ==/com.spencerwilliams.nightsweep.preview-0sdpqLTZBXIQrs-4E8bPmA==\n    versionCode=24 minSdk=26 targetSdk=35\n    versionName=1.8 Alpha build 2\n      dataDir=/data/user/0/com.spencerwilliams.nightsweep.preview"
+    },
+    {
+      "args": [
+        "shell",
+        "am",
+        "start",
+        "-W",
+        "-n",
+        "com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 15.791,
+      "output": "Starting: Intent { cmp=com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity }\nStatus: timeout\nLaunchState: UNKNOWN (-1)\nActivity: com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity\nWaitTime: 14257\nComplete\n"
+    }
+  ],
+  "fixture_before_sha256": "f18dd5b09d18effdf0bd321992d0a0e1327f7e8e8fd8961aa50fac6691ef19cd",
+  "fixture_preserved": true,
+  "physical_device": false,
+  "saved_job_retention_proven": false
+}

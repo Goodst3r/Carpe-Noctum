@@ -1,0 +1,48 @@
+{
+  "scope": "Actual API35 software emulator; historical Build22 baseline; synthetic data only; no physical phone",
+  "commands": [
+    {
+      "args": [
+        "shell",
+        "getprop",
+        "sys.boot_completed"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.025,
+      "output": "1\n"
+    },
+    {
+      "args": [
+        "shell",
+        "dumpsys",
+        "webviewupdate"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.629,
+      "output": "Current WebView Update Service state\n  Current WebView package (name, version): (com.android.webview, 124.0.6367.219)\n  Minimum targetSdkVersion: 33\n  Minimum WebView version code: 636771907\n  Number of relros started: 1\n  Number of relros finished: 1\n  WebView package dirty: false\n  Any WebView package installed: true\n  Preferred WebView package (name, version): (com.android.webview, 124.0.6367.219)\n  WebView packages:\n    Valid package com.android.webview (versionName: 124.0.6367.219, versionCode: 636771907, targetSdkVersion: 34) is  installed/enabled for all users\n"
+    },
+    {
+      "args": [
+        "install",
+        "-r",
+        "release/build22/NightSweep-1.7-preview-build22.apk"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 46.724,
+      "output": "Performing Streamed Install\nSuccess\n"
+    },
+    {
+      "args": [
+        "shell",
+        "am",
+        "start",
+        "-W",
+        "-n",
+        "com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 20.98,
+      "output": "Starting: Intent { cmp=com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity }\nStatus: timeout\nLaunchState: UNKNOWN (-1)\nActivity: com.spencerwilliams.nightsweep.preview/com.spencerwilliams.nightsweep.MainActivity\nWaitTime: 18357\nComplete\n"
+    }
+  ]
+}

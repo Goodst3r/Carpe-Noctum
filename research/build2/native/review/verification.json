@@ -1,0 +1,18 @@
+{
+  "scope": "Extracted production Java bodies run with real Java21 filesystem and queued UI/print platform stand-ins. No emulator/device claim.",
+  "command": "python3 qa/android-native-edge.test.py",
+  "checks": 12,
+  "result": "passed",
+  "regression_proof": "Eight checks failed before the fixes; all twelve now pass.",
+  "fixes": [
+    "Bound cache names by UTF-8 bytes using the existing ASCII fallback; preserve readable short Unicode names.",
+    "Check current Activity/WebView before deferred print evaluation and again when asynchronous evaluation returns.",
+    "Update native dialog/share/print titles to NightSweep 1.8 Alpha build 2."
+  ],
+  "compiler_requirement": "Java21 with source launcher and jdk.compiler; no Android SDK is needed for this focused suite.",
+  "files": {
+    "qa/android-native-edge.test.py": "da073e8dda187180bf6a8ad46328c425ab6f13b696d7b340f41e8963bf3a8764",
+    "android-build/app/src/main/java/com/spencerwilliams/nightsweep/MainActivity.java": "09603a2ecbdbada2c4443ff1dac60098c53526eaaf92399eeb32ba00725d7750"
+  },
+  "context7_reference": "Android Developers /websites/developer_android: evaluateJavascript is asynchronous; invocation and callback run on UI thread."
+}

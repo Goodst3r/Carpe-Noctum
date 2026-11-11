@@ -1,0 +1,18 @@
+✔ Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families (3210.407144ms)
+✔ The previous AOI complete export keeps every original and row while its replaced guide stays hidden (3403.790391ms)
+✔ Every References Open step exposes its previously collapsed target controls (3921.029656ms)
+✔ Every Records Open step exposes all record sections and their existing editable forms (3441.334335ms)
+✔ The gain Open step exposes its test-point measurement inputs at the intended amplifier (1805.003121ms)
+✔ Every Job details Open step reveals the work-order fields named by its teaching hint (2589.988781ms)
+✔ A retained legacy complete export keeps its data and progress while hiding the incompatible guide until Reset (2733.776382ms)
+✔ Changing the complete practice to another GS7K split hides the 42/54 guide without rewriting data (3209.464783ms)
+✔ GS7K, OEM and DSIM practice teach only the deployed 42/54 split (1495.982619ms)
+✔ A failed complete-training button reports its error next to the buttons and permits retry (1492.587784ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27863.406111

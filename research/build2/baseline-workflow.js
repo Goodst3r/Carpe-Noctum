@@ -1,0 +1,173 @@
+/* 1.5 task navigation. Reuses live controls and schema-one data; no calculation changes. */
+const WorkflowUI=(()=>{
+ const groups={
+  home:{label:'Home',tabs:[]},
+  route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Equipment setup'],['parts','Equipment']]},
+  test:{label:'Test',tabs:[['sweepSetup','Sweep setup'],['tdr','TDR'],['sweep','Sweep'],['frequency','Frequency'],['readings','Readings'],['references','References']]},
+  power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Records'],['runsheet','Run sheet']]}
+ };
+ const screens={
+  home:['home','Choose your task','Start with a field task, or continue the working job below.'],
+  setup:['route','Set the starting signal','Enter launch frequencies, levels and cable temperature before building your route.'],
+  route:['route','Build the cable route','Work on one point at a time. Each point includes the cable leading to its equipment.'],
+  gain:['route','Check amplifier gain','Choose an active on your route, enter its gain, then review both frequency margins.'],
+  equipmentSetup:['route','Set up the installed equipment','Choose the launch or a route active, review its exact manual and save setup notes.'],
+  parts:['route','Look up equipment','Find the installed model and review its published gain or loss data.'],
+  tdr:['test','Locate a TDR distance','Use the route you built to place a one-way meter distance on the correct span.'],
+  sweepSetup:['test','Set up forward and return','Follow your 42/54 or 204/258 MHz procedure, save settings and record each step.'],
+  sweep:['test','View the predicted sweep','Compare expected levels along the route. This graph is a calculation, not a meter trace.'],
+  frequency:['test','Check one cable / passive path','Calculate a separate path at a chosen frequency. This does not add points to the RF route.'],
+  readings:['test','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
+  references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
+  power:['power','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
+  trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
+  projects:['job','Manage this job','Name the job, record its node and save a named copy on this device.'],
+  evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
+  checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
+  records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
+  runsheet:['job','Review and share the run sheet','Review predictions, measurements and field notes before printing or exporting.'],
+  help:['home','Quick help','Pick a common task, learn the terms and review calculation limits.']
+ };
+ const pointDetailState=new Map();
+ let printVisibility=null;
+ let ready=false,current='home',point='',activePoint='',lastGroup={route:'route',test:'sweepSetup',power:'power',job:'projects'},applying=false,queued=false;
+ const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
+ const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
+ const all=selector=>[...document.querySelectorAll(selector)];
+ const visibleIds={equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
+ function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
+ function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
+ function renderNav(){
+  const group=screens[current][0],host=$('taskTabs');
+  hidden(host,!groups[group].tabs.length||current==='help');
+  host.innerHTML=groups[group].tabs.map(([id,label])=>`<button type="button" role="tab" id="task-tab-${id}" data-task="${id}" aria-selected="${id===current}" tabindex="${id===current?'0':'-1'}" aria-controls="${(visibleIds[id]||[]).join(' ')||'helpPanel'}">${label}</button>`).join('');
+  all('[data-main-tab]').forEach(b=>{const active=b.dataset.mainTab===group;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+  $('screenTitle').innerHTML=`<span class="eyebrow">${groups[group].label} · 1.8 ALPHA</span><h2 tabindex="-1">${screens[current][1]}</h2><p>${screens[current][2]}</p>`;
+  document.body.dataset.task=current;
+ }
+ function go(tab,options={}){
+  const aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help'};tab=aliases[tab]||tab;
+  if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
+  if(tab==='setup')renderSetup();
+  if(tab==='equipmentSetup'&&typeof EquipmentSetup!=='undefined')EquipmentSetup.render();
+  if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();
+  if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
+  renderNav();apply();
+  document.querySelector('.filemenu').open=false;
+  if(options.scroll!==false)window.scrollTo({top:0,behavior:'instant'});
+  if(tab==='sweep')requestAnimationFrame(drawChart);
+  return tab;
+ }
+ function capturePointDetails(){all('#route > [data-row]').forEach(card=>{pointDetailState.set(card.dataset.row,[...card.querySelectorAll('details')].map(d=>[d.querySelector(':scope > summary')?.textContent?.trim()||'',d.open]));});}
+ function structural(){
+  // Optional tools remain under the original route event-delegation ancestor.
+  all('#route [data-row]').forEach(card=>{
+   const box=card.querySelector('.route-toolbox');
+   if(box&&!box.parentElement.classList.contains('point-extras')){
+    const details=document.createElement('details');details.className='point-extras';details.innerHTML='<summary>More at this point <span>Tap faces · drop · map note · arithmetic</span></summary>';
+    box.before(details);details.append(box);
+   }
+   const active=card.querySelector('.active-editor');
+   if(active&&!active.querySelector('.published-gain-details')){
+    const start=active.querySelector('.gain-reference');
+    if(start){const details=document.createElement('details');details.className='published-gain-details';details.innerHTML='<summary>Published gain reference and conditions</summary>';start.before(details);let node=start;while(node&&!node.classList.contains('active-fields')){const next=node.nextElementSibling;details.append(node);node=next;}}
+   }
+   const saved=new Map(pointDetailState.get(card.dataset.row)||[]);card.querySelectorAll('details').forEach(d=>{if(d.dataset.workflowRestored)return;d.dataset.workflowRestored='true';const key=d.querySelector(':scope > summary')?.textContent?.trim()||'';if(saved.has(key))d.open=saved.get(key);});
+   if(!card.querySelector('.point-task-links')){
+    const div=document.createElement('div');div.className='point-task-links';div.innerHTML=`<button type="button" data-point-task="readings" data-point="${card.dataset.row}">Enter meter reading</button>${active?`<button type="button" data-equipment-target="${card.dataset.row}">Setup &amp; manual</button><button type="button" data-point-task="gain" data-point="${card.dataset.row}">Check this amp's gain</button>`:''}`;card.querySelector('.route-math')?.after(div);
+   }
+  });
+ }
+ function updatePointControls(){
+  const picker=$('pointSelect'),rows=selectedRows(),row=chosen();
+  if(row){if(current==='gain')activePoint=row.id;else point=row.id;}
+  const signature=JSON.stringify([current,rows.map(r=>[r.id,r.name,r.device]),row?.id]);
+  if(picker.dataset.signature!==signature){picker.dataset.signature=signature;picker.innerHTML=rows.map(r=>option(r.id,`${state.rows.indexOf(r)+1}. ${name(r,state.rows.indexOf(r))} · ${device(r.device)?.active?'Active':partTypeLabel(device(r.device))}`,row?.id)).join('')||option('',current==='gain'?'No active equipment on this route':'No route points yet','');}
+  picker.disabled=!rows.length;const index=rows.indexOf(row);$('pointPrevious').disabled=index<=0;$('pointNext').disabled=index<0||index>=rows.length-1;
+  text($('pointCount'),rows.length?`${index+1} of ${rows.length}${current==='gain'?' active points':' points'}`:'');
+  hidden($('pointPicker'),!state.rows.length&&current!=='gain');
+  all('#route > [data-row]').forEach(card=>hidden(card,card.dataset.row!==row?.id));
+  hidden($('pointEmpty'),!!rows.length);text($('pointEmptyText'),current==='gain'?'Add an amplifier to the cable route, then select it here to check the gain budget.':'Add your first cable span and equipment point to get started.');
+  text($('routePanelTitle'),current==='gain'?'Selected amplifier':current==='readings'?'Selected measurement point':'Cable route');
+  const broken=state.rows.filter((r,i)=>r.parent!=='source'&&!state.rows.slice(0,i).some(parent=>HFC.portsFor(device(parent.device),parent).some(p=>r.parent===parent.id+'::'+p.id)));
+  const warning=$('routeFeedWarning');if(warning){hidden(warning,!broken.length);const html=broken.length?`<strong>${broken.length} disconnected feed${broken.length===1?'':'s'}</strong><p>Removing equipment or changing its output keeps downstream points for review. Choose the actual upstream port for ${broken.map((r,i)=>esc(name(r,state.rows.indexOf(r)))).join(', ')}.</p><button type="button" data-point-task="route" data-point="${esc(broken[0].id)}">Review first disconnected feed</button>`:'';if(warning.dataset.signature!==html){warning.dataset.signature=html;warning.innerHTML=html;}}
+  text($('routePanelHint'),current==='gain'?'Enter gain and output targets for this installed configuration.':current==='readings'?'Record the reading at the selected output port.':'Choose a point above to edit its incoming cable, feed and equipment.');
+  if(row&&current==='readings'){const meter=$('route').querySelector(`[data-row="${row.id}"] .point-meters`);if(meter)meter.open=true;}
+ }
+ function updateJobViews(){
+  const panel=$('projectPanel');if(!panel)return;
+  [...panel.children].forEach(child=>{
+   let show=false;
+   if(current==='projects')show=child.id==='nodePanel';
+   if(current==='evidence')show=child.id==='evidencePanel';
+   if(current==='records')show=child.id!=='nodePanel'&&child.id!=='evidencePanel';
+   hidden(child,!show);
+  });
+  if(current==='evidence'&&$('evidencePanel'))$('evidencePanel').open=true;
+  if(current==='projects'&&$('nodePanel'))$('nodePanel').open=true;
+ }
+ function updateHome(){
+  const m=typeof JobsUI!=='undefined'?JobsUI.metadata():{},d=HFC.routeDistances(state,catalog),values=d.rows.map(r=>r.end).filter(Number.isFinite),distance=values.length?Math.max(...values):0;
+  text($('workingJobName'),m.name||'Unnamed working job');
+  text($('workingJobMeta'),`${m.node||'No node / asset'} · ${state.rows.length} route points · ${(state.evidence||[]).length} files`);
+  text($('homeRouteDistance'),d.errors.length?'—':ft(distance)+' ft');
+  hidden($('homeRouteWarning'),!d.errors.length);text($('homeRouteWarning'),d.errors.length?`${d.errors.length} route point(s) have missing length or feed data. Open Cable route to correct them before using distance results.`:'');
+  text($('homeActiveCount'),String(state.rows.filter(r=>device(r.device)?.active).length));
+  hidden($('workingSample'),!state.example);
+  hidden($('homeGainTip'),state.rows.some(r=>device(r.device)?.active));
+ }
+ function apply(){
+  if(!ready||applying||printVisibility||typeof document==='undefined'||!document?.documentElement)return;applying=true;
+  try{
+   structural();const ids=new Set(visibleIds[current]||[]);
+   all('[data-screen]').forEach(el=>hidden(el,current==='help'?el.dataset.screen!=='help':!ids.has(el.id)));
+   // Renderers preserve their original parent; subtask visibility is reapplied after each edit.
+   if(['route','gain','readings'].includes(current))updatePointControls();
+   updateJobViews();
+   const power=$('powerPanel');if(power){[...power.children].forEach(child=>hidden(child,current==='trial'?child.id!=='powerWhatIf':child.id==='powerWhatIf'));if(current==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;}
+   updateHome();
+  }finally{applying=false;}
+ }
+ function queue(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
+ function prepareVisibilityForPrint(){if(printVisibility||document.body.classList.contains('print-runsheet'))return;printVisibility=all('#projectPanel > *,#powerPanel > *').map(el=>({el,hidden:el.hidden}));printVisibility.forEach(x=>hidden(x.el,false));}
+ function restoreVisibilityAfterPrint(){if(!printVisibility)return;const saved=printVisibility;printVisibility=null;saved.forEach(x=>hidden(x.el,x.hidden));apply();}
+ function init(){
+  if(ready)return;ready=true;
+  // Preserve every existing calculation and event binding; only navigation and control density change.
+  const originalRender=renderAll;renderAll=function(...args){capturePointDetails();const r=originalRender(...args);apply();return r;};
+  const originalRefresh=refreshResults;refreshResults=function(...args){const r=originalRefresh(...args);apply();return r;};
+  const originalProject=renderProjects;renderProjects=function(...args){const r=originalProject(...args);apply();return r;};
+  const originalMeters=renderMeters;renderMeters=function(...args){const r=originalMeters(...args);apply();return r;};
+  const originalPower=renderPower;renderPower=function(...args){const r=originalPower(...args);apply();return r;};
+  showTab=go;window.NightSweep.showTab=go;
+  const oldPrepare=window.NightSweep.preparePrint,oldRestore=window.NightSweep.restorePrint;window.NightSweep.preparePrint=()=>{oldPrepare?.();prepareVisibilityForPrint();};window.NightSweep.restorePrint=()=>{oldRestore?.();restoreVisibilityAfterPrint();};window.addEventListener('beforeprint',prepareVisibilityForPrint);window.addEventListener('afterprint',restoreVisibilityAfterPrint);
+  all('[data-main-tab]').forEach(b=>b.onclick=()=>go(b.dataset.mainTab==='home'?'home':lastGroup[b.dataset.mainTab]));
+  $('helpButton').onclick=()=>go('help');
+  const add=$('add'),oldAdd=add.onclick;add.onclick=()=>{const before=state.rows.length;oldAdd();if(state.rows.length>before)point=state.rows.at(-1).id;go('route',{scroll:false});};
+  const same=$('sameSpanNext'),oldSame=same?.onclick;if(same)same.onclick=()=>{const before=state.rows.length;oldSame();if(state.rows.length>before)point=state.rows.at(-1).id;go('route',{scroll:false});};
+  const routePanel=$('routePanel');
+  const feedWarning=document.createElement('div');feedWarning.id='routeFeedWarning';feedWarning.className='status warning';feedWarning.hidden=true;$('pointPicker').before(feedWarning);
+  const next=document.createElement('div');next.className='workflow-next toolbar';next.innerHTML='<button type="button" data-task="equipmentSetup">Next: equipment setup →</button><button type="button" data-task="sweepSetup">Forward / return setup</button><button type="button" data-task="evidence">Attach meter files</button>';routePanel.append(next);routePanel.addEventListener('click',event=>{const b=event.target.closest('[data-cascade-open]');if(!b)return;if(b.dataset.cascadeOpen==='source')go('setup');else setPoint(b.dataset.cascadeOpen);},true);
+  document.addEventListener('click',event=>{
+   const b=event.target.closest('button');if(!b)return;
+   if(b.dataset.task){const fromTab=b.getAttribute('role')==='tab',id=b.dataset.task;go(id);if(fromTab)$('task-tab-'+id)?.focus();}
+   if(b.dataset.pointTask){setPoint(b.dataset.point);go(b.dataset.pointTask);}
+   if(b.id==='pointPrevious'||b.id==='pointNext'){const rows=selectedRows(),index=rows.indexOf(chosen());const row=rows[index+(b.id==='pointNext'?1:-1)];if(row)setPoint(row.id);}
+   if(b.id==='homeNewJob')Promise.resolve(JobsUI.newJob()).then(changed=>{if(changed)go('projects');}).catch(e=>{$('message').textContent=e.message;});
+   if(b.id==='homeBackup'||b.id==='jobExportShortcut')$('save').click();
+   if(b.id==='homeOpenJob'||b.id==='jobImportShortcut')$('load').click();
+   queue();
+  });
+  $('pointSelect').addEventListener('change',event=>setPoint(event.target.value));
+  $('taskTabs').addEventListener('keydown',event=>{
+   if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;const tabs=all('#taskTabs [data-task]'),index=tabs.indexOf(document.activeElement);if(index<0)return;event.preventDefault();const at=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;const id=tabs[at].dataset.task;go(id,{scroll:false});$('task-tab-'+id)?.focus();
+  });
+  document.addEventListener('input',queue);document.addEventListener('change',queue);
+  if(typeof MutationObserver!=='undefined')new MutationObserver(queue).observe(document.querySelector('main'),{childList:true,subtree:true});
+  go('home',{scroll:false});
+ }
+ return {init,go,current:()=>current,selectPoint:setPoint,apply,groups,screens};
+})();
+function initWorkflow(){WorkflowUI.init();}

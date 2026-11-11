@@ -1,0 +1,58 @@
+✖ Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families (2158.870413ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2568.654937
+
+✖ failing tests:
+
+test at qa/training-controls.test.cjs:29:1
+✖ Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families (2158.870413ms)
+  AssertionError [ERR_ASSERTION]: Inactive high-split profile must be a clean default, not retained AOI exercise criteria.
+  + actual - expected
+  
+    {
+      approved: 'No',
+      available: 993,
+      control: 'Installed high-split',
+  +   equipmentUpper: 1794,
+  +   fLevelTol: 2,
+  +   fRippleMax: 2,
+  +   fTiltTol: 2,
+      forwardFloor: 258,
+      forwardHigh: 993,
+      forwardLow: 261,
+      id: '1200',
+  +   injectionHigh: 40,
+  +   injectionLow: 40,
+  +   injectionTol: 1,
+  +   launchHigh: 46,
+  +   launchLow: 34,
+      markerBasis: '261/993 provisional',
+  +   minMer: 35,
+      plannedUpper: '1200',
+  +   rLevelTol: 2,
+  +   rRippleMax: 2,
+  +   rTiltTol: 2,
+  +   receiverHigh: 0,
+  +   receiverLow: 0,
+      returnCeiling: 204,
+  +   returnHigh: 204,
+  +   returnLow: 10
+    }
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:34:9
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:26:78)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { id: '1200', plannedUpper: '1200', approved: 'No', available: 993, returnCeiling: 204, forwardFloor: 258, forwardLow: 261, forwardHigh: 993, control: 'Installed high-split', markerBasis: '261/993 provisional', equipmentUpper: 1794, launchLow: 34, launchHigh: 46, fLevelTol: 2, fTiltTol: 2, fRippleMax: 2, minMer: 35, returnLow: 10, returnHigh: 204, receiverLow: 0, receiverHigh: 0, rLevelTol: 2, rTiltTol: 2, rRippleMax: 2, injectionLow: 40, injectionHigh: 40, injectionTol: 1 },
+    expected: { id: '1200', plannedUpper: '1200', approved: 'No', available: 993, returnCeiling: 204, forwardFloor: 258, forwardLow: 261, forwardHigh: 993, control: 'Installed high-split', markerBasis: '261/993 provisional' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

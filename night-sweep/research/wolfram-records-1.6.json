@@ -1,0 +1,8 @@
+{
+  "version":"1.6 Alpha",
+  "checkedAt":"2026-11-10",
+  "provider":"Connected Wolfram Language evaluator",
+  "query":"N[<|\"returnAbsolute\"->{-28+20,-27+20,(-27+20)-(-28+20),(-28+20)-(-8),(-27+20)-(-8)},\"returnRelative\"->{-1,2,2-(-1),-1-0,2-0},\"physicalInjection\"->31+20+1,\"referenceBandwidth\"->10 Log[10,6.4/1.6],\"measurementGain\"->(16.7+20)-(0.7+10),\"voltageUnits\"->20 Log[10,1000],\"photoQamDifference\"->16.7-14.3|>,14]",
+  "expected":{"returnAbsolute":[-8,-7,1,0,1],"returnRelative":[-1,2,3,-1,2],"physicalInjection":52,"referenceBandwidth":6.020599913279623,"measurementGain":26.000000000000004,"voltageUnits":60,"photoQamDifference":2.3999999999999986},
+  "scope":"Arithmetic examples, not plant targets. Photos contain downstream readings and are not return evidence. Bandwidth conversion is documentation only; the app blocks mismatched reference settings."
+}

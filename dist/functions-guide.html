@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — All Functions Reference: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — All Functions Reference — Technician guide</title>
+<style>
+:root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
+</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#37-feature-coverage-index">37-feature coverage index</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
+<p><strong>Technician README · Updated November 11, 2026</strong></p>
+<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library&#39;s feature index.</p>
+<p>For installation, use the separate <a href="phone-installation.html">Android and iOS installation guide</a>. This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android&#39;s native save/share/print dialogs appear when using the APK.</p>
+<h2 id="guide-contents">Guide contents</h2>
+<ol>
+<li><a href="#working-rules-and-navigation">Working rules and navigation</a></li>
+<li><a href="#header-and-home-controls">Header and Home controls</a></li>
+<li><a href="#practice-library-and-example-selection">Practice library and example selection</a></li>
+<li><a href="#job-details-and-named-jobs">Job details and named jobs</a></li>
+<li><a href="#rf-setup-and-launch-source">RF setup and launch source</a></li>
+<li><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a></li>
+<li><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a></li>
+<li><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a></li>
+<li><a href="#equipment-catalog">Equipment catalog</a></li>
+<li><a href="#tdr-distance-locator">TDR distance locator</a></li>
+<li><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a></li>
+<li><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a></li>
+<li><a href="#single-path-frequency-checker">Single-path frequency checker</a></li>
+<li><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a></li>
+<li><a href="#field-references-and-target-conversions">Field references and target conversions</a></li>
+<li><a href="#power-supply-load">Power-supply load</a></li>
+<li><a href="#power-what-if">Power what-if</a></li>
+<li><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a></li>
+<li><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a></li>
+<li><a href="#project-records-and-closeout">Project records and closeout</a></li>
+<li><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a></li>
+<li><a href="#offline-use-updates-and-help">Offline use, updates and Help</a></li>
+<li><a href="#checked-example-answers">Checked example answers</a></li>
+<li><a href="#37-feature-coverage-index">37-feature coverage index</a></li>
+<li><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></li>
+</ol>
+<h2 id="working-rules-and-navigation">Working rules and navigation</h2>
+<p>Start a real job with <strong>Job → Details → + New blank job</strong>. Identify the actual source output, enter launch readings, build the route, then use the calculations, setup guides and records you need. A single-span calculation does not require completion of the advanced acceptance forms.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Main work area</th>
+<th>Task screens</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Home</td>
+<td>Home</td>
+<td>Current job, task shortcuts, practice, backup and browser offline status</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>Setup; Cable route; Amp gain; Equipment setup; Equipment</td>
+<td>Starting signal, RF topology, active gain and exact-model references</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>Sweep setup; TDR; Sweep; Frequency; Readings; References</td>
+<td>Guided test records, predicted response, distance and measurement comparisons</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Load; What-if</td>
+<td>Independently entered power circuit and an added-load trial</td>
+</tr>
+<tr>
+<td>Job</td>
+<td>Details; ONX files; Checklists; Records; Run sheet</td>
+<td>Local jobs, original evidence, work notes, acceptance records and reports</td>
+</tr>
+<tr>
+<td>Header / Home</td>
+<td>Help &amp; methods</td>
+<td>Task help, methods, limits and build self-check</td>
+</tr>
+</tbody></table></div>
+<p>The small task tabs choose a function within the main area. The point selector and <strong>Previous/Next</strong> choose the route location; they do not change its feed parent. <strong>More at this point</strong> exposes tap faces, drop, map notes and arithmetic.</p>
+<p>Keep these distinctions while using every tool:</p>
+<ul>
+<li><strong>Prediction</strong> is calculated from entered data. A meter reading is a separate entry; neither automatically becomes acceptance.</li>
+<li><strong>Manufacturer capability</strong>, local design target, installed configuration and available spectrum are separate fields.</li>
+<li>A dash or blank result means unavailable, missing, invalid or outside supported data. It is not zero. A deliberately entered zero is different.</li>
+<li>Use the same frequency, measurement plane and signal-power convention when comparing readings. Apply only test-point correction the meter has not already applied.</li>
+<li><strong>Vecima nodes / AOI actives:</strong> local 204/258 MHz workflow, forward Sweepless Sweep and XPERTrak return sweep. <strong>GS7K, GainMaker and the other fleet families:</strong> local 42/54 MHz workflow, forward and Return Sweepless Sweep.</li>
+<li>Non-high-split design anchors are <strong>31 dBmV at 54 MHz / 43 dBmV at 860 MHz</strong>. The separate <strong>38 dBmV return TX reference</strong> does not specify a receiver target, injection setting, channel or measurement plane.</li>
+</ul>
+<h2 id="header-and-home-controls">Header and Home controls</h2>
+<p><strong>Where:</strong> the header and Home. <strong>Practice:</strong> Complete field workflow; Custom curves for Help and methods.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Enter or do</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Main and task tabs</td>
+<td>Choose a work area, then its task</td>
+<td>Opens the relevant controls while preserving the current job</td>
+</tr>
+<tr>
+<td>Files → Save project</td>
+<td>Export the working project and finish the device&#39;s save action</td>
+<td>Portable JSON with supported job data and original evidence; verify the file outside the app</td>
+</tr>
+<tr>
+<td>Files → Open project</td>
+<td>Choose a NightSweep project JSON</td>
+<td>Validates the incoming project before loading; export important current work before replacement</td>
+</tr>
+<tr>
+<td>Files → Export RF levels</td>
+<td>Export the current route table</td>
+<td>Predictions and context in CSV; unavailable results remain blank</td>
+</tr>
+<tr>
+<td>Files → Print report</td>
+<td>Open the native or browser print dialog</td>
+<td>Printing/PDF depends on the device and print service; use Run sheet for a focused field summary</td>
+</tr>
+<tr>
+<td>Help &amp; methods</td>
+<td>Open help from the header or Home</td>
+<td>Task guidance, calculation definitions and limits</td>
+</tr>
+<tr>
+<td>Sun / Night</td>
+<td>Select the display palette</td>
+<td>Changes presentation, without changing inputs or calculations</td>
+</tr>
+<tr>
+<td>Working-job card</td>
+<td>Read the job name, asset and sample/training warning</td>
+<td>Helps prevent entering real readings into a sample job</td>
+</tr>
+<tr>
+<td>Task shortcuts</td>
+<td>Choose route, TDR, gain, readings, power, sweep setup or run sheet</td>
+<td>Opens that live task using the current job</td>
+</tr>
+<tr>
+<td>Home statistics</td>
+<td>Review farthest route distance and active count</td>
+<td>Summarizes the entered RF topology; an active count alone does not prove a serial cascade</td>
+</tr>
+<tr>
+<td>New-user quick start</td>
+<td>Expand the short workflow</td>
+<td>Opens existing task controls; it does not complete them automatically</td>
+</tr>
+<tr>
+<td>Home backup / project opener</td>
+<td>Use the Save/Open project shortcuts</td>
+<td>Same full-project workflow as Files; not automatic cloud synchronization</td>
+</tr>
+<tr>
+<td>Status and warning messages</td>
+<td>Read the nearby message after an action fails</td>
+<td>Identifies missing inputs, storage/file errors or a blocked operation; preserve backups before repairing storage</td>
+</tr>
+</tbody></table></div>
+<p>Browser Home also provides <strong>Install app</strong>, <strong>Check for updates</strong>, <strong>Install update</strong>, <strong>Reload app</strong>, <strong>Retry offline setup</strong> and <strong>Protect local storage</strong> when supported. Their behavior is explained under <a href="#offline-use-updates-and-help">Offline use, updates and Help</a>.</p>
+<h2 id="practice-library-and-example-selection">Practice library and example selection</h2>
+<p><strong>Where:</strong> Home → Practice library. Choose an exercise, or choose a feature to load its seeded example and open the matching guided step. These examples are bundled; no manufacturer website is needed to load them.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Exercise name</th>
+<th>What is loaded</th>
+<th>Guide / supplied evidence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Complete field workflow</strong></td>
+<td>GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records</td>
+<td>21 steps; five synthetic CSV originals and one original-only SVG diagram</td>
+</tr>
+<tr>
+<td><strong>Six active devices in series</strong></td>
+<td>Vecima EN9000 source and six serial AOI actives on 204/258</td>
+<td>13 steps; no supplied meter captures</td>
+</tr>
+<tr>
+<td><strong>Custom curves and reverse TDR</strong></td>
+<td>Manual launch table, custom cable/passive tables, exact-frequency entries and reverse TDR</td>
+<td>8 steps; no supplied meter captures</td>
+</tr>
+<tr>
+<td><strong>GainMaker OEM AGC</strong></td>
+<td>Separate 42/54 conventional OEM detector/pilot path</td>
+<td>8 steps; no supplied meter captures</td>
+</tr>
+<tr>
+<td><strong>GainMaker / DSIM</strong></td>
+<td>Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification</td>
+<td>9 steps; no supplied meter captures</td>
+</tr>
+<tr>
+<td><strong>GainMaker manual / thermal</strong></td>
+<td>Separate 42/54 manual/thermal installed-control path</td>
+<td>7 steps; no supplied meter captures</td>
+</tr>
+<tr>
+<td><strong>GS7K conventional node</strong></td>
+<td>Standard GS7000 1.2 GHz / 42/54 setup starter; actual launch/readings/correction unverified</td>
+<td>10 steps; no RF route or supplied meter captures</td>
+</tr>
+</tbody></table></div>
+<p>Opening or resetting training preserves the working job locally before switching. A full or unreadable named-job list, an evidence operation in progress, or a preservation failure stops the switch. Read the message and keep the existing job; do not clear storage to force it. A local retained copy is not an external backup.</p>
+<p>Use <strong>Open step</strong> to reveal the relevant controls, try them, then mark <strong>Reviewed</strong>. <strong>Practice guide</strong> in the training banner returns to the guide. Progress is saved with that practice copy; it does not mark field inspections or acceptance complete. Reset preserves the edited copy before restoring the exercise baseline.</p>
+<p>Older practice copies remain readable. If their equipment no longer matches the current complete exercise, the app hides mismatched guidance and offers an explicit reset. Renaming, editing, saving or exporting a practice job does not remove its synthetic identity.</p>
+<p>The complete workflow uses GS7K/GainMaker GaN, not the AOI six-active path. Its GS7K hardware capability is 1218 MHz, but the entered operating/planning upper is <strong>1000 MHz</strong> and live spectrum <strong>860 MHz</strong>. The selected GaN active covers 54–1002 MHz and the Scientific Atlanta route passive stops at 1000 MHz. Do not infer end-to-end 1218 MHz operation from the source model.</p>
+<h2 id="job-details-and-named-jobs">Job details and named jobs</h2>
+<p><strong>Where:</strong> Job → Details. <strong>Practice:</strong> Complete → Job details; any exercise&#39;s backup step.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Output and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Job identity</td>
+<td>Name, node/asset, date and lead technician</td>
+<td>Current-job context used in reports and exports</td>
+</tr>
+<tr>
+<td>Work-order fields</td>
+<td>Ticket, address/location note, symptom, start/end times, weather note, resolution and parts used</td>
+<td>Stored with the job; a time-order warning preserves the entered text and does not change calculations</td>
+</tr>
+<tr>
+<td>Linked metadata</td>
+<td>Edit work-order number, node or lead in Details or Records</td>
+<td>Keeps those shared identity fields consistent; other record fields remain their own entries</td>
+</tr>
+<tr>
+<td>Node details</td>
+<td>Identify model, installed band, asset, RF port/leg, modules, operating upper and notes</td>
+<td>Describes source identity; model selection does not supply measured launch levels</td>
+</tr>
+<tr>
+<td>+ New blank job</td>
+<td>Start a clean field job after protecting current work</td>
+<td>Removes sample inputs from the new working job; check its name before field entry</td>
+</tr>
+<tr>
+<td>Save named job</td>
+<td>Save the desired working version to the device&#39;s job library</td>
+<td>Local named copy; save/export important revisions deliberately</td>
+</tr>
+<tr>
+<td>Open</td>
+<td>Select a stored job</td>
+<td>Restores that job&#39;s data and attachment references; storage failure blocks unsafe switching</td>
+</tr>
+<tr>
+<td>Duplicate</td>
+<td>Make a separately named copy</td>
+<td>Uses the latest working state when duplicating the active named job; updated original and new copy are written together. A failed write leaves the library unchanged; training stays synthetic</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>Remove the intended named entry after exporting anything needed</td>
+<td>Not a recovery workflow; check the job identity before confirming</td>
+</tr>
+</tbody></table></div>
+<p>Autosave and named jobs use this app/browser&#39;s storage. APK, Chrome, another browser/profile, another phone and a Home Screen web app may use different stores. No account or automatic job synchronization is provided. Use one NightSweep window at a time and transfer jobs with verified full-project exports.</p>
+<h2 id="rf-setup-and-launch-source">RF setup and launch source</h2>
+<p><strong>Where:</strong> Route → Setup. <strong>Practice:</strong> Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Launch-source choice</td>
+<td>Select <strong>Node output</strong>, <strong>Amplifier / LE output</strong>, or <strong>Manual / other output</strong></td>
+<td>Identifies the physical starting output; it does not add an artificial gain block or fill levels from a rating</td>
+</tr>
+<tr>
+<td>Node / active identity and output</td>
+<td>Match exact model, installed split/module and selected RF port; use the job node ID shortcut where appropriate</td>
+<td>Makes the source/manual context explicit; source changes preserve readings for review rather than making them valid for the new connection</td>
+</tr>
+<tr>
+<td>Source setup &amp; manual</td>
+<td>Open the selected equipment&#39;s reference</td>
+<td>Requires the matching installed variant and revision; external originals need internet</td>
+</tr>
+<tr>
+<td>Low/high launch markers</td>
+<td>Enter two frequencies and corresponding levels at the same source plane</td>
+<td>Defines the two-point source curve; ordered, valid in-band markers are required</td>
+</tr>
+<tr>
+<td>Launch test point</td>
+<td>Mark raw TP readings and enter only remaining coupling</td>
+<td>Adds the stated correction once; use zero/off when the meter already supplies mainline-equivalent levels</td>
+</tr>
+<tr>
+<td>Launch curve</td>
+<td>Choose square-root frequency, linear MHz or <strong>My level table</strong></td>
+<td>Uses the selected interpolation model; it is not a measured EQ response</td>
+</tr>
+<tr>
+<td>My level table</td>
+<td>Enter one <code>MHz, dBmV</code> pair per line</td>
+<td>Uses actual entered source points; stops outside the first/last supported point</td>
+</tr>
+<tr>
+<td>Extend two-point launch slope</td>
+<td>Enable only for an intentional estimate outside the two anchors</td>
+<td>Extends the two-point launch estimate; it does not extend cable/passive table coverage or establish live carriers</td>
+</tr>
+<tr>
+<td>Available spectrum ends</td>
+<td>Enter the known live-spectrum upper limit</td>
+<td>Distinguishes live from planning predictions; hardware capability is separate</td>
+</tr>
+<tr>
+<td>Passive loss basis</td>
+<td>Choose <strong>Nominal / typical</strong> or <strong>Maximum</strong></td>
+<td>Nominal can use a labelled maximum fallback when no nominal curve exists; read the stated basis</td>
+</tr>
+<tr>
+<td>Cable temperature</td>
+<td>Enter RF cable temperature in °F</td>
+<td>Adjusts supported built-in attenuation references; custom cable values are already at actual temperature</td>
+</tr>
+<tr>
+<td>Next: cable route</td>
+<td>Continue to the route editor</td>
+<td>Starts at the chosen source output without inventing another station</td>
+</tr>
+</tbody></table></div>
+<p>In Complete, <strong>11/23 dBmV +20 dB</strong> at <strong>54/860 MHz</strong> produces <strong>31/43 dBmV</strong> launch. This is synthetic arithmetic, not proof those physical carriers or readings are present. The six-active AOI example instead uses 261/993 MHz and 34/46 dBmV.</p>
+<h2 id="cable-route-branches-and-point-tools">Cable route, branches and point tools</h2>
+<p><strong>Where:</strong> Route → Cable route. <strong>Practice:</strong> Complete → Route / Drop; Custom curves → Custom / Arithmetic; Six actives → Route.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Add, select and remove points</td>
+<td>Add a cable span ending at equipment; select it with the point selector or Previous/Next</td>
+<td>One point includes its incoming cable. Review child feeds after changing/removing a point; maximum 200 route points</td>
+</tr>
+<tr>
+<td>+ Append after last tap</td>
+<td>Use when the final route entry is a tap with a through output and a lower published face available</td>
+<td>Appends through that tap, copying cable, incoming length, slack and custom cable data while choosing the next lower published face. It does not choose an arbitrary earlier branch or work after an ineligible final point</td>
+</tr>
+<tr>
+<td>Point name and incoming feed</td>
+<td>Name the location and choose the actual parent <strong>output</strong></td>
+<td>Builds the topology. A branch feeds from its selected splitter/tap port, not merely the same housing</td>
+</tr>
+<tr>
+<td>Cable, length and slack</td>
+<td>Select cable, enter mapped feet and additional slack</td>
+<td>Adds both to attenuation/distance; do not add prefilled slack again</td>
+</tr>
+<tr>
+<td>Apply this length to following spans</td>
+<td>Confirm copying the selected point&#39;s incoming length</td>
+<td>Applies to later entries in the route list, including later branches; not only the chosen electrical path. Review affected points and their separate slack</td>
+</tr>
+<tr>
+<td>Equipment selection</td>
+<td>Choose the exact family, type, part/face and terminal configuration</td>
+<td>Uses the selected port curves; active, passive, cable-only and custom points have different behavior</td>
+</tr>
+<tr>
+<td>Parent outputs and branch ports</td>
+<td>Choose through, low-loss, high-loss, tap or other actual output</td>
+<td>Preserves unequal splitter paths. Per-F-port tap output is not the through level</td>
+</tr>
+<tr>
+<td>Cable-only point</td>
+<td>Select no ending passive</td>
+<td>Retains the cable span without adding invented equipment loss</td>
+</tr>
+<tr>
+<td>Custom cable</td>
+<td>Enter <code>MHz, dB per 100 ft</code> rows</td>
+<td>Uses entered attenuation at actual temperature; no extra built-in temperature factor or out-of-range extrapolation</td>
+</tr>
+<tr>
+<td>Custom passive</td>
+<td>Enter <code>MHz, through dB, tap/branch dB</code> rows</td>
+<td>Keeps the two output losses separate; missing data remains unavailable</td>
+</tr>
+<tr>
+<td>Published faces</td>
+<td>Compare same-family / same-port-count tap faces at the chosen frequency; choose a face to swap the part</td>
+<td>Changes the catalog part and prediction; read through and tap loss separately</td>
+</tr>
+<tr>
+<td>RG-6 drop off a tap port</td>
+<td>Plan a drop from a selected tap output; enter feet, a custom cable table, then no splitter, a supported splitter or explicit custom loss</td>
+<td>Calculates drop-end outputs independently of the mainline route; this is not a power-passing model</td>
+</tr>
+<tr>
+<td>Remove drop</td>
+<td>Remove the optional drop plan</td>
+<td>Does not remove the mainline tap</td>
+</tr>
+<tr>
+<td>As-built / map variance</td>
+<td>Record a location-specific note</td>
+<td>Saved with the point and shown in relevant reports; it is not a calculated cable measurement</td>
+</tr>
+<tr>
+<td>Show the arithmetic</td>
+<td>Expand the selected point&#39;s detailed calculation</td>
+<td>Shows source/input, cable rate/temperature/feet, equipment loss or gain and output; unavailable steps stay visible as unavailable</td>
+</tr>
+<tr>
+<td>Route cascade / distance summary</td>
+<td>Follow the selected feed path and branch totals; scroll within the compact cascade in either direction, or focus its controls by keyboard</td>
+<td>Shows separate path coordinates; all points remain reachable without making the phone page excessively tall. Branch footage is not added to the main endpoint</td>
+</tr>
+<tr>
+<td>3-tap route example</td>
+<td>Load the small RF-route sample after protecting work</td>
+<td>A separate, simpler example; it is not the complete training job or the six-active run</td>
+</tr>
+</tbody></table></div>
+<p>Complete uses Scientific Atlanta <strong>SAT MM 4-23</strong>, GigaXtend <strong>XSC-2-959</strong> and <strong>GTSG-TAP-4-20-STD</strong>, and Technetix <strong>OTTZ-4-17</strong>. Its drop uses a <strong>75 ft synthetic RG-6 table plus explicit custom 4 dB loss</strong>, not an asserted premises-splitter model. Its main endpoint is 2380 ft from source; the branch cable-only endpoint is 2220 ft.</p>
+<h2 id="amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</h2>
+<p><strong>Where:</strong> Route → Amp gain. <strong>Practice:</strong> Complete → Gain; Six actives → Gain / Gain table.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Output and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Active-point selector</td>
+<td>Choose an active already in the RF route</td>
+<td>Edits that station; source identity alone does not create a route amplifier</td>
+</tr>
+<tr>
+<td>Two measured/configured gain points</td>
+<td>Enter the two frequencies and available operating gain at each</td>
+<td>Calculates frequency-specific gain; match the installed configuration and measurement planes</td>
+</tr>
+<tr>
+<td>My frequency/gain table</td>
+<td>Enter <code>MHz, operating gain dB</code> rows</td>
+<td>Uses the entered response within its supported domain</td>
+</tr>
+<tr>
+<td>Additional selected-output loss</td>
+<td>Enter only loss after the gain&#39;s measured output plane</td>
+<td>Subtracts that extra loss; leave zero when the splitter/pad is already included in the measured net gain</td>
+</tr>
+<tr>
+<td>Desired low/high output</td>
+<td>Enter the station&#39;s required targets, or review defaults from corrected launch</td>
+<td>Determines gain needed after the preceding cable/passives; a target is not measured output</td>
+</tr>
+<tr>
+<td>Desired gain reserve</td>
+<td>Enter the requested reserve in dB</td>
+<td>Separates meeting a target from retaining adequate margin</td>
+</tr>
+<tr>
+<td>Optional installed output limits</td>
+<td>Enter verified limits for model, channel loading, tilt and output path</td>
+<td>Checks requested/predicted output against those entries; blank means capability unchecked</td>
+</tr>
+<tr>
+<td>Gain budget</td>
+<td>Review required gain, entered gain, low/high margins and reserve status</td>
+<td>Can show missing, invalid, shortage or marginal reserve. One good marker does not compensate for another bad marker</td>
+</tr>
+<tr>
+<td>Manufacturer gain reference</td>
+<td>Read the source, frequency/configuration and qualification</td>
+<td>Screening reference only; a scalar rating does not become a flat gain curve or prove maximum available gain</td>
+</tr>
+<tr>
+<td>Calculate gain from test-point readings</td>
+<td>Enter input/output readings at the same frequency plus their separate remaining corrections</td>
+<td>Corrected output minus corrected input; no gain is inferred from an output-only photo</td>
+</tr>
+<tr>
+<td>Use as low / high gain point</td>
+<td>Apply the helper result to the chosen gain marker</td>
+<td>Updates the calculation input; does not align physical hardware</td>
+</tr>
+</tbody></table></div>
+<p>Complete&#39;s helper uses <strong>7.1/16.1 dBmV +20 dB each</strong> at 54 MHz: corrected 27.1/36.1 dBmV gives <strong>9 dB gain</strong>. A1&#39;s entered anchors are 9/18 dB at 54/860 MHz; A2&#39;s table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not GainMaker GaN control settings.</p>
+<h2 id="installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</h2>
+<p><strong>Where:</strong> Route → Equipment setup; also <strong>Source setup &amp; manual</strong> from Setup. <strong>Practice:</strong> Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Output and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Equipment to set up</td>
+<td>Select the launch node/active or a route active</td>
+<td>Opens that exact station&#39;s saved draft and applicable reference context</td>
+</tr>
+<tr>
+<td>Identity and manual review</td>
+<td>Match model/module, split, port, firmware, manual revision and measurement plane</td>
+<td>Displays source-qualified steps and references; a product brief is not a commissioning procedure</td>
+</tr>
+<tr>
+<td>Setup frequencies &amp; job levels</td>
+<td>Read selected-profile base anchors, actual-carrier draft and measurement-plane reminders</td>
+<td>Keeps design targets, estimated carrier targets, approved pilot and procedure backoff frequencies separate</td>
+</tr>
+<tr>
+<td>Installed gain control</td>
+<td>Select <strong>OEM GainMaker AGC</strong>, <strong>ACI DSIM</strong>, or <strong>Manual / thermal control</strong> where applicable</td>
+<td>Selects the matching guide; changing hardware/control/pilot context can invalidate prior reviewed steps</td>
+</tr>
+<tr>
+<td>Documented setup method</td>
+<td>Choose the exact station&#39;s applicable manual-backoff or thermal branch</td>
+<td>Supplies source-specific guidance. Never combine branches/revisions because a setting looks familiar</td>
+</tr>
+<tr>
+<td>Reviewed steps and station notes</td>
+<td>Record what was reviewed and unresolved</td>
+<td>Persists with that station; not proof of work, pilot lock or RF acceptance</td>
+</tr>
+<tr>
+<td>External source links</td>
+<td>Open the original or explicitly labelled historical reference</td>
+<td>Needs connectivity; verify exact installed applicability and document revision</td>
+</tr>
+</tbody></table></div>
+<p><strong>Conventional GS7K:</strong> the node guide distinguishes receiver/FCM/RCM/routing, selected-port pads/EQs and the actual reverse transmitter/EDR/RPD. Conventional LCM Auto Set-Up discovers modules; it does not balance RF. Intelligent, SHO/Fiber Deep and retrofit-RPD references require their own hardware/procedure and are not interchangeable conventional-node profiles.</p>
+<p><strong>Complete&#39;s GainMaker GaN HGD:</strong> exact installed GaN commissioning/control instructions remain unresolved. The app keeps this gap visible. Conventional GaAs OEM pad/backoff formulas, ACI DSIM instructions and AOI alignment sequences do not establish GaN settings.</p>
+<p><strong>Focused OEM AGC:</strong> match the detector, approved pilot and manual. The displayed manual-backoff and thermal preparation branches are alternatives. Conventional GaAs system-amplifier and LE references use different pad relationships and different backoff tables; the station/manual must match. No universal OEM QAM detector offset or settling timer is supplied.</p>
+<p><strong>Focused manual / thermal:</strong> identify the installed control path and follow its own applicable method. Do not infer OEM AGC pilot-pad values or DSIM codes from that selection.</p>
+<p><strong>ACI DSIM functions:</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Module / firmware / approved pilot</td>
+<td>Identify DSIM variant, controller/module revision, pilot MHz/type and approved operating context</td>
+<td>Keeps the setup bound to the installed equipment; DSIM-SG and later DSIM-A variants are not assumed equivalent</td>
+</tr>
+<tr>
+<td>Physical-controller/app guidance</td>
+<td>Read the exact cited interface/procedure and temperature preparation</td>
+<td>Source-specific review only; physical RF adjustments and raw knob counts are not generic app dB settings</td>
+</tr>
+<tr>
+<td>Historical pilot lookup</td>
+<td>Choose channel or exact frequency and Analog/Digital type</td>
+<td>Returns the literal ACI Rev A code when available. Channel 110 digital is 711 MHz, <code>@@?&lt;A</code></td>
+</tr>
+<tr>
+<td>Copy code / manual fallback</td>
+<td>Copy from a supported user action, or select the code for manual copying</td>
+<td>No device is programmed; copying does not verify compatibility, a supervisor key or pilot lock</td>
+</tr>
+<tr>
+<td>Missing/anomalous lookup rows</td>
+<td>Read the unavailable/anomaly message</td>
+<td>No codes are invented for 95–99, 303 MHz or OFDM PLC; channel 100 copying is blocked as a source anomaly</td>
+</tr>
+<tr>
+<td>Key/review status</td>
+<td>Record the review flag supported by the form</td>
+<td>Do not enter or share an actual supervisor key; a flag is not credential verification</td>
+</tr>
+</tbody></table></div>
+<p>The historical Rev A table contains 86 literal rows: channels 52–94 and 100–142. DSIM-SG Rev E&#39;s pad instructions differ from Rev H; the app preserves that conflict rather than mixing settings. Match the full installed procedure before physical use.</p>
+<p><strong>AOI in the separate six-active example:</strong> HGD/HGBT guidance covers saved downstream profile → downstream Auto → optional downstream Manual → applicable upstream sequence → ALSC after both paths. The cited historical SA procedure is not a substitute for missing exact Quantum18 LE/BA I&amp;O. Its instrument instructions remain separate from the local XPERTrak return workflow.</p>
+<h2 id="equipment-catalog">Equipment catalog</h2>
+<p><strong>Where:</strong> Route → Equipment. <strong>Practice:</strong> Complete → Equipment references.</p>
+<p>Choose category/family and search the exact model. The list includes RF equipment, cables, node profiles and power models. Search can widen beyond a family when that filter has no matching entry; read the displayed count/filter message and narrow a long list.</p>
+<p>Expand <strong>View published loss data</strong>, <strong>View operating gain &amp; conditions</strong>, <strong>View bands &amp; test points</strong>, or <strong>View power data &amp; conditions</strong>. Read units, frequency/voltage domains, source, configuration, nominal/maximum basis and source qualifications before using a value. Node and power entries link to their working setup/load screens.</p>
+<p>Custom entries require actual input tables. Published references do not automatically fill installed operating gain. Unavailable curves do not become zero or extrapolate. UBT remains unavailable for new selections; older saved UBT definitions remain readable without silently replacing them. A legacy power row with unsupported current data needs an applicable entered load.</p>
+<h2 id="tdr-distance-locator">TDR distance locator</h2>
+<p><strong>Where:</strong> Test → TDR. <strong>Practice:</strong> Complete → TDR; Custom curves → reverse TDR; Six actives → reconnect after A6.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Route endpoint/path</td>
+<td>Select the actual endpoint whose feed path is tested</td>
+<td>Excludes unrelated sibling branches</td>
+</tr>
+<tr>
+<td>Connection point</td>
+<td>Select Launch or the correct cable side after a route point</td>
+<td>Changes the origin; route coordinates remain measured from the source</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Choose toward endpoint or toward source</td>
+<td>Supports forward and reverse testing along the selected path</td>
+</tr>
+<tr>
+<td>Displayed distance and lead</td>
+<td>Enter the meter&#39;s one-way displayed distance and physical test lead</td>
+<td>Corrects the path distance; do not enter a round-trip time as feet</td>
+</tr>
+<tr>
+<td>VF correction</td>
+<td>Enter meter-set and actual velocity factors, enabling correction when needed</td>
+<td>Scales displayed distance by actual VF / meter VF, then accounts for the physical lead</td>
+</tr>
+<tr>
+<td>Locate result</td>
+<td>Review corrected path distance, route coordinate, span and offsets</td>
+<td>Places an entered distance on entered geometry; does not classify or detect a physical fault</td>
+</tr>
+<tr>
+<td>Active boundary / invalid input message</td>
+<td>Read the first barrier or missing/invalid condition</td>
+<td>Uses the actual parent-chain order, including distinct active points sharing one route coordinate. A TDR path cannot cross another amplifier; reconnect on the correct cable side</td>
+</tr>
+</tbody></table></div>
+<p>Complete: after GaN A2 at <strong>1700 ft</strong>, <strong>295 − 25 = 270 ft</strong> of cable path locates <strong>1970 ft</strong>, <strong>160 ft</strong> into Main Tap B&#39;s 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.</p>
+<p>Custom curves: reverse from the 200 ft endpoint; <strong>100 × 0.88/0.80 − 25 = 85 ft</strong> toward the source places the hit at <strong>115 ft</strong>, 15 ft into the second span. These VFs and distances are teaching inputs.</p>
+<h2 id="forward-and-return-sweep-setup">Forward and return sweep setup</h2>
+<p><strong>Where:</strong> Test → Sweep setup. <strong>Practice:</strong> Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Split/workflow selection</td>
+<td>Select 42/54 or 204/258 for the actual fleet/configuration</td>
+<td>Retains separate setup drafts; changing a tab does not reconfigure hardware</td>
+</tr>
+<tr>
+<td>Plant, equipment and reference</td>
+<td>Record station/leg, equipment, instrument/firmware/options, service/sweep plan, reference, available band and measurement planes</td>
+<td>Makes the comparison reproducible; instrument capability and compatible references still require verification</td>
+</tr>
+<tr>
+<td>Guided setup</td>
+<td>Use Previous/Next step and reviewed checkboxes; record actual settings/findings</td>
+<td>Saved guidance/progress, not remote control or acceptance</td>
+</tr>
+<tr>
+<td>42 MHz return sweepless</td>
+<td>Use the approved DOCSIS-derived referenced response, actual service and matching saved reference</td>
+<td>Comparison is in dB; no absolute physical receiver level or generator setting is inferred</td>
+</tr>
+<tr>
+<td>Operator return TX reference</td>
+<td>Record 38 dBmV separately, plus actual TX frequencies/service plan and transmitter/plane</td>
+<td>A local level reference supplies no missing channel, return-injection or receiver target</td>
+</tr>
+<tr>
+<td>Compare return markers</td>
+<td>Enter actual low/high frequencies, readings, targets and tolerances in matching units</td>
+<td>Reports differences and tilt against entered references; check the rest of the trace separately</td>
+</tr>
+<tr>
+<td>204 MHz comparison basis</td>
+<td>Choose referenced response (dB) or a verified absolute receive plane (dBmV)</td>
+<td>Relative and absolute values are not interchangeable</td>
+</tr>
+<tr>
+<td>Return sweep injection budget</td>
+<td>For the 204 workflow, enter desired network-plane injection, total physical coupling/lead losses and applicable generator maximum</td>
+<td>Estimates physical connector output and checks the entered limit; it is not automatically the ONX Injection field setting</td>
+</tr>
+<tr>
+<td>Closeout notes and sources</td>
+<td>Record findings, gaps and trace references; review original source links</td>
+<td>No ONX/XPERTrak connection or equipment programming is performed</td>
+</tr>
+<tr>
+<td>Save station snapshot</td>
+<td>Save the station draft before editing another station</td>
+<td>Adds a labelled snapshot to history, up to 100; preserves notes/readings, not acceptance</td>
+</tr>
+<tr>
+<td>Saved station snapshots</td>
+<td>Review history with station, split, time, leg/reference and training identity</td>
+<td>Export includes snapshots and both current split drafts; it is not an external backup by itself</td>
+</tr>
+<tr>
+<td>Export setup notes</td>
+<td>Finish the text-file save/share action</td>
+<td>Exports the entered setup, guidance and history; keep originals/full project separately</td>
+</tr>
+</tbody></table></div>
+<p>For physical-output budgeting, full physical losses remain losses even if instrument compensation is enabled. Do not enter the summed physical-output estimate as ONX network-plane Injection while also applying the same TPC. The Records injection helper instead uses <strong>remaining uncompensated</strong> losses for its manual-setting estimate. Neither establishes an approved meter mode or measured injection. Return Sweepless Sweep does not use this generator calculation.</p>
+<h2 id="predicted-sweep-and-output-table">Predicted sweep and output table</h2>
+<p><strong>Where:</strong> Test → Sweep. <strong>Practice:</strong> Complete → Predicted sweep; Six actives → six restored marker outputs.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Trace selection</td>
+<td>Select source and relevant route outputs</td>
+<td>Shows the selected paths; compare through and tap ports separately</td>
+</tr>
+<tr>
+<td>Signal level</td>
+<td>Choose absolute dBmV mode</td>
+<td>Predicted output versus frequency, dependent on valid source and component data</td>
+</tr>
+<tr>
+<td>Normalized path response</td>
+<td>Choose dB mode and reference MHz</td>
+<td>Removes the launch shape and zeros the supported path response at that reference</td>
+</tr>
+<tr>
+<td>Total path loss</td>
+<td>Choose loss mode</td>
+<td>Net path loss, including active effects where supported; not a measured sweep trace</td>
+</tr>
+<tr>
+<td>View range and reference</td>
+<td>Enter view start/end and supported normalization frequency</td>
+<td>Changes the chart view/reference; does not change equipment capability or available spectrum</td>
+</tr>
+<tr>
+<td>Pointer/touch readout and legend</td>
+<td>Tap/move over the chart and read trace labels</td>
+<td>Frequency/level readout for calculated data</td>
+</tr>
+<tr>
+<td>Live/planning display</td>
+<td>Review shading, solid/dashed presentation, gaps and chart notes</td>
+<td>Above-live values are planning predictions. Gaps may be missing tables or launch support; never treat them as zero</td>
+</tr>
+<tr>
+<td>Signal at each tap/output</td>
+<td>Review the tabulated frequencies, ports and tilt/context</td>
+<td>Tap results are at the F-port before the optional drop; fixed table markers can be unavailable on this route</td>
+</tr>
+</tbody></table></div>
+<p>Launch slope extension, when enabled, remains an estimate. Cable/passive coverage is not extended. Build 2 defers expensive chart redraw while this screen is hidden and draws current data when it is shown or printed. Frequency results are reused only within one synchronous refresh, not across later edits or imports. The model does not reproduce narrowband ripple, ingress, micro-reflections or a measured fault signature. A 993 MHz result cannot establish 1.2/1.8 GHz plant performance.</p>
+<h2 id="single-path-frequency-checker">Single-path frequency checker</h2>
+<p><strong>Where:</strong> Test → Frequency. <strong>Practice:</strong> Complete → Frequency; Custom curves → exact overrides.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cable/passive combination</td>
+<td>Select cable, feet, passive, actual path and quantity</td>
+<td>A separate combination; does not add route points or alter RF topology</td>
+</tr>
+<tr>
+<td>Exact frequency input</td>
+<td>Enter a supported frequency from 5–1800 MHz</td>
+<td>Returns the calculation and band/coverage flags at that point</td>
+</tr>
+<tr>
+<td>Exact cable/passive overrides</td>
+<td>Supply known dB/100 ft and loss-per-device at that frequency</td>
+<td>Uses entered values already at stated conditions; clearing them falls back only to available reference data</td>
+</tr>
+<tr>
+<td>Optional launch at that frequency</td>
+<td>Enter a level at the matching plane</td>
+<td>Computes receive budget after total loss; blank launch leaves receive level unavailable</td>
+</tr>
+<tr>
+<td>Equipment/spectrum/passband limits</td>
+<td>Enter installed, planned/live upper limits and split</td>
+<td>Shows conflicting/out-of-band conditions; broad software range is not equipment support</td>
+</tr>
+<tr>
+<td>Frequency table</td>
+<td>Inspect low/high and other listed markers</td>
+<td>Shows cable rate/loss, passive each/total, total loss, launch, receive and basis/status</td>
+</tr>
+<tr>
+<td>Complete route / span summary</td>
+<td>Select an existing route output</td>
+<td>Summarizes that whole feed path and distance; different from the single combination above</td>
+</tr>
+<tr>
+<td>Export frequency results</td>
+<td>Export CSV and finish saving</td>
+<td>Includes inputs, units, flags and unavailable values</td>
+</tr>
+</tbody></table></div>
+<p>Complete at <strong>860 MHz</strong>: <strong>200 ft ×2.2 dB/100 ft + 1.4 dB =5.8 dB</strong> total; <strong>43 − 5.8 = 37.2 dBmV</strong> receive. Custom curves at 261 MHz: 100 ft ×1 dB/100 ft +1 dB =2 dB, leaving 32 dBmV from 34 dBmV. These are exact-frequency teaching inputs.</p>
+<h2 id="meter-readings-and-prediction-error">Meter readings and prediction error</h2>
+<p><strong>Where:</strong> Test → Readings. <strong>Practice:</strong> Complete → Meter readings; Six actives → A6 comparison.</p>
+<p>Choose a route point and actual output, then enter frequency, reading, test-point status and remaining coupling. The comparison shows raw reading, corrected reading, prediction and <strong>measurement minus prediction</strong>. A negative error means the entered measurement is below the model.</p>
+<p>Use zero/off for remaining correction when the meter already reports mainline-equivalent level. A reading at another frequency is not a valid comparison with the chosen marker. Missing predictions/readings remain unavailable. This task does not automatically fill the official forward/return records or approve their criteria.</p>
+<p>Complete includes intentional mismatches. For example, A1&#39;s entered <strong>16.1 + 20 = 36.1 dBmV</strong> at 54 MHz is compared with about <strong>36.94 dBmV</strong> predicted. Tap C&#39;s direct <strong>7.50 dBmV</strong> compares with about <strong>14.01 dBmV</strong>. Investigate inputs and measurement planes; synthetic disagreement is not evidence of a physical defect.</p>
+<h2 id="field-references-and-target-conversions">Field references and target conversions</h2>
+<p><strong>Where:</strong> Test → References. <strong>Practice:</strong> Complete → References; DSIM/OEM/GS7K → available carriers.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Your local non-high-split targets</td>
+<td>Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation</td>
+<td>Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements</td>
+</tr>
+<tr>
+<td>Preset compatibility checks</td>
+<td>Match hardware and forward passband containing both base anchors</td>
+<td>Blocks high-split/incompatible use; a low return ceiling alone does not prove 54 MHz is usable</td>
+</tr>
+<tr>
+<td>Setup targets at available carriers</td>
+<td>Enter actual low/high channel centers and choose square-root frequency or linear MHz</td>
+<td>Estimates targets from the original 54/860 anchors; range must satisfy 54≤low&lt;high≤860 and known live/hardware limits</td>
+</tr>
+<tr>
+<td>Fill 57/753 or 63/550 example</td>
+<td>Fill only the converter draft</td>
+<td>Does not replace base design anchors, measured launch or approved pilot</td>
+</tr>
+<tr>
+<td>Common launch anchor pairs</td>
+<td>Review/apply the labelled frequency preset</td>
+<td>Changes its stated fields only; an example is not a live carrier survey</td>
+</tr>
+<tr>
+<td>Editable node/launch target ranges</td>
+<td>Use the selected profile or labelled workbook/sample draft; edit min/max/tolerance</td>
+<td>Creates draft targets. <strong>Apply ranges to selected profile</strong> changes that selected profile, keeping approval separate</td>
+</tr>
+<tr>
+<td>Published tap faces quick look</td>
+<td>Select the route tap and frequency; open its face picker</td>
+<td>Compares compatible published parts; choosing a face changes that route part</td>
+</tr>
+<tr>
+<td>Cable loss quick look</td>
+<td>Choose cable and frequency</td>
+<td>Reference loss with source/domain qualifications; not an entered span measurement</td>
+</tr>
+</tbody></table></div>
+<p>Square-root examples from 31/43 dBmV at 54/860 MHz: <strong>57/753 → 31.11/41.97 dBmV</strong>; <strong>63/550 → 31.32/39.79 dBmV</strong>. The corresponding linear-MHz estimates are <strong>31.04/41.41</strong> and <strong>31.13/38.38</strong>. Curve choice requires the applicable local procedure; these are not a measured installed equalizer curve.</p>
+<p>The available-carrier draft survives project backup and is reported separately in equipment setup/run sheet. It does not choose an AGC pilot. If actual live spectrum stops below the practice pilot, identify a compatible approved live pilot; the app does not invent one. The six-active Vecima/AOI profile keeps its separate in-band 261/993 MHz setup.</p>
+<h2 id="power-supply-load">Power-supply load</h2>
+<p><strong>Where:</strong> Power → Load. <strong>Practice:</strong> Complete → Power; Six actives → explicit power topology.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Supply voltage/rating</td>
+<td>Enter coax output V RMS and A RMS rating</td>
+<td>Defines the supply-side calculation and loading/headroom; not utility-mains current</td>
+</tr>
+<tr>
+<td>Add equipment / junction</td>
+<td>Enter each powered device once; use a zero-load junction for branches</td>
+<td>Builds the actual power circuit independently of RF route parents</td>
+</tr>
+<tr>
+<td>Power parent</td>
+<td>Choose supply or the actual upstream power point</td>
+<td>Shared sections carry downstream branch currents; RF direction alone does not establish this</td>
+</tr>
+<tr>
+<td>Cable and resistance</td>
+<td>Enter feet, supported cable or custom loop resistance and extra/contact resistance</td>
+<td>Calculates section voltage drop and resistive loss. Custom resistance is used as entered at actual temperature</td>
+</tr>
+<tr>
+<td>Power-cable temperature/coefficient</td>
+<td>Enter the power temperature and applicable resistance coefficient</td>
+<td>Adjusts supported nominal loop resistance; separate from RF cable temperature</td>
+</tr>
+<tr>
+<td>Manufacturer current curve</td>
+<td>Select the exact supported configuration</td>
+<td>Interpolates current within its documented voltage domain; no borrowed curve or out-of-domain extrapolation</td>
+</tr>
+<tr>
+<td>Entered amps</td>
+<td>Enter known/measured current</td>
+<td>Uses that load directly; synthetic examples are not manufacturer specifications</td>
+</tr>
+<tr>
+<td>Entered input watts / PF</td>
+<td>Enter watts and valid power factor</td>
+<td>Estimates current from equipment voltage and PF; unsuitable/inconsistent inputs prevent a trustworthy result</td>
+</tr>
+<tr>
+<td>Entered input VA</td>
+<td>Enter apparent power in VA</td>
+<td>Estimates current as VA divided by equipment voltage; power factor is not applied a second time</td>
+</tr>
+<tr>
+<td>Minimum equipment voltage</td>
+<td>Enter the applicable installed limit if known</td>
+<td>Supports voltage warnings; a curve&#39;s table boundary is not automatically an undervoltage cutoff</td>
+</tr>
+<tr>
+<td>Supply summary</td>
+<td>Read total output current, loading %, headroom, wire loss and minimum equipment voltage</td>
+<td>Scalar RMS planning result, not a measured quasi-square-wave waveform</td>
+</tr>
+<tr>
+<td>Per-section table</td>
+<td>Read equipment V, device A, section A, section drop V and loss W</td>
+<td>Distinguishes a device&#39;s current from all current carried through its incoming section</td>
+</tr>
+<tr>
+<td>Remove / edit row</td>
+<td>Change only the intended circuit point and inspect child feeds</td>
+<td>Verify actual power passing, supply boundaries and connector ratings independently</td>
+</tr>
+<tr>
+<td>Export power load</td>
+<td>Save the power CSV</td>
+<td>Includes circuit inputs, configuration/source and warnings; not a full-project backup</td>
+</tr>
+</tbody></table></div>
+<p>Complete uses a <strong>90 V / 15 A</strong> supply; synthetic entered <strong>0.75 A GS7K</strong>, <strong>0.60/0.45 A GaN</strong> loads and a <strong>20 W / PF 0.9</strong> branch. Its independent reference result is <strong>2.047 A</strong>, <strong>13.65%</strong> loading and <strong>88.83 V</strong> minimum at GaN A2. The GaN selection has no verified current curve; no AOI curve is substituted.</p>
+<h2 id="power-what-if">Power what-if</h2>
+<p><strong>Where:</strong> Power → What-if. <strong>Practice:</strong> Complete → Power what-if.</p>
+<p>Choose the proposed power parent, cable, added length, current and minimum voltage. Read the trial&#39;s displayed <strong>Predicted end voltage</strong>, <strong>Predicted voltage headroom</strong> and status before applying it. The preview recalculates the copied circuit internally; it does not display total trial supply current. This calculation uses a copied circuit until you choose <strong>Keep in power circuit</strong>.</p>
+<p>Keep adds the proposed point to the working power plan. Open <strong>Power → Load</strong> to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.</p>
+<p>Complete&#39;s trial adds <strong>300 ft P3 .625 and 0.75 A after GaN A2</strong>. The independent reference answer is <strong>2.798 A</strong> supply current, <strong>18.65%</strong> loading and <strong>87.37 V</strong> at the new load. These are planning estimates for this topology, not a general cable/device allowance.</p>
+<h2 id="onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</h2>
+<p><strong>Where:</strong> Job → ONX files. <strong>Practice:</strong> Complete → Synthetic meter files; backup step.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Open project backup</td>
+<td>Select a full NightSweep project JSON</td>
+<td>Opens an entire saved job. To add evidence to the current job, use the file-attachment action instead</td>
+</tr>
+<tr>
+<td>Evidence classification</td>
+<td>Choose Sweep, Ingress, OneCheck or supported attachment context; stage Before, After or Reference; asset/station and notes</td>
+<td>Labels the original file and makes before/after comparisons interpretable</td>
+</tr>
+<tr>
+<td>Add meter files or photos</td>
+<td>Choose available files and wait for completion</td>
+<td>Stores original bytes with the job; does not control a meter or read an image&#39;s numbers automatically</td>
+</tr>
+<tr>
+<td>Supported CSV preview</td>
+<td>Supply explicit frequency and level/response/channel columns</td>
+<td>Decodes supported interchange data; proprietary ONX JSON/XML/ZIP/PDF and other native schemas remain originals unless supported</td>
+</tr>
+<tr>
+<td>View decoded CSV measurements</td>
+<td>Expand the parsed trace/channel table</td>
+<td>Inspect values, units and source context; previewing applies no silent TP correction</td>
+</tr>
+<tr>
+<td>Sweep / ingress before-after</td>
+<td>Match compatible asset, kind, units and frequencies/stages</td>
+<td>Compares entered file data; does not invent values or operator acceptance thresholds</td>
+</tr>
+<tr>
+<td>OneCheck/channel table</td>
+<td>Review supported channel, frequency, level and MER columns</td>
+<td>Preserves discrete channel data; SC-QAM and OFDM PLC/block quantities are not interchangeable</td>
+</tr>
+<tr>
+<td>Original-only attachments</td>
+<td>Retain unsupported formats or photos</td>
+<td>Preserves evidence without pretending it has measurement decoding or OCR</td>
+</tr>
+<tr>
+<td>Save original</td>
+<td>Export the exact stored original</td>
+<td>Finish the device save action and verify the destination file</td>
+</tr>
+<tr>
+<td>Verify saved files</td>
+<td>Check current-job originals for missing/tampered bytes</td>
+<td>Verifies stored file integrity, not a separate external backup or physical measurement</td>
+</tr>
+<tr>
+<td>Remove from job</td>
+<td>Remove the intended attachment reference</td>
+<td>Protect/export evidence before removing it; removal is not a backup</td>
+</tr>
+<tr>
+<td>Clear unused stored files</td>
+<td>Clean originals no longer referenced by working/named jobs</td>
+<td>Validates references first and stops conservatively on corrupt named-job data; do not use storage clearing as fault recovery</td>
+</tr>
+</tbody></table></div>
+<p>Supported interchange examples:</p>
+<pre><code class="language-csv">frequency_mhz,level_dbmv
+54,31
+860,43
+</code></pre>
+<p>Use <code>response_db</code> for relative dB response; a channel table can use <code>channel,frequency_mhz,level_dbmv,mer_db</code>. Provide complete finite values, explicit units and valid unique frequency/channel rows. A filename in a record is only a reference; attach the bytes if the original must travel with the backup.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Evidence/project limit</th>
+<th align="right">Maximum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>One original attachment</td>
+<td align="right">8 MiB</td>
+</tr>
+<tr>
+<td>Total original evidence in one job</td>
+<td align="right">12 MiB</td>
+</tr>
+<tr>
+<td>Attachments in one job</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td>Text decoded for a preview</td>
+<td align="right">2 MiB</td>
+</tr>
+<tr>
+<td>CSV data rows for decoding</td>
+<td align="right">10,000</td>
+</tr>
+<tr>
+<td>Full project JSON import/export</td>
+<td align="right">20 MiB</td>
+</tr>
+</tbody></table></div>
+<p>An oversized/unsupported preview can remain an original attachment within the original-file limits. Every project-opening route applies the common <strong>20 MiB UTF-8 text limit before parsing or changing the working job</strong>. Oversized or non-text input is rejected. A missing or tampered original blocks a portable export rather than silently dropping evidence. Wait for imports/exports to finish before switching jobs.</p>
+<h2 id="field-checklists-and-unit-conversion">Field checklists and unit conversion</h2>
+<p><strong>Where:</strong> Job → Checklists. <strong>Practice:</strong> Complete → Field checklists.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Output and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Leakage / ingress quick reference</td>
+<td>Review shielding, fittings, unused ports, drops/premises and retest guidance</td>
+<td>Definitions and inspection prompts, not leakage thresholds or automatic fault classification</td>
+</tr>
+<tr>
+<td>Leakage repair checklist</td>
+<td>Mark fittings, shielding/housings, terminations, affected drop/premises and retest items actually reviewed/performed</td>
+<td>Saved work checklist; not RF acceptance</td>
+</tr>
+<tr>
+<td>Leakage/ingress notes</td>
+<td>Enter location, findings, repair, retest and trace references</td>
+<td>Included with the job and relevant reports</td>
+</tr>
+<tr>
+<td>Preventive maintenance / EOL</td>
+<td>Record supply inspection, bonding, EOL points, amplifier/unity-gain and patrol notes</td>
+<td>Individual checkmarks plus findings; route predictions are not copied into measured notes</td>
+</tr>
+<tr>
+<td>dBµV ↔ dBmV</td>
+<td>Enter the voltage level and starting unit</td>
+<td>dBmV = dBµV − 60; reverse adds 60. Same reference plane; no TP addback or µV/m field-strength conversion</td>
+</tr>
+</tbody></table></div>
+<p>Practice <strong>72 dBµV =12 dBmV</strong>. This is a voltage-reference conversion, not dBm power, leakage field strength or proof of a measured level.</p>
+<h2 id="project-records-and-closeout">Project records and closeout</h2>
+<p><strong>Where:</strong> Job → Records. <strong>Practice:</strong> Complete → Records; DSIM → findings; focused equipment guides.</p>
+<h3 id="identity-profiles-and-acceptance-criteria">Identity, profiles and acceptance criteria</h3>
+<p>Record ticket/node/design revision, lead, meter/calibration, reference ID, reviewer, acceptance date, disposition and notes. Job ticket/node/lead are linked with the corresponding Details fields.</p>
+<p>Select the actual profile and enter <strong>installed equipment upper</strong>, <strong>planned upper</strong>, <strong>available spectrum</strong>, return ceiling/forward floor, forward/return marker frequencies, design or receiver targets, level/tilt/ripple tolerances, minimum MER, network injection targets/tolerance, control/procedure and marker basis. Mark approval only when the operator&#39;s criteria are genuinely approved.</p>
+<p>A profile&#39;s name/container is not proof of its entered operating limit. For Complete, the profile container is labelled 1002 while the actual entered hardware/planning upper is <strong>1000 MHz</strong> and live upper <strong>860 MHz</strong>. Forward comparisons check their hardware, planned/live limits and valid ordered markers. Return comparisons also reject overlapping return/forward passbands. Resolve the reported band issue before interpreting a within-limits result.</p>
+<h3 id="forward-measurements">Forward measurements</h3>
+<p>Use <strong>Add</strong> for a separate station/port/stage record. Enter date, node/station, profile, Before/After stage, <strong>Planning or Measured</strong> basis, measurement plane, actual low/high markers, raw readings, remaining addbacks, targets, ripple, trace/reference, trace-saved status, reviewer and notes. Forward rows also record model, MER, input pad/EQ, interstage trim and control system.</p>
+<p>Read corrected low/high levels, tilt, target errors, tilt error, coverage and status. Planning data or unapproved/incomplete criteria cannot establish acceptance. A few passing markers do not certify the full trace, all frequencies or physical alignment.</p>
+<h3 id="return-measurements-and-injection-setting">Return measurements and injection setting</h3>
+<p>Return rows are for an <strong>injected return test with a verified absolute receiver plane</strong>. Enter the common station/stage/plane data plus injected low/high network levels, existing pad, ingress check, EQ and injection source. Referenced DOCSIS return sweepless belongs in Sweep setup, in matching dB units; do not disguise it as an absolute receiver record.</p>
+<p>The estimated pad follows the entered receiver error and existing pad. A negative estimate calls for gain/path review; it is not silently changed to zero. Keep the separate <strong>38 dBmV return TX reference</strong> distinct from the chosen receiver targets and network injection levels.</p>
+<p>The Records <strong>Return injection setting</strong> helper uses desired network-plane injection plus <strong>remaining uncompensated coupling and lead</strong> for a manual-setting estimate. Practice <strong>40 + 20 + 1 = 61 dBmV</strong> as form arithmetic only. This does not establish an ONX limit, physical output with compensation enabled, or a setting for the 42 MHz Return Sweepless Sweep method. The 204 Sweep setup physical-output budget uses total physical losses and has a different purpose.</p>
+<h3 id="repairs-dsim-and-record-management">Repairs, DSIM and record management</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Inputs and use</th>
+<th>Output and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Repairs / punch list</td>
+<td>Item, station/port, category, finding, action, owner, due/repair dates, retest, status and reviewer</td>
+<td>Closed without required repair/retest/reviewer information remains incomplete</td>
+</tr>
+<tr>
+<td>GainMaker / ACI DSIM record</td>
+<td>Exact station/module/revision, plant/route, modes, pilot/type/lock, fallback, temperature, S1/pad/backoff/TGC, final verification and technician confirmation</td>
+<td>Checks completeness/consistency and actual calendar dates for the supported DSIM-SG review; impossible imported dates remain invalid without rewriting the saved value. This is not a universal GaN/AOI/DSIM-A setup procedure</td>
+</tr>
+<tr>
+<td>Add / remove record</td>
+<td>Add a row or remove the intended record using the controls shown</td>
+<td>Enter and review the actual identity, stage and measurement plane for each row</td>
+</tr>
+<tr>
+<td>Suggest trace filename</td>
+<td>Use the button on a forward/return row to generate a suggested name</td>
+<td>Fills the trace reference and sets trace-saved status to <strong>No</strong>. It does not create, save or attach a meter file</td>
+</tr>
+<tr>
+<td>Export section CSV</td>
+<td>Export forward, return, punch or DSIM rows with their computed/status fields</td>
+<td>Section report only, not the full project or original evidence</td>
+</tr>
+<tr>
+<td>Summary and disposition</td>
+<td>Read total records, After rows within entered limits and open/incomplete repairs</td>
+<td>Reviewer disposition remains an explicit decision; no software calculation certifies the plant</td>
+</tr>
+</tbody></table></div>
+<p>The synthetic DSIM form in Complete is a separate form exercise. Use the dedicated DSIM job for its matching setup path and preserve the exact revision conflict. A completed setup record remains separate from forward/return acceptance.</p>
+<h2 id="run-sheet-exports-and-full-backups">Run sheet, exports and full backups</h2>
+<p><strong>Where:</strong> Job → Run sheet; Files menu; relevant calculator/record task. <strong>Practice:</strong> Complete → Run sheet and exports / Backup.</p>
+<p>Run sheet combines job/work-order context, selected frequency, source/model/split/limits, RF predictions, entered meter comparisons, as-built notes, field work, equipment/sweep setup and available-carrier estimates. Review its synthetic/sample warnings and missing values before sharing.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Output/function</th>
+<th>Where and use</th>
+<th>What it preserves</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Print run sheet</td>
+<td>Run sheet → Print</td>
+<td>Printable field summary/PDF via device print service; actual pagination is device-dependent</td>
+</tr>
+<tr>
+<td>Share</td>
+<td>Run sheet → Share</td>
+<td>Text through Android/browser share where supported, or the available prepared-file/download fallback; choose a recipient/app yourself</td>
+</tr>
+<tr>
+<td>Export sheet CSV</td>
+<td>Run sheet</td>
+<td>Reviewable summary with context; not a full backup</td>
+</tr>
+<tr>
+<td>Export RF levels</td>
+<td>Files</td>
+<td>Route predictions at listed frequencies; unavailable results blank</td>
+</tr>
+<tr>
+<td>Export frequency results</td>
+<td>Test → Frequency</td>
+<td>Single-path inputs, frequencies, units, flags and results</td>
+</tr>
+<tr>
+<td>Export power load</td>
+<td>Power → Load</td>
+<td>Power topology, loads, per-section results and qualifications</td>
+</tr>
+<tr>
+<td>Record CSVs</td>
+<td>Job → Records</td>
+<td>The selected section&#39;s entered rows and computed review fields</td>
+</tr>
+<tr>
+<td>Export setup notes</td>
+<td>Test → Sweep setup</td>
+<td>Setup drafts, guide/context and saved station snapshots</td>
+</tr>
+<tr>
+<td>Save original</td>
+<td>Job → ONX files</td>
+<td>Exact original attachment bytes</td>
+</tr>
+<tr>
+<td>Save project / Home backup</td>
+<td>Files or Home</td>
+<td>Full supported route, power, job, records, field/setup drafts, training state and original evidence</td>
+</tr>
+<tr>
+<td>Open project / recover backup</td>
+<td>Files, Home or ONX project shortcut</td>
+<td>Validates and restores the entire supported project; verify route and originals after opening</td>
+</tr>
+</tbody></table></div>
+<p><strong>Your file is ready</strong> means bytes are prepared. Choose <strong>Save/share file</strong> or <strong>Download file</strong> when offered, complete the phone&#39;s final save action, then confirm the result in Files/Downloads or the chosen destination. Cancellation is not a completed export. A PDF, screenshot, CSV, named job or prepared-file message is not a full external backup.</p>
+<p>For a recovery rehearsal: export Complete, verify the JSON exists outside NightSweep, reopen it, confirm the job, route, power, records, practice progress and all six originals, then return to the protected real job. Keep independent backups before updates, uninstalling, clearing storage or moving among app/browser stores.</p>
+<h2 id="offline-use-updates-and-help">Offline use, updates and Help</h2>
+<p><strong>Where:</strong> browser Home → NightSweep on this device; header/Home → Help. <strong>Practice:</strong> Complete for backup; Custom curves → Help; any loaded exercise for an offline calculation check.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Use</th>
+<th>Result and limit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ready for offline use</td>
+<td>Wait for the installed browser shell to report readiness</td>
+<td>Confirms required cached shell availability; a visible online page alone is insufficient</td>
+</tr>
+<tr>
+<td>Install app</td>
+<td>Use the browser&#39;s offered prompt where supported</td>
+<td>Optional Home Screen installation; full phone-specific steps are in the separate installation guide</td>
+</tr>
+<tr>
+<td>Retry offline setup</td>
+<td>Retry the reported failed shell preparation while online</td>
+<td>Does not require clearing job storage</td>
+</tr>
+<tr>
+<td>Check for updates</td>
+<td>Look for a newer hosted release</td>
+<td>Does not automatically replace the running app</td>
+</tr>
+<tr>
+<td>Install update → Reload app</td>
+<td>Export current work, apply the offered update, then reload when ready</td>
+<td>User-controlled update sequence; check version and saved jobs afterward</td>
+</tr>
+<tr>
+<td>Protect local storage</td>
+<td>Request persistence where supported</td>
+<td>Best effort, not a backup or protection from device/browser clearing/uninstall</td>
+</tr>
+<tr>
+<td>Keep your work safe</td>
+<td>Review local storage guidance/status</td>
+<td>Helps identify the active store; no cloud sync or cross-browser sharing is added</td>
+</tr>
+<tr>
+<td>Help task shortcuts</td>
+<td>Choose the matching task from Help</td>
+<td>Opens the existing live screen</td>
+</tr>
+<tr>
+<td>Methods and limits</td>
+<td>Read equations, assumptions, terminology and unavailable-data behavior</td>
+<td>Explains interpretation; source links need connectivity</td>
+</tr>
+<tr>
+<td>Run build self-check</td>
+<td>Run bundled reference cases and read status</td>
+<td>Checks those build cases; a pass is not physical device or plant certification. A failure warns against trusting results</td>
+</tr>
+</tbody></table></div>
+<p>Once ready, the installed browser app can reopen its cached shell and use bundled calculations/training offline. External manuals still need internet. The standalone HTML and native wrapper have different delivery/storage behavior; opening a local HTML file does not establish browser PWA installation or reliable local-file storage.</p>
+<p>Detailed Android/iOS installation, compatible Preview update precautions and APK verification are documented in the separate <a href="phone-installation.html">installation guide</a>.</p>
+<h2 id="checked-example-answers">Checked example answers</h2>
+<p>These are reference answers for the unchanged <strong>synthetic</strong> examples. Restore a baseline before comparing. They do not establish field acceptance or manufacturer settings.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Exercise/function</th>
+<th>Inputs</th>
+<th>Checked answer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Complete launch</td>
+<td>54/860 MHz, raw 11/23 dBmV, remaining TP 20 dB</td>
+<td>31/43 dBmV</td>
+</tr>
+<tr>
+<td>Gain helper</td>
+<td>54 MHz, input 7.1/output 16.1 dBmV, +20 dB each</td>
+<td>Corrected 27.1/36.1 dBmV; net gain 9 dB</td>
+</tr>
+<tr>
+<td>Complete A1 output</td>
+<td>Entered route and 9/18 dB gain anchors</td>
+<td>About 36.94/47.61 dBmV at 54/860 MHz</td>
+</tr>
+<tr>
+<td>Complete A2 output</td>
+<td>Entered route and 54/550/860 MHz gain table</td>
+<td>About 40.55/45.62 dBmV at 54/860 MHz</td>
+</tr>
+<tr>
+<td>Complete EOL Tap C</td>
+<td>Entered mixed-brand route</td>
+<td>About 14.01/4.94 dBmV at 54/860 MHz</td>
+</tr>
+<tr>
+<td>Complete drop loss</td>
+<td>75 ft custom RG-6, rates 1.8/6.2 dB per 100 ft plus custom 4 dB</td>
+<td>Cable 1.35/4.65 dB; total 5.35/8.65 dB at 54/860 MHz</td>
+</tr>
+<tr>
+<td>Complete TDR</td>
+<td>A2 origin 1700 ft; displayed 295 ft; lead 25 ft; equal VF 0.87</td>
+<td>Path 270 ft; coordinate 1970 ft; 160 ft into r5&#39;s 310 ft span</td>
+</tr>
+<tr>
+<td>Complete frequency checker</td>
+<td>860 MHz; 200 ft × 2.2 dB/100 ft + 1.4 dB; 43 dBmV launch</td>
+<td>Loss 5.8 dB; receive 37.2 dBmV</td>
+</tr>
+<tr>
+<td>Complete power</td>
+<td>90 V / 15 A; synthetic 0.75/0.60/0.45 A loads; 20 W / PF 0.9 branch</td>
+<td>2.047 A; 13.65% loading; minimum 88.83 V at A2</td>
+</tr>
+<tr>
+<td>Complete power trial</td>
+<td>Add 300 ft P3 .625 and 0.75 A after A2</td>
+<td>2.798 A; 18.65%; 87.37 V at new load</td>
+</tr>
+<tr>
+<td>Six serial AOI actives</td>
+<td>Each incoming 300 ft custom span loses 3/9 dB; each entered net gain restores 3/9 dB</td>
+<td>All six marker outputs 34/46 dBmV at 261/993 MHz; source node excluded from six-active count</td>
+</tr>
+<tr>
+<td>Custom reverse TDR</td>
+<td>100 ft displayed, actual VF 0.88/meter VF 0.80, lead 25 ft; reverse from 200 ft</td>
+<td>Path 85 ft; route coordinate 115 ft</td>
+</tr>
+<tr>
+<td>Voltage unit converter</td>
+<td>72 dBµV</td>
+<td>12 dBmV, same plane</td>
+</tr>
+<tr>
+<td>Separate Records injection arithmetic</td>
+<td>Desired 40 + remaining coupling 20 + remaining lead 1</td>
+<td>61 dBmV manual-setting estimate; not automatically ONX Injection</td>
+</tr>
+</tbody></table></div>
+<p>The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under <code>research/alpha18/</code>. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.</p>
+<h2 id="37-feature-coverage-index">37-feature coverage index</h2>
+<p>This index follows the feature choices in the app. Choose the same label in Home&#39;s feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th align="right">#</th>
+<th>Feature choice</th>
+<th>Reference section</th>
+<th>Loadable exercise</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>Home, practice and backup <!-- feature:home --></td>
+<td><a href="#header-and-home-controls">Header and Home</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>Help, methods and build self-check <!-- feature:help --></td>
+<td><a href="#offline-use-updates-and-help">Offline and Help</a></td>
+<td>Custom curves</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>Launch, source, correction and temperature <!-- feature:setup --></td>
+<td><a href="#rf-setup-and-launch-source">RF setup</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>Route, branches and distances <!-- feature:route --></td>
+<td><a href="#cable-route-branches-and-point-tools">Cable route</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>Amplifier gain and reserve <!-- feature:gain --></td>
+<td><a href="#amplifier-gain-and-test-point-helper">Gain</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>Installed equipment and exact manuals <!-- feature:equipmentSetup --></td>
+<td><a href="#installed-equipment-manuals-and-control-paths">Equipment setup</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>Equipment catalog and source references <!-- feature:parts --></td>
+<td><a href="#equipment-catalog">Catalog</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td>Forward and return setup <!-- feature:sweepSetup --></td>
+<td><a href="#forward-and-return-sweep-setup">Sweep setup</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td>Forward TDR and active boundaries <!-- feature:tdr --></td>
+<td><a href="#tdr-distance-locator">TDR</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td>Absolute, normalized and loss charts <!-- feature:sweep --></td>
+<td><a href="#predicted-sweep-and-output-table">Predicted sweep</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td>Single-path frequency calculator <!-- feature:frequency --></td>
+<td><a href="#single-path-frequency-checker">Frequency</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td>Meter readings and prediction error <!-- feature:readings --></td>
+<td><a href="#meter-readings-and-prediction-error">Readings</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">13</td>
+<td>Cable, tap and target references <!-- feature:references --></td>
+<td><a href="#field-references-and-target-conversions">References</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">14</td>
+<td>Power load, voltage and branches <!-- feature:power --></td>
+<td><a href="#power-supply-load">Power</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">15</td>
+<td>Power what-if and Keep <!-- feature:trial --></td>
+<td><a href="#power-what-if">What-if</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">16</td>
+<td>Named jobs and work-order details <!-- feature:projects --></td>
+<td><a href="#job-details-and-named-jobs">Job details</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">17</td>
+<td>Original files and supported CSV <!-- feature:evidence --></td>
+<td><a href="#onx-files-original-evidence-and-comparisons">Evidence</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">18</td>
+<td>Leakage, maintenance and conversion <!-- feature:checklists --></td>
+<td><a href="#field-checklists-and-unit-conversion">Checklists</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">19</td>
+<td>Forward, return, punch and review <!-- feature:records --></td>
+<td><a href="#project-records-and-closeout">Records</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">20</td>
+<td>Run sheet, share, print and CSV exports <!-- feature:runsheet --></td>
+<td><a href="#run-sheet-exports-and-full-backups">Exports</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">21</td>
+<td>Six serial active devices <!-- feature:six-active-cascade --></td>
+<td><a href="#practice-library-and-example-selection">Practice library</a>, <a href="#checked-example-answers">checked answers</a></td>
+<td>Six actives</td>
+</tr>
+<tr>
+<td align="right">22</td>
+<td>Entered amplifier gain table <!-- feature:gain-table --></td>
+<td><a href="#amplifier-gain-and-test-point-helper">Gain</a></td>
+<td>Six actives</td>
+</tr>
+<tr>
+<td align="right">23</td>
+<td>Derive gain from two corrected readings <!-- feature:gain-test-points --></td>
+<td><a href="#amplifier-gain-and-test-point-helper">Gain helper</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">24</td>
+<td>Tap faces and RG-6 drop splitter <!-- feature:tap-drop --></td>
+<td><a href="#cable-route-branches-and-point-tools">Point tools</a></td>
+<td>Complete; explicit custom loss</td>
+</tr>
+<tr>
+<td align="right">25</td>
+<td>Map note and step-by-step arithmetic <!-- feature:map-arithmetic --></td>
+<td><a href="#cable-route-branches-and-point-tools">Point tools</a></td>
+<td>Custom curves</td>
+</tr>
+<tr>
+<td align="right">26</td>
+<td>Custom cable and passive loss tables <!-- feature:custom-tables --></td>
+<td><a href="#cable-route-branches-and-point-tools">Cable route</a></td>
+<td>Custom curves</td>
+</tr>
+<tr>
+<td align="right">27</td>
+<td>Manual source and launch table <!-- feature:launch-table --></td>
+<td><a href="#rf-setup-and-launch-source">RF setup</a></td>
+<td>Custom curves</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td>Reverse TDR and velocity correction <!-- feature:reverse-tdr --></td>
+<td><a href="#tdr-distance-locator">TDR</a></td>
+<td>Custom curves</td>
+</tr>
+<tr>
+<td align="right">29</td>
+<td>Available carriers and local targets <!-- feature:available-carriers --></td>
+<td><a href="#field-references-and-target-conversions">References</a></td>
+<td>DSIM</td>
+</tr>
+<tr>
+<td align="right">30</td>
+<td>OEM AGC installed control path <!-- feature:oem-agc --></td>
+<td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
+<td>OEM AGC</td>
+</tr>
+<tr>
+<td align="right">31</td>
+<td>DSIM and historical pilot-code lookup <!-- feature:dsim-pilot --></td>
+<td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
+<td>DSIM</td>
+</tr>
+<tr>
+<td align="right">32</td>
+<td>Manual / thermal installed control path <!-- feature:manual-thermal --></td>
+<td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
+<td>Manual / thermal</td>
+</tr>
+<tr>
+<td align="right">33</td>
+<td>Conventional GS7K procedure <!-- feature:gs7k-setup --></td>
+<td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
+<td>GS7K node</td>
+</tr>
+<tr>
+<td align="right">34</td>
+<td>dBµV ↔ dBmV conversion <!-- feature:db-units --></td>
+<td><a href="#field-checklists-and-unit-conversion">Unit conversion</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">35</td>
+<td>Return injection and receiver records <!-- feature:return-injection --></td>
+<td><a href="#project-records-and-closeout">Records</a>, <a href="#forward-and-return-sweep-setup">sweep setup</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">36</td>
+<td>Before / after evidence comparison <!-- feature:evidence-comparison --></td>
+<td><a href="#onx-files-original-evidence-and-comparisons">Evidence</a></td>
+<td>Complete</td>
+</tr>
+<tr>
+<td align="right">37</td>
+<td>Portable backup and recovery <!-- feature:backup-roundtrip --></td>
+<td><a href="#run-sheet-exports-and-full-backups">Full backups</a></td>
+<td>Complete</td>
+</tr>
+</tbody></table></div>
+<h2 id="known-limits-and-unresolved-information">Known limits and unresolved information</h2>
+<p>Exact installed <strong>GainMaker GaN control/commissioning</strong>, <strong>Quantum18 LE/BA I&amp;O</strong>, <strong>EN9000/RFAM/RPD commissioning</strong>, and some <strong>DSIM-A/module-specific</strong> procedures remain documentation gaps. Preserve them as unresolved; another model&#39;s manual is not a substitute. Original manuals, actual firmware/options, approved pilots, physical measurement planes, actual available carriers and operator criteria require job-specific confirmation.</p>
+<p>NightSweep does not connect to, program or configure ONX, nodes, amplifiers, DSIM or XPERTrak. Unsupported meter formats remain originals; no OCR or automatic reading extraction is added. No source table, synthetic file, checklist, software status or reference calculation establishes installed RF acceptance.</p>
+<p>Automated checks, independent arithmetic and desktop mobile-viewport testing do not establish physical Android/iPhone installation, WebView/Safari retention, native save/share/print behavior, touch/rotation, storage eviction or actual quota exhaustion. Preserve external backups and separately verify the phone and plant used for field work.</p>
+</article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>

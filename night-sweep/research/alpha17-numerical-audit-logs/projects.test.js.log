@@ -1,0 +1,40 @@
+PASS Remaining correction applied once at each marker
+PASS 993 MHz marker result never verifies1200 MHz upper band
+PASS Blank correction is incomplete, not zero
+PASS Meter compensated zero correction accepted
+PASS Planning values never pass as measured
+PASS Unapproved criteria never pass
+PASS Suggested but unsaved trace never passes
+PASS Missing MER never passes
+PASS Threshold boundary is inclusive
+PASS Tilt change detected independently of level tolerance
+PASS Out of passband marker blocked
+PASS Missing equipment rating blocked
+PASS Return pad estimate uses existing pad plus high error
+PASS Negative return pad kept negative with review
+PASS Return injection error fails despite receiver levels
+PASS Return record requires ingress check
+PASS Complete nominal return record passes entered limits
+PASS Default profiles are complete and unapproved
+PASS Duplicate profile ids rejected
+PASS Nested import data rejected
+PASS Huge record arrays rejected
+PASS Whitespace is missing, booleans are not numeric measurements
+PASS Missing reviewer blocked
+PASS Negative remaining addback blocked
+PASS Forward marker beyond planned band blocked
+PASS Complete22-field DSIM record ready for review
+PASS DSIM missing required field blocked
+PASS DSIM thermal fallback flagged
+PASS DSIM manual mode not accepted as final
+PASS DSIM underground TGC flagged
+PASS DSIM final S1 setup checked
+PASS DSIM AGC pad setup checked
+PASS DSIM fallback cable setting checked
+PASS DSIM rules not applied to AOI controls
+PASS Closed punch needs complete closeout evidence
+PASS Return generator correction31+20+1=52
+PASS Return generator blank correction unavailable
+PASS Return generator negative correction unavailable
+PASS Return generator compensated zeros accepted
+Projects QA: 39 tests passed.

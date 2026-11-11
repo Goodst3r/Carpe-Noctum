@@ -1,0 +1,92 @@
+✖ Duplicating an active job commits current edits and its copy in one storage write (1948.180421ms)
+✖ A quota failure cannot silently duplicate the older saved snapshot while discarding current edits (1095.650738ms)
+✖ A copy that exceeds storage capacity cannot partially rewrite its original first (996.765171ms)
+✖ Unchanged named-job renders preserve keyboard focus and existing action controls (1085.645663ms)
+✔ Duplicate preserves an unsaved plant conversion separately from a retained sample (755.450698ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6407.191245
+
+✖ failing tests:
+
+test at qa/build2-reliability.test.cjs:10:1
+✖ Duplicating an active job commits current edits and its copy in one storage write (1948.180421ms)
+  AssertionError [ERR_ASSERTION]: One atomic library write must update the active snapshot and add the copy.
+  
+  2 !== 1
+  
+      at /workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:15:63
+      at app (/workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:7:67)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/build2-reliability.test.cjs:20:1
+✖ A quota failure cannot silently duplicate the older saved snapshot while discarding current edits (1095.650738ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at /workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:26:13
+      at app (/workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:7:67)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /quota|storage|space/i,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at qa/build2-reliability.test.cjs:30:1
+✖ A copy that exceeds storage capacity cannot partially rewrite its original first (996.765171ms)
+  AssertionError [ERR_ASSERTION]: Atomic rejection must not update only the original snapshot.
+  + actual - expected
+  
+  + '{"version":1,"activeId":"job_mwbi6ehs_jja756wtt","jobs":[{"name":"Synthetic original","resolution":"Current edited note","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false,"updatedAt":"2026-11-11T02:31:44.611Z","snapshot":{"version":1,"example":false,"setup":{"lowF":261,"highF":993,"lowLevel":34,"highLevel":46,"liveMax":993,"launchMode":"sqrt","launchTable":"261, 34\\n711, 42\\n993, 46","extendLaunch":false,"basis":"nominal","temperature":68,"graphMode":"absolute","viewStart":261,"viewEnd":1002,"referenceF":261},"rows":[{"id":"r1","name":"Current edited point","parent":"source","length":400,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-23","customLoss":"","customCable":"","terminal":false},{"id":"r2","name":"Tap 2","parent":"r1::through","length":250,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-20","customLoss":"","customCable":"","terminal":false},{"id":"r3","name":"Tap 3","parent":"r2::through","length":180,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-17","customLoss":"","customCable":"","terminal":false}],"power":{"supplyVoltage":90,"supplyRating":15,"temperatureF":68,"resistanceAlpha":0.004,"rows":[{"id":"p1","name":"Node / amp","parent":"supply","length":0,"cable":"p3_625","dcRate":"","extraR":0,"equipment":"custom","mode":"watts","load":"","pf":1,"minV":""}]},"project":{"meta":{"lead":"Spencer Williams"},"generator":{"desired":"","coupling":"","lead":""},"selectedProfile":"1200","profiles":[{"id":"550","plannedUpper":"550","approved":"No"},{"id":"750","plannedUpper":"750","approved":"No","forwardLow":55,"forwardHigh":750,"launchLow":32,"launchHigh":43,"control":"GainMaker / DSIM","markerBasis":"Original example; confirm"},{"id":"875","plannedUpper":"875","approved":"No"},{"id":"1002","plannedUpper":"1002","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1200","plannedUpper":"1200","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1218","plannedUpper":"1218","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1794","plannedUpper":"1794","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1800","plannedUpper":"1800","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"}],"forward":[],"returns":[],"punch":[],"dsim":[]},"node":{"model":"","band":"","asset":"","port":"","module":"","operatingUpper":"","notes":""},"frequency":{"cable":"p3_625","length":100,"device":"none","port":"through","quantity":1,"returnCeiling":204,"forwardFloor":258,"equipmentUpper":"","plannedUpper":1200,"liveUpper":993,"quickF":981,"points":{},"endpoint":"source"},"job":{"name":"Synthetic original","resolution":"Current edited note","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false}}}]}'
+  - '{"version":1,"activeId":"job_mwbi6ehs_jja756wtt","jobs":[{"name":"Synthetic original","resolution":"Saved notes","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false,"updatedAt":"2026-11-11T02:31:44.609Z","snapshot":{"version":1,"example":false,"setup":{"lowF":261,"highF":993,"lowLevel":34,"highLevel":46,"liveMax":993,"launchMode":"sqrt","launchTable":"261, 34\\n711, 42\\n993, 46","extendLaunch":false,"basis":"nominal","temperature":68,"graphMode":"absolute","viewStart":261,"viewEnd":1002,"referenceF":261},"rows":[{"id":"r1","name":"Saved route point","parent":"source","length":400,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-23","customLoss":"","customCable":"","terminal":false},{"id":"r2","name":"Tap 2","parent":"r1::through","length":250,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-20","customLoss":"","customCable":"","terminal":false},{"id":"r3","name":"Tap 3","parent":"r2::through","length":180,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-17","customLoss":"","customCable":"","terminal":false}],"power":{"supplyVoltage":90,"supplyRating":15,"temperatureF":68,"resistanceAlpha":0.004,"rows":[{"id":"p1","name":"Node / amp","parent":"supply","length":0,"cable":"p3_625","dcRate":"","extraR":0,"equipment":"custom","mode":"watts","load":"","pf":1,"minV":""}]},"project":{"meta":{"lead":"Spencer Williams"},"generator":{"desired":"","coupling":"","lead":""},"selectedProfile":"1200","profiles":[{"id":"550","plannedUpper":"550","approved":"No"},{"id":"750","plannedUpper":"750","approved":"No","forwardLow":55,"forwardHigh":750,"launchLow":32,"launchHigh":43,"control":"GainMaker / DSIM","markerBasis":"Original example; confirm"},{"id":"875","plannedUpper":"875","approved":"No"},{"id":"1002","plannedUpper":"1002","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1200","plannedUpper":"1200","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1218","plannedUpper":"1218","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1794","plannedUpper":"1794","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1800","plannedUpper":"1800","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"}],"forward":[],"returns":[],"punch":[],"dsim":[]},"node":{"model":"","band":"","asset":"","port":"","module":"","operatingUpper":"","notes":""},"frequency":{"cable":"p3_625","length":100,"device":"none","port":"through","quantity":1,"returnCeiling":204,"forwardFloor":258,"equipmentUpper":"","plannedUpper":1200,"liveUpper":993,"quickF":981,"points":{},"endpoint":"source"},"job":{"name":"Synthetic original","resolution":"Saved notes","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false}}}]}'
+  
+      at /workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:37:9
+      at app (/workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:7:67)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"version":1,"activeId":"job_mwbi6ehs_jja756wtt","jobs":[{"name":"Synthetic original","resolution":"Current edited note","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false,"updatedAt":"2026-11-11T02:31:44.611Z","snapshot":{"version":1,"example":false,"setup":{"lowF":261,"highF":993,"lowLevel":34,"highLevel":46,"liveMax":993,"launchMode":"sqrt","launchTable":"261, 34\\n711, 42\\n993, 46","extendLaunch":false,"basis":"nominal","temperature":68,"graphMode":"absolute","viewStart":261,"viewEnd":1002,"referenceF":261},"rows":[{"id":"r1","name":"Current edited point","parent":"source","length":400,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-23","customLoss":"","customCable":"","terminal":false},{"id":"r2","name":"Tap 2","parent":"r1::through","length":250,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-20","customLoss":"","customCable":"","terminal":false},{"id":"r3","name":"Tap 3","parent":"r2::through","length":180,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-17","customLoss":"","customCable":"","terminal":false}],"power":{"supplyVoltage":90,"supplyRating":15,"temperatureF":68,"resistanceAlpha":0.004,"rows":[{"id":"p1","name":"Node / amp","parent":"supply","length":0,"cable":"p3_625","dcRate":"","extraR":0,"equipment":"custom","mode":"watts","load":"","pf":1,"minV":""}]},"project":{"meta":{"lead":"Spencer Williams"},"generator":{"desired":"","coupling":"","lead":""},"selectedProfile":"1200","profiles":[{"id":"550","plannedUpper":"550","approved":"No"},{"id":"750","plannedUpper":"750","approved":"No","forwardLow":55,"forwardHigh":750,"launchLow":32,"launchHigh":43,"control":"GainMaker / DSIM","markerBasis":"Original example; confirm"},{"id":"875","plannedUpper":"875","approved":"No"},{"id":"1002","plannedUpper":"1002","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1200","plannedUpper":"1200","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1218","plannedUpper":"1218","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1794","plannedUpper":"1794","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1800","plannedUpper":"1800","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"}],"forward":[],"returns":[],"punch":[],"dsim":[]},"node":{"model":"","band":"","asset":"","port":"","module":"","operatingUpper":"","notes":""},"frequency":{"cable":"p3_625","length":100,"device":"none","port":"through","quantity":1,"returnCeiling":204,"forwardFloor":258,"equipmentUpper":"","plannedUpper":1200,"liveUpper":993,"quickF":981,"points":{},"endpoint":"source"},"job":{"name":"Synthetic original","resolution":"Current edited note","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false}}}]}',
+    expected: '{"version":1,"activeId":"job_mwbi6ehs_jja756wtt","jobs":[{"name":"Synthetic original","resolution":"Saved notes","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false,"updatedAt":"2026-11-11T02:31:44.609Z","snapshot":{"version":1,"example":false,"setup":{"lowF":261,"highF":993,"lowLevel":34,"highLevel":46,"liveMax":993,"launchMode":"sqrt","launchTable":"261, 34\\n711, 42\\n993, 46","extendLaunch":false,"basis":"nominal","temperature":68,"graphMode":"absolute","viewStart":261,"viewEnd":1002,"referenceF":261},"rows":[{"id":"r1","name":"Saved route point","parent":"source","length":400,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-23","customLoss":"","customCable":"","terminal":false},{"id":"r2","name":"Tap 2","parent":"r1::through","length":250,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-20","customLoss":"","customCable":"","terminal":false},{"id":"r3","name":"Tap 3","parent":"r2::through","length":180,"cable":"p3_625","device":"technetix-ottz-1-8-ghz--ottz-4-17","customLoss":"","customCable":"","terminal":false}],"power":{"supplyVoltage":90,"supplyRating":15,"temperatureF":68,"resistanceAlpha":0.004,"rows":[{"id":"p1","name":"Node / amp","parent":"supply","length":0,"cable":"p3_625","dcRate":"","extraR":0,"equipment":"custom","mode":"watts","load":"","pf":1,"minV":""}]},"project":{"meta":{"lead":"Spencer Williams"},"generator":{"desired":"","coupling":"","lead":""},"selectedProfile":"1200","profiles":[{"id":"550","plannedUpper":"550","approved":"No"},{"id":"750","plannedUpper":"750","approved":"No","forwardLow":55,"forwardHigh":750,"launchLow":32,"launchHigh":43,"control":"GainMaker / DSIM","markerBasis":"Original example; confirm"},{"id":"875","plannedUpper":"875","approved":"No"},{"id":"1002","plannedUpper":"1002","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1200","plannedUpper":"1200","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1218","plannedUpper":"1218","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1794","plannedUpper":"1794","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"},{"id":"1800","plannedUpper":"1800","approved":"No","available":993,"returnCeiling":204,"forwardFloor":258,"forwardLow":261,"forwardHigh":993,"control":"Installed high-split","markerBasis":"261/993 provisional"}],"forward":[],"returns":[],"punch":[],"dsim":[]},"node":{"model":"","band":"","asset":"","port":"","module":"","operatingUpper":"","notes":""},"frequency":{"cable":"p3_625","length":100,"device":"none","port":"through","quantity":1,"returnCeiling":204,"forwardFloor":258,"equipmentUpper":"","plannedUpper":1200,"liveUpper":993,"quickF":981,"points":{},"endpoint":"source"},"job":{"name":"Synthetic original","resolution":"Saved notes","node":"","date":"2026-11-11","lead":"Spencer Williams","id":"job_mwbi6ehs_jja756wtt","sample":false}}}]}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/build2-reliability.test.cjs:40:1
+✖ Unchanged named-job renders preserve keyboard focus and existing action controls (1085.645663ms)
+  AssertionError [ERR_ASSERTION]: Unchanged list controls must not be reconstructed.
+  + actual - expected
+  
+  + HTMLButtonElement {}
+  - HTMLButtonElement {
+  -   Symbol(SameObject caches): [Object: null prototype] {
+  -     dataset: DOMStringMap {}
+  -   }
+  - }
+  
+      at /workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:43:9
+      at app (/workspace/NightSweep_1.8_Alpha_build_2/qa/build2-reliability.test.cjs:7:67)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: {},
+    expected: {},
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

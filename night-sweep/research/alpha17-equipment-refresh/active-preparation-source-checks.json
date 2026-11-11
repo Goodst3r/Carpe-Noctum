@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-11-10",
+  "manualRevision": "V02102025",
+  "observations": [
+    {
+      "physicalPage": 51,
+      "printedPage": 38,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=51#manual",
+      "statusCode": 200,
+      "scrapeId": "01a1c7dc-ac2b-71a2-8009-1a2f5ed7a923",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "physicalPage": 52,
+      "printedPage": 39,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=52#manual",
+      "statusCode": 200,
+      "scrapeId": "01a1c7dc-ac34-7698-a627-bb9466d05acb",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "physicalPage": 53,
+      "printedPage": 40,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=53#manual",
+      "statusCode": 200,
+      "scrapeId": "01a1c7dc-ac33-750f-9e49-8001540ee2bf",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "physicalPage": 54,
+      "printedPage": 41,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=54#manual",
+      "statusCode": 200,
+      "scrapeId": "01a1c7dc-ac5b-729e-a6e7-bac02903ebe1",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "physicalPage": 55,
+      "printedPage": 42,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=55#manual",
+      "statusCode": 200,
+      "scrapeId": "01a1c7dc-acfa-7489-9fbc-1c794b934675",
+      "checkedAt": "2026-11-10"
+    }
+  ]
+}

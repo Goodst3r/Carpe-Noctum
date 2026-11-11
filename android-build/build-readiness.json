@@ -1,0 +1,51 @@
+{
+  "version": "1.8 Alpha build 2",
+  "version_code": 24,
+  "launcher_label": "NightSweep 1.8 Preview build 2",
+  "package": "com.spencerwilliams.nightsweep.preview",
+  "status": "Final Build 2 Preview APK compiled and signed with original compatible-update certificate; package/signatures/alignment/final HTML verified",
+  "standalone_frozen": true,
+  "final_apk_built": true,
+  "candidate_apk_built": true,
+  "signing_material_present": false,
+  "physical_device_tests": false,
+  "historical_readiness": "../docs/history/Android_Build20_Readiness.json",
+  "historical_apk": "../release/build22/NightSweep-1.7-preview-build22.apk",
+  "notes": [
+    "Original authorized signer verified against the pinned public certificate. Working files are outside the project; Source/APK/public Web exclude them. The owner explicitly authorized the original key/password only in PRIVATE_SIGNING/ in the private master ZIP.",
+    "No replacement signer or alternate package generated.",
+    "Exact frozen shared HTML bytes are embedded in the final signed APK.",
+    "Emulator and physical-device testing have separate scope; no physical-device test claim."
+  ],
+  "source_staging_validation": {
+    "command": "python3 qa/android-preview.test.py",
+    "grouped_checks_passed": 18,
+    "sdk_commands": "synthetic mocked results; no real APK compilation/signing",
+    "release_candidate_failures_checked": true,
+    "publication_copy_and_promotion_failures_checked": true
+  },
+  "signing_material_available_outside_project": true,
+  "signing_material_included": false,
+  "native_java_edge_validation": {
+    "command": "python3 qa/android-native-edge.test.py",
+    "checks_passed": 12,
+    "scope": "Extracted production Java bodies and platform stand-ins; no device testing"
+  },
+  "preflight_record": "../research/build2/native/toolchain-and-signer-preflight.json",
+  "preliminary_build_record": "../research/build2/native/preliminary-real-build.json",
+  "standalone_sha256": "4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758",
+  "apk_sha256": "55660a8992ba7d498daaddb2db63f0664469823eecd080226a66d9cc697a6237",
+  "apk_file": "dist/preview/NightSweep-1.8-build2-preview.apk",
+  "final_build_record": "../research/build2/native/final-real-build.json",
+  "emulator_validation": {
+    "record": "../research/build2/native/emulator-validation.json",
+    "compatible_update_installation_passed": true,
+    "generic_private_fixture_preserved": true,
+    "native_runtime_smoke_passed": false,
+    "saved_job_retention_verified": false,
+    "physical_device_tests": false,
+    "blocker": "Stock WebView124 renderer SIGTRAP on both historical Build22 and final Build24 in unsupported software CPU emulator"
+  },
+  "signing_material_scope": "signing_material_present/included describe this source tree and APK, not the separately authorized private master backup.",
+  "private_master_signing_backup_included": true
+}

@@ -1,0 +1,398 @@
+{
+  "topic": "ACI DSIM latest public setup evidence",
+  "reviewedAt": "2026-11-10",
+  "scope": "Research only; no application edits, hardware operation, key-list research, purchases, builds or commits.",
+  "latestClaim": "Newest relevant documents found and current links verified; not a manufacturer confirmation that no newer private or firmware-specific procedure exists.",
+  "sources": [
+    {
+      "id": "aci-dsim-live",
+      "title": "ACI current DSIM page",
+      "url": "https://acicomms.com/dsim/",
+      "revision": "Undated live page",
+      "pages": null,
+      "retrieval": "Fresh Firecrawl maxAge0, HTTP200",
+      "scrapeId": "01a1c7d3-1916-7212-9db8-84e11b5cd97a",
+      "finding": "Current page still links DSIM App Guide Rev B2021 and DSIM data sheet Rev AB2022; no newer setup guide linked."
+    },
+    {
+      "id": "sg-h",
+      "title": "DSIM-SG Installation Guide",
+      "url": "https://acicomms.com/wp-content/uploads/2021/04/04.-DSIM-SG-TechManual-Rev-H-210408b.pdf",
+      "revision": "H",
+      "date": "2021-04-08",
+      "pages": [
+        2,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "retrieval": "Original manufacturer PDF read earlier in this task",
+      "finding": "Newest SG setup manual located. Exact installed applicability still needs verification."
+    },
+    {
+      "id": "sg-g",
+      "title": "DSIM-SG Installation Guide",
+      "url": "https://acicomms.com/wp-content/uploads/PDF/04.-DSIM-SG-TechManual-Rev-G-180724.pdf",
+      "revision": "G",
+      "date": "2018-07-24",
+      "pages": [
+        2,
+        7,
+        10,
+        11,
+        18
+      ],
+      "retrieval": "Fresh Firecrawl maxAge0 PDF, HTTP200,18 pages",
+      "scrapeId": "01a1c7d3-edc5-751f-b2ab-056b5c0d819f",
+      "finding": "Manufacturer original confirms0dB AGC pad and40–80°F temperature preparation interval."
+    },
+    {
+      "id": "sg-e",
+      "title": "Historical DSIM-SG Installation Guide",
+      "url": "https://thomasonbbs.com/store/pc/catalog/DSIM-SG%20TechManual%20Rev%20E%20151003.pdf",
+      "revision": "E",
+      "date": "2015-10-03",
+      "pages": [
+        2,
+        10,
+        18
+      ],
+      "retrieval": "Manufacturer-authored original preserved by distributor, read earlier",
+      "finding": "AGC pad10dB LE/6dB HGD-UBT and32–104°F preparation interval differ from G/H. Do not merge recipes."
+    },
+    {
+      "id": "a-t",
+      "title": "DSIM-A Installation Guide",
+      "url": "https://acicomms.com/wp-content/uploads/PDF/01.-DSIM-A-TechManual-Rev-T-171214.pdf",
+      "revision": "T",
+      "date": "2017-12-14",
+      "pages": [
+        2,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18
+      ],
+      "retrieval": "Firecrawl PDF HTTP200,18pages earlier this task",
+      "scrapeId": "01a1c7c0-86d2-708e-9392-be61ae4be40c",
+      "finding": "Historical DSIM-A directions; no1218-MHz applicability statement verified. Do not silently assign to DSIM-A-MDL-1201."
+    },
+    {
+      "id": "app-b",
+      "title": "DSIM Mobile Application Setup Guide",
+      "url": "https://acicomms.com/wp-content/uploads/2021/03/11.-DSIM-App-Manual-Rev-B-210324.pdf",
+      "revision": "B",
+      "date": "2021-03-24",
+      "pages": [
+        3,
+        6,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "retrieval": "Original PDF read earlier; current live manufacturer page still links it",
+      "finding": "App instructions are separate from physical controller instructions."
+    },
+    {
+      "id": "data-ab",
+      "title": "DSIM data sheet",
+      "url": "https://acicomms.com/wp-content/uploads/2022/08/10.-DSIM-Data-sheet-Rev-AB-220817.pdf",
+      "revision": "AB",
+      "date": "2022-08-17",
+      "pages": [
+        4,
+        5,
+        9,
+        16,
+        19
+      ],
+      "retrieval": "Original PDF read earlier; live page current link",
+      "finding": "DSIM-A1002/1218 andDSIM-SG are distinct; SG15V/14–16V specification conflicts with24V fault table text in SG manual."
+    },
+    {
+      "id": "sda-u",
+      "title": "SDA1.2G data sheet",
+      "url": "https://acicomms.com/wp-content/uploads/2025/02/01.-SDA-1.2G-DataSheet-Rev-U-250226.pdf",
+      "revision": "U",
+      "date": "2025-02-26",
+      "pages": [
+        8,
+        9
+      ],
+      "retrieval": "Manufacturer original read earlier",
+      "finding": "DSIM-A-MDL-1201 identified onp9. Data sheet is not a setup manual."
+    },
+    {
+      "id": "android-app",
+      "title": "Official ACI DSIM Google Play listing",
+      "url": "https://play.google.com/store/apps/details?id=com.aci.dsim",
+      "revision": "Version number not exposed by retrieved listing",
+      "date": "2026-01-06",
+      "pages": null,
+      "retrieval": "Fresh Firecrawl maxAge0 HTTP200",
+      "scrapeId": "01a1c7d3-79a2-728e-be6a-20892c04d90d",
+      "finding": "UpdatedJan6,2026; release note describes an input-value fix. Does not provide device firmware matrix."
+    },
+    {
+      "id": "ios-app",
+      "title": "Official ACI DSIM App Store listing",
+      "url": "https://apps.apple.com/us/app/aci-dsim/id1550253698",
+      "revision": "1.12",
+      "date": "2023-11-15",
+      "pages": null,
+      "retrieval": "Fresh Firecrawl maxAge0 HTTP200",
+      "scrapeId": "01a1c7d3-6d62-7614-9dda-6e5fabf83735",
+      "finding": "Current retrieved listing1.12,chart display fix; no device firmware compatibility matrix."
+    }
+  ],
+  "readyForUi": {
+    "selectionGate": {
+      "basis": "Engineering workflow recommendation",
+      "steps": [
+        "Identify installed amplifier RF module,DSIM model/part number,firmware and interface used.",
+        "Select the exact applicable manual revision; station housing brand alone is insufficient.",
+        "Record job-approved output levels,slope,frequencies,measurement plane and meter test-point compensation. No manufacturer maximum is substituted for a local target."
+      ]
+    },
+    "sgGHPhysicalController": {
+      "sourceIds": [
+        "sg-g",
+        "sg-h"
+      ],
+      "scope": "Only installed DSIM-SG/station configuration confirmed applicable to RevG/H.",
+      "steps": [
+        {
+          "id": "manual-balance",
+          "pages": [
+            2,
+            10
+          ],
+          "text": "Set S1 manual(position2). At maximum gain,use the backoff applicable to the documented test frequency:3.2dB at547MHz,4.1dB at750MHz,or4.6dB at870MHz. Select S1position3,AGC pad0dB,then set design input/output."
+        },
+        {
+          "id": "controller-mgc",
+          "pages": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "text": "Connect240330-01 and controller.Wait for synchronization; confirm solid-blueMGC before adjusting levels."
+        },
+        {
+          "id": "temperature-prep",
+          "pages": [
+            10,
+            11
+          ],
+          "text": "Outside40–80°F,record highest-frequency RF output,apply the manual controller output adjustment below,then restore that recorded output using the input pad. Do not extrapolate the table or translate raw app counts into dB."
+        },
+        {
+          "id": "fallback",
+          "pages": [
+            5,
+            11
+          ],
+          "text": "Choose verified upfront cable factor9/18/27dB and confirm its LED pattern. TGC for pedestal/underground installation is discouraged by the manual."
+        },
+        {
+          "id": "align",
+          "pages": [
+            6,
+            7,
+            11
+          ],
+          "text": "Return to solid-blueMGC and verify output/slope. PressMode once,wait about45seconds for alignment,and confirm blinking-blueAGC and intended pilot/type. Resolve failed alignment; do not leave setup in failure fallback."
+        }
+      ],
+      "controllerTemperatureTable": {
+        "quantity": "RF output adjustment using physical controller; input pad restores original recorded output afterward",
+        "frequency": "Highest operating frequency recorded before adjustment",
+        "sourcePages": [
+          10,
+          11
+        ],
+        "rows": [
+          {
+            "condition": "Below20°F",
+            "deltaDb": -2
+          },
+          {
+            "condition": "20–40°F",
+            "deltaDb": -1
+          },
+          {
+            "condition": "40–80°F",
+            "deltaDb": 0
+          },
+          {
+            "condition": "80–100°F",
+            "deltaDb": 1
+          },
+          {
+            "condition": "Above100°F",
+            "deltaDb": 2
+          }
+        ],
+        "boundaryNote": "Confirm exactly20,40,80,100°F boundary handling under local/manufacturer procedure; the printed ranges share boundaries. No automated boundary acceptance.",
+        "erratum": "Printed40°F Celsius label in one cold row is incorrect;40°F=+4.4°C,not−4.4°C."
+      },
+      "controllerModeTransitions": [
+        {
+          "from": "MGC(solidblue)",
+          "action": "Mode once",
+          "to": "Align thenAGC if successful"
+        },
+        {
+          "from": "AGC(blinkingblue)",
+          "action": "Mode once",
+          "to": "TGC(solidpurple)"
+        },
+        {
+          "from": "TGC(solidpurple)",
+          "action": "Mode once",
+          "to": "MGC(solidblue)"
+        }
+      ],
+      "retryNote": "Source describes reducing AGC pad by3dB after pilot-lock failure,but initialG/Hpad0dB cannot be reduced as an ordinary nonnegative pad. Do not generate a negative pad; verify actual installed pad/pilot path and obtain applicable guidance.",
+      "sourceConflicts": [
+        "RevE pad and temperature recipe differs.",
+        "SG fault-voltage table conflicts with model-specific data sheet; show conflict instead of threshold.",
+        "Quick-start text omits some temperature/fallback details; use full procedure."
+      ]
+    },
+    "mobileApp": {
+      "sourceId": "app-b",
+      "scope": "Manufacturer app guideRevB; installed app and module firmware must be checked separately.",
+      "steps": [
+        {
+          "id": "connect",
+          "pages": [
+            3
+          ],
+          "text": "Use specifiedDSIM-DONGLE-02Bluetooth4.0 interface and verify the intended localDSIM connection."
+        },
+        {
+          "id": "recordidentity",
+          "pages": [
+            6,
+            7
+          ],
+          "text": "Record serial/firmware and current attenuation/min/center/max. Attenuator center is associated with near68°F in this guide; raw position is not dB."
+        },
+        {
+          "id": "manual",
+          "pages": [
+            10,
+            13
+          ],
+          "text": "UseWorkingModeMGC for manual setup.AGCPrep controls return the module toMGC if another mode was active."
+        },
+        {
+          "id": "prep",
+          "pages": [
+            13
+          ],
+          "text": "AGCPrep minus decreases attenuation(cold setup);plus increases attenuation(hot setup);zero returns center.MAX/MIN are for finding range only.The guide gives no universal raw-count-to-dB or number-of-clicks recipe."
+        },
+        {
+          "id": "pilot",
+          "pages": [
+            11
+          ],
+          "text": "Confirm the approved pilot/type/key inACI app.Then enterAGC and wait until its process finishes before closing the app."
+        },
+        {
+          "id": "logs",
+          "pages": [
+            12,
+            14
+          ],
+          "text": "Record chosen log interval;changes apply to future collected samples.Save relevant data/event logs with the job."
+        }
+      ],
+      "signWarning": "The app documents attenuation changes;the physical controller documents RF output changes.Keep labels distinct and verify measured effect;do not combine their numeric recipes.",
+      "missing": [
+        "No published module-firmware compatibility matrix located.",
+        "No newer manufacturer mobile setup guide found than the guide currently linked.",
+        "No measured device test performed."
+      ]
+    },
+    "historicalA": {
+      "sourceId": "a-t",
+      "scope": "HistoricalDSIM-Aonly;exact installed applicability must be confirmed.1218-MHzMDL-1201 remains unverified.",
+      "steps": [
+        {
+          "id": "powerofffit",
+          "pages": [
+            9
+          ],
+          "text": "If fitting the module,install with power off per this manual.For a new station,power on and allow about20minutes warm-up."
+        },
+        {
+          "id": "manual",
+          "pages": [
+            9
+          ],
+          "text": "Attach controller,wait for sync,and confirm solid-blueMGC.Set design level/slope using input pad/EQ."
+        },
+        {
+          "id": "prep",
+          "pages": [
+            9,
+            10
+          ],
+          "text": "Use only the applicable historicalA temperature preparation and fallback instructions;these are not theGainMakerSGS1/backoff/pad recipe."
+        },
+        {
+          "id": "align",
+          "pages": [
+            2,
+            10
+          ],
+          "text": "Start alignment fromMGC;wait about45seconds and confirmAGCblink and pilot.Evaluate final measured levels against job requirements."
+        }
+      ]
+    },
+    "closeout": {
+      "basis": "Engineering workflow recommendation,not additional manufacturer specification",
+      "steps": [
+        "Record final mode,pilot frequency/type,firmware,cable factor and applied pad/EQ values.",
+        "Measure final output levels/slope at named frequencies and planes;verify approved job limits,not checked-step counts.",
+        "Verify normal pilot lock and resolve warnings.Save original meter evidence and relevantDSIMlogs.",
+        "After housing closure/thermal settling,recheck under applicable station procedure.Do not apply historicalA thermal-rise numbers universally."
+      ]
+    }
+  },
+  "unresolved": [
+    "Most-recent public search is not proof that no newer private or firmware-specific document exists.",
+    "No exact current1218-MHzDSIM-A setup guide or firmware applicability matrix verified.",
+    "Exact temperature-table boundary handling and SGnegative-pad retry language need manufacturer/operator clarification."
+  ],
+  "verification": {
+    "research": "Fresh Firecrawl manufacturer page,app stores,SGGoriginal PDF;earlier originalH,A,AppB,dataAB reviewed and reused.",
+    "physicalDeviceTests": false,
+    "applicationTestsRun": false,
+    "codeEdited": false
+  }
+}

@@ -1,0 +1,545 @@
+{
+  "scope": "App/platform/docs/QA and release entry points compared with the retained prior local 1.8 workspace. Generated app assets, raw research and installed dependencies are excluded. Documentation PDFs are included. Complete delivered membership is in SHA256SUMS.txt.",
+  "changes": [
+    {
+      "path": "AGENTS.md",
+      "change": "modified",
+      "prior_1_8_sha256": "5b229859acdeb02104e93fbcbb31c758959586ebc829542931db9120d284378a",
+      "build2_sha256": "05498a55a485bf058823c47f367e7b76ddba60809355155385f0e28f3a405d93"
+    },
+    {
+      "path": "NightSweep_1.8_Alpha_build_2_UPDATE_LOG.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "8a9810d4c65144a7054efbc112491121f5031b6a6db9fa01630e01912e92d39b"
+    },
+    {
+      "path": "NightSweep_Project_Status.md",
+      "change": "modified",
+      "prior_1_8_sha256": "465bbbf7e229eeef4e62db42dab036280dca34db1db14b554c201f8e40003b46",
+      "build2_sha256": "46109ddcdb9b69888f5aaecf913bcfb6f0705744e05c426886bcbdcfa960802d"
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "prior_1_8_sha256": "b3093d815abe73518952723d10f7929d4bc838ad3eaad38232fbf57c58165ec4",
+      "build2_sha256": "c103e1870be58f02dc2f2d6b9382933a4cb740284caef555af50955c36351f3e"
+    },
+    {
+      "path": "START_HERE_CODEX.md",
+      "change": "modified",
+      "prior_1_8_sha256": "99f87f35cf9231a0d2ffdffccff0f3dc65733d2ca0d6192635a7705cbc49a4e0",
+      "build2_sha256": "05415efa8a83d176d924d379e8ed562d2b82b5d38dbea1698bdc5910107e6cf2"
+    },
+    {
+      "path": "android-build/build-readiness.json",
+      "change": "modified",
+      "prior_1_8_sha256": "d40660117c51e7823e2fc042c01e161d2a1588b7afb9b948c3adbf34e86525a4",
+      "build2_sha256": "604e385bd14b3ba91c694df4c54e363e551b54d95d1312606b371d80327556cc"
+    },
+    {
+      "path": "android-build/build.py",
+      "change": "modified",
+      "prior_1_8_sha256": "5b3c90e6555a8c1d49c7cd17c476c0ae88516086d57364bf9f8ef081c599621a",
+      "build2_sha256": "9624edc67f36d0a27d4117e6db117ce896a62c4712fa3fbb61cefd3643ba7e64"
+    },
+    {
+      "path": "build-pwa.py",
+      "change": "modified",
+      "prior_1_8_sha256": "396965c2dc3af84bd3f99b84fdb2917a5c052d6320ca13ea65196a78fabcbf83",
+      "build2_sha256": "74c25e282212dd05cbfa0d2e1a74561cad92bce5e2d5c4af7f88d478c000bc20"
+    },
+    {
+      "path": "docs/Android_Install.html",
+      "change": "modified",
+      "prior_1_8_sha256": "10661c072fb3b009fb44417d1e2139c924a44cc89d974b1b3f00696225ba5a43",
+      "build2_sha256": "de94da566c3c23cea926c490ee01010564b5192f75e5feda8294ce395b4519b8"
+    },
+    {
+      "path": "docs/DEVELOPER_BUILD.md",
+      "change": "modified",
+      "prior_1_8_sha256": "4a1a6da553e04d80ceeb65ce898a1c188a2739859d7612ac044ff5e242e9d9a4",
+      "build2_sha256": "27d89dbc19998a36a3fc18593b8463350648efe7c165b566223277dbf1c9badb"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Android_iOS_Installation.html",
+      "change": "modified",
+      "prior_1_8_sha256": "d37ccd3ffc8ba115f8229ed95303465bbc20beaf4b7fb70f8468467c7fb7cd5d",
+      "build2_sha256": "e8a1079145361b618007983df350a357e7b9d3ca96d1295bb4a9a3203ddaf4a1"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Android_iOS_Installation.md",
+      "change": "modified",
+      "prior_1_8_sha256": "ae14d6f65f2c12955a084ac00e0d676449c440094412391102921e0835e8554f",
+      "build2_sha256": "1a8da77dee28476bce95f87ea3a6cf20e6c3c372e628e872e780bd2a5e84a288"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Android_iOS_Installation.pdf",
+      "change": "modified",
+      "prior_1_8_sha256": "d4c22382e1e7424f1b749d1162cff0598d4664b6042711b100144712d5376837",
+      "build2_sha256": "53588cb8829267b0689f20356033356b1c9201163f6b097b41a72a47f6d3957d"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Functions_README.html",
+      "change": "modified",
+      "prior_1_8_sha256": "07fcf0b3d29ee2152590f2112004fd67898f80f6fe58e5b6078d38cb0fb40af7",
+      "build2_sha256": "6ddfb43e31470a3a5c0cfb95fe5280ee6d70802b337fcf559c45b27dd72bc13d"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Functions_README.md",
+      "change": "modified",
+      "prior_1_8_sha256": "fffef1d19f3eb5a1f400cf993af7e18d111240ab6cbddc2a5e6e531d0951ae11",
+      "build2_sha256": "ba79ac403418cffcd0b8f89ac47712214bf9bb83b9a3b99645a8bbeaeb0a451e"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_Functions_README.pdf",
+      "change": "modified",
+      "prior_1_8_sha256": "db6865d0031910b2be0eee4f6a79856e995b335c09e03607691b5196282d663d",
+      "build2_sha256": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_README.html",
+      "change": "modified",
+      "prior_1_8_sha256": "3b32a069df478a70b458ebd8fe80cf4ca8000e21a35d51711426a52eaec90dc0",
+      "build2_sha256": "03417222e600d0dfa5a7c2d14450f916256b9124dc74fb95d29e1572b4235ed5"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_README.md",
+      "change": "modified",
+      "prior_1_8_sha256": "ef47bc127d6a6df00ec407e43c5a39bd8da9ddea4c2935a147618dca3c07e236",
+      "build2_sha256": "a5bc0611b9c08d878191e00d1063bc929dfe690c7c41a9c5b2b052dce19fa20e"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Equipment_Coverage.html",
+      "change": "modified",
+      "prior_1_8_sha256": "6cbc6196dc3d12d8bf5422459de24bec98a238cbb244ea0049dcf4ec62a51c80",
+      "build2_sha256": "d640ce9cb88621bbb22863b36ce777a5fb4a129484b805bd86743d8a58e29f18"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Equipment_Coverage.md",
+      "change": "modified",
+      "prior_1_8_sha256": "85f17de2152673db8a65f0902fd9ade7ff18238d891257638e53016361d79b93",
+      "build2_sha256": "cf5695a24267db543e4526992efedf1e9f0f4bc1edc58d01d0d8f6ebe5a9a4cb"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Math_Audit.html",
+      "change": "modified",
+      "prior_1_8_sha256": "e98af8c1490017bfe76723614a673319bde64e07e9dfbe6d305bcada9692d8ef",
+      "build2_sha256": "1ed582c80ec96fe0261302d86c974fa30d469e6914f95e6753aade26f8dd9329"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Release_Notes.md",
+      "change": "modified",
+      "prior_1_8_sha256": "6d3828ab2d7ba342c655621096ba911543a09bdfdd9478fa0bce69cce57a6a1f",
+      "build2_sha256": "c3cc33610462eaf7d07879241bae4634b1f73fed1a16dc042b41f03f5d616244"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Setup_Guide.html",
+      "change": "modified",
+      "prior_1_8_sha256": "b4f43f63558376c967a6ed94a601a5c536111dd4f83733b65e5d81c4919e1b64",
+      "build2_sha256": "4d26530dee377c68100f1f3776579bd4ec60e1d200087b209f3c463452ae038c"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Training_Coverage.html",
+      "change": "modified",
+      "prior_1_8_sha256": "e83bfb96209fcf60690c2473f8c72c63aee0ba148371d8b33d7b22de2f5dea91",
+      "build2_sha256": "20bb55ce6c608358dd5484892060e867c0e46b56b199bc86c2003c40b663b0c5"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Training_Coverage.md",
+      "change": "modified",
+      "prior_1_8_sha256": "6cc49d5e47a0de6770b51ca9c9ee51bada9c947a7ea59ecba462ecc43bfd2a0e",
+      "build2_sha256": "5619166b5064f5902f0670ba08843a88806c1ebc1e1641afc998f80ee31bd65f"
+    },
+    {
+      "path": "docs/iPhone_Install.html",
+      "change": "modified",
+      "prior_1_8_sha256": "0a63c8d496c222837483fb2beb4b040f47ac088f9d6ae70e46aeffa9f1d2ed4a",
+      "build2_sha256": "ad1434442bff98e1f598974c28f543c3210b213efdfa8173db06305eaa108462"
+    },
+    {
+      "path": "night-sweep/README.md",
+      "change": "modified",
+      "prior_1_8_sha256": "ef47bc127d6a6df00ec407e43c5a39bd8da9ddea4c2935a147618dca3c07e236",
+      "build2_sha256": "a5bc0611b9c08d878191e00d1063bc929dfe690c7c41a9c5b2b052dce19fa20e"
+    },
+    {
+      "path": "night-sweep/app.js",
+      "change": "modified",
+      "prior_1_8_sha256": "2fd8b626928c226ce00e8dd97eccfc2dad47c27725a0a928cfb97bdce50097ec",
+      "build2_sha256": "9715eb4e47f8379889c4f7667279cf74c73b36be9fab5374a9f63c1c7c599924"
+    },
+    {
+      "path": "night-sweep/build.py",
+      "change": "modified",
+      "prior_1_8_sha256": "cf9df8942c19bc7622651ad62245c87f99d3c8458ad7fa023a100befb5408594",
+      "build2_sha256": "a754675699e4a56c972913429f5d2a8c4e77a553fa538f4d829f9240b9a143f0"
+    },
+    {
+      "path": "night-sweep/engine.js",
+      "change": "modified",
+      "prior_1_8_sha256": "13852cb9a54120f2f231d815483885e62a1e17d81ebde4f2cd9e70985dc1d42a",
+      "build2_sha256": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459"
+    },
+    {
+      "path": "night-sweep/evidence.js",
+      "change": "modified",
+      "prior_1_8_sha256": "6f1797951988b406671cb6f405d362a061a5ad75ff29602477e582907b21e2bc",
+      "build2_sha256": "bcabc10e8207322eedf96f49f8e59721b35c06b4ba1def8aa3f8dae70945d4cd"
+    },
+    {
+      "path": "night-sweep/field-report.js",
+      "change": "modified",
+      "prior_1_8_sha256": "e93cf7ab0b4a0e58eaef43975f3a33d96ba30229939d6129ad2e992d9f5de080",
+      "build2_sha256": "323f95bcdeff4a800bad2fdd565911b20b013cd921d58b0c9dfb57a26a97cf15"
+    },
+    {
+      "path": "night-sweep/frequency.js",
+      "change": "modified",
+      "prior_1_8_sha256": "9abdcfd2f3a6bb4233df86817e6c0e523368d0791d87a58706710c0db98dae30",
+      "build2_sha256": "8e8fe442904d19eeb2ec83d43e6e91934f973cc9ded7c9c8c529a1e597e4dbeb"
+    },
+    {
+      "path": "night-sweep/jobs.js",
+      "change": "modified",
+      "prior_1_8_sha256": "eadf86d1ae5840a588208244fafeafb9b8f9f9bb29c873450940898426b02662",
+      "build2_sha256": "e8b83e459e858b3191d88cb909a4d8657b29ded0fc52bee243702e68ed8bbe70"
+    },
+    {
+      "path": "night-sweep/projects.js",
+      "change": "modified",
+      "prior_1_8_sha256": "0e40ee165f2126f3f5705ccdd180c133cb4ecf6ca3ef947ca04986ca431fed4c",
+      "build2_sha256": "e6aac2bfe777c8ec99b6aaa6c3cc16be4fbf5f0550b3342179e151eb4a74d2a8"
+    },
+    {
+      "path": "night-sweep/shell.html",
+      "change": "modified",
+      "prior_1_8_sha256": "f74bf47299fe657e33c4b93419f01723257692729d91fe68af761c2dbf827992",
+      "build2_sha256": "48fb5607a5fb11d25a109cd24bdec741fd9d4eb22cf0c9feefd9ede7dc0ab90e"
+    },
+    {
+      "path": "night-sweep/style.css",
+      "change": "modified",
+      "prior_1_8_sha256": "75157ad6078b055fa43c06f7e4bb12b61d26970976cbbef2ed13a632a7d0f872",
+      "build2_sha256": "d37120ed3a92b47690336abfe1740f7a518ddba4a13840a8f8bc1c4554bf755c"
+    },
+    {
+      "path": "night-sweep/sweep-setup.js",
+      "change": "modified",
+      "prior_1_8_sha256": "e852b64d8b9174288c1f8b89e069ba29bf9d9c31b2bfcbe482981c9d5a857305",
+      "build2_sha256": "0485be4be19c9386e7130ce66ffa026cfea4a0794494f8669890a222841688cd"
+    },
+    {
+      "path": "night-sweep/training.js",
+      "change": "modified",
+      "prior_1_8_sha256": "0e87d5cd71b2071c2cf148c229451b058738c8053b8547b6a602f79db5805638",
+      "build2_sha256": "960b9fc67fec71dbd4eb6213e7d1edb6b8976fb004806527387cb0cb3bf7da9e"
+    },
+    {
+      "path": "night-sweep/workflow.js",
+      "change": "modified",
+      "prior_1_8_sha256": "15ad1e30578b867cfc7010490f0603abeac014374a15589c8e98e661a03d726f",
+      "build2_sha256": "06f326dc4778ab1dcfbfe3d417d525cca603c4abed2a2a754f9b1b574b67c5b1"
+    },
+    {
+      "path": "pwa/install.html",
+      "change": "modified",
+      "prior_1_8_sha256": "a52097d146beffc7f82c0b69e2375f59d299282d25bcfebb2d708601524755c8",
+      "build2_sha256": "e23532469fabc71eb843e61dd44d72c714c13f2529c087232ef001ea87818519"
+    },
+    {
+      "path": "pwa/manifest.webmanifest",
+      "change": "modified",
+      "prior_1_8_sha256": "6ef21559400e3b05318cde951d9eb3f34e65be532716e3777feb8ffabdc31b1c",
+      "build2_sha256": "4892905c5f8095cd5aec0b1eacdb4f6ff8b090e9051b5fa02554339fa051333a"
+    },
+    {
+      "path": "pwa/pwa.js",
+      "change": "modified",
+      "prior_1_8_sha256": "2a8243f8199e6c790142432bba56a0d39d3597064bdda23b370a1bb49b3df97d",
+      "build2_sha256": "159f436bddcaddc1690e83bb0a553b654a599977d90dfdaab494263d63ff256e"
+    },
+    {
+      "path": "qa/alpha011-integration.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "3f9be65cf3927616cfc037088ddbb024d90b140c5b454dcaf2d59b49fdef05f3",
+      "build2_sha256": "c1fcb942640df8de45681d2bbf74b6bc4b71902281d8eef2b28860922c4ce54c"
+    },
+    {
+      "path": "qa/alpha012.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "78e55ae90616e7fa8de2dd5077d2501f9d3bd0ad60c583b2e9f5ca4ca721bf7a",
+      "build2_sha256": "e0b997b6a00b68fd5938c36a0395bf62b6b28ac693dd8a46d49f6191e26871e6"
+    },
+    {
+      "path": "qa/alpha14-ui.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "85c5f9b97f7bec3384f10f2a3913f4d32ffa43f4b068ad00875d903a49da5bf6",
+      "build2_sha256": "4b1d78ee122e5287b844efc587450fc80d64c6c93f3b3107526a2a8a447cd964"
+    },
+    {
+      "path": "qa/alpha15-ui-results.json",
+      "change": "modified",
+      "prior_1_8_sha256": "3a7251658eb37da774682bba51e8a1b3ed2fa9dc5a0e130c47957b1517fc6f4e",
+      "build2_sha256": "0e61915b73cdf7fe5c7ceff9c34c879284ada9e629ca8dc5389d19dfa1eb0f31"
+    },
+    {
+      "path": "qa/alpha15-ui.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "b24525b439a52e1a76a5d7d9e00f8270baf4f17de8dd8460c7e991d88112d0f3",
+      "build2_sha256": "6aaa3396243950d260dddfbfe62ba84dc8bdfdc0938212e954fba4cbe04c5723"
+    },
+    {
+      "path": "qa/alpha18-release.test.py",
+      "change": "modified",
+      "prior_1_8_sha256": "b7a97e8ca5f0132d5e640c4d6c44c6be01251d3d4955e87231aee8d1c119d44c",
+      "build2_sha256": "d6273c6073e720d268e67e28927fbaebab58e913a928e42cb044071ca83e0f9e"
+    },
+    {
+      "path": "qa/android-native-edge.test.py",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "da073e8dda187180bf6a8ad46328c425ab6f13b696d7b340f41e8963bf3a8764"
+    },
+    {
+      "path": "qa/android-preview.test.py",
+      "change": "modified",
+      "prior_1_8_sha256": "b473c7b7d70b2e22fe943b2bb7425d220c25602641d781e1b2d246b7cff94535",
+      "build2_sha256": "61bfc0710048380611c72280d3e671003b20d574ee962673e0880b0758872598"
+    },
+    {
+      "path": "qa/browser-files.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "181573b1d20f5fe97cadc278c995ea549d9e3fb73b75599adf1d0a49ec9aa654",
+      "build2_sha256": "51c6b928503e7bdf13073da80a0b57dd8f625a04351f003e7f7d27d7013d64b2"
+    },
+    {
+      "path": "qa/browser-smoke.py",
+      "change": "modified",
+      "prior_1_8_sha256": "ed3117dfde36c600fa0bae265e7f73173ec164e1fc73f525f9920be7f7b7ab9f",
+      "build2_sha256": "2c047e8ede2889826a5e4081fd11ad289f8cbf0854681f3f3effb993f9f4e72c"
+    },
+    {
+      "path": "qa/build2-dsim-dates.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "dd9fb72482a7c437c5450faf642d6e8fb6392571b9363f5a2b9dc577919b84f0"
+    },
+    {
+      "path": "qa/build2-example-math.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "c2e0f32d1041a418428eeaaa9b7cf64dd1b681d57ed03a8ebe4c4a6abb4d61d1"
+    },
+    {
+      "path": "qa/build2-frontend.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "3a740f377009c5452139ac6030cbd271ea5a3a1d93ecbc7157cfa062a333f8c7"
+    },
+    {
+      "path": "qa/build2-layout.test.py",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "fc787af2cbce5b67efc62aec5636dcf1a467adf5a77dc03d6ff555b86bfbea77"
+    },
+    {
+      "path": "qa/build2-power.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "e137ab324dc2e526644b863db4114ba67e263cd673996ba6d4f396a74eb00283"
+    },
+    {
+      "path": "qa/build2-reliability.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "fb19c7f7562970a45079ddb30ab673fa0d2d5d5742aa5aefc533da429eadfbc5"
+    },
+    {
+      "path": "qa/build2-rf-properties.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "7ccedbf1aece609f367cce702d42b7543682ddcb75fcb3c17d1830874b7e735f"
+    },
+    {
+      "path": "qa/build2-source-harness.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "d28c0bc7eca869febf46f8b41b44247614bb83d45715ce29783af40220916add"
+    },
+    {
+      "path": "qa/build2-tdr-boundaries.test.cjs",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "5a2ef4ea0328f8626acc5a8d97802fc7a0ecd23d066f394a160ed2b5e8e4c79f"
+    },
+    {
+      "path": "qa/dom-tests.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "3d3b468cf75ce984027d4f8ce5d73bf500ca557d672e3c1949332448ccfbc2c7",
+      "build2_sha256": "434095efc4991dd8130c496b51bc1ba7fa0b92fedc960055d3286230e0806662"
+    },
+    {
+      "path": "qa/pwa-test-results.json",
+      "change": "modified",
+      "prior_1_8_sha256": "6699458d146af07555754bfcd170573a6470c3c94ef9f5f1fed2ee5b011bde3f",
+      "build2_sha256": "aa8fe2b1a599802683dbcf0f1f5be1f708ead35f4a874d06980b3863195fd0c3"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha18-release.test.py.txt",
+      "change": "modified",
+      "prior_1_8_sha256": "e96c7aff4f44ec5e9d82ee60a1ba75486ca1f434851734717590fae1a6828ea6",
+      "build2_sha256": "7dff6ea24740d3edbf3406769bf68672ef937d912c8362eceabac67ed3020138"
+    },
+    {
+      "path": "qa/pwa-testlogs/android-native-edge.test.py.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "e9dd181f11a2b70f7ffd41f7e6da941c7008cec603a086e4e000669db0be09a6"
+    },
+    {
+      "path": "qa/pwa-testlogs/android-preview.test.py.txt",
+      "change": "modified",
+      "prior_1_8_sha256": "95caddfb2af2fb993840529b9526a0daf5b4c9e00ca277263c209bbd7bc43382",
+      "build2_sha256": "3b58df68456c77d00c5f82c7c70d92d1a8a361dba25eaf445997b0cc0a2538a0"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-dsim-dates.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "93a45ec4c6115f61652fd794c7752d1b11f37e14ee0aeaf4682d6f11bfdcd0ed"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-example-math.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "82a58362b36a89ab2640a386ed7b29f6480970a0cfadba5dfed046a6099a3fd3"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-frontend.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "78cebb7b62fce3cbc77e5a0b4bda4e376661b733e82534942da466889cc2eb7f"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-layout.test.py.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "5f561c3e0d2c70298f22dcbb826fec1b969ce61aa0a2e019f0597aedf664cdde"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-power.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "4af468e6c9df8f60083132a2f3a30a8ee5774d0b00b1fcf5211baba9df6026b6"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-reliability.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "cf278261705b2c47edd3bd4ccf187afeeeb5d8a659a3e0f25ed709b68d024ba0"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-rf-properties.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "c829bf120f5cd5b76c5823209d52b0d729b799c400f3cea9feec3062430db110"
+    },
+    {
+      "path": "qa/pwa-testlogs/build2-tdr-boundaries.test.cjs.txt",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "8c435184f2737162822fcc848505653e917ed7ff9480dc21b33365183f56528e"
+    },
+    {
+      "path": "qa/pwa-testlogs/evidence-storage-failures.test.cjs.txt",
+      "change": "modified",
+      "prior_1_8_sha256": "cece704cf15f0c6df124128a6ef53c440ca25da0dfdc1e8013e36efb9334ed12",
+      "build2_sha256": "01eb08b6701b0c925e60c3c6ff8084b9613f56e19cc76f9dfbd0eb9e76fda7dd"
+    },
+    {
+      "path": "qa/pwa-testlogs/training-controls.test.cjs.txt",
+      "change": "modified",
+      "prior_1_8_sha256": "790fbaeaa62a379474bd989b39d467e71a54f86f59aa8a65a1c613824701ee9d",
+      "build2_sha256": "ff5899e8494a8f33b279d45c840369266c62b0dd66d6d4faaadd7949696f645f"
+    },
+    {
+      "path": "qa/pwa-testlogs/training-library.test.cjs.txt",
+      "change": "modified",
+      "prior_1_8_sha256": "126df93c70ba69d94a1e9f9078506bea5ba3d8ad130e655e2d08bf774274d6bf",
+      "build2_sha256": "4cd7793cadaf9d1454bdfffcd5d553d7db86cafa0f17b9322d2ea0f166733445"
+    },
+    {
+      "path": "qa/run-pwa.py",
+      "change": "modified",
+      "prior_1_8_sha256": "c1776b655f7a99a77dc6b11e3cfef9e7a92aecfb4c9ceed24d30d3aaa479edb8",
+      "build2_sha256": "0220fb63b7e0dc6f71b9ef074ffb353b8e6b0467f0636daf568a5d188a4dd60c"
+    },
+    {
+      "path": "qa/sweep-setup-results.json",
+      "change": "modified",
+      "prior_1_8_sha256": "ef1240e565b56f2aa564f871c187c56ee48a64ac30f61dc66f837b8c013a64c7",
+      "build2_sha256": "e2102abf25aaca1bc45a46d6811b57fa9657aeecbb654ab176057a9acfc75ef7"
+    },
+    {
+      "path": "qa/sweep-setup.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "c7c240b7909ed27dd946eb033c36deeb80c08657c63f921c466e6ff687d4185a",
+      "build2_sha256": "426630bc8b96d6022b600aff5341083d110f71371e0e248ee5046c10f15c1610"
+    },
+    {
+      "path": "qa/training-controls.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "bd874650a8d7d4d76f970072a695b497cc4e3ffde3b546d98cbf22a43bda0bcb",
+      "build2_sha256": "7184ce9b8c6fc442c74c60d4144bd1f673a26cfae277c271fc4ab889840372ed"
+    },
+    {
+      "path": "qa/training-job.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "3aad5ce1e0ec47fa5192df6b025171e4a2686e99893ab0be70ffff05176645d3",
+      "build2_sha256": "74608e2a22dc85f18c06a4cbf768bfb9d8f8f6a68c6e763e930cc2ca6900fc19"
+    },
+    {
+      "path": "qa/training-library.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "ebe6bb56218b2e744acd1dc22d61de22bdb597d8bafa2c201eacf82be614b759",
+      "build2_sha256": "897d2a457dc5724e248ba6df25df70a3d8e7282779b367a957c393fe7e9ba4f5"
+    },
+    {
+      "path": "qa/upgrade01314-results.json",
+      "change": "modified",
+      "prior_1_8_sha256": "eab62e54b4f506e6669ace70e0653c19838f2b535412cb23322c773df4cb9bb6",
+      "build2_sha256": "4bac6f8b04b7085bd9eb8827f415b3b7d4746213f38b64fd6463f1408c9749ab"
+    },
+    {
+      "path": "qa/upgrade01314.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "67a98eeba12d4f8e05978e16d4887b8e24df9020ff0256b37de7ca3a6a990fea",
+      "build2_sha256": "d01bc2d13a9942aabecf8568cfc289acdba99e26a7a34ef1c47faba14995e896"
+    },
+    {
+      "path": "qa/upgrade01415-results.json",
+      "change": "modified",
+      "prior_1_8_sha256": "44f80786aa329464174143422e64ae9c6a32a853e89923626f64008baa90e702",
+      "build2_sha256": "1dd2eccabcdc9b2cc2a23470bb578e3909320dd1b5db93dd8baf44e67a08f481"
+    },
+    {
+      "path": "qa/upgrade01415.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "13ac13ee665386bb3370eaf96c220b5da7a7378e5d1b887d853b92094512d924",
+      "build2_sha256": "04705f73f0e2ced5df3d05df7a2e7c70cce2d50035dc1047277caf25d01ae39c"
+    },
+    {
+      "path": "qa/upgrade01617.test.cjs",
+      "change": "modified",
+      "prior_1_8_sha256": "472cfa5968d887063d364f66395213df0dcb4b1566cad2e180704540e39436ab",
+      "build2_sha256": "a5bf8f4241de4e2033c3e6ffc232db6d415069438904fbe612c51be987a85143"
+    },
+    {
+      "path": "release/package_build2.py",
+      "change": "added",
+      "prior_1_8_sha256": null,
+      "build2_sha256": "0153603c8e02cf53aa4860612551839c72e8b97b75cfcbed16bdc944ef37d1ea"
+    }
+  ]
+}

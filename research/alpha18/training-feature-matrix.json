@@ -1,0 +1,980 @@
+{
+  "exercises": [
+    {
+      "id": "complete",
+      "button": "openTrainingJob",
+      "label": "Complete field workflow",
+      "group": "Route and calculations",
+      "summary": "21 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six originals",
+      "scope": "Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct."
+    },
+    {
+      "id": "aoi-six-active",
+      "button": "openDeepTrainingJob",
+      "label": "Six active devices in series",
+      "group": "Route and calculations",
+      "summary": "13 steps · A1 → A2 → A3 → A4 → A5 → A6 · synthetic marker arithmetic",
+      "scope": "Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied."
+    },
+    {
+      "id": "custom-curves",
+      "button": "openCustomTrainingJob",
+      "label": "Custom curves and reverse TDR",
+      "group": "Route and calculations",
+      "summary": "8 steps · manual launch table · custom cable / passive · reverse TDR and VF",
+      "scope": "Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied."
+    },
+    {
+      "id": "gainmaker-oem",
+      "button": "openOemTrainingJob",
+      "label": "GainMaker OEM AGC",
+      "group": "Equipment and setup",
+      "summary": "8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review",
+      "scope": "GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files."
+    },
+    {
+      "id": "gainmaker-dsim",
+      "button": "openDsimTrainingJob",
+      "label": "GainMaker / DSIM",
+      "group": "Equipment and setup",
+      "summary": "9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path",
+      "scope": "GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files."
+    },
+    {
+      "id": "gainmaker-manual",
+      "button": "openManualTrainingJob",
+      "label": "GainMaker manual / thermal",
+      "group": "Equipment and setup",
+      "summary": "7 steps · 42 / 54 MHz · installed manual / thermal control path",
+      "scope": "GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied."
+    },
+    {
+      "id": "gs7k-node",
+      "button": "openGs7kTrainingJob",
+      "label": "GS7K conventional node",
+      "group": "Equipment and setup",
+      "summary": "10 steps · 42 / 54 MHz · conventional node hardware and reference review",
+      "scope": "GS7K node practice: standard 1.2 GHz / 42 / 54 MHz starter; installed configuration, launch levels and measurement plane unverified. No route or meter captures supplied."
+    }
+  ],
+  "features": [
+    {
+      "id": "home",
+      "label": "Home, practice and backup",
+      "group": "Start and finish",
+      "variant": "complete",
+      "step": "backup",
+      "task": "home",
+      "seed": "Seeded complete job, named-job preservation and portable backup.",
+      "control": "#homeBackup"
+    },
+    {
+      "id": "help",
+      "label": "Help, methods and build self-check",
+      "group": "Start and finish",
+      "variant": "custom-curves",
+      "step": "help",
+      "task": "help",
+      "seed": "Entered tables and TDR settings make the documented calculation methods inspectable.",
+      "control": "#runSelfCheck"
+    },
+    {
+      "id": "setup",
+      "label": "Launch, source, correction and temperature",
+      "group": "Route",
+      "variant": "complete",
+      "step": "launch",
+      "task": "setup",
+      "seed": "11 / 23 dBmV test points plus 20 dB, 86°F cable and identified GS7K source.",
+      "control": "[data-setup=\"lowF\"]"
+    },
+    {
+      "id": "route",
+      "label": "Route, branches and distances",
+      "group": "Route",
+      "variant": "complete",
+      "step": "route",
+      "task": "route",
+      "seed": "Nine populated points, real splitter output choices and separate branch distances.",
+      "control": "[data-row=\"r4\"] [data-field=\"parent\"]"
+    },
+    {
+      "id": "gain",
+      "label": "Amplifier gain and reserve",
+      "group": "Route",
+      "variant": "complete",
+      "step": "gain",
+      "task": "gain",
+      "seed": "Entered GaN HGD gain, reserve, output limits and matching input/output test-point example.",
+      "control": "[data-row=\"r1\"] [data-field=\"gainLow\"]"
+    },
+    {
+      "id": "equipmentSetup",
+      "label": "Installed equipment and exact manuals",
+      "group": "Route",
+      "variant": "complete",
+      "step": "equipment",
+      "task": "equipmentSetup",
+      "seed": "Conventional GS7K source plus two GainMaker HGD GaN station review drafts.",
+      "control": "#equipmentSetupPanel [data-equipment-target]"
+    },
+    {
+      "id": "parts",
+      "label": "Equipment catalog and source references",
+      "group": "Route",
+      "variant": "complete",
+      "step": "parts",
+      "task": "parts",
+      "seed": "Populated equipment route provides actual selected model names to look up.",
+      "control": "#catalogSearch"
+    },
+    {
+      "id": "sweepSetup",
+      "label": "Forward and return setup",
+      "group": "Test",
+      "variant": "complete",
+      "step": "sweepSetup",
+      "task": "sweepSetup",
+      "seed": "Selected 42 / 54 profile with separate 38 dBmV return TX and independent injection / receiver fields.",
+      "control": "#sweepSetupPanel"
+    },
+    {
+      "id": "tdr",
+      "label": "Forward TDR and active boundaries",
+      "group": "Test",
+      "variant": "complete",
+      "step": "tdr",
+      "task": "tdr",
+      "seed": "Cable-side origin, 295 ft one-way distance and 25 ft lead give a known span hit.",
+      "control": "[data-route-tool=\"distance\"]"
+    },
+    {
+      "id": "sweep",
+      "label": "Absolute, normalized and loss charts",
+      "group": "Test",
+      "variant": "complete",
+      "step": "sweep",
+      "task": "sweep",
+      "seed": "Populated mixed-brand branch traces and 54 MHz normalization reference.",
+      "control": "#plot"
+    },
+    {
+      "id": "frequency",
+      "label": "Single-path frequency calculator",
+      "group": "Test",
+      "variant": "complete",
+      "step": "frequency",
+      "task": "frequency",
+      "seed": "860 MHz exact cable / passive / launch overrides produce a 37.2 dBmV budget.",
+      "control": "[data-frequency=\"quickF\"]"
+    },
+    {
+      "id": "readings",
+      "label": "Meter readings and prediction error",
+      "group": "Test",
+      "variant": "complete",
+      "step": "readings",
+      "task": "readings",
+      "seed": "Corrected GaN HGD test-point reading plus intentional tap mismatches.",
+      "control": "[data-row=\"r1\"] [data-meter-field=\"reading\"]"
+    },
+    {
+      "id": "references",
+      "label": "Cable, tap and target references",
+      "group": "Test",
+      "variant": "complete",
+      "step": "reference",
+      "task": "references",
+      "seed": "54 / 860 local design anchors, alternate available-carrier draft, selected cable, tap and unapproved target ranges.",
+      "control": "[data-reference-target=\"lowMin\"]"
+    },
+    {
+      "id": "power",
+      "label": "Power load, voltage and branches",
+      "group": "Power",
+      "variant": "complete",
+      "step": "power",
+      "task": "power",
+      "seed": "90 V / 15 A supply, junction, synthetic entered node / GaN amps and custom watts / PF.",
+      "control": "#powerCurrent"
+    },
+    {
+      "id": "trial",
+      "label": "Power what-if and Keep",
+      "group": "Power",
+      "variant": "complete",
+      "step": "trial",
+      "task": "trial",
+      "seed": "Additional 300 ft and 0.75 A trial with a chosen parent and cable.",
+      "control": "#keepPowerTrial"
+    },
+    {
+      "id": "projects",
+      "label": "Named jobs and work-order details",
+      "group": "Job",
+      "variant": "complete",
+      "step": "job",
+      "task": "projects",
+      "seed": "Synthetic ticket, node, times, symptom and resolution fields; previous work retained.",
+      "control": "[data-job-field=\"workOrder\"]"
+    },
+    {
+      "id": "evidence",
+      "label": "Original files and supported CSV",
+      "group": "Job",
+      "variant": "complete",
+      "step": "files",
+      "task": "evidence",
+      "seed": "Five readable synthetic CSV originals plus one original-only SVG attachment.",
+      "control": "#evidenceFiles"
+    },
+    {
+      "id": "checklists",
+      "label": "Leakage, maintenance and conversion",
+      "group": "Job",
+      "variant": "complete",
+      "step": "checks",
+      "task": "checklists",
+      "seed": "Partly reviewed inspection notes and 72 dBµV input.",
+      "control": "[data-leakage-value]"
+    },
+    {
+      "id": "records",
+      "label": "Forward, return, punch and review",
+      "group": "Job",
+      "variant": "complete",
+      "step": "records",
+      "task": "records",
+      "seed": "Planning before/after rows, explicit unapproved criteria, injection and open punch item.",
+      "control": "[data-project-add=\"forward\"]"
+    },
+    {
+      "id": "runsheet",
+      "label": "Run sheet, share, print and CSV exports",
+      "group": "Job",
+      "variant": "complete",
+      "step": "report",
+      "task": "runsheet",
+      "seed": "Populated route predictions, meter readings, work notes and synthetic provenance.",
+      "control": "#runSheetPanel"
+    },
+    {
+      "id": "six-active-cascade",
+      "label": "Six serial active devices",
+      "group": "Route",
+      "variant": "aoi-six-active",
+      "step": "route",
+      "task": "route",
+      "seed": "Six AOI devices in one path; every marker output restores 34 / 46 dBmV.",
+      "control": "[data-row=\"r6\"] [data-field=\"parent\"]"
+    },
+    {
+      "id": "gain-table",
+      "label": "Entered amplifier gain table",
+      "group": "Route",
+      "variant": "aoi-six-active",
+      "step": "gainTable",
+      "task": "gain",
+      "seed": "A2 has three actual editable frequency/gain rows.",
+      "control": "[data-row=\"r2\"] [data-field=\"activeGainTable\"]"
+    },
+    {
+      "id": "gain-test-points",
+      "label": "Derive gain from two corrected readings",
+      "group": "Route",
+      "variant": "complete",
+      "step": "gain",
+      "task": "gain",
+      "seed": "7.1 and 16.1 dBmV with equal 20 dB addbacks give 9 dB gain.",
+      "control": "[data-row=\"r1\"] [data-field=\"measureIn\"]"
+    },
+    {
+      "id": "tap-drop",
+      "label": "Tap faces and RG-6 drop splitter",
+      "group": "Route",
+      "variant": "complete",
+      "step": "drop",
+      "task": "route",
+      "seed": "Technetix Tap C has a 75 ft synthetic RG-6 table and explicit custom 4 dB drop-path loss.",
+      "control": "[data-row=\"r6\"] [data-drop-field=\"length\"]"
+    },
+    {
+      "id": "map-arithmetic",
+      "label": "Map note and step-by-step arithmetic",
+      "group": "Route",
+      "variant": "custom-curves",
+      "step": "arithmetic",
+      "task": "route",
+      "seed": "Custom loss tables and a populated note with inspectable exact arithmetic.",
+      "control": "[data-row=\"r1\"] .arithmetic-results"
+    },
+    {
+      "id": "custom-tables",
+      "label": "Custom cable and passive loss tables",
+      "group": "Route",
+      "variant": "custom-curves",
+      "step": "custom",
+      "task": "route",
+      "seed": "Actual three-row custom cable and through/branch loss tables.",
+      "control": "[data-row=\"r1\"] [data-field=\"customCable\"]"
+    },
+    {
+      "id": "launch-table",
+      "label": "Manual source and launch table",
+      "group": "Route",
+      "variant": "custom-curves",
+      "step": "launch",
+      "task": "setup",
+      "seed": "Table mode is selected, three launch rows loaded and duplicate TP correction off.",
+      "control": "[data-setup=\"launchTable\"]"
+    },
+    {
+      "id": "reverse-tdr",
+      "label": "Reverse TDR and velocity correction",
+      "group": "Test",
+      "variant": "custom-curves",
+      "step": "tdr",
+      "task": "tdr",
+      "seed": "100 × 0.88 / 0.80 − 25 = 85 ft toward source; route hit at 115 ft.",
+      "control": "[data-route-tool=\"setVF\"]"
+    },
+    {
+      "id": "available-carriers",
+      "label": "Available carriers and local targets",
+      "group": "Test",
+      "variant": "gainmaker-dsim",
+      "step": "launch",
+      "task": "references",
+      "seed": "57 / 753 MHz draft seeded under separate 54 / 860 local design anchors.",
+      "control": "[data-reference-local-marker=\"low\"]"
+    },
+    {
+      "id": "oem-agc",
+      "label": "OEM AGC installed control path",
+      "group": "Equipment and setup",
+      "variant": "gainmaker-oem",
+      "step": "agc",
+      "task": "equipmentSetup",
+      "seed": "OEM AGC selected; DSIM settings and unverified physical values remain blank.",
+      "control": "[data-equipment-field=\"gainControl\"]"
+    },
+    {
+      "id": "dsim-pilot",
+      "label": "DSIM and historical pilot-code lookup",
+      "group": "Equipment and setup",
+      "variant": "gainmaker-dsim",
+      "step": "pilot",
+      "task": "equipmentSetup",
+      "seed": "DSIM-SG and 711 MHz QAM lookup example; compatibility and pilot lock unverified.",
+      "control": "[data-equipment-field=\"pilot\"]"
+    },
+    {
+      "id": "manual-thermal",
+      "label": "Manual / thermal installed control path",
+      "group": "Equipment and setup",
+      "variant": "gainmaker-manual",
+      "step": "equipment",
+      "task": "equipmentSetup",
+      "seed": "Manual / thermal selected with no inferred DSIM or OEM control values.",
+      "control": "[data-equipment-field=\"gainControl\"]"
+    },
+    {
+      "id": "gs7k-setup",
+      "label": "Conventional GS7K procedure",
+      "group": "Equipment and setup",
+      "variant": "gs7k-node",
+      "step": "equipment",
+      "task": "equipmentSetup",
+      "seed": "Conventional 1.2 GHz / 42 / 54 hardware identity; unknown physical readings blank.",
+      "control": "#equipmentSetupPanel [data-equipment-target]"
+    },
+    {
+      "id": "db-units",
+      "label": "dBµV ↔ dBmV conversion",
+      "group": "Job",
+      "variant": "complete",
+      "step": "checks",
+      "task": "checklists",
+      "seed": "72 dBµV gives 12 dBmV; reverse conversion is editable.",
+      "control": "[data-leakage-value]"
+    },
+    {
+      "id": "return-injection",
+      "label": "Return injection and receiver records",
+      "group": "Job",
+      "variant": "complete",
+      "step": "records",
+      "task": "records",
+      "seed": "40 + 20 + 1 = 61 dBmV budget; distinct receiver-plane planning record.",
+      "control": "[data-project-add=\"returns\"]"
+    },
+    {
+      "id": "evidence-comparison",
+      "label": "Before / after evidence comparison",
+      "group": "Job",
+      "variant": "complete",
+      "step": "files",
+      "task": "evidence",
+      "seed": "Sweep and Ingress before/after CSV pairs contain different synthetic responses.",
+      "control": "#evidencePanel"
+    },
+    {
+      "id": "backup-roundtrip",
+      "label": "Portable backup and recovery",
+      "group": "Start and finish",
+      "variant": "complete",
+      "step": "backup",
+      "task": "home",
+      "seed": "Project export includes all six originals, practice provenance and reviewed steps.",
+      "control": "#homeBackup"
+    }
+  ],
+  "steps": {
+    "complete": [
+      [
+        "job",
+        "Job details",
+        "projects",
+        "",
+        "Read the synthetic work order: a conventional GS7K feeds two GainMaker HGD GaN actives, with Scientific-Atlanta, GigaXtend and Technetix passives. This complete exercise uses 42 / 54 MHz. Practice Save named job and Duplicate, then try Sun / Night and Help & methods."
+      ],
+      [
+        "launch",
+        "Launch node and starting signal",
+        "setup",
+        "",
+        "Confirm GS7000 / GS7K 1.2 GHz, 42/54 split, selected port and installed modules. Hardware capability is 1218 MHz; entered operating/design upper is 1000 MHz because Scientific-Atlanta route passives stop there, and entered live spectrum ends at 860 MHz. Synthetic 11 / 23 dBmV test-point readings plus one 20 dB correction give the local 31 / 43 dBmV design anchors at 54 / 860 MHz. Cable temperature is 86°F."
+      ],
+      [
+        "equipment",
+        "Equipment manual before adjustments",
+        "equipmentSetup",
+        "source",
+        "Start at the conventional GS7K launch node. Match its exact installed hardware, optical/RF paths, split, port and manual before physical setup. Module discovery is separate from RF alignment. Reviewed boxes document practice only."
+      ],
+      [
+        "route",
+        "Cable route and branches",
+        "route",
+        "r4",
+        "Follow the GigaXtend XSC-2-959 splitter low-loss-output to the main leg and high-loss-outputs to the separate Scientific-Atlanta branch. The main path includes Scientific-Atlanta Tap A, GigaXtend Tap B and Technetix Tap C. Cable feet include slack. Published-reference basis can mix typical curves with labeled maximum fallback."
+      ],
+      [
+        "drop",
+        "Tap faces, drop and map note",
+        "route",
+        "r6",
+        "Open More at Technetix Tap C. Compare faces, inspect the 75 ft RG-6 drop and explicit synthetic 4 dB drop-path loss, read the map note, then expand Show the arithmetic. At 54 MHz RG-6 loss is 75/100 × 1.8 = 1.35 dB. These are teaching inputs; no unverified premises-splitter or power-passing claim is implied."
+      ],
+      [
+        "gain",
+        "GainMaker GaN gain",
+        "gain",
+        "r1",
+        "Review entered GaN HGD gain at 54 / 860 MHz, reserve and output limits. In Calculate gain from test-point readings, 7.1 and 16.1 with equal +20 dB addbacks give 9 dB gain. A2 is a second GaN HGD, not an LE; inspect its 54/550/860 MHz gain table. These gains are synthetic, not manufacturer settings or a flat 44 dB specification."
+      ],
+      [
+        "parts",
+        "Equipment references",
+        "parts",
+        "",
+        "Find GS7K, GainMaker HGD GaN, Scientific-Atlanta SAT MM 4-23, GigaXtend XSC-2-959 and GTSG-TAP-4-20-STD, and Technetix OTTZ-4-17. Match exact variants and supported frequencies. Published capability never fills installed operating gain."
+      ],
+      [
+        "agc",
+        "Match the installed GaN control procedure",
+        "equipmentSetup",
+        "r1",
+        "Select TRAIN GainMaker GaN HGD A1. Its installed control path and exact GaN commissioning procedure remain unverified. Match the actual module and approved procedure before physical controls. Do not apply an AOI alignment sequence, standard GainMaker pad rule or ACI DSIM pilot code automatically. Review A2 separately and retain unresolved manual gaps."
+      ],
+      [
+        "tdr",
+        "TDR fault distance",
+        "tdr",
+        "",
+        "Start on the cable side after GaN HGD A2 at route coordinate 1700 ft. 295 ft displayed minus 25 ft lead gives 270 ft, placing the event at 1970 ft: 160 ft into the 310 ft span from Split S1 to Tap B. Equal 0.87 velocity factors add no change. Launch origin with 1995 ft displayed is blocked because a TDR path does not cross an amplifier."
+      ],
+      [
+        "sweepSetup",
+        "42 / 54 MHz forward and return setup",
+        "sweepSetup",
+        "",
+        "Use forward Sweepless Sweep and Return Sweepless Sweep for GS7K / GainMaker GaN on 42 / 54 MHz. Confirm instrument, firmware, license, actual plan, selected measurement planes and matching saved reference. The local return-transmitter reference is 38 dBmV; identify its transmitter and plane separately from injection and receiver references. The independent six-active Vecima / AOI exercise retains 204/258 and XPERTrak."
+      ],
+      [
+        "sweep",
+        "Predicted sweep",
+        "sweep",
+        "",
+        "Compare selected route outputs in Absolute mode, then Normalized mode at 54 MHz. Node hardware: 1218 MHz, entered path upper: 1000 MHz and entered live spectrum: 860 MHz are distinct. This calculated chart is separate from the synthetic CSV traces."
+      ],
+      [
+        "frequency",
+        "Frequency checker",
+        "frequency",
+        "",
+        "At 860 MHz, 200 ft × 2.2 dB/100 ft + one 1.4 dB through loss = 5.8 dB total; 43 − 5.8 = 37.2 dBmV. Exact values are synthetic and already at temperature. Inspect the complete-route summary separately."
+      ],
+      [
+        "readings",
+        "Meter readings",
+        "readings",
+        "r1",
+        "The synthetic A1 reading at 54 MHz is 16.1 + 20 = 36.1 dBmV, versus about 36.94 dBmV predicted. Technetix Tap C has an intentional mismatch: 7.50 dBmV entered versus about 14.01 predicted at 54 MHz. Scientific-Atlanta Branch Tap D intentionally disagrees at 860 MHz. Investigate inputs and measurement planes; this is not an all-pass job."
+      ],
+      [
+        "reference",
+        "Field references",
+        "references",
+        "",
+        "Review the 54 / 860 MHz local design anchors, actual-carrier draft 57 / 753 MHz, cable-loss reference, tap faces and unapproved target ranges. The optional anchor-pair dropdown is a separate alternate-reference exercise; applying it changes the route anchors only after confirmation. Applying any reference never approves criteria."
+      ],
+      [
+        "power",
+        "Power circuit",
+        "power",
+        "",
+        "Follow the separate 90 V / 15 A circuit with a junction, synthetic entered GS7K 0.75 A and GaN HGD 0.60 / 0.45 A loads, plus a 20 W / PF 0.9 branch. These currents are synthetic teaching inputs, not manufacturer typical loads. Exact GaN consumption is unverified; do not substitute another equipment curve. RF branches do not define power passing."
+      ],
+      [
+        "trial",
+        "Power what-if",
+        "trial",
+        "",
+        "Compare an additional 300 ft and 0.75 A load against the current circuit. Keep adds the trial to this practice circuit; Reset training job restores the baseline after preserving this copy."
+      ],
+      [
+        "files",
+        "Synthetic meter files",
+        "evidence",
+        "",
+        "Expand the five SYNTHETIC CSV originals: Sweep Before/After at 54–860 MHz, Ingress Before/After within 5–42 MHz, and OneCheck After. Preview or save originals. They use supported interchange columns and were not exported by an ONX meter. The sixth SVG is a synthetic GaN cable-side TDR diagram with no measurement decoding."
+      ],
+      [
+        "checks",
+        "Field checklists",
+        "checklists",
+        "",
+        "Read the illustrative inspection notes and mark a remaining task. Try 72 dBµV → 12 dBmV. Checkmarks describe practice steps; they are not RF acceptance."
+      ],
+      [
+        "records",
+        "Records and supervisor review",
+        "records",
+        "",
+        "Review Planning forward/return rows at 54/860 and 10/42 MHz, unapproved criteria and the open punch item. The separate generator budget is 40 + 20 + 1 = 61 dBmV, not the 38 dBmV operator return-transmitter reference or an ONX Injection setting. The legacy DSIM form is separate from the GaN route; no DSIM compatibility is implied."
+      ],
+      [
+        "report",
+        "Run sheet and exports",
+        "runsheet",
+        "",
+        "Review route predictions and illustrative readings at 54 MHz. Print/share the run sheet and export RF, frequency or power tables. Every export from this practice job remains labeled synthetic."
+      ],
+      [
+        "backup",
+        "Backup and return to work",
+        "home",
+        "",
+        "Use Files → Save project, then open the exported JSON to recover all six originals. Job → Details reopens the prior job preserved before training. Start New blank job for actual work."
+      ]
+    ],
+    "aoi-six-active": [
+      [
+        "job",
+        "Six serial active devices",
+        "projects",
+        "",
+        "This synthetic run contains six AOI amplifiers in ONE path after a Vecima EN9000 source. The launch node is not counted as one of the six. Your previous job is retained before this exercise opens."
+      ],
+      [
+        "launch",
+        "204 / 258 MHz source and reference plane",
+        "setup",
+        "",
+        "The synthetic Vecima test-point readings are 14 / 26 dBmV plus one 20 dB correction, giving 34 / 46 dBmV at 261 / 993 MHz. Installed hardware, operating upper and live spectrum remain separate."
+      ],
+      [
+        "route",
+        "Follow A1 → A2 → A3 → A4 → A5 → A6",
+        "route",
+        "r6",
+        "Every active is fed from the preceding active through output. Each incoming span is 300 ft of SYNTHETIC custom cable: 1 / 3 dB per 100 ft at 261 / 993 MHz. After A6, the cable-only endpoint is another 250 ft away. There are six amplifiers in series, not six sibling branches."
+      ],
+      [
+        "gain",
+        "Two-marker gain at A1",
+        "gain",
+        "r1",
+        "At each marker, cable loss is 3 / 9 dB and entered net gain is 3 / 9 dB. Output returns to 34 / 46 dBmV. These deliberately simple synthetic gains are arithmetic inputs, not AOI operating settings. The 3 dB reserve requirement is intentionally unmet."
+      ],
+      [
+        "gainTable",
+        "Gain-table example at A2",
+        "gain",
+        "r2",
+        "The second active uses an entered 261, 3 / 711, 6 / 993, 9 gain table. Table interpolation and cable interpolation use their documented methods, so the exact restoration applies at the two endpoint markers only. No response is invented outside the entered frequency range."
+      ],
+      [
+        "equipment",
+        "Review the sixth installed active",
+        "equipmentSetup",
+        "r6",
+        "A6 is a separate AOI LE station. Match its own installed hardware and applicable manual. An entered 3 / 9 dB gain does not identify a physical control setting or establish an installed LE setup procedure."
+      ],
+      [
+        "tdr",
+        "Reconnect after active six",
+        "tdr",
+        "",
+        "The TDR starts on the cable side after A6 at route coordinate 1800 ft. 125 ft displayed minus 25 ft lead places the event 100 ft into the final 250 ft span, at 1900 ft. An attempt from Launch to that event crosses actives and is blocked."
+      ],
+      [
+        "sweepSetup",
+        "Match the high-split test workflow",
+        "sweepSetup",
+        "",
+        "Vecima / AOI uses forward Sweepless Sweep and XPERTrak return sweep at 204 / 258 MHz. This route arithmetic does not establish real sweep references, instrument capability or commissioning acceptance."
+      ],
+      [
+        "sweep",
+        "Compare the six restored marker outputs",
+        "sweep",
+        "",
+        "Select A1 through A6. Each output is 34 / 46 dBmV at 261 / 993 MHz under the entered synthetic values. Between anchors, the different cable and gain interpolation methods can produce a different response."
+      ],
+      [
+        "readings",
+        "Compare A6 test-point reading",
+        "readings",
+        "r6",
+        "The synthetic A6 reading is 14 dBmV at 261 MHz plus 20 dB coupling, or 34 dBmV. Compare this with its 34 dBmV prediction. A zero arithmetic error is not measured RF acceptance."
+      ],
+      [
+        "power",
+        "Keep power topology explicit",
+        "power",
+        "",
+        "The separate 90 V / 15 A circuit has six synthetic 0.50 A entered active loads plus a synthetic 0.75 A EN9000 load. These are not manufacturer consumption specifications. RF custom-cable tables do not define DC resistance; the power plan uses separately selected cable."
+      ],
+      [
+        "report",
+        "Review and export the six-active run",
+        "runsheet",
+        "",
+        "Review all six serial active stations, route distances and predictions. Exports remain labeled synthetic. No meter originals are supplied with this focused arithmetic exercise."
+      ],
+      [
+        "backup",
+        "Back up and return to work",
+        "home",
+        "",
+        "Save project, open the exported JSON and confirm all six devices and reviewed steps return. Job → Details contains the working job preserved before training."
+      ]
+    ],
+    "custom-curves": [
+      [
+        "job",
+        "Custom-data practice job",
+        "projects",
+        "",
+        "This synthetic exercise uses a manually identified source, an entered launch table and two custom-cable spans. No manufacturer cable response, physical measurement or acceptance is implied."
+      ],
+      [
+        "launch",
+        "Load a real editable launch table",
+        "setup",
+        "",
+        "The manual-source table contains 261, 34 / 711, 42 / 993, 46 MHz and dBmV pairs. These are mainline values: test-point correction is OFF. Table mode stops outside its first and last frequencies."
+      ],
+      [
+        "custom",
+        "Custom cable and two-output passive",
+        "route",
+        "r1",
+        "The first 100 ft span uses a synthetic 1 / 2 / 3 dB per 100 ft table at 261 / 711 / 993 MHz, already at the entered temperature. Its custom passive has through losses 1 / 1.5 / 2 dB and branch losses 10 / 10.5 / 11 dB. At 261 MHz the through output is 34 − 1 − 1 = 32 dBmV; branch output is 34 − 1 − 10 = 23 dBmV."
+      ],
+      [
+        "arithmetic",
+        "Show custom-data arithmetic",
+        "route",
+        "r1",
+        "Expand Show the arithmetic. Custom cable is already at actual temperature, so its factor is 1; do not apply the published-cable temperature correction again. Cable uses square-root-frequency interpolation and passive/launch tables use linear MHz interpolation."
+      ],
+      [
+        "tdr",
+        "Reverse TDR with a mismatched VF",
+        "tdr",
+        "",
+        "Start at the cable-only end at 200 ft and test toward the source. 100 ft displayed × 0.88 actual VF ÷ 0.80 meter VF − 25 ft physical lead = 85 ft of path. Route coordinate is 200 − 85 = 115 ft, 15 ft into the second span. All VF inputs are synthetic."
+      ],
+      [
+        "frequency",
+        "Exact frequency overrides",
+        "frequency",
+        "",
+        "At 261 MHz the separate checker uses 100 ft × 1 dB/100 ft plus one 1 dB passive = 2 dB; 34 − 2 = 32 dBmV. Exact cable losses are already at temperature. Blank overrides use available references; missing values remain unavailable."
+      ],
+      [
+        "help",
+        "Read the calculation methods",
+        "help",
+        "",
+        "Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try Sun / Night from the header and run the build self-check."
+      ],
+      [
+        "backup",
+        "Export and recover custom inputs",
+        "home",
+        "",
+        "Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs."
+      ]
+    ],
+    "gainmaker-oem": [
+      [
+        "job",
+        "Separate OEM AGC practice job",
+        "projects",
+        "",
+        "This synthetic 42 / 54 MHz GainMaker job uses the OEM AGC control path. Your previous job is retained before this opens. It includes no meter captures or measured acceptance."
+      ],
+      [
+        "launch",
+        "Available carriers and launch targets",
+        "references",
+        "",
+        "In References, enter the actual available low/high channel centers, confirming user examples 57 / 753 MHz or 63 / 550 MHz against the live plan. Compare targets calculated from your base 31 dBmV at 54 MHz / 43 dBmV at 860 MHz using the approved square-root cable law or linear-MHz method. Use each carrier’s calculated target in the matching OEM procedure and confirm the output/pilot plane. The synthetic 11 / 23 dBmV + 20 dB readings in this example remain at the base 54 / 860 MHz anchors."
+      ],
+      [
+        "equipment",
+        "Identify OEM pilot module and manual",
+        "equipmentSetup",
+        "source",
+        "Match the installed RF module, OEM AGC module, pilot frequency/type and manual revision before adjusting controls. No pilot is preselected in this practice job: the DSIM channel-code table does not establish OEM AGC compatibility."
+      ],
+      [
+        "agc",
+        "Follow the OEM AGC setup sequence",
+        "equipmentSetup",
+        "source",
+        "Use the exact GainMaker manual and approved design levels. Follow its manual-mode preparation, input/level/tilt setup and pilot-pad calculation, then enable the OEM AGC as directed. Verify final output at the required measurement plane and save evidence. Use the applicable station formula; do not transfer a DSIM pad value."
+      ],
+      [
+        "downstream",
+        "Review the LE separately",
+        "equipmentSetup",
+        "r1",
+        "The downstream GainMaker LE has its own OEM AGC procedure and pilot-pad relationship. Select it and review its applicable manual. The synthetic route gain is not a physical control setting."
+      ],
+      [
+        "sweep",
+        "Forward and Return Sweepless Sweep",
+        "sweepSetup",
+        "",
+        "Use the 42 / 54 MHz workflow. Verify meter model, firmware, license, approved plan, service and matching saved-reference method before comparing forward or return sweepless results. Record the local return-transmitter reference as 38 dBmV with its transmitter/measurement plane; verify generator output and receive references separately."
+      ],
+      [
+        "records",
+        "Record OEM setup and practice evidence",
+        "records",
+        "",
+        "Use the forward station record for the OEM control system and the installed-model findings. No DSIM record is supplied for this OEM exercise. Attach clearly labeled practice ONX/evidence files in Files; nothing here proves physical AGC operation or RF acceptance."
+      ],
+      [
+        "backup",
+        "Export and return to work",
+        "home",
+        "",
+        "Export a project backup with any practice originals. Open a retained job from Job → Details or start a new blank job for real work. The synthetic warning remains attached to this practice job after edits and exports."
+      ]
+    ],
+    "gainmaker-dsim": [
+      [
+        "job",
+        "Separate 42 / 54 MHz practice job",
+        "projects",
+        "",
+        "This synthetic GainMaker job is independent of the AOI high-split example. Check its name, 42 MHz return / 54 MHz forward split and unapproved profile. Your previous job is retained in named jobs before this opens."
+      ],
+      [
+        "launch",
+        "Available carriers and launch targets",
+        "references",
+        "",
+        "The GainMaker HGD output is the launch source. In References, enter the actual available low/high channel centers; 57 / 753 MHz and 63 / 550 MHz are user-provided examples to confirm against the live plan. Compare the targets calculated from your base 31 dBmV at 54 MHz / 43 dBmV at 860 MHz using the approved square-root cable law or linear-MHz method. Use the calculated target for each chosen carrier, then verify the output/pilot plane and apply only remaining test-point correction once. This job’s synthetic 11 / 23 dBmV + 20 dB readings illustrate the base 54 / 860 MHz anchors."
+      ],
+      [
+        "equipment",
+        "Match the station and control manual",
+        "equipmentSetup",
+        "source",
+        "Before touching the equipment, confirm GainMaker HGD, its installed DSIM-SG, firmware and applicable manufacturer/operator procedure revision. The upstream source and downstream LE each need their own review. Historical SG pad instructions differ by revision; the guide must select neither value for you."
+      ],
+      [
+        "pilot",
+        "Look up the approved pilot code",
+        "equipmentSetup",
+        "source",
+        "The historical Rev A table shows channel 110 digital, 711.00 MHz, as @@?<A. Use the QAM / digital selection and inspect the code without changing a physical station. Confirm module, firmware, app and approved pilot compatibility first. The practice key status stays unverified; looking up or copying a code does not establish pilot lock."
+      ],
+      [
+        "agc",
+        "Follow the physical AGC sequence",
+        "equipmentSetup",
+        "source",
+        "Use the applicable manufacturer checklist in Equipment setup: identify the hardware and procedure, establish the required manual-mode preparation and measurement planes, set the approved levels, follow that procedure’s AGC alignment, verify the intended pilot/control state, then remeasure output level and tilt. Leave pad, backoff and switch values blank until the exact procedure supplies them."
+      ],
+      [
+        "downstream",
+        "Repeat at the downstream LE",
+        "equipmentSetup",
+        "r1",
+        "Select TRAIN GainMaker LE and repeat its own equipment/manual review before adjusting controls. Do not transfer HGD pad rules or operating targets to an LE. Its entered gain values here are synthetic route-calculation inputs."
+      ],
+      [
+        "sweep",
+        "42 MHz forward and return sweepless",
+        "sweepSetup",
+        "",
+        "Use the 42 / 54 MHz workflow: forward Sweepless Sweep and Return Sweepless Sweep. Verify instrument support, firmware, licensing, plan and matching reference method. Record 38 dBmV as your local return-transmitter reference and confirm its transmitter/measurement plane; keep generator-output settings and receive references separately verified."
+      ],
+      [
+        "records",
+        "Record findings and attach practice evidence",
+        "records",
+        "",
+        "DSIM records deliberately start incomplete: no physical setup, pilot lock or final verification is claimed. Attach your own clearly labeled practice ONX/evidence files under Files; this focused exercise contains no fabricated meter captures. Keep measurements, reviewed steps and acceptance separate."
+      ],
+      [
+        "backup",
+        "Export and return to the prior job",
+        "home",
+        "",
+        "Save a project backup of this practice job, including any practice attachments. Job → Details can reopen the preserved complete GS7K / GaN example or your earlier working job. Both practice variants remain labeled synthetic after edits and exports."
+      ]
+    ],
+    "gainmaker-manual": [
+      [
+        "job",
+        "Separate manual / thermal control practice",
+        "projects",
+        "",
+        "This synthetic GainMaker job uses the manual / thermal installed-control path at 42 / 54 MHz. It supplies no field captures or verified physical switch settings."
+      ],
+      [
+        "launch",
+        "Available carriers and local targets",
+        "references",
+        "",
+        "The base local reference remains 31 dBmV at 54 MHz / 43 dBmV at 860 MHz with a separate 38 dBmV return TX reference. The entered 57 / 753 MHz carrier draft is only an example; confirm actual carrier centers and the appropriate interpolation model."
+      ],
+      [
+        "equipment",
+        "Identify manual / thermal controls",
+        "equipmentSetup",
+        "source",
+        "Manual / thermal is explicitly selected. Identify the installed control modules and follow their exact manufacturer/operator procedure. OEM AGC pilot-pad rules and ACI DSIM channel codes do not establish manual or thermal settings."
+      ],
+      [
+        "downstream",
+        "Review downstream LE independently",
+        "equipmentSetup",
+        "r1",
+        "The LE has its own manual / thermal path and applicable procedure. Leave unverified switch, pad and thermal settings unresolved. The entered route gain is synthetic arithmetic only."
+      ],
+      [
+        "sweep",
+        "Use forward and return sweepless",
+        "sweepSetup",
+        "",
+        "Use the deployed 42 / 54 MHz workflow. Confirm instrument, firmware, license, live plan and reference method. Keep return-transmitter, injection and receiver references distinct."
+      ],
+      [
+        "records",
+        "Keep procedure and measurement records separate",
+        "records",
+        "",
+        "Record the installed control path and applicable manual findings. No DSIM record, pilot lock, measured result or acceptance is supplied. Reviewed practice steps never approve criteria."
+      ],
+      [
+        "backup",
+        "Export and return to the prior job",
+        "home",
+        "",
+        "Export this exercise and reopen it to practice recovery. The synthetic label and manual / thermal control selection remain attached after edits and exports."
+      ]
+    ],
+    "gs7k-node": [
+      [
+        "job",
+        "Separate GS7K node practice",
+        "projects",
+        "",
+        "This focused practice job starts with a conventional GS7000 1.2 GHz node, 42 / 54 MHz split and no meter files. It is separate from the AOI and GainMaker examples. Your previous job is kept in named jobs before it opens."
+      ],
+      [
+        "identity",
+        "Identify the installed node and source",
+        "setup",
+        "",
+        "Choose Node output as the launch source. Confirm GS7000 / GS7K 1.2 GHz, the installed split, asset and selected RF port. For an actual 1 GHz node, choose the 1 GHz profile and its supported split before following that manual. A profile selection does not verify installed hardware or fill in operating levels."
+      ],
+      [
+        "equipment",
+        "Match the conventional node manual",
+        "equipmentSetup",
+        "source",
+        "Open the exact standard 1 GHz or standard 1.2 GHz manual for the identified node. Match the optical receiver, launch module, FCM/RCM routing and segmentation. SHO / Fiber Deep, Intelligent and RPD retrofits need their own applicable procedures; do not apply this conventional-node guide to them."
+      ],
+      [
+        "levels",
+        "Available carriers and measurement plane",
+        "references",
+        "",
+        "Actual launch readings, marker entries and test-point correction start blank. In References, confirm the available channel centers, such as user examples 57 / 753 MHz or 63 / 550 MHz, then calculate targets from the local base 31 dBmV at 54 MHz / 43 dBmV at 860 MHz using the approved square-root cable law or linear-MHz method. Use the resulting carrier-specific targets after checking the selected port, measurement plane and meter compensation. Apply only remaining uncompensated coupling once; an Intelligent module needs its own test method."
+      ],
+      [
+        "forward",
+        "Conventional forward-path setup",
+        "equipmentSetup",
+        "source",
+        "Follow the selected standard manual: inspect/measure optical input under the approved service procedure, use that receiver’s attenuation table, measure RF drive and selected port, establish the highest required output with the appropriate OIB receiver pad, reduce other shared ports with FWD PORT OUT pads, then select the matching linear EQ and remeasure. Use the manual’s exact path and design targets, not its numerical examples."
+      ],
+      [
+        "reverse",
+        "Match the actual reverse path",
+        "equipmentSetup",
+        "source",
+        "Identify the installed analog optical transmitter, EDR or retrofit RPD and its routing. Use that hardware’s reverse procedure and approved receive reference. The standard manual’s analog-transmitter examples do not establish RPD receive targets or XPERTrak acceptance. Leave measurements and adjustments unverified until the actual path is confirmed."
+      ],
+      [
+        "discovery",
+        "LCM discovery and RF setup are distinct",
+        "equipmentSetup",
+        "source",
+        "On a conventional GS7000, SM/LCM Auto Set-Up discovers installed modules; it does not perform RF level or tilt alignment. An Intelligent-node RF Auto Setup is a different control procedure for different hardware/software. It is not a selectable conventional-node procedure in this exercise."
+      ],
+      [
+        "sweep",
+        "Use the matching sweep workflow",
+        "sweepSetup",
+        "",
+        "GS7K equipment in your deployment uses 42 / 54 MHz: forward Sweepless Sweep and Return Sweepless Sweep. Verify instrument, firmware, license, service plan and compatible saved reference. Record the local return-transmitter reference as 38 dBmV and identify its transmitter/measurement plane. Manufacturer split options are capability references; this GS7K exercise remains on your deployed 42 / 54 MHz split."
+      ],
+      [
+        "records",
+        "Record per-port findings and evidence",
+        "records",
+        "",
+        "Record the actual model/configuration, port, measurement plane, targets, before/after readings and reference in the appropriate station records. Attach your own clearly labeled practice ONX/evidence files under Files. Reviewed steps, calculated launch values and module discovery do not establish measured RF acceptance."
+      ],
+      [
+        "backup",
+        "Export and return to the prior job",
+        "home",
+        "",
+        "Save a project backup of this GS7K practice job, including any practice originals. Open it to practice recovery, then use Job → Details to reopen a preserved working job. The synthetic warning stays with this example after edits and exports."
+      ]
+    ]
+  }
+}

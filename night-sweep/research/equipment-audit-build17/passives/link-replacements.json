@@ -1,0 +1,93 @@
+{
+  "replacements": [
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5308003/",
+      "entity_id": "p3_625",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5727603/",
+      "entity_id": "p3_700",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5304002/",
+      "entity_id": "p3_750",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5309003/",
+      "entity_id": "p3_875",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5506302/",
+      "entity_id": "qr_540",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5522802/",
+      "entity_id": "qr_715",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf",
+      "new": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5501302/",
+      "entity_id": "qr_860",
+      "checked": "2026-11-10",
+      "kind": "manufacturer product page",
+      "status": "opened successfully and correct product title",
+      "numeric_status": "Retain inherited attenuation curve; replacement is a working product reference, not fresh recertification of every table cell.",
+      "preserve_original_url": true
+    },
+    {
+      "old": "https://www.commscope.com/globalassets/digizuite/62133-regal-rl12.pdf",
+      "new": "https://webresources.commscope.com/download/assets/Regal%2BRL12%2BSeries%2B1.2%2BGHz%2BSystem%2BPassives%2BData%2BSheet/d4d7ffbc3bd711f0b092ea1fa90d937b",
+      "checked": "2026-11-10",
+      "kind": "manufacturer PDF",
+      "status": "opened successfully4pagePDF; exact same family",
+      "numeric_status": "Reviewed RF loss table matches catalog."
+    }
+  ],
+  "unresolved": [
+    {
+      "old": "http://www.arris.com/globalassets/resources/data-sheets/regal-rmt2000multitaps_ds.pdf",
+      "status": "Link agent confirmed redirects Vistance404; currently locating manufacturer-authored mirror, no substitute yet."
+    },
+    {
+      "entity_id": "p3_500",
+      "old": "https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf",
+      "status": "Manufacturer PDF still retrievable through indexed reference but direct matching product page inaccessible; do not claim exact current page verified."
+    }
+  ]
+}

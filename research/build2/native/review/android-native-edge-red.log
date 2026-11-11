@@ -1,0 +1,121 @@
+test_callback_after_activity_destroy_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_destroy_is_ignored) ... FAIL
+test_callback_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_finishes_is_ignored) ... FAIL
+test_callback_for_replaced_webview_is_ignored (__main__.NativeEdgeTests.test_callback_for_replaced_webview_is_ignored) ... FAIL
+test_live_print_and_preparation_failure_remain_supported (__main__.NativeEdgeTests.test_live_print_and_preparation_failure_remain_supported) ... ok
+test_long_ascii_name_keeps_extension_within_limit (__main__.NativeEdgeTests.test_long_ascii_name_keeps_extension_within_limit) ... ok
+test_long_cjk_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_cjk_name_can_be_copied_to_private_cache) ... FAIL
+test_long_emoji_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_emoji_name_can_be_copied_to_private_cache) ... FAIL
+test_queued_print_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_finishes_is_ignored) ... FAIL
+test_queued_print_after_activity_is_destroyed_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_is_destroyed_is_ignored) ... FAIL
+test_queued_print_after_webview_destroy_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_webview_destroy_is_ignored) ... FAIL
+test_short_unicode_name_stays_readable (__main__.NativeEdgeTests.test_short_unicode_name_stays_readable) ... ok
+test_unsafe_or_empty_names_do_not_escape_private_folder (__main__.NativeEdgeTests.test_unsafe_or_empty_names_do_not_escape_private_folder) ... ok
+
+======================================================================
+FAIL: test_callback_after_activity_destroy_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_destroy_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 142, in test_callback_after_activity_destroy_is_ignored
+    self.assert_closed_print_stops('callback_destroyed', 1)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'none|1|0|1|1' != 'none|1|0|0|0'
+- none|1|0|1|1
+?          ^ ^
++ none|1|0|0|0
+?          ^ ^
+
+
+======================================================================
+FAIL: test_callback_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_finishes_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 145, in test_callback_after_activity_finishes_is_ignored
+    self.assert_closed_print_stops('callback_finishing', 1)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'none|1|1|0|0' != 'none|1|0|0|0'
+- none|1|1|0|0
+?        ^
++ none|1|0|0|0
+?        ^
+
+
+======================================================================
+FAIL: test_callback_for_replaced_webview_is_ignored (__main__.NativeEdgeTests.test_callback_for_replaced_webview_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 148, in test_callback_for_replaced_webview_is_ignored
+    self.assert_closed_print_stops('callback_replaced', 1)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'none|1|1|0|0' != 'none|1|0|0|0'
+- none|1|1|0|0
+?        ^
++ none|1|0|0|0
+?        ^
+
+
+======================================================================
+FAIL: test_long_cjk_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_cjk_name_can_be_copied_to_private_cache)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 100, in test_long_cjk_name_can_be_copied_to_private_cache
+    self.assertTrue(created)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_long_emoji_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_emoji_name_can_be_copied_to_private_cache)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 106, in test_long_emoji_name_can_be_copied_to_private_cache
+    self.assertTrue(created)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_queued_print_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_finishes_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 136, in test_queued_print_after_activity_finishes_is_ignored
+    self.assert_closed_print_stops('queued_finishing', 0)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'none|1|1|0|0' != 'none|0|0|0|0'
+- none|1|1|0|0
+?      ^ ^
++ none|0|0|0|0
+?      ^ ^
+
+
+======================================================================
+FAIL: test_queued_print_after_activity_is_destroyed_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_is_destroyed_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 139, in test_queued_print_after_activity_is_destroyed_is_ignored
+    self.assert_closed_print_stops('queued_destroyed', 0)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'none|1|1|0|0' != 'none|0|0|0|0'
+- none|1|1|0|0
+?      ^ ^
++ none|0|0|0|0
+?      ^ ^
+
+
+======================================================================
+FAIL: test_queued_print_after_webview_destroy_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_webview_destroy_is_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 133, in test_queued_print_after_webview_destroy_is_ignored
+    self.assert_closed_print_stops('queued_null', 0)
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-native-edge.test.py", line 130, in assert_closed_print_stops
+    self.assertEqual(self.results[case], 'none|' + str(evaluations) + '|0|0|0')
+AssertionError: 'NullPointerException|0|0|0|0' != 'none|0|0|0|0'
+- NullPointerException|0|0|0|0
++ none|0|0|0|0
+
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.965s
+
+FAILED (failures=8)

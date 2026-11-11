@@ -1,0 +1,7 @@
+PASS Unsafe imported route IDs are rejected without replacing current work
+PASS Unsafe imported power IDs are rejected without replacing current work
+PASS Safe-integer route boundary adds unique reimportable IDs and does not reconnect orphan feeds
+PASS Safe-integer power boundary adds unique reimportable IDs and preserves missing parents
+PASS Power what-if keeps a safe unique ID at the imported numeric boundary
+PASS Resetting the three-tap sample retains its established IDs
+Import ID boundaries: 6 checks passed

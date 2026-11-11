@@ -1,0 +1,50 @@
+✖ Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families (2311.412193ms)
+✖ The previous AOI complete export keeps every original and row while its replaced guide stays hidden (1717.547392ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4470.985787
+
+✖ failing tests:
+
+test at qa/training-controls.test.cjs:29:1
+✖ Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families (2311.412193ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'vecima-en9000'
+  - 'gs7000-12g'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:31:9
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:26:78)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'vecima-en9000',
+    expected: 'gs7000-12g',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-controls.test.cjs:43:1
+✖ The previous AOI complete export keeps every original and row while its replaced guide stays hidden (1717.547392ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:46:9
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-controls.test.cjs:26:78)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

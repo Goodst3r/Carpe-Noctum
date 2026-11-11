@@ -1,0 +1,48 @@
+{
+  "environment": {
+    "kind": "Official Android35 x86_64 software emulator",
+    "os": "Android15",
+    "emulator_version": "37.2.13",
+    "webview_package": "com.android.webview",
+    "webview_version": "124.0.6367.219",
+    "hardware_acceleration": false,
+    "kvm_available": false,
+    "physical_phone": false
+  },
+  "boot": {
+    "passed": true,
+    "seconds": 439.37
+  },
+  "legacy_build22_install": {
+    "passed": true
+  },
+  "final_build24_compatible_update": {
+    "passed": true,
+    "command": "adb -s emulator-5556 install -r <final-signed-APK>",
+    "same_package_uid": true,
+    "generic_app_private_fixture_preserved": true,
+    "saved_job_retention_proven": false,
+    "record": "emulator/final-compatible-update.json"
+  },
+  "runtime": {
+    "legacy_build22_launch": "Failed: stock WebView renderer SIGTRAP; host terminated after unhandled renderer death",
+    "final_build24_launch": "Failed: same stock WebView renderer SIGTRAP; host terminated after unhandled renderer death",
+    "app_java_exception_established": false,
+    "app_javascript_exception_established": false,
+    "native_ui_smoke_passed": false,
+    "native_file_picker_save_share_print_verified": false,
+    "saved_job_or_original_evidence_retention_verified": false,
+    "isolation_or_security_settings_weakened": false,
+    "platform_control": "Stock Settings displayed but the guest also showed Quickstep ANR and repeated Bluetooth-service native crashes",
+    "scope_limit": "The software CPU emulation mode is unsupported/slow per official emulator documentation. These failures do not establish physical-phone behavior; no native-runtime pass is claimed."
+  },
+  "evidence": [
+    "emulator/legacy-exit-info.txt",
+    "emulator/legacy-fatal-context.txt",
+    "emulator/final-exit-info.txt",
+    "emulator/final-fatal-context.txt",
+    "emulator/settings-control.png",
+    "emulator/final-launch.png"
+  ],
+  "physical_device_tests": false
+}

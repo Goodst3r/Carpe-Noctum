@@ -1,0 +1,21 @@
+✔ unavailable IndexedDB reports failure without attachment metadata and can be retried (198.21087ms)
+✔ synchronous storage-open exception releases busy state and permits retry (58.461807ms)
+✔ asynchronous storage-open error preserves the job and permits a successful retry (57.748466ms)
+✔ blocked open rejects, closes a late successful connection, and can be retried (48.054878ms)
+✔ unexpected database close permits import and export retries while preserving original bytes (36.911565ms)
+✔ metadata and autosave become visible only after original-byte transaction commits (17.033356ms)
+✔ transaction abort after request success rolls back the whole attachment batch and permits retry (40.941153ms)
+✔ a failed batch retains existing attachment metadata, autosave and exact original bytes (38.145543ms)
+✔ synchronous put failure aborts earlier writes instead of publishing a partial batch (16.141691ms)
+✔ asynchronous request failure aborts the transaction without publishing attachment metadata (45.027747ms)
+✔ read transaction abort after request success blocks export and permits a lossless retry (48.469691ms)
+✔ backup restoration abort leaves the current job and candidate untouched with no partial originals (49.541339ms)
+✔ backup restoration returns metadata only after original-byte transaction commits (16.600829ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1079.730492

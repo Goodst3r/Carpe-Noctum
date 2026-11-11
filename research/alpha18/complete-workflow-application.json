@@ -1,0 +1,641 @@
+{
+  "generatedAt": "2026-11-11T03:30:57.713Z",
+  "status": "PASS",
+  "scope": "Generated standalone final complete-practice factory and actual calculation functions.",
+  "groupedChecks": 17,
+  "numericComparisons": 82,
+  "observed": {
+    "cableLossesDb": [
+      [
+        3.0602347308543516,
+        13.394011981953785
+      ],
+      [
+        1.1799859437480396,
+        5.091632286080652
+      ],
+      [
+        2.3138360160118268,
+        10.190295791233348
+      ],
+      [
+        0.4992248223549399,
+        2.1541521210341226
+      ],
+      [
+        1.6884526270855655,
+        7.360690009315394
+      ],
+      [
+        1.4161215582007969,
+        6.173481943296783
+      ],
+      [
+        0.9530655699503396,
+        4.112472231065143
+      ],
+      [
+        0.4538407475953999,
+        1.9583201100310201
+      ],
+      [
+        0.5446621377695373,
+        2.374416132037224
+      ]
+    ],
+    "rfOutputsDbmv": {
+      "r1::through": [
+        36.93976526914565,
+        47.60598801804622
+      ],
+      "r2::through": [
+        34.85977932539762,
+        40.81435573196556
+      ],
+      "r2::tap": [
+        12.759779325397616,
+        19.514355731965566
+      ],
+      "r3::through": [
+        40.54594330938579,
+        45.62405994073222
+      ],
+      "r4::low-loss-output": [
+        35.64671848703085,
+        38.4544316292219
+      ],
+      "r4::high-loss-outputs": [
+        31.94671848703085,
+        33.838955438745714
+      ],
+      "r5::through": [
+        33.42715474883418,
+        29.610408286573172
+      ],
+      "r5::tap": [
+        13.958265859945286,
+        11.093741619906506
+      ],
+      "r6::through": [
+        31.20909144306056,
+        21.83923657429949
+      ],
+      "r6::tap": [
+        14.011033190633377,
+        4.93692634327639
+      ],
+      "r7::through": [
+        30.09365291708051,
+        28.02648320768057
+      ],
+      "r7::tap": [
+        7.99365291708051,
+        6.72648320768057
+      ],
+      "r8::through": [
+        28.63981216948511,
+        24.06816309764955
+      ],
+      "r8::tap": [
+        19.63981216948511,
+        15.068163097649549
+      ],
+      "r9::through": [
+        28.095150031715573,
+        21.693746965612327
+      ]
+    },
+    "power": {
+      "ok": true,
+      "error": "",
+      "rows": [
+        {
+          "id": "p1",
+          "name": "TRAIN Power junction",
+          "voltage": 89.91908516049278,
+          "deviceCurrent": 0,
+          "sectionCurrent": 2.0474402709640938,
+          "resistance": 0.03952,
+          "drop": 0.08091483950850098,
+          "wireWatts": 0.1656683009283014,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p2",
+          "name": "TRAIN GS7K — SYNTHETIC 0.75 A entered load",
+          "voltage": 89.87618516049278,
+          "deviceCurrent": 0.75,
+          "sectionCurrent": 0.75,
+          "resistance": 0.05720000000000001,
+          "drop": 0.04290000000000001,
+          "wireWatts": 0.032175,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p3",
+          "name": "TRAIN GaN HGD A1 — SYNTHETIC 0.60 A entered load",
+          "voltage": 89.23855076049279,
+          "deviceCurrent": 0.6,
+          "sectionCurrent": 1.05,
+          "resistance": 0.6481280000000001,
+          "drop": 0.6805344000000002,
+          "wireWatts": 0.7145611200000002,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p4",
+          "name": "TRAIN GaN HGD A2 — SYNTHETIC 0.45 A entered load",
+          "voltage": 88.82671076049279,
+          "deviceCurrent": 0.45,
+          "sectionCurrent": 0.45,
+          "resistance": 0.9152,
+          "drop": 0.41184000000000004,
+          "wireWatts": 0.18532800000000002,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p5",
+          "name": "TRAIN Custom branch load",
+          "voltage": 89.80842987133215,
+          "deviceCurrent": 0.24744027096409357,
+          "sectionCurrent": 0.24744027096409357,
+          "resistance": 0.4472,
+          "drop": 0.11065528917514264,
+          "wireWatts": 0.02738057473710743,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        }
+      ],
+      "supplyCurrent": 2.0474402709640938,
+      "sourceVA": 184.26962438676844,
+      "wireWatts": 1.125112995665409,
+      "loading": 13.649601806427292,
+      "headroom": 12.952559729035906,
+      "minVoltage": 88.82671076049279,
+      "warnings": []
+    },
+    "trial": {
+      "ok": true,
+      "error": "",
+      "rows": [
+        {
+          "id": "p1",
+          "name": "TRAIN Power junction",
+          "voltage": 89.88944192772125,
+          "deviceCurrent": 0,
+          "sectionCurrent": 2.797522071849567,
+          "resistance": 0.03952,
+          "drop": 0.11055807227949489,
+          "wireWatts": 0.30928864742302675,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p2",
+          "name": "TRAIN GS7K — SYNTHETIC 0.75 A entered load",
+          "voltage": 89.84654192772125,
+          "deviceCurrent": 0.75,
+          "sectionCurrent": 0.75,
+          "resistance": 0.05720000000000001,
+          "drop": 0.04290000000000001,
+          "wireWatts": 0.032175,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p3",
+          "name": "TRAIN GaN HGD A1 — SYNTHETIC 0.60 A entered load",
+          "voltage": 88.72281152772125,
+          "deviceCurrent": 0.6,
+          "sectionCurrent": 1.7999999999999998,
+          "resistance": 0.6481280000000001,
+          "drop": 1.1666304,
+          "wireWatts": 2.0999347200000003,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p4",
+          "name": "TRAIN GaN HGD A2 — SYNTHETIC 0.45 A entered load",
+          "voltage": 87.62457152772124,
+          "deviceCurrent": 0.45,
+          "sectionCurrent": 1.2,
+          "resistance": 0.9152,
+          "drop": 1.0982399999999999,
+          "wireWatts": 1.317888,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p5",
+          "name": "TRAIN Custom branch load",
+          "voltage": 89.77875005719852,
+          "deviceCurrent": 0.24752207184956715,
+          "sectionCurrent": 0.24752207184956715,
+          "resistance": 0.4472,
+          "drop": 0.11069187053112643,
+          "wireWatts": 0.02739868113076846,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        },
+        {
+          "id": "p6",
+          "name": "What-if load",
+          "voltage": 87.36717152772124,
+          "deviceCurrent": 0.75,
+          "sectionCurrent": 0.75,
+          "resistance": 0.3432,
+          "drop": 0.2574,
+          "wireWatts": 0.19305,
+          "warning": "",
+          "basis": "Published nominal at 68°F / 20°C · temperature-adjusted engineering estimate"
+        }
+      ],
+      "supplyCurrent": 2.797522071849567,
+      "sourceVA": 251.77698646646104,
+      "wireWatts": 3.9797350485537955,
+      "loading": 18.65014714566378,
+      "headroom": 42.36717152772124,
+      "minVoltage": 87.36717152772124,
+      "warnings": [],
+      "voltage": 87.36717152772124,
+      "trialRow": {
+        "id": "p6",
+        "name": "What-if load",
+        "parent": "p4",
+        "length": 300,
+        "cable": "p3_625",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "custom",
+        "mode": "amps",
+        "load": 0.75,
+        "pf": 1,
+        "minV": 45
+      },
+      "plan": {
+        "supplyVoltage": 90,
+        "supplyRating": 15,
+        "temperatureF": 86,
+        "resistanceAlpha": 0.004,
+        "rows": [
+          {
+            "id": "p1",
+            "name": "TRAIN Power junction",
+            "parent": "supply",
+            "length": 50,
+            "cable": "p3_750",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "custom",
+            "mode": "amps",
+            "load": 0,
+            "pf": 1,
+            "minV": ""
+          },
+          {
+            "id": "p2",
+            "name": "TRAIN GS7K — SYNTHETIC 0.75 A entered load",
+            "parent": "p1",
+            "length": 50,
+            "cable": "p3_625",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "custom",
+            "mode": "amps",
+            "load": 0.75,
+            "pf": 1,
+            "minV": ""
+          },
+          {
+            "id": "p3",
+            "name": "TRAIN GaN HGD A1 — SYNTHETIC 0.60 A entered load",
+            "parent": "p1",
+            "length": 820,
+            "cable": "p3_750",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "gm-hgd-gan-1g-thermal",
+            "mode": "amps",
+            "load": 0.6,
+            "pf": 1,
+            "minV": ""
+          },
+          {
+            "id": "p4",
+            "name": "TRAIN GaN HGD A2 — SYNTHETIC 0.45 A entered load",
+            "parent": "p3",
+            "length": 880,
+            "cable": "qr_715",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "gm-hgd-gan-1g-thermal",
+            "mode": "amps",
+            "load": 0.45,
+            "pf": 1,
+            "minV": ""
+          },
+          {
+            "id": "p5",
+            "name": "TRAIN Custom branch load",
+            "parent": "p1",
+            "length": 250,
+            "cable": "p3_500",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "custom",
+            "mode": "watts",
+            "load": 20,
+            "pf": 0.9,
+            "minV": 45
+          },
+          {
+            "id": "p6",
+            "name": "What-if load",
+            "parent": "p4",
+            "length": 300,
+            "cable": "p3_625",
+            "dcRate": "",
+            "extraR": 0,
+            "equipment": "custom",
+            "mode": "amps",
+            "load": 0.75,
+            "pf": 1,
+            "minV": 45
+          }
+        ],
+        "whatIf": {
+          "parent": "p4",
+          "cable": "p3_625",
+          "length": 300,
+          "amps": 0.75,
+          "minV": 45
+        }
+      }
+    },
+    "tdr": {
+      "ok": true,
+      "error": "",
+      "correctedDistance": 295,
+      "pathDistance": 270,
+      "originDistance": 1700,
+      "total": 2380,
+      "routeDistance": 1970,
+      "chain": [
+        {
+          "id": "r1",
+          "row": {
+            "id": "r1",
+            "name": "TRAIN GainMaker GaN HGD A1",
+            "parent": "source",
+            "length": 800,
+            "slack": 20,
+            "cable": "p3_750",
+            "device": "active_gm_gan_hgd",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "activeMode": "anchors",
+            "gainLowF": 54,
+            "gainHighF": 860,
+            "gainLow": 9,
+            "gainHigh": 18,
+            "targetLow": 31,
+            "targetHigh": 43,
+            "reserve": 3,
+            "outputLoss": 0,
+            "outputLimitLow": 42,
+            "outputLimitHigh": 54,
+            "measureF": 54,
+            "measureIn": 7.1,
+            "measureInTP": 20,
+            "measureOut": 16.1,
+            "measureOutTP": 20,
+            "meters": {
+              "through": {
+                "frequency": 54,
+                "reading": 16.1,
+                "testPoint": true,
+                "coupling": 20,
+                "couplingChoice": "20"
+              }
+            },
+            "asBuiltNote": "SYNTHETIC: 800 ft map span plus 20 ft slack. Exact GainMaker HGD GaN 42/54 selection; entered 9 / 18 dB gains are arithmetic inputs, not verified manufacturer operating gain or control settings."
+          },
+          "index": 0,
+          "parentId": null,
+          "length": 800,
+          "slack": 20,
+          "spanLength": 820,
+          "start": 0,
+          "end": 820,
+          "error": ""
+        },
+        {
+          "id": "r2",
+          "row": {
+            "id": "r2",
+            "name": "TRAIN Scientific-Atlanta Tap A",
+            "parent": "r1::through",
+            "length": 250,
+            "slack": 10,
+            "cable": "p3_625",
+            "device": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "toolFrequency": 860,
+            "asBuiltNote": "SYNTHETIC Scientific-Atlanta Multimedia 1 GHz 23 dB face. Mainline follows through loss; tap loss belongs only to the separate tap output. This reference stops at 1000 MHz."
+          },
+          "index": 1,
+          "parentId": "r1",
+          "length": 250,
+          "slack": 10,
+          "spanLength": 260,
+          "start": 820,
+          "end": 1080,
+          "error": ""
+        },
+        {
+          "id": "r3",
+          "row": {
+            "id": "r3",
+            "name": "TRAIN GainMaker GaN HGD A2",
+            "parent": "r2::through",
+            "length": 600,
+            "slack": 20,
+            "cable": "qr_715",
+            "device": "active_gm_gan_hgd",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "activeMode": "table",
+            "activeGainTable": "54, 8\n550, 12\n860, 15",
+            "targetLow": 31,
+            "targetHigh": 43,
+            "reserve": 3,
+            "outputLoss": 0,
+            "outputLimitLow": 42,
+            "outputLimitHigh": 54,
+            "meters": {
+              "through": {
+                "frequency": 860,
+                "reading": 27,
+                "testPoint": true,
+                "coupling": 20,
+                "couplingChoice": "20"
+              }
+            },
+            "asBuiltNote": "SYNTHETIC: second GainMaker GaN HGD, not an LE. Its entered three-point gain table is synthetic. Exact installed module, controls and matching GaN setup procedure remain unverified.",
+            "gainLowF": 54,
+            "gainHighF": 860,
+            "gainLow": 8,
+            "gainHigh": 15
+          },
+          "index": 2,
+          "parentId": "r2",
+          "length": 600,
+          "slack": 20,
+          "spanLength": 620,
+          "start": 1080,
+          "end": 1700,
+          "error": ""
+        },
+        {
+          "id": "r4",
+          "row": {
+            "id": "r4",
+            "name": "TRAIN GigaXtend Split S1",
+            "parent": "r3::through",
+            "length": 100,
+            "slack": 10,
+            "cable": "p3_625",
+            "device": "atx-gigaxtend-xs-2ghz--xsc-2-959",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "asBuiltNote": "SYNTHETIC ATX GigaXtend XS unbalanced splitter. Main uses low-loss-output; branch uses high-loss-outputs. Confirm actual housing labels and power passing separately."
+          },
+          "index": 3,
+          "parentId": "r3",
+          "length": 100,
+          "slack": 10,
+          "spanLength": 110,
+          "start": 1700,
+          "end": 1810,
+          "error": ""
+        },
+        {
+          "id": "r5",
+          "row": {
+            "id": "r5",
+            "name": "TRAIN GigaXtend Main Tap B",
+            "parent": "r4::low-loss-output",
+            "length": 300,
+            "slack": 10,
+            "cable": "p3_500",
+            "device": "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-20-std",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "asBuiltNote": "SYNTHETIC ATX GigaXtend SGT 20 dB face. Corrected TDR route coordinate 1970 ft is 160 ft into this 310 ft incoming span."
+          },
+          "index": 4,
+          "parentId": "r4",
+          "length": 300,
+          "slack": 10,
+          "spanLength": 310,
+          "start": 1810,
+          "end": 2120,
+          "error": ""
+        },
+        {
+          "id": "r6",
+          "row": {
+            "id": "r6",
+            "name": "TRAIN Technetix EOL Tap C",
+            "parent": "r5::through",
+            "length": 250,
+            "slack": 10,
+            "cable": "p3_500",
+            "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+            "customLoss": "",
+            "customCable": "",
+            "terminal": false,
+            "toolFrequency": 54,
+            "meters": {
+              "tap": {
+                "frequency": 54,
+                "reading": 7.5,
+                "testPoint": false,
+                "coupling": 0,
+                "couplingChoice": ""
+              }
+            },
+            "drop": {
+              "port": "tap",
+              "length": 75,
+              "customCable": "54, 1.8\n550, 5.4\n860, 6.2",
+              "splitter": "custom",
+              "customLoss": "54, 4\n550, 4\n860, 4"
+            },
+            "asBuiltNote": "SYNTHETIC Technetix OTTZ 17 dB face. Main path is 2380 ft including slack. RG-6 and the explicit 4 dB drop-path loss are teaching inputs already at actual temperature; no fourth manufacturer or power-passing claim is implied."
+          },
+          "index": 5,
+          "parentId": "r5",
+          "length": 250,
+          "slack": 10,
+          "spanLength": 260,
+          "start": 2120,
+          "end": 2380,
+          "error": ""
+        }
+      ],
+      "spanId": "r5",
+      "offsetFromStart": 160,
+      "offsetFromEnd": 150,
+      "boundary": false,
+      "boundaryIds": []
+    },
+    "drop": [
+      {
+        "frequency": 54,
+        "input": 14.011033190633377,
+        "cableLoss": 1.35,
+        "outputs": [
+          {
+            "id": "custom",
+            "label": "Custom path → ground block",
+            "loss": 4,
+            "level": 8.661033190633377
+          }
+        ],
+        "warning": "Drop only · not mainline · not power-passing."
+      },
+      {
+        "frequency": 860,
+        "input": 4.93692634327639,
+        "cableLoss": 4.65,
+        "outputs": [
+          {
+            "id": "custom",
+            "label": "Custom path → ground block",
+            "loss": 4,
+            "level": -3.7130736567236102
+          }
+        ],
+        "warning": "Drop only · not mainline · not power-passing."
+      }
+    ]
+  },
+  "inputSha256": {
+    "night-sweep/training.js": "960b9fc67fec71dbd4eb6213e7d1edb6b8976fb004806527387cb0cb3bf7da9e",
+    "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+    "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
+    "outputs/Night_Sweep.html": "4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758"
+  }
+}

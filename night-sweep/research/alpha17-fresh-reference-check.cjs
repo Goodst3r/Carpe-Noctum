@@ -1,0 +1,31 @@
+'use strict';
+// Synthetic audit cases; independent expected values are the fresh Wolfram response.
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'../..'),HFC=require(path.join(root,'night-sweep/engine.js'));
+const E=require('./alpha17-math-audit-fresh-wolfram.json').expected;
+const source=file=>fs.readFileSync(path.join(root,'night-sweep',file),'utf8');
+const context={console,HFC};vm.createContext(context);
+for(const file of ['projects.js','field-work.js','sweep-setup.js'])vm.runInContext(source(file),context);
+const app=source('app.js');vm.runInContext(app.slice(app.indexOf('function measuredGain('),app.indexOf('function useMeasuredGain(')),context);
+const run=expression=>vm.runInContext(expression,context),cases=[];
+function check(name,actual,expected,tolerance=1e-8){assert(Number.isFinite(actual),name+' returned '+actual);assert(Math.abs(actual-expected)<=tolerance,`${name}: ${actual} != ${expected}`);cases.push({name,actual,expected,tolerance});}
+const cat={devices:[{id:'none',ports:[{id:'through',role:'through'}]}],cables:[]};
+check('sqrtLaunch576',HFC.launchAt({lowF:256,highF:1024,lowLevel:34,highLevel:46,launchMode:'sqrt'},576),E.sqrtLaunch576);
+check('cableSqrtInterpolation',HFC.curveValue({min:100,max:1600,points:[[100,1],[1600,3]]},625,'sqrt'),E.cableSqrtInterpolation);
+check('cableHotLoss',HFC.cableAt({curve:{min:5,max:1800,points:[[5,2.5],[1800,2.5]]}},{length:300,cable:'synthetic'},625,104),E.cableHotLoss);
+check('testPointGain',run('measuredGain({measureIn:7.1,measureOut:16.1,measureInTP:20,measureOutTP:20})'),E.testPointGain);
+const tdr=HFC.tdrLocate({rows:[{id:'a',parent:'source',length:132,device:'none'},{id:'b',parent:'a::through',length:118,device:'none'}]},cat,{endpoint:'b',distance:200,setVF:.8,actualVF:.88,lead:20});assert.equal(tdr.ok,true);check('tdrCorrected',tdr.pathDistance,E.tdrCorrected);
+check('resistanceHot',HFC.dcSegment({dc:{loop_ohm_per_1000ft:1.1}},{length:1000},104,.004).resistance,E.resistanceHot);
+const row=(id,load,extraR,parent='supply',mode='amps')=>({id,parent,length:0,cable:'custom',equipment:'custom',mode,load,extraR,pf:1});
+const power=rows=>({supplyVoltage:90,supplyRating:15,rows});
+const cp=HFC.powerRun(power([row('p1',180,2,'supply','watts')]),cat);assert.equal(cp.ok,true);check('constantPowerHighVoltage',cp.minVoltage,E.constantPowerHighVoltage);check('constantPowerCurrent',cp.supplyCurrent,E.constantPowerCurrent);
+assert(E.constantPowerCollapseDiscriminant<0);assert.equal(HFC.powerRun(power([row('p1',2000,2,'supply','watts')]),cat).ok,false);cases.push({name:'constantPowerCollapse',negativeDiscriminant:E.constantPowerCollapseDiscriminant,appRejected:true});
+const branches=HFC.powerRun(power([row('p1',0,1),row('p2',1,2,'p1'),row('p3',2,3,'p1')]),cat);assert.equal(branches.ok,true);
+branches.rows.forEach((r,i)=>check('branchedVoltage'+(i+1),r.voltage,E.branchedVoltages[i]));check('branchedWireLoss',branches.wireWatts,E.branchedWireLoss);
+check('unitConversion',run("FieldWork.convert(72,'dbuv')"),E.unitConversion);
+check('physicalInjection',run("SweepSetup.generator({desiredInjection:31,injectionCoupling:20,leadLoss:1},'204').setting"),E.physicalInjection);
+const corrected=run('ProjectMath.evaluate({rawLow:-14,rawHigh:-12,addLow:20,addHigh:20})');check('receiveLevelCorrectionLow',corrected.correctedLow,E.receiveLevelCorrection[0]);check('receiveLevelCorrectionHigh',corrected.correctedHigh,E.receiveLevelCorrection[1]);
+check('returnRelativeTiltError',run("SweepSetup.comparison({comparisonMode:'relative',lowMHz:10,highMHz:204,measuredLow:-0.2,measuredHigh:0.4,targetLow:0,targetHigh:0},'204').tiltError"),E.returnRelativeTiltError);
+const report={checkedAt:'2026-11-10',checks:cases.length,cases,scope:'Fresh external arithmetic reference comparisons on explicit synthetic assumptions; no equipment specification or physical-device validation.'};
+fs.writeFileSync(path.join(__dirname,'alpha17-fresh-reference-results.json'),JSON.stringify(report,null,2)+'\n');
+console.log('Fresh Wolfram reference comparisons: '+cases.length+' passed.');

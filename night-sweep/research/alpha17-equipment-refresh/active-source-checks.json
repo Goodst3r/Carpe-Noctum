@@ -1,0 +1,218 @@
+{
+  "checkedAt": "2026-11-10",
+  "observations": [
+    {
+      "recordId": "spec-gm-hgd",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-23e8-701f-b4fd-a5ac2bef2b3a",
+      "bodyCharacters": 13622,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-gm-le",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+      "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-2391-7359-a166-fbff87a68b53",
+      "bodyCharacters": 13620,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-gm-hgbt",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+      "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-22ee-72bd-9cb9-609ea05172a3",
+      "bodyCharacters": 12990,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-gm-lgd",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+      "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-23ae-7730-b475-52740e453906",
+      "bodyCharacters": 14828,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-aoi-hgd",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "finalUrl": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-23dc-74bf-b370-98930217dc55",
+      "bodyCharacters": 6304,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-aoi-hgbt",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "finalUrl": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-22f8-770d-8a49-05109b9d411c",
+      "bodyCharacters": 6056,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-aoi-le",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "finalUrl": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-22a6-7200-bf57-8210ab18faf9",
+      "bodyCharacters": 6826,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "spec-aoi-ba",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "finalUrl": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "statusCode": 200,
+      "contentType": "application/pdf",
+      "scrapeId": "01a1c7dc-22ca-7014-ae10-87143de2dbfb",
+      "bodyCharacters": 6269,
+      "checkedAt": "2026-11-10",
+      "newestRevisionCertified": false
+    },
+    {
+      "recordId": "aoi-current-manufacturer-page",
+      "url": "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d3-147f-708d-8c5a-55cf3661b348",
+      "checkedAt": "2026-11-10",
+      "guideAvailability": "Installation guides by manufacturer content request"
+    },
+    {
+      "recordId": "manual_doc0",
+      "url": "https://ao-inc.com/assets/resources/QB18-SA-I-and-O-Guide.pdf",
+      "finalUrl": "https://ao-inc.com/assets/resources/QB18-SA-I-and-O-Guide.pdf",
+      "statusCode": 404,
+      "scrapeId": "01a1c7d3-60e0-70a5-9313-dbc1da60b330",
+      "bodyCharacters": 147,
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "manual_doc1",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "finalUrl": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d3-6115-77cc-bbff-e1c65c158c23",
+      "bodyCharacters": 185206,
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "manual_doc2",
+      "url": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "finalUrl": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d3-611f-73a0-ab64-fce54ee8efdd",
+      "bodyCharacters": 2147,
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "extra_doc0",
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html",
+      "finalUrl": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d3-cc58-74ff-a252-c1faf45746eb",
+      "bodyCharacters": 77859,
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "gan_doc",
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.html",
+      "finalUrl": "https://www.cisco.com/site/us/en/index.html",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d5-9e06-742c-ab64-ab0c7f232d5c",
+      "bodyCharacters": 17685,
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 56,
+      "printedPage": 43,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=56",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d4-ffce-71ee-92e8-fdc83b359190",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 57,
+      "printedPage": 44,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=57",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d4-ffdb-7009-8bb9-38a84e62f1b2",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 58,
+      "printedPage": 45,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=58",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d4-ffe5-73b7-b226-91512f61bf49",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 59,
+      "printedPage": 46,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=59",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d5-0019-70ca-be50-3e3c2216aa9d",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 60,
+      "printedPage": 47,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=60",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d4-ffbb-73cd-95d1-54f54063b1a1",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 61,
+      "printedPage": 48,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=61",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d5-001e-75cc-b9c2-90c6e6805afb",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 62,
+      "printedPage": 49,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=62",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d5-017b-7709-b280-fb40511206af",
+      "checkedAt": "2026-11-10"
+    },
+    {
+      "recordId": "aoi-sa-manual",
+      "physicalPage": 63,
+      "printedPage": 50,
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html?page=63",
+      "statusCode": 200,
+      "scrapeId": "01a1c7d5-0037-71b6-8ddf-376902d4b324",
+      "checkedAt": "2026-11-10"
+    }
+  ]
+}

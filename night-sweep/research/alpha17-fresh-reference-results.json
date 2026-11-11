@@ -1,0 +1,114 @@
+{
+  "checkedAt": "2026-11-10",
+  "checks": 18,
+  "cases": [
+    {
+      "name": "sqrtLaunch576",
+      "actual": 40,
+      "expected": 40,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "cableSqrtInterpolation",
+      "actual": 2,
+      "expected": 2,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "cableHotLoss",
+      "actual": 7.7700000000000005,
+      "expected": 7.77,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "testPointGain",
+      "actual": 9,
+      "expected": 9,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "tdrCorrected",
+      "actual": 199.99999999999997,
+      "expected": 200,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "resistanceHot",
+      "actual": 1.1880000000000002,
+      "expected": 1.188,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "constantPowerHighVoltage",
+      "actual": 85.80441152910196,
+      "expected": 85.80441152620632,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "constantPowerCurrent",
+      "actual": 2.097794236826041,
+      "expected": 2.097794236896835,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "constantPowerCollapse",
+      "negativeDiscriminant": -7900,
+      "appRejected": true
+    },
+    {
+      "name": "branchedVoltage1",
+      "actual": 87,
+      "expected": 87,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "branchedVoltage2",
+      "actual": 85,
+      "expected": 85,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "branchedVoltage3",
+      "actual": 81,
+      "expected": 81,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "branchedWireLoss",
+      "actual": 23,
+      "expected": 23,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "unitConversion",
+      "actual": 12,
+      "expected": 12,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "physicalInjection",
+      "actual": 52,
+      "expected": 52,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "receiveLevelCorrectionLow",
+      "actual": 6,
+      "expected": 6,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "receiveLevelCorrectionHigh",
+      "actual": 8,
+      "expected": 8,
+      "tolerance": 1e-8
+    },
+    {
+      "name": "returnRelativeTiltError",
+      "actual": 0.6000000000000001,
+      "expected": 0.6,
+      "tolerance": 1e-8
+    }
+  ],
+  "scope": "Fresh external arithmetic reference comparisons on explicit synthetic assumptions; no equipment specification or physical-device validation."
+}

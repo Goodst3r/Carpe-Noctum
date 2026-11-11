@@ -1,0 +1,54 @@
+{
+  "scope": "Corrected 1.8 complete workflow; root final generated-release QA recorded separately",
+  "complete": {
+    "source": "gs7000-12g",
+    "split": "42/54",
+    "actives": [
+      "active_gm_gan_hgd",
+      "active_gm_gan_hgd"
+    ],
+    "passive_families": [
+      "Scientific-Atlanta",
+      "GigaXtend",
+      "Technetix"
+    ],
+    "anchors": {
+      "low_MHz": 54,
+      "high_MHz": 860,
+      "low_dBmV": 31,
+      "high_dBmV": 43
+    },
+    "operator_return_TX_dBmV": 38,
+    "node_hardware_upper_MHz": 1218,
+    "entered_path_upper_MHz": 1000,
+    "entered_live_upper_MHz": 860,
+    "training_revision": "gs7k-gan-alpha18-v1"
+  },
+  "commands": [
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node qa/training-job.test.cjs",
+      "checks": 41,
+      "pass": 41,
+      "log": "complete-correction-job-source.log"
+    },
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node --test qa/training-library.test.cjs",
+      "checks": 11,
+      "pass": 11,
+      "log": "complete-correction-library-source.log"
+    },
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node --test --test-name-pattern='previous AOI' qa/training-controls.test.cjs",
+      "checks": 1,
+      "pass": 1,
+      "log": "complete-legacy-import-source.log"
+    }
+  ],
+  "regression_red_logs": [
+    "complete-correction-red.log",
+    "complete-inactive-profile-red.log"
+  ],
+  "controls_scope_note": "Full controls source run passed nine cases; new legacy original-byte assertion was corrected to permit regenerated import IDs while checking filename/hash/bytes and all metadata joins. Targeted corrected legacy check passes; root full QA runs final complete suite.",
+  "independent_review": "16/16 source-assembled checks; AOI and custom factory snapshots unchanged",
+  "no_generated_artifact_edits": true
+}

@@ -1,0 +1,68 @@
+{
+  "file": "NightSweep-1.8-build2-preview.apk",
+  "size_bytes": 283164,
+  "sha256": "f46f9f3114877c198761b663d9fb2ac42575cab9812578e8eeccbaed2fd2fa84",
+  "html_sha256": "6ee0ffe51ca11fcc3e6f052af92e004496dd45f795d84c62b903393c9b67a45d",
+  "frozen_html_sha256": "6ee0ffe51ca11fcc3e6f052af92e004496dd45f795d84c62b903393c9b67a45d",
+  "version": "1.8 Alpha build 2",
+  "version_code": 24,
+  "package": "com.spencerwilliams.nightsweep.preview",
+  "label": "NightSweep 1.8 Preview build 2",
+  "min_sdk": 26,
+  "target_sdk": 35,
+  "tested_on_device": false,
+  "preview": true,
+  "separate_storage_from_supplied_013": true,
+  "can_update_14_preview": true,
+  "shares_storage_with_14_preview": true,
+  "can_update_prior_15_preview": true,
+  "can_update_prior_16_preview": true,
+  "training_job_included": true,
+  "sweep_setup_included": true,
+  "can_coexist_with_supplied_013": true,
+  "embedded_html_matches_input": true,
+  "certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+  "matches_original_signing_identity": true,
+  "supplied_013_certificate_sha256": "7998433ff49dc46b1157f69c917fb9b7e93936a5845140f054f9488ad7519e5b",
+  "can_update_supplied_013_in_place": false,
+  "signed": true,
+  "installable": true,
+  "artifact_kind": "signed release"
+}
+----------
+1. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 72)
+	view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());
+	                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method getSystemWindowInsetLeft() from the type WindowInsets is deprecated
+----------
+2. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 72)
+	view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());
+	                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+The method getSystemWindowInsetTop() from the type WindowInsets is deprecated
+----------
+3. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 72)
+	view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());
+	                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method getSystemWindowInsetRight() from the type WindowInsets is deprecated
+----------
+4. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 72)
+	view.setPadding(insets.getSystemWindowInsetLeft(),insets.getSystemWindowInsetTop(),insets.getSystemWindowInsetRight(),insets.getSystemWindowInsetBottom());
+	                                                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method getSystemWindowInsetBottom() from the type WindowInsets is deprecated
+----------
+5. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 73)
+	return insets.consumeSystemWindowInsets();
+	              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method consumeSystemWindowInsets() from the type WindowInsets is deprecated
+----------
+6. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 80)
+	settings.setAllowFileAccessFromFileURLs(false);
+	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method setAllowFileAccessFromFileURLs(boolean) from the type WebSettings is deprecated
+----------
+7. WARNING in /workspace/NightSweep_1.8_Alpha_build_2/android-build/build/preview/source/java/com/spencerwilliams/nightsweep/MainActivity.java (at line 81)
+	settings.setAllowUniversalAccessFromFileURLs(false);
+	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method setAllowUniversalAccessFromFileURLs(boolean) from the type WebSettings is deprecated
+----------
+7 problems (7 warnings)

@@ -1,0 +1,17 @@
+PASS GS7K source separates hardware1218, operation1000 and live860
+PASS Both complete actives are GaN HGD; passive families and feeds are valid
+PASS Complete markers, corrected levels and selected criteria match local42/54 plan
+PASS All nonselected complete profiles are fresh defaults without retained AOI criteria
+PASS Active complete fields and guides contain no inherited AOI or261/993 fixture
+PASS Both manual GaN power loads and their limitations are explicit
+PASS Every complete RF output finite at 54MHz
+PASS Every complete RF output finite at 860MHz
+PASS Six complete originals verify and contain only corrected fixture frequencies/names
+PASS Complete source opens conventional1.2GHz GS7K manual
+PASS Both GaN stations expose exact-manual gap with no inherited controller selection
+PASS Legacy complete preserved with incompatible guide hidden: qa/fixtures/training-complete-legacy17.json
+PASS Legacy complete preserved with incompatible guide hidden: release/NightSweep_1.7_Alpha_Training_Job.json
+PASS deep factory unchanged from pre-correction snapshot
+PASS custom factory unchanged from pre-correction snapshot
+PASS No simulated DOM exceptions
+Independent correction review: 16 checks passed

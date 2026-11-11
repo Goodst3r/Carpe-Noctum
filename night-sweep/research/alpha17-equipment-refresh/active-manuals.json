@@ -1,0 +1,304 @@
+{
+  "checkedAt": "2026-11-10",
+  "scope": {
+    "catalogActiveAtReview": 25,
+    "currentFieldActiveIds": [
+      "active_gm_hgd",
+      "active_gm_gan_hgd",
+      "active_gm_le_manual",
+      "active_gm_le_thermal",
+      "active_gm_le_agc",
+      "active_aoi_hgd",
+      "active_aoi_le",
+      "active_aoi_hgbt",
+      "active_aoi_hgd_85",
+      "active_aoi_hgd_396",
+      "active_aoi_hgd_492",
+      "active_aoi_hgd_684",
+      "active_aoi_le_85",
+      "active_aoi_le_396",
+      "active_aoi_le_492",
+      "active_aoi_le_684",
+      "active_aoi_hgbt_85",
+      "active_aoi_hgbt_396",
+      "active_aoi_hgbt_492",
+      "active_aoi_hgbt_684",
+      "active_gm_hgbt",
+      "active_gm_lgd_65",
+      "active_aoi_ba"
+    ],
+    "excludedAtUserDirection": [
+      "active_gm_ubt_main",
+      "active_gm_ubt_aux"
+    ],
+    "allCurrentActiveIdsMapped": true,
+    "newestRevisionMeaning": "Newest matching public edition located, not a manufacturer assurance of latest issued edition.",
+    "physicalEquipmentOrFirmwareTested": false,
+    "datasheetScope": "Eight retained exact original manufacturer datasheets were live-fetched again: HTTP200 application/pdf. This confirms retrieval and revision identity, not a new manufacturer-wide latest-edition guarantee."
+  },
+  "recordsWritten": [
+    "gm-hgd-oem-agc-alpha17-20261110",
+    "gm-hgd-thermal-alpha17-20261110",
+    "gm-hgbt-oem-agc-alpha17-20261110",
+    "gm-hgbt-thermal-alpha17-20261110",
+    "gm-lgd-oem-agc-alpha17-20261110",
+    "gm-lgd-thermal-alpha17-20261110",
+    "gm-le-oem-agc-alpha17-20261110",
+    "gm-le-thermal-alpha17-20261110",
+    "gm-le-manual-alpha17-20261110",
+    "gm-gan-setup-request-alpha17-20261110",
+    "aoi-quantum18-sa-v02102025-alpha17-20261110",
+    "aoi-le-missing-alpha17-20261110",
+    "aoi-ba-missing-alpha17-20261110",
+    "spec-gm-hgd",
+    "spec-gm-le",
+    "spec-gm-hgbt",
+    "spec-gm-lgd",
+    "spec-aoi-hgd",
+    "spec-aoi-hgbt",
+    "spec-aoi-le",
+    "spec-aoi-ba"
+  ],
+  "coverage": {
+    "active_gm_hgd": [
+      "gm-hgd-oem-agc-alpha17-20261110",
+      "gm-hgd-thermal-alpha17-20261110",
+      "spec-gm-hgd"
+    ],
+    "active_gm_gan_hgd": [
+      "gm-gan-setup-request-alpha17-20261110"
+    ],
+    "active_gm_le_manual": [
+      "gm-le-manual-alpha17-20261110",
+      "spec-gm-le"
+    ],
+    "active_gm_le_thermal": [
+      "gm-le-thermal-alpha17-20261110",
+      "spec-gm-le"
+    ],
+    "active_gm_le_agc": [
+      "gm-le-oem-agc-alpha17-20261110",
+      "spec-gm-le"
+    ],
+    "active_aoi_hgd": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgd"
+    ],
+    "active_aoi_le": [
+      "aoi-le-missing-alpha17-20261110",
+      "spec-aoi-le"
+    ],
+    "active_aoi_hgbt": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgbt"
+    ],
+    "active_aoi_hgd_85": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgd"
+    ],
+    "active_aoi_hgd_396": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgd"
+    ],
+    "active_aoi_hgd_492": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgd"
+    ],
+    "active_aoi_hgd_684": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgd"
+    ],
+    "active_aoi_le_85": [
+      "aoi-le-missing-alpha17-20261110",
+      "spec-aoi-le"
+    ],
+    "active_aoi_le_396": [
+      "aoi-le-missing-alpha17-20261110",
+      "spec-aoi-le"
+    ],
+    "active_aoi_le_492": [
+      "aoi-le-missing-alpha17-20261110",
+      "spec-aoi-le"
+    ],
+    "active_aoi_le_684": [
+      "aoi-le-missing-alpha17-20261110",
+      "spec-aoi-le"
+    ],
+    "active_aoi_hgbt_85": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgbt"
+    ],
+    "active_aoi_hgbt_396": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgbt"
+    ],
+    "active_aoi_hgbt_492": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgbt"
+    ],
+    "active_aoi_hgbt_684": [
+      "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "spec-aoi-hgbt"
+    ],
+    "active_gm_hgbt": [
+      "gm-hgbt-oem-agc-alpha17-20261110",
+      "gm-hgbt-thermal-alpha17-20261110",
+      "spec-gm-hgbt"
+    ],
+    "active_gm_lgd_65": [
+      "gm-lgd-oem-agc-alpha17-20261110",
+      "gm-lgd-thermal-alpha17-20261110",
+      "spec-gm-lgd"
+    ],
+    "active_aoi_ba": [
+      "aoi-ba-missing-alpha17-20261110",
+      "spec-aoi-ba"
+    ]
+  },
+  "manualFindings": [
+    {
+      "id": "gm-sa",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "authorship": "Cisco original manual; historical third-party mirror",
+      "revision": "OL-31156-01, February 2014",
+      "internalTitle": "1 GHz GainMaker Broadband Amplifier Platform System Amplifier Modules and Housings Installation and Operation Guide",
+      "liveStatus": "HTTP200; full manufacturer-authored body recovered by Firecrawl, despite misleading 870 MHz host page title",
+      "sections": {
+        "preparation": "printed pp46–50",
+        "manualBackoffAGC": "pp51–58, chart p53, AGC pad p56",
+        "thermalSetupAGC": "pp58–64, AGC pad p62",
+        "thermalOnlyAmp": "pp64–66",
+        "thermalOnlyAmpCoax": "pp67–70"
+      },
+      "modelSpecificFacts": {
+        "currentScope": "HGD/HGBT/LGD; UBT retired at user request",
+        "oemPadReference": "corrected MAIN-port pilot output in dBmV minus34dB",
+        "S1ConventionalAGC": "1thermal setup;2manual setup;3AGC operational",
+        "S1ThermalOnly": "1amplifier only;2notoperating;3amplifier+coax",
+        "settling": "allow settle; no fixed seconds specified",
+        "pilotConvention": "manual describes final unscrambled video source; no verified OEM QAM offset bulletin recovered"
+      }
+    },
+    {
+      "id": "gm-le",
+      "url": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "authorship": "Cisco original manual; historical third-party mirror",
+      "revision": "OL-31155-01, ©2007/2014",
+      "liveStatus": "Firecrawl HTTP200 but only skeletal text; independent web reader recovered full original body and exact page references",
+      "sections": {
+        "preparation": "pp42–46",
+        "manualBackoffAGC": "pp47–55; chart pp49–50; AGC pad p53",
+        "thermalSetupAGC": "pp56–62; AGC pad p60",
+        "thermalOnlyAmp": "pp63–65",
+        "thermalOnlyAmpCoax": "pp66–69",
+        "manualNoBode": "pp70–71"
+      },
+      "modelSpecificFacts": {
+        "oemPadReference": "corrected output pilot in dBmV minus29dB",
+        "manualLE": "no Bode; S1 has no operational effect",
+        "backoffChartsDiffer": "at20°C/1GHz LE4.6dB versus system amplifier4.8dB; not a DSIM chart"
+      }
+    },
+    {
+      "id": "aoi-sa",
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html",
+      "authorship": "AOI original manual; historical third-party mirror",
+      "revision": "V02102025",
+      "liveStatus": "HTTP200; main page and physical pages56–63 verified live by Firecrawl",
+      "originalUnavailableUrl": "https://ao-inc.com/assets/resources/QB18-SA-I-and-O-Guide.pdf",
+      "originalStatus": "HTTP404 live fresh fetch",
+      "exactScope": "HGD/HGBT GainMaker form factor, all five splits explicitly listed on printedp3",
+      "sections": {
+        "downstreamProfile": "printedp43 (physicalp56)",
+        "downstreamAuto": "p44 (physical57)",
+        "downstreamManual": "p45 (physical58)",
+        "spectrum": "p46 (physical59)",
+        "upstreamAuto": "p47 (physical60)",
+        "upstreamManual": "p48 (physical61)",
+        "ALSC": "p49 (physical62)",
+        "testPointRouting": "p50 (physical63)",
+        "connectionAndAbout": "printedpp38–39 (physicalpp51–52)",
+        "deviceIdentity": "printedp40 (physical53)",
+        "configuration": "printedp41 (physical54): match diplex/operatingmode/activebank; ALSC defaultOFF"
+      },
+      "universalMGCNotApplicable": true,
+      "spectrumScanSeconds": 30,
+      "spectrumScanIsNotAGCWait": true
+    },
+    {
+      "id": "aoi-le-ba",
+      "url": "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+      "requestUrl": "https://ao-inc.com/content-request-form/",
+      "liveStatus": "manufacturer page HTTP200 confirms request-only installation-guide link",
+      "found": "current datasheets, no public exact Quantum18 LE/BA I&O",
+      "doNotSubstitute": [
+        "Quantum18 HGD/HGBT",
+        "Quantum18 MB/BLE",
+        "Quantum12 LE"
+      ]
+    },
+    {
+      "id": "gm-gan",
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.html",
+      "indexedEdition": "January 11, 2019; optional analog/QAM AGC",
+      "liveStatus": "HTTP200 redirected to Cisco homepage; this is not a verified live datasheet",
+      "exactIO": "not recovered; no fabricated module/control applicability"
+    }
+  ],
+  "meaningfulCorrections": [
+    "Replace broken AOI original PDF link with clearly labeled matching historical original-manual mirror.",
+    "Verify AOI allfive splits explicitly; preserve gain-test qualification at204 MHz separately.",
+    "Keep OEM AGC, thermal-only, manual LE, DSIM and AOI ALSC workflows distinct.",
+    "S1 position3 is not proof of AGC in a thermal-only GainMaker.",
+    "Use main output for SA OEM pad; do not use HGD/LGD auxiliary output after its signal director.",
+    "SA and LE backoff charts differ; do not reuse DSIM backoff values.",
+    "Do not treat a -6dB QAM distortion-loading relation as an AGC detector offset.",
+    "Do not treat AOI spectrum scan time as AGC settling time.",
+    "Exclude UBT from current app workflows at user direction while keeping historical research provenance.",
+    "Use new workflow IDs so old checked steps are not reassigned to refreshed directions."
+  ],
+  "sourceRetrieval": {
+    "Firecrawl": {
+      "searchSucceeded": true,
+      "liveScrapeSucceeded": true,
+      "limitations": [
+        "AOI original SA PDF404",
+        "Cisco GaN source redirects to homepage",
+        "LE mirror scrape skeletal; independent indexed reader used for exact body"
+      ],
+      "searchId": "01a1c7d2-a28e-747d-8aaf-30531f2927b2",
+      "conversationId": "e597c0d7-021c-8e9a-a90b-0d50fc36f43b"
+    },
+    "Parallel": {
+      "searchSucceeded": true,
+      "searchIds": [
+        "search_62ee0fdd324e6c7323f7cca7bd4e550a",
+        "search_8ee03a2d25ea77ef9024cde772efaca6",
+        "search_deebebacc7244d154d4f138b55c52c05",
+        "search_ddf5addefdb4f7604440ae24693ece54",
+        "search_9d981aa0f9e44d03a15359a9792457fb"
+      ],
+      "limitations": [
+        "Cisco indexed foreign-language support pages can redirect live; results do not establish current document availability",
+        "No public exact Quantum18 LE/BA I&O or OEM QAM level-offset bulletin located"
+      ]
+    },
+    "independentWebReader": {
+      "fullLEBody": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "liveReaderChecked": true
+    },
+    "purchasesOrUpgrades": false
+  },
+  "requiredFollowup": [
+    "Manufacturer confirm current exact AOI HGD/HGBT firmware/manual revision.",
+    "Obtain exact Quantum18 LE/BA I&O and exact installed GaN I&O/control procedure.",
+    "Identify installed OEM pilot detector part number and obtain applicable analog/QAM level-reference guidance before applying a formula to a QAM detector.",
+    "Verify instrument firmware/licensing/local return reference separately; manufacturer DOCSIS Expert guidance does not replace approved XPERTrak204/258 workflow."
+  ],
+  "validation": {
+    "allCurrentActiveProfilesCovered": true,
+    "retiredUBTIdsInActiveRecords": [],
+    "httpURLsInActiveRecords": []
+  },
+  "liveSourceChecks": "active-source-checks.json"
+}

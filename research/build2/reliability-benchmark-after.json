@@ -1,0 +1,12 @@
+{
+  "scope": "Synthetic JSDOM same-state render at accepted 1000 named-job capacity; no device speed claim",
+  "namedJobs": 1000,
+  "repeats": 3,
+  "listDomReplacements": 0,
+  "elapsedMs": [
+    0.42252200000029916,
+    0.5415780000002997,
+    0.31638599999996586
+  ],
+  "totalMs": 1.2804860000005647
+}

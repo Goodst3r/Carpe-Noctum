@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-11-11T02:28:50.754Z",
+  "scope": "Synthetic200rowchain on current runtime; timings are observations, not device performance guarantees.",
+  "rf200PointSingleFrequency": {
+    "iterations": 100,
+    "medianMs": 1.6444930000000113,
+    "p95Ms": 2.7495420000000053,
+    "maxMs": 5.826616000000001
+  },
+  "routeDistances200Points": {
+    "iterations": 100,
+    "medianMs": 1.1146829999999568,
+    "p95Ms": 1.8685130000000072,
+    "maxMs": 3.1299020000000155
+  },
+  "tdr200Points": {
+    "iterations": 100,
+    "medianMs": 1.7045219999999972,
+    "p95Ms": 2.5351960000000417,
+    "maxMs": 4.154913000000079
+  },
+  "rf200Point121FrequencyGrid": {
+    "iterations": 10,
+    "medianMs": 123.64236699999992,
+    "p95Ms": 150.71973200000002,
+    "maxMs": 150.71973200000002
+  }
+}

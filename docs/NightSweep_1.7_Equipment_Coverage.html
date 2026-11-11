@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.7 Alpha — Equipment coverage: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.7 Alpha — Equipment coverage — Equipment coverage</title>
+<style>
+:root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
+</style></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.7 Alpha · Equipment coverage</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#catalog-inventory-and-audit">Catalog inventory and audit</a><a href="#user-local-targets-remain-separate-from-manufacturer-data">User-local targets remain separate from manufacturer data</a><a href="#node-and-active-setup-manual-coverage">Node and active setup-manual coverage</a><a href="#passive-family-coverage">Passive family coverage</a><a href="#cable-and-power-limits">Cable and power limits</a><a href="#verification-limits">Verification limits</a></nav></details><article><h1 id="nightsweep-1-7-alpha-equipment-coverage">NightSweep 1.7 Alpha — Equipment coverage</h1>
+<p>Spencer Williams · Updated November 11, 2026</p>
+<p>The review covers every catalog entry&#39;s identity, numeric structure and stated source scope, with targeted comparisons to original manufacturer tables and applicable manuals. It does not establish that every inherited equipment table cell was freshly re-transcribed or physically measured.</p>
+<h2 id="catalog-inventory-and-audit">Catalog inventory and audit</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Inventory</th>
+<th align="right">Current selections</th>
+<th align="right">Retained including legacy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>All selection records</td>
+<td align="right">556</td>
+<td align="right">561</td>
+</tr>
+<tr>
+<td>RF equipment selections</td>
+<td align="right">514</td>
+<td align="right">516</td>
+</tr>
+<tr>
+<td>Active amplifier / LE configurations within RF</td>
+<td align="right">23</td>
+<td align="right">25</td>
+</tr>
+<tr>
+<td>Nonactive selections within RF</td>
+<td align="right">491</td>
+<td align="right">491</td>
+</tr>
+<tr>
+<td>Cable selections</td>
+<td align="right">17</td>
+<td align="right">17</td>
+</tr>
+<tr>
+<td>Power-equipment selections</td>
+<td align="right">22</td>
+<td align="right">25</td>
+</tr>
+<tr>
+<td>Node profiles</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+</tbody></table></div>
+<p>Five UBT records are retired from current equipment/workflows: two RF outputs and three power presets. They remain only for old saved-job readback. HGBT and passive unbalanced three-way outputs are retained as current equipment. Selection records are not distinct physical units: RF and power profiles can describe the same hardware.</p>
+<p>The all-entry inventory checks the full retained <strong>1,324 loss/current curves / 14,126 table rows</strong>, with eight companion watt tables (84 rows) checked separately. These are data counts, not automated test counts. The reproducible per-ID JSON/Markdown inventory, input hashes and runtime boundary checks are in <code>night-sweep/research/alpha17-equipment-refresh/</code>. Every current selection has source/configuration coverage; every current active, node and power selection maps to a manual, datasheet or explicit request/gap record. A datasheet/request is not an exact commissioning manual.</p>
+<p>Structural checks found no duplicate collection IDs, duplicate normalized models within a family, duplicate output IDs, terminal taps with through paths, nonfinite/negative losses, unordered points, overlapping bands or common-point nominal values above maximum. Published cable inner-plus-outer resistance agrees with the stated loop values. This verifies structure and the numerical relationships checked, not every original source transcription.</p>
+<p>The review found a calculation defect at nonshared upper endpoints in banded passive data. Published 5–10 and 11–300 MHz bands previously made 10 MHz unavailable. The correction includes that endpoint while retaining the next-band convention at genuinely shared boundaries. For the 21 explicitly identified Scientific-Atlanta Multimedia through-loss curves, the documented larger-adjacent-bound estimate is used across fractional printed gaps. Unmarked or arbitrary missing bands remain unavailable. This estimate is a calculation convention, not a new manufacturer measurement.</p>
+<h2 id="user-local-targets-remain-separate-from-manufacturer-data">User-local targets remain separate from manufacturer data</h2>
+<p>The user supplies <strong>31 dBmV at 54 MHz</strong> and <strong>43 dBmV at 860 MHz</strong> as local non-high-split forward design anchors, plus a separate <strong>38 dBmV return TX reference</strong>. These are operator references, not manufacturer limits. Confirm actual downstream carriers/channel-power convention, the intended transmitter and measurement plane before application.</p>
+<p><strong>38 dBmV is a level, not MHz.</strong> Actual return TX channels/frequencies and the service/sweep plan remain unspecified and must be entered from the verified operator plan. The approved OEM/DSIM pilot is detector/module-specific; a manual-backoff test frequency comes from its exact model/revision chart. Neither is automatically selected by the 54/860 MHz design anchors, and 711 MHz is a historical DSIM lookup exercise only.</p>
+<p>The source frequency matrix keeps OEM backoff columns <strong>445.25/547.25/870/1000 MHz</strong> separate from DSIM-SG Rev H’s <strong>547/750/870 MHz</strong> backoff references and the actual approved pilot. System-amplifier and LE backoff charts differ; <strong>860 MHz is not a printed OEM backoff column</strong>, and no automatic rounding/interpolation is supplied. Thermal OEM setup does not use that manual chart. <strong>54 MHz is outside LGD 65/86 and every catalog Quantum18 forward band</strong>; use approved in-band job markers. Quantum18 HGD/HGBT profile frequencies/power follow their exact DS Auto configuration; LE/BA setup-frequency procedures remain manual gaps.</p>
+<p>The optional <strong>Test → References → Your local non-high-split targets</strong> action updates the selected eligible profile’s forward design anchors and the separate 42 MHz TX reference to 38 dBmV after confirmation. Measured Route Setup fields and existing records remain unchanged, and criteria remain unapproved. It is blocked for return ceilings of 204 MHz or above and for bands that exclude 54 MHz; do not treat all lower-split hardware as 54 MHz-capable. In <strong>42/54 Sweep setup</strong>, the fields are <strong>Operator return TX reference (dBmV)</strong> and <strong>Return TX frequencies / service plan</strong>. They stay separate from injection, generator and received/CMTS levels, and add no 42 MHz generator calculation. The read-only <strong>Setup frequencies &amp; job levels</strong> card in Equipment setup displays these selected-job references, not measured levels or manufacturer ratings.</p>
+<p>OEM/DSIM practice uses 54/860 design anchors and synthetic raw 11/23 dBmV + one 20 dB addback = 31/43 dBmV. GS7K practice carries those design references while actual markers/readings/coupling remain blank. The complete AOI high-split exercise remains 261/993 MHz at 34/46 dBmV, with six synthetic originals. No design reference is a measured reading or field acceptance.</p>
+<h3 id="available-carrier-target-conversion">Available-carrier target conversion</h3>
+<p>Available ranges such as <strong>57–753 MHz</strong> or <strong>63–550 MHz</strong> do not redefine the base <strong>31@54 / 43@860</strong> local design anchors. Calculate an estimated target at each confirmed setup frequency using the selected <strong>square-root-frequency cable-law</strong> or <strong>linear-MHz</strong> curve. The initial square-root choice is a model, not an operator-approved tilt shape or a manufacturer guarantee.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Confirmed setup-frequency example</th>
+<th align="right">Square-root estimate: low / high (dBmV)</th>
+<th align="right">Linear-MHz estimate: low / high (dBmV)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>57 / 753 MHz</td>
+<td align="right"><strong>31.11 / 41.97</strong></td>
+<td align="right">31.04 / 41.41</td>
+</tr>
+<tr>
+<td>63 / 550 MHz</td>
+<td align="right"><strong>31.32 / 39.79</strong></td>
+<td align="right">31.13 / 38.38</td>
+</tr>
+</tbody></table></div>
+<p>The original 54/860 MHz anchors remain 31/43 dBmV (12 dB rise). Fresh Wolfram evaluation in <code>night-sweep/research/alpha17-setup-frequency-wolfram.json</code> checks these explicit formulas/endpoints; it does not certify a manufacturer equalizer or operator-approved tilt shape.</p>
+<p>Use <strong>Test → References → Setup targets at available carriers</strong> with <strong>Available low/high carrier (MHz)</strong> and <strong>Target curve</strong>. Inputs start blank. It requires <strong>54 ≤ low &lt; high ≤ 860 MHz</strong>, the compatible non-high-split profile and hardware support for both base anchors; no target is extrapolated. A known entered live-spectrum upper limit is enforced, while blank live coverage remains unverified.</p>
+<p>Conversion drafts travel with full project backups. Equipment setup separates computed carrier targets from base profile anchors; Run-sheet HTML/text/CSV includes frequency, calculated level, curve and base-reference context without marking measurement or acceptance.</p>
+<p>Example pairs populate conversion draft frequencies only; base design and measured records remain unchanged. Confirm actual carrier centers rather than assuming spectrum edges, channel-power convention, physical plane and approved local procedure. OEM/DSIM/GS7K practice includes this step without changing the base examples or recording a measurement.</p>
+<h2 id="node-and-active-setup-manual-coverage">Node and active setup-manual coverage</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Equipment</th>
+<th>Setup source</th>
+<th>Applicability and remaining gap</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cisco GS7000 standard 1 GHz</td>
+<td><a href="https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-GS7000-GainMaker-Scalable-4-Port-Node-Installation-and-Operation-Guide.pdf">Cisco installation and operation guide</a>, OL-29643-02, Chapter 4</td>
+<td>Standard node only; confirm installed launch, receiver, transmitter and routing. The refreshed review retrieved the full original manual and checked its forward/reverse procedure. Receiver/FCM routing, OIB padding and output pads/EQs must match the installed segment.</td>
+</tr>
+<tr>
+<td>Cisco GS7000 standard 1.2 GHz</td>
+<td><a href="https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-1_2-GHz-GS7000-Node-Installation-and-Operation-Guide.pdf">Cisco installation and operation guide</a>, Chapter 4</td>
+<td>Standard segmentable node only. First published October 2015; current support listing November 2015. Use its receiver-specific level and EQ tables. SHO, Intelligent and RPD nodes need distinct applicable procedures.</td>
+</tr>
+<tr>
+<td>GS7000 SHO / Fiber Deep and Intelligent power variants</td>
+<td><a href="https://www.cisco.com/c/en/us/support/video/gs7000-node/products-installation-guides-list.html">Cisco installation-guide index</a>; Intelligent hardware/software 2018 and Manager 24.1 (2024)</td>
+<td>SHO common/left-right EQ arrangement differs from standard segmentable launch; its 21/22 dB factory-tilt descriptions conflict. Conventional LCM Auto Set-Up discovers modules; Intelligent LCS Auto Setup adjusts forward OIB drive after saved targets and enabled Port 1. It does not align return. No physical RF amplifier test points are present on the Intelligent node.</td>
+</tr>
+<tr>
+<td>Vecima EN9000 / EN9000U</td>
+<td><a href="https://vecima.com/wp-content/uploads/2026/09/Vecima-Product-Brief-EN9000-Sep2026.pdf">Newest public family brief located: September 2026</a>; <a href="https://vecima.com/company/product-support/">documentation/support</a></td>
+<td>Product brief is not a commissioning manual. The RF table is conditioned on ERM3; separate ERM3/ERM4 capabilities must match the installed RPD. The −20 ±1 dB test-point value remains sourced to May 2024, not repeated by the newer brief. Exact EN9000/RFAM/RPD/firmware commissioning manuals require customer access.</td>
+</tr>
+<tr>
+<td>GainMaker 1 GHz GaAs HGD / HGBT / LGD system amplifiers</td>
+<td><a href="https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide">Historical Cisco-authored system amplifier guide</a>, internal publication OL-31156-01, February 2014</td>
+<td>Mirror title says 870 MHz; the document itself identifies the 1 GHz platform. Exact current scopes are HGD/HGBT 42/54 and LGD 65/86. Separate OEM AGC manual-backoff/thermal branches and thermal-only methods are mapped. Historical copy is labeled; ACI DSIM is a separate fitted-control path.</td>
+</tr>
+<tr>
+<td>GainMaker 1 GHz LE, manual / thermal / AGC</td>
+<td><a href="https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line">Historical Cisco-authored LE guide</a>, OL-31155-01, 2014, Chapter 3</td>
+<td>Apply the chapter for the installed control mode. Do not substitute conventional AGC pad/backoff for ACI DSIM. Original manufacturer PDF is unavailable through the reviewed access route.</td>
+</tr>
+<tr>
+<td>GainMaker GaN HGD 1 GHz 42/54</td>
+<td><a href="https://www.cisco.com/c/en/us/products/video/gainmaker-amplifiers/index.html">Manufacturer documentation request/reference</a></td>
+<td>Exact installed GaN I&amp;O/control procedure remains unresolved. The historical generic system-amplifier guide does not establish it. No automatic pad/backoff instructions are assigned.</td>
+</tr>
+<tr>
+<td>AOI Quantum18 HGD / HGBT, five catalog splits</td>
+<td><a href="https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html">Historical manufacturer-authored SA I&amp;O mirror</a>, V02102025, pp38–50</td>
+<td>Original AOI PDF returned HTTP 404 during fresh review. The mirror is explicitly historical; manufacturer request access must confirm latest-issued applicability. Save downstream profile → DS Auto → optional DS Manual → upstream from last amplifier → ALSC after both paths. This does not establish LE/BA directions.</td>
+</tr>
+<tr>
+<td>AOI Quantum18 LE</td>
+<td><a href="https://ao-inc.com/products/hfc-networking/hfc-amplifiers/">Manufacturer product and document request</a></td>
+<td>Exact public LE I&amp;O guide was not located. Quantum12 LE or Quantum18 HGD/HGBT instructions are not substitutes.</td>
+</tr>
+<tr>
+<td>AOI Quantum18 BA</td>
+<td><a href="https://ao-inc.com/products/hfc-networking/hfc-amplifiers/">Manufacturer product and document request</a></td>
+<td>Exact BA I&amp;O guide was not located. No HGD/LE alignment sequence is presented as BA setup.</td>
+</tr>
+<tr>
+<td>ACI DSIM-SG</td>
+<td><a href="https://acicomms.com/wp-content/uploads/2021/04/04.-DSIM-SG-TechManual-Rev-H-210408b.pdf">ACI technical manual</a>, Rev H, April 8, 2021</td>
+<td>Confirm exact DSIM/RF-module compatibility and approved pilot. Supply-voltage figures conflict with later DSIM datasheet Rev AB; verify installed module before applying thresholds.</td>
+</tr>
+<tr>
+<td>ACI DSIM app</td>
+<td><a href="https://acicomms.com/wp-content/uploads/2021/03/11.-DSIM-App-Manual-Rev-B-210324.pdf">ACI app guide</a>, Rev B, March 24, 2021, p11</td>
+<td>The app guide describes supervisor-supplied pilot-channel keys. The separately user-supplied Rev A pilot-code table is included separately with exact-match lookup; it is not a universal password or proof of firmware compatibility.</td>
+</tr>
+<tr>
+<td>ACI DSIM-A</td>
+<td><a href="https://acicomms.com/wp-content/uploads/2022/08/10.-DSIM-Data-sheet-Rev-AB-220817.pdf">ACI variant datasheet</a>, Rev AB, August 17, 2022</td>
+<td>Distinct from DSIM-SG. The historical Rev T guide is linked separately; it does not establish applicability to the later 1218 MHz DSIM-A-MDL-1201 variant. SG settings are not borrowed.</td>
+</tr>
+</tbody></table></div>
+<h3 id="where-to-find-gs7k-setup">Where to find GS7K setup</h3>
+<p>In the app, use <strong>Route → Setup → Node output</strong>, select the exact standard <strong>GS7000 1 GHz</strong> or <strong>1.2 GHz</strong> model and installed split/port, then choose <strong>Source setup &amp; manual</strong>. <strong>Route → Equipment setup</strong> also opens the launch source’s applicable guide. Standard-node setup covers optical receiver/routing identification, model-specific receiver attenuation, OIB receiver padding, shared-port output pads, path EQs and separate return setup. Enter approved job targets; manual examples and published composite ratings do not populate launch levels.</p>
+<p>Current launch Equipment setup selectors cover <strong>standard GS7000 1 GHz and standard 1.2 GHz</strong> only. SHO/Fiber Deep, Intelligent and retrofit-RPD documents remain exact-variant source references, not additional selectable launch/setup profiles. Conventional LCM module discovery is separate from RF balancing. Intelligent-node forward Auto Setup has its own software/manual conditions; it does not align return.</p>
+<p><strong>Home → Open GS7K node practice</strong> is a separate ten-step standard GS7000 1.2 GHz / 42/54 starter. It covers identity, model/manual selection, receiver/routing, standard forward setup, return handoff, sweep workflow, records and backup. Launch/TP correction remains unverified; no RF route rows, evidence files or captured traces are supplied. It sits alongside the complete AOI 20-step, OEM AGC eight-step and DSIM nine-step exercises. The portable file is <strong>NightSweep_1.7_GS7K_Practice.json</strong>. None of these practice jobs establishes hardware alignment or acceptance.</p>
+<h3 id="installed-gain-control-and-complete-method">Installed gain control and complete method</h3>
+<p>Equipment setup distinguishes <strong>OEM GainMaker AGC</strong>, <strong>ACI DSIM</strong> and <strong>Manual / thermal control</strong>, then offers the exact model&#39;s <strong>Documented setup method</strong>. OEM <strong>Manual backoff → OEM AGC</strong> and <strong>Thermal setup → OEM AGC</strong> are alternatives. S1 = 2 and the station&#39;s exact temperature/frequency chart prepare the first branch before pad/EQ adjustment; S1 = 1 prepares the thermal branch without that manual chart. Both follow their documented transition to S1 = 3, AGC GAIN matching and output verification after settling. No universal OEM settling timer is supplied.</p>
+<p>The cited conventional 1 GHz <strong>GaAs HGD/HGBT/LGD</strong> relationships use corrected <strong>MAIN-output pilot dBmV − 34 dB</strong>; applicable <strong>1 GHz AGC LE</strong> uses corrected <strong>output-pilot dBmV − 29 dB</strong>. These do not apply to DSIM or unresolved GaN instructions. The OEM manuals describe analog video pilots; an exact OEM QAM detector-offset bulletin was not recovered. The −6 dB distortion-loading relationship is not an AGC correction.</p>
+<p>Thermal-only procedures distinguish amplifier-only (S1 = 1) from amplifier-plus-coax (S1 = 3); the warm/cold procedure and exact equipment must match. A manual LE has no Bode and S1 has no operating-mode effect. Checkmarks and notes are bound to model/manual/band/control-method context; changing context requires new review, while old job information remains preserved.</p>
+<h3 id="supplied-pilot-code-guide-and-historical-setup-revisions">Supplied pilot-code guide and historical setup revisions</h3>
+<p>The lookup adds the <strong>user-supplied ACI iPhone/iPad Pilot Channel Code Guide, Rev A, pp 2–5</strong>. Its <strong>86 literal rows</strong> cover channels <strong>52–94 and 100–142</strong>. Users match channel, Analog/Digital type and source-listed MHz, then copy the exact eligible code. No formula generates additional entries. There is no supplied row for channels 95–99 or 303 MHz. The guide photographs are the source for this table; no public download URL is asserted.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th align="right">Digital channel</th>
+<th align="right">Source frequency</th>
+<th>Exact table code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">110</td>
+<td align="right">711 MHz</td>
+<td><code>@@?&lt;A</code></td>
+</tr>
+<tr>
+<td align="right">88</td>
+<td align="right">609 MHz</td>
+<td><code>GG&lt;A</code></td>
+</tr>
+<tr>
+<td align="right">64</td>
+<td align="right">465 MHz</td>
+<td><code>EC&lt;A</code></td>
+</tr>
+</tbody></table></div>
+<p>Channel 100 is an unresolved source exception: the row prints analog <strong>649.25 MHz / <code>HD&lt;@</code></strong> and digital <strong>651 MHz / <code>HD&lt;A</code></strong>. Lookup flags this row and blocks copying while unresolved. No inferred frequency or replacement code is used. Historical table transcription is not hardware, firmware, ACI-app compatibility, alignment or acceptance validation.</p>
+<p><a href="https://thomasonbbs.com/store/pc/catalog/DSIM-SG%20TechManual%20Rev%20E%20151003.pdf">DSIM-SG Rev E</a>, October 3, 2015, pp 2 and 10, calls for <strong>10 dB AGC pad on LE</strong> and <strong>6 dB on the applicable HGD</strong>; Rev H calls for <strong>0 dB</strong>. These procedures must be matched to the installed module and applicable revision, rather than combined. The <a href="https://acicomms.com/wp-content/uploads/PDF/01.-DSIM-A-TechManual-Rev-T-171214.pdf">historical DSIM-A Rev T guide</a>, December 14, 2017, is available as a reference; it must not be assigned automatically to the later <strong>1218 MHz DSIM-A-MDL-1201</strong> variant.</p>
+<p>The SG Rev G/H physical-controller workflow has eight ordered steps and its own temperature-preparation/fallback guidance. The separate ACI app Rev B guidance uses AGC Prep attenuation controls; raw position counts are not dB. Reviewed control/method selections are included in job records and report exports, and do not mark pilot lock or acceptance.</p>
+<p>Manufacturer-authored historical copies are permissible evidence but remain labeled by host, revision and applicable scope. Opening source links requires a connection. Reviewed setup summaries and local notes remain available offline; original full manuals are not silently bundled or claimed to be cached.</p>
+<h2 id="passive-family-coverage">Passive family coverage</h2>
+<p>All 34 nonactive families are inventoried below. “Primary reviewed” means selected exact-model tables, scope or paths were checked in this review; it does not mean every family cell was independently re-transcribed. “Retained” means the previous table/provenance remains with its qualification. Custom selections have no manufacturer values until the technician supplies applicable data.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th align="right">Selections</th>
+<th>Review scope</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ATX GigaXtend SGP 1.2GHz AC continuity</td>
+<td align="right">8</td>
+<td>Primary reviewed: ANW1524 / current ATX product table</td>
+</tr>
+<tr>
+<td>ATX GigaXtend SGP 1.2GHz standard</td>
+<td align="right">7</td>
+<td>Primary reviewed: ANW1480 / current ATX product table</td>
+</tr>
+<tr>
+<td>ATX GigaXtend SGT 1.25GHz</td>
+<td align="right">18</td>
+<td>Primary reviewed: ANW1479 / current ATX product table</td>
+</tr>
+<tr>
+<td>ATX GigaXtend XS 2GHz</td>
+<td align="right">7</td>
+<td>Primary reviewed: ANW1402 / current ATX product table</td>
+</tr>
+<tr>
+<td>ATX GigaXtend XS 2GHz flat taps</td>
+<td align="right">23</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>ATX GigaXtend XS 2GHz slope taps — manual data</td>
+<td align="right">11</td>
+<td>User data required</td>
+</tr>
+<tr>
+<td>Antronix CMC5000 DROP / premises / AC-blocking</td>
+<td align="right">3</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Cable-only</td>
+<td align="right">1</td>
+<td>Cable segment; no equipment loss</td>
+</tr>
+<tr>
+<td>Cisco Surge-Gap 1.25GHz</td>
+<td align="right">7</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Manual / unidentified legacy</td>
+<td align="right">4</td>
+<td>User data required</td>
+</tr>
+<tr>
+<td>Milenium 1.2 GHz E-option coupler</td>
+<td align="right">1</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium 1.2 GHz G2 line passives</td>
+<td align="right">7</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium 1.2 GHz G2 taps</td>
+<td align="right">28</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium 1.2 GHz continuous RF/AC line passives</td>
+<td align="right">7</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium 1.8 GHz upgrade faceplate</td>
+<td align="right">25</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium NXT 2.0 GHz line passives</td>
+<td align="right">7</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Milenium NXT 2.0 GHz taps</td>
+<td align="right">24</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>PPC 1.8 GHz mainline</td>
+<td align="right">31</td>
+<td>Primary reviewed: Line Passives r3_06282024 pp2–3; Line Taps pp2–4</td>
+</tr>
+<tr>
+<td>Regal RL12 1.2 GHz passives</td>
+<td align="right">7</td>
+<td>Primary reviewed: CommScope copyright2022, p2</td>
+</tr>
+<tr>
+<td>Regal RMT10 original 1 GHz</td>
+<td align="right">30</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Regal RMT2000 1 GHz narrow body</td>
+<td align="right">19</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Regal RMT2000 1 GHz wide body</td>
+<td align="right">27</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Regal RMT212 1.2 GHz narrow body</td>
+<td align="right">17</td>
+<td>Primary reviewed: CommScope copyright2021, p2</td>
+</tr>
+<tr>
+<td>Regal RMT212 1.2 GHz wide body</td>
+<td align="right">24</td>
+<td>Primary reviewed: CommScope copyright2021, p3</td>
+</tr>
+<tr>
+<td>Scientific-Atlanta Multimedia 1GHz</td>
+<td align="right">24</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Scientific-Atlanta Multimedia Stretch 1GHz Rev.A</td>
+<td align="right">24</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Scientific-Atlanta Multimedia mainline 1GHz</td>
+<td align="right">7</td>
+<td>Fresh archived original: 714414 Rev A, September 1999 p2; all 72 maximum-loss cells and three nominal coupling values matched</td>
+</tr>
+<tr>
+<td>Scientific-Atlanta Surge-Gap 1GHz</td>
+<td align="right">7</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Technetix LH100 1.2 GHz mainline</td>
+<td align="right">7</td>
+<td>Primary reviewed: 12/2023 EN/V1, pp1–2</td>
+</tr>
+<tr>
+<td>Technetix LH100 1.8 GHz mainline</td>
+<td align="right">6</td>
+<td>Primary reviewed: 05/2024 EN/V3, pp1–2</td>
+</tr>
+<tr>
+<td>Technetix OTTZ 1.8 GHz</td>
+<td align="right">24</td>
+<td>Retained with prior source qualification; not freshly cell-verified</td>
+</tr>
+<tr>
+<td>Technetix XFO Regal Narrow 1.8 GHz upgrade</td>
+<td align="right">17</td>
+<td>Primary reviewed: 06/2026 AE/V8, pp3–5</td>
+</tr>
+<tr>
+<td>Technetix XFO Regal Wide 1.8 GHz upgrade</td>
+<td align="right">24</td>
+<td>Primary reviewed: 06/2026 AE/V8, pp3–6</td>
+</tr>
+<tr>
+<td>Technetix XG 1.8 GHz mainline</td>
+<td align="right">8</td>
+<td>Primary reviewed: 05/2025 EN/V14, pp2–3</td>
+</tr>
+</tbody></table></div>
+<h2 id="cable-and-power-limits">Cable and power limits</h2>
+<p>All 17 cable tables received ordering, finite-value, source and domain checks. P3 .625&#39;s current manufacturer page confirms the DC resistance basis: 0.84 Ω/kft inner plus 0.26 Ω/kft outer equals 1.10 Ω/kft loop at 20°C. Its retained attenuation values were corroborated in cached manufacturer-authored specifications returned through independent search, but the old live PDF link was unavailable and no new physical attenuation measurements were performed. Other inherited cable cells remain qualified historical/source data; no loss is extrapolated beyond their recorded endpoints.</p>
+<p>Power data must match the complete installed station, supply waveform, modules and operating voltage. Node review compared the six GS7000 current/watt tables with their original configuration-specific sources. Their 45–90 VAC table domain remains distinct from a 33 VAC undervoltage cutoff. The EN9000 still requires actual measured/configuration load: the September 2026 brief’s 180 W PSU output and 200 W thermal dissipation are distinct quantities; neither defines typical AC input consumption. DSIM, unverified GaN HGD and AOI HGBT/BA configurations remain measured-load selections rather than borrowed HGD/LE curves.</p>
+<p>Passive temperature deviations remain source notes. The cable-temperature factor does not automatically model temperature-dependent passive changes. A maximum table, typical curve, local target, technician value and measured reading retain separate meanings. Missing values stay unavailable.</p>
+<h2 id="verification-limits">Verification limits</h2>
+<p>The all-entry catalog audit and targeted source review are engineering checks, not a certification of the installed plant or proof of field acceptance. Original field photographs cannot establish amplifier gain without paired input/output readings and their reference planes. SC-QAM and OFDM PLC/block metrics remain separate. Physical Android/iPhone installation, offline cold starts, picker behavior, saved evidence retention and field operation require their own device records.</p>
+<p>A <strong>fresh 1.7 Wolfram review</strong> returned 15 named synthetic reference results; 18 current-app numerical/rejection comparisons passed within the recorded tolerance. Evidence is in <code>night-sweep/research/alpha17-numerical-audit.md</code> and its returned-reference/comparison files. This verifies those arithmetic cases, not manufacturer specifications or field assumptions. The 1.6 math audit remains historical supporting evidence.</p>
+<p>Context7/MDN clipboard and storage documentation was reviewed: copying requires a supported user action and retains manual-copy fallback; quota/eviction failures require an external project backup. This review does not establish physical Safari/WebView behavior. Final integrated application, browser, APK and packaging results are recorded in the actual release-validation record; no current release-wide pass count is inferred from earlier builds.</p>
+</article><p class="footer">Spencer Williams · NightSweep 1.7 Alpha · <a href="#top">Back to top</a></p></main></body></html>

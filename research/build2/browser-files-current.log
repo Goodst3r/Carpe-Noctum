@@ -1,0 +1,24 @@
+PASS Supported file share runs directly within the active gesture and preserves UTF-8/MIME
+PASS Expired activation prepares an explicit Save/share file action without opening a sheet
+PASS Async preparation can require a fresh click even if activation appears available
+PASS Share cancellation keeps the file ready and never silently downloads or claims saved
+PASS Share error offers an explicit byte-preserving download fallback
+PASS Unsupported file sharing uses a download without calling share
+PASS A throwing capability check safely falls back to download
+PASS Missing Web Share support retains browser download functionality
+PASS Download failure is reported without a success claim
+PASS The 20 MiB bound rejects oversized exports before either OS handoff
+PASS Exactly 20 MiB is accepted for explicit user export
+PASS Filenames render as inert text and path separators are removed
+PASS An in-progress share blocks replacing its pending file
+PASS Dismiss hides the prepared file and prevents subsequent accidental export
+PASS Browsers without the activation API get an explicit fresh-gesture button
+PASS Full app browser project export dispatches JSON through the helper
+PASS Async evidence-bearing project export requires a fresh click and embeds exact originals
+PASS Save original verifies bytes then offers an inert file rather than opening content
+PASS Run-sheet text and CSV use real browser file exports
+PASS Cancelled real project sharing does not get overwritten by a prepared/saved success message
+PASS Android bridge paths remain direct and bypass browser sharing
+PASS Older partial Android bridge uses saveFile when shareText is unavailable
+PASS JSON import picker remains compatible with Files JSON selections
+Browser files: 23 checks passed

@@ -1,0 +1,26 @@
+PASS Wolfram square-root and linear launch including non-midpoint
+PASS Wolfram active interpolation and no out-of-band gain
+PASS Wolfram passive interpolation and band boundary convention
+PASS Wolfram square-root custom cable and temperature endpoints
+PASS Wolfram two-passive cascade, loss and output tilt
+PASS Wolfram frequency exact rates scale quantity and cable feet once
+PASS Wolfram TDR velocity correction, lead, forward/reverse and precise ratio
+PASS TDR branches, boundary and active-barrier semantics
+PASS Wolfram measured active gain subtracts corrected input from output
+PASS Wolfram meter addback and error plus blank coupling
+PASS Wolfram profile range centers and common half-width
+PASS Wolfram gain required, reserve margin and predicted output
+PASS Wolfram RG-6 custom table and custom splitter path
+PASS Wolfram chart absolute loss, output tilt and launch-removed normalized response
+PASS Evidence CSV preserves explicit units and raw negative readings
+PASS Numeric blanks, NaN, negative lengths, invalid temperatures and no extrapolation
+PASS Overflow is unavailable; no NaN TDR success
+PASS Frequency grid deduplicates numeric strings
+PASS Wolfram voltage reference conversion is 20log10 of voltage units
+PASS Wolfram evidence chart range padding and sample coordinates
+PASS Same span next tap preserves physical slack
+PASS Root finite guards reject derived record and measured-gain overflow
+PASS Normalized plot suppresses overflowing differences
+PASS Transcribed main expectations match literal Wolfram repeat response
+PASS All independent Wolfram numeric cases exercised
+Wolfram RF audit: 25 grouped checks; 39 externally computed numeric expectations.

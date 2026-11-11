@@ -1,0 +1,18 @@
+test_callback_after_activity_destroy_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_destroy_is_ignored) ... ok
+test_callback_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_callback_after_activity_finishes_is_ignored) ... ok
+test_callback_for_replaced_webview_is_ignored (__main__.NativeEdgeTests.test_callback_for_replaced_webview_is_ignored) ... ok
+test_live_print_and_preparation_failure_remain_supported (__main__.NativeEdgeTests.test_live_print_and_preparation_failure_remain_supported) ... ok
+test_long_ascii_name_keeps_extension_within_limit (__main__.NativeEdgeTests.test_long_ascii_name_keeps_extension_within_limit) ... ok
+test_long_cjk_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_cjk_name_can_be_copied_to_private_cache) ... ok
+test_long_emoji_name_can_be_copied_to_private_cache (__main__.NativeEdgeTests.test_long_emoji_name_can_be_copied_to_private_cache) ... ok
+test_queued_print_after_activity_finishes_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_finishes_is_ignored) ... ok
+test_queued_print_after_activity_is_destroyed_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_activity_is_destroyed_is_ignored) ... ok
+test_queued_print_after_webview_destroy_is_ignored (__main__.NativeEdgeTests.test_queued_print_after_webview_destroy_is_ignored) ... ok
+test_short_unicode_name_stays_readable (__main__.NativeEdgeTests.test_short_unicode_name_stays_readable) ... ok
+test_unsafe_or_empty_names_do_not_escape_private_folder (__main__.NativeEdgeTests.test_unsafe_or_empty_names_do_not_escape_private_folder) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.800s
+
+OK
+Android native edges: 12 checks passed (Java bodies; no device verification)

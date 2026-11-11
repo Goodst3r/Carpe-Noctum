@@ -1,0 +1,39 @@
+{
+  "scope": "Mocked SDK commands and temporary synthetic signing placeholders. No Android compile, signing or device execution.",
+  "source_sha256": "70abaa254ba8697aafaf9baae996aa25e4da45bdad46f649f5a41c205d295aac",
+  "failures": [
+    {
+      "verification": "manifest",
+      "failure": "APK package, version or visible label did not match the intended release.",
+      "apk_left_after_rejection": true,
+      "old_success_receipt_left": true
+    },
+    {
+      "verification": "provider",
+      "failure": "APK document provider authority does not match the selected app package.",
+      "apk_left_after_rejection": true,
+      "old_success_receipt_left": true
+    },
+    {
+      "verification": "signature",
+      "failure": "Expected v2 and v3 APK signatures did not verify.",
+      "apk_left_after_rejection": true,
+      "old_success_receipt_left": true
+    },
+    {
+      "verification": "embedded-html",
+      "failure": "Packaged HTML does not match build input.",
+      "apk_left_after_rejection": true,
+      "old_success_receipt_left": true
+    }
+  ],
+  "staging": {
+    "package": "com.spencerwilliams.nightsweep.preview",
+    "label": "NightSweep 1.7 Preview",
+    "provider_authority_matches_preview": true,
+    "activity_keeps_original_java_package": true,
+    "provider_keeps_original_java_package": true,
+    "input_html_staged_exactly": true,
+    "canonical_source_unchanged": true
+  }
+}

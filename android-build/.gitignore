@@ -1,0 +1,7 @@
+/signing-private/
+/build/
+/dist/
+/toolchain/*
+!/toolchain/download.py
+/__pycache__/
+*.pyc

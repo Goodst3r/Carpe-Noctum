@@ -1,0 +1,174 @@
+{
+  "scope": "Current source assembly and synthetic storage/browser faults; final generated release QA belongs to root",
+  "passed_checks": 201,
+  "suites": 10,
+  "failures": 0,
+  "checks": [
+    {
+      "label": "new reliability regressions and boundary replay",
+      "command": "node --test qa/build2-reliability.test.cjs",
+      "passed": 10,
+      "failed": 0,
+      "log": "reliability-backtest.log"
+    },
+    {
+      "label": "IndexedDB fault injection",
+      "command": "node --test qa/evidence-storage-failures.test.cjs",
+      "passed": 13,
+      "failed": 0,
+      "log": "evidence-storage-current.log"
+    },
+    {
+      "label": "named-job corruption/capacity",
+      "command": "node qa/named-jobs-storage.test.cjs",
+      "passed": 5,
+      "failed": 0,
+      "log": "named-storage-current.log"
+    },
+    {
+      "label": "evidence format/core limits",
+      "command": "node qa/evidence.test.cjs",
+      "passed": 52,
+      "failed": 0,
+      "log": "evidence-core-current.log"
+    },
+    {
+      "label": "evidence owner context",
+      "command": "node qa/evidence-context.test.cjs",
+      "passed": 8,
+      "failed": 0,
+      "log": "evidence-context-current.log"
+    },
+    {
+      "label": "evidence UI/storage",
+      "command": "node qa/evidence-ui.test.cjs",
+      "passed": 28,
+      "failed": 0,
+      "log": "evidence-ui-current.log"
+    },
+    {
+      "label": "browser export lifecycle",
+      "command": "NIGHTSWEEP_BUILD2_SOURCE_TEST=1 node qa/browser-files.test.cjs",
+      "passed": 23,
+      "failed": 0,
+      "log": "browser-files-current.log"
+    },
+    {
+      "label": "training preservation and recovery",
+      "command": "NIGHTSWEEP_BUILD2_SOURCE_TEST=1 node qa/training-job.test.cjs",
+      "passed": 41,
+      "failed": 0,
+      "log": "training-job-current.log"
+    },
+    {
+      "label": "training controls and retained examples",
+      "command": "NIGHTSWEEP_BUILD2_SOURCE_TEST=1 node --test qa/training-controls.test.cjs",
+      "passed": 10,
+      "failed": 0,
+      "log": "training-controls-current.log"
+    },
+    {
+      "label": "seven exercises and 37 feature loads",
+      "command": "NIGHTSWEEP_BUILD2_SOURCE_TEST=1 node --test qa/training-library.test.cjs",
+      "passed": 11,
+      "failed": 0,
+      "log": "training-library-current.log"
+    }
+  ],
+  "changes": [
+    {
+      "finding": "Active-job duplication swallowed a failed original autosave and could silently copy stale data; adding a copy could partially update only the original first.",
+      "fix": "Create fresh original/copy snapshots in memory and persist the complete named-job list with one setItem call. Preserve the sample-to-plant conversion guard.",
+      "evidence": "reliability-red.log: first three regressions failed; reliability-backtest.log: all pass"
+    },
+    {
+      "finding": "Repeated unchanged named-job render replaced list controls and lost keyboard focus.",
+      "fix": "Compare visible metadata/list state and keep unchanged controls intact. Status messages update directly.",
+      "evidence": "reliability-red.log: keyboard-focus regression failed; reliability-backtest.log: pass"
+    }
+  ],
+  "benchmark_before": {
+    "scope": "Synthetic JSDOM same-state render at accepted 1000 named-job capacity; no device speed claim",
+    "namedJobs": 1000,
+    "repeats": 3,
+    "listDomReplacements": 3,
+    "elapsedMs": [
+      230.199032,
+      252.50015299999995,
+      215.77900599999975
+    ],
+    "totalMs": 698.4781909999997
+  },
+  "benchmark_after": {
+    "scope": "Synthetic JSDOM same-state render at accepted 1000 named-job capacity; no device speed claim",
+    "namedJobs": 1000,
+    "repeats": 3,
+    "listDomReplacements": 0,
+    "elapsedMs": [
+      0.42252200000029916,
+      0.5415780000002997,
+      0.31638599999996586
+    ],
+    "totalMs": 1.2804860000005647
+  },
+  "changed_files": [
+    {
+      "path": "night-sweep/jobs.js",
+      "sha256": "e8b83e459e858b3191d88cb909a4d8657b29ded0fc52bee243702e68ed8bbe70"
+    },
+    {
+      "path": "night-sweep/evidence.js",
+      "sha256": "bcabc10e8207322eedf96f49f8e59721b35c06b4ba1def8aa3f8dae70945d4cd"
+    },
+    {
+      "path": "night-sweep/training.js",
+      "sha256": "960b9fc67fec71dbd4eb6213e7d1edb6b8976fb004806527387cb0cb3bf7da9e"
+    },
+    {
+      "path": "qa/build2-reliability.test.cjs",
+      "sha256": "fb19c7f7562970a45079ddb30ab673fa0d2d5d5742aa5aefc533da429eadfbc5"
+    },
+    {
+      "path": "qa/training-job.test.cjs",
+      "sha256": "74608e2a22dc85f18c06a4cbf768bfb9d8f8f6a68c6e763e930cc2ca6900fc19"
+    },
+    {
+      "path": "qa/training-controls.test.cjs",
+      "sha256": "7184ce9b8c6fc442c74c60d4144bd1f673a26cfae277c271fc4ab889840372ed"
+    },
+    {
+      "path": "qa/training-library.test.cjs",
+      "sha256": "897d2a457dc5724e248ba6df25df70a3d8e7282779b367a957c393fe7e9ba4f5"
+    },
+    {
+      "path": "qa/browser-files.test.cjs",
+      "sha256": "51c6b928503e7bdf13073da80a0b57dd8f625a04351f003e7f7d27d7013d64b2"
+    }
+  ],
+  "reviewed_unchanged": [
+    "night-sweep/evidence-ui.js",
+    "night-sweep/browser-files.js"
+  ],
+  "common_project_text_limit_gap": "Identified and handed to code_audit, which owns app.js; its guard/tests are separately reported.",
+  "tools_used": [
+    {
+      "name": "Context7",
+      "actions": "Resolved MDN; queried IndexedDB complete/abort and localStorage setItem/QuotaExceededError contracts.",
+      "evidence": [
+        "context7-storage-reference.json",
+        "context7-localstorage-reference.json"
+      ]
+    },
+    {
+      "name": "Superpowers skills",
+      "actions": "Systematic debugging, fail-first regressions, fresh verification; workflow guidance only."
+    }
+  ],
+  "limitations": [
+    "Synthetic IndexedDB/Storage failures are not actual device storage exhaustion.",
+    "JSDOM timings quantify a bounded same-state DOM workload, not physical phone speed.",
+    "No exhaustive function/branch coverage, RF acceptance or physical Android/iPhone result is claimed.",
+    "Full generated release runner intentionally not invoked by this subtask because root owns outputs/dist freeze."
+  ],
+  "output_boundary_note": "Three old flat release practice JSONs briefly rewritten by an existing test were restored byte-for-byte from the frozen baseline. Source-test practice outputs now go only to research/build2 under the canonical Build 2 prefix."
+}

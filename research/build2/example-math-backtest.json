@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-11-11T03:30:26.678Z",
+  "status": "PASS",
+  "scope": "Frozen generated standalone. Seven synthetic examples replayed with an independent table/route interpreter at standard frequencies and source-curve boundaries, plus return-plane and voltage-unit backtests. Does not establish full function/branch coverage or physical hardware acceptance.",
+  "groupedChecks": 10,
+  "numericComparisons": 6096,
+  "unavailableComparisons": 3634,
+  "examples": [
+    {
+      "id": "complete",
+      "routeRows": 9,
+      "frequencies": 134,
+      "frames": 134,
+      "numericComparisons": 4268,
+      "unavailableComparisons": 2298,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "aoi-six-active",
+      "routeRows": 7,
+      "frequencies": 22,
+      "frames": 22,
+      "numericComparisons": 203,
+      "unavailableComparisons": 435,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "custom-curves",
+      "routeRows": 2,
+      "frequencies": 22,
+      "frames": 22,
+      "numericComparisons": 77,
+      "unavailableComparisons": 165,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "gainmaker-oem",
+      "routeRows": 2,
+      "frequencies": 43,
+      "frames": 43,
+      "numericComparisons": 235,
+      "unavailableComparisons": 238,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "gainmaker-dsim",
+      "routeRows": 2,
+      "frequencies": 43,
+      "frames": 43,
+      "numericComparisons": 235,
+      "unavailableComparisons": 238,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "gainmaker-manual",
+      "routeRows": 2,
+      "frequencies": 43,
+      "frames": 43,
+      "numericComparisons": 235,
+      "unavailableComparisons": 238,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    },
+    {
+      "id": "gs7k-node",
+      "routeRows": 0,
+      "frequencies": 22,
+      "frames": 22,
+      "numericComparisons": 0,
+      "unavailableComparisons": 22,
+      "frequencyLimits": [
+        4,
+        1801
+      ]
+    }
+  ],
+  "inputSha256": {
+    "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+    "night-sweep/projects.js": "e6aac2bfe777c8ec99b6aaa6c3cc16be4fbf5f0550b3342179e151eb4a74d2a8",
+    "night-sweep/training.js": "960b9fc67fec71dbd4eb6213e7d1edb6b8976fb004806527387cb0cb3bf7da9e",
+    "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70"
+  }
+}

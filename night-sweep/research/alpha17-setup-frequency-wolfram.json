@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-11-11T00:16:29.436Z",
+  "provider": "Wolfram Language evaluator",
+  "scope": "Independent numerical references for explicit interpolation models, not certification of a manufacturer equalizer",
+  "reference": {
+    "lowMHz": 54,
+    "lowDbmV": 31,
+    "highMHz": 860,
+    "highDbmV": 43
+  },
+  "formulas": {
+    "sqrt": "31 + 12 * (sqrt(f) - sqrt(54)) / (sqrt(860) - sqrt(54))",
+    "linear": "31 + 12 * (f - 54) / (860 - 54)"
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"assumptions\\\":\\\"31 dBmV at54MHz,43 dBmV at860MHz; explicit interpolation models, not a manufacturer curve\\\",\\n\\t\\\"frequenciesMHz\\\":[\\n\\t\\t54,\\n\\t\\t57,\\n\\t\\t63,\\n\\t\\t550,\\n\\t\\t753,\\n\\t\\t860\\n\\t],\\n\\t\\\"sqrtLevelsDbmV\\\":[\\n\\t\\t31.000000000000000,\\n\\t\\t31.109949077995682,\\n\\t\\t31.321487194463101,\\n\\t\\t39.792864724644682,\\n\\t\\t41.970804122873771,\\n\\t\\t43.000000000000000\\n\\t],\\n\\t\\\"linearLevelsDbmV\\\":[\\n\\t\\t31.000000000000000,\\n\\t\\t31.044665012406948,\\n\\t\\t31.133995037220844,\\n\\t\\t38.384615384615385,\\n\\t\\t41.406947890818859,\\n\\t\\t43.000000000000000\\n\\t],\\n\\t\\\"sqrtPairTiltsDb\\\":[\\n\\t\\t10.860855044878090,\\n\\t\\t8.4713775301815812\\n\\t],\\n\\t\\\"linearPairTiltsDb\\\":[\\n\\t\\t10.362282878411911,\\n\\t\\t7.2506203473945409\\n\\t],\\n\\t\\\"endpointChecks\\\":[\\n\\t\\ttrue,\\n\\t\\ttrue,\\n\\t\\ttrue,\\n\\t\\ttrue\\n\\t]\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

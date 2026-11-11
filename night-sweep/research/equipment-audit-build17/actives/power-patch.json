@@ -1,0 +1,89 @@
+{
+  "existing_power_replacements": [
+    {
+      "id": "aoi_quantum18_hgd_v09052024",
+      "label": "AOI Quantum18 HGD 1.8 GHz \u2014 v09052024",
+      "manufacturer": "AOI",
+      "min_voltage": 45,
+      "max_voltage": 90,
+      "mode": "curve",
+      "points": [
+        [
+          45,
+          1.13
+        ],
+        [
+          50,
+          1.03
+        ],
+        [
+          55,
+          0.95
+        ],
+        [
+          60,
+          0.88
+        ],
+        [
+          65,
+          0.83
+        ],
+        [
+          70,
+          0.78
+        ],
+        [
+          75,
+          0.74
+        ],
+        [
+          80,
+          0.7
+        ],
+        [
+          85,
+          0.67
+        ],
+        [
+          90,
+          0.65
+        ]
+      ],
+      "watts": null,
+      "power_factor": null,
+      "basis": "Manufacturer current-versus-voltage table; unambiguous 45\u201390 VAC columns, Spanish datasheet v09052024",
+      "source_url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "notes": "Verified current values at45\u201390VAC. Spanish source low-voltage headings are ambiguous; the old35/40V mapping is not retained. No extrapolation below45VAC. Match HGD module revision and installed bidirectional configuration."
+    }
+  ],
+  "new_power_equipment": [
+    {
+      "id": "aoi_quantum18_hgbt_manual",
+      "label": "AOI Quantum18 HGBT \u2014 measured / installed load",
+      "manufacturer": "AOI",
+      "mode": "amps",
+      "amps": null,
+      "manual": true,
+      "basis": "Manual input required \u2014 enter complete installed station current at measured AC voltage",
+      "notes": "Exact station current must match installed module/revision and management options. Datasheet lists0.94A at90VAC,1.27A at60VAC,1.85A at38VAC for its AGC configuration; do not reuse HGD values. Enter complete station true-RMS AC current at its operating voltage. Fixed-current mode holds the entered current constant; update it if voltage or configuration changes.",
+      "source_url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf"
+    },
+    {
+      "id": "aoi_quantum18_ba_manual",
+      "label": "AOI Quantum18 BA \u2014 measured / installed load",
+      "manufacturer": "AOI",
+      "mode": "amps",
+      "amps": null,
+      "manual": true,
+      "basis": "Manual input required \u2014 enter complete installed station current at measured AC voltage",
+      "notes": "Booster power is not HGD/LE power. Source power-table columns are misaligned in extraction; measured installed load is required until visually validated. Supply maximum6W is not a measured station-current curve. Enter complete station true-RMS AC current at its operating voltage. Fixed-current mode holds the entered current constant; update it if voltage or configuration changes.",
+      "source_url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf"
+    }
+  ],
+  "review_required": [
+    {
+      "id": "gm-hgd-gan-1g-thermal",
+      "recommendation": "Change to measured/manual load without deleting ID. Curve matches GaAs HGD exactly and731154source redirects; no matching GaN proof recovered."
+    }
+  ]
+}

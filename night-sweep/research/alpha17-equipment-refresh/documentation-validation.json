@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-11T00:20:11.018746+00:00",
+  "scope": "Generated documentation, four practice choices, local forward/return references, carrier conversion examples, matching README copies, unique HTML IDs and local fragments; no app build or release/hardware validation",
+  "staticRecords": [
+    {
+      "file": "docs/NightSweep_1.7_Alpha_README.html",
+      "sha256": "e92f55239bf039d764308fac98bd66db36302542ef521db23a626a4315de3bdc",
+      "duplicateIds": [],
+      "missingFragments": [],
+      "hasGS7KPractice": true,
+      "hasCarrierTargetsTool": true,
+      "hasLocalTargets": true,
+      "hasTXPlanField": true,
+      "hasReportConversionContext": true
+    },
+    {
+      "file": "docs/NightSweep_1.7_Setup_Guide.html",
+      "sha256": "3e84882aa8581aaf4d2fdbae336f717e80f20d429504e7a7d3bdb07da5af342a",
+      "duplicateIds": [],
+      "missingFragments": [],
+      "hasGS7KPractice": true,
+      "hasCarrierTargetsTool": true,
+      "hasLocalTargets": true,
+      "hasTXPlanField": true,
+      "hasReportConversionContext": true
+    },
+    {
+      "file": "docs/NightSweep_1.7_Equipment_Coverage.html",
+      "sha256": "ec7240f03eefe1d1406ce129fed34a60679bbec0d6b3323ccbaa6c60d3f2dedf",
+      "duplicateIds": [],
+      "missingFragments": [],
+      "hasGS7KPractice": true,
+      "hasCarrierTargetsTool": true,
+      "hasLocalTargets": true,
+      "hasTXPlanField": true,
+      "hasReportConversionContext": true
+    }
+  ],
+  "staticStatus": "PASS",
+  "numericalReference": "night-sweep/research/alpha17-setup-frequency-wolfram.json",
+  "renderedLayout": {
+    "status": "BLOCKED",
+    "attempt": "Local Chromium/Playwright at 390px/1280px",
+    "reason": "Chromium process_singleton socket creation failed: Operation not permitted. No screenshot or rendered narrow-screen pass claimed.",
+    "attemptedAt": "2026-11-10T23:55:57Z",
+    "currentLayoutPassClaimed": false
+  }
+}

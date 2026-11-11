@@ -1,0 +1,18 @@
+{
+  "scope": "Python build orchestration and source staging; Android SDK command results are synthetic. No APK compilation, signing, emulator, or physical-device testing.",
+  "command": "python3 qa/android-preview.test.py",
+  "grouped_checks": 11,
+  "result": "passed",
+  "regression_proof": "Before repair, 13 subcases across seven rejection/compile scenarios failed; after repair all grouped checks passed.",
+  "production_fix": "Use a disposable candidate output directory. Copy the APK and receipts to release dist only after compilation and every validation succeeds. Prior validated release survives rejected candidates.",
+  "files": {
+    "android-build/build.py": "2a3f4b36c87c2dfd95d2aa32d65825a8dc14049dff99fac1f47cce60601ba601",
+    "qa/android-preview.test.py": "31e3402122c8b426980955514d585a9b2212b69162e5c2a84615e4af28a16cca"
+  },
+  "native_static_review": [
+    "No INTERNET permission; external source links require explicit user gesture and open outside the WebView.",
+    "Bridge exposes bounded text/binary save, user-directed share, and print; no untrusted remote documents execute.",
+    "Picker inputs use private read-only URI copies, canonical path checks, count/per-file/total caps, and callback cleanup.",
+    "Physical picker/process recreation/WebView/print behavior remains unverified."
+  ]
+}

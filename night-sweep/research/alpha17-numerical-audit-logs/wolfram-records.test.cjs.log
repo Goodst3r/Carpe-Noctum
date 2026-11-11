@@ -1,0 +1,10 @@
+PASS Wolfram absolute receive correction, tilt and target errors
+PASS Wolfram referenced response does not add physical receive corrections
+PASS Wolfram physical generator budget and configured mode capability
+PASS Wolfram legacy manual budget retains saved remaining-loss semantics
+PASS Wolfram same-plane voltage unit conversion
+PASS Record arithmetic agrees with sweep helper and pad direction
+PASS Overflow cannot produce record acceptance
+PASS Sweep overflow and unknown correction remain unavailable
+PASS Documented bandwidth offset is not silently applied to incompatible references
+Wolfram records: 9 checks passed.

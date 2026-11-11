@@ -1,0 +1,104 @@
+test_alternative_private_signing_directory_keeps_certificate_pinning (__main__.AndroidPreviewTests.test_alternative_private_signing_directory_keeps_certificate_pinning) ... usage: build.py [-h] [--preview] [--expected-html-sha256 EXPECTED_HTML_SHA256]
+                [--expected-certificate-sha256 EXPECTED_CERTIFICATE_SHA256]
+                html
+build.py: error: unrecognized arguments: --signing-dir /tmp/nightsweep-private-location-p1_mmlml/secure-local-source
+ERROR
+test_bad_frozen_hash_stops_before_sdk_commands (__main__.AndroidPreviewTests.test_bad_frozen_hash_stops_before_sdk_commands) ... ok
+test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) ... ok
+test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) ... ok
+test_promotion_failure_restores_previous_release (__main__.AndroidPreviewTests.test_promotion_failure_restores_previous_release) ... ok
+test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) ... ok
+test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) ... ok
+test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) ... ok
+test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) ... ok
+test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) ... ok
+test_release_identity_and_offline_permissions (__main__.AndroidPreviewTests.test_release_identity_and_offline_permissions) ... FAIL
+test_signed_build_without_original_private_material_stops_before_sdk (__main__.AndroidPreviewTests.test_signed_build_without_original_private_material_stops_before_sdk) ... ok
+test_standard_and_preview_staging_preserve_canonical_sources (__main__.AndroidPreviewTests.test_standard_and_preview_staging_preserve_canonical_sources) ... ok
+test_standard_promotion_preserves_separate_preview_artifacts (__main__.AndroidPreviewTests.test_standard_promotion_preserves_separate_preview_artifacts) ... ok
+test_unsigned_candidate_compiles_without_signing_material_and_cannot_claim_update (__main__.AndroidPreviewTests.test_unsigned_candidate_compiles_without_signing_material_and_cannot_claim_update) ... usage: build.py [-h] [--preview] [--expected-html-sha256 EXPECTED_HTML_SHA256]
+                [--expected-certificate-sha256 EXPECTED_CERTIFICATE_SHA256]
+                html
+build.py: error: unrecognized arguments: --unsigned
+ERROR
+test_unsigned_rejection_preserves_signed_release (__main__.AndroidPreviewTests.test_unsigned_rejection_preserves_signed_release) ... usage: build.py [-h] [--preview] [--expected-html-sha256 EXPECTED_HTML_SHA256]
+                [--expected-certificate-sha256 EXPECTED_CERTIFICATE_SHA256]
+                html
+build.py: error: unrecognized arguments: --unsigned
+FAIL
+test_validated_candidate_publishes_matching_receipt (__main__.AndroidPreviewTests.test_validated_candidate_publishes_matching_receipt) ... FAIL
+test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) ... ok
+
+======================================================================
+ERROR: test_alternative_private_signing_directory_keeps_certificate_pinning (__main__.AndroidPreviewTests.test_alternative_private_signing_directory_keeps_certificate_pinning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 264, in test_alternative_private_signing_directory_keeps_certificate_pinning
+    harness.run(['--signing-dir', str(private)])
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 102, in run
+    self.module.main()
+  File "/tmp/nightsweep-private-location-p1_mmlml/build/build.py", line 76, in main
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 1908, in parse_args
+    self.error(msg)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 2650, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 2637, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+ERROR: test_unsigned_candidate_compiles_without_signing_material_and_cannot_claim_update (__main__.AndroidPreviewTests.test_unsigned_candidate_compiles_without_signing_material_and_cannot_claim_update)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 224, in test_unsigned_candidate_compiles_without_signing_material_and_cannot_claim_update
+    harness.run(['--unsigned'])
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 102, in run
+    self.module.main()
+  File "/tmp/nightsweep-unsigned-test-mwnhc_dt/build/build.py", line 76, in main
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 1908, in parse_args
+    self.error(msg)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 2650, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/argparse.py", line 2637, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+FAIL: test_release_identity_and_offline_permissions (__main__.AndroidPreviewTests.test_release_identity_and_offline_permissions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 109, in test_release_identity_and_offline_permissions
+    self.assertEqual(module.VERSION_NAME, '1.8 Alpha build 2')
+AssertionError: '1.8 Alpha' != '1.8 Alpha build 2'
+- 1.8 Alpha
++ 1.8 Alpha build 2
+
+
+======================================================================
+FAIL: test_unsigned_rejection_preserves_signed_release (__main__.AndroidPreviewTests.test_unsigned_rejection_preserves_signed_release)
+----------------------------------------------------------------------
+SystemExit: 2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 245, in test_unsigned_rejection_preserves_signed_release
+    with self.assertRaisesRegex(SystemExit, 'package, version or visible label'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "package, version or visible label" does not match "2"
+
+======================================================================
+FAIL: test_validated_candidate_publishes_matching_receipt (__main__.AndroidPreviewTests.test_validated_candidate_publishes_matching_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha_build_2/qa/android-preview.test.py", line 213, in test_validated_candidate_publishes_matching_receipt
+    self.assertEqual(receipt['version'], '1.8 Alpha build 2')
+AssertionError: '1.8 Alpha' != '1.8 Alpha build 2'
+- 1.8 Alpha
++ 1.8 Alpha build 2
+
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.210s
+
+FAILED (failures=3, errors=2)

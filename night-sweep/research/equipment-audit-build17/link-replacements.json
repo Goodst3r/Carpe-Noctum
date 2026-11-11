@@ -1,0 +1,79 @@
+{
+  "https://antronix.com/milenium-1-2-ghz-series/MGLSH-CMGDCH-CMGPIH-C": {
+    "url": "https://antronix.com/wp-content/uploads/2026/08/MGLSH-CMGDCH-CMGPIH-C.pdf",
+    "kind": "manufacturer PDF",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Resolved to matching technical PDF."
+  },
+  "https://www.commscope.com/globalassets/digizuite/62133-regal-rl12.pdf": {
+    "url": "https://webresources.commscope.com/download/assets/Regal+RL12+Series+1.2+GHz+System+Passives+Data+Sheet/d4d7ffbc3bd711f0b092ea1fa90d937b",
+    "kind": "manufacturer PDF",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Resolved to matching technical PDF."
+  },
+  "https://www.commscope.com/globalassets/digizuite/920217-regal-rmt2120-ds.pdf": {
+    "url": "https://webresources.commscope.com/download/assets/Regal+Series+1.2+GHz+Full-Feature+Equalizable+Taps+Data+Sheet/acd7266c3bd911f0b87efaa31792deb3",
+    "kind": "manufacturer PDF",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Resolved to matching technical PDF."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5308003/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5304002/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5309003/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5501302/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5506302/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5727603/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+  },
+  "http://www.arris.com/globalassets/resources/data-sheets/regal-rmt2000multitaps_ds.pdf": {
+    "url": "https://dockets.alexandriava.gov/fy11/121410rm/di10c.pdf",
+    "kind": "third-party archive",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Government-hosted filing reproduces Regal RMT2000 1 GHz Multi-Taps manufacturer datasheet. Historical archive, not current manufacturer endpoint."
+  },
+  "https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf": {
+    "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5301803/",
+    "kind": "manufacturer product page",
+    "status": "verified",
+    "checkedAt": "2026-11-10",
+    "note": "Related P3 500 JCA SM product page (SKU 5301803), not original 530091803 PDF. Product family fallback only; preserve original numeric source provenance separately."
+  }
+}

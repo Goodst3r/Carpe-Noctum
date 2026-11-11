@@ -1,0 +1,6331 @@
+{
+  "date": "2026-11-10",
+  "baselineCommit": "a3d25f032c8b577c14f15ce227b2343436468aea",
+  "baselineCatalogRevision": "2026-11-10-build17",
+  "sha256": "a5b7c44db88c66705eca6e65dd00db527c9744539980d74577f7c1cd6d2816cd",
+  "scope": "All-entry structural/numeric sanity audit; targeted original-manufacturer source review. Not a fresh every-cell equipment certification.",
+  "counts": {
+    "rfSelections": 516,
+    "activeSelections": 25,
+    "nonactiveSelections": 491,
+    "cables": 17,
+    "powerEquipment": 25,
+    "nodes": 3,
+    "curves": 1324,
+    "curveRows": 14126,
+    "structuralErrors": 0,
+    "printedBandGapInstances": 713
+  },
+  "structuralChecks": [
+    "Unique IDs per collection",
+    "Unique per-device output IDs",
+    "Terminal taps have no through path",
+    "Finite nonnegative ordered point/band loss and current values",
+    "No overlapping bands",
+    "Declared frequency/voltage bounds cover table rows",
+    "Common-frequency nominal values do not exceed maximum",
+    "Cable inner+outer equals loop resistance",
+    "Every numeric curve has retained source provenance"
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "through/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+      "path": "tap/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "through/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+      "path": "tap/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "through/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+      "path": "tap/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+      "path": "output/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port2/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+      "path": "port3-4/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+      "path": "output/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/nominal",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 850,
+      "to": 851
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rl12-1-2-ghz-passives--rpi-120-20a",
+      "path": "through/maximum",
+      "from": 1000,
+      "to": 1001
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 100,
+      "to": 101
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 500,
+      "to": 501
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 700,
+      "to": 701
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 800,
+      "to": 801
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-4",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-4-8",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-11",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 10,
+      "to": 11
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 300,
+      "to": 301
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 400,
+      "to": 401
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 450,
+      "to": 451
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 600,
+      "to": 601
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 750,
+      "to": 751
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "through/maximum",
+      "from": 900,
+      "to": 901
+    },
+    {
+      "kind": "printedBandGap",
+      "id": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+      "path": "tap/nominal",
+      "from": 10,
+      "to": 11
+    }
+  ],
+  "families": [
+    {
+      "family": "ATX GigaXtend SGP 1.2GHz AC continuity",
+      "entryCount": 8,
+      "ids": [
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-08",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-12",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-16",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-16c",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-s2",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-s3",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-s3u",
+        "atx-gigaxtend-sgp-ac-continuity--gtsg-psva-pi"
+      ],
+      "sources": [
+        "https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgp-1-2ghz-passives/"
+      ],
+      "reviewStatus": "primary-page-reviewed",
+      "document": "ANW1524 / current ATX product table",
+      "note": "16 and 16C coupling and PI high-frequency differences are retained; no correction found."
+    },
+    {
+      "family": "ATX GigaXtend SGP 1.2GHz standard",
+      "entryCount": 7,
+      "ids": [
+        "atx-gigaxtend-sgp-standard--gtsg-passives-dc-08",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-dc-12",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-dc-16",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-s2",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-s3",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-s3u",
+        "atx-gigaxtend-sgp-standard--gtsg-passives-pi"
+      ],
+      "sources": [
+        "https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgp-1-2ghz-passives/"
+      ],
+      "reviewStatus": "primary-page-reviewed",
+      "document": "ANW1480 / current ATX product table",
+      "note": "Standard variant and PI high-frequency loss kept distinct from AC-continuity variant."
+    },
+    {
+      "family": "ATX GigaXtend SGT 1.25GHz",
+      "entryCount": 18,
+      "ids": [
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-04-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-08-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-11-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-14-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-17-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-20-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-2-23-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-08-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-11-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-14-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-17-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-20-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-4-23-std",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-8-11-fp",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-8-14-fp",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-8-17-fp",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-8-20-fp",
+        "atx-gigaxtend-sgt-1-25ghz--gtsg-tap-8-23-fp"
+      ],
+      "sources": [
+        "https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgt-1-25ghz-taps/"
+      ],
+      "reviewStatus": "primary-page-reviewed",
+      "document": "ANW1479 / current ATX product table",
+      "note": "Sampled exact-model and terminal-path references; no numeric correction found."
+    },
+    {
+      "family": "ATX GigaXtend XS 2GHz",
+      "entryCount": 7,
+      "ids": [
+        "atx-gigaxtend-xs-2ghz--xsc-2-04",
+        "atx-gigaxtend-xs-2ghz--xsc-2-08",
+        "atx-gigaxtend-xs-2ghz--xsc-2-12",
+        "atx-gigaxtend-xs-2ghz--xsc-2-16",
+        "atx-gigaxtend-xs-2ghz--xsc-2-777",
+        "atx-gigaxtend-xs-2ghz--xsc-2-959",
+        "atx-gigaxtend-xs-2ghz--xsi-2-20"
+      ],
+      "sources": [
+        "https://atx.com/products/taps-passives/gigaxtend-xs-series-2ghz-taps-passives/gigaxtend-2ghz-hardline-passives/"
+      ],
+      "reviewStatus": "primary-page-reviewed",
+      "document": "ANW1402 / current ATX product table",
+      "note": "Sampled splitter/coupler values and model ordering; no numeric correction found."
+    },
+    {
+      "family": "ATX GigaXtend XS 2GHz flat taps",
+      "entryCount": 23,
+      "ids": [
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-05t",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-08",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-11",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-14",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-17",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-20",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-23",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-26",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-22-29",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-08t",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-11",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-14",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-17",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-20",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-23",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-26",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-24-29",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-14t",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-17",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-20",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-23",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-26",
+        "atx-gigaxtend-xs-2ghz-flat-taps--xst-28-29"
+      ],
+      "sources": [
+        "https://www.covertel.com.au/wp-content/uploads/2023/04/ATX_GigaXtend_2GHz_Taps_DataSheet.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "ATX GigaXtend XS 2GHz slope taps \u2014 manual data",
+      "entryCount": 11,
+      "ids": [
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-22x-05t",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-22x-08",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-22x-11",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-22x-14",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-24x-08t",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-24x-11",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-24x-14",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-24x-17",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-28x-11t",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-28x-14",
+        "atx-gigaxtend-xs-2ghz-slope-taps--xst-28x-17"
+      ],
+      "sources": [
+        "https://atx.com/wp-content/uploads/MD-Notice-Low-Value-Flat-Taps_032024-FINAL.pdf"
+      ],
+      "reviewStatus": "user-data-required",
+      "document": "Distinct slope-tap models",
+      "note": "Flat-tap curves are deliberately not borrowed; technician-supplied exact tables required."
+    },
+    {
+      "family": "Antronix CMC5000 DROP / premises / AC-blocking",
+      "entryCount": 3,
+      "ids": [
+        "workbook-cmc5002h-a",
+        "workbook-cmc5003h-a",
+        "workbook-cmc5004h-a"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/08/CMC5000_Splitters.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Cable-only",
+      "entryCount": 1,
+      "ids": [
+        "none"
+      ],
+      "sources": [],
+      "reviewStatus": "not-equipment",
+      "document": "No source required",
+      "note": "Represents a zero equipment loss route segment."
+    },
+    {
+      "family": "Cisco Surge-Gap 1.25GHz",
+      "entryCount": 7,
+      "ids": [
+        "cisco-surge-gap-1-25ghz--sg-passives-dc-08",
+        "cisco-surge-gap-1-25ghz--sg-passives-dc-12",
+        "cisco-surge-gap-1-25ghz--sg-passives-dc-16",
+        "cisco-surge-gap-1-25ghz--sg-passives-pi",
+        "cisco-surge-gap-1-25ghz--sg-passives-s2",
+        "cisco-surge-gap-1-25ghz--sg-passives-s3",
+        "cisco-surge-gap-1-25ghz--sg-passives-s3u"
+      ],
+      "sources": [
+        "https://www.cisco.com/c/en/us/products/collateral/video/surge-gap-passives/datasheet-c78-732059.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Manual / unidentified legacy",
+      "entryCount": 4,
+      "ids": [
+        "regal-normal",
+        "antec-wide",
+        "custom-tap",
+        "custom-passive"
+      ],
+      "sources": [],
+      "reviewStatus": "user-data-required",
+      "document": "No manufacturer preset",
+      "note": "Custom loss tables required; no invented manufacturer numbers."
+    },
+    {
+      "family": "Milenium 1.2 GHz E-option coupler",
+      "entryCount": 1,
+      "ids": [
+        "milenium-1-2-ghz-e-option-coupler--mgdch-2116fec-g2"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/09/MGDCH-FEC_Directional_Coupler.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium 1.2 GHz G2 line passives",
+      "entryCount": 7,
+      "ids": [
+        "milenium-1-2-ghz-g2-line-passives--mgdch-2108f-g2",
+        "milenium-1-2-ghz-g2-line-passives--mgdch-2112f-g2",
+        "milenium-1-2-ghz-g2-line-passives--mgdch-2116f-g2",
+        "milenium-1-2-ghz-g2-line-passives--mglsh-2f-g2",
+        "milenium-1-2-ghz-g2-line-passives--mglsh-3bf-g2",
+        "milenium-1-2-ghz-g2-line-passives--mglsh-3f-g2",
+        "milenium-1-2-ghz-g2-line-passives--mgpih-2000f-g2"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/09/MGLS_MGDC_MGPI_Line_Passives.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium 1.2 GHz G2 taps",
+      "entryCount": 28,
+      "ids": [
+        "milenium-1-2-ghz-g2-taps--mgt2204-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2208-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2211-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2214-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2217-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2220-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2223-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2226-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2229-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2232-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2408-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2411-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2414-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2417-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2420-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2423-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2426-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2429-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2432-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2810-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2812-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2815-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2818-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2821-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2824-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2827-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2830-se-g2",
+        "milenium-1-2-ghz-g2-taps--mgt2833-se-g2"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/09/MGT2000_Taps.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium 1.2 GHz continuous RF/AC line passives",
+      "entryCount": 7,
+      "ids": [
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mgdch-2108fc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mgdch-2112fc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mgdch-2116fc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mglsh-2fc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mglsh-3bfc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mglsh-3fc-g2",
+        "milenium-1-2-ghz-continuous-rf-ac-line-passives--mgpih-2000fc-g2"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/08/MGLSH-CMGDCH-CMGPIH-C.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium 1.8 GHz upgrade faceplate",
+      "entryCount": 25,
+      "ids": [
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2204sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2208sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2211sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2214sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2217sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2220sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2223sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2226sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2229sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2408sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2411sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2414sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2417sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2420sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2423sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2426sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2429sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2810sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2812sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2815sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2818sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2821sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2824sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2827sep-g8",
+        "milenium-1-8-ghz-upgrade-faceplate--mgt2830sep-g8"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/09/MGT2000SEP-G8_Tap_Faceplates.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium NXT 2.0 GHz line passives",
+      "entryCount": 7,
+      "ids": [
+        "milenium-nxt-2-0-ghz-line-passives--mhdc-2108f",
+        "milenium-nxt-2-0-ghz-line-passives--mhdc-2112f",
+        "milenium-nxt-2-0-ghz-line-passives--mhdc-2116f",
+        "milenium-nxt-2-0-ghz-line-passives--mhls-2f",
+        "milenium-nxt-2-0-ghz-line-passives--mhls-3bf",
+        "milenium-nxt-2-0-ghz-line-passives--mhls-3f",
+        "milenium-nxt-2-0-ghz-line-passives--mhpi-2000f"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/07/MHLS_MHDC-MHPI_Line_Passives.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "Milenium NXT 2.0 GHz taps",
+      "entryCount": 24,
+      "ids": [
+        "milenium-nxt-2-0-ghz-taps--mht2204",
+        "milenium-nxt-2-0-ghz-taps--mht2208",
+        "milenium-nxt-2-0-ghz-taps--mht2211",
+        "milenium-nxt-2-0-ghz-taps--mht2214",
+        "milenium-nxt-2-0-ghz-taps--mht2217",
+        "milenium-nxt-2-0-ghz-taps--mht2220",
+        "milenium-nxt-2-0-ghz-taps--mht2223",
+        "milenium-nxt-2-0-ghz-taps--mht2226",
+        "milenium-nxt-2-0-ghz-taps--mht2229",
+        "milenium-nxt-2-0-ghz-taps--mht2408",
+        "milenium-nxt-2-0-ghz-taps--mht2411",
+        "milenium-nxt-2-0-ghz-taps--mht2414",
+        "milenium-nxt-2-0-ghz-taps--mht2417",
+        "milenium-nxt-2-0-ghz-taps--mht2420",
+        "milenium-nxt-2-0-ghz-taps--mht2423",
+        "milenium-nxt-2-0-ghz-taps--mht2426",
+        "milenium-nxt-2-0-ghz-taps--mht2429",
+        "milenium-nxt-2-0-ghz-taps--mht2811",
+        "milenium-nxt-2-0-ghz-taps--mht2814",
+        "milenium-nxt-2-0-ghz-taps--mht2817",
+        "milenium-nxt-2-0-ghz-taps--mht2820",
+        "milenium-nxt-2-0-ghz-taps--mht2823",
+        "milenium-nxt-2-0-ghz-taps--mht2826",
+        "milenium-nxt-2-0-ghz-taps--mht2829"
+      ],
+      "sources": [
+        "https://antronix.com/wp-content/uploads/2026/07/MHT2000_Taps.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review. Native reader could not retrieve current PDF; older official PDF paths redirect to home. This does not prove document absence."
+    },
+    {
+      "family": "PPC 1.8 GHz mainline",
+      "entryCount": 31,
+      "ids": [
+        "workbook-ppc-ltcx8-w211",
+        "workbook-ppc-ltcx8-w411",
+        "workbook-ppc-ltcx8-w811t",
+        "workbook-ppc-ltcx8-w214",
+        "workbook-ppc-ltcx8-w414",
+        "workbook-ppc-ltcx8-w814",
+        "workbook-ppc-ltcx8-w217",
+        "workbook-ppc-ltcx8-w417",
+        "workbook-ppc-ltcx8-w817",
+        "workbook-ppc-ltcx8-w220",
+        "workbook-ppc-ltcx8-w420",
+        "workbook-ppc-ltcx8-w820",
+        "workbook-ppc-ltcx8-w223",
+        "workbook-ppc-ltcx8-w423",
+        "workbook-ppc-ltcx8-w823",
+        "workbook-ppc-ltcx8-w226",
+        "workbook-ppc-ltcx8-w426",
+        "workbook-ppc-ltcx8-w826",
+        "workbook-ppc-ltcx8-w229",
+        "workbook-ppc-ltcx8-w429",
+        "workbook-ppc-ltcx8-w829",
+        "workbook-ppc-ltcx8-w204t",
+        "workbook-ppc-ltcx8-w208",
+        "workbook-ppc-ltcx8-w408t",
+        "workbook-ppc-lpcx8-dc12",
+        "workbook-ppc-lpcx8-dc16",
+        "workbook-ppc-lpcx8-dc8",
+        "workbook-ppc-lpcx8-pi1",
+        "workbook-ppc-lpcx8-sp2",
+        "workbook-ppc-lpcx8-sp3",
+        "workbook-ppc-lpcx8-sp3b"
+      ],
+      "sources": [
+        "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-passives_spec-sheet.pdf",
+        "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-taps_spec-sheet.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "Line Passives r3_06282024 pp2\u20133; Line Taps pp2\u20134",
+      "note": "Selected curves and path distinctions reviewed.5MHz columns have unpaired values; do not invent missing maxima."
+    },
+    {
+      "family": "Regal RL12 1.2 GHz passives",
+      "entryCount": 7,
+      "ids": [
+        "regal-rl12-1-2-ghz-passives--rldc12-12-15a",
+        "regal-rl12-1-2-ghz-passives--rldc12-16-15a",
+        "regal-rl12-1-2-ghz-passives--rldc12-8-15a",
+        "regal-rl12-1-2-ghz-passives--rls12-2-15a",
+        "regal-rl12-1-2-ghz-passives--rls12-3-15a",
+        "regal-rl12-1-2-ghz-passives--rls12-3b-15a",
+        "regal-rl12-1-2-ghz-passives--rpi-120-20a"
+      ],
+      "sources": [
+        "https://webresources.commscope.com/download/assets/Regal+RL12+Series+1.2+GHz+System+Passives+Data+Sheet/d4d7ffbc3bd711f0b092ea1fa90d937b"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "CommScope copyright2022, p2",
+      "note": "Seven model loss tables, SP/non-SP scope and exact unbalanced outputs reviewed; values match sampled rows. Printed band endpoint calculation issue found."
+    },
+    {
+      "family": "Regal RMT10 original 1 GHz",
+      "entryCount": 30,
+      "ids": [
+        "regal-rmt10-original-1-ghz--rmt102-11",
+        "regal-rmt10-original-1-ghz--rmt102-14",
+        "regal-rmt10-original-1-ghz--rmt102-17",
+        "regal-rmt10-original-1-ghz--rmt102-20",
+        "regal-rmt10-original-1-ghz--rmt102-23",
+        "regal-rmt10-original-1-ghz--rmt102-26",
+        "regal-rmt10-original-1-ghz--rmt102-29",
+        "regal-rmt10-original-1-ghz--rmt102-32",
+        "regal-rmt10-original-1-ghz--rmt102-35",
+        "regal-rmt10-original-1-ghz--rmt102-4",
+        "regal-rmt10-original-1-ghz--rmt102-8",
+        "regal-rmt10-original-1-ghz--rmt104-11",
+        "regal-rmt10-original-1-ghz--rmt104-14",
+        "regal-rmt10-original-1-ghz--rmt104-17",
+        "regal-rmt10-original-1-ghz--rmt104-20",
+        "regal-rmt10-original-1-ghz--rmt104-23",
+        "regal-rmt10-original-1-ghz--rmt104-26",
+        "regal-rmt10-original-1-ghz--rmt104-29",
+        "regal-rmt10-original-1-ghz--rmt104-32",
+        "regal-rmt10-original-1-ghz--rmt104-35",
+        "regal-rmt10-original-1-ghz--rmt104-8",
+        "regal-rmt10-original-1-ghz--rmt108-11",
+        "regal-rmt10-original-1-ghz--rmt108-14",
+        "regal-rmt10-original-1-ghz--rmt108-17",
+        "regal-rmt10-original-1-ghz--rmt108-20",
+        "regal-rmt10-original-1-ghz--rmt108-23",
+        "regal-rmt10-original-1-ghz--rmt108-26",
+        "regal-rmt10-original-1-ghz--rmt108-29",
+        "regal-rmt10-original-1-ghz--rmt108-32",
+        "regal-rmt10-original-1-ghz--rmt108-35"
+      ],
+      "sources": [
+        "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?ext=pdf&id=%7BBE7E1CDA-DDFC-497E-8AA3-0E5E8A6D3B6A%7D"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Regal RMT2000 1 GHz narrow body",
+      "entryCount": 19,
+      "ids": [
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-11",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-14",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-17",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-20",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-23",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-26",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-29",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-32",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-4",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2002-rf-8",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-11",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-14",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-17",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-20",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-23",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-26",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-29",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-32",
+        "regal-rmt2000-1-ghz-narrow-body--rmt2004-rf-8"
+      ],
+      "sources": [
+        "https://dockets.alexandriava.gov/fy11/121410rm/di10c.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Regal RMT2000 1 GHz wide body",
+      "entryCount": 27,
+      "ids": [
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-11",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-14",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-17",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-20",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-23",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-26",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-29",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-32",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-4",
+        "regal-rmt2000-1-ghz-wide-body--rmt2002w-rf-8",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-11",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-14",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-17",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-20",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-23",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-26",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-29",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-32",
+        "regal-rmt2000-1-ghz-wide-body--rmt2004w-rf-8",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-11",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-14",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-17",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-20",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-23",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-26",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-29",
+        "regal-rmt2000-1-ghz-wide-body--rmt2008-rf-32"
+      ],
+      "sources": [
+        "https://dockets.alexandriava.gov/fy11/121410rm/di10c.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Regal RMT212 1.2 GHz narrow body",
+      "entryCount": 17,
+      "ids": [
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-11",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-14",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-17",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-20",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-23",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-26",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-29",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-4",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2122-rf-8",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-11",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-14",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-17",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-20",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-23",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-26",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-29",
+        "regal-rmt212-1-2-ghz-narrow-body--rmt2124-rf-8"
+      ],
+      "sources": [
+        "https://webresources.commscope.com/download/assets/Regal+Series+1.2+GHz+Full-Feature+Equalizable+Taps+Data+Sheet/acd7266c3bd911f0b87efaa31792deb3"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "CommScope copyright2021, p2",
+      "note": "Selected rows match; T-JP standard configuration required; terminal tap omitted through path correctly."
+    },
+    {
+      "family": "Regal RMT212 1.2 GHz wide body",
+      "entryCount": 24,
+      "ids": [
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-11",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-14",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-17",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-20",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-23",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-26",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-29",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-4",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2122w-rf-8",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-11",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-14",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-17",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-20",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-23",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-26",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-29",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2124w-rf-8",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-11",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-14",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-17",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-20",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-23",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-26",
+        "regal-rmt212-1-2-ghz-wide-body--rmt2128-rf-29"
+      ],
+      "sources": [
+        "https://webresources.commscope.com/download/assets/Regal+Series+1.2+GHz+Full-Feature+Equalizable+Taps+Data+Sheet/acd7266c3bd911f0b87efaa31792deb3"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "CommScope copyright2021, p3",
+      "note": "Selected rows match; separate wide-body tables retained."
+    },
+    {
+      "family": "Scientific-Atlanta Multimedia 1GHz",
+      "entryCount": 24,
+      "ids": [
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-4",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-4-8",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-11",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+        "scientific-atlanta-multimedia-1ghz--sat-mm-8-29"
+      ],
+      "sources": [
+        "https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Scientific-Atlanta Multimedia Stretch 1GHz Rev.A",
+      "entryCount": 24,
+      "ids": [
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-11",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-14",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-17",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-20",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-23",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-26",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-29",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-4",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st2-8",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-11",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-14",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-17",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-20",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-23",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-26",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-29",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st4-8",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-11",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-14",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-17",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-20",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-23",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-26",
+        "scientific-atlanta-multimedia-stretch-1ghz-rev-a--sat-st8-29"
+      ],
+      "sources": [
+        "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?docTitle=Technical+Specs&ext=pdf&id=%7BF4517249-4256-410C-9C6F-4E8D9B36FA33%7D"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Scientific-Atlanta Multimedia mainline 1GHz",
+      "entryCount": 7,
+      "ids": [
+        "scientific-atlanta-multimedia-mainline-1ghz--sadc12mm",
+        "scientific-atlanta-multimedia-mainline-1ghz--sadc16mm",
+        "scientific-atlanta-multimedia-mainline-1ghz--sadc8mm",
+        "scientific-atlanta-multimedia-mainline-1ghz--saimm",
+        "scientific-atlanta-multimedia-mainline-1ghz--sas2mm",
+        "scientific-atlanta-multimedia-mainline-1ghz--sas3mm",
+        "scientific-atlanta-multimedia-mainline-1ghz--sas3umm"
+      ],
+      "sources": [
+        "https://www.scribd.com/document/157106375/Hoja-de-Datos-Pasivos"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Scientific-Atlanta Surge-Gap 1GHz",
+      "entryCount": 7,
+      "ids": [
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712968",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712969",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712970",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712971",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712972",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712973",
+        "scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712974"
+      ],
+      "sources": [
+        "https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Technetix LH100 1.2 GHz mainline",
+      "entryCount": 7,
+      "ids": [
+        "technetix-lh100-1-2-ghz-mainline--lhc108-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhc112-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhc116-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhi100-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhi116-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhs102-1-2-ghz-en-v1",
+        "technetix-lh100-1-2-ghz-mainline--lhs103-1-2-ghz-en-v1"
+      ],
+      "sources": [
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2023/12/LH100_1.2GHz_Series_V1b_DS_EN.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "12/2023 EN/V1, pp1\u20132",
+      "note": "5\u20131220 MHz loss-table scope and output-path distinctions reviewed; sample points match."
+    },
+    {
+      "family": "Technetix LH100 1.8 GHz mainline",
+      "entryCount": 6,
+      "ids": [
+        "technetix-lh100-1-8-ghz-mainline--lhc108-1-8g",
+        "technetix-lh100-1-8-ghz-mainline--lhc112-1-8g",
+        "technetix-lh100-1-8-ghz-mainline--lhc116-1-8g",
+        "technetix-lh100-1-8-ghz-mainline--lhi100-1-8g",
+        "technetix-lh100-1-8-ghz-mainline--lhs102-1-8g",
+        "technetix-lh100-1-8-ghz-mainline--lhs103-1-8g"
+      ],
+      "sources": [
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2024/07/19200547_LH100-1.8G_series_V3_DS_EN.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "05/2024 EN/V3, pp1\u20132",
+      "note": "Insertion table and unbalanced port labeling match. Tap loss explicitly maximum; hot passive +0.5dB condition remains a note, not modeled."
+    },
+    {
+      "family": "Technetix OTTZ 1.8 GHz",
+      "entryCount": 24,
+      "ids": [
+        "technetix-ottz-1-8-ghz--ottz-2-11",
+        "technetix-ottz-1-8-ghz--ottz-2-14",
+        "technetix-ottz-1-8-ghz--ottz-2-17",
+        "technetix-ottz-1-8-ghz--ottz-2-20",
+        "technetix-ottz-1-8-ghz--ottz-2-23",
+        "technetix-ottz-1-8-ghz--ottz-2-26",
+        "technetix-ottz-1-8-ghz--ottz-2-29",
+        "technetix-ottz-1-8-ghz--ottz-2-4t",
+        "technetix-ottz-1-8-ghz--ottz-2-8",
+        "technetix-ottz-1-8-ghz--ottz-4-11",
+        "technetix-ottz-1-8-ghz--ottz-4-14",
+        "technetix-ottz-1-8-ghz--ottz-4-17",
+        "technetix-ottz-1-8-ghz--ottz-4-20",
+        "technetix-ottz-1-8-ghz--ottz-4-23",
+        "technetix-ottz-1-8-ghz--ottz-4-26",
+        "technetix-ottz-1-8-ghz--ottz-4-29",
+        "technetix-ottz-1-8-ghz--ottz-4-8t",
+        "technetix-ottz-1-8-ghz--ottz-8-11t",
+        "technetix-ottz-1-8-ghz--ottz-8-14",
+        "technetix-ottz-1-8-ghz--ottz-8-17",
+        "technetix-ottz-1-8-ghz--ottz-8-20",
+        "technetix-ottz-1-8-ghz--ottz-8-23",
+        "technetix-ottz-1-8-ghz--ottz-8-26",
+        "technetix-ottz-1-8-ghz--ottz-8-29"
+      ],
+      "sources": [
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014593_OTTZ-2-xx_V3_DS_EN.pdf",
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014602_OTTZ-4-xx_V3_DS_EN.pdf",
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014610_OTTZ-8-xx_V3_DS_EN.pdf"
+      ],
+      "reviewStatus": "not-freshly-cell-verified",
+      "document": "Existing catalog source and prior audit only",
+      "note": "Retained source provenance and configuration notes; no fresh full numerical re-transcription in this review."
+    },
+    {
+      "family": "Technetix XFO Regal Narrow 1.8 GHz upgrade",
+      "entryCount": 17,
+      "ids": [
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-11",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-14",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-17",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-20",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-23",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-26",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-29",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-4t",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-2-8",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-11",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-14",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-17",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-20",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-23",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-26",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-29",
+        "technetix-xfo-regal-narrow-1-8-ghz-upgrade--xfornz-4-8t"
+      ],
+      "sources": [
+        "https://docs.technetix.com/datasheets/19015208_XFORNZ-4-14_DS_AE.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "06/2026 AE/V8, pp3\u20135",
+      "note": "Table starts12MHz despite general5MHz heading. Current catalog conservatively starts12MHz. Selected through/tap values match."
+    },
+    {
+      "family": "Technetix XFO Regal Wide 1.8 GHz upgrade",
+      "entryCount": 24,
+      "ids": [
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-11",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-14",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-17",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-20",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-23",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-26",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-29",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-4t",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-2-8",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-11",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-14",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-17",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-20",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-23",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-26",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-29",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-4-8t",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-11t",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-14",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-17",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-20",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-23",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-26",
+        "technetix-xfo-regal-wide-1-8-ghz-upgrade--xforwz-8-29"
+      ],
+      "sources": [
+        "https://docs.technetix.com/datasheets/19015183_XFORWZ-4-14_DS_AE.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "06/2026 AE/V8, pp3\u20136",
+      "note": "12\u20131800MHz; selected through/tap values match. Housing and plugin variants must match."
+    },
+    {
+      "family": "Technetix XG 1.8 GHz mainline",
+      "entryCount": 8,
+      "ids": [
+        "technetix-xg-1-8-ghz-mainline--xgdc1800-08",
+        "technetix-xg-1-8-ghz-mainline--xgdc1800-10",
+        "technetix-xg-1-8-ghz-mainline--xgdc1800-12",
+        "technetix-xg-1-8-ghz-mainline--xgdc1800-16",
+        "technetix-xg-1-8-ghz-mainline--xgpi1800",
+        "technetix-xg-1-8-ghz-mainline--xgs1800-02",
+        "technetix-xg-1-8-ghz-mainline--xgs1800-03",
+        "technetix-xg-1-8-ghz-mainline--xgs1800-33"
+      ],
+      "sources": [
+        "https://emea.technetix.com/wp-content/uploads/sites/2/2025/05/19013833_XGS1800-33_DS_EN-3.pdf"
+      ],
+      "reviewStatus": "primary-pdf-reviewed",
+      "document": "05/2025 EN/V14, pp2\u20133",
+      "note": "12\u20131825 MHz data, both unbalanced outputs and temperature deviation note reviewed. App engine limited to1800MHz."
+    }
+  ],
+  "confirmedCorrectionsRequired": [
+    {
+      "kind": "calculation-endpoints",
+      "sourceFile": "night-sweep/engine.js",
+      "function": "curveValue",
+      "description": "Printed nonshared upper band endpoint must be included. Half-open test incorrectly makes10MHz,50MHz,etc unavailable where next band starts11/51/etc. Keep next-band convention when bands actually share endpoint.",
+      "example": {
+        "equipment": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+        "port": "through",
+        "basis": "maximum",
+        "inputMHz": 10,
+        "before": null,
+        "expectedDb": 1.9
+      }
+    },
+    {
+      "kind": "calculation-gap-policy",
+      "sourceFile": "night-sweep/engine.js and explicitly marked SA curve metadata",
+      "description": "SA Multimedia note promises larger adjacent bound across printed1MHz gaps, but implementation returns null. Add explicit per-curve policy; do not fill arbitrary missing bands globally."
+    }
+  ],
+  "metadataRecommendations": [
+    "Add source document title/revision/page and checked scope to separate reference registry; no catalog curve presently has a revision field.",
+    "Keep data source URL separate from current product-page fallback; successful product-page fetch is not validation of numeric table.",
+    "Retain manual/measured-only current for DSIM, GaN HGD, EN9000, AOI HGBT/BA until exact installed configuration and data exist.",
+    "Published passive temperature tolerance/maximum changes remain notes; cable temperature correction does not automatically correct passive hardware."
+  ],
+  "cables": [
+    {
+      "id": "p3_500",
+      "source": "https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf",
+      "page": 2,
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "p3_625",
+      "source": "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf",
+      "page": "2\u20133",
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": true,
+      "note": "Exact live5308003 product page independently confirms0.84+0.26=1.10ohm/kft at20C."
+    },
+    {
+      "id": "p3_700",
+      "source": "https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf",
+      "page": "2\u20133",
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "p3_750",
+      "source": "https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf",
+      "page": 2,
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "p3_875",
+      "source": "https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf",
+      "page": "2\u20133",
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "qr_540",
+      "source": "https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf",
+      "page": 2,
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "qr_715",
+      "source": "https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf",
+      "page": "2\u20133",
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "qr_860",
+      "source": "https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf",
+      "page": 2,
+      "minMHz": 5,
+      "maxMHz": 1800,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "mc2_500",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-11",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "mc2_650",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-11",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "mc2_750",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-11",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "p3_1000",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-9",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "p3_565",
+      "source": "https://www.tvcinc.com/shared-downloads/CommScope%20P3%20565-2.pdf",
+      "page": 2,
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "mc2_440",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-11",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "mc2_1000",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-11",
+      "minMHz": 5,
+      "maxMHz": 1000,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "commscope_rg6",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-7",
+      "minMHz": 5,
+      "maxMHz": 1218,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    },
+    {
+      "id": "commscope_rg11",
+      "source": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+      "page": "6-7",
+      "minMHz": 5,
+      "maxMHz": 1218,
+      "status": "retained-table-not-freshly-cell-verified",
+      "dcRechecked": false,
+      "note": ""
+    }
+  ],
+  "power": [
+    {
+      "id": "gm-le-12-thermal",
+      "mode": "curve",
+      "source": "https://www.tulsat.com/product-p/gainmaker1.2ghz.htm",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Cisco-authored Table 5 reproduced by Tulsat; official PDF currently redirects. Typical at 68\u00b0F /20\u00b0C. Exact 1.2 GHz LE configuration only; not a legacy750/870/1GHz DSIM estimate. Power supply and under-voltage lockout must match installation. Current interpolation stops at35\u201390VAC."
+    },
+    {
+      "id": "gm-le-12-agc",
+      "mode": "curve",
+      "source": "https://www.tulsat.com/product-p/gainmaker1.2ghz.htm",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Cisco-authored Table 5 reproduced by Tulsat; official PDF currently redirects. Typical at 68\u00b0F /20\u00b0C. Exact 1.2 GHz LE configuration only; not a legacy750/870/1GHz DSIM estimate. Power supply and under-voltage lockout must match installation. Current interpolation stops at35\u201390VAC."
+    },
+    {
+      "id": "gm-le-870-thermal",
+      "mode": "curve",
+      "source": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard LE supply 12/24VDC PN593020; manufacturer-authored PDF mirror. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-le-870-agc",
+      "mode": "curve",
+      "source": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard LE supply 12/24VDC PN593020; manufacturer-authored PDF mirror. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-le-870-agc-status",
+      "mode": "curve",
+      "source": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard LE supply 12/24VDC PN593020; manufacturer-authored PDF mirror. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-hgd-1000-thermal",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-hgd-1000-agc",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-hgd-1000-agc-status",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-ubt-1000-thermal",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-ubt-1000-agc",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-ubt-1000-agc-status",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard system amp supply 2.2A24VDC PN734771. Match exact RF module, power supply, split and options. DSIM is not explicitly named in the current table; do not assume the status-monitor curve covers every DSIM revision. Published voltage domain35\u201390VAC; installed under-voltage lockout may be30/40/50VAC."
+    },
+    {
+      "id": "gm-hgd-gan-1g-thermal",
+      "mode": "amps",
+      "source": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731154.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "The earlier table could not be verified for this GaN configuration. Enter measured input current at the actual equipment voltage. Existing saved curve-mode rows must be changed to a documented manual load; no substitute GaAs curve is used."
+    },
+    {
+      "id": "gm-amp-dsim-manual",
+      "mode": "amps",
+      "source": null,
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Enter the complete station\u2019s measured true-RMS input current at its operating voltage, including DSIM and other installed options. Fixed-current mode holds this entered current constant; update it if voltage/configuration changes. Through-current rating is not station consumption."
+    },
+    {
+      "id": "gm-le-dsim-manual",
+      "mode": "amps",
+      "source": null,
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Enter the complete station\u2019s measured true-RMS input current at its operating voltage, including DSIM and other installed options. Fixed-current mode holds this entered current constant; update it if voltage/configuration changes. Through-current rating is not station consumption."
+    },
+    {
+      "id": "aoi_quantum18_hgd_v09052024",
+      "mode": "curve",
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Verified current values at45\u201390VAC. Spanish source low-voltage headings are ambiguous; the old35/40V mapping is not retained. No extrapolation below45VAC. Match HGD module revision and installed bidirectional configuration."
+    },
+    {
+      "id": "aoi_quantum18_le_v09052024",
+      "mode": "curve",
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Manufacturer Spanish datasheet; bidirectional station-current table measured using a CATV ferroresonant quasi-square-wave power source. Preliminary datasheet v09052024. Interpolate only within 35\u201390 VAC; do not extrapolate. Match the installed LE configuration and revision. The table range is not a universal operating-voltage guarantee."
+    },
+    {
+      "id": "gs7000-1g-1rx-1tx",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard segmentable 42/54 MHz node; 1 receiver, 1x4 FCM, 1 transmitter, 4x1 RCM and status monitor. Same values also published for standard 85/102 MHz model. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "gs7000-1g-4rx-4tx",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard segmentable 42/54 MHz node; 4 receivers, 4x4 FCM, 4 transmitters, 4x4 RCM and status monitor. Same values also published for standard 85/102 MHz model. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "gs7000-12g-1rx-1tx",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard 1218 MHz segmentable node; 1 receiver, 1x4 FCM, 1 transmitter, 4x1 RCM and status monitor. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "gs7000-12g-4rx-4tx",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Standard 1218 MHz segmentable node; 4 receivers, 4x4 FCM, 4 transmitters, 4x4 RCM and status monitor. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "gs7000-12g-fiberdeep",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "1218 MHz four-port Fiber Deep 85/102 MHz node; 1 receiver, 1x4 FCM, 1 transmitter, 4x1 RCM and status monitor. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "gs7000-12g-intelligent",
+      "mode": "curve",
+      "source": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "1218 MHz Fiber Deep Intelligent node: launch amplifier, OIB and Remote PHY module at maximum output power. Published curve covers 45\u201390 VAC; 33 VAC UVLO is not an extrapolation endpoint. Verify installed modules and supply. Equipment temperature dependence is not modeled."
+    },
+    {
+      "id": "vecima-en9000-manual",
+      "mode": "watts",
+      "source": "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "May 2024 brief lists 180 W maximum, 4.5 A maximum and 15 A AC passing. These ratings do not establish a typical current curve or input PF. Enter actual configuration power/PF or measured current at operating voltage; do not treat 180 W as normal consumption."
+    },
+    {
+      "id": "aoi_quantum18_hgbt_manual",
+      "mode": "amps",
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Exact station current must match installed module/revision and management options. Datasheet lists0.94A at90VAC,1.27A at60VAC,1.85A at38VAC for its AGC configuration; do not reuse HGD values."
+    },
+    {
+      "id": "aoi_quantum18_ba_manual",
+      "mode": "amps",
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "status": "structural-and-provenance-scope-reviewed-not-freshly-cell-verified",
+      "limitation": "Booster power is not HGD/LE power. Source power-table columns are misaligned in extraction; measured installed load is required until visually validated. Supply maximum6W is not a measured station-current curve."
+    }
+  ],
+  "sourceObservations": [
+    {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5308003/",
+      "status": "primary-page-opened",
+      "verified": "DC resistance and20C condition; attenuation is image unavailable as text."
+    },
+    {
+      "url": "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf",
+      "status": "404-from-native-reader",
+      "verified": "No fresh attenuation verification."
+    },
+    {
+      "url": "https://antronix.com/wp-content/uploads/2026/09/MGT2000_Taps.pdf",
+      "status": "unavailable-from-native-reader",
+      "verified": "Existing table retained with limitation."
+    }
+  ],
+  "toolLimitations": [
+    "Firecrawl request not run: connected account out of credits. Continued using native web retrieval without purchase.",
+    "Native search/open availability is not equivalent to file HTTP reachability from every phone."
+  ],
+  "currentRunCommands": [
+    {
+      "command": "node qa/catalog-audit.cjs",
+      "result": "PASS;1324curves,14126rows"
+    },
+    {
+      "command": "supplemental Python all-entry audit",
+      "result": "PASS structural checks;0 errors;713 printed-band gap instances identified"
+    }
+  ]
+}

@@ -1,0 +1,1075 @@
+{
+  "records": [
+    {
+      "id": "gm-hgd-oem-agc-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_hgd",
+        "gm-hgd-1000-agc",
+        "gm-hgd-1000-agc-status"
+      ],
+      "title": "GainMaker HGD · OEM AGC setup · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp51–58 manual setup; pp58–64 thermal setup; AGC pad p56/p62",
+      "scope": "Exact 1 GHz GainMaker HGD module family; verify installed split and conventional OEM control option. Not ACI DSIM. HGD 42/54 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "The guide describes an analog video pilot. OEM QAM detectors also exist, but this review did not recover an exact detector setup/offset bulletin. Confirm installed detector part number, pilot type, frequency and level convention. A -6 dB datasheet loading relationship is not an AGC correction.",
+        "Manual-backoff and thermal setup are alternatives for the same fitted OEM AGC. Select the locally approved method; do not combine the two."
+      ],
+      "controlType": "oem-agc",
+      "procedureModes": [
+        {
+          "id": "manual-backoff",
+          "label": "Manual backoff → OEM AGC",
+          "sections": "Chapter 3, printed pp51–58",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 2 (manual setup). Turn MANUAL BACKOFF fully counterclockwise, then clockwise by the exact system amplifier p53 temperature/reference-frequency chart amount. Do not readjust backoff afterward.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 2. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 2 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        },
+        {
+          "id": "thermal-setup",
+          "label": "Thermal setup → OEM AGC",
+          "sections": "Chapter 3, printed pp58–64",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 1 (OEM AGC thermal setup). Do not apply a manual-backoff chart in this branch.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 1. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 1 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-hgd-thermal-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_hgd",
+        "gm-hgd-1000-thermal"
+      ],
+      "title": "GainMaker HGD · thermal station · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp64–66 amplifier-only; pp67–70 amplifier + coax",
+      "scope": "Exact 1 GHz GainMaker HGD module family; verify installed split and thermal-only control option. Not ACI DSIM. HGD 42/54 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "Thermal-only stations do not use the OEM AGC pad calculation or AGC gain matching. S1 position 2 is not a thermal operating mode.",
+        "These notes use the approximately one-hour warm procedure. The separate cold amplifier/coax procedure is not a universal -1 dB operating target."
+      ],
+      "controlType": "manual-thermal",
+      "procedureModes": [
+        {
+          "id": "amplifier-only",
+          "label": "Thermal: amplifier only",
+          "sections": "Chapter 3, printed pp64–66",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 1 for amplifier-only thermal compensation.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        },
+        {
+          "id": "amplifier-coax",
+          "label": "Thermal: amplifier + coax",
+          "sections": "Chapter 3, printed pp67–70",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 3 for amplifier-and-coax thermal compensation. Position 3 is not AGC when no AGC is fitted.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-hgbt-oem-agc-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_hgbt"
+      ],
+      "title": "GainMaker HGBT · OEM AGC setup · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp51–58 manual setup; pp58–64 thermal setup; AGC pad p56/p62",
+      "scope": "Exact 1 GHz GainMaker HGBT module family; verify installed split and conventional OEM control option. Not ACI DSIM. HGBT 42/54 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "The guide describes an analog video pilot. OEM QAM detectors also exist, but this review did not recover an exact detector setup/offset bulletin. Confirm installed detector part number, pilot type, frequency and level convention. A -6 dB datasheet loading relationship is not an AGC correction.",
+        "Manual-backoff and thermal setup are alternatives for the same fitted OEM AGC. Select the locally approved method; do not combine the two."
+      ],
+      "controlType": "oem-agc",
+      "procedureModes": [
+        {
+          "id": "manual-backoff",
+          "label": "Manual backoff → OEM AGC",
+          "sections": "Chapter 3, printed pp51–58",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 2 (manual setup). Turn MANUAL BACKOFF fully counterclockwise, then clockwise by the exact system amplifier p53 temperature/reference-frequency chart amount. Do not readjust backoff afterward.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 2. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 2 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        },
+        {
+          "id": "thermal-setup",
+          "label": "Thermal setup → OEM AGC",
+          "sections": "Chapter 3, printed pp58–64",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 1 (OEM AGC thermal setup). Do not apply a manual-backoff chart in this branch.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 1. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 1 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-hgbt-thermal-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_hgbt"
+      ],
+      "title": "GainMaker HGBT · thermal station · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp64–66 amplifier-only; pp67–70 amplifier + coax",
+      "scope": "Exact 1 GHz GainMaker HGBT module family; verify installed split and thermal-only control option. Not ACI DSIM. HGBT 42/54 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "Thermal-only stations do not use the OEM AGC pad calculation or AGC gain matching. S1 position 2 is not a thermal operating mode.",
+        "These notes use the approximately one-hour warm procedure. The separate cold amplifier/coax procedure is not a universal -1 dB operating target."
+      ],
+      "controlType": "manual-thermal",
+      "procedureModes": [
+        {
+          "id": "amplifier-only",
+          "label": "Thermal: amplifier only",
+          "sections": "Chapter 3, printed pp64–66",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 1 for amplifier-only thermal compensation.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        },
+        {
+          "id": "amplifier-coax",
+          "label": "Thermal: amplifier + coax",
+          "sections": "Chapter 3, printed pp67–70",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 3 for amplifier-and-coax thermal compensation. Position 3 is not AGC when no AGC is fitted.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-lgd-oem-agc-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_lgd_65"
+      ],
+      "title": "GainMaker LGD · OEM AGC setup · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp51–58 manual setup; pp58–64 thermal setup; AGC pad p56/p62",
+      "scope": "Exact 1 GHz GainMaker LGD module family; verify installed split and conventional OEM control option. Not ACI DSIM. LGD 65/86 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "The guide describes an analog video pilot. OEM QAM detectors also exist, but this review did not recover an exact detector setup/offset bulletin. Confirm installed detector part number, pilot type, frequency and level convention. A -6 dB datasheet loading relationship is not an AGC correction.",
+        "Manual-backoff and thermal setup are alternatives for the same fitted OEM AGC. Select the locally approved method; do not combine the two."
+      ],
+      "controlType": "oem-agc",
+      "procedureModes": [
+        {
+          "id": "manual-backoff",
+          "label": "Manual backoff → OEM AGC",
+          "sections": "Chapter 3, printed pp51–58",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 2 (manual setup). Turn MANUAL BACKOFF fully counterclockwise, then clockwise by the exact system amplifier p53 temperature/reference-frequency chart amount. Do not readjust backoff afterward.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 2. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 2 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        },
+        {
+          "id": "thermal-setup",
+          "label": "Thermal setup → OEM AGC",
+          "sections": "Chapter 3, printed pp58–64",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 1 (OEM AGC thermal setup). Do not apply a manual-backoff chart in this branch.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "Verify every output against its design reference. HGD/LGD auxiliary test points are after the signal director; account for director loss only when the print specifies a before-director level.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected MAIN output pilot level (dBmV) minus 34 dB. Do not use an auxiliary-port level; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 1. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 1 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-lgd-thermal-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_lgd_65"
+      ],
+      "title": "GainMaker LGD · thermal station · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "OL-31156-01, February 2014",
+      "sections": "Chapter 3: pp46–50 preparation; pp64–66 amplifier-only; pp67–70 amplifier + coax",
+      "scope": "Exact 1 GHz GainMaker LGD module family; verify installed split and thermal-only control option. Not ACI DSIM. LGD 65/86 MHz catalog profile.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "Thermal-only stations do not use the OEM AGC pad calculation or AGC gain matching. S1 position 2 is not a thermal operating mode.",
+        "These notes use the approximately one-hour warm procedure. The separate cold amplifier/coax procedure is not a universal -1 dB operating target."
+      ],
+      "controlType": "manual-thermal",
+      "procedureModes": [
+        {
+          "id": "amplifier-only",
+          "label": "Thermal: amplifier only",
+          "sections": "Chapter 3, printed pp64–66",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 1 for amplifier-only thermal compensation.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        },
+        {
+          "id": "amplifier-coax",
+          "label": "Thermal: amplifier + coax",
+          "sections": "Chapter 3, printed pp67–70",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 3 for amplifier-and-coax thermal compensation. Position 3 is not AGC when no AGC is fitted.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Check all outputs against the correct port design; HGD/LGD auxiliary readings are after the signal director. Preserve factory interstage/output components unless design explicitly changes them.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-le-oem-agc-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_le_agc"
+      ],
+      "title": "GainMaker LE · OEM AGC setup · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "revision": "OL-31155-01, ©2007/2014",
+      "sections": "Chapter 3: pp42–46 preparation; pp47–55 manual setup; pp56–62 thermal setup; AGC pad p53/p60",
+      "scope": "Exact 1 GHz GainMaker LE 42/54 MHz AGC profile. Not manual LE, thermal LE, 1.2 GHz LE or ACI DSIM.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "The guide describes an analog video pilot. OEM QAM detectors also exist, but this review did not recover an exact detector setup/offset bulletin. Confirm installed detector part number, pilot type, frequency and level convention. A -6 dB datasheet loading relationship is not an AGC correction.",
+        "LE manual-backoff table is different from the system amplifier table. Use only the LE chart at pp49–50.",
+        "Firecrawl recovered only a skeletal mirror page; the manufacturer-authored full body and page references were verified through an independent indexed reader."
+      ],
+      "controlType": "oem-agc",
+      "procedureModes": [
+        {
+          "id": "manual-backoff",
+          "label": "Manual backoff → OEM AGC",
+          "sections": "Chapter 3, printed pp47–55",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 2 (manual setup). Turn MANUAL BACKOFF fully counterclockwise, then clockwise by the exact LE pp49–50 temperature/reference-frequency chart amount. Do not readjust backoff afterward.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected output pilot level (dBmV) minus 29 dB. Use the LE output port; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 2. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 2 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        },
+        {
+          "id": "thermal-setup",
+          "label": "Thermal setup → OEM AGC",
+          "sections": "Chapter 3, printed pp56–62",
+          "steps": [
+            "Match the installed RF module, split, OEM AGC detector and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Before setting levels: S1 = 1 (OEM AGC thermal setup). Do not apply a manual-backoff chart in this branch.",
+            "At the main output, compare high-minus-low level with design tilt. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, adjust forward input pad to the approved output: a larger pad lowers level; a smaller pad raises it. Recheck level and tilt.",
+            "For the applicable conventional OEM detector, install AGC pad = corrected output pilot level (dBmV) minus 29 dB. Use the LE output port; confirm pilot compatibility first.",
+            "Record the corrected main-output pilot level in S1 = 1. Select S1 = 3 and adjust AGC GAIN to reproduce that level.",
+            "Toggle S1 between 1 and 3, allowing the module to settle before each reading. Repeat AGC GAIN adjustment until switching causes no level shift; the guide gives no fixed settling time.",
+            "Leave S1 = 3. Verify approved levels/tilt and each output again, record pilot/control/pad/EQ and before/after readings, then continue the job’s separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-le-thermal-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_le_thermal"
+      ],
+      "title": "GainMaker LE · thermal station · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "revision": "OL-31155-01, ©2007/2014",
+      "sections": "Chapter 3: pp42–46 preparation; pp63–65 amplifier-only; pp66–69 amplifier + coax",
+      "scope": "Exact 1 GHz GainMaker LE 42/54 MHz thermal profile; no fitted AGC/DSIM.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "S1 position 2 is not a thermal operating mode. Do not apply OEM AGC pad or DSIM backoff values.",
+        "Use the warmed-up procedure here; the guide’s separate cold amplifier/coax procedure is not a blanket -1 dB target."
+      ],
+      "controlType": "manual-thermal",
+      "procedureModes": [
+        {
+          "id": "amplifier-only",
+          "label": "Thermal: amplifier only",
+          "sections": "Chapter 3, printed pp63–65",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 1 for amplifier-only thermal compensation.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        },
+        {
+          "id": "amplifier-coax",
+          "label": "Thermal: amplifier + coax",
+          "sections": "Chapter 3, printed pp66–69",
+          "steps": [
+            "Match the installed RF module, split, thermal control configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm no OEM AGC or DSIM is installed. Set S1 = 3 for amplifier-and-coax thermal compensation. Position 3 is not AGC when no AGC is fitted.",
+            "Measure main-output high-minus-low tilt at approved design frequencies. If tilt is low, increase the input EQ; if high, decrease it. Remeasure.",
+            "At the highest design frequency, increase the forward input pad to lower output, or decrease it to raise output. Verify approved output level and tilt after each change.",
+            "Leave the selected thermal operating mode active. Record control mode, pad/EQ, corrected levels and before/after evidence; continue the separate return workflow."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-le-manual-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_le_manual"
+      ],
+      "title": "GainMaker LE · manual station · historical Cisco manual",
+      "kind": "manual",
+      "url": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "revision": "OL-31155-01, ©2007/2014",
+      "sections": "Chapter 3: pp42–46 preparation; pp70–71 manual station",
+      "scope": "Exact 1 GHz GainMaker LE 42/54 MHz manual profile with no Bode network.",
+      "steps": [],
+      "gaps": [
+        "Historical manufacturer-authored manual on a third-party mirror. A newer exact installed-module revision was not publicly recovered; confirm module, split and applicable procedure before adjustment.",
+        "A manual LE has no Bode network; S1 does not select its operating mode. Do not prescribe an AGC switch, pad or backoff adjustment."
+      ],
+      "controlType": "manual-thermal",
+      "procedureModes": [
+        {
+          "id": "manual-station",
+          "label": "Manual LE: no Bode / no AGC",
+          "sections": "Chapter 3, printed pp70–71",
+          "steps": [
+            "Match the installed RF module, split, manual station configuration and design print; record approved low/high frequencies, output levels, tilt, pilot and loading.",
+            "Confirm valid input at both design frequencies and allow approximately one hour warm-up. Add 20 dB to raw -20 dB test-point readings only if the meter has not already compensated.",
+            "Confirm the manual LE has no Bode network. S1 has no operational effect; no AGC setup is required.",
+            "Measure output high-minus-low tilt at the approved design frequencies. Increase input EQ if tilt is low; decrease it if high. Remeasure.",
+            "At the highest design frequency, increase input pad to lower output or decrease it to raise output. Verify design level and tilt, then record pad/EQ and before/after evidence."
+          ]
+        }
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "gm-gan-setup-request-alpha17-20261110",
+      "equipmentIds": [
+        "active_gm_gan_hgd",
+        "gm-hgd-gan-1g-thermal"
+      ],
+      "title": "GainMaker GaN HGD · exact installed setup revision required",
+      "kind": "request",
+      "url": "https://www.cisco.com/c/en/us/support/index.html",
+      "revision": "Exact GaN I&O revision not recovered",
+      "sections": "No exact GaN commissioning chapter verified",
+      "scope": "GaN 1 GHz HGD 42/54 MHz profile. Identify RF module and fitted OEM AGC, thermal control or DSIM separately.",
+      "steps": [],
+      "gaps": [
+        "Exact current GaN setup manual was not recovered. The 2014 system amplifier guide predates the located GaN datasheet and does not by itself certify the installed GaN module or detector.",
+        "The indexed GaN datasheet dated January 11, 2019 states optional analog and QAM AGC. Its live HTML/PDF route redirects to the Cisco homepage; the indexed content is historical evidence, not a fresh manufacturer fetch.",
+        "Obtain the installed GaN module/control I&O and pilot-level convention before applying conventional HGD or DSIM steps. No automatic AGC pad, temperature backoff or digital offset is supplied."
+      ],
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "aoi-quantum18-sa-v02102025-alpha17-20261110",
+      "equipmentIds": [
+        "active_aoi_hgd",
+        "active_aoi_hgbt",
+        "active_aoi_hgd_85",
+        "active_aoi_hgd_396",
+        "active_aoi_hgd_492",
+        "active_aoi_hgd_684",
+        "active_aoi_hgbt_85",
+        "active_aoi_hgbt_396",
+        "active_aoi_hgbt_492",
+        "active_aoi_hgbt_684",
+        "aoi_quantum18_hgd_v09052024",
+        "aoi_quantum18_hgbt_manual"
+      ],
+      "title": "AOI Quantum18 HGD / HGBT · setup · historical original-manual mirror",
+      "kind": "manual",
+      "url": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html",
+      "revision": "V02102025",
+      "sections": "Chapter 1 pp3–6 identity/splits/test points; Chapter 3 pp38–43 preparation/profile; pp44–46 downstream; pp47–48 upstream; p49 ALSC; p50 test-point routing",
+      "scope": "Quantum18 GainMaker-form-factor HGD and HGBT only. The manual lists 85/105, 204/258, 396/492, 492/606 and 684/834 MHz splits; match installed diplex modules, firmware and profile. Does not apply to LE, BA, MB or BLE.",
+      "steps": [
+        "Match HGD/HGBT and physical diplex split. Connect QuantumLink Local to the intended interface. Check About for interface firmware/app version/MAC, then Amplifier Info for the installed device identity (pp38–40).",
+        "In Amplifier Config, match the displayed split to the installed diplex modules and confirm 1.8/1.2 GHz operating mode and active firmware bank. The guide starts ALSC OFF; enable only after both alignments below (p41).",
+        "Choose the intended measurement path under Test Points → Test Point Operation. Main FWD IN selects FWD IN or REV OUT; main/aux FWD OUT selects FWD OUT or REV IN. Add 20 dB to a raw -20 dB test-point reading only if the meter has not already compensated (pp6,50).",
+        "Confirm approved port output, marker frequencies, tilt and loading. In DS Auto Config, enter and verify the downstream profile marker frequencies and power levels, then Apply to store the profile. Confirm the actual approved pilots are present (p43).",
+        "After the profile is stored, select DS Align → Auto → Start Downstream Alignment. Verify the result before proceeding; this guide does not give a fixed AGC settling timer (p44).",
+        "Use downstream Manual only after Auto is complete and only if needed. Change one gain/tilt value at a time, apply with the checkbox, then Save Configuration to persist it. Revert restores the preset (p45).",
+        "Use Spectrum to check the resulting downstream response and approved output levels. Its roughly 30-second acquisition is a spectrum scan time, not an AGC wait instruction (p46).",
+        "After downstream balancing of the cascade, begin manufacturer upstream alignment at the last amplifier. Auto uses Upstream → Auto → Start Auto; save a successful alignment or revert and resolve it (p47).",
+        "If using manufacturer upstream Manual, this revision specifies ONX-630 DOCSIS Expert. Match instrument/firmware and the approved local return reference; adjust one value, apply, then Save Configuration (p48).",
+        "After both downstream and upstream alignment, open Amplifier Config and turn ALSC ON at each amplifier. Recheck levels, save configuration/evidence and complete the applicable local sweep acceptance (p49)."
+      ],
+      "gaps": [
+        "Newest public exact HGD/HGBT I&O located: V02102025. The manufacturer now offers installation guides by request, so this review cannot establish that it is the latest issued revision.",
+        "The previous original AOI PDF URL returned HTTP 404 on November 10, 2026. This working link is a third-party mirror of the original manual, clearly identified by title/revision.",
+        "All five split pairs are explicitly listed in the manual. This does not establish every firmware/profile combination or transfer a 204 MHz datasheet gain condition to higher splits.",
+        "The manufacturer manual uses DOCSIS Expert for upstream Manual. NightSweep’s local 204/258 MHz return sweep remains XPERTrak; obtain the matching approved commissioning reference and instrument support rather than treating the two procedures as interchangeable.",
+        "No GainMaker S1/manual-backoff or ACI DSIM pad sequence applies to this Quantum18 ALSC profile workflow."
+      ],
+      "sourceStatus": "historical-manufacturer-manual-mirror",
+      "reviewedAt": "2026-11-10"
+    },
+    {
+      "id": "aoi-le-missing-alpha17-20261110",
+      "equipmentIds": [
+        "active_aoi_le",
+        "active_aoi_le_85",
+        "active_aoi_le_396",
+        "active_aoi_le_492",
+        "active_aoi_le_684",
+        "aoi_quantum18_le_v09052024"
+      ],
+      "title": "Quantum18 LE installation guide — access required",
+      "kind": "request",
+      "url": "https://ao-inc.com/content-request-form/",
+      "revision": "Exact installation/operation revision not publicly recovered",
+      "sections": "Manufacturer HFC Amplifiers → Installation Guides → Request Installation Guides",
+      "scope": "Quantum18 LE exact installed module, split and firmware only; no public exact commissioning manual recovered.",
+      "steps": [],
+      "gaps": [
+        "AOI’s live manufacturer product page routes installation guides through its content-request form. Firecrawl, Parallel and independent searches found no public exact Quantum18 LE I&O; the currently found datasheet is not a setup manual.",
+        "Request the exact LE revision and verify test-point direction/coupling, profile/pilot or control method, target reference frequencies, loading, save sequence, alignment order and post-checks. No inferred commissioning sequence is supplied.",
+        "Do not substitute Quantum18 HGD/HGBT, MB/BLE or Quantum12 instructions. Confirm installed split and control modules before applying any gain or tilt values."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-request-only"
+    },
+    {
+      "id": "aoi-ba-missing-alpha17-20261110",
+      "equipmentIds": [
+        "active_aoi_ba",
+        "aoi_quantum18_ba_manual"
+      ],
+      "title": "Quantum18 BA installation guide — access required",
+      "kind": "request",
+      "url": "https://ao-inc.com/content-request-form/",
+      "revision": "Exact installation/operation revision not publicly recovered",
+      "sections": "Manufacturer HFC Amplifiers → Installation Guides → Request Installation Guides",
+      "scope": "Quantum18 BA exact installed module, split and firmware only; no public exact commissioning manual recovered.",
+      "steps": [],
+      "gaps": [
+        "AOI’s live manufacturer product page routes installation guides through its content-request form. Firecrawl, Parallel and independent searches found no public exact Quantum18 BA I&O; the currently found datasheet is not a setup manual.",
+        "Request the exact BA revision and verify test-point direction/coupling, profile/pilot or control method, target reference frequencies, loading, save sequence, alignment order and post-checks. No inferred commissioning sequence is supplied.",
+        "Do not substitute Quantum18 HGD/HGBT, MB/BLE or Quantum12 instructions. Confirm installed split and control modules before applying any gain or tilt values."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-request-only"
+    },
+    {
+      "id": "spec-gm-hgd",
+      "equipmentIds": [
+        "active_gm_hgd"
+      ],
+      "title": "GainMaker HGD — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "revision": "7006586 Rev D, August 2005",
+      "sections": "Specification 3–5",
+      "scope": "Minimum operational gain at the published auto/thermal configuration: 10.5 dB interstage EQ, 20°C, 0 dB input EQ and 1 dB input pad. Reverse includes 1 dB output pad; optional reverse switch adds 0.5 dB loss. Not a flat frequency curve.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-gm-le",
+      "equipmentIds": [
+        "active_gm_le_manual",
+        "active_gm_le_thermal",
+        "active_gm_le_agc"
+      ],
+      "title": "GainMaker LE — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+      "revision": "7006590 Rev D, August 2005",
+      "sections": "Specification 3–5",
+      "scope": "Operational gain is not labeled minimum. Interstage EQ: manual 9 dB, thermal 7.5 dB, AGC 9 dB. Reference: 20°C, 0 dB input EQ and 1 dB input pad. Does not establish gain at arbitrary markers.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-gm-hgbt",
+      "equipmentIds": [
+        "active_gm_hgbt"
+      ],
+      "title": "GainMaker HGBT — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+      "revision": "7006942 Rev C, November 2005",
+      "sections": "Specification 3–5",
+      "scope": "Minimum operational gain for the published auto/thermal configuration with 10.5 dB interstage EQ. Match the selected output and installed pad/EQ configuration.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-gm-lgd",
+      "equipmentIds": [
+        "active_gm_lgd_65"
+      ],
+      "title": "GainMaker LGD — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+      "revision": "7006949 Rev A, February 2006",
+      "sections": "Specification 3–5",
+      "scope": "65/86 MHz split only. Minimum operational gain applies at the published reference configuration; do not transfer other-split or HGD specifications.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-aoi-hgd",
+      "equipmentIds": [
+        "active_aoi_hgd",
+        "active_aoi_hgd_85",
+        "active_aoi_hgd_396",
+        "active_aoi_hgd_492",
+        "active_aoi_hgd_684"
+      ],
+      "title": "AOI Quantum18 HGD — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "revision": "v09052024, ©2025, preliminary",
+      "sections": "Specification 2–3",
+      "scope": "Minimum operational reference with 0 dB input EQ, 1 dB input pad and 20°C. Reverse footnote 4 applies to the 204 MHz split only; reverse gain at other splits remains unverified. HGD signal director changes output-specific gain.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-aoi-hgbt",
+      "equipmentIds": [
+        "active_aoi_hgbt",
+        "active_aoi_hgbt_85",
+        "active_aoi_hgbt_396",
+        "active_aoi_hgbt_492",
+        "active_aoi_hgbt_684"
+      ],
+      "title": "AOI Quantum18 HGBT — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "revision": "v08272024, ©2025, preliminary",
+      "sections": "Specification 2–3",
+      "scope": "Minimum operational reference with 0 dB input EQ, 1 dB input pad and 20°C. Reverse footnote 4 applies to the 204 MHz split only. Ambiguous output-reference table extraction is not used as a fixed operating target.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-aoi-le",
+      "equipmentIds": [
+        "active_aoi_le",
+        "active_aoi_le_85",
+        "active_aoi_le_396",
+        "active_aoi_le_492",
+        "active_aoi_le_684"
+      ],
+      "title": "AOI Quantum18 LE — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "revision": "v09052024, ©2025",
+      "sections": "Specification 2–3",
+      "scope": "Minimum operational reference with 0 dB input EQ, 1 dB input pad and 20°C. Reverse footnote 4 applies to the 204 MHz split only. Some Spanish labels/units are ambiguous; no ambiguous cell becomes a universal specification.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "spec-aoi-ba",
+      "equipmentIds": [
+        "active_aoi_ba"
+      ],
+      "title": "AOI Quantum18 BA — manufacturer datasheet",
+      "kind": "datasheet",
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "revision": "v08302024, ©2025, preliminary",
+      "sections": "Specification 2–3",
+      "scope": "With 0 dB pad, 15 dB minimum gain is stated at 1.8 GHz, not flat across the band. Source differs at 1791/1794 MHz endpoints and has an unsigned 20 dB forward test-point row. Reverse 6 dB at 684 MHz is not verified at 204 MHz; retain entered marker gains.",
+      "steps": [],
+      "gaps": [
+        "Datasheet is not an installation/setup manual. Published reference values do not set local launch targets or gain at arbitrary markers."
+      ],
+      "reviewedAt": "2026-11-10",
+      "sourceStatus": "manufacturer-datasheet"
+    },
+    {
+      "id": "gs7000-1g-manual",
+      "equipmentIds": [
+        "gs7000-1g",
+        "gs7000-1g-1rx-1tx",
+        "gs7000-1g-4rx-4tx"
+      ],
+      "title": "Cisco GS7000 GainMaker Scaleable 4-Port Node Installation and Operation Guide",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-GS7000-GainMaker-Scalable-4-Port-Node-Installation-and-Operation-Guide.pdf",
+      "revision": "OL-29643-02; Cisco support index updated October 12, 2017",
+      "sections": "Chapter 4 pp95–112: forward pp107–110; reverse pp111–112. Appendix A pad/EQ charts; SM/LCM module discovery described in Maintenance and EDR appendix.",
+      "scope": "Exact original Cisco PDF fully retrieved through Parallel in this refresh. Latest matching base hardware guide located in current Cisco support index remains OL-29643-02 (listing October 12,2017). Standard 1002MHz optical node only; installed launch module, receiver and FCM/RCM determine applicability.",
+      "steps": [
+        "Match the 1GHz launch module, optical receiver, FCM/RCM routing, split and design print; check power and terminate unused RF ports per the manual (pp95–107).",
+        "Under the approved service procedure, clean/inspect optical connections, measure receiver input and choose the receiver attenuation switch from its exact table (pp107–108). This can interrupt service.",
+        "Measure the receiver RF output and the selected launch-port output. Add only uncorrected test-point coupling once; the standard node RF references are −20dB (pp108–110).",
+        "Set the OIB receiver pad for the highest required port level or independent segment; increase FWD PORT OUT pads to reduce other ports sharing that segment (pp108–110). Use actual design levels.",
+        "Select linear EQs for the installed 2-way or 4-way launch path and required tilt, then recheck both markers and all affected ports (pp109–110; Appendix A).",
+        "Use the matching analog-transmitter or EDR reverse procedure and approved receive reference. The SM/LCM Auto Set-Up button discovers installed modules; it does not perform RF level/tilt AGC alignment."
+      ],
+      "gaps": [
+        "The manual uses 3.25% OMI and 50.2dBmV at1002MHz as an example; do not populate universal targets or pads from it.",
+        "Standard node manual balancing is different from Intelligent-node electronic AGC. A receiver attenuation switch is not a pilot-controlled RF AGC module.",
+        "Some extracted step cross-references are internally inconsistent; the workflow summarizes functional order rather than copying erroneous step jumps.",
+        "Do not use the analog-transmitter pad examples for an installed RPD or a different optical transmitter. Match its own setup guide."
+      ]
+    },
+    {
+      "id": "gs7000-12g-manual",
+      "equipmentIds": [
+        "gs7000-12g",
+        "gs7000-12g-1rx-1tx",
+        "gs7000-12g-4rx-4tx"
+      ],
+      "title": "Cisco 1.2 GHz GS7000 Node Installation and Operation Guide",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-1_2-GHz-GS7000-Node-Installation-and-Operation-Guide.pdf",
+      "revision": "First published October2015; Cisco support listing November19,2015. Original PDF retrieved in full; no separate revision code printed in extracted cover.",
+      "sections": "Chapter4 starts p85; forward pp93–95; reverse pp96–97; forward routing pp98 onward; Appendix A equalizer/pad charts.",
+      "scope": "Exact original standard 1218MHz segmentable-node PDF fully retrieved through Parallel. Current support index still lists this matching base hardware guide. Keep standard optical, SHO/Fiber Deep, Intelligent and retrofit-RPD configurations separate.",
+      "steps": [
+        "Identify standard1218MHz launch module, split, standard/low-input optical receiver and forward/reverse segmentation; verify power, unused-port termination and design targets (Chapter3; p93).",
+        "Measure optical input and apply the receiver-specific attenuation table on p94. Do not borrow the 1GHz receiver switch settings; check the original table at range boundaries.",
+        "Measure receiver RF output and launch-port levels; account for uncorrected −20dB RF test-point coupling once. The p94 receiver example is conditional on its OMI and optical level.",
+        "For the chosen segment, establish the highest required output using its OIB receiver pad, then use individual FWD PORT OUT pads to lower other shared ports (pp94–95).",
+        "Choose each path’s linear EQ from the1.2GHz chart to match the design tilt and remeasure the markers. Its factory18dB54–1218MHz tilt is a hardware reference, not a job target (p95).",
+        "For an active reverse path, select the procedure for the actual analog transmitter/EDR/RPD and approved receive reference; record all ports. Conventional LCM Auto Set-Up is module discovery, not RF balancing."
+      ],
+      "gaps": [
+        "The 54dBmV@1218MHz/2.5%OMI forward example and15dB OIB pad are conditional examples, not universal launch settings.",
+        "Analog return example onpp96–97 is not a204MHz RPD receive target or XPERTrak acceptance procedure.",
+        "Standard85/102MHz datasheet specifies forward performance from105MHz; do not silently model102–105MHz as covered.",
+        "Installed firmware/options and native RPD conversion kits remain unidentified."
+      ]
+    },
+    {
+      "id": "gs7000-sho-manual",
+      "equipmentIds": [
+        "gs7000-12g-fiberdeep"
+      ],
+      "title": "Cisco 1.2 GHz Super High Output GS7000 Node Installation and Operation Guide",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-1_2-GHz-Super-High-Output-GS7000-Node-Installation-and-Operation-Guide.pdf",
+      "revision": "First published August 2016; support index August 18, 2016",
+      "sections": "Chapter 3 p31; Chapter 4 p55; forward p60; reverse p63",
+      "scope": "Original manufacturer SHO/Fiber Deep optical-node guide retrieved in full. Latest matching manual located remains August2016; current Cisco support index still links it. Applies only to its SHO launch and installed optical/RPD configuration.",
+      "steps": [
+        "Confirm the SHO launch module, split, receiver type and return segmentation; complete Chapter3 power/termination checks (pp31–54).",
+        "Measure optical input, inspect/clean connections under the approved service procedure and use this manual’s receiver-switch table (pp60–61).",
+        "Measure receiver RF output at its−20dB test point and the highest required port; set the OIB pad from actual receiver drive and design output (pp61–62).",
+        "Reduce lower-level ports with their FWD PORT OUT pads. Set common EQ for overall tilt and left/right EQs for pair-specific tilt, then verify both markers (p62; Appendix A).",
+        "Use the installed analog/EDR/RPD return procedure. For the documented optical transmitter, p63 distinguishes4x1 and4x2 routing and the unused XMTR2 load; confirm actual configuration before changing it.",
+        "After module replacement, LCM Auto Set-Up discovers modules. It is not the Intelligent-node forward AGC setup."
+      ],
+      "gaps": [
+        "Factory tilt conflict: module description and2017 datasheet accessories say21dB; setup p62 says22dB with common10.5dB and left/right12dB EQs. Verify installed response; do not create a universal factory target.",
+        "54dBmV@1218MHz and15dB OIB padding are conditional manual examples, not operator design targets.",
+        "Do not substitute standard segmentable or Intelligent electronic-control instructions."
+      ]
+    },
+    {
+      "id": "gs7000-intelligent-manual",
+      "equipmentIds": [
+        "gs7000-12g-intelligent"
+      ],
+      "title": "Cisco GS7000 Super High Output Intelligent Node Installation and Operation Guide",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b_gs7000_sho_inode_install_operate_guide.html",
+      "revision": "Cisco support index March 23, 2018; chapter update March 21, 2018",
+      "sections": "Theory of Operation: RF Amplifier Module, AGC and Auto-setup; Setup and Operation chapter",
+      "scope": "Original manufacturer hardware guide and software setup chapters retrieved. Latest matching hardware guide located is March2018; newer remote management guide24.1 is separately listed. Exact OIB/iRPD/LCS/manager versions must match.",
+      "steps": [
+        "Identify Intelligent launch/OIB/iRPD and compatible software; confirm iRPD online, downstream carriers present and operator targets before auto setup.",
+        "Use the LCS RF Configuration screen to enter low/high MHz and corresponding dBmV for each required port, enable ports and Save. At least Port1 must be configured, enabled and saved.",
+        "Return to Node Configuration and start Auto Setup. This adjusts forward OIB drive; it does not align the return path.",
+        "After completion, check Auto Setup/AGC status and alarms; allow several minutes for AGC and compare each port’s internal spectrum with its saved targets.",
+        "Capture final per-port readings/settings and repeat forward setup when input levels materially change, following the installed-release procedure."
+      ],
+      "gaps": [
+        "There are no physical forward/return RF amplifier test points on this Intelligent module. Use internal spectrum capture; never automatically apply a standard-node−20dB correction.",
+        "LCS instructions are detailed in the separate software guide. The hardware guide’s AGC describes independent electronic output level/tilt control per forward port.",
+        "Do not apply analog optical-receiver pad tables or standard node LCM module-discovery behavior as Intelligent RF alignment."
+      ]
+    },
+    {
+      "id": "en9000-2025-brief",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "EN9000 Generic Access Platform Node Product Brief",
+      "kind": "datasheet",
+      "url": "https://vecima.com/wp-content/uploads/2025/03/Vecima-EN9000-Product-Brief.pdf",
+      "revision": "Publish date February 2025",
+      "sections": "p2: RFAM diplexers, power and ordering information",
+      "scope": "Official two-page PDF parsed; does not constitute a setup manual. Product brief only; match RFAM, RPD and firmware. Historical reference: newer September2026 product brief is separately listed; use the older document only for its stated revision/configuration.",
+      "steps": [],
+      "gaps": [
+        "RFAM/diplexer bandwidth is distinct from RPD and live-spectrum capability.",
+        "70 dBmV is maximum total composite power, not a per-channel launch target.",
+        "180 W is PSU total output rating; it is not a typical AC operating load.",
+        "No detailed setup procedure is inferred from this brief."
+      ]
+    },
+    {
+      "id": "en9000-2024-brief",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "Entra EN9000 Access Node Product Brief",
+      "kind": "datasheet",
+      "url": "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+      "revision": "May 2024",
+      "sections": "p2: DS/US RF test port response",
+      "scope": "Official two-page PDF parsed. Product brief only; match RFAM, RPD and firmware. Historical reference: newer September2026 product brief is separately listed; use the older document only for its stated revision/configuration.",
+      "steps": [],
+      "gaps": [
+        "-20 ±1 dB DS/US test-port response is from this older brief and should be confirmed on installed hardware.",
+        "No detailed setup procedure is inferred from this brief."
+      ]
+    },
+    {
+      "id": "vecima-manual-access",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "Customer and Product Support — Product Documentation",
+      "kind": "request",
+      "url": "https://vecima.com/company/product-support/",
+      "revision": "Web page checked November 10, 2026",
+      "sections": "Product Documentation section",
+      "scope": "Current official support page still directs installation/configuration guides, user manuals and release notes to the Vecima Customer Portal. Focused EN9000/RFAM searches found briefs, not a public commissioning manual.",
+      "steps": [],
+      "gaps": [
+        "Obtain approved EN9000 hardware/RFAM and exact ERM3/ERM4 software commissioning documents, plus firmware release notes; their exact titles/revisions are not verified here. Record chassis, RFAM/diplexer, RPD, firmware and software before applying a procedure.",
+        "No EN9000 AGC command, supervisor key, hidden menu or auto-alignment sequence has been inferred from marketing briefs."
+      ]
+    },
+    {
+      "id": "gm-le-12-archive",
+      "equipmentIds": [
+        "gm-le-12-thermal",
+        "gm-le-12-agc"
+      ],
+      "title": "Historical manufacturer manual — Cisco 1.2 GHz GainMaker Line Extender Installation and Operation Guide",
+      "kind": "manual",
+      "url": "https://manualzz.com/doc/59690640/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "revision": "©2016 Cisco; exact publication number not recovered",
+      "sections": "Chapter 3: preparation p42; balancing p47; AGC/manual p48; AGC/thermal p58; thermal p66/p69; manual p73; reverse p77.",
+      "scope": "Archived manufacturer-authored 1.2GHz LE manual. Internal document title governs; mirror page title incorrectly says 870MHz. Use only for exact 1.2GHz installed LE and control option.",
+      "steps": [],
+      "gaps": [
+        "Do not apply its RF setup or power data to stock 1GHz/870MHz or ACI ASEM/DSIM modules."
+      ]
+    },
+    {
+      "id": "gm-le-870-source",
+      "equipmentIds": [
+        "gm-le-870-thermal",
+        "gm-le-870-agc",
+        "gm-le-870-agc-status"
+      ],
+      "title": "Historical GainMaker 870 MHz LE data — matching setup manual required",
+      "kind": "datasheet",
+      "url": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+      "revision": "Legacy manufacturer document retained in catalog; revision not recovered",
+      "sections": "Station powering reference; complete matching setup manual required",
+      "scope": "Existing catalog historical mirror; current retrieval and exact revision not newly verified. Applies only to the labeled 870MHz 40/52MHz configuration.",
+      "steps": [],
+      "gaps": [
+        "Obtain installed 870MHz LE manual before detailed switch/backoff setup. Do not substitute 1GHz or 1.2GHz instructions merely because housing fits."
+      ]
+    },
+    {
+      "id": "aci-dsim-sg",
+      "equipmentIds": [
+        "gm-amp-dsim-manual",
+        "gm-le-dsim-manual"
+      ],
+      "title": "ACI DSIM-SG Installation Guide",
+      "kind": "manual",
+      "url": "https://acicomms.com/wp-content/uploads/2021/04/04.-DSIM-SG-TechManual-Rev-H-210408b.pdf",
+      "revision": "Rev H, April 8, 2021",
+      "sections": "pp4–11 setup; pp14–17 pilot table",
+      "scope": "ACI DSIM-SG control module only, after confirming compatible RF module/part number and firmware. This does not specify the complete station current or the stock amplifier gain.",
+      "steps": [],
+      "gaps": [
+        "DSIM-SG differs from DSIM-A and DSIM-SS. GainMaker housing alone does not select the correct module.",
+        "Use the separate DSIM setup workflow. Conventional Cisco AGC pad formulas do not apply.",
+        "Manual voltage/fault-table conflict requires label/ACI confirmation before applying a voltage acceptance threshold."
+      ]
+    },
+    {
+      "id": "aci-dsim-app",
+      "equipmentIds": [
+        "gm-amp-dsim-manual",
+        "gm-le-dsim-manual"
+      ],
+      "title": "ACI DSIM Android/iOS App Guide",
+      "kind": "manual",
+      "url": "https://acicomms.com/wp-content/uploads/2021/03/11.-DSIM-App-Manual-Rev-B-210324.pdf",
+      "revision": "Rev B, March 24, 2021",
+      "sections": "pp6–13; p11 User Pilot key",
+      "scope": "Manufacturer app/controller instructions. NightSweep records workflow only; it does not control DSIM hardware.",
+      "steps": [],
+      "gaps": [
+        "Pilot key is supplied by manager/supervisor. No universal supervisor code was verified.",
+        "Confirm dongle, module revision and firmware before following the mobile app sequence."
+      ]
+    },
+    {
+      "id": "gs7000-intelligent-lcs",
+      "equipmentIds": [
+        "gs7000-12g-intelligent"
+      ],
+      "title": "Cisco GS7000 Intelligent Node — LCS level and tilt setup",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b_gs7000_sho_inode_software_install_config_guide/b_gs7000_sho_inode_software_install_config_guide_chapter_0100.html",
+      "revision": "Software guide main update September27,2018; Local Control chapter March21,2018",
+      "sections": "Local Control Software → RF Configuration, Node Configuration → Auto Setup, Forward Path; Quick Start → Node Level and Tilt.",
+      "scope": "Manufacturer procedure for the Intelligent-node LCS. Verify installed software/firmware compatibility; NightSweep records the process and does not control the node.",
+      "steps": [
+        "Identify Intelligent launch/OIB/iRPD and compatible software; confirm iRPD online, downstream carriers present and operator targets before auto setup.",
+        "Use the LCS RF Configuration screen to enter low/high MHz and corresponding dBmV for each required port, enable ports and Save. At least Port1 must be configured, enabled and saved.",
+        "Return to Node Configuration and start Auto Setup. This adjusts forward OIB drive; it does not align the return path.",
+        "After completion, check Auto Setup/AGC status and alarms; allow several minutes for AGC and compare each port’s internal spectrum with its saved targets.",
+        "Capture final per-port readings/settings and repeat forward setup when input levels materially change, following the installed-release procedure."
+      ],
+      "gaps": [
+        "Auto Setup itself takes less than a minute in this guide; Quick Start directs per-port spectrum review4–7minutes after setup. Completion of the command is not proof that AGC has settled.",
+        "Do not use displayed/default example frequencies and levels as plant targets."
+      ]
+    },
+    {
+      "id": "gs7000-intelligent-manager24",
+      "equipmentIds": [
+        "gs7000-12g-intelligent"
+      ],
+      "title": "Cisco iNode Manager User Guide, Release24.1 — remote initial setup",
+      "kind": "manual",
+      "url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b-inode-manager-application-user-guide-24-1/m-inode-manager-usage.html",
+      "revision": "Release24.1, June12,2024; newest manager user guide located in current Cisco index",
+      "sections": "Node Config → Settings / RF Port Settings; Maintenance → Initial Setup; Forward and Reverse Path → Spectrum.",
+      "scope": "Remote manager route for a compatible GS7000 Intelligent node, not standard optical GS7000 or Vecima-RPD retrofits. Verify installed manager/node versions before following.",
+      "steps": [
+        "Select the correct iNode in Node Config and review its software, hardware and alarms.",
+        "Enter approved port frequencies and levels, enable at least Port1 and Save RF settings before initialization.",
+        "Open Maintenance → Initial Setup and start the approved setup operation.",
+        "Verify Initial Setup Status returns Normal, inspect AGC/alarms and compare port spectra against saved targets."
+      ],
+      "gaps": [
+        "This is an alternative to local LCS operation, not an additional mandatory setup cycle.",
+        "The24.1 installation guide explicitly limits compatibility to Intelligent Node software4.0.0; verify the actual deployed release rather than upgrading as part of this workflow."
+      ]
+    },
+    {
+      "id": "en9000-2026-brief",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "Vecima EN9000 / EN9000U GAP — newest located manufacturer product brief",
+      "kind": "datasheet",
+      "url": "https://vecima.com/wp-content/uploads/2026/09/Vecima-Product-Brief-EN9000-Sep2026.pdf",
+      "revision": "Printed publish date September2026; located via Parallel onNovember10,2026",
+      "sections": "p2: Power, Supported Vecima Modules, RFAM diplexers, RF Port Performance with ERM3 installed, Ordering Information.",
+      "scope": "Newer public brief than February2025. Covers EN9000/EN9000U family and adds ERM412/422. Housing roadmap does not establish installed RFAM/RPD operation. This is not an installation or AGC setup manual.",
+      "steps": [],
+      "gaps": [
+        "Exact EN9000/RFAM/RPD commissioning and level/tilt commands remain unverified behind the approved customer-documentation route.",
+        "TheRFAM split ranges remain85/102,204/258,396/492 and492/606MHz with documented endpoints; actual RPD limits may be lower.",
+        "The70dBmV composite maximum and15–21dB tilt over108–1218MHz are expressly ERM3-conditioned manufacturer references, not launch targets.",
+        "180W total PSU output,200W thermal limit and15A passing rating do not define typical AC input current.",
+        "No−20dB coupling value is restated in this brief; retain the separate May2024−20±1dB source and verify installed test port."
+      ]
+    },
+    {
+      "id": "en9000-erm3-2026-brief",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "Vecima ERM322/ERM324 RPD — manufacturer product brief",
+      "kind": "datasheet",
+      "url": "https://vecima.com/wp-content/uploads/2026/09/Vecima-Product-Brief-ERM322_ERM324-Sep2026.pdf",
+      "revision": "Printed publish date September2026",
+      "sections": "p1 capability; p2 control, module power and adapter-kit ordering.",
+      "scope": "RPD-module references only: ERM3 full spectrum support is1.2GHz DS/204MHz US even when node RFAM supports a wider band. Exact module and core support govern.",
+      "steps": [],
+      "gaps": [
+        "50W typical/60W maximum and2A typical/2.4A maximum refer to the25V module, not whole-node AC draw.",
+        "GS7000 retrofit requires the matching adapter kit and1.2GHz-capable node for full spectrum operation; do not treat a1GHz host as1218MHz.",
+        "Obtain matching commissioning software manual; no setup commands are provided by this brief."
+      ]
+    },
+    {
+      "id": "en9000-erm4-2026-brief",
+      "equipmentIds": [
+        "vecima-en9000",
+        "vecima-en9000-manual"
+      ],
+      "title": "Vecima ERM412/ERM422 RPD — manufacturer product brief",
+      "kind": "datasheet",
+      "url": "https://vecima.com/wp-content/uploads/2026/09/Vecima-Product-Brief-ERM422_ERM412-Sep2026.pdf",
+      "revision": "September2026 filename/search publication, but PDF body prints March2026; revision-date discrepancy retained",
+      "sections": "p1 capability; p2 control, supported chassis, per-configuration module current/power.",
+      "scope": "DOCSIS4.0 RPD module brief, not proof of installed EN9000 upgrade, compatible RFAM, or a commissioned1.8GHz spectrum.",
+      "steps": [],
+      "gaps": [
+        "Do not use ERM3 RF-performance conditions as ERM4 specifications.",
+        "Module DC watts/current depend on ERM412 versus422 and UHS/Shifted-FDX configuration; none equals total node AC draw.",
+        "Obtain firmware/core compatibility and commissioned configuration before changing plant targets or workflow."
+      ]
+    }
+  ]
+}

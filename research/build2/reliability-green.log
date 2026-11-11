@@ -1,0 +1,13 @@
+✔ Duplicating an active job commits current edits and its copy in one storage write (1344.981524ms)
+✔ A quota failure cannot silently duplicate the older saved snapshot while discarding current edits (1114.202566ms)
+✔ A copy that exceeds storage capacity cannot partially rewrite its original first (1105.864068ms)
+✔ Unchanged named-job renders preserve keyboard focus and existing action controls (1034.411429ms)
+✔ Duplicate preserves an unsaved plant conversion separately from a retained sample (675.009632ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5698.857957

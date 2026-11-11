@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-11",
+  "scope": "Review of all tools and installed skill bundles exposed in this session before source changes. No account permissions changed.",
+  "plugins": [
+    {
+      "name": "AccuWeather®",
+      "tools": 17
+    },
+    {
+      "name": "AgentMail",
+      "tools": 51
+    },
+    {
+      "name": "Cloud Environment",
+      "tools": 3
+    },
+    {
+      "name": "Context7",
+      "tools": 2
+    },
+    {
+      "name": "Corporate Weather",
+      "tools": 2
+    },
+    {
+      "name": "DraftKings",
+      "tools": 5
+    },
+    {
+      "name": "Firecrawl",
+      "tools": 30
+    },
+    {
+      "name": "GitHub",
+      "tools": 89
+    },
+    {
+      "name": "Intuit TurboTax",
+      "tools": 9
+    },
+    {
+      "name": "Longbridge",
+      "tools": 135
+    },
+    {
+      "name": "Notion",
+      "tools": 79
+    },
+    {
+      "name": "Octen",
+      "tools": 9
+    },
+    {
+      "name": "Pages",
+      "tools": 42
+    },
+    {
+      "name": "Parallel",
+      "tools": 5
+    },
+    {
+      "name": "Pets",
+      "tools": 11
+    },
+    {
+      "name": "Plugin Management",
+      "tools": 6
+    },
+    {
+      "name": "Sites",
+      "tools": 25
+    },
+    {
+      "name": "StatsHawk",
+      "tools": 15
+    },
+    {
+      "name": "Stocktwits",
+      "tools": 13
+    },
+    {
+      "name": "TradingCursor",
+      "tools": 1
+    },
+    {
+      "name": "Wolfram",
+      "tools": 3
+    }
+  ],
+  "additionalCapabilityFamilies": [
+    "Figma",
+    "Data analytics",
+    "Superpowers",
+    "Mobile App Builder",
+    "MobileMockup",
+    "Xweather"
+  ],
+  "toolCount": 658
+}

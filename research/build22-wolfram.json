@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-10 America/Chicago",
+  "scope": "Synthetic training input/reference arithmetic only, no equipment-specification or real circuit certification.",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= <|\"syntheticNodeAt90VA\" -> 67.5, \"syntheticNodeAt85VA\" -> 63.75, \"syntheticNodePercent15A\" -> 5., \"highSplitCorrectedLaunch\" -> {34.`16., 46.`16.}, \"lowSplitCorrectedLaunch\" -> {31.`16., 43.`16.}, \"lowSplitTilt\" -> 12.`16., \"trainingFrequencyLoss\" -> 5.800000000000001, \"trainingFrequencyOutput\" -> 40.2|>"
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  },
+  "request": {
+    "code": "N[<|\"syntheticNodeAt90VA\" -> 90*0.75, \"syntheticNodeAt85VA\" -> 85*0.75, \"syntheticNodePercent15A\" -> 100*0.75/15, \"highSplitCorrectedLaunch\" -> {14+20,26+20}, \"lowSplitCorrectedLaunch\" -> {11+20,23+20}, \"lowSplitTilt\" -> 43-31, \"trainingFrequencyLoss\" -> (200/100)*2.2+1.4, \"trainingFrequencyOutput\" -> 46-((200/100)*2.2+1.4)|>,16]",
+    "timeConstraint": 30
+  }
+}

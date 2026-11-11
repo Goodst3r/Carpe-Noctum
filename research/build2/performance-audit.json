@@ -1,0 +1,70 @@
+{
+  "version": "1.8 Alpha build 2",
+  "date": "2026-11-11",
+  "browser": "156.0.8078.79",
+  "scope": "Synthetic desktop Chromium, 390px mobile viewport. In-process synchronous function timings; not physical-device timing. Instrumented function counts recorded separately. Baseline core/storage source held constant.",
+  "method": "Five synchronous refresh samples per synthetic route, median reported; full render sample recorded separately. Replayed frozen baseline HTML and replaced only app.js/workflow.js/style.css for frontend comparison. Other agents core/storage changes are intentionally excluded from the timing comparison. Numbers are observations on this executor, not physical device benchmarks or a service-level guarantee.",
+  "baseline_html_sha256": "7d52800252e38f4e689b77ef84f4b38e8f0f1fdf1970ca54f2ac708e10e100e2",
+  "candidate_html_sha256": "12825497a5c807993dcbc34df0ae4866232456b4e4684a72d63938ad3d8add28",
+  "comparisons": [
+    {
+      "route_rows": 9,
+      "baseline_refresh_median_ms": 33.5,
+      "candidate_refresh_median_ms": 6.7000000001862645,
+      "refresh_reduction_pct": 80.0,
+      "baseline_render_all_ms": 88.79999999981374,
+      "candidate_render_all_ms": 41.299999999813735,
+      "baseline_rf_run_calls": 262,
+      "candidate_rf_run_calls": 7,
+      "state_and_numerics_sha256": "4d135215a6235d29a46e2f161c3329bc1779dcbfa410908eb615bd578941d25c",
+      "identical_state_and_numerics": true,
+      "baseline_cascade_height_px": 690.78125,
+      "candidate_cascade_height_px": 320
+    },
+    {
+      "route_rows": 100,
+      "baseline_refresh_median_ms": 125.5,
+      "candidate_refresh_median_ms": 33.5,
+      "refresh_reduction_pct": 73.3,
+      "baseline_render_all_ms": 382,
+      "candidate_render_all_ms": 148.40000000037253,
+      "baseline_rf_run_calls": 403,
+      "candidate_rf_run_calls": 7,
+      "state_and_numerics_sha256": "279ba8349fca95fa43fbd40e6ebebd8d79ed8331a2fe1b193e3c7acea4a3a142",
+      "identical_state_and_numerics": true,
+      "baseline_cascade_height_px": 150.109375,
+      "candidate_cascade_height_px": 150.109375
+    },
+    {
+      "route_rows": 200,
+      "baseline_refresh_median_ms": 242.5,
+      "candidate_refresh_median_ms": 80.5,
+      "refresh_reduction_pct": 66.8,
+      "baseline_render_all_ms": 815.6000000005588,
+      "candidate_render_all_ms": 508.70000000018626,
+      "baseline_rf_run_calls": 603,
+      "candidate_rf_run_calls": 7,
+      "state_and_numerics_sha256": "ba591b54f7cf866219cf429eb91e86685f96be78d5f755960cc879df9e109baf",
+      "identical_state_and_numerics": true,
+      "baseline_cascade_height_px": 150.109375,
+      "candidate_cascade_height_px": 150.109375
+    }
+  ],
+  "frontend_regressions": {
+    "command": "node qa/build2-frontend.test.cjs",
+    "checks": 10,
+    "passed": true
+  },
+  "layout_regressions": {
+    "command": "python3 qa/build2-layout.test.py",
+    "checks": 55,
+    "passed": true,
+    "scope": "Real desktop Chromium source-only integration,360/390/768/1280px,touch/mobile emulation;no physicalphone claim"
+  },
+  "source_sha256": {
+    "night-sweep/app.js": "9715eb4e47f8379889c4f7667279cf74c73b36be9fab5374a9f63c1c7c599924",
+    "night-sweep/workflow.js": "06f326dc4778ab1dcfbfe3d417d525cca603c4abed2a2a754f9b1b574b67c5b1",
+    "night-sweep/style.css": "d37120ed3a92b47690336abfe1740f7a518ddba4a13840a8f8bc1c4554bf755c"
+  },
+  "release_artifacts": "outputs/ and dist/ were not rebuilt by this profiling task. Root runs frozen full QA and packaging."
+}

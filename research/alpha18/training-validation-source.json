@@ -1,0 +1,34 @@
+{
+  "mode": "source integration: training.js injected into generated standalone; final generated-release verification owned by root",
+  "commands": [
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node --test qa/training-library.test.cjs",
+      "checks": 11,
+      "passed": 11,
+      "failed": 0,
+      "log": "training-library-source-final.log"
+    },
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node qa/training-job.test.cjs",
+      "checks": 41,
+      "passed": 41,
+      "failed": 0,
+      "log": "training-existing-source.log"
+    },
+    {
+      "command": "NIGHTSWEEP_TRAINING_SOURCE_TEST=1 node --test qa/training-controls.test.cjs",
+      "checks": 9,
+      "passed": 9,
+      "failed": 0,
+      "log": "training-controls-source.log"
+    }
+  ],
+  "initial_fail_first": {
+    "checks": 11,
+    "passed": 0,
+    "failed": 11,
+    "log": "training-library-red.log"
+  },
+  "physical_device_tests": false,
+  "figma_modified": false
+}

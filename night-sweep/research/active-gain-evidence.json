@@ -1,0 +1,137 @@
+{
+  "checked_on": "2026-11-10",
+  "purpose": "Bounded manufacturer-table evidence for NightSweep active-gain references; factual transcription and limited short excerpts.",
+  "limitations": "Neither an exact frequency nor an available full-gain curve is established by these scalar gain rows. Indexed versions are distinguished from live bytes. Short excerpts retain table labels/numbers without reproducing full copyrighted documents.",
+  "sources": [
+    {
+      "profile_ids": [
+        "active_gm_hgd"
+      ],
+      "original_url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gainmaker-amplifiers/product_data_sheet0900aecd806f0317.pdf",
+      "current_verified_url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "evidence_refs": [
+        "turn8view0",
+        "turn6search2"
+      ],
+      "short_table_excerpt": "Operational Gain (minimum) | | | dB | | 43 | 2",
+      "values": {
+        "forward_db": 43,
+        "reverse_db": 19.5
+      },
+      "retrieval": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "pages": 5,
+        "scrape_id": "01a1c5a6-0f37-70f3-908a-9693ac9f6893",
+        "cache_max_age": 0
+      },
+      "qualification": "Live split-specific primary PDF verified. Generic URL redirects to homepage. Gain row supplies no exact test frequency."
+    },
+    {
+      "profile_ids": [
+        "active_gm_gan_hgd"
+      ],
+      "original_url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.pdf",
+      "evidence_refs": [
+        "turn6search3",
+        "turn8view1"
+      ],
+      "short_table_excerpt": "Operational gain (minimum) | dB | 44 | 2",
+      "values": {
+        "forward_db": 44,
+        "reverse_db": 19.5
+      },
+      "retrieval": {
+        "status": 200,
+        "content_type": "text/html;charset=utf-8",
+        "final_url": "https://www.cisco.com/site/us/en/index.html",
+        "scrape_id": "01a1c5a5-d2b1-7316-8d7e-dd0aec8bd599",
+        "cache_max_age": 0
+      },
+      "qualification": "Numeric evidence is from indexed manufacturer PDF. Live source redirects; no exact frequency assigned to gain row."
+    },
+    {
+      "profile_ids": [
+        "active_gm_le_manual",
+        "active_gm_le_thermal",
+        "active_gm_le_agc"
+      ],
+      "original_url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+      "evidence_refs": [
+        "turn3view2",
+        "turn2view1"
+      ],
+      "short_table_excerpt": "| Operational Gain | dB | 39.5 | 34 | 33 | 2 |",
+      "values": {
+        "forward_db": {
+          "manual": 39.5,
+          "thermal": 34,
+          "agc": 33
+        },
+        "reverse_db": 19.5
+      },
+      "retrieval": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "pages": 5,
+        "scrape_id": "01a1c5a5-d4e4-760f-8506-2bafa8717e5f",
+        "cache_max_age": 0
+      },
+      "qualification": "Live manufacturer PDF confirmed mode-specific values. The row does not identify an exact gain test frequency."
+    },
+    {
+      "profile_ids": [
+        "active_aoi_hgd"
+      ],
+      "original_url": "https://ao-inc.com/assets/resources-element-files/English/QB18-HGD-SA-Datasheet.pdf",
+      "evidence_refs": [
+        "turn1view0",
+        "turn10search4",
+        "turn12search4"
+      ],
+      "short_table_excerpt": "Forward Station Performance Operational gain (minimum) 2 | Units dB | Specification 49",
+      "values": {
+        "forward_db": 49,
+        "reverse_db": 27
+      },
+      "retrieval": {
+        "status": 404,
+        "content_type": "text/html; charset=utf-8",
+        "scrape_id": "01a1c5a5-6b0f-71a1-a4cf-4e43a9623f06",
+        "cache_max_age": 0
+      },
+      "qualification": "Indexed primary-source table only; preliminary publication. The 49 dB row does not explicitly say at 1794 MHz. Current public PDF is unavailable."
+    },
+    {
+      "profile_ids": [
+        "active_aoi_le"
+      ],
+      "original_url": "https://ao-inc.com/assets/resources-element-files/English/QB18-LE-Datasheet.pdf",
+      "evidence_refs": [
+        "turn3view0",
+        "turn5view0"
+      ],
+      "short_table_excerpt": "Forward Station Performance Operational gain (minimum) 2 | Units dB | Specification 46",
+      "values": {
+        "forward_db": 46,
+        "reverse_db": 27
+      },
+      "retrieval": {
+        "status": 404,
+        "content_type": "text/html; charset=utf-8",
+        "scrape_id": "01a1c5a5-d30b-7428-8a27-28a8ae0fbdca",
+        "cache_max_age": 0
+      },
+      "qualification": "Indexed primary-source table only. No exact frequency is assigned to gain row. Current public PDF is unavailable."
+    }
+  ],
+  "current_aoi_docs": {
+    "product_page": "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+    "request_page": "https://ao-inc.com/content-request-form/",
+    "refs": [
+      "turn11view0",
+      "turn12view0"
+    ],
+    "status": "Live page directs users to request datasheets; no request submitted."
+  }
+}

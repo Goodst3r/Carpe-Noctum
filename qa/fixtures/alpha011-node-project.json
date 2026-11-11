@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "example": true,
+  "setup": {
+    "lowF": 261,
+    "highF": 993,
+    "lowLevel": 34,
+    "highLevel": 46,
+    "liveMax": 993,
+    "launchMode": "sqrt",
+    "launchTable": "261, 34\n711, 42\n993, 46",
+    "extendLaunch": false,
+    "basis": "nominal",
+    "temperature": 68,
+    "graphMode": "absolute",
+    "viewStart": 261,
+    "viewEnd": 1800,
+    "referenceF": 261
+  },
+  "rows": [
+    {
+      "id": "r1",
+      "name": "Tap 1",
+      "parent": "source",
+      "length": 400,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false
+    },
+    {
+      "id": "r2",
+      "name": "Tap 2",
+      "parent": "r1::through",
+      "length": 250,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false
+    },
+    {
+      "id": "r3",
+      "name": "Tap 3",
+      "parent": "r2::through",
+      "length": 180,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false
+    }
+  ],
+  "power": {
+    "supplyVoltage": 90,
+    "supplyRating": 15,
+    "temperatureF": 68,
+    "resistanceAlpha": 0.004,
+    "rows": [
+      {
+        "id": "p1",
+        "name": "Node / amp",
+        "parent": "supply",
+        "length": 0,
+        "cable": "p3_625",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "custom",
+        "mode": "watts",
+        "load": "",
+        "pf": 1,
+        "minV": ""
+      }
+    ]
+  },
+  "project": {
+    "meta": {
+      "lead": "Spencer Williams"
+    },
+    "generator": {
+      "desired": "",
+      "coupling": "",
+      "lead": ""
+    },
+    "selectedProfile": "1200",
+    "profiles": [
+      {
+        "id": "550",
+        "plannedUpper": "550",
+        "approved": "No"
+      },
+      {
+        "id": "750",
+        "plannedUpper": "750",
+        "approved": "No",
+        "forwardLow": 55,
+        "forwardHigh": 750,
+        "launchLow": 32,
+        "launchHigh": 43,
+        "control": "GainMaker / DSIM",
+        "markerBasis": "Original example; confirm"
+      },
+      {
+        "id": "875",
+        "plannedUpper": "875",
+        "approved": "No"
+      },
+      {
+        "id": "1002",
+        "plannedUpper": "1002",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1200",
+        "plannedUpper": "1200",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1218",
+        "plannedUpper": "1218",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1794",
+        "plannedUpper": "1794",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1800",
+        "plannedUpper": "1800",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      }
+    ],
+    "forward": [],
+    "returns": [],
+    "punch": [],
+    "dsim": []
+  },
+  "node": {
+    "model": "vecima-en9000",
+    "band": "1",
+    "asset": "ALPHA011-NODE",
+    "port": "",
+    "module": "",
+    "operatingUpper": 1218,
+    "notes": ""
+  },
+  "frequency": {
+    "cable": "p3_625",
+    "length": 100,
+    "device": "none",
+    "port": "through",
+    "quantity": 1,
+    "returnCeiling": 204,
+    "forwardFloor": 258,
+    "equipmentUpper": "",
+    "plannedUpper": 1200,
+    "liveUpper": 993,
+    "quickF": 981,
+    "points": {},
+    "endpoint": "source"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-11-11T03:30:25.400Z",
+  "status": "PASS",
+  "scope": "Deterministic independent analytic RF route properties, TDR path inversion, physical span/temperature properties and field-record invariants. Synthetic only; does not establish installed plant settings or complete branch coverage.",
+  "groupedChecks": 13,
+  "numericComparisons": 49619,
+  "seedRange": [
+    180200,
+    180223
+  ],
+  "generatedRoutes": 24,
+  "generatedRows": 1136,
+  "routeSizes": [
+    1,
+    2,
+    6,
+    25,
+    50,
+    200
+  ],
+  "frequencies": [
+    5,
+    54,
+    204,
+    258,
+    550,
+    860,
+    1000,
+    1218,
+    1800
+  ],
+  "rfTiming": {
+    "samples": 216,
+    "medianMs": 0.12802800000000047,
+    "maxMs": 7.318151
+  }
+}

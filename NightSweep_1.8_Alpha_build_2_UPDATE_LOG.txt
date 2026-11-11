@@ -1,0 +1,202 @@
+NIGHTSWEEP 1.8 ALPHA BUILD 2
+UPDATE AND VERIFICATION LOG
+Prepared November 11, 2026 UTC
+
+RELEASE IDENTITY AND DELIVERY
+Application: 1.8 Alpha build 2
+Export filename prefix: NightSweep_1.8_Alpha_build_2_
+Android Preview version code: 24
+Android Preview launcher: NightSweep 1.8 Preview build 2
+Expected installer: Android/APK/NightSweep-1.8-build2-preview.apk
+Package: NightSweep 1.8 Alpha build 2.zip
+Top-level folder: NightSweep 1.8 Alpha build 2/
+
+The one ZIP separates Android/Web, Android/APK, iOS/Web, Documentation,
+Examples, Source, Verification and PRIVATE_SIGNING. It includes this text log
+and SHA256SUMS.txt. This is the owner-requested private master archive.
+The Android/iOS web copies use the same tested application. Their platform
+instructions differ; neither copy automatically synchronizes saved jobs.
+No deployment, repository push, physical phone installation or plant acceptance
+is claimed. The preceding 1.8 Alpha workspace/delivery remains frozen.
+
+CUMULATIVE 1.8 ALPHA WORK RETAINED IN BUILD 2
+This section describes the prior verified local 1.8 baseline. Its original
+receipts remain under research/alpha18/ and release/alpha18/; their test counts
+and signatures are historical evidence, not fresh build 2 results.
+
+- Organized Home's Practice library into seven loadable synthetic exercises
+  with 37 feature choices covering all 20 task screens. Every indexed feature
+  loads populated example data and reveals its matching guide step.
+- Added the independent six-active Vecima/AOI run: six amplifiers in one serial
+  path after the source, not six sibling branches or a source-node count.
+  This exercise remains on 204/258 MHz with its own 261/993 MHz markers.
+- Added custom launch/cable/passive-table and reverse-TDR practice, plus an
+  explicit manual/thermal path alongside OEM AGC, DSIM and conventional GS7K.
+- Corrected the complete 21-step field workflow to GS7K + two GainMaker GaN
+  HGD actives and Scientific Atlanta / GigaXtend / Technetix passives on 42/54.
+  Its local forward references are 31 dBmV at 54 MHz / 43 dBmV at 860 MHz, with a
+  separate 38 dBmV return TX reference. Hardware 1218 MHz, path upper 1000 MHz
+  and entered live 860 MHz remain distinct. No undocumented GaN curve is used.
+- Complete includes six synthetic originals: five supported-interchange CSVs
+  (Sweep Before/After, Ingress Before/After, OneCheck After) and one original-only
+  SVG. They are teaching files, not actual ONX captures or private field data.
+- Kept synthetic identity, progress, safe prior-job preservation and full
+  original-byte backups through example edits, named jobs and JSON recovery.
+  Mismatched older practice copies remain readable with their unsuitable new
+  guide hidden until an explicit preserving reset.
+- Repaired Records profile acceptance checks for contradictory hardware,
+  planned/live limits and invalid marker/band relationships. Planning-only,
+  unapproved or incomplete data cannot acquire a valid within-entered-limits
+  result. Field acceptance remains separate.
+- Rejected unsafe imported route/power numeric IDs before replacing work.
+  Safe fresh IDs avoid collisions and reserved missing-parent references;
+  adding a point cannot silently reconnect an orphaned branch.
+- Isolated Android APK candidates and receipts until all checks succeed.
+  Complete-set promotion/rollback preserves the last verified release when
+  compile/manifest/provider/signature/embedded-HTML, copying or promotion fails.
+- Independently checked representative RF, interpolation, test-point, TDR and
+  nonlinear power cases with Wolfram references and actual app comparisons.
+  Corrected complete-workflow/drop/power answers and preserved exact-model
+  provenance, missing-value behavior, legacy readability and unapproved criteria.
+- Supplied an updated technician README, equipment/setup/math/training guides,
+  a separate all-functions README and a separate Android/iOS installation guide
+  in Markdown, standalone HTML and printable PDF. Independent document review
+  checked all 20 screens / 37 feature labels/seven exercises and local links.
+- Reviewed available connected tools and applicable skills; used relevant
+  sources/workflows with a factual tool record, without inventing a repository,
+  publishing the app, adding cloud accounts/telemetry or using unrelated tools.
+
+CONFIRMED BUILD 2 REPAIRS AND OPTIMIZATION
+1. Hidden Sweep charts defer expensive drawing during edits on another task.
+   They render current data when shown or printed. RF results are reused only
+   within one synchronous refresh; edits/imports never inherit a stale cache.
+   Workflow refresh requests are coalesced.
+2. The phone route cascade is compact, scrollable in both directions and
+   keyboard-accessible. All nine complete-example points remain reachable.
+3. TDR active barriers use topology/parent-chain position as well as distance.
+   A distinct zero-length active sharing an origin coordinate cannot be skipped
+   forward/reverse. The selected origin, exact-arrival/zero-travel and unrelated
+   sibling cases retain their intended behavior.
+4. Project JSON entry points share a 20 MiB UTF-8 text guard before parsing or
+   replacing working state. Exactly-at-limit valid text remains accepted;
+   oversized/non-text input is rejected consistently.
+5. Duplicating the active named job reads the latest working state and writes
+   the updated original plus copy in one atomic library operation. A failed
+   write cannot leave a partial copy or stale original replacement.
+6. Unchanged named-job rendering preserves existing buttons and keyboard focus.
+7. DSIM setup review rejects impossible calendar dates such as 2026-02-31
+   instead of accepting a normalized later date. Saved text is retained;
+   valid leap/century dates and missing-as-incomplete behavior remain supported.
+8. Android filename handling respects UTF-8 byte limits; deferred print
+   callbacks ignore stale callbacks after Activity/WebView teardown or
+   replacement. Native
+   source tests, real build verification and physical phone tests are reported
+   separately.
+9. Current guides identify build 2, use the actual Scientific Atlanta
+   SAT MM 4-23 model, document compatible Preview update expectations, and
+   preserve full-project/evidence backup guidance. Functions, installation and
+   training coverage also join the public PWA's offline documentation.
+
+LOCAL PERFORMANCE COMPARISON
+Same local execution environment; desktop Chromium at 390 px viewport;
+five timing samples per synthetic route scenario. State/numeric hashes agreed.
+                      Baseline median     Build 2 candidate median
+Complete route             33.5 ms                   6.7 ms
+100 route points          125.5 ms                  33.5 ms
+200 route points          242.5 ms                  80.5 ms
+Hidden-route refresh public HFC.run invocations through app evaluate():
+262 / 403 / 603 before, 7 each after. This excludes internal closure RF work
+inside helpers such as gainBudget and is not a count of all RF computation.
+
+Separate JSDOM synthetic accepted-capacity library (1000 jobs), three unchanged
+renders: 3 complete list replacements / 698.48 ms total before; 0 replacements /
+1.28 ms total after. These are local CPU/DOM measurements, not physical phone,
+frame-rate, battery or storage guarantees. Final source hashes/evidence live
+under research/build2/.
+
+TARGETED RELIABILITY REVIEW
+Fresh current-source reliability checks: 201 checks across 10 suites, all passed.
+Scope includes all seven examples / 37 feature loads, exact 8 MiB attachment and
+12 MiB job round trips, 30 zero-byte originals, actual 1.6/1.7/prior 1.8 recovery,
+and quota/cancel/busy/hash faults. Reports: research/build2/reliability-audit.md
+and its JSON companion. These are source-review results, not a replacement for
+the final generated standalone/PWA suite or physical storage-exhaustion tests.
+
+MATH REPLAY / PROPERTY REVIEW
+Established RF and power formulas and complete-example answers are unchanged.
+Five new source suites cover 54 grouped checks, including TDR boundary and
+calendar-date regressions. Their numerical probes contain 72,001 numeric and
+3,634 unavailable-result comparisons. These probe counts are not additional
+release-wide grouped-check totals.
+
+Recorded scope includes 24 analytic RF routes / 1,136 rows, seven examples /
+329 frequency frames, 102 power circuits / 2,900 rows, and 2,340 manufacturer
+operating cases. Read research/build2/MATH_BACKTEST.md and current root receipts
+for exact executed scope, commands, hashes and limitations. Synthetic replay
+and property checks are not field backtesting against measured plant or proof
+that every runtime branch/function has executed.
+
+PRESERVED EXAMPLES AND NUMERIC REFERENCES
+Seven exercises, 20 task screens and 37 indexed feature choices remain.
+Complete: GS7K source + two GainMaker GaN HGD actives; Scientific Atlanta,
+GigaXtend and Technetix passives; local 42/54 MHz workflow.
+Forward anchors: 31 dBmV at 54 MHz / 43 dBmV at 860 MHz.
+Return TX: separate 38 dBmV transmitter/plane reference, not receiver/injection.
+Node hardware 1218 MHz; entered path upper 1000 MHz; entered live upper 860 MHz.
+The independent six-active Vecima/AOI run remains 204/258 MHz.
+
+Unchanged complete synthetic power: 2.047 A, 13.65% loading, 88.83 V minimum.
+Unchanged 300 ft / 0.75 A trial: 2.798 A, 18.65%, 87.37 V at the new load.
+Planning inputs, source references, measurements and acceptance stay separate.
+No undocumented GaN current curve, automatic pilot, hardware setting or
+measured acceptance is invented. Older jobs/training copies remain readable.
+
+FINAL VALIDATION AND ARTIFACT STATUS
+The matching frozen build passed 1,066 automated checks across 57 suites and
+322 rendered Chromium checks with no page errors. The generated application
+bytes remained unchanged during QA. The 54 grouped math checks and 55 layout
+checks are already included in 1,066; do not add their detailed probe counts.
+All seven examples and 37 feature controls were exercised. Real IndexedDB,
+original-byte project round trips, offline reload/new-tab reopening and ten
+cached guides passed. No physical-browser or native-runtime pass is implied.
+
+Real official SDK compilation finished with zero errors and seven existing
+deprecated-API warnings. The final APK passed original-certificate, package,
+version/provider, v2/v3 signature, ZIP alignment and exact embedded-HTML checks.
+The six integrated release checks were rerun after final APK acceptance and
+passed; they overlap the full QA count. Current artifact identities:
+Standalone SHA-256: 4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758
+PWA index SHA-256: b30958b618f9e1aa34cc940ac0a1a27e97db921b52cf4a86ed3868e9c023abb8
+PWA release: 1bcb7a717b6430e94189
+APK SHA-256: 55660a8992ba7d498daaddb2db63f0664469823eecd080226a66d9cc697a6237
+APK bytes: 283164
+
+The official Android 15 x86_64 software emulator accepted Build 22 followed by
+the final Build 24 compatible update. Package UID and a generic app-private
+fixture were retained. Both old and new builds then encountered the same stock
+WebView 124 renderer SIGTRAP. Native UI, picker/save/share/print and actual saved
+job/original-evidence retention remain unverified. No app Java/JavaScript cause
+was established. This environment lacked KVM and also had guest platform errors;
+these observations do not establish physical-phone behavior.
+
+Functions PDF (29 pages) and Android/iOS installation PDF (7 pages) passed text,
+links, mobile/desktop HTML and PDF-bound checks. The locked QA dependency audit
+reported zero vulnerabilities. Current evidence is in Verification/validation.json
+and Source/research/build2/. Historical 1.8 receipts remain baseline evidence.
+
+PRIVATE MATERIAL AND REMAINING CHECKS
+The owner's original key and password are included only in PRIVATE_SIGNING/ in
+this private master ZIP, as explicitly requested. No replacement signer was
+generated. Source, APK assets and both public Web/PWA folders exclude signing
+secrets. Downloaded SDK/toolchain binaries, installed dependencies, real field
+evidence and historical binary archives are excluded.
+
+Physical Android preserving update, native picker/save/share/print, Safari/
+Home Screen offline cold starts, touch/rotation and actual storage eviction/
+quota exhaustion remain device checks. Exact GaN, Quantum18 LE/BA,
+EN9000/RFAM/RPD and DSIM-A commissioning documents remain gaps. Proprietary ONX
+formats remain original attachments when unsupported; OCR/control integration
+is not added. Keep verified full-project JSON backups before updates or moves.
+
+PRIVATE MASTER ARCHIVE — OWNER REQUEST
+The owner explicitly requested the original key and password in the same ZIP and stated the archive will not be shared with coworkers. PRIVATE_SIGNING/ contains the original PKCS#12 and its password file. They are excluded from Source/ and both public web folders, and their contents are not printed in logs. This instruction supersedes earlier blanket signing-backup exclusion for this private master ZIP only.

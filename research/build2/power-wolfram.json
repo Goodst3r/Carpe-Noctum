@@ -1,0 +1,15 @@
+{
+  "queriedAt": "2026-11-11",
+  "scope": "Independent synthetic Build2 power references. Scalar-RMS planning model only; no physical equipment or mains/phasor certification.",
+  "code": "v=(95+Sqrt[95^2-4*(7/4)*(250/(4/5))])/2;i=(250/(4/5))/v;ExportString[N[<|\"singleWattsPfVoltage\"->v,\"singleWattsPfCurrent\"->i,\"singleWattsPfWireWatts\"->i^2*(7/4),\"singleWattsPfSourceVA\"->95*i,\"constructedMixedBranchVoltages\"->{90-(2/10+3/10+4/10)/10,90-(2/10+3/10+4/10)/10-(3/10)*(2/10),90-(2/10+3/10+4/10)/10-(4/10)*(3/10)},\"constructedMixedBranchLoads\"->{2/10,(90-9/100-6/100)*(3/10),(90-9/100-12/100)*(4/10)*(8/10)},\"constructedMixedWireWatts\"->(9/10)^2*(1/10)+(3/10)^2*(2/10)+(4/10)^2*(3/10),\"thermalBoundaryResistanceOhms\"->{(11/10)*(1+(4/1000)*(-40-68)*5/9),(11/10)*(1+(4/1000)*(185-68)*5/9)}|>,25],\"RawJSON\"]",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"singleWattsPfVoltage\\\":88.84458852135306957455927,\\n\\t\\\"singleWattsPfCurrent\\\":3.517377987798245957394701,\\n\\t\\\"singleWattsPfWireWatts\\\":21.65090884083336595249661,\\n\\t\\\"singleWattsPfSourceVA\\\":334.1509088408333659524966,\\n\\t\\\"constructedMixedBranchVoltages\\\":[\\n\\t\\t89.91000000000000000000000,\\n\\t\\t89.85000000000000000000000,\\n\\t\\t89.79000000000000000000000\\n\\t],\\n\\t\\\"constructedMixedBranchLoads\\\":[\\n\\t\\t0.2000000000000000000000000,\\n\\t\\t26.95500000000000000000000,\\n\\t\\t28.73280000000000000000000\\n\\t],\\n\\t\\\"constructedMixedWireWatts\\\":0.1470000000000000000000000,\\n\\t\\\"thermalBoundaryResistanceOhms\\\":[\\n\\t\\t0.8360000000000000000000000,\\n\\t\\t1.386000000000000000000000\\n\\t]\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

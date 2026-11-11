@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "example": false,
+  "setup": {
+    "lowF": 261,
+    "highF": 993,
+    "lowLevel": 34,
+    "highLevel": 46,
+    "liveMax": 993,
+    "launchMode": "sqrt",
+    "launchTable": "261, 34\n711, 42\n993, 46",
+    "extendLaunch": false,
+    "basis": "nominal",
+    "temperature": 92,
+    "graphMode": "absolute",
+    "viewStart": 261,
+    "viewEnd": 1800,
+    "referenceF": 261
+  },
+  "rows": [
+    {
+      "id": "r1",
+      "name": "Synthetic A1",
+      "parent": "source",
+      "length": 798,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r2",
+      "name": "Synthetic T2",
+      "parent": "r1::through",
+      "length": 260,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    },
+    {
+      "id": "r3",
+      "name": "Tap 3",
+      "parent": "r2::through",
+      "length": 180,
+      "cable": "p3_625",
+      "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+      "customLoss": "",
+      "customCable": "",
+      "terminal": false,
+      "family": "Technetix OTTZ 1.8 GHz",
+      "passiveType": "tap4"
+    }
+  ],
+  "power": {
+    "supplyVoltage": 90,
+    "supplyRating": 15,
+    "temperatureF": 92,
+    "resistanceAlpha": 0.004,
+    "rows": [
+      {
+        "id": "p1",
+        "name": "Synthetic HGD",
+        "parent": "supply",
+        "length": 900,
+        "cable": "p3_625",
+        "dcRate": "",
+        "extraR": 0,
+        "equipment": "aoi_quantum18_hgd_v09052024",
+        "mode": "curve",
+        "load": "",
+        "pf": 1,
+        "minV": 35
+      }
+    ]
+  },
+  "project": {
+    "meta": {
+      "lead": "Fixture technician",
+      "job": "SYNTHETIC-UPGRADE-011",
+      "node": "TEST-NODE"
+    },
+    "generator": {
+      "desired": 31,
+      "coupling": 20,
+      "lead": 1
+    },
+    "selectedProfile": "1200",
+    "profiles": [
+      {
+        "id": "550",
+        "plannedUpper": "550",
+        "approved": "No"
+      },
+      {
+        "id": "750",
+        "plannedUpper": "750",
+        "approved": "No",
+        "forwardLow": 55,
+        "forwardHigh": 750,
+        "launchLow": 32,
+        "launchHigh": 43,
+        "control": "GainMaker / DSIM",
+        "markerBasis": "Original example; confirm"
+      },
+      {
+        "id": "875",
+        "plannedUpper": "875",
+        "approved": "No"
+      },
+      {
+        "id": "1002",
+        "plannedUpper": "1002",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1200",
+        "plannedUpper": 1200,
+        "approved": "Yes",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional",
+        "equipmentUpper": 1218,
+        "fLevelTol": 1,
+        "fTiltTol": 1,
+        "fRippleMax": 2,
+        "minMer": 35
+      },
+      {
+        "id": "1218",
+        "plannedUpper": "1218",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1794",
+        "plannedUpper": "1794",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      },
+      {
+        "id": "1800",
+        "plannedUpper": "1800",
+        "approved": "No",
+        "available": 993,
+        "returnCeiling": 204,
+        "forwardFloor": 258,
+        "forwardLow": 261,
+        "forwardHigh": 993,
+        "control": "Installed high-split",
+        "markerBasis": "261/993 provisional"
+      }
+    ],
+    "forward": [
+      {
+        "basis": "Measured",
+        "stage": "After",
+        "station": "Synthetic A1",
+        "plane": "Main output",
+        "trace": "synthetic-sweep.csv",
+        "traceSaved": "Yes",
+        "reviewer": "Fixture reviewer",
+        "profile": "1200",
+        "lowMHz": 261,
+        "highMHz": 993,
+        "rawLow": 14,
+        "rawHigh": 26,
+        "addLow": 20,
+        "addHigh": 20,
+        "targetLow": 34,
+        "targetHigh": 46,
+        "ripple": 1.5,
+        "mer": 38
+      }
+    ],
+    "returns": [],
+    "punch": [
+      {
+        "item": "Synthetic repair",
+        "station": "Synthetic A1",
+        "status": "Open",
+        "finding": "Synthetic test record only"
+      }
+    ],
+    "dsim": []
+  },
+  "frequency": {
+    "cable": "p3_625",
+    "length": 798,
+    "device": "none",
+    "port": "through",
+    "quantity": 1,
+    "returnCeiling": 204,
+    "forwardFloor": 258,
+    "equipmentUpper": 1218,
+    "plannedUpper": 1200,
+    "liveUpper": 993,
+    "quickF": 981,
+    "points": {
+      "981": {
+        "cable": "1.5",
+        "passive": "4",
+        "launch": "40"
+      }
+    },
+    "endpoint": "source"
+  }
+}

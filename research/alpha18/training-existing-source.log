@@ -1,0 +1,42 @@
+PASS Cancelling the guided example leaves the entire working job and stored library unchanged
+PASS A synthetic evidence storage failure cannot replace the working job
+PASS Named-job storage quota failure aborts example loading before the current job is replaced
+PASS Double-starting the guided example retains the old job only once
+PASS An in-progress evidence upload blocks switching to the example and stays with its original job
+PASS Loading the example preserves the existing job with its original evidence in named jobs
+PASS The example uses valid node, branch, active, passive and power objects with real calculable outputs
+PASS Synthetic evidence includes readable Sweep, Ingress and OneCheck files with explicit provenance
+PASS Populated planning logs and unapproved criteria never certify the synthetic field readings
+PASS Raw launch values and meter examples apply their explicit 20 dB coupling once
+PASS Main and branch cable distances stay separate and the TDR exercise reaches its stated span
+PASS The exact-frequency teaching inputs produce the stated 5.8 dB loss and 40.2 dBmV receive level
+PASS The seeded drop uses its explicit RG-6 curve and two actual AC-blocking splitter outputs
+PASS The independent power branch carries its own load and the trial changes only a copied circuit
+PASS Return injection and checklist examples show concrete arithmetic without creating acceptance
+PASS Configured HGD and LE gains demonstrate marginal reserve instead of incorrectly passing published gain
+PASS Every guided action reaches its named task and the intended existing route point
+PASS Reviewed steps persist as learning progress without marking real inspections or acceptance
+PASS Editing a real gain control changes its prediction while the persistent synthetic warning stays visible
+PASS All numeric and record exports retain an invariant synthetic marker after editable names and notes are cleared
+PASS The actual Save project action exports all six originals and edited training progress
+PASS Opening that portable file on a fresh app restores calculations, training labels and original bytes
+PASS Corrupt training evidence is rejected before a restored working job or named library changes
+PASS A named practice copy remains synthetic after opening another job and returning to it
+PASS Reset restores baseline values only after retaining the edited practice copy
+PASS Starting a blank job exits training without erasing its retained example and attachments
+PASS Home always offers complete, OEM AGC, DSIM and GS7K practice as distinct choices
+PASS Cancelling a separate practice choice preserves the complete AOI job and all six original files
+PASS Opening the separate DSIM job retains the AOI example and supplies only compatible legacy practice equipment
+PASS DSIM practice displays a historical lookup while keeping settings, lock and physical acceptance unverified
+PASS Every DSIM practice handoff selects the exact source or LE and remains a learning-only checklist
+PASS The focused DSIM practice exports and restores its variant and learning progress without manufacturing evidence
+PASS OEM AGC practice has its own guide and leaves pilot compatibility unspecified instead of applying DSIM values
+PASS Cancelling GS7K practice preserves the open OEM example and its stored job state
+PASS GS7K practice separates local design targets from blank actual readings and supplies no evidence
+PASS All ten GS7K guide steps reach their controls and exact conventional-node setup manual
+PASS Switching the practice source between standard 1 GHz and 1.2 GHz changes only its applicable manual and identity
+PASS GS7K portable recovery preserves blank actual readings, local design targets and learning-only progress
+PASS Each focused practice uses the same named-job preservation failure guard as the complete example
+PASS Switching back to the full example preserves all three focused variants and restores all six originals
+PASS All training flows complete without runtime errors or duplicated DOM controls
+Training job: 41 checks passed.
