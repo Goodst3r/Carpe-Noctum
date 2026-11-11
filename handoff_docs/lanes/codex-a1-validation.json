@@ -1,0 +1,429 @@
+{
+  "tested_commit": "fadcdfcdd1ca67e4e75f50c096675014ed5afc3e",
+  "date": "2026-11-11",
+  "automated_command": "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py",
+  "automated": {
+    "release": "e7ca112dd5f52df8bb90",
+    "version": "2.0 Alpha build 3",
+    "suites": [
+      {
+        "name": "Build 3 threshold and source registry",
+        "script": "build3-registry.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "Build 3 field calculators against independent references",
+        "script": "build3-field-calcs.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
+        "script": "build3-alignment.test.cjs",
+        "passed": true,
+        "checks": 12
+      },
+      {
+        "name": "Build 3 station worksheet arithmetic and saved jobs",
+        "script": "build3-station.test.cjs",
+        "passed": true,
+        "checks": 22
+      },
+      {
+        "name": "Build 3 rendered station phone layout",
+        "script": "build3-station-layout.test.py",
+        "passed": true,
+        "checks": 77
+      },
+      {
+        "name": "2.0 Alpha design changes",
+        "script": "v20-design.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Build 2 TDR active-boundary regressions",
+        "script": "build2-tdr-boundaries.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Build 2 RF and records property backtests",
+        "script": "build2-rf-properties.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "Build 2 all seven examples frequency replay",
+        "script": "build2-example-math.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Build 2 power circuits and current-curve backtests",
+        "script": "build2-power.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "Build 2 imported DSIM calendar dates",
+        "script": "build2-dsim-dates.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Build 2 calculation reuse and import boundaries",
+        "script": "build2-frontend.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Build 2 rendered cascade and lazy-chart layout",
+        "script": "build2-layout.test.py",
+        "passed": true,
+        "checks": 55
+      },
+      {
+        "name": "Build 2 original-byte limits and atomic job operations",
+        "script": "build2-reliability.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Build 2 native filename and print lifecycle",
+        "script": "android-native-edge.test.py",
+        "passed": true,
+        "checks": 12
+      },
+      {
+        "name": "1.8 profile acceptance guards",
+        "script": "alpha18-math.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "1.8 independent arithmetic and curve integrity",
+        "script": "alpha18-numeric.test.cjs",
+        "passed": true,
+        "checks": 11
+      },
+      {
+        "name": "1.8 corrected GS7K GaN complete practice independent math",
+        "script": "complete-workflow-math.test.cjs",
+        "passed": true,
+        "checks": 17
+      },
+      {
+        "name": "1.8 release identity and documentation",
+        "script": "alpha18-release.test.py",
+        "passed": true,
+        "checks": 6
+      },
+      {
+        "name": "Android source identity and rejected artifact isolation",
+        "script": "android-preview.test.py",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "1.8 imported route and power ID boundaries",
+        "script": "import-id-boundaries.test.cjs",
+        "passed": true,
+        "checks": 6
+      },
+      {
+        "name": "1.8 seven practice exercises and seeded feature coverage",
+        "script": "training-library.test.cjs",
+        "passed": true,
+        "checks": 11
+      },
+      {
+        "name": "1.6 to current release migration and portable example",
+        "script": "upgrade01617.test.cjs",
+        "passed": true,
+        "checks": 6
+      },
+      {
+        "name": "1.7 stable workflow rendering",
+        "script": "alpha17-render.test.cjs",
+        "passed": true,
+        "checks": 3
+      },
+      {
+        "name": "1.7 source and equipment reports",
+        "script": "alpha17-report.test.cjs",
+        "passed": true,
+        "checks": 11
+      },
+      {
+        "name": "1.7 launch source workflow",
+        "script": "launch-source.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "1.7 equipment setup and DSIM",
+        "script": "equipment-setup.test.cjs",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "1.7 local operator targets and available carriers",
+        "script": "local-operator-preset.test.cjs",
+        "passed": true,
+        "checks": 19
+      },
+      {
+        "name": "1.7 DSIM historical pilot-code lookup",
+        "script": "dsim-pilot-codes.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "1.7 separate installed gain-control paths",
+        "script": "equipment-control.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 current node setup references",
+        "script": "node-setup-refresh.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.7 retired UBT compatibility",
+        "script": "retired-equipment.test.cjs",
+        "passed": true,
+        "checks": 7
+      },
+      {
+        "name": "1.7 fresh independent numerical references",
+        "script": "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "1.7 RF band and hidden view regressions",
+        "script": "alpha17-engine.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 evidence job context",
+        "script": "evidence-context.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Wolfram record and measurement guards",
+        "script": "wolfram-records.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "Wolfram RF, distance and sweep references",
+        "script": "wolfram-rf.test.cjs",
+        "passed": true,
+        "checks": 25
+      },
+      {
+        "name": "Wolfram power references and edge cases",
+        "script": "wolfram-power.test.cjs",
+        "passed": true,
+        "checks": 30
+      },
+      {
+        "name": "Guided sweep setup and 1.5 migration",
+        "script": "sweep-setup.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "Equipment reference catalog",
+        "script": "equipment-reference.test.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "PWA package and service worker",
+        "script": "pwa-worker.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "PWA install and update interface",
+        "script": "pwa-client.test.cjs",
+        "passed": true,
+        "checks": 20
+      },
+      {
+        "name": "Browser file export and sharing",
+        "script": "browser-files.test.cjs",
+        "passed": true,
+        "checks": 23
+      },
+      {
+        "name": "Guided training job and preserved work",
+        "script": "training-job.test.cjs",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "Production training buttons and fleet split",
+        "script": "training-controls.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "RF and power engine",
+        "script": "engine.test.js",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "Route distances, TDR and gain budgets",
+        "script": "route14.test.cjs",
+        "passed": true,
+        "checks": 34
+      },
+      {
+        "name": "Project records and acceptance",
+        "script": "projects.test.js",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "Frequency calculations",
+        "script": "frequency-regression.cjs",
+        "passed": true,
+        "checks": 16
+      },
+      {
+        "name": "Retained interface behavior",
+        "script": "dom-tests.cjs",
+        "passed": true,
+        "checks": 38
+      },
+      {
+        "name": "Active and TDR interface calculations",
+        "script": "alpha14-ui.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "Technician task navigation and live controls",
+        "script": "alpha15-ui.test.cjs",
+        "passed": true,
+        "checks": 22
+      },
+      {
+        "name": "Node profiles and current curves",
+        "script": "nodes.test.cjs",
+        "passed": true,
+        "checks": 29
+      },
+      {
+        "name": "Evidence parser and validation",
+        "script": "evidence.test.cjs",
+        "passed": true,
+        "checks": 52
+      },
+      {
+        "name": "Evidence UI and storage",
+        "script": "evidence-ui.test.cjs",
+        "passed": true,
+        "checks": 28
+      },
+      {
+        "name": "IndexedDB failure and commit boundaries",
+        "script": "evidence-storage-failures.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "Named jobs corruption and capacity",
+        "script": "named-jobs-storage.test.cjs",
+        "passed": true,
+        "checks": 5
+      },
+      {
+        "name": "Legacy upgrade and portable backup",
+        "script": "alpha011-integration.cjs",
+        "passed": true,
+        "checks": 21
+      },
+      {
+        "name": "Retained field tools and named jobs",
+        "script": "alpha012.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "0.13 APK backup migration",
+        "script": "upgrade01314.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.4 backup and active/TDR migration",
+        "script": "upgrade01415.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Built-in reference calculations",
+        "script": "../night-sweep/selfcheck.js",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Catalog structure",
+        "script": "catalog-audit.cjs",
+        "passed": true,
+        "checks": 0
+      }
+    ],
+    "checks": 1208,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "html_sha256": "73fd99b56931a43fb1a464f2723af81197082b5acb5c603a627524c21cdd452b",
+    "standalone_sha256": "94e0514b2c3251975557696b3ee5de2c52f8e899bfe2579dc8d630e72ae7eca2",
+    "worker_sha256": "662e19c54970097850a8d66744fbd45aa8334e6dcc26828c4a994494e8f521bf",
+    "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
+  },
+  "station_suites_included_in_automated": {
+    "node_checks": 22,
+    "rendered_checks": 77,
+    "widths_px": [
+      320,
+      360,
+      390,
+      430
+    ]
+  },
+  "separate_rendered": [
+    {
+      "command": "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py",
+      "checks": 141,
+      "exit_code": 0
+    },
+    {
+      "command": "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py",
+      "checks": 331,
+      "exit_code": 0
+    }
+  ],
+  "worktree": "Known pre-B1 release/research test churn restored; git status clean after checks.",
+  "independent_review": "Four Important findings addressed; three Minor limitations retained in handoff_docs/reviews/codex-station-view.md.",
+  "not_run": [
+    "Android emulator",
+    "native APK/WebView",
+    "physical Android",
+    "physical iPhone/Safari",
+    "RF hardware",
+    "field acceptance"
+  ],
+  "note": "Rendered evidence is desktop Chromium at phone-sized viewports. No APK/signing/deployment. Subsequent receipt/status-only commit does not change app, tests, guides or generated artifacts."
+}

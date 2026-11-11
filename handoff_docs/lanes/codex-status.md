@@ -1,35 +1,40 @@
 # Lane A status (ChatGPT)
 
-Updated November 11, 2026. GitHub write access is working; no-push mode is unnecessary. Only Lane A edits this file.
+Updated November 11, 2026. GitHub write access works. Only Lane A edits this file. D1–D5 remain open; Lane A does not merge its own PRs.
 
-| Item | Branch | Pull request | Tested/head commit | State | Last gate (own execution) |
+| Item | Branch | Pull request | Verified commit / record | State | Last verification (own execution, Nov 11) |
 | --- | --- | --- | --- | --- | --- |
-| Baseline receipt | codex/station-view | not opened (A1 in progress) | tested `53b839e`; receipt `3cdf5a6` | reproduced and pushed | Nov 11: 61/61 suites, 1,109 checks; layout 141; smoke 328; build bytes unchanged; known pre-B1 churn restored |
-| A1 item 3 station view | codex/station-view | not opened | local implementation in progress | tests-first; additive records, independent balance/sweep dates, backup/restore and mobile checks | pending feature gate; baseline above is not a feature result |
-| A2 item 6 night log and handoff | | | | queued after reviewed A1 integration | not run |
-| A3 item 10 sweep-due tracker | | | | queued after reviewed A1 integration | not run |
-| A4 item 13 imported sweep grading | | | | approved; parser/format investigation underway | not run |
-| A5 stretch item 14 power supply PM | | | | queued | not run |
-| A6 stretch item 16 construction checklist | | | | queued | not run |
-| A7 stretch item 12 return/high-split toolkit | | | | queued; primary-source math check required | not run |
+| Baseline | codex/station-view | included in #8 | source `53b839e`; receipt `3cdf5a6` | reproduced | 61/61 suites, 1,109 checks; layout 141; smoke 328; unchanged build |
+| A1 item 3 station view | codex/station-view | [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) draft into build3 | start `53b839e`; integrated `4350abc`; frozen tested source `fadcdfc` | **ready for Lane B review and merge**; independent task review corrections complete | **63/63 suites, 1,208 checks**; separate layout **141**, smoke **331**; Station22/77 included in gate; unchanged build, clean after known pre-B1 evidence restore |
+| A2 item 6 night log/handoff | | | | pending A1 integration | not run |
+| A3 item 10 sweep-due tracker | | | | pending A1 integration | not run |
+| A4 item 13 imported sweep grading | codex/sweep-grading | not opened | preparation `4350abc..8d1a0ed` | format-independent core prepared; native JSON schema and A1 integration pending | 93 direct core checks, 12 independent Decimal fixtures; no app integration or native-file claim |
+| A5 stretch item 14 power PM | | | | queued after dependencies | not run |
+| A6 stretch item 16 construction checklist | | | | queued after dependencies | not run |
+| A7 stretch item 12 return/high-split | | | | queued; primary-source math required | not run |
+
+## A1 record
+
+Route → Station saves independent Before/After forward/return worksheets and separate balance/sweep dates. Company values start unknown; plant methods remain separate; UBT is read-only. Changed files, reasons, sources, commands and current scope are in PR #8, [review handoff](../reviews/codex-station-view.md), [exact validation receipt](codex-a1-validation.json) and `research/build3/STATION_VIEW_CALCULATIONS.md`. Later receipt/status wording does not change the tested application, tests, public guides or generated artifacts.
+
+The initial frozen gate at f45ae53 failed only three outdated navigation/step contracts (60/63 suites, 1,105 counted checks); all were corrected. Independent review also reproduced source-identity, invisible-imported-number and signed-EQ defects. Their failing regressions and fixes are recorded; scoped re-review found all four Important issues addressed. Three Minor items remain explicit in the review handoff: source-tag location text, edit-time paragraph refresh, and an extreme escaped-context length edge.
+
+No APK/signing/deployment, emulator, physical Android/iPhone/Safari/WebView, RF hardware or field checks. Main README copies cover Station and remain identical; D4 still reconciles other guide editions and older practice counts.
 
 ## Reviews of Lane B
 
-- **PR #3 B0:** independent Lane A review at `320854c7be8fce58c0a5c425a4573212522377dd`; 61/61 suites / 1,109 checks, 141 layout and 328 smoke checks passed. Python AST confirmed identical registration order and values, all 23 generated files byte-identical. Merged into `build3` with merge commit `81ccfb4e6cd3a5139daf153a51220d415d7d4884`.
-- **PR #4 B1:** review in progress at `38adfd3`. Candidate regression reproduced: new `gate-reliability.test.py` fails without `.git` in a source archive; exact-head full gate in progress. Remains draft until findings are resolved.
-- **PR #5 B3:** documentation reviewed; referenced paths checked with package/runtime paths distinguished from source paths. Exact-head gate in progress at `5544651`.
-- **PR #6 B4:** review in progress at `5a775ba`. Candidate regression-test gap reproduced: lowercase `practice Imaginary control and Duplicate` in a training string is missed. Exact-head full gate in progress; remains draft.
+- **#3 B0:** reviewed exact320854c, own61/1109+141/328 and identical generated bytes; merged with merge commit **81ccfb4**.
+- **#5 B3:** reviewed exact5544651, own61/1109+141/328 and identical generated bytes; author-directed higher-PR status conflict resolved in merge commit **faafba5**, confirmed merged on GitHub.
+- **#4 B1:** changes requested at38adfd3: new gate test fails in a source archive without .git. Exact-head gate62/1115, layout141/smoke328 passed and working tree stayed clean without restoring evidence. Awaiting author fix; not merged.
+- **#6 B4:** changes requested at5a775ba: lowercase `practice Imaginary control` escapes the required name regression. Exact-head gate62/1115, layout141/smoke328 passed. Awaiting author fix; not merged.
+- **#7 B5:** changes requested at7f6a56f: invalid browser numeric input clears a saved window or defaults Pmax; company windows carry from42/54 into untouched204/258. Exact-head gate63/1132, layout241/smoke331 passed; independent154 cases/746 arithmetic checks. Awaiting author fixes and B4 integration; not merged.
 
-Both lanes share the owner's GitHub account. Independent technical reviews are recorded with COMMENT reviews because GitHub disallows self-APPROVE/REQUEST_CHANGES for that account; lane authorship, exact reviewed head and merge responsibility remain explicit.
+Both lanes use the owner's GitHub account. Independent technical verdicts are recorded as COMMENT reviews because GitHub disallows self-APPROVE/REQUEST_CHANGES for that account. Lane authorship, exact head and merge responsibility remain explicit.
 
 ## Next
 
-Finish A1, integrate reviewed `build3` changes without rewriting published history, run the full feature gate, and open its draft PR into `build3` for Lane B. See [codex-base-check.md](codex-base-check.md) for exact baseline commands, source hash and tool record. D1–D5 are not yet met.
+Lane B: review and merge current PR #8 when satisfied. A2/A3 consume the station API and start from reviewed A1 on build3. Lane A will answer findings and review corrected Lane B heads. Native sweep grading now targets the owner's VIAVI JSON, as recorded in PARALLEL_TASKS; no CSV or JSON vendor layout is guessed.
 
-## Blocked
+## Blocked / questions for Spencer
 
-No implementation block. A4's existing CSV fixtures are explicitly synthetic interchange layouts, with native ONX format not validated; researching official export headers before claiming native-only grading support. No real meter files or identifiers will be committed.
-
-## Questions for Spencer
-
-None requiring a pause. Company limits remain unknown. APK, emulator, phone and field work remain the owner's separate checks; none were performed here. CLAUDE.md, KNOWN_GAPS.md and TOOLS_AND_SETUP.md are not on current build3 yet; their PR #5 versions were read.
+A1 integration requires Lane B's independent review/merge (rule6), not Lane A self-merging. A4 needs the actual native JSON structure; no file has reached this workspace yet. Keep genuine exports out of GitHub; only invented fixtures matching a verified structure may be committed. Company targets and tolerances remain unknown until entered. Owner-only APK/device/field checks remain separate.
