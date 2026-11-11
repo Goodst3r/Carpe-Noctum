@@ -288,6 +288,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
 .check-panel button.danger{border-color:var(--bad);color:var(--bad)}
 .check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel h3 .source-tag{min-height:44px;min-width:44px;margin-left:6px;vertical-align:middle}
 .check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
 .imp-picker{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
 .imp-picker legend{padding:0 6px;font-weight:700}
