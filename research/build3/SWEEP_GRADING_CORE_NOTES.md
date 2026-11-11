@@ -1,4 +1,11 @@
-# A4 grading core preparation
+# A4 grading core preparation record
+
+Integration update, November 11, 2026: this document records the isolated core
+preparation at `8d1a0ed`. The completed native parser/UI now has inspected input
+structures, registered company criteria, original verification and saved history.
+See [the integration handoff](../../handoff_docs/reviews/codex-sweep-grading.md)
+and [native format scope](VIAVI_NATIVE_FORMATS.md) for the current implementation.
+Statements below about pending adapters/tests describe the preparation stage.
 
 Prepared against `4350abcf5a33dce911361a357df891abe6a386ad`, November 11, 2026.
 This is an unregistered, format-independent calculation module. It does not
