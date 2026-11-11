@@ -78,6 +78,11 @@ jobs:
             exit 1
           fi
 
+      - name: Report which elements overflow (only after a failure)
+        if: failure()
+        run: python3 qa/ci_layout_diagnose.py
+        continue-on-error: true
+
       - name: Keep the run record
         if: always()
         uses: actions/upload-artifact@v4
@@ -87,5 +92,6 @@ jobs:
             qa/pwa-test-results.json
             qa/pwa-testlogs/
             qa/build3-layout-results.json
+            qa/ci-diagnostics/
           if-no-files-found: ignore
           retention-days: 14
