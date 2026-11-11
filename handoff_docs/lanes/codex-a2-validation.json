@@ -800,5 +800,23 @@
     "Screen-reader and physical keyboard/tap certification",
     "Actual provider save/share dialog",
     "RF hardware and field operation"
-  ]
+  ],
+  "ci_only_integration": {
+    "reviewed_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
+    "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
+    "starting_published_head": "30014ce3a1387594776f8a227dee1e8a28c16a3e",
+    "ci_merge_head": "3af0134ec4f53dfae57a0c0b93aa153630d307a6",
+    "changed_paths": [
+      ".github/workflows/gate.yml",
+      "qa/ci_layout_diagnose.py"
+    ],
+    "preexisting_tracked_files": 574,
+    "exact_preexisting_file_hashes_at_ci_merge": true,
+    "exact_preexisting_staged_entries_at_ci_merge": true,
+    "ci_files_match_reviewed_base": true,
+    "proof_sha256": "89919135c9b04b906f4b4f62472095119e3f532ef74f6a610d522aac6efef53c",
+    "report": "../reviews/codex-a2-ci-only-integration.md",
+    "no_new_full_gate": true,
+    "gate_attribution": "All existing feature gate counts/commands still belong to tested_commit, not this CI-only merge or subsequent metadata head. Lane B must freshly gate the final published head before merging."
+  }
 }
