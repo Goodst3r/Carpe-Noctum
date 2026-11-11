@@ -385,6 +385,7 @@ What the list holds:
 - The calculator formulas and the speed of light they use.
 - Your built-in local preset: **31 dBmV at 54 MHz**, **43 dBmV at 860 MHz** and the separate **38 dBmV return TX reference** (42/54 plant).
 - This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX reference of the 42/54 workflow. The 204/258 workflow has no TX reference. Blank entries show **Unknown — not entered**; an entered 0 stays 0. New jobs start blank, except the 750 MHz example profile's labeled 32 / 43 dBmV launch levels. A company sheet links to the screen where you edit the value.
+- The Night-log **200 entries/job** application guard, labeled **Unknown** under **Night log application guards**. Its source is the existing `night-log.js` software bound, not an RF or company acceptance limit.
 - Two built-in approximations labeled **Unknown** because their sources are not verified: the 0.1 % per °F cable-loss temperature correction, traced only to an indexed copy of CommScope's MX0398 pocket guide, and the 0.004 per °C default power-cable resistance coefficient, which has no recorded source.
 
 The list describes values; it does not approve criteria or change the job. Example targets on older screens, such as the workbook and sample targets in Test → References, are not listed yet, and older screens do not show tags; later build-list tools add them where their values appear.
@@ -619,6 +620,8 @@ Complete practice has **22 steps**, including the GainMaker station example; six
 ## Night log and shift handoff
 
 **Where:** Job → Night log. **Practice:** Six active devices in series → Five-station night handoff.
+
+The **Unknown** source tag beside **Recorded entries** documents the existing **200 entries/job** application guard. The same row appears in **Test → Limits** under **Night log application guards**. This software storage/display bound is not an RF limit, equipment capability or company acceptance criterion; device storage can fill sooner.
 
 Keep personal ticket/change, node/amp label, actions, ROC/dispatch updates, gas/fuel, mileage, as-built discrepancies and next-shift/open-issues notes with this job. Keep customer names, addresses and account numbers out. Window start/end are optional typed `YYYY-MM-DDTHH:mm` device-local wall times; the zone is not recorded and blanks stay unknown. **Added** is the device timestamp when you press **Add entry**, not when the field work necessarily occurred. Enter fuel and mileage as text with your own amount, reading/distance and units; no conversion, total or reimbursement rule is assumed.
 
