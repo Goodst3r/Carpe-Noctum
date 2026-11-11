@@ -62,7 +62,7 @@ const WorkflowUI=(()=>{
   const aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help'};tab=aliases[tab]||tab;
   if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
   if(tab==='setup')renderSetup();
-  if(tab==='nightLog'&&typeof NightLog!=='undefined')NightLog.render();
+  if(tab==='nightLog'&&typeof NightLog!=='undefined')NightLog.render(true);
   if(tab==='station'&&typeof StationView!=='undefined')StationView.render();
   if(tab==='equipmentSetup'&&typeof EquipmentSetup!=='undefined')EquipmentSetup.render();
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();

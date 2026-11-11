@@ -10,5 +10,8 @@
 #nightLogPanel .night-actions { margin:14px 0; }
 #nightLogPanel .night-entries details { margin:10px 0; }
 #nightLogPanel summary { padding:10px 0; }
+#nightLogPanel .night-time-control { min-width:0; }
+#nightLogPanel .night-time-feedback { margin:0 0 8px; }
+#nightLogPanel [data-night-window][aria-invalid="true"] { border:3px double var(--warn); outline:1px solid var(--warn); outline-offset:2px; }
 @media(max-width:600px) { #nightLogPanel .night-fields { grid-template-columns:minmax(0,1fr); } #nightLogPanel .toolbar { flex-wrap:wrap; } }
 @media print { #nightLogPanel { display:none!important; } }
