@@ -993,32 +993,32 @@
 <tbody><tr>
 <td>Downstream SC-QAM channel</td>
 <td>The level of one 6 MHz digital channel at the modem input (dBmV)</td>
-<td>−15 to +15 dBmV per 6 MHz channel, both edges inside</td>
+<td>−15 to +15 dBmV per 6 MHz channel; a reading exactly on an edge counts as inside</td>
 <td>Spec · CableLabs PHYv3.0 C01 section 6.3.2, Table 6–22 (PHYv3.1 section 6.4.2 applies it to 3.1 modems)</td>
 </tr>
 <tr>
 <td>Downstream OFDM channel</td>
-<td>The OFDM power (dBmV) and what it was measured over: each 6 MHz (most meters), 24 MHz, or another occupied bandwidth (a whole number of 6 MHz channels, 24 to 192 MHz)</td>
-<td>−15 to +15 dBmV per 6 MHz and −9 to +21 dBmV per 24 MHz, as printed. For another width the 24 MHz row moves by 10·log10(occupied ÷ 24), which is derived and tagged Expert because the specification prints only the 6 and 24 MHz rows</td>
+<td>The OFDM power (dBmV) and what it was measured over, which you must choose from what your meter or modem page says: each 6 MHz, 24 MHz, or another occupied bandwidth (a whole number of 6 MHz channels, 24 to 192 MHz)</td>
+<td>−15 to +15 dBmV per 6 MHz and −9 to +21 dBmV per 24 MHz, as printed. For another width the 24 MHz row moves by 10·log10(occupied ÷ 24), which is derived, shown to 0.01 dB and rounded inward so the range on screen is the range used. The card calls it a derived range and tags it Expert, not Spec, because the specification prints only the 6 and 24 MHz rows</td>
 <td>Spec · CableLabs PHYv3.1 I20 section 7.5.11, Table 45</td>
 </tr>
 <tr>
 <td>Total downstream input power</td>
-<td>The power of all downstream signals together (dBmV) and whether the modem is DOCSIS 3.1 or 3.0 only</td>
-<td>Strictly below 40 dBmV for a 3.1 modem (54 to 1794 MHz) or 33 dBmV for a 3.0-only modem (40 MHz and up). Exactly 40 is not below 40</td>
+<td>The power of all downstream signals together (dBmV) and whether the modem is DOCSIS 3.1 or 3.0 only, which you must choose because the limits differ</td>
+<td>Strictly below 40 dBmV for a 3.1 modem (54 to 1794 MHz) or 33 dBmV for a 3.0-only modem (40 MHz and up). Exactly 40 is not below 40. The 3.1 specification also points a 3.1 modem to the 3.0 SC-QAM table (33 dBmV total) and does not say which governs for SC-QAM-only reception, so confirm a 33 to 40 dBmV total on a 3.1 modem</td>
 <td>Spec · PHYv3.1 I20 Table 45; PHYv3.0 C01 Table 6–22</td>
 </tr>
 <tr>
 <td>Upstream transmit headroom</td>
-<td>The modem&#39;s total transmit power (dBmV) and its Pmax if you know it</td>
-<td>Headroom = Pmax − total. Pmax is 65 dBmV unless the modem reports a higher value; 65 is the lowest the specification allows. It is a minimum capability, not a limit on what the modem sends</td>
+<td>How the modem is working (a DOCSIS 3.1 modem on a 3.1 CMTS, or anything else), the modem&#39;s total transmit power (dBmV) and its Pmax</td>
+<td>For a 3.1 modem on a 3.1 CMTS: headroom = Pmax − total, with Pmax 65 dBmV unless the modem reports more; 65 is the lowest the specification allows. It is a minimum capability, not a limit on what the modem sends. For a 3.0 modem, or a 3.1 modem on a 3.0 CMTS, the 3.0 per-channel limits apply instead; the card has no figure for them, so you type in the modem&#39;s own maximum from its documentation and the result is not a spec comparison</td>
 <td>Spec · PHYv3.1 I20 sections 7.4.12.2 and 7.4.12.3.1</td>
 </tr>
 </tbody></table></div>
 <p>Each result says in words how far inside or outside the range the reading is, so it does not rely on color. The printed 6 MHz and 24 MHz OFDM figures differ by 0.02 dB (10·log10 of 4 is 6.02 dB, not 6); the card uses each as printed.</p>
-<p><strong>Company window.</strong> Every card has a <strong>Company window</strong> box for the lowest and highest level your company wants. Leave a side blank for no limit on that side: blank is unknown, never zero. The OFDM window is in dBmV per 6 MHz, and the card restates your reading per 6 MHz to compare. Windows start unknown and are saved on this device only, in the browser&#39;s storage, so they are <strong>not</strong> part of a job or its full backup; <strong>Clear company windows</strong> removes all four. If the browser will not store them, the card says so and keeps them until the page closes. Company windows also appear in <strong>Test → Limits</strong> under their own heading.</p>
-<p><strong>Total upstream power, not one channel.</strong> Enter the modem&#39;s total transmit power. A modem status page lists per-channel numbers referenced to 1.6 MHz, and a 6.4 MHz channel carries 6 dB more actual power than the number shown, so one channel&#39;s number is not the total.</p>
-<p>Checked worked numbers: 16 dBmV on an SC-QAM channel is <strong>1.0 dB above</strong> the range, and 3.2 dBmV is inside, <strong>11.8 dB</strong> from the upper edge; −8 dBmV over 24 MHz is inside, <strong>1.0 dB</strong> from the lower edge; 40 dBmV total on a 3.1 modem is <strong>at</strong> the limit, not below it; 52 dBmV total transmit power with the 65 dBmV default Pmax leaves <strong>13.0 dB</strong> of headroom.</p>
+<p><strong>Company window.</strong> Every card has a <strong>Company window</strong> box for the lowest and highest level your company wants. Leave a side blank for no limit on that side: blank is unknown, never zero. The OFDM window is in dBmV per 6 MHz, and the card restates your reading per 6 MHz to compare. Windows start unknown and are saved on this device only, in the browser&#39;s storage, so they are <strong>not</strong> part of a job or its full backup; <strong>Clear company windows</strong> removes all four. If the browser will not store them, the card says so and keeps them until the page closes. Company windows are one set for the whole device, shared by every job and by both the 42/54 and 204/258 plants, and they also appear in <strong>Test → Limits</strong> under their own heading.</p>
+<p><strong>Total upstream power, not one channel.</strong> Enter the modem&#39;s total transmit power. In DOCSIS 3.1 operation the specification reports per-channel power normalized to 1.6 MHz, so a 6.4 MHz channel&#39;s actual power is about 6 dB above the number reported; your modem page or meter may use a different convention, so check which one it uses before adding channels up.</p>
+<p>Checked worked numbers: 16 dBmV on an SC-QAM channel is <strong>1.0 dB above</strong> the range, and 3.2 dBmV is inside, <strong>11.8 dB</strong> from the upper edge; −8 dBmV over 24 MHz is inside, <strong>1.0 dB</strong> from the lower edge; 40 dBmV total on a 3.1 modem is <strong>at</strong> the limit, not below it; 52 dBmV total transmit power on a 3.1 modem with the 65 dBmV default Pmax leaves <strong>13.0 dB</strong> of headroom.</p>
 <p>What this card leaves out on purpose: MER and SNR, per-channel upstream power, the limit on level differences between channels, DOCSIS 4.0, and the EuroDOCSIS 8 MHz ranges, which differ from the North American ones used here.</p>
 <h2 id="power-supply-load">Power-supply load</h2>
 <p><strong>Where:</strong> Power → Load. <strong>Practice:</strong> Complete → Power; Six actives → explicit power topology.</p>

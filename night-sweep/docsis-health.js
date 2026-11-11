@@ -9,7 +9,7 @@
    own targets; they start unknown and are saved on this device only. Wording is our own;
    the specification is cited by document number, issue, table and section. */
 const DocsisHealth=(()=>{
- const EPS=1e-9;
+ const EPS=1e-9;   // floating-point guard only: far below any meter's 0.1 dB, so a typed edge value such as 15 never lands outside by rounding noise
  const STORAGE_KEY='nightsweep-docsis-windows-v1';
  /* Requirements, all in dBmV. See the registry rows named in `rows` for sources. */
  const SCQAM_RANGE=Object.freeze({low:-15,high:15});     // one 6 MHz SC-QAM channel
@@ -202,7 +202,7 @@ const DocsisHealthUI=(()=>{
   total:{title:'Total downstream input power',spec:'docsis.ds.total31.limit',company:'company.docsis.total',
    lead:'Power of every downstream signal added together at the modem input, in dBmV.',
    fields:()=>field('total','total','Total input power (dBmV)','e.g. 28')+`<label>Modem<select data-health="total" data-field="modem"><option value="">Choose the modem</option><option value="3.1">DOCSIS 3.1 (limit 40)</option><option value="3.0">DOCSIS 3.0 only (limit 33)</option></select></label>`,
-   conditions:'Use your meter’s total-power reading across the full downstream band. The 3.1 limit covers 54 to 1794 MHz; the 3.0-only limit covers 40 MHz and above. Do not apply 40 dBmV to a 3.0-only modem.'},
+   conditions:'Use your meter’s total-power reading across the full downstream band. The 3.1 limit covers 54 to 1794 MHz; the 3.0-only limit covers 40 MHz and above. Do not apply 40 dBmV to a 3.0-only modem. On a 3.1 modem that receives only SC-QAM channels, the 3.1 specification also points to the 3.0 table, whose total is 33 dBmV, and does not say which governs: confirm a total between 33 and 40 dBmV.'},
   upstream:{title:'Upstream transmit headroom',spec:'docsis.us.pmax.capability',company:'company.docsis.upstream',
    lead:'How far the modem’s total transmit power sits below the most it can transmit (Pmax).',
    fields:()=>`<label class="calc-wide">How the modem is working<select data-health="upstream" data-field="mode"><option value="">Choose first</option><option value="3.1">DOCSIS 3.1 modem on a 3.1 CMTS</option><option value="other">DOCSIS 3.0 modem, or 3.1 modem on a 3.0 CMTS</option></select></label>`+field('upstream','total','Total transmit power (dBmV)','e.g. 48')+field('upstream','pmax','Modem maximum, Pmax (dBmV)','65 if blank (3.1 only)'),
