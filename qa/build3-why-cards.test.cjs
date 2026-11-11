@@ -78,6 +78,13 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
     assert.deepEqual(x.errors, []); x.close();
   });
 
+  await check('The guide names every card that rests on a description page (293-7, 293-13 and 293-14), the same cards the sources note lists', () => {
+    const guide = fs.readFileSync('docs/NightSweep_1.8_Alpha_Functions_README.md', 'utf8'), note = fs.readFileSync('research/build3/WHY_CARDS_SOURCES.md', 'utf8');
+    assert.match(guide, /for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read/);
+    assert.match(note, /Cards 7, 13 and 14 rest on a description page/);
+    for (const n of [7, 13, 14]) assert.match(note, new RegExp('\\| ' + n + ' [^\\n]*(description|Updates)'), 'card ' + n + ' is listed as description-only in the note');
+  });
+
   await check('The module is bundled once, loads without script errors and the built-in self-check still passes', () => {
     assert.equal((html.match(/const WhyCards=\(\(\)=>/g) || []).length, 1); assert.equal(h.json('NightSweep.selfCheck.ok'), true); assert.deepEqual(h.errors, []);
   });
