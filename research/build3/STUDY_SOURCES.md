@@ -25,3 +25,8 @@ Nineteen generators, each tied to the screen it practices: three architecture qu
 ## Not verified
 
 Whether the grouping into the five domains matches how a given exam divides topics. The wording of each question has not been reviewed by an instructor.
+
+## Corrections after Lane A's review of PR #20 (Nov 11, 2026)
+
+- **OFDM power per 6 MHz.** The question gave a total power over a channel width and asked for the power per 6 MHz, which is only meaningful when the power is spread evenly. The prompt now says the channel occupies the stated bandwidth with flat power spectral density, asks for the average per 6 MHz, and the working states the assumption and that an uneven channel's individual 6 MHz segments differ from the average. Lane A cites SCTE 293-10 (2025) section 5.8 with its footnote 6 on per-6 MHz variation, and SCTE 258 (2026) section 6.2.1 note 4 with the official update, which limit the flat-PSD calculation and use a different approach for tilted DAA; I have not read those two sections myself, and the question's arithmetic is unchanged.
+- **Tolerance.** The guide says each answer has a stated tolerance, but the screen did not show it. Every number question now says what counts as right (a number of units, a percentage of the correct value, or the exact whole number) beside the answer box.

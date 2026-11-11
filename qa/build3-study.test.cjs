@@ -130,6 +130,26 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     assert(!('study' in x.json('state')), 'no new job field'); assert.deepEqual(x.errors, []); x.close();
   });
 
+  await check('The OFDM per-6 MHz question states its flat-power assumption in the prompt and the working (SCTE 293-10, SCTE 258), and every number question shows what counts as right beside the box', async () => {
+    for (let seed = 1; seed <= 6; seed++) {
+      const q = h.json(`StudyMode.question('signals', ${h.json("StudyMode.list('signals').findIndex(g=>g.id==='ofdm6')")}, ${seed})`);
+      assert.match(q.prompt, /occupies \d+ MHz/); assert.match(q.prompt, /flat power spectral density/); assert.match(q.prompt, /average power per 6 MHz/);
+      assert.match(q.working.join(' '), /spread evenly across the occupied bandwidth \(flat power spectral density\)/); assert.match(q.working.join(' '), /individual 6 MHz segments differ/);
+      comparisons += 5;
+    }
+    await goto(h, 'study');
+    let seen = 0;
+    for (const dom of h.json('StudyMode.DOMAINS.map(d=>d.id)')) for (let i = 0; i < h.json(`StudyMode.list(${JSON.stringify(dom)}).length`); i++) {
+      const q = h.json(`StudyMode.question(${JSON.stringify(dom)}, ${i}, 3)`); if (q.kind !== 'number') continue;
+      const text = h.ev(`StudyMode.toleranceText(StudyMode.question(${JSON.stringify(dom)}, ${i}, 3))`);
+      const want = q.relative ? new RegExp('within ' + String(Number((q.tol * 100).toFixed(2))).replace('.', '\\.') + ' percent') : q.tol === 0 ? /exact whole number/ : new RegExp('within ' + String(q.tol).replace('.', '\\.'));
+      assert.match(text, want, q.prompt.slice(0, 40)); seen++; comparisons++;
+    }
+    assert(seen >= 10 && seen < 19, 'every number generator was checked (' + seen + ')'); assert.equal(seen, h.json("StudyMode.DOMAINS.reduce((n,d)=>n+StudyMode.list(d.id).filter((g,i)=>StudyMode.question(d.id,i,3).kind==='number').length,0)"));
+    h.ev("StudyModeUI.render&&StudyModeUI.render()");
+    const box = h.d.getElementById('studyNumber'); if (box) { assert.equal(box.getAttribute('aria-describedby'), 'studyTolerance'); assert.match(h.d.getElementById('studyTolerance').textContent, /Counts as right within|exact whole number/); }
+  });
+
   await check('The module is bundled once, loads without script errors and the built-in self-check still passes', () => {
     assert.equal((html.match(/const StudyMode=\(\(\)=>/g) || []).length, 1); assert.equal(h.json('NightSweep.selfCheck.ok'), true); assert.deepEqual(h.errors, []);
   });

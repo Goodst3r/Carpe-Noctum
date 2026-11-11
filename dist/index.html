@@ -7299,7 +7299,7 @@ const StudyMode=(()=>{
   {id:'ofdm6',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
    const bandwidth=pick(r,[24,48,96,192]),power=grid(r,10,60,0.5),a=app();
    const x=a.calc.ofdmPower(power,bandwidth,bandwidth);
-   return number({prompt:`A downstream OFDM channel measures ${power} dBmV of total power over ${bandwidth} MHz. What is its power per 6 MHz?`,unit:'dBmV per 6 MHz',answer:x.per6,tol:0.05,params:{power,bandwidth},working:['Power per 6 MHz = total power − 10·log10(occupied bandwidth ÷ 6 MHz).',`${power} − 10·log10(${bandwidth} ÷ 6) = ${round(x.per6)} dBmV per 6 MHz.`],source:'SCTE 293-10 2025, signal level'});
+   return number({prompt:`A downstream OFDM channel occupies ${bandwidth} MHz, and its power is spread evenly across that occupied bandwidth (flat power spectral density, so every 6 MHz carries the same power). The total power over the ${bandwidth} MHz measures ${power} dBmV. What is the average power per 6 MHz?`,unit:'dBmV per 6 MHz',answer:x.per6,tol:0.05,params:{power,bandwidth},working:['This holds when the power is spread evenly across the occupied bandwidth (flat power spectral density). Then power per 6 MHz = total power − 10·log10(occupied bandwidth ÷ 6 MHz). A channel whose power is not flat has the same average, but its individual 6 MHz segments differ from it.',`${power} − 10·log10(${bandwidth} ÷ 6) = ${round(x.per6)} dBmV average per 6 MHz.`],source:'SCTE 293-10 2025, signal level (the per-6 MHz basis); flat power is the assumption of the Field calculators card'});
   }},
   {id:'scqam',domain:'signals',tool:{task:'docsisHealth',label:'Test → DOCSIS health'},make:r=>{
    const level=grid(r,-20,20,1),a=app();
@@ -7419,7 +7419,14 @@ const StudyMode=(()=>{
   const allowed=q.relative?Math.abs(q.answer)*q.tol:q.tol;
   return {ok:true,right:Math.abs(v-q.answer)<=allowed+1e-9,answer:round(q.answer,2),entered:v};
  }
- return {DOMAINS,GENERATORS,list,question,check,rng};
+ /* What counts as right, in words, so the person knows the precision asked for before answering. */
+ function toleranceText(q){
+  if(!q||q.kind!=='number')return '';
+  if(q.relative)return 'Counts as right within '+round(q.tol*100,2)+' percent of the correct value.';
+  if(q.tol===0)return 'Give the exact whole number.';
+  return 'Counts as right within '+q.tol+(q.unit?' '+q.unit:'')+' of the correct value.';
+ }
+ return {DOMAINS,GENERATORS,list,question,check,rng,toleranceText};
 })();
 
 const StudyModeUI=(()=>{
@@ -7434,7 +7441,7 @@ const StudyModeUI=(()=>{
   const total=StudyMode.list(state.domain).length;
   const answer=q.kind==='choice'
    ?`<fieldset class="study-choices"><legend class="sr-only">Answers</legend>${q.choices.map((c,i)=>`<label class="study-choice"><input type="radio" name="studyAnswer" value="${i}"> <span>${escape(c)}</span></label>`).join('')}</fieldset>`
-   :`<label class="study-number">Your answer${q.unit?` (${escape(q.unit)})`:''}<input type="number" step="any" id="studyNumber" data-study="answer" autocomplete="off"></label>`;
+   :`<label class="study-number">Your answer${q.unit?` (${escape(q.unit)})`:''}<input type="number" step="any" id="studyNumber" data-study="answer" autocomplete="off" aria-describedby="studyTolerance"></label><p class="note tight" id="studyTolerance">${escape(StudyMode.toleranceText(q))}</p>`;
   return `<p class="note tight" id="studyWhere">Question ${state.index+1} · ${escape(StudyMode.DOMAINS.find(d=>d.id===q.domain).name)} · ${total} question${total===1?'':'s'} in this set</p><p class="study-prompt" id="studyPrompt">${escape(q.prompt)}</p>${answer}<div class="toolbar"><button type="button" id="studyCheck">Check my answer</button><button type="button" id="studyNext">Next question</button><button type="button" id="studyNew">New numbers</button></div><div class="study-feedback" id="studyFeedback" role="status" aria-live="polite"></div>`;
  }
  function render(){
@@ -7479,6 +7486,6 @@ const StudyModeUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"d39319d844ceb39f2a2e","worker":"sw.d39319d844ceb39f2a2e.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"e5ea92ab548a2d72338b","worker":"sw.e5ea92ab548a2d72338b.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
