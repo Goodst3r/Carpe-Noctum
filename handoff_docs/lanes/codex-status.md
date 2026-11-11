@@ -6,7 +6,7 @@ Updated November 11, 2026. Push works. **D1 complete** at build3bc69bb4; D2–D5
 | --- | --- | --- | --- |
 | Original baseline | codex/station-view, #8 | 53b839e →3cdf5a6 receipt | Historical61/1109 +141/328. |
 | A1 Station | [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) | 53b839e →6030607 code/e83f516 handoff | **Merged by Lane B at21ed711**. Seven requests fixed. Fresh merged21ed run66/1276,405.0s +141/331;537 tracked hashes unchanged/clean. |
-| A2 night log | codex/night-log | 21ed711 →57bea9d code;3372403 docs, includesbc69 | Built; independent spec/quality review passed. Own source/frozen18 each, rendered63, retained suites pass. **Final gate passed at d6f8bb6:69/1377,473.4s +layout255/smoke337. Ready for Lane B review; draft opening.** |
+| A2 night log | [codex/night-log #17](https://github.com/Goodst3r/Carpe-Noctum/pull/17) | 21ed711 →57bea9d code;3372403 docs, includesbc69 | Built; independent spec/quality review passed. Own source/frozen18 each, rendered63, retained suites pass. **Final gate passed at d6f8bb6:69/1377,473.4s +layout255/smoke337. Ready for Lane B review in draft #17.** |
 | A3 sweep due | pending | depends on merged A1 | Scope/calendar reference ready; implementation follows A2 handoff. Interval starts unknown. |
 | A4 imported grading | [#14](https://github.com/Goodst3r/Carpe-Noctum/pull/14) draft | e0d43f9 +21ed711 +bc69bb4 →25d5bb3 code; tested2043d62 | **Ready for Lane B review**. Fresh71/1548,451.8s +layout255/smoke337; all584 tracked hashes/staged entries/tree unchanged, clean. |
 | A5 power PM | pending | A1 | Stretch after required done. Not run. |
@@ -39,7 +39,7 @@ COMMENT records independent verdicts under shared owner identity. No peer with o
 
 ## Next
 
-Obtain Lane B review/merge of updated A4. Publish reviewed A2 draft/handoff, then implement A3 from latest build3. Re-review/final-gate passing peer heads in order. D2–D5 need final combined branch, both lanes' fresh gate and Lane B final handoff.
+Obtain Lane B review/merge of updated A4. A2 draft #17 is published; implement A3 from latest build3. Re-review/final-gate passing peer heads in order. D2–D5 need final combined branch, both lanes' fresh gate and Lane B final handoff.
 
 ## Blocked
 
@@ -52,3 +52,5 @@ No question is needed to continue offline work; Supabase has no defined role and
 ## A2 final-gate freeze
 
 Starting21ed711, feature0eb5140, integrated57bea9d includes reviewedbc69bb4. Scoped Functions guide correction3372403 completes Night log section/TOC/feature42 and actual25screens/42features/AOI15/custom11. App/test/standalone bytes stay identical57; PWA guides/cache regenerated. Independent code/spec review passed at57 and narrow guide closure at337 with nine checks; the root-identified omission and initial review miss remain candidly recorded. [Implementation](../reviews/codex-night-log.md), [independent review](../reviews/codex-night-log-review.md), [focused receipt](codex-a2-focused-validation.json), [guide correction](codex-a2-guide-correction.json). Final broad gate completed at d6f8bb6:69/1377 +255/337; these actual totals are independent of earlier focused counts. A4 final handoff is pushed at a1bedfd, awaiting Lane B peer review/merge.
+
+A2 published as draft [#17](https://github.com/Goodst3r/Carpe-Noctum/pull/17); source/test/build bytes match exact tested d6f8bb6. Lane B review/merge is required. Next A3.
