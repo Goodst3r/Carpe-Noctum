@@ -38,6 +38,8 @@ MODULES = [
     ('<!--FIELDCALCS-->', 'field-calcs.js'),
     ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
     ('<!--LEAKAGE-->', 'leakage.js'),
+    ('<!--CHECKLIST-->', 'checklist.js'),
+    ('<!--SAFETY-->', 'safety.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
 ]

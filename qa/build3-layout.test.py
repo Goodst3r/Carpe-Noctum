@@ -78,6 +78,24 @@ FILL_LEAK = '''() => {
   set('[data-leak="detector"][data-field="date"]', '2026-11-11'); document.getElementById('leakCheckSave').click();
   set('[data-leak="limit"][data-field="frequency"]', '10'); set('[data-leak="limit"][data-field="kind"]', 'digital', 'change'); set('[data-leak="limit"][data-field="field"]', '5'); set('[data-leak="limit"][data-field="distance"]', '3'); set('[data-leak="limit"][data-field="unit"]', 'm', 'change');
 }'''
+FILL_SAFETY = '''() => {
+  const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
+  for (const id of ['brief-job', 'ppe-hivis', 'lad-gear', 'elec-voltage', 'fiber-lit']) { const el = document.querySelector(`[data-check="${id}"]`); el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+  set('[data-check-field="who"]', 'W'.repeat(80)); set('[data-check-field="checkin"]', '16:45'); set('[data-check-field="policy"]', 'P'.repeat(120));
+}'''
+FILL_SAFETY_EDIT = '''() => {
+  const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
+  document.getElementById('safety-edit').click();
+  set('[data-check-add-group]', 'Electrical'); set('[data-check-add-text]', 'Q'.repeat(160));
+  document.querySelector('[data-check-add]').click();
+  set('[data-check-text="ppe-hivis"]', 'Reworded '.repeat(17).trim());
+  document.querySelector('[data-check-hide="fiber-hygiene"]').click();
+}'''
+CHECK_CONTRAST = '''(sel) => {
+  const lum = c => { const v = c.match(/[\\d.]+/g).slice(0, 3).map(Number).map(x => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
+  const bg = el => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const m = c.match(/[\\d.]+/g); if (m && (m.length < 4 || Number(m[3]) > 0.99)) return c; } return 'rgb(255,255,255)'; };
+  return [...document.querySelectorAll(sel)].filter(e => e.offsetParent).map(e => { const a = lum(getComputedStyle(e).color), b = lum(bg(e)); return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05); });
+}'''
 def docsis_real_input_checks(browser):
     """A lone minus sign in a number box reads as empty but is not blank, and the job's plant keeps its own company windows.
     These need a real browser: assigning .value cannot make a number box invalid the way typing does."""
@@ -237,6 +255,22 @@ try:
                 buttons = page.evaluate("[...document.querySelectorAll('#leakagePanel button:not(.source-tag)')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
                 check(f'{label} Leakage buttons are large controls', buttons and min(buttons) >= 40)
                 check(f'{label} Leakage marks an open leak and states results in words, not color alone', page.evaluate("document.querySelector('.leak-item.open')!==null&&[...document.querySelectorAll('#leakagePanel .health-status')].every(s=>/^(✓|⚠|•)/.test(s.textContent.trim()))"))
+                page.evaluate("WorkflowUI.go('safety')")
+                page.evaluate(FILL_SAFETY)
+                check(f'{label} Safety tick boxes are at least 24 px and each row is a 44 px target', page.evaluate("(()=>{const rows=[...document.querySelectorAll('#safetyPanel .check-item')].filter(e=>e.offsetParent);return rows.length>=30&&rows.every(r=>r.getBoundingClientRect().height>=44&&r.querySelector('input').getBoundingClientRect().width>=24&&r.querySelector('input').getBoundingClientRect().height>=24)})()"))
+                page.evaluate(FILL_SAFETY_EDIT)
+                check(f'{label} Safety fits without sideways scrolling, with long notes and a long added item', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                boxes = page.evaluate("[...document.querySelectorAll('#safetyPanel .check-section, #safetyPanel .check-notes, #safetyPanel .check-add')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                check(f'{label} every Safety section stays inside the viewport', len(boxes) >= 9 and all(l >= -1 and r <= width + 1 for l, r in boxes))
+                check(f'{label} Safety wording and labels wrap inside their rows (a long value in a text box scrolls inside the box, not the page)', page.evaluate("[...document.querySelectorAll('#safetyPanel .check-item span, #safetyPanel .check-policy, #safetyPanel .check-progress, #safetyPanel .note, #safetyPanel legend, #safetyPanel label')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
+                inputs = page.evaluate("[...document.querySelectorAll('#safetyPanel input:not([type=checkbox]),#safetyPanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Safety inputs keep field-sized controls', len(inputs) >= 5 and min(inputs) >= 40)
+                buttons = page.evaluate("[...document.querySelectorAll('#safetyPanel button')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Safety buttons are large controls', len(buttons) >= 5 and min(buttons) >= 40)
+                ratios = page.evaluate(CHECK_CONTRAST, '#safetyPanel .check-policy, #safetyPanel .check-item span, #safetyPanel legend, #safetyPanel .note, #safetyPanel button')
+                check(f'{label} Safety text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
+                check(f'{label} Safety opens with the company-policy line before any checklist item', page.evaluate("(()=>{const p=document.querySelector('#safetyPanel .check-policy'),s=document.querySelector('#safetyPanel .check-section');return /^Follow company policy/.test(p.textContent)&&!!(p.compareDocumentPosition(s)&4)})()"))
+                check(f'{label} Safety shows the count in words', page.evaluate("/^\\d+ of \\d+ ticked$/.test(document.querySelector('#safetyPanel .check-progress').textContent.trim())"))
                 page.evaluate("WorkflowUI.go('limits')")
                 check(f'{label} limits list fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 ratios = page.evaluate(CONTRAST)
@@ -253,7 +287,7 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)

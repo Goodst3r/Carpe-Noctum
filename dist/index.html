@@ -243,7 +243,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -274,6 +274,25 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .leak-item.open{border-left:3px solid var(--warn);padding-left:10px}
 .leak-repair{display:grid;gap:3px;font-size:13px}
 .leak-card [hidden]{display:none!important}
+.check-panel .check-policy{margin:12px 0}
+.check-section{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
+.check-section legend{padding:0 6px;font-weight:700}
+.check-list{list-style:none;margin:0;padding:0}
+.check-row{margin:0;padding:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line)}
+.check-row:first-child{border-top:0}
+.check-item{display:flex;align-items:flex-start;gap:12px;min-height:48px;padding:10px 0;flex:1 1 240px;min-width:0;cursor:pointer}
+.check-item input{flex:0 0 auto;width:26px;height:26px;margin:0;accent-color:var(--blue)}
+.check-item span{min-width:0;overflow-wrap:anywhere}
+.check-progress{margin:10px 0 0}
+.check-editing{display:grid;gap:6px;padding:8px 0}
+.check-edit{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.check-edit input{font:inherit;color:var(--ink,inherit);min-width:0;width:100%}
+.check-notes,.check-add,.check-hidden{margin:14px 0}
+.check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.check-panel button.danger{border-color:var(--bad);color:var(--bad)}
+.check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel h3 .source-tag{min-height:44px;min-width:44px;margin-left:6px;vertical-align:middle}
+.check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
 
 /* Guided 42 MHz / 204 MHz field setup. Inherits the established night / sun palette. */
 .sweep-setup-panel{max-width:1050px;margin-left:auto;margin-right:auto}
@@ -379,6 +398,7 @@ html[data-theme=sun] .sweep-split-switch button[aria-pressed=true]{background:#d
 <section class="panel limits-panel" data-screen="test" hidden="" id="limitsPanel"></section>
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
 <section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
+<section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
 <p class="note">90 V / 15 A are starting examples. Replace them with your supply’s operating voltage and nameplate current rating. This power circuit is separate from the RF route; choose the actual power feed to each point.</p>
@@ -3719,7 +3739,7 @@ const WorkflowUI=(()=>{
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Acceptance'],['runsheet','Run sheet']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['records','Acceptance'],['runsheet','Run sheet']]}
  };
  const screens={
   station:['route','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
@@ -3743,6 +3763,7 @@ const WorkflowUI=(()=>{
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
+  safety:['job','Check safety before you work','Reminders to tick before you climb or open plant. They are not your company’s procedure; follow company policy.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
   runsheet:['job','Review and share the run sheet','Review predictions, measurements and field notes before printing or exporting.'],
@@ -3759,7 +3780,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4008,6 +4029,7 @@ const TrainingJob=(()=>{
   ['limits','Check a limit and its source','limits','','Open Test → Limits and filter by Company. This practice job’s profile 1200 holds synthetic criteria, so they show values. In a new blank job the same entries show Unknown until someone enters them, and an entered 0 stays 0. Your built-in 31 dBmV at 54 MHz / 43 dBmV at 860 MHz and separate 38 dBmV TX reference are listed on their own. Filter by Unknown to see the two built-in approximations whose sources are not verified. Nothing here approves criteria.'],
   ['docsis','Check modem levels against the spec','docsisHealth','','Open Test → DOCSIS health. Type 16 for the SC-QAM channel level: it is 1.0 dB above the −15 to +15 dBmV per 6 MHz range the modem must accept. Type 3.2 and it sits 11.8 dB inside. On the OFDM card set Measured over to 24 MHz and type −8: 1.0 dB inside the −9 to +21 range. Set the total-power card to a DOCSIS 3.1 modem and type 40 for total input power: it is at the limit, because the limit is strictly below 40 (33 for a 3.0-only modem, which you must choose first). For upstream, choose a 3.1 modem on a 3.1 CMTS and type 52 for total transmit power: the headroom to the 65 dBmV minimum Pmax is 13.0 dB. Each result says Unknown for your company window until you enter one; the spec range is what a modem must accept, not a target. All readings are synthetic.'],
   ['leakage','Check and log signal leakage','leakage','','Open Test → Leakage. In the limit check use 121.2625 MHz, an analog signal and 25 µV/m at 3 m: the limit that applies is 20 µV/m at 3 m, and the reading is 5 µV/m over it. In the CLI card type the leaks 100, 60, 50 with 0.8 of the plant examined: all three count, the sum of squares is 16,100, the index is 43.04 dB and it sits 21.0 dB at or below the printed value of 64. In the distance card 40 µV/m measured at 10 m is 133.3 µV/m at 3 m. Add one practice leak to the leak log by pole and date, type PRACTICE in the notes and use no customer names, mark it repaired, export the log, then use Delete on the practice entry so it never reaches a real export. The log, saved detector checks and company settings stay on this device and are not in the job backup. All readings are synthetic.'],
+  ['safety','Tick off pre-work safety reminders','safety','','Open Job → Safety. The screen opens with “Follow company policy”: the list is a set of reminders written for this app, not your company’s procedure. Tick two or three reminders, then type who knows where you are as a role (for example crew lead), a check-in time on a 24-hour clock and where your company keeps its safety policy. Choose Change this list to reword an item, hide one or add your own, then choose the same button again to finish. Ticks, notes and changes stay on this device and are not in the job backup. All entries are practice values: do not type customer names or addresses.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4023,7 +4045,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'21 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'13 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'12 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'13 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4071,9 +4093,10 @@ const TrainingJob=(()=>{
   ['calculators','Field calculators and source tags','Test','custom-curves','calculators','calculators','The guide step lists synthetic ripple, pre-EQ, OFDM and echo inputs to type; each formula shows its source tag.'],
   ['limits','Limits, labels and sources','Test','custom-curves','limits','limits','Synthetic profile criteria, the built-in local preset and unverified approximations, each with its label and source.'],
   ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream and upstream readings that land inside, outside and exactly on the spec range, with a company window that starts unknown.'],
-  ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.']
+  ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.'],
+  ['safety','Pre-work safety reminders','Job','custom-curves','safety','safety','A few reminders ticked, a role and a check-in time typed, and the list reworded, hidden and added to, all kept on this device and not in the job backup.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={station:'[data-station-target]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={station:'[data-station-target]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -4377,6 +4400,9 @@ const Thresholds=(()=>{
   {id:'station.return.cmtsSetPoint',label:'spec',name:'Configurable CMTS receive set point',kind:'target',units:'dBmV',value:0,source:'SCTE 293-7, What is … Long Loop Automatic Level Control?',revision:'2025; release history February 17, 2025',locator:'Sections 4.2 and 5; section 5.1 examples',conditions:'The documented default CMTS receive set point is 0 dBmV and is configurable. DOCSIS long-loop ALC is not amplifier alignment. This does not populate a station injection target or an absolute receiver reference.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Route → Station: receiver reference-plane reminder'},
   {id:'station.return.aoiHgdInput',label:'unknown',name:'Quantum18 HGD preliminary upstream input recommendation',kind:'target',units:'dBmV per 6.4 MHz channel',value:9,source:'AOI, Quantum18 HGD System Amplifier data sheet, QB18-HGD-SA-Datasheet.pdf',revision:'Preliminary; revision/date not printed in the saved extraction; archive snapshot November 7, 2024',locator:'Page 1, Reverse Station Performance table and note 4',conditions:'Published preliminary recommendation for the HGD 204 MHz split only. Does not establish a value for HGBT, LE, other splits, station injection or receiver reference. Current issued revision remains unverified. Manufacturer-authored file was read from its archived primary copy.',date:CHECKED,scope:'204/258',verification:'unverified',usedBy:'Route → Station: exact HGD 204/258 reference reminder'},
   {id:'station.input.range',label:'unknown',name:'Station worksheet numeric range',kind:'limit',units:'dB or dBmV',value:200,source:'Application input guard, not an equipment capability or company acceptance limit',revision:'Build 3 station worksheet',locator:'station.js level() and loss(); alignment.js readings()',conditions:'Levels within ±200 dBmV; recorded EQ / tilt within ±200 dB; net insertion loss, recorded pad and optional tolerances from 0 to 200 dB. Finite decimal notation must remain visible in HTML number fields. Guard prevents overflow / unsupported arithmetic. It must not be treated as a safe operating range.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Route → Station'},
+  {id:'checklist.items.max',label:'unknown',name:'Checklist cards: items you can add',kind:'limit',units:'items per checklist',value:40,source:'checklist.js application guard (MAX_CUSTOM); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_CUSTOM and addItem()',conditions:'Each checklist card (Pre-work safety, and the Outage first-response card that shares the engine) accepts up to 40 items you add yourself, on top of its original list. A software storage and display bound only. It does not limit hiding or rewording the original items, and it says nothing about how many checks a job needs.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: Add an item'},
+  {id:'checklist.itemText.max',label:'unknown',name:'Checklist cards: characters in one item',kind:'limit',units:'characters per item',value:160,source:'checklist.js application guard (MAX_TEXT); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_TEXT, editItem() and addItem()',conditions:'The wording of an item you reword or add is cut after 160 characters. A software display bound only; the original wording of the built-in items is shorter.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: reword or add an item'},
+  {id:'checklist.note.max',label:'unknown',name:'Checklist cards: characters in a note box',kind:'limit',units:'characters per note box',value:120,source:'checklist.js application guard (MAX_NOTE); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_NOTE and setField(); each card sets the limit of its own boxes',conditions:'No note box takes more than 120 characters, and each box can have a lower limit set by its card (for example, in Pre-work safety: who knows where you are 80, where your company keeps its safety policy 120). A software bound only. Enter no customer names, addresses or account numbers.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: Notes for this job'},
 
   {id:'const.speedOfLight',label:'spec',name:'Speed of light in a vacuum',kind:'constant',value:299792458/0.3048/1e6,units:'ft/µs',
    formula:'c = 299,792,458 m/s (exact) ÷ 0.3048 m/ft (exact) = 983.571 ft/µs',
@@ -4571,7 +4597,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
@@ -5887,7 +5913,408 @@ const LeakageUI=(()=>{
  return {init,markup,refreshAll,renderLists,CARDS};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"800f61fdf87f02b27c6c","worker":"sw.800f61fdf87f02b27c6c.js","appVersion":"2.0 Alpha build 3"}</script>
+<script>/* Build 3 shared checklist engine, used by the pre-work safety card and the outage first-response card.
+   A checklist is a list of prompts the technician ticks off, rewords, hides or adds to, plus a few short
+   notes (a person's name or role, a time). Everything is kept on this device only, under one versioned
+   key per checklist, outside jobs and job backups. Nothing here is a company procedure; the cards that use
+   this engine say so. No customer names, addresses or account numbers are asked for or stored.
+   The engine has no DOM; ChecklistUI below draws one checklist into a panel. */
+const Checklist=(()=>{
+ const MAX_CUSTOM=40,MAX_TEXT=160,MAX_NOTE=120;
+ const DEFAULT_ID=/^[a-z0-9][a-z0-9-]{0,47}$/;
+ const CUSTOM_ID=/^x-[a-z0-9]{4,40}$/;
+ const TIME=/^(?:[01]\d|2[0-3]):[0-5]\d$/;
+ const NEWER='A newer version of the app saved this checklist on this device, so this version will not overwrite it. Update the app, or clear the checklist to start again.';
+ const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+ /* Text from a person: control, zero-width and direction-override characters become spaces, runs of space
+    collapse, and the result is cut by whole characters (never through a surrogate pair). */
+ const clean=(value,max)=>Array.from(String(value??'').replace(/[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u180e\u200b-\u200f\u2028-\u202e\u2060-\u206f\ufeff]/g,' ').replace(/\s+/g,' ').trim()).slice(0,max).join('');
+ const fail=error=>({ok:false,error});
+ const clone=x=>JSON.parse(JSON.stringify(x));
+ let counter=0;
+ const newId=()=>'x-'+Date.now().toString(36)+(counter++).toString(36)+Math.floor(Math.random()*1e6).toString(36);
+
+ function create(config){
+  const key=String(config?.key||'');
+  if(!/^nightsweep-[a-z0-9-]+-v\d+$/.test(key))throw Error('Checklist key must look like nightsweep-name-v1');
+  const items=(config.items||[]).map(i=>Object.freeze({id:i.id,group:i.group,text:i.text}));
+  const seen=new Set();
+  for(const i of items){
+   if(!DEFAULT_ID.test(i.id)||seen.has(i.id))throw Error('Bad or repeated checklist item id: '+i.id);
+   if(!i.group||!clean(i.text,MAX_TEXT)||clean(i.text,MAX_TEXT)!==i.text)throw Error('Bad checklist item: '+i.id);
+   seen.add(i.id);
+  }
+  const groups=[...new Set(items.map(i=>i.group))];
+  const fieldDefs=(config.fields||[]).map(f=>Object.freeze({id:f.id,label:f.label,type:f.type==='time'?'time':'text',max:Math.min(f.max||MAX_NOTE,MAX_NOTE),hint:f.hint||'',keep:!!f.keep}));
+  for(const f of fieldDefs)if(!DEFAULT_ID.test(f.id))throw Error('Bad checklist field id: '+f.id);
+  const SIDE_KEY=key+'-unreadable';
+  const emptyState=()=>({version:1,checked:[],edits:[],hidden:[],custom:[],fields:{}});
+  const isItem=(s,id)=>seen.has(id)||s.custom.some(c=>c.id===id);
+
+  /* What a stored value may hold, whatever is in it. Returns {status,state}: status is 'ok', 'newer'
+     (written by a later version), or 'unreadable'. */
+  function sanitize(saved){
+   if(!saved||typeof saved!=='object'||Array.isArray(saved))return {status:'unreadable',state:emptyState()};
+   if(typeof saved.version==='number'&&saved.version>1)return {status:'newer',state:emptyState()};
+   if(saved.version!==1)return {status:'unreadable',state:emptyState()};
+   const s=emptyState();
+   for(const c of Array.isArray(saved.custom)?saved.custom:[]){
+    if(s.custom.length>=MAX_CUSTOM)break;
+    const text=clean(c?.text,MAX_TEXT),id=typeof c?.id==='string'?c.id:'';
+    if(CUSTOM_ID.test(id)&&text&&!s.custom.some(x=>x.id===id))s.custom.push({id,group:groups.includes(c?.group)?c.group:groups[groups.length-1],text});
+   }
+   const take=list=>[...new Set((Array.isArray(list)?list:[]).filter(id=>typeof id==='string'&&isItem(s,id)))];
+   s.checked=take(saved.checked);
+   s.hidden=take(saved.hidden).filter(id=>seen.has(id));
+   for(const e of Array.isArray(saved.edits)?saved.edits:[]){
+    const text=clean(e?.text,MAX_TEXT);
+    if(typeof e?.id==='string'&&seen.has(e.id)&&text&&!s.edits.some(x=>x.id===e.id))s.edits.push({id:e.id,text});
+   }
+   const savedFields=saved.fields&&typeof saved.fields==='object'&&!Array.isArray(saved.fields)?saved.fields:{};
+   for(const f of fieldDefs){
+    const v=own(savedFields,f.id)?clean(savedFields[f.id],f.max):'';
+    s.fields[f.id]=f.type==='time'?(TIME.test(v)?v:''):v;
+   }
+   return {status:'ok',state:s};
+  }
+  function readStored(storage){
+   let raw;
+   try{raw=storage?.getItem(key);}catch(_){return {status:'blocked',state:null};}
+   if(raw===null||raw===undefined)return {status:storage?'none':'blocked',state:storage?emptyState():null};
+   try{return {...sanitize(JSON.parse(raw)),raw};}catch(_){return {status:'unreadable',state:emptyState(),raw};}
+  }
+  let state=emptyState(),loaded=false,loadStatus='none';
+  const pending=[];   /* changes this browser could not store; they are applied again on top of every later write */
+  function load(storage){
+   const r=readStored(storage);
+   loaded=true;loadStatus=r.status;
+   state=r.state||emptyState();
+   return loadStatus;
+  }
+  function ensureLoaded(){if(loaded)return;try{load(typeof localStorage!=='undefined'?localStorage:null);}catch(_){loaded=true;}}
+  const status=()=>{ensureLoaded();return loadStatus;};
+  /* The unreadable value is set aside before anything replaces it. True only when a copy of exactly this value is on the
+     device now: written just now, or already there from an earlier attempt. If the copy cannot be made (storage full or
+     blocked) or a different earlier copy is already there, the original is not safe to replace and the caller must not. */
+  let keptCopy=null;   /* null: not tried; true: a copy is on this device; false: the copy could not be made */
+  function keepUnreadable(storage,raw){
+   try{
+    if(!storage||typeof raw!=='string')return false;
+    const have=storage.getItem(SIDE_KEY);
+    if(have===null){storage.setItem(SIDE_KEY,raw);return storage.getItem(SIDE_KEY)===raw;}
+    return have===raw;
+   }catch(_){return false;}
+  }
+  /* Apply one change to what is stored now (so a second tab's work is not erased) and write it.
+     Returns {ok,saved,...}. saved:false means this browser would not store it (or, when the stored value is
+     unreadable, would not keep a copy of it first): the change stays in memory, the stored value is left as
+     it was, and the change is written with the next change that does save. */
+  function commit(op,storage){
+   ensureLoaded();
+   const r=readStored(storage);
+   if(r.status==='newer'){loadStatus='newer';return fail(NEWER);}
+   let kept=true;
+   if(r.status==='unreadable'){kept=keepUnreadable(storage,r.raw);keptCopy=kept;}
+   const next=clone(r.status==='blocked'?state:r.state);
+   for(const earlier of pending)earlier(next);
+   const outcome=op(next);
+   if(outcome&&outcome.ok===false)return outcome;
+   state=next;
+   /* Never replace the stored value while it is unreadable and no copy of it is safe: the change stays in memory (and is
+      applied again with the next write) and the original is left exactly as it was. */
+   const hold=r.status==='unreadable'&&!kept;
+   loadStatus=hold?'unreadable':'ok';
+   let saved=!hold;
+   if(!hold)try{if(!storage)throw new Error('no storage');storage.setItem(key,JSON.stringify(state));}catch(_){saved=false;}
+   if(saved)pending.length=0;else pending.push(op);
+   return {ok:true,saved,unreadableKept:r.status==='unreadable'?kept:undefined,...(outcome||{})};
+  }
+  const known=(s,id)=>typeof id==='string'&&isItem(s,id);
+  const gone=()=>fail('That item is no longer in the list.');
+
+  function toggle(id,on,storage){
+   return commit(s=>{
+    if(!known(s,id))return gone();
+    s.checked=s.checked.filter(x=>x!==id);
+    if(on)s.checked.push(id);
+   },storage);
+  }
+  function uncheckAll(storage){return commit(s=>{s.checked=[];},storage);}
+  /* A new pass or a new call: ticks go and so do the notes for this job. Notes marked keep (such as where the
+     company's policy is kept) stay, and so do the technician's changes to the list. */
+  function startOver(storage){
+   return commit(s=>{
+    s.checked=[];
+    for(const f of fieldDefs)if(!f.keep)s.fields[f.id]='';
+   },storage);
+  }
+  function editItem(id,text,storage){
+   const t=clean(text,MAX_TEXT);
+   if(!t)return fail('Enter the wording for this item, or use Restore wording to go back to the original.');
+   return commit(s=>{
+    if(!known(s,id))return gone();
+    const custom=s.custom.find(c=>c.id===id);
+    if(custom){custom.text=t;return;}
+    s.edits=s.edits.filter(e=>e.id!==id);
+    if(t!==items.find(i=>i.id===id).text)s.edits.push({id,text:t});
+   },storage);
+  }
+  function restoreWording(id,storage){return commit(s=>{if(!known(s,id))return gone();s.edits=s.edits.filter(e=>e.id!==id);},storage);}
+  function hideItem(id,storage){
+   return commit(s=>{
+    if(!seen.has(id))return fail('Only the original items can be hidden; delete one you added instead.');
+    if(!s.hidden.includes(id))s.hidden.push(id);
+   },storage);
+  }
+  function showItem(id,storage){return commit(s=>{s.hidden=s.hidden.filter(x=>x!==id);},storage);}
+  function addItem(group,text,storage){
+   const t=clean(text,MAX_TEXT);
+   if(!t)return fail('Enter the wording for the new item.');
+   if(!groups.includes(group))return fail('Choose which section the new item belongs in.');
+   const id=newId();
+   return commit(s=>{
+    if(s.custom.some(c=>c.id===id))return;
+    if(s.custom.length>=MAX_CUSTOM)return fail('You can add up to '+MAX_CUSTOM+' items. Delete one you no longer need first.');
+    s.custom.push({id,group,text:t});
+    return {id};
+   },storage);
+  }
+  function removeItem(id,storage){
+   return commit(s=>{
+    const i=s.custom.findIndex(c=>c.id===id);
+    if(i<0)return fail('Only items you added can be deleted; hide an original item instead.');
+    s.custom.splice(i,1);s.checked=s.checked.filter(x=>x!==id);
+   },storage);
+  }
+  function restoreOriginal(storage){return commit(s=>{s.edits=[];s.hidden=[];s.custom=[];s.checked=s.checked.filter(id=>seen.has(id));},storage);}
+  function setField(id,value,storage){
+   const def=fieldDefs.find(f=>f.id===id);
+   if(!def)return fail('That entry does not exist.');
+   const v=clean(value,def.max);
+   if(def.type==='time'&&v!==''&&!TIME.test(v))return fail('Enter the time as hours and minutes on a 24-hour clock, such as 14:30, or leave it blank.');
+   return commit(s=>{s.fields[id]=v;},storage);
+  }
+  /* Remove the whole checklist from this device. Memory changes only when the browser really removed it. */
+  function clearAll(storage){
+   ensureLoaded();
+   try{if(!storage)throw new Error('no storage');storage.removeItem(key);}catch(_){return fail('This browser would not remove the saved checklist, so it may return when the page reloads.');}
+   try{storage.removeItem(SIDE_KEY);}catch(_){}
+   state=emptyState();pending.length=0;loadStatus='none';keptCopy=null;
+   return {ok:true};
+  }
+
+  /* What to draw: sections in the original order, the original items minus hidden ones plus the ones
+     the technician added, the tick count and the notes. */
+  function view(){
+   ensureLoaded();
+   const hiddenSet=new Set(state.hidden),checkedSet=new Set(state.checked);
+   const edit=id=>state.edits.find(e=>e.id===id)?.text;
+   const sections=groups.map(group=>{
+    const rows=[];
+    for(const i of items)if(i.group===group&&!hiddenSet.has(i.id))rows.push({id:i.id,text:edit(i.id)??i.text,original:i.text,edited:edit(i.id)!==undefined,added:false,checked:checkedSet.has(i.id)});
+    for(const c of state.custom)if(c.group===group)rows.push({id:c.id,text:c.text,original:c.text,edited:false,added:true,checked:checkedSet.has(c.id)});
+    return {group,items:rows};
+   });
+   const all=sections.flatMap(s=>s.items);
+   return {sections,hidden:items.filter(i=>hiddenSet.has(i.id)).map(i=>({id:i.id,group:i.group,text:i.text})),
+    done:all.filter(i=>i.checked).length,total:all.length,
+    fields:fieldDefs.map(f=>({id:f.id,label:f.label,type:f.type,hint:f.hint,max:f.max,keep:f.keep,value:state.fields[f.id]??''})),groups:[...groups],unreadableCopy:keptCopy};
+  }
+  /* Plain text of the checklist as it stands, for a note or a message. `when` is passed in so the engine stays pure. */
+  function toText(title,when){
+   const v=view(),lines=[String(title||'Checklist')];
+   if(when)lines.push('Prepared '+when);
+   lines.push('');
+   for(const s of v.sections){
+    if(!s.items.length)continue;
+    lines.push(s.group);
+    for(const i of s.items)lines.push((i.checked?'[x] ':'[ ] ')+i.text);
+    lines.push('');
+   }
+   for(const f of v.fields)if(f.value)lines.push(f.label+': '+f.value);
+   lines.push(v.done+' of '+v.total+' ticked');
+   return lines.join('\r\n')+'\r\n';
+  }
+  return {key,SIDE_KEY,groups,items,fieldDefs,load,status,view,toText,toggle,uncheckAll,startOver,editItem,restoreWording,hideItem,showItem,addItem,removeItem,restoreOriginal,setField,clearAll,sanitize};
+ }
+ return {create,clean,MAX_CUSTOM,MAX_TEXT,MAX_NOTE,NEWER};
+})();
+
+/* Draws one checklist into a panel. `options`: panelId, prefix (for element ids), title, lead, policy (the
+   line shown first), source (where the wording came from), exportName (adds a text export when given),
+   reviewNote (what still needs a person's review), registerClear (extra text for the clear confirm). */
+const ChecklistUI=(()=>{
+ const guard=(id,context)=>typeof Thresholds!=='undefined'&&typeof Thresholds.tag==='function'?' '+Thresholds.tag(id,context):'';
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function storage(){try{return window.localStorage;}catch(_){return null;}}
+ function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+ const savedText=r=>r.unreadableKept===false?'Not saved. The checklist already on this device could not be read, and a copy of it could not be set aside (storage may be full), so it was left exactly as it was. Your change lasts only until you close the page. Free some space or back up your projects and change something again, or use Clear this checklist to discard the unreadable data.':r.saved?(r.unreadableKept===true?'Saved on this device only. A copy of the unreadable older data is kept on this device. It is not part of a job backup.':'Saved on this device only. It is not part of a job backup.'):'This browser would not save it, so it lasts until you close the page.';
+ function mount(options,list){
+  const panel=document.getElementById(options.panelId);if(!panel)return null;
+  const p=options.prefix;
+  let editing=false;
+  const note=(text,error)=>{const el=panel.querySelector('#'+p+'-note');if(el){el.textContent=text;el.classList.toggle('error',!!error);}};
+  /* A refused entry is explained right under its own box, and the box is marked, so the reason is on screen where the
+     person is looking. The box keeps what they typed (a half-edited native time is not stored, and not thrown away). */
+  function clearProblem(t){
+   t.removeAttribute('aria-invalid');t.removeAttribute('aria-describedby');
+   const e=t.closest('label')?.nextElementSibling;if(e&&e.classList.contains('check-field-error'))e.remove();
+  }
+  function showProblem(t,text){
+   clearProblem(t);const label=t.closest('label');if(!label){note(text,true);return;}
+   const e=document.createElement('p');e.className='status error check-field-error';e.setAttribute('role','alert');e.id=p+'-problem-'+t.dataset.checkField;e.textContent=text;
+   label.insertAdjacentElement('afterend',e);t.setAttribute('aria-invalid','true');t.setAttribute('aria-describedby',e.id);
+  }
+  /* Store one note box. A native time box with a part filled in and a part blank reads as '' but is not blank
+     (validity.badInput): that is refused, not saved as blank, and the saved time stays. A box with every part
+     cleared is deliberately blank and is saved as blank. */
+  function saveField(t,fromInput){
+   const id=t.dataset.checkField,def=list.view().fields.find(f=>f.id===id),time=t.type==='time';
+   const still=time?(def&&def.value?' The saved time is still '+def.value+'.':' No time is saved yet.'):'';
+   if(time&&t.validity&&t.validity.badInput){showProblem(t,'Not saved. The time is incomplete. Fill in every part (hours, minutes, and AM or PM if shown), or clear every part to leave it blank.'+still);return;}
+   const r=list.setField(id,t.value,storage());
+   if(!r.ok){showProblem(t,'Not saved. '+r.error+still);return;}
+   clearProblem(t);note(savedText(r),!r.saved);
+   if(!fromInput&&!time)render();   /* a time box is never redrawn under the person's finger: its value is already exactly what is stored */
+  }
+  function itemRow(i){
+   const label=escape(i.text);
+   if(!editing)return `<li class="check-row"><label class="check-item"><input type="checkbox" data-check="${i.id}"${i.checked?' checked':''}><span>${label}</span></label></li>`;
+   return `<li class="check-row check-editing"><label class="check-edit">Wording<input type="text" maxlength="${Checklist.MAX_TEXT}" data-check-text="${i.id}" value="${label}"></label><div class="toolbar">${i.added?`<button type="button" data-check-delete="${i.id}" class="danger" aria-label="Delete item: ${label}">Delete</button>`:`<button type="button" data-check-hide="${i.id}" aria-label="Hide item: ${label}">Hide</button>`}${i.edited?`<button type="button" data-check-reword="${i.id}" aria-label="Restore the original wording of: ${label}">Restore wording</button>`:''}</div></li>`;
+  }
+  function render(){
+   const v=list.view(),st=list.status();
+   const fields=v.fields.map(f=>`<label>${escape(f.label)}<input type="${f.type==='time'?'time':'text'}" maxlength="${f.max}" data-check-field="${f.id}" value="${escape(f.value)}"${f.hint?` placeholder="${escape(f.hint)}"`:''}></label>`).join('');
+   const sections=v.sections.map(s=>`<fieldset class="check-section"><legend>${escape(s.group)}</legend><ul class="check-list">${s.items.map(itemRow).join('')||'<li class="note tight">Every item in this section is hidden.</li>'}</ul></fieldset>`).join('');
+   const hiddenBox=v.hidden.length?`<div class="check-hidden"><h3>Hidden items</h3><ul class="check-list">${v.hidden.map(h=>`<li class="check-row"><span>${escape(h.text)}</span><button type="button" data-check-show="${h.id}" aria-label="Show item again: ${escape(h.text)}">Show again</button></li>`).join('')}</ul></div>`:'';
+   const editor=editing?`<div class="check-add"><h3>Add an item${guard('checklist.items.max','how many items you can add')}${guard('checklist.itemText.max','how long an item can be')}</h3><div class="calc-fields"><label>Section<select data-check-add-group>${v.groups.map(g=>`<option value="${escape(g)}">${escape(g)}</option>`).join('')}</select></label><label class="calc-wide">Wording<input type="text" maxlength="${Checklist.MAX_TEXT}" data-check-add-text></label></div><div class="toolbar"><button type="button" data-check-add>Add item</button><button type="button" data-check-restore class="danger">Restore the original list</button></div></div>${hiddenBox}`:'';
+   const warn=st==='newer'?`<p class="status warning" role="status">${escape(Checklist.NEWER)}</p>`:st==='unreadable'?(v.unreadableCopy===false?'<p class="status error" role="alert">The saved checklist on this device could not be read, and a copy of it could not be set aside, so it has been left as it was. Changes you make now last only until you close the page. Free some space or back up your projects and change something again, or use Clear this checklist to discard the unreadable data.</p>':'<p class="status warning" role="status">The saved checklist on this device could not be read, so the original list is shown. Before your next change replaces it, a copy of the unreadable data is set aside on this device; if that copy cannot be made, the unreadable data is left as it is and your change is kept only until you close the page.</p>'):'';
+   panel.querySelector('#'+p+'-body').innerHTML=`${warn}<p class="check-progress" aria-live="polite"><strong>${v.done} of ${v.total}</strong> ticked</p>${sections}<div class="check-notes"><h3>Notes for this job${guard('checklist.note.max','the note boxes')}</h3><div class="calc-fields">${fields}</div></div>${editor}`;
+   const edit=panel.querySelector('#'+p+'-edit');if(edit){edit.setAttribute('aria-pressed',String(editing));edit.textContent=editing?'Done changing the list':'Change this list';}
+  }
+  panel.innerHTML=`<div class="sectionhead"><div><h2>${escape(options.title)}</h2><p class="note tight">${escape(options.lead)}</p></div></div><p class="status warning check-policy">${escape(options.policy)}</p><div id="${p}-body"></div><div class="toolbar"><button type="button" id="${p}-edit" aria-pressed="false">Change this list</button><button type="button" id="${p}-untick">${escape(options.startLabel||'Start a new pass')}</button>${options.exportName?`<button type="button" id="${p}-export">Save as text</button>`:''}<button type="button" id="${p}-clear" class="danger">Clear everything on this device</button></div><p class="note" id="${p}-note" role="status" aria-live="polite"></p><p class="note calc-conditions">${escape(options.source)} ${escape(options.reviewNote||'')} Ticks, notes and your changes are kept in this browser on this device only, for every job: they are not in a job or its backups, and clearing browser data erases them.</p>`;
+  render();
+  panel.addEventListener('change',event=>{
+   const t=event.target;if(!panel.contains(t))return;
+   if(t.dataset.check!==undefined){const r=list.toggle(t.dataset.check,t.checked,storage());if(!r.ok)note(r.error,true);else note(r.saved&&r.unreadableKept!==true?'':savedText(r),!r.saved);render();}
+   else if(t.dataset.checkField!==undefined)saveField(t,false);
+   else if(t.dataset.checkText!==undefined){const r=list.editItem(t.dataset.checkText,t.value,storage());if(!r.ok){note(r.error,true);render();return;}note(savedText(r),!r.saved);render();}
+  });
+  /* A native time box reports a finished time, or every part cleared, through input as well as change; and leaving it
+     half filled can send no change at all, so whatever the box holds is reconciled with what is saved when it loses focus. */
+  panel.addEventListener('input',event=>{
+   const t=event.target;if(t.dataset&&t.dataset.checkField!==undefined&&t.type==='time')saveField(t,true);
+  });
+  panel.addEventListener('focusout',event=>{
+   const t=event.target;
+   if(!t.dataset||t.dataset.checkField===undefined||t.type!=='time')return;
+   const def=list.view().fields.find(f=>f.id===t.dataset.checkField);
+   if(t.validity&&t.validity.badInput||t.value!==(def?def.value:''))saveField(t,true);   /* nothing to say when it already matches */
+  });
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button');if(!b||!panel.contains(b))return;
+   const d=b.dataset;let r=null;
+   if(b.id===p+'-edit'){editing=!editing;note('',false);render();return;}
+   if(b.id===p+'-untick'){
+    const noted=list.view().fields.some(f=>!f.keep&&f.value);
+    if(noted&&typeof confirm==='function'&&!confirm('Untick everything and clear your notes for this job? The list and your changes to it stay.'))return;
+    r=list.startOver(storage());
+   }
+   else if(b.id===p+'-clear'){
+    if(typeof confirm==='function'&&!confirm('Clear this checklist from this device? That removes your ticks, notes and every change you made to the list, and any copy of unreadable data kept for safety. It cannot be exported first.'))return;
+    r=list.clearAll(storage());if(!r.ok){note(r.error,true);return;}editing=false;note('Cleared on this device.',false);render();return;
+   }
+   else if(b.id===p+'-export'){
+    const text=list.toText(options.exportTitle||options.title,today());
+    if(typeof download==='function')download(options.exportName,text,'text/plain');
+    note('Text note prepared. Finish the save or share step on your device. It lists the items and your notes; check it before you send it.',false);return;
+   }
+   else if(d.checkHide!==undefined)r=list.hideItem(d.checkHide,storage());
+   else if(d.checkShow!==undefined)r=list.showItem(d.checkShow,storage());
+   else if(d.checkDelete!==undefined)r=list.removeItem(d.checkDelete,storage());
+   else if(d.checkReword!==undefined)r=list.restoreWording(d.checkReword,storage());
+   else if(d.checkAdd!==undefined){
+    const text=panel.querySelector('[data-check-add-text]'),group=panel.querySelector('[data-check-add-group]');
+    r=list.addItem(group?.value,text?.value,storage());
+    if(!r.ok){note(r.error,true);return;}
+   }
+   else if(d.checkRestore!==undefined){
+    if(typeof confirm==='function'&&!confirm('Restore the original list? Your reworded, hidden and added items are removed. Ticks on original items stay.'))return;
+    r=list.restoreOriginal(storage());
+   }
+   else return;
+   if(!r.ok){note(r.error,true);return;}
+   note(savedText(r),!r.saved);render();
+  });
+  return {render};
+ }
+ return {mount};
+})();
+</script>
+<script>/* Build 3 pre-work safety card (build list item 9). A reminder list to tick before climbing, opening plant or
+   working near a road. The wording was written for this app from general field-safety practice. It is not
+   copied from NCTI or SCTE material and it is not any company's procedure: the card opens by saying so.
+   The list has no safety limits, numbers or targets; its only numbers are the engine's software caps (items you can add,
+   characters per item and per note box), registered as Unknown application guards. A company policy reference and the
+   person who knows where you are are notes the technician types in. Kept on this device only. */
+const Safety=(()=>{
+ const ITEMS=[
+  {id:'brief-job',group:'Before you leave',text:'Read the work order and know what you will open, climb or dig.'},
+  {id:'brief-hazards',group:'Before you leave',text:'Think through the hazards at this site: traffic, power lines, weather, animals and people.'},
+  {id:'brief-weather',group:'Before you leave',text:'Check the weather. Do not climb or open plant in lightning, ice or high wind.'},
+  {id:'brief-checkin',group:'Before you leave',text:'Tell someone where you are working and when you will check in. Fill in the notes below.'},
+  {id:'brief-phone',group:'Before you leave',text:'Carry a charged phone. Know the emergency number and your company’s safety line.'},
+  {id:'ppe-required',group:'Protective equipment',text:'Wear the protective equipment your company requires for this task.'},
+  {id:'ppe-head-eye',group:'Protective equipment',text:'Hard hat and eye protection on, fitted and in good condition.'},
+  {id:'ppe-hivis',group:'Protective equipment',text:'High-visibility clothing on when you work near a road or moving vehicles.'},
+  {id:'ppe-hands-feet',group:'Protective equipment',text:'Gloves and footwear suited to the task, as your company requires.'},
+  {id:'ppe-inspect',group:'Protective equipment',text:'Look over each item for damage or wear before you use it.'},
+  {id:'veh-park',group:'Vehicle and traffic',text:'Park so the vehicle and work area can be seen, with warning devices out as your company requires.'},
+  {id:'veh-traffic',group:'Vehicle and traffic',text:'Set up traffic control as your company and the road authority require before working near moving traffic.'},
+  {id:'veh-ground',group:'Vehicle and traffic',text:'Check the ground around the work area for holes, slopes and loose material.'},
+  {id:'lad-inspect',group:'Ladders and climbing',text:'Inspect the ladder: rating, rungs, feet and locks. Do not use a damaged ladder.'},
+  {id:'lad-set',group:'Ladders and climbing',text:'Set the ladder on firm, stable ground and secure it as your company requires.'},
+  {id:'lad-gear',group:'Ladders and climbing',text:'Inspect the harness, lanyard, hooks and climbing gear before every climb. Retire anything that fails.'},
+  {id:'lad-structure',group:'Ladders and climbing',text:'Check the pole or structure and the strand before you climb. Do not climb one that looks unsafe.'},
+  {id:'lad-powerlines',group:'Ladders and climbing',text:'Find overhead power lines before you raise a ladder or climb, and stay clear of them.'},
+  {id:'lad-zone',group:'Ladders and climbing',text:'On a pole, stay in the communications space and keep clear of the power space, as your company’s rules define them.'},
+  {id:'elec-assume',group:'Electrical',text:'Treat cable plant, pedestals and housings as possibly energized. AC power can ride on the coax.'},
+  {id:'elec-ground',group:'Electrical',text:'Check the bonding and grounding at the housing or pole. Report a missing or damaged ground and do not work around it.'},
+  {id:'elec-voltage',group:'Electrical',text:'Check for stray voltage with your approved tester before you touch metal housings, strand or grounds.'},
+  {id:'elec-procedure',group:'Electrical',text:'Follow your company’s procedure before opening an active, a power supply or a power inserter.'},
+  {id:'elec-wet',group:'Electrical',text:'Do not work on plant in standing water or during a thunderstorm.'},
+  {id:'dig-locate',group:'Digging and underground',text:'Confirm that underground utilities are located and marked before anyone digs.'},
+  {id:'dig-vault',group:'Digging and underground',text:'Test the air and follow your company’s confined-space rules before entering a vault.'},
+  {id:'fiber-lit',group:'Fiber and laser',text:'Never look into a fiber end, connector or port. Treat it as lit until your approved power meter shows otherwise.'},
+  {id:'fiber-scraps',group:'Fiber and laser',text:'Keep fiber scraps in a closed container, away from skin, eyes and clothing.'},
+  {id:'fiber-scope',group:'Fiber and laser',text:'Inspect connectors only with approved, filtered equipment, and never while the fiber may be lit.'},
+  {id:'fiber-hygiene',group:'Fiber and laser',text:'No food or drink at the fiber work area. Wash your hands afterwards.'},
+  {id:'end-tools',group:'Before you leave the site',text:'Count your tools, take your waste and close and lock every enclosure.'},
+  {id:'end-checkin',group:'Before you leave the site',text:'Tell the person you checked in with that you are finished.'},
+  {id:'end-report',group:'Before you leave the site',text:'Report any hazard, damaged equipment or near miss to your supervisor.'}
+ ];
+ const FIELDS=[
+  {id:'who',label:'Who knows where I am (a name or role)',type:'text',max:80,hint:'e.g. dispatcher or crew lead'},
+  {id:'checkin',label:'Check in with them by (24-hour time)',type:'time'},
+  {id:'policy',label:'Where to find my company’s safety policy or safety line',type:'text',max:120,hint:'document name or phone line',keep:true}
+ ];
+ const list=Checklist.create({key:'nightsweep-safety-v1',items:ITEMS,fields:FIELDS});
+ const OPTIONS={panelId:'safetyPanel',prefix:'safety',title:'Pre-work safety',
+  lead:'Reminders to tick before you climb, open plant or work near a road. Change the list to match your company’s own.',
+  policy:'Follow company policy first, and your supervisor’s direction. This list is a set of reminders written for this app. It is not your company’s procedure and does not replace training, permits or any rule that applies to you.',
+  source:'Wording written for this app from general field-safety practice; no NCTI or SCTE course text is copied. Course headings consulted only: NCTI Field Safety and Fiber-Optic Installation I: Safety; the SCTE safety and construction domain.',
+  reviewNote:'A supervisor or safety officer has not reviewed it yet.',
+  startLabel:'Start a new pass',exportName:'CarpeNoctum_2.0_Alpha_build_3_Pre-work_Safety.txt',exportTitle:'Pre-work safety reminders (not a company procedure)'};
+ let ui=null;
+ function init(){
+  if(ui||typeof document==='undefined')return;
+  let st=null;try{st=window.localStorage;}catch(_){}
+  list.load(st);ui=ChecklistUI.mount(OPTIONS,list);
+ }
+ return {ITEMS,FIELDS,list,OPTIONS,init};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();initWorkflow();initTraining();</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"e9ef3c6a60822d948342","worker":"sw.e9ef3c6a60822d948342.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
