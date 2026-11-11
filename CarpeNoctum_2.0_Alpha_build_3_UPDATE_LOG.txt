@@ -87,6 +87,39 @@ CHANGES
      build-readiness.json records that no build 3 APK exists.
    - qa/build2-layout.test.py honors NIGHTSWEEP_CHROMIUM.
 
+6. DOCSIS health card (build list item 5), Test -> DOCSIS health
+   - Compares a reading you already have with the cable modem requirements
+     in the CableLabs DOCSIS physical-layer specifications and with your
+     own company window. Nothing is read from a modem, CMTS or meter, and
+     nothing is saved in the job.
+   - Downstream SC-QAM: -15 to +15 dBmV per 6 MHz channel (PHYv3.0 C01
+     Table 6-22). Downstream OFDM: -15 to +15 dBmV per 6 MHz and -9 to +21
+     dBmV per 24 MHz as printed (PHYv3.1 I20 Table 45); other occupied
+     bandwidths move the 24 MHz row by 10 log10(B/24) and are labeled
+     Expert. Total input power: below 40 dBmV for a 3.1 modem, below 33 dBmV
+     for a 3.0-only modem. Upstream: headroom between the modem's total
+     transmit power and Pmax, 65 dBmV by default (PHYv3.1 I20 7.4.12.2).
+   - Spec ranges are capability limits, not targets; each result is stated
+     in words (inside, below, above, margin in dB), never color alone. The
+     modem generation (total input) , how the OFDM power was measured and how
+     the modem is working (upstream) must be chosen: there are no silent
+     defaults. The 65 dBmV Pmax applies only to a 3.1 modem on a 3.1 CMTS.
+   - Company windows (lowest and highest level) start unknown, blank is
+     never zero, and they are saved on this device only under the new
+     browser-storage key nightsweep-docsis-windows-v1. They are not part of
+     a job, its full backup or the job file format. Each plant (42/54 and
+     204/258 MHz) has its own windows, chosen by the job's plant in Test ->
+     Meter setup; an untouched plant stays unknown. A number box holding
+     text that is not a number is refused, never read as a blank. Existing
+     storage keys and the job format are unchanged.
+   - Ten new registry rows (six spec or expert, four company) appear in
+     Test -> Limits. Sources and what was re-read:
+     research/build3/DOCSIS_HEALTH_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (eleven in total)
+     and the feature index gains entry 40.
+   - Layout: the Test sub-tab row now wraps when its tabs do not fit (a
+     ninth tab overflowed the page at 768 px).
+
 INDEPENDENT REVIEW
 Four reviewers (math, provenance, UI, regressions), each checked by a
 skeptic, confirmed five defects in the first commit; all are fixed: a
