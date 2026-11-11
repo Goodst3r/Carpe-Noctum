@@ -308,6 +308,6 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
   });
 
   console.log(`Build3 DOCSIS health: ${cases.length} checks passed (${comparisons} comparisons with the independent references)`);
-  fs.writeFileSync('qa/build3-docsis-health-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against research/build3/docsis-health-reference.json (Python decimal, 50 digits); JSDOM rendering, device-local windows and job format. Synthetic readings only.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-docsis-health-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by docsis-health-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering, device-local windows and job format. Synthetic readings only.' }, null, 2) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });
