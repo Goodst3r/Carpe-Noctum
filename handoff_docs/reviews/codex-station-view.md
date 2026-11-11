@@ -23,13 +23,13 @@ Optional bindingVersion 2 uses saved choices. Records without a binding version 
 
 The [scoped internal review](codex-station-laneb-fixes-review.md) independently passed 8 exact-frozen regression tests plus 16 real Chromium checks, including distinct Before/After and dated sweep backup/restore, catalog correction, actual band change and legacy copy/archive. All seven requests were addressed with no new Critical/Important finding. This is internal evidence; Lane B still must re-review the actual published head and merge.
 
-The Lane A implementation agent's final exact-source gate at a9b6428 passed **66/66 suites / 1,273 checks** in **384.3 seconds**, exit0. Station 22, review 8 and rendered 121 are included. Separate existing layout 141 and smoke 331 also passed. Build/worktree stayed unchanged and clean; no evidence restoration concealed churn. Exact commands, per-suite results, source binding and artifact hashes are in [the receipt](../lanes/codex-a1-validation.json):
+The Lane A implementation agent's current exact-source gate at 6030607 passed **66/66 suites / 1,276 checks** in **361.7 seconds**, exit0. Station 22, review 11 and rendered 121 are included. Separate existing layout 141 and smoke 331 also passed. Build/worktree stayed unchanged and clean; no evidence restoration concealed churn. Exact commands, per-suite results, source binding and artifact hashes are in [the receipt](../lanes/codex-a1-validation.json):
 
     NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py
     NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py
     NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py
 
-Standalone SHA-256: e2316ef77cc7ec02062bc951e8e9c3ff8a4a05b427b73c155563cdb9bda51aef. Source/build/public guides/tests remain frozen; later handoff metadata does not change their bytes.
+Standalone SHA-256: 28148b1ffda13dffb1b27e4043cede7d183508578b1c53737137b030d98b8b15. Source/build/public guides/tests remain frozen; later handoff metadata does not change their bytes.
 
 Historical evidence stays separate: source 3d610f4 passed 65/1221; the first f45ae53 gate failed three outdated navigation/training contracts (60/63 suites and 1105 counted checks). Neither is used as the final a9b6428 result.
 
@@ -53,3 +53,8 @@ Tools used: local Git/Node/Python/Playwright and actual Chromium rendering, inde
 ## Remaining Lane B nonblocking list
 
 The full grouped list is in handoff_docs/KNOWN_GAPS.md under A1: floating-point/absolute formatting; nonnegative-only net loss; lenient registry resolution; archived-context browsing, Load example retention, imported identity validation and rejected-edit handling; stage/focus/native-select/contrast/result/sign/timestamp/empty-button polish; old text spacing; dynamic keyboard test oracle. The three earlier internal Minor items above remain recorded. Read-only legacy stage browsing and honoring its binding status in future consumers are explicit follow-ups. No incidental CSS improvement is represented as closure of every phone concern.
+
+
+## Measured local-lookup follow-up
+
+The later user-requested performance pass freezes source 6030607, after all seven Lane B corrections. A local first-wins catalog Map replaces repeated device scans without changing data, math or binding. [Performance scope](codex-a1-optimization.md), [fresh scoped review](codex-station-optimization-review.md) and [implementation/benchmark method](codex-station-optimization-implementation.md) document the 36–43% median input reduction on the synthetic 200-active-row workload and 0–0.2ms extra median cost in its nine-row test. No universal/phone gain is claimed. Reviewer 11-source/11-frozen/Station 22 checks plus 22 complete old/new browser output comparisons passed; this is separate from the current 66/1276 gate. Prior a9b6428 seven-fix review stays historical; its 1273 checks are not the current run. Lane B must review the updated published head.
