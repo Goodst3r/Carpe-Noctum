@@ -36,6 +36,8 @@ MODULES = [
     ('<!--THRESHOLDS-->', 'thresholds.js'),
     ('<!--ALIGNMENT-->', 'alignment.js'),
     ('<!--FIELDCALCS-->', 'field-calcs.js'),
+    ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
+    ('<!--LEAKAGE-->', 'leakage.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
 ]
