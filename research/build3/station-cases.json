@@ -1,0 +1,53 @@
+{
+  "method": "Python Decimal addition/subtraction from literal decimal strings; no application imports",
+  "derivation": "required injection = reference-point target + net insertion loss; injection delta = actual - required; receiver delta = reading - reference at identical receiver plane and convention",
+  "external_check": "WolframAlpha independently returned {39,17.5,0,2.25} for {19+20,-2.5+20,0+0,-1.25-(-3.5)} on 2026-11-11",
+  "external_url": "https://www.wolframalpha.com/input?i=%7B19%2B20%2C+-2.5%2B20%2C+0%2B0%2C+-1.25-%28-3.5%29%7D",
+  "cases": [
+    {
+      "id": "gainmaker-example",
+      "input": {
+        "referencePointTarget": "19",
+        "insertionLoss": "20",
+        "actualInjection": "39",
+        "receiverReading": "-1.25",
+        "receiverReference": "-3.5"
+      },
+      "expected": {
+        "requiredInjection": 39.0,
+        "injectionDelta": 0.0,
+        "receiverDelta": 2.25
+      }
+    },
+    {
+      "id": "signed-level",
+      "input": {
+        "referencePointTarget": "-2.5",
+        "insertionLoss": "20",
+        "actualInjection": "17",
+        "receiverReading": "-5",
+        "receiverReference": "-2"
+      },
+      "expected": {
+        "requiredInjection": 17.5,
+        "injectionDelta": -0.5,
+        "receiverDelta": -3.0
+      }
+    },
+    {
+      "id": "zero-is-entered",
+      "input": {
+        "referencePointTarget": "0",
+        "insertionLoss": "0",
+        "actualInjection": "0",
+        "receiverReading": "0",
+        "receiverReference": "0"
+      },
+      "expected": {
+        "requiredInjection": 0.0,
+        "injectionDelta": 0.0,
+        "receiverDelta": 0.0
+      }
+    }
+  ]
+}

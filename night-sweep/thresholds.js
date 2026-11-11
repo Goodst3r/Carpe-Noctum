@@ -37,6 +37,23 @@ const Thresholds=(()=>{
   conditions:'Return transmitter output reference at the plane and frequencies you record in meter setup. Separate from sweep injection and receiver references. The 204/258 workflow has no TX reference; it uses XPERTrak return sweep.',
   date:'Not recorded when entered',scope:'42/54',verification:'entered',usedBy:'Test → Meter setup and its exported notes'});
  const rows=Object.freeze([
+  // Station worksheet: company criteria start blank on every new station and stage.
+  ...[
+   ['station.forward.targetLow','Low forward pilot target','forward','targetLow','dBmV'],
+   ['station.forward.targetHigh','High forward pilot target','forward','targetHigh','dBmV'],
+   ['station.forward.levelTolerance','Forward level tolerance','forward','levelTolerance','± dB'],
+   ['station.forward.tiltTolerance','Forward tilt tolerance','forward','tiltTolerance','± dB'],
+   ['station.return.referencePointTarget','Return reference-point target','returns','referencePointTarget','dBmV'],
+   ['station.return.receiverReference','Saved receiver reference','returns','receiverReference','dBmV'],
+   ['station.return.tolerance','Return receiver tolerance','returns','tolerance','± dB']
+  ].map(([id,name,stageScope,field,units])=>({id,name,stageScope,field,units,label:'company',kind:'target',store:'station',source:'Technician / company entry for this installed station, measurement stage and identified plane',revision:'Per job and station; saved in JSON backup',locator:'Route → Station → Before / After adjustments',conditions:'Starts unknown. Enter approved station criteria, actual carrier frequencies, power convention and measurement / receiver plane. No universal return tolerance is supplied.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Route → Station'})),
+  {id:'station.return.injection',label:'spec',name:'Return physical injection level',kind:'formula',units:'dBmV',formula:'Required injection = reference-point target + net insertion loss to that reference point',source:'SCTE 180, Recommended Practices for Coaxial Cable Construction and Testing',revision:'2025',locator:'Section 13.2.2.2; sections 13.3.1.2 and 13.7',conditions:'Use the actual reference point and include applicable test point, lead, path and EQ loss once. Net loss equals test point loss + loss from test point to gain block − loss from reference point to gain block. Physical source-level budget, not an automatic ONX setting. Receiver delta = measured receiver level − same-plane saved reference; injection delta = actual − required.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Route → Station: return worksheet'},
+  {id:'station.done.separate',label:'spec',name:'Balance and sweep are separate records',kind:'formula',units:'record',formula:'Balance recorded separately from sweep; neither checkbox is inferred from two-pilot arithmetic',source:'SCTE 180, Recommended Practices for Coaxial Cable Construction and Testing',revision:'2025',locator:'Sections 13.2.2, 13.3 and 13.4',conditions:'Record actual technician work and independent dates. No numeric acceptance threshold is established by these checkboxes.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Route → Station: done check'},
+  {id:'station.return.scuInput',label:'unknown',name:'SCU-1800 recommended receiver input',kind:'target',units:'dBmV',value:0,source:'VIAVI, OneExpert CATV Sweep and Maintenance System data sheet',revision:'Issued revision not established in the saved primary-source extraction',locator:'SCU-1800 Specifications — Reverse Sweep, recommended input level',conditions:'Conditional equipment reference only when an SCU-1800 is actually the receiver. The saved data-sheet extraction reports 0 dBmV; verify the applicable issued sheet and installed receiver. This is not an XPERTrak RCI, CMTS, station-injection or company receiver target.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Route → Station: receiver reference-plane reminder'},
+  {id:'station.return.cmtsSetPoint',label:'spec',name:'Configurable CMTS receive set point',kind:'target',units:'dBmV',value:0,source:'SCTE 293-7, What is … Long Loop Automatic Level Control?',revision:'2025; release history February 17, 2025',locator:'Sections 4.2 and 5; section 5.1 examples',conditions:'The documented default CMTS receive set point is 0 dBmV and is configurable. DOCSIS long-loop ALC is not amplifier alignment. This does not populate a station injection target or an absolute receiver reference.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Route → Station: receiver reference-plane reminder'},
+  {id:'station.return.aoiHgdInput',label:'unknown',name:'Quantum18 HGD preliminary upstream input recommendation',kind:'target',units:'dBmV per 6.4 MHz channel',value:9,source:'AOI, Quantum18 HGD System Amplifier data sheet, QB18-HGD-SA-Datasheet.pdf',revision:'Preliminary; revision/date not printed in the saved extraction; archive snapshot November 7, 2024',locator:'Page 1, Reverse Station Performance table and note 4',conditions:'Published preliminary recommendation for the HGD 204 MHz split only. Does not establish a value for HGBT, LE, other splits, station injection or receiver reference. Current issued revision remains unverified. Manufacturer-authored file was read from its archived primary copy.',date:CHECKED,scope:'204/258',verification:'unverified',usedBy:'Route → Station: exact HGD 204/258 reference reminder'},
+  {id:'station.input.range',label:'unknown',name:'Station worksheet numeric range',kind:'limit',units:'dB or dBmV',value:200,source:'Application input guard, not an equipment capability or company acceptance limit',revision:'Build 3 station worksheet',locator:'station.js level() and loss(); alignment.js readings()',conditions:'Levels within ±200 dBmV; recorded EQ / tilt within ±200 dB; net insertion loss, recorded pad and optional tolerances from 0 to 200 dB. Finite decimal notation must remain visible in HTML number fields. Guard prevents overflow / unsupported arithmetic. It must not be treated as a safe operating range.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Route → Station'},
+
   {id:'const.speedOfLight',label:'spec',name:'Speed of light in a vacuum',kind:'constant',value:299792458/0.3048/1e6,units:'ft/µs',
    formula:'c = 299,792,458 m/s (exact) ÷ 0.3048 m/ft (exact) = 983.571 ft/µs',
    source:'SCTE 293-2, What is … Velocity of Propagation? (c₀ = 983,571,056.43 ft/s), from the exact SI value of c and the international foot',revision:'SCTE 293-2 2024',locator:'Section 4.1, Speed of Light',
@@ -182,13 +199,14 @@ const Thresholds=(()=>{
   if(!VERIFICATION[row.verification])problems.push('unsupported verification');
   if(row.date!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(row.date)&&!['Not recorded when entered',PRESET_DATE].includes(row.date))problems.push('date must be YYYY-MM-DD');
   if(row.label==='company'&&row.verification!=='entered')problems.push('company values are entered values');
-  if(row.store&&!['profile','sweep','docsis','leakage'].includes(row.store))problems.push('unsupported store');
+  if(row.store&&!['profile','sweep','station','docsis','leakage'].includes(row.store))problems.push('unsupported store');
   return problems;
  }
  function selectedProfile(s=owner()){return s.project?.profiles?.find(p=>String(p.id)===String(s.project.selectedProfile))||null;}
  /* Resolve the value a row currently shows. A blank company entry is unknown (null), never 0. */
  function resolve(id,s=owner()){
   const row=get(id);if(!row)return null;
+  if(row.store==='station'){const stage=typeof StationView!=='undefined'?StationView.currentStage(s):null;return {value:finite(stage?.[row.stageScope]?.[row.field]),where:'Selected station · '+(s.stationView?.selected||'first installed station')+' · '+(typeof StationView!=='undefined'?StationView.currentRecord(s).stage||'before':'before')};}
   if(row.store==='profile'){const p=selectedProfile(s);return {value:p?finite(p[row.field]):null,where:p?'Selected profile '+p.id:'No project profile selected'};}
   if(row.store==='sweep'){const v=s.sweepSetup?.profiles?.[row.split]?.[row.field];return {value:finite(v),where:'This job’s '+row.split+' MHz meter setup'};}
   if(row.store==='leakage')return typeof Leakage!=='undefined'?Leakage.registryValue(row.field):{value:null,text:'Unknown — not entered',where:'Saved on this device only'};
@@ -229,7 +247,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
