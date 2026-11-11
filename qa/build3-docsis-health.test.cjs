@@ -70,6 +70,17 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     }
   });
 
+  await check('Derived OFDM edges for all 29 supported widths match the reference, rounded inward to 0.01 dB so the printed range is the range used', () => {
+    for (const e of reference.cases.ofdm_edges) {
+      const r = call(h, 'ofdm', { power: '0', basis: 'other', occupied: String(e.occupied) });
+      assert.equal(r.ok, true, 'width ' + e.occupied);
+      close(r.low, e.low, `low edge ${e.occupied} MHz`, 1e-12); close(r.high, e.high, `high edge ${e.occupied} MHz`, 1e-12);
+      assert.equal(Number(r.low.toFixed(2)), r.low, 'shown to 0.01 dB'); assert.equal(Number(r.high.toFixed(2)), r.high);
+    }
+    const typedEdge = call(h, 'ofdm', { power: String(call(h, 'ofdm', { power: '0', basis: 'other', occupied: '96' }).low), basis: 'other', occupied: '96' });
+    assert.equal(typedEdge.status, 'inside', 'typing the printed edge is inside');
+  });
+
   await check('Total input power is strictly below 40 dBmV (3.1) or 33 dBmV (3.0 only); upstream headroom is Pmax minus the reading', () => {
     for (const c of reference.cases.total) {
       const r = call(h, 'total', c.input);
@@ -78,8 +89,9 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     }
     for (const c of reference.cases.upstream) {
       const r = call(h, 'upstream', c.input);
-      assert.equal(r.ok, true); assert.equal(r.status, c.expected.status, JSON.stringify(c.input));
+      assert.equal(r.ok, true, JSON.stringify(c.input)); assert.equal(r.status, c.expected.status, JSON.stringify(c.input));
       close(r.headroom, c.expected.headroom, 'headroom'); close(r.pmax, c.expected.pmax, 'pmax'); close(r.margin, c.expected.margin, 'upstream margin');
+      assert.equal(r.specBasis, c.specBasis !== false, 'only a 3.1 modem on a 3.1 CMTS uses the specification Pmax');
     }
   });
 
@@ -117,6 +129,7 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(h.d.getElementById('calculatorPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check DOCSIS levels/);
     assert.equal(h.d.querySelectorAll('#docsisHealthPanel .health-card').length, 4);
+    assert.equal(h.d.querySelectorAll('#docsisHealthPanel [inputmode]').length, 0, 'no decimal keypad: the iPhone one has no minus key and these levels are often negative');
   });
 
   await check('The card shows the spec range, a status in words, and an unknown company window until one is entered', async () => {
@@ -126,26 +139,60 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     set(h, '[data-health="scqam"][data-field="level"]', '3.2');
     text = result(h, 'scqam');
     assert.match(text, /Inside the spec range, 11\.8 dB from the upper edge/);
-    set(h, '[data-health="ofdm"][data-field="power"]', '-8'); set(h, '[data-health="ofdm"][data-field="basis"]', '24', 'change');
+    set(h, '[data-health="ofdm"][data-field="power"]', '-8');
+    assert.match(result(h, 'ofdm'), /Choose how the OFDM power was measured/, 'no silent default for what the OFDM power was measured over');
+    set(h, '[data-health="ofdm"][data-field="basis"]', '24', 'change');
     assert.match(result(h, 'ofdm'), /over 24 MHz.*−9 to \+21 dBmV.*Inside the spec range, 1\.0 dB from the lower edge/);
     set(h, '[data-health="ofdm"][data-field="basis"]', 'other', 'change');
     assert.equal(h.d.querySelector('[data-health-other]').hidden, false, 'occupied bandwidth field appears');
     assert.match(result(h, 'ofdm'), /whole number of 6 MHz channels/);
     set(h, '[data-health="ofdm"][data-field="occupied"]', '96');
-    assert.match(result(h, 'ofdm'), /over 96 MHz.*−2\.98 to \+27\.02 dBmV/);
+    assert.match(result(h, 'ofdm'), /Derived range, over 96 MHz.*−2\.97 to \+27\.02 dBmV.*below the derived range/);
+    assert.equal(h.d.querySelector('#health-ofdm-result [data-threshold="docsis.ds.ofdm.range"]'), null, 'a derived range carries no Spec tag');
+    assert.equal(h.d.querySelector('#health-ofdm-result [data-threshold="docsis.ds.ofdm.scaling"]').dataset.label, 'expert');
     set(h, '[data-health="ofdm"][data-field="basis"]', '6', 'change');
     assert.equal(h.d.querySelector('[data-health-other]').hidden, true);
     set(h, '[data-health="total"][data-field="total"]', '36');
+    assert.match(result(h, 'total'), /Choose the modem generation first/, 'no silent default modem generation');
+    set(h, '[data-health="total"][data-field="modem"]', '3.1', 'change');
     assert.match(result(h, 'total'), /DOCSIS 3\.1.*below 40.*4\.0 dB below the 40 dBmV limit/);
     set(h, '[data-health="total"][data-field="modem"]', '3.0', 'change');
     assert.match(result(h, 'total'), /DOCSIS 3\.0 only.*below 33.*At or above the 33 dBmV limit \(3\.0 dB over\)/);
     set(h, '[data-health="upstream"][data-field="total"]', '52');
-    assert.match(result(h, 'upstream'), /65 dBmV, the minimum.*13\.0 dB of headroom below Pmax/);
+    assert.match(result(h, 'upstream'), /Choose how the modem is working first/);
+    set(h, '[data-health="upstream"][data-field="mode"]', '3.1', 'change');
+    assert.match(result(h, 'upstream'), /DOCSIS 3\.1 on a 3\.1 CMTS.*65 dBmV, the minimum.*13\.0 dB of headroom below Pmax/);
     set(h, '[data-health="upstream"][data-field="pmax"]', '64');
     assert.match(result(h, 'upstream'), /cannot be below 65 dBmV/);
     set(h, '[data-health="upstream"][data-field="pmax"]', '68');
     assert.match(result(h, 'upstream'), /68 dBmV.*16\.0 dB of headroom/);
     assert.doesNotMatch(result(h, 'upstream'), /the minimum/);
+    set(h, '[data-health="upstream"][data-field="mode"]', 'other', 'change'); set(h, '[data-health="upstream"][data-field="pmax"]', '57');
+    assert.match(result(h, 'upstream'), /Modem maximum \(your entry; not from this specification\).*57 dBmV.*5\.0 dB of headroom/);
+    assert.equal(h.d.querySelector('#health-upstream-result [data-threshold="docsis.us.pmax.capability"]'), null, 'no spec tag on a figure the specification does not give');
+    set(h, '[data-health="upstream"][data-field="pmax"]', '');
+    assert.match(result(h, 'upstream'), /no figure for a DOCSIS 3\.0 modem/);
+    set(h, '[data-health="upstream"][data-field="mode"]', '3.1', 'change');
+    assert.match(result(h, 'upstream'), /65 dBmV, the minimum/);
+    set(h, '[data-health="scqam"][data-field="level"]', '15.004');
+    assert.match(result(h, 'scqam'), /less than 0\.01 dB above the spec range/, 'a margin that rounds to zero is not shown as 0.00 dB');
+    set(h, '[data-health="scqam"][data-field="level"]', '3.2');
+  });
+
+  await check('Window writes keep what another tab saved, and a failed clear is reported', async () => {
+    const t = boot(); await flush(); await goto(t, 'docsisHealth');
+    t.w.localStorage.setItem(KEY, JSON.stringify({ version: 1, windows: { scqam: { min: null, max: null }, ofdm: { min: -11, max: 11 }, total: { min: null, max: null }, upstream: { min: null, max: null } } }));
+    set(t, '[data-health-window="scqam"][data-field="max"]', '8', 'change');
+    const stored = JSON.parse(t.w.localStorage.getItem(KEY)).windows;
+    assert.deepEqual(stored.ofdm, { min: -11, max: 11 }, 'the other window written meanwhile survives'); assert.deepEqual(stored.scqam, { min: null, max: 8 });
+    const real = t.w.Storage.prototype.removeItem;
+    t.w.Storage.prototype.removeItem = function () { throw new t.w.DOMException('blocked', 'SecurityError'); };
+    t.d.getElementById('healthClear').click();
+    assert.match(t.d.getElementById('healthNote').textContent, /would not remove the saved windows/);
+    t.w.Storage.prototype.removeItem = real;
+    t.d.getElementById('healthClear').click();
+    assert.match(t.d.getElementById('healthNote').textContent, /cleared on this device/);
+    assert.deepEqual(t.errors, []); t.close();
   });
 
   await check('Every spec figure carries a registry tag, the derived OFDM range is labeled Expert, and every tag resolves to one registry row', () => {
@@ -186,14 +233,15 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     set(h, '[data-health="ofdm"][data-field="power"]', '-12');
     assert.match(result(h, 'ofdm'), /at least −10 dBmV per 6 MHz.*2\.0 dB below your window/);
     set(h, '[data-health-window="total"][data-field="min"]', '9', 'change'); set(h, '[data-health-window="total"][data-field="max"]', '3', 'change');
-    assert.match(h.d.getElementById('health-total-window-note').textContent, /lowest level is above the highest/);
+    assert.match(h.d.getElementById('health-total-window-note').textContent, /Not saved\. .*lowest level is above the highest.*Still using at least \+9 dBmV/);
     assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).windows.total, { min: 9, max: null }, 'a rejected window leaves the last saved one');
     await goto(h, 'limits');
     const list = words(h.d.getElementById('limitsList'));
     assert.match(list, /Your window, downstream SC-QAM level −7 to \+7 dBmV/);
     assert.match(list, /Your window, total downstream input power at least \+9 dBmV/);
     assert.match(list, /Your window, total upstream transmit power Unknown — not entered/);
-    assert.match(list, /Maximum total transmit power \(Pmax\) a cable modem must support at least 65 dBmV/);
+    assert.match(list, /Your window, downstream OFDM level at least −10 dBmV per 6 MHz/, 'the OFDM window shows its unit');
+    assert.match(list, /Maximum total transmit power \(Pmax\) a DOCSIS 3.1 modem must support at least 65 dBmV/);
     assert.equal(h.d.querySelectorAll('#limitsList [data-threshold]').length, h.json('Thresholds.rows.length'), 'one tag per registry row in Limits');
     await goto(h, 'docsisHealth');
     h.d.getElementById('healthClear').click();
@@ -212,7 +260,6 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(after, before, 'job export identical');
     assert.deepEqual(Object.keys(h.w.localStorage).filter(k => k !== KEY).sort(), keysBefore, 'no other key changed');
     assert(Object.keys(h.w.localStorage).includes(KEY), 'only the new device-local key was added');
-    assert.equal(h.ev('JSON.stringify(Object.keys(state).sort())'), JSON.stringify(h.json('Object.keys(state).sort()')));
     assert(!('docsisHealth' in h.json('state')) && !('docsis' in h.json('state')), 'no new job field');
     h.d.getElementById('healthClear').click();
   });
@@ -243,9 +290,10 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.deepEqual(blocked.errors, []); blocked.close();
   });
 
-  await check('The module is bundled once and the build self-check still passes with it', () => {
+  await check('The module is bundled once, loads without script errors, and the built-in self-check still passes', () => {
     assert.equal(h.ev('typeof DocsisHealth'), 'object'); assert.equal(h.ev('typeof DocsisHealthUI'), 'object');
     assert.equal((html.match(/const DocsisHealth=\(\(\)=>/g) || []).length, 1);
+    assert.equal(h.json('NightSweep.selfCheck.ok'), true, 'built-in reference cases pass in the bundle that contains the module');
     assert.deepEqual(h.errors, []);
   });
 

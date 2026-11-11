@@ -11,12 +11,14 @@ Requirements used, all in dBmV:
   downstream SC-QAM, one 6 MHz channel ........ -15 to +15 (PHYv3.0 C01 Table 6-22)
   downstream OFDM, per 6 MHz (equivalent PSD) .. -15 to +15 (PHYv3.1 I20 Table 45)
   downstream OFDM, per 24 MHz .................. -9 to +21 (PHYv3.1 I20 Table 45)
-  OFDM over B MHz (derived) .................... the 24 MHz row moved by 10*log10(B/24)
+  OFDM over B MHz (derived) .................... the 24 MHz row moved by 10*log10(B/24), shown and used
+                                                 to 0.01 dB, rounded inward (low edge up, high edge down)
   total downstream input, DOCSIS 3.1 ........... strictly below 40
   total downstream input, DOCSIS 3.0 only ...... strictly below 33
-  upstream Pmax, default and lowest allowed .... 65
+  upstream Pmax, DOCSIS 3.1 modem on a 3.1 CMTS  65 (default and lowest allowed); other modes take
+                                                 the modem's own maximum, typed in
 """
-from decimal import Decimal as D, getcontext
+from decimal import Decimal as D, getcontext, ROUND_CEILING, ROUND_FLOOR
 from pathlib import Path
 import json
 
@@ -49,8 +51,11 @@ def ofdm_range(basis, occupied):
         return D(-15), D(15), 6
     if basis == '24':
         return D(-9), D(21), 24
+    if occupied == 24:
+        return D(-9), D(21), 24
     shift = TEN * log10(D(occupied) / D(24))
-    return D(-9) + shift, D(21) + shift, occupied
+    cent = D('0.01')
+    return (D(-9) + shift).quantize(cent, rounding=ROUND_CEILING), (D(21) + shift).quantize(cent, rounding=ROUND_FLOOR), occupied
 
 
 def ofdm(power, basis, occupied=None):
@@ -101,20 +106,25 @@ def build():
         cases['ofdm'].append({'input': {'power': power, 'basis': '6'}, 'expected': ser(ofdm(power, '6'))})
     for power in ['-9.5', '-9', '-8.9', '6', '20.9', '21', '21.5']:
         cases['ofdm'].append({'input': {'power': power, 'basis': '24'}, 'expected': ser(ofdm(power, '24'))})
-    for occupied in [24, 30, 48, 96, 192]:
+    for occupied in [24, 30, 48, 96, 186, 192]:
         low, high, _ = ofdm_range('other', occupied)
         q = lambda x: x.quantize(D('0.01'))
-        for power in [q(low) - D('0.5'), q(low), q(low) + D('0.1'), q((low + high) / 2), q(high) - D('0.1'), q(high), q(high) + D('0.5')]:
+        for power in [low - D('0.5'), low - D('0.01'), low, low + D('0.1'), q((low + high) / 2), high - D('0.1'), high, high + D('0.01'), high + D('0.5')]:
             p = str(power)
             cases['ofdm'].append({'input': {'power': p, 'basis': 'other', 'occupied': str(occupied)}, 'expected': ser(ofdm(p, 'other', occupied))})
+    cases['ofdm_edges'] = [{'occupied': o, 'low': str(ofdm_range('other', o)[0]), 'high': str(ofdm_range('other', o)[1])} for o in (24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 96, 102, 108, 114, 120, 126, 132, 138, 144, 150, 156, 162, 168, 174, 180, 186, 192)]
     for modem, readings in (('3.1', ['28', '39.9', '39.99', '40', '40.01', '45']), ('3.0', ['20', '32.9', '32.99', '33', '33.1'])):
         for reading in readings:
             cases['total'].append({'input': {'total': reading, 'modem': modem}, 'expected': ser(total(reading, modem))})
     for reading in ['40', '55', '64.9', '65', '65.1']:
-        cases['upstream'].append({'input': {'total': reading}, 'expected': ser(upstream(reading))})
+        cases['upstream'].append({'input': {'mode': '3.1', 'total': reading}, 'expected': ser(upstream(reading))})
     for pmax, readings in (('68', ['60', '68', '70']), ('72.5', ['50', '72.5'])):
         for reading in readings:
-            cases['upstream'].append({'input': {'total': reading, 'pmax': pmax}, 'expected': ser(upstream(reading, pmax))})
+            cases['upstream'].append({'input': {'mode': '3.1', 'total': reading, 'pmax': pmax}, 'expected': ser(upstream(reading, pmax))})
+    # A 3.0 modem, or a 3.1 modem on a 3.0 CMTS: only the modem's own typed-in maximum applies, and it may be below 65.
+    for pmax, readings in (('57', ['40', '56.9', '57', '57.5']), ('61', ['50', '61'])):
+        for reading in readings:
+            cases['upstream'].append({'input': {'mode': 'other', 'total': reading, 'pmax': pmax}, 'expected': ser(upstream(reading, pmax)), 'specBasis': False})
     for reading, lo, hi in [('3', '-7', '7'), ('-7', '-7', '7'), ('7', '-7', '7'), ('-7.01', '-7', '7'), ('7.01', '-7', '7'),
                             ('5', '0', None), ('-1', '0', None), ('5', None, '4'), ('3', None, '4'), ('1', None, None), ('0', '0', '0')]:
         cases['window'].append({'reading': reading, 'min': lo, 'max': hi, 'expected': ser(window(reading, lo, hi))})
@@ -125,7 +135,13 @@ def build():
         {'id': 'ofdm', 'input': {'power': '0', 'basis': 'other', 'occupied': '198'}}, {'id': 'ofdm', 'input': {'power': '0', 'basis': 'other', 'occupied': ''}},
         {'id': 'ofdm', 'input': {'power': '0', 'basis': 'other', 'occupied': '48.5'}}, {'id': 'ofdm', 'input': {'power': '', 'basis': '6'}}, {'id': 'ofdm', 'input': {'power': '0', 'basis': 'bogus'}},
         {'id': 'total', 'input': {'total': '', 'modem': '3.1'}}, {'id': 'total', 'input': {'total': '30', 'modem': '2.0'}},
-        {'id': 'upstream', 'input': {'total': ''}}, {'id': 'upstream', 'input': {'total': '50', 'pmax': '64'}}, {'id': 'upstream', 'input': {'total': '50', 'pmax': 'x'}}, {'id': 'upstream', 'input': {'total': '50', 'pmax': '151'}},
+        {'id': 'total', 'input': {'total': '36'}}, {'id': 'total', 'input': {'total': '36', 'modem': ''}}, {'id': 'total', 'input': {'total': '36', 'modem': 'constructor'}},
+        {'id': 'ofdm', 'input': {'power': '16'}}, {'id': 'ofdm', 'input': {'power': '16', 'basis': ''}},
+        {'id': 'scqam', 'input': {'level': '0x10'}}, {'id': 'scqam', 'input': {'level': '0b11'}}, {'id': 'scqam', 'input': {'level': '1_0'}}, {'id': 'scqam', 'input': {'level': 'Infinity'}}, {'id': 'scqam', 'input': {'level': '--5'}},
+        {'id': 'toString', 'input': {}}, {'id': '__proto__', 'input': {}},
+        {'id': 'upstream', 'input': {'mode': '3.1', 'total': ''}}, {'id': 'upstream', 'input': {'total': '50'}}, {'id': 'upstream', 'input': {'mode': '', 'total': '50'}},
+        {'id': 'upstream', 'input': {'mode': '3.1', 'total': '50', 'pmax': '64'}}, {'id': 'upstream', 'input': {'mode': '3.1', 'total': '50', 'pmax': 'x'}}, {'id': 'upstream', 'input': {'mode': '3.1', 'total': '50', 'pmax': '151'}},
+        {'id': 'upstream', 'input': {'mode': 'other', 'total': '50'}}, {'id': 'upstream', 'input': {'mode': 'other', 'total': '50', 'pmax': '0'}}, {'id': 'upstream', 'input': {'mode': 'other', 'total': '50', 'pmax': 'x'}},
     ]
     return {
         'generated_by': 'research/build3/docsis-health-reference.py',

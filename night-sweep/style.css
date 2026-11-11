@@ -251,6 +251,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .health-row small{font-size:12px;font-weight:500}
 .health-status{margin:2px 0 6px;font-weight:600;line-height:1.4}
 .health-status.warn{color:var(--warn)}
+.health-status.neutral{color:var(--ink)}
 .health-window{margin-top:12px;border-top:1px solid var(--line);padding-top:6px}
 .health-window>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}
 .health-window .error{color:var(--warn)}
