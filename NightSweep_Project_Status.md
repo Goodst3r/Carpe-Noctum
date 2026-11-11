@@ -10,7 +10,7 @@ Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on G
 | --- | --- |
 | 1. Threshold and source registry | **Done for the new tools and job criteria.** Test → Limits, plus a source tag on every calculator formula. Older screens' example targets still to register |
 | 2. Tilt/EQ/pad solver | **Done.** Test → Calculators → Pad / EQ balance: GainMaker 1 GHz picks from Cisco's published pads and EQ loss chart; Quantum18 HGD/HGBT show their electronic alignment instead |
-| 3. Station view and unity-gain worksheet | Not started; next in the build order, built on item 2 |
+| 3. Station view and unity-gain worksheet | Not started; next in the build order. Sources researched with Firecrawl: `research/build3/STATION_VIEW_SOURCES.md` |
 | 4. Calculator bundle | **Done.** Test → Calculators: dB converter, ripple to distance, pre-EQ tap distance, OFDM power, echo delay |
 | 5–20 | Not started. Source checks for items 5 and 7 are recorded in `research/build3/SOURCE_VERIFICATION.md` |
 

@@ -30,3 +30,14 @@ No public AOI document lists plug-in forward pad or EQ values for the HGD, HGBT 
 ## Independent check
 
 `alignment-cases.json` holds three synthetic cases per GainMaker family (balanced, high tilt, low level). `alignment-spreadsheet.py` builds `alignment-spreadsheet.xlsx`, in which spreadsheet formulas interpolate the chart, pick the EQ for tilt and the pad for level and compute the predicted levels. LibreOffice recalculates it headlessly, and `qa/build3-alignment.test.cjs` compares every pick and level with the app.
+
+## Firecrawl re-check of the Quantum18 gap (November 11, 2026)
+
+A second pass used Firecrawl search and scrape directly:
+
+- Search for Quantum18 / QB18 accessory, pad and equalizer part numbers: no AOI accessory list was returned. The top results were AOI's product page, the Digicomm distributor page, AOI videos and a resale listing.
+- AOI's HFC amplifier page and Digicomm's AOI page both offer Quantum18 data sheets only through a "Request Datasheet" form. Digicomm's HFC accessories page lists no Quantum18 pads or equalizers.
+- AOI's Quantum18 solution overview (English, 1 page, © 2024) says only that the amplifiers have onboard electronics for local and remote monitoring and control.
+- The full three-page English HGD data sheet (Internet Archive copy of AOI's file, preliminary) has no ordering or accessory table. Its reverse table gives 27 dB minimum operational gain, 0 dB internal tilt and a recommended operating input of 9 dBmV per 6.4 MHz channel, specified for the 204 MHz split. Those are manufacturer references for the return worksheet, not company targets.
+
+The conclusion stands: no public source lists Quantum18 HGD, HGBT or LE forward pad or EQ values, so the app offers none.
