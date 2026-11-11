@@ -105,8 +105,8 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **Open GainMaker / DSIM practice** | Separate 42/54 MHz GainMaker HGD launch and downstream LE with ACI DSIM practice notes | 9 | None; no fabricated meter captures or verified pilot lock |
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
 | **Open GS7K node practice** | Standard GS7000 1.2 GHz launch, starting at 42/54 MHz; separate node-only setup exercise | 10 | None; launch/TP correction unverified, no RF route or captured traces |
-| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 14 | Synthetic teaching data; no physical acceptance |
-| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators and limit sources (2.0 Alpha build 3) | 10 | Synthetic table and calculator inputs; no field captures |
+| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 15 | Synthetic teaching data; no physical acceptance |
+| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, DOCSIS health and Leakage (2.0 Alpha build 3) | 12 | Synthetic table and calculator inputs; no field captures |
 
 The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 
@@ -114,7 +114,7 @@ The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exa
 
 1. If a real job is open, use **Files → Back up project** and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.
 2. Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.
-3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 14 steps, custom curves 8 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
+3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 15 steps, custom curves 12 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
 4. Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.
 
 While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.

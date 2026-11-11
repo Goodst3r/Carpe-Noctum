@@ -66,6 +66,12 @@ try:
             entry.fill('New saved note after preview')
             check(f'{width}px editing an entry clears the stale preview',preview.input_value()=='' and 'changed' in preview.get_attribute('placeholder').lower() and page.evaluate('NightLog.handoffText().includes("New saved note after preview")'))
             page.emulate_media(media='print');check(f'{width}px ordinary print hides log editor',not page.locator('#nightLogPanel').is_visible())
+            page.emulate_media(media='screen')
+            captured=page.evaluate('JSON.stringify(state.nightLog)');page.evaluate('WorkflowUI.go("route")');page.once('dialog',lambda dialog:dialog.accept());page.locator('#example').click()
+            check(f'{width}px route-example button retains all captured log bytes',page.evaluate('JSON.stringify(state.nightLog)')==captured and page.evaluate('JSON.stringify(JSON.parse(localStorage.getItem("hfc-route-v1")).nightLog)')==captured)
+            page.evaluate('loadState({version:1,example:true,setup:{},rows:[]});NightLog.addEntry({action:"Only notes",gas:"2 L",mileage:"123 km"});WorkflowUI.go("route")');notes=page.evaluate('JSON.stringify(state.nightLog)');page.locator('#example').click()
+            check(f'{width}px an empty-route example retains a notes-only log',page.evaluate('JSON.stringify(state.nightLog)')==notes and page.evaluate('state.rows.length===3'))
+            check(f'{width}px all Home summary counts match real steps',page.evaluate('TrainingJob.exercises.every(x=>Number(/^([0-9]+) steps/.exec(x.summary)?.[1])===TrainingJob.stepsFor(x.id).length)'))
             context.close()
         check('no application runtime errors',not errors);browser.close()
 finally:

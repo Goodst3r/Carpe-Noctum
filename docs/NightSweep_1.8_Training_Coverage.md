@@ -6,6 +6,8 @@ All example values and findings remain synthetic. Opening/resetting an example f
 
 ## Loadable exercises
 
+For the current 2.0 Alpha build 3 Night log branch, the library covers 26 task screens and 43 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 15, custom curves 12, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
+
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
 | Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
