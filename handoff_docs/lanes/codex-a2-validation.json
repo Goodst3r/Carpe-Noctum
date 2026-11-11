@@ -1,10 +1,10 @@
 {
-  "tested_commit": "35f25f0d8ad05111860135f1e55d0d6213c6bc2f",
-  "app_source_commit": "35f25f0d8ad05111860135f1e55d0d6213c6bc2f",
-  "integrated_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
-  "actor": "Lane A coordinated exact-source full run; author and independent scoped review executions are separately attributed",
+  "tested_commit": "2690a46e51b8e20cd9841d11a1850a8de92c170c",
+  "app_source_commit": "2690a46e51b8e20cd9841d11a1850a8de92c170c",
+  "integrated_build3": "3cfb9c2021eabe52644cffbe1515224b9d027cb2",
+  "actor": "Lane A coordinated exact2690 full run after reviewed Safety/Outage integration and final guide corrections; author and independent scoped executions retain their0c/f6/2690 attribution",
   "raw_gate": {
-    "release": "d29a294385eb7b56c42c",
+    "release": "7ec73c8a1fa09c798d4d",
     "version": "2.0 Alpha build 3",
     "suites": [
       {
@@ -12,28 +12,28 @@
         "script": "build3-registry.test.cjs",
         "passed": true,
         "checks": 14,
-        "seconds": 4.6
+        "seconds": 6.0
       },
       {
         "name": "Build 3 field calculators against independent references",
         "script": "build3-field-calcs.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 2.4
+        "seconds": 2.7
       },
       {
         "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
         "script": "build3-alignment.test.cjs",
         "passed": true,
         "checks": 12,
-        "seconds": 2.6
+        "seconds": 2.2
       },
       {
         "name": "Build 3 DOCSIS health card against independent decimal references",
         "script": "build3-docsis-health.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 15.2
+        "seconds": 17.4
       },
       {
         "name": "Build 3 leakage tools against independent decimal references",
@@ -43,46 +43,60 @@
         "seconds": 17.9
       },
       {
+        "name": "Build 3 shared checklist engine, pre-work safety card and outage first-response card",
+        "script": "build3-checklist.test.cjs",
+        "passed": true,
+        "checks": 37,
+        "seconds": 10.1
+      },
+      {
+        "name": "Build 3 checklist cards in a real browser: half-edited time box and a full storage quota",
+        "script": "build3-checklist-real.test.py",
+        "passed": true,
+        "checks": 38,
+        "seconds": 8.4
+      },
+      {
         "name": "Build 3 station worksheet arithmetic and saved jobs",
         "script": "build3-station.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 23.8
+        "seconds": 24.5
       },
       {
         "name": "Build 3 rendered station phone layout",
         "script": "build3-station-layout.test.py",
         "passed": true,
         "checks": 121,
-        "seconds": 10.5
+        "seconds": 11.4
       },
       {
         "name": "Build 3 station field-review regressions",
         "script": "build3-station-review.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 24.5
+        "seconds": 23.9
       },
       {
         "name": "Build 3 night-log capture and handoff contracts",
         "script": "build3-night-log.test.cjs",
         "passed": true,
         "checks": 23,
-        "seconds": 36.9
+        "seconds": 37.9
       },
       {
         "name": "Build 3 rendered night-log phone layout",
         "script": "build3-night-log-layout.test.py",
         "passed": true,
         "checks": 107,
-        "seconds": 7.7
+        "seconds": 8.3
       },
       {
         "name": "2.0 Alpha design changes",
         "script": "v20-design.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 3.8
+        "seconds": 4.3
       },
       {
         "name": "Build 2 TDR active-boundary regressions",
@@ -96,14 +110,14 @@
         "script": "build2-rf-properties.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.4
+        "seconds": 0.3
       },
       {
         "name": "Build 2 all seven examples frequency replay",
         "script": "build2-example-math.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 1.6
+        "seconds": 1.7
       },
       {
         "name": "Build 2 power circuits and current-curve backtests",
@@ -117,35 +131,35 @@
         "script": "build2-dsim-dates.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 1.6
+        "seconds": 1.5
       },
       {
         "name": "Build 2 calculation reuse and import boundaries",
         "script": "build2-frontend.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 13.5
+        "seconds": 14.0
       },
       {
         "name": "Build 2 rendered cascade and lazy-chart layout",
         "script": "build2-layout.test.py",
         "passed": true,
         "checks": 55,
-        "seconds": 33.0
+        "seconds": 31.5
       },
       {
         "name": "Build 2 original-byte limits and atomic job operations",
         "script": "build2-reliability.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 20.9
+        "seconds": 20.2
       },
       {
         "name": "Build 2 native filename and print lifecycle",
         "script": "android-native-edge.test.py",
         "passed": true,
         "checks": 12,
-        "seconds": 0.9
+        "seconds": 0.7
       },
       {
         "name": "1.8 profile acceptance guards",
@@ -166,7 +180,7 @@
         "script": "complete-workflow-math.test.cjs",
         "passed": true,
         "checks": 17,
-        "seconds": 2.4
+        "seconds": 2.7
       },
       {
         "name": "1.8 release identity and documentation",
@@ -187,42 +201,42 @@
         "script": "import-id-boundaries.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 1.6
+        "seconds": 1.9
       },
       {
         "name": "1.8 seven practice exercises and seeded feature coverage",
         "script": "training-library.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 62.9
+        "seconds": 61.2
       },
       {
         "name": "1.6 to current release migration and portable example",
         "script": "upgrade01617.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 7.6
+        "seconds": 9.3
       },
       {
         "name": "1.7 stable workflow rendering",
         "script": "alpha17-render.test.cjs",
         "passed": true,
         "checks": 3,
-        "seconds": 1.9
+        "seconds": 2.2
       },
       {
         "name": "1.7 source and equipment reports",
         "script": "alpha17-report.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 0.6
+        "seconds": 0.5
       },
       {
         "name": "1.7 launch source workflow",
         "script": "launch-source.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 2.7
+        "seconds": 3.2
       },
       {
         "name": "1.7 equipment setup and DSIM",
@@ -236,7 +250,7 @@
         "script": "local-operator-preset.test.cjs",
         "passed": true,
         "checks": 19,
-        "seconds": 6.2
+        "seconds": 6.5
       },
       {
         "name": "1.7 DSIM historical pilot-code lookup",
@@ -313,42 +327,42 @@
         "script": "sweep-setup.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 13.3
+        "seconds": 14.2
       },
       {
         "name": "Equipment reference catalog",
         "script": "equipment-reference.test.cjs",
         "passed": true,
         "checks": 18,
-        "seconds": 1.6
+        "seconds": 1.8
       },
       {
         "name": "PWA package and service worker",
         "script": "pwa-worker.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 0.3
+        "seconds": 0.4
       },
       {
         "name": "PWA install and update interface",
         "script": "pwa-client.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 2.2
+        "seconds": 1.9
       },
       {
         "name": "Browser file export and sharing",
         "script": "browser-files.test.cjs",
         "passed": true,
         "checks": 23,
-        "seconds": 2.1
+        "seconds": 2.0
       },
       {
         "name": "Guided training job and preserved work",
         "script": "training-job.test.cjs",
         "passed": true,
         "checks": 41,
-        "seconds": 29.5
+        "seconds": 32.3
       },
       {
         "name": "Production training buttons and fleet split",
@@ -383,28 +397,28 @@
         "script": "frequency-regression.cjs",
         "passed": true,
         "checks": 16,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Retained interface behavior",
         "script": "dom-tests.cjs",
         "passed": true,
         "checks": 38,
-        "seconds": 5.2
+        "seconds": 6.3
       },
       {
         "name": "Active and TDR interface calculations",
         "script": "alpha14-ui.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 10.6
+        "seconds": 10.9
       },
       {
         "name": "Technician task navigation and live controls",
         "script": "alpha15-ui.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 7.3
+        "seconds": 10.4
       },
       {
         "name": "Node profiles and current curves",
@@ -425,7 +439,7 @@
         "script": "evidence-ui.test.cjs",
         "passed": true,
         "checks": 28,
-        "seconds": 0.8
+        "seconds": 0.9
       },
       {
         "name": "IndexedDB failure and commit boundaries",
@@ -439,74 +453,74 @@
         "script": "named-jobs-storage.test.cjs",
         "passed": true,
         "checks": 5,
-        "seconds": 9.6
+        "seconds": 10.7
       },
       {
         "name": "Legacy upgrade and portable backup",
         "script": "alpha011-integration.cjs",
         "passed": true,
         "checks": 21,
-        "seconds": 9.0
+        "seconds": 9.9
       },
       {
         "name": "Retained field tools and named jobs",
         "script": "alpha012.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 13.0
+        "seconds": 15.6
       },
       {
         "name": "0.13 APK backup migration",
         "script": "upgrade01314.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 5.9
+        "seconds": 5.4
       },
       {
         "name": "1.4 backup and active/TDR migration",
         "script": "upgrade01415.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 5.1
+        "seconds": 5.0
       },
       {
         "name": "Training, guide and app text names real screens and buttons",
         "script": "ui-names.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 18.1
+        "seconds": 16.7
       },
       {
         "name": "Built-in reference calculations",
         "script": "../night-sweep/selfcheck.js",
         "passed": true,
         "checks": 8,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "Catalog structure",
         "script": "catalog-audit.cjs",
         "passed": true,
         "checks": 0,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "Test gate: time limit, evidence redirect, receipts message",
         "script": "gate-reliability.test.py",
         "passed": true,
         "checks": 7,
-        "seconds": 13.3
+        "seconds": 13.2
       }
     ],
-    "checks": 1459,
+    "checks": 1534,
     "suite_timeout_seconds": 3600,
-    "total_seconds": 489.9,
+    "total_seconds": 524.9,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "html_sha256": "86aa16f1f77836536b3e4d294ef3b9b2b3165a25a15efc6de9f03e6b9105e13f",
-    "standalone_sha256": "76f85b020049906b9c4836664756ff410cfdcbdb0726da756b3035024364fa2a",
-    "worker_sha256": "acd261dff45389b99bf9dc2e51082346dbe1212a9f7f6898cb5f17da0638ee49",
+    "html_sha256": "39187d729af6dbc437d278f0ea6fe664efe91af9b1a6a0ebb164b3e7b969aba2",
+    "standalone_sha256": "899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883",
+    "worker_sha256": "9c259d1cf85279317e338c97be66b8fce359beb245a7ef766336bc0052d7eb20",
     "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
   },
   "commands": [
@@ -516,13 +530,13 @@
         "python3",
         "night-sweep/build.py"
       ],
-      "started_utc": "2026-11-11T21:34:30.640759+00:00",
-      "started_time_ns": 1794432870640779728,
-      "log": "/tmp/carpe-a2-addendum-final-standalone_build.log",
+      "started_utc": "2026-11-11T23:11:46.390218+00:00",
+      "started_time_ns": 1794438706390240650,
+      "log": "/tmp/carpe-a2-outage-full-standalone_build.log",
       "exit_code": 0,
-      "finished_time_ns": 1794432870843072171,
-      "finished_utc": "2026-11-11T21:34:30.843076+00:00",
-      "seconds": 0.201,
+      "finished_time_ns": 1794438706650251609,
+      "finished_utc": "2026-11-11T23:11:46.650255+00:00",
+      "seconds": 0.259,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -548,13 +562,13 @@
         "python3",
         "build-pwa.py"
       ],
-      "started_utc": "2026-11-11T21:34:30.926823+00:00",
-      "started_time_ns": 1794432870927002489,
-      "log": "/tmp/carpe-a2-addendum-final-pwa_build.log",
+      "started_utc": "2026-11-11T23:11:46.816181+00:00",
+      "started_time_ns": 1794438706816191414,
+      "log": "/tmp/carpe-a2-outage-full-pwa_build.log",
       "exit_code": 0,
-      "finished_time_ns": 1794432870989713406,
-      "finished_utc": "2026-11-11T21:34:30.989718+00:00",
-      "seconds": 0.061,
+      "finished_time_ns": 1794438706887910016,
+      "finished_utc": "2026-11-11T23:11:46.887915+00:00",
+      "seconds": 0.068,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -580,13 +594,13 @@
         "python3",
         "qa/run-pwa.py"
       ],
-      "started_utc": "2026-11-11T21:34:31.109291+00:00",
-      "started_time_ns": 1794432871109298438,
-      "log": "/tmp/carpe-a2-addendum-final-gate.log",
+      "started_utc": "2026-11-11T23:11:47.023457+00:00",
+      "started_time_ns": 1794438707023468007,
+      "log": "/tmp/carpe-a2-outage-full-gate.log",
       "exit_code": 0,
-      "finished_time_ns": 1794433361383799778,
-      "finished_utc": "2026-11-11T21:42:41.383834+00:00",
-      "seconds": 490.271,
+      "finished_time_ns": 1794439232297689653,
+      "finished_utc": "2026-11-11T23:20:32.297694+00:00",
+      "seconds": 525.27,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -606,30 +620,30 @@
       },
       "report": {
         "source_report": "qa/pwa-test-results.json",
-        "raw_report": "/tmp/carpe-a2-addendum-final-gate.json",
+        "raw_report": "/tmp/carpe-a2-outage-full-gate.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794433361375388564,
-        "source_report_mtime_utc": "2026-11-11T21:42:41.375389+00:00",
+        "source_report_mtime_ns": 1794439232291653965,
+        "source_report_mtime_utc": "2026-11-11T23:20:32.291654+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "a3258ffc28ca6cf40328457296e3c1b7bb93813e7938b882157d0bf00ea2b989",
-        "checks": 1459,
-        "suites": 70,
+        "report_sha256": "4819a16d4f9da4a5d18aa3f2addd82ebb250b3cb181c7bfede8d6d9b590bd17b",
+        "checks": 1534,
+        "suites": 72,
         "report_all_passed": true,
         "failed_suites": [],
         "count_matches_suite_sum": true,
         "build_unchanged": true,
         "worktree_unchanged": true,
         "version": "2.0 Alpha build 3",
-        "release": "d29a294385eb7b56c42c",
-        "suite_seconds": 489.9,
+        "release": "7ec73c8a1fa09c798d4d",
+        "suite_seconds": 524.9,
         "suite_timeout_seconds": 3600,
-        "standalone_sha256": "76f85b020049906b9c4836664756ff410cfdcbdb0726da756b3035024364fa2a",
-        "html_sha256": "86aa16f1f77836536b3e4d294ef3b9b2b3165a25a15efc6de9f03e6b9105e13f",
-        "worker_sha256": "acd261dff45389b99bf9dc2e51082346dbe1212a9f7f6898cb5f17da0638ee49",
+        "standalone_sha256": "899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883",
+        "html_sha256": "39187d729af6dbc437d278f0ea6fe664efe91af9b1a6a0ebb164b3e7b969aba2",
+        "worker_sha256": "9c259d1cf85279317e338c97be66b8fce359beb245a7ef766336bc0052d7eb20",
         "passed": true,
         "standalone_matches_pinned_build": true
       },
@@ -641,13 +655,13 @@
         "python3",
         "qa/build3-layout.test.py"
       ],
-      "started_utc": "2026-11-11T21:42:41.495486+00:00",
-      "started_time_ns": 1794433361495495855,
-      "log": "/tmp/carpe-a2-addendum-final-layout.log",
+      "started_utc": "2026-11-11T23:20:32.407506+00:00",
+      "started_time_ns": 1794439232407514204,
+      "log": "/tmp/carpe-a2-outage-full-layout.log",
       "exit_code": 0,
-      "finished_time_ns": 1794433373119794325,
-      "finished_utc": "2026-11-11T21:42:53.119798+00:00",
-      "seconds": 11.62,
+      "finished_time_ns": 1794439244562111398,
+      "finished_utc": "2026-11-11T23:20:44.562116+00:00",
+      "seconds": 12.15,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -667,20 +681,20 @@
       },
       "report": {
         "source_report": "qa/build3-layout-results.json",
-        "raw_report": "/tmp/carpe-a2-addendum-final-layout.json",
+        "raw_report": "/tmp/carpe-a2-outage-full-layout.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794433372679564701,
-        "source_report_mtime_utc": "2026-11-11T21:42:52.679565+00:00",
+        "source_report_mtime_ns": 1794439244135132859,
+        "source_report_mtime_utc": "2026-11-11T23:20:44.135133+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "698e18e93776865a9e1cb79f111a9536fdfe3213379c166da880803852fe73a4",
-        "checks": 374,
+        "report_sha256": "f5a2bcedfea93fa7ae5be19070fe3f7d7a2af9dff4edaca2d8724527228407fa",
+        "checks": 554,
         "report_passed": true,
         "count_matches_log": true,
-        "standalone_sha256": "76f85b020049906b9c4836664756ff410cfdcbdb0726da756b3035024364fa2a",
+        "standalone_sha256": "899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883",
         "passed": true,
         "standalone_matches_pinned_build": true
       },
@@ -692,13 +706,13 @@
         "python3",
         "qa/browser-smoke.py"
       ],
-      "started_utc": "2026-11-11T21:42:53.189244+00:00",
-      "started_time_ns": 1794433373189251226,
-      "log": "/tmp/carpe-a2-addendum-final-smoke.log",
+      "started_utc": "2026-11-11T23:20:44.632204+00:00",
+      "started_time_ns": 1794439244632211669,
+      "log": "/tmp/carpe-a2-outage-full-smoke.log",
       "exit_code": 0,
-      "finished_time_ns": 1794433388093169251,
-      "finished_utc": "2026-11-11T21:43:08.093173+00:00",
-      "seconds": 14.899,
+      "finished_time_ns": 1794439261660653069,
+      "finished_utc": "2026-11-11T23:21:01.660657+00:00",
+      "seconds": 17.024,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -718,20 +732,20 @@
       },
       "report": {
         "source_report": "qa/evidence-out/research/build2/browser/results.json",
-        "raw_report": "/tmp/carpe-a2-addendum-final-smoke.json",
+        "raw_report": "/tmp/carpe-a2-outage-full-smoke.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794433387731239588,
-        "source_report_mtime_utc": "2026-11-11T21:43:07.731240+00:00",
+        "source_report_mtime_ns": 1794439261255389882,
+        "source_report_mtime_utc": "2026-11-11T23:21:01.255390+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "4463bf0fc7a7a74759763000b63da83d0b3782ecc3bff8800491405b7172d09b",
-        "checks": 340,
+        "report_sha256": "b8630b51e14c36c6e6395d431b1d266247b3eae8564a9dbcef1e1326bd871a1d",
+        "checks": 346,
         "report_passed": true,
         "count_matches_log": true,
-        "standalone_sha256": "76f85b020049906b9c4836664756ff410cfdcbdb0726da756b3035024364fa2a",
+        "standalone_sha256": "899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883",
         "page_errors": [],
         "passed": true,
         "standalone_matches_pinned_build": true
@@ -739,18 +753,18 @@
       "passed": true
     }
   ],
-  "source_proof_sha256": "310885c5cfc794d6efdc4140c687679f1ed206e391c13ff8b041ddf342ea58db",
+  "source_proof_sha256": "6b562cd16ec11260cbf55a848434d4de95ef6dfa33a3be8b82dae277f1d12ad5",
   "source_proof_summary": {
-    "started_utc": "2026-11-11T21:34:30.369816+00:00",
-    "finished_utc": "2026-11-11T21:43:08.230186+00:00",
-    "initial_tracked_count": 582,
-    "initial_source_count": 559,
-    "initial_generated_count": 23,
-    "locked_dependency_count": 40,
-    "total_command_seconds": 517.052,
-    "evidence_write_enabled": false,
+    "started_utc": "2026-11-11T23:11:46.053858+00:00",
+    "finished_utc": "2026-11-11T23:21:01.804932+00:00",
+    "tracked_count": 593,
+    "source_count": 570,
+    "generated_count": 23,
+    "tracked_manifest_sha256": "03723a9b08073f8fbbcd9630ff4550fe375c1303f5c96089340a7ec2ffa55609",
+    "total_command_seconds": 554.771,
     "outer_timeout_seconds": null,
-    "suite_timeout_seconds": 3600
+    "suite_timeout_seconds": 3600,
+    "evidence_write_enabled": false
   },
   "final_comparison": {
     "head_same": true,
@@ -773,69 +787,66 @@
     "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
     "raw_index_bytes_changed": true,
     "distinct_raw_sha256": [
-      "106ee3f0dffeb1c577863d69e76ce948568cfe9c451d8b8d85645d4853867a1f",
-      "1f403b1e8a7e847d6b3c0d80ebe83c7f5e18683882139be9269a412d9bdcbb8a",
-      "42b6705c4f3664ac90edfaeba68f367535b113d49091f517ce7e4596c1593c5b",
-      "cbbadd6fa197a715513729e6043f9955d585b31aec0ce9ab5665491a0b925f39"
+      "15eb423096b49c28c96b674ec125c92bae37d48b1d17328e65c46b5b796d17dd",
+      "4da4695895001b4e96a2cbdd094e49fd5733c222259f9d27dcf03ff5db594b82",
+      "622198791b2c98655573265a62eed4e621372fc2641cb3eeb858b43b28b45caf",
+      "eb07af4f7fa12739ac546d2c1f273c002278b1d168a61fee3db5f29bec25485c"
     ],
     "semantic_and_source_guards_matched": true,
     "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion."
   },
   "dependencies_unchanged": true,
+  "locked_dependency_count": 40,
+  "no_restore_commands_used": true,
   "scope": "Synthetic automated and rendered desktop Chromium only. No private attachments, APK/signing, emulator, physical devices, Safari/WebView, meter or field checks.",
   "counts": {
-    "suites": 70,
-    "checks": 1459,
-    "suite_seconds": 489.9,
-    "separate_layout": 374,
-    "separate_smoke": 340,
-    "tracked": 582,
-    "source": 559,
-    "generated": 23,
-    "locked_packages": 40
+    "suites": 72,
+    "checks": 1534,
+    "suite_seconds": 524.9,
+    "separate_layout": 554,
+    "separate_smoke": 346
   },
-  "historical_receipt": "https://github.com/Goodst3r/Carpe-Noctum/blob/30d465c86d26ab781f3cd66a8d45104e2c76ce89/handoff_docs/lanes/codex-a2-validation.json",
-  "historical_ci_only_integration": {
-    "at_publication": "30d465c86d26ab781f3cd66a8d45104e2c76ce89",
-    "description": "Historical CI-only integration attribution, superseded for A2 by this exact35f25f0 full run. A3/A4 remain separately attributed.",
-    "receipt_section": {
-      "reviewed_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
-      "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
-      "starting_published_head": "30014ce3a1387594776f8a227dee1e8a28c16a3e",
-      "ci_merge_head": "3af0134ec4f53dfae57a0c0b93aa153630d307a6",
-      "changed_paths": [
-        ".github/workflows/gate.yml",
-        "qa/ci_layout_diagnose.py"
-      ],
-      "preexisting_tracked_files": 574,
-      "exact_preexisting_file_hashes_at_ci_merge": true,
-      "exact_preexisting_staged_entries_at_ci_merge": true,
-      "ci_files_match_reviewed_base": true,
-      "proof_sha256": "89919135c9b04b906f4b4f62472095119e3f532ef74f6a610d522aac6efef53c",
-      "report": "../reviews/codex-a2-ci-only-integration.md",
-      "no_new_full_gate": true,
-      "gate_attribution": "All existing feature gate counts/commands still belong to tested_commit, not this CI-only merge or subsequent metadata head. Lane B must freshly gate the final published head before merging."
+  "runtime_counts": {
+    "screens": 28,
+    "features": 45,
+    "guide_feature_order_tail": [
+      "safety",
+      "outage",
+      "nightLog"
+    ],
+    "exercise_steps": {
+      "complete": 22,
+      "six_active": 15,
+      "custom": 14,
+      "OEM": 8,
+      "DSIM": 9,
+      "manual": 7,
+      "GS7K": 10
     }
   },
-  "no_restore_commands_used": true,
   "artifact_provenance": {
-    "prefix": "/tmp/carpe-a2-addendum-final",
-    "manifest_sha256": "313ad1dd971362c22d77591b6224192a0a6f0248c83528d42501aa5d22f8b678",
-    "artifact_check_sha256": "f2be505a909514706a4b709bddba9a83a67871d41d2aad68f5b96c45351057a4",
+    "prefix": "/tmp/carpe-a2-outage-full",
+    "manifest_sha256": "3b5ff246bb38d282298a5be8d67d6ba45f6bfcc4cd72aaf6805c7c435fde0468",
     "manifest_entries_verified": 12,
+    "artifact_check_sha256": "de46ffdb3e017140757e602161b89e5dabf9e53e28a789f05c94ddb621c31010",
     "all_manifest_hashes_and_sizes_match": true,
     "all_raw_reports_still_match_sources": true,
-    "raw_reports_proof_summary_manifest_rewritten": false,
-    "prior_receipt_namespaces_written": false,
-    "namespace_collision": false,
-    "new_guard_failure": false
+    "sealed_after_root_verification": true
   },
+  "historical_receipt": "https://github.com/Goodst3r/Carpe-Noctum/blob/9b77213fe332186a142e8af2d147b6f4dccf1cfa/handoff_docs/lanes/codex-a2-validation.json",
+  "historical_attribution": "Previous35f70/1459+374/340 was run on14bfc06 and is not relabeled as this current-base run. Earlier d6/b0/cd79/CI-only phases remain historical.",
+  "sources": [
+    "Authorized A2 plan/BUILD_LIST and existing Station/Jobs/App/export contracts",
+    "Exact independently reviewed Safety/Outage source and existing SAFETY_SOURCES/OUTAGE_SOURCES notes",
+    "Existing NightLog source and earlier35f independent review; no new RF formula or target",
+    "research/build3/NIGHT_LOG_SOURCES.md"
+  ],
   "untested": [
     "Emulator",
     "Physical Android/iPhone",
     "Safari/WebView",
-    "Screen-reader and physical keyboard/tap certification",
-    "Actual provider save/share dialog",
-    "RF hardware and field operation"
+    "Physical keyboard/touch/screen-reader certification",
+    "Actual native provider save/share dialog",
+    "RF hardware/meter and field operation"
   ]
 }
