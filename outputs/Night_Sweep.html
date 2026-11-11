@@ -1753,7 +1753,7 @@ const SweepGradingUI=(()=>{
  const clone=v=>JSON.parse(JSON.stringify(v));
  const unavailable=new Map();
  const parseSnapshot=parsed=>JSON.stringify({series:parsed?.series||null,native:parsed?.native||null});
- let revision=0,owner=null,draft={},invalid={},pending=false,lastRecord=null,message='',initialized=false;
+ let observedContext='',revision=0,owner=null,draft={},invalid={},pending=false,lastRecord=null,message='',initialized=false;
  const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
  function shape(v,allowed,label){if(!object(v)||Object.keys(v).some(k=>!allowed.includes(k)))throw Error('Invalid sweep grading '+label+'.');}
  function complete(v,allowed,label){shape(v,allowed,label);if(allowed.some(k=>!Object.prototype.hasOwnProperty.call(v,k)))throw Error('Incomplete sweep grading '+label+'.');}
@@ -1776,7 +1776,7 @@ const SweepGradingUI=(()=>{
   }return true;
  }
  function empty(){return {profiles:Object.fromEntries(keys.map(k=>[k,{}])),records:[]};}
- function sync(){if(owner!==state){revision++;unavailable.clear();owner=state;draft={plant:'',direction:'',evidenceId:'',measurementPlane:'',measuredAt:''};invalid={};lastRecord=null;message='';}}
+ function sync(){if(owner!==state){revision++;unavailable.clear();owner=state;draft={plant:'',direction:'',evidenceId:'',measurementPlane:'',measuredAt:''};invalid={};lastRecord=null;message='';observedContext=contextStamp();}}
  const key=()=>draft.plant&&draft.direction?draft.plant+'-'+draft.direction:'';
  const criteria=()=>clone(state.sweepGrading?.profiles?.[key()]||{});
  function data(){if(!state.sweepGrading)state.sweepGrading=empty();return state.sweepGrading;}
@@ -1790,7 +1790,7 @@ const SweepGradingUI=(()=>{
  function signature(){return JSON.stringify({revision,draft,criteria:criteria(),source:identity(selected()),context:context(),invalid});}
  function freshness(r){if(unavailable.has(r.source.evidenceId))return 'Source unavailable for grading: '+unavailable.get(r.source.evidenceId)+' Saved historical checks are unchanged.';const m=state.evidence?.find(e=>e.id===r.source.evidenceId);if(!m)return 'Original unavailable: attachment removed or foreign evidence identity.';if(m.sha256!==r.source.sha256||m.size!==r.source.size||m.kind!==r.source.kind||m.stage!==r.source.stage||m.asset!==r.source.asset)return 'Stale / unknown: source metadata changed.';let currentContext;try{currentContext=context();}catch(error){return 'Stale / unknown: '+error.message+' Saved historical checks are unchanged.';}if(JSON.stringify(state.sweepGrading?.profiles?.[r.profileKey]||{})!==JSON.stringify(r.criteria)||JSON.stringify(currentContext)!==JSON.stringify(r.context))return 'Stale / unknown: criteria or source context changed.';return 'Historical snapshot; original availability and integrity require verification to grade again.';}
  async function grade(){
-  sync();if(pending)throw Error('Finish the current grading calculation.');if(!key())throw Error('Explicitly choose a plant and direction.');if(Object.keys(invalid).length)throw Error('Invalid number: correct the highlighted criterion before grading.');const m=selected();if(!m||m.kind!=='Sweep')throw Error('Select an attached Sweep file.');if(draft.measuredAt&&!Number.isFinite(Date.parse(draft.measuredAt)))throw Error('Enter a valid measurement time or leave it unknown.');
+  sync();observeContext();if(pending)throw Error('Finish the current grading calculation.');if(!key())throw Error('Explicitly choose a plant and direction.');if(Object.keys(invalid).length)throw Error('Invalid number: correct the highlighted criterion before grading.');const m=selected();if(!m||m.kind!=='Sweep')throw Error('Select an attached Sweep file.');if(draft.measuredAt&&!Number.isFinite(Date.parse(draft.measuredAt)))throw Error('Enter a valid measurement time or leave it unknown.');
   const startOwner=state,startSignature=signature(),chosenKey=key(),entered=criteria(),source=identity(m),ctx=context(),plane=draft.measurementPlane,measuredAt=draft.measuredAt||null;
   if((state.sweepGrading?.records.length||0)>=100)throw Error('Grading history is full (100 records). Back up this job and start a new record job.');pending=true;message='Verifying original bytes and decoding the selected sweep…';render();
   try{
@@ -1831,15 +1831,17 @@ const SweepGradingUI=(()=>{
   observeOriginal(id,true);
   if(lastRecord?.sourceId===id&&lastRecord.parsed!==parseSnapshot(parsed)){revision++;markStale();message='Reparsed source changed. Current grade is stale / unknown.';}
  }
- function contextEdited(event){
-  const control=event.target;if(!control.matches?.('input,select,textarea')||control.closest('#evidencePanel'))return;
-  if(!control.closest('#setup,#route,#nodePanel,#projectPanel,#jobsPanel,#equipmentSetupPanel'))return;
-  sync();revision++;markStale();message='Source context changed. Current grade is stale / unknown.';
+ function contextStamp(){try{return JSON.stringify(context());}catch(error){return 'Context unavailable: '+error.message;}}
+ function observeContext(){
+  sync();const next=contextStamp();if(next===observedContext)return;
+  observedContext=next;revision++;markStale();message='Source context changed. Current grade is stale / unknown.';
   const status=document.getElementById('gradingStatus');if(status)status.textContent=message;
  }
  function savedCriteria(r){return '<p class="note">Saved company criteria:</p><ul class="note">'+fields.map(([field,label,unit])=>'<li>'+esc(label)+': <strong>'+esc(typeof r.criteria[field]==='number'?r.criteria[field]:'unknown')+' '+esc(unit)+'</strong></li>').join('')+'</ul>';}
  function init(){if(initialized)return;initialized=true;
-  document.addEventListener('input',contextEdited,true);document.addEventListener('change',contextEdited,true);
+  // Every existing route/record/source mutation persists through this boundary.
+  // Compare meaningful grading context so unchanged autosaves remain harmless.
+  const previousSaveLocal=saveLocal;saveLocal=function(...args){observeContext();return previousSaveLocal(...args);};
   document.addEventListener('input',e=>{sync();const id=e.target.id,field=e.target.dataset.gradingField;if(field){if(!key())return;revision++;const el=e.target;/* Read browser validity before its sanitized blank value. */if(el.validity.badInput||!el.validity.valid){invalid[field]='Invalid number';el.setAttribute('aria-invalid','true');message='Invalid number for '+field+'. Previous saved criterion retained.';}else{const raw=el.value;const v=raw.trim()===''?null:Number(raw);if(v!==null&&!Number.isFinite(v)){invalid[field]='Invalid number';return;}delete invalid[field];el.setAttribute('aria-invalid','false');const p=data().profiles[key()];if(v===null)delete p[field];else p[field]=v;saveLocal();message='Criteria changed. Current grade is stale / unknown.';}markStale();const status=document.getElementById('gradingStatus');if(status)status.textContent=message;return;}
    if(id==='gradingPlane'||id==='gradingMeasuredAt'){revision++;draft[id==='gradingPlane'?'measurementPlane':'measuredAt']=e.target.value;markStale();message='Source context changed. Current grade is unknown.';const status=document.getElementById('gradingStatus');if(status)status.textContent=message;}
   });
