@@ -304,3 +304,11 @@ bytes, semantic staged entries/tree and locks unchanged/clean; raw index
 cache refresh disclosed. Prior d6 totals are historical. Receipt and review
 links are in handoff_docs/lanes/codex-status.md. Lane B review/merge required;
 no device, emulator, provider-dialog, field, APK/signing or deployment claim.
+
+## A2 peer-time correction final verification — November 11, 2026
+
+Published successor source `cd79a84630ec7fec9f997f9631b5fb5b4a35a287` corrects adjacent work-window format feedback, invalid saved/displayed mismatch on blur/navigation and stale generated previews. Starting public head was `de5459d3f55da16e64405fc24f12769b4d5f0cfb`; current reviewed build3 `5588a49` remains an ancestor. No RF math/capture/validator/schema/key/version change. Sources are authorized A2 plan/BUILD_LIST and existing Station/Jobs contracts. Independent source20/frozen20 and actual MCP67+4 passed, with explicit focus/centering and no device/automatic-scroll claim.
+
+Own final commands: both Python builders; `GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py`; separate `qa/build3-layout.test.py` and `qa/browser-smoke.py` with the same Chromium/GIT_OPTIONAL_LOCKS. Actual70/1444,468.0s +layout374/smoke340, all5commands0/fresh. All567 tracked/544source/23generated hashes, staged/tree/README/lock/deps unchanged; clean without restoration. Raw index cache changes diagnostic only. Current receipt `handoff_docs/lanes/codex-a2-validation.json` and peer-time fix/review/gate reports preserve exact attribution, historical de5459d receipts and the preflight-only artifact-path refusal (no product test ran in the refused launch).
+
+No emulator, phone, Safari/WebView, physical keyboard/screen-reader, actual provider-save dialog, RF hardware/field/APK/signing/deployment result. Lane B still owes fresh same-head review/gate/merge of PR17; Lane A cannot self-merge. A4 PR14 and A3 PR21 remain awaiting independent merges. New B7 and CI repair heads are under review, not declared passing. D1 complete; D2–D5 remain open.
