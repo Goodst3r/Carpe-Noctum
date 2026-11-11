@@ -56,6 +56,56 @@ FILL_DOCSIS = '''() => {
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
   set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
 }'''
+def docsis_real_input_checks(browser):
+    """A lone minus sign in a number box reads as empty but is not blank, and the job's plant keeps its own company windows.
+    These need a real browser: assigning .value cannot make a number box invalid the way typing does."""
+    port = server.server_port
+    context = browser.new_context(viewport={'width': 390, 'height': 900})
+    page = context.new_page()
+    page.on('pageerror', lambda e: errors.append(str(e)))
+    page.goto(f'http://127.0.0.1:{port}/index.html')
+    page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof DocsisHealth!=="undefined"')
+    page.evaluate("(()=>{const d=SweepSetup.draft();d.selected='42';state.sweepSetup=d;})()")
+    page.evaluate("WorkflowUI.go('docsisHealth')")
+    note = lambda id: page.evaluate(f"document.getElementById('health-{id}-window-note').textContent")
+    stored = lambda: page.evaluate("JSON.parse(localStorage.getItem('nightsweep-docsis-windows-v1')||'null')")
+    result = lambda id: page.evaluate("id=>document.getElementById('health-'+id+'-result').textContent.replace(/\\s+/g,' ')", id)
+    page.locator('[data-health-window-box="scqam"] summary').click()
+    hi = page.locator('[data-health-window="scqam"][data-field="max"]')
+    hi.click(); page.keyboard.type('7'); page.keyboard.press('Tab')
+    check('DOCSIS real keyboard: a typed highest level is saved for the 42/54 plant', stored()['plants']['42']['scqam']['max'] == 7 and 'Saved on this device' in note('scqam'))
+    hi.click(); page.keyboard.press('Control+A'); page.keyboard.type('-')
+    check('DOCSIS real keyboard: a lone minus sign leaves the box empty and marked badInput', hi.evaluate('el=>el.value===""&&el.validity.badInput===true'))
+    page.keyboard.press('Tab')
+    check('DOCSIS real keyboard: that entry is refused and says the saved window is still in use', 'Not saved.' in note('scqam') and 'Still using at most +7 dBmV' in note('scqam'))
+    check('DOCSIS real keyboard: the saved window is not cleared by the lone minus sign', stored()['plants']['42']['scqam']['max'] == 7)
+    check('DOCSIS real keyboard: the refused box shows the window still in use, not an empty-looking box', hi.evaluate('el=>el.value==="7"&&el.validity.badInput===false'))
+    hi.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace'); page.keyboard.press('Tab')
+    check('DOCSIS real keyboard: emptying the box on purpose still clears the window', stored()['plants']['42']['scqam']['max'] is None and 'Saved on this device' in note('scqam'))
+    hi.click(); page.keyboard.type('7'); page.keyboard.press('Tab')
+    page.select_option('[data-health="upstream"][data-field="mode"]', '3.1')
+    page.locator('[data-health="upstream"][data-field="total"]').click(); page.keyboard.type('52')
+    check('DOCSIS real keyboard: a blank Pmax on a 3.1 modem uses the 65 dBmV minimum', '13.0 dB of headroom' in result('upstream'))
+    pm = page.locator('[data-health="upstream"][data-field="pmax"]')
+    pm.click(); page.keyboard.type('-')
+    check('DOCSIS real keyboard: a lone minus sign in Pmax is refused and not read as the default', pm.evaluate('el=>el.validity.badInput===true') and 'as a number' in result('upstream') and 'headroom' not in result('upstream'))
+    pm.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace')
+    check('DOCSIS real keyboard: emptying Pmax goes back to the default', '13.0 dB of headroom' in result('upstream'))
+    page.locator('[data-health="scqam"][data-field="level"]').click(); page.keyboard.type('9')
+    check("DOCSIS real keyboard: a reading is compared with the window of the job's plant", '2.0 dB above your window' in result('scqam'))
+    page.evaluate("WorkflowUI.go('sweepSetup')")
+    page.locator('[data-sweep-split="204"]').click()
+    page.evaluate("WorkflowUI.go('docsisHealth')")
+    check('DOCSIS plants: after choosing 204/258 the company window box is empty and the plant is named', page.evaluate("document.querySelector('[data-health-window=\"scqam\"][data-field=\"max\"]').value===''&&/204\\/258 MHz plant/.test(document.querySelector('[data-health-plant]').textContent)"))
+    check('DOCSIS plants: the 42/54 window is not applied to the 204/258 plant', 'above your window' not in result('scqam') and 'Unknown — not entered for the 204/258 MHz plant' in result('scqam'))
+    if not page.locator('[data-health-window="scqam"][data-field="max"]').is_visible():
+        page.locator('[data-health-window-box="scqam"] summary').click()
+    page.locator('[data-health-window="scqam"][data-field="max"]').click(); page.keyboard.type('12'); page.keyboard.press('Tab')
+    check('DOCSIS plants: the 204/258 window is kept apart from the 42/54 one', stored()['plants']['204']['scqam']['max'] == 12 and stored()['plants']['42']['scqam']['max'] == 7)
+    page.reload(); page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof DocsisHealth!=="undefined"')
+    check('DOCSIS plants: both windows are read back after a reload, each for its own plant', page.evaluate("DocsisHealth.getWindow('scqam','42').max===7&&DocsisHealth.getWindow('scqam','204').max===12"))
+    context.close()
+
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
@@ -118,6 +168,7 @@ try:
                 check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
+        docsis_real_input_checks(browser)
         check('No uncaught application errors', not errors)
         browser.close()
     OUT.write_text(json.dumps({'checks': len(checks), 'passed': True, 'cases': checks, 'standalone_sha256': hashlib.sha256(html.encode()).hexdigest(),
