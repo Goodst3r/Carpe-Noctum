@@ -57,6 +57,11 @@
 <td>Active route point, gain at both markers, output targets</td>
 </tr>
 <tr>
+<td>Record station balance and separate sweep dates</td>
+<td><strong>Route → Station</strong></td>
+<td>Installed station, actual pilots/readings, approved targets and measurement planes</td>
+</tr>
+<tr>
 <td>Look up cable/passive/active equipment</td>
 <td><strong>Route → Catalog</strong></td>
 <td>Manufacturer, model, or part type</td>
@@ -194,7 +199,7 @@
 <tbody><tr>
 <td><strong>Open complete training job</strong></td>
 <td>Cedar Lane: GS7K launch, GainMaker GaN actives, mixed Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 MHz route, power and records</td>
-<td align="right">21</td>
+<td align="right">22</td>
 <td>Six synthetic files: five interchange CSVs and one original-only SVG diagram</td>
 </tr>
 <tr>
@@ -224,7 +229,7 @@
 <tr>
 <td><strong>Six active devices in series</strong></td>
 <td>Vecima source followed by six serial AOI route actives on 204/258 MHz</td>
-<td align="right">13</td>
+<td align="right">14</td>
 <td>Synthetic teaching data; no physical acceptance</td>
 </tr>
 <tr>
@@ -239,7 +244,7 @@
 <ol>
 <li>If a real job is open, use <strong>Files → Back up project</strong> and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.</li>
 <li>Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.</li>
-<li>Confirm the job name begins with <strong>TRAINING</strong>. Home shows <strong>Guided practice</strong> for the selected exercise: the complete example retains 21 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 13 steps, custom curves 8 and manual/thermal 7. Choose <strong>Open step</strong> to reveal the destination controls, try them, then mark <strong>Reviewed</strong>. The <strong>Practice guide</strong> button in the training banner returns you to the checklist.</li>
+<li>Confirm the job name begins with <strong>TRAINING</strong>. Home shows <strong>Guided practice</strong> for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 14 steps, custom curves 8 and manual/thermal 7. Choose <strong>Open step</strong> to reveal the destination controls, try them, then mark <strong>Reviewed</strong>. The <strong>Practice guide</strong> button in the training banner returns you to the checklist.</li>
 <li>Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.</li>
 </ol>
 <p>While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.</p>
@@ -1223,7 +1228,7 @@
 <p>Choose the installed launch node, launch amplifier or a route amplifier. The banner uses that equipment’s actual split: <strong>42/54 MHz</strong> uses forward and return Sweepless Sweep; <strong>204/258 MHz</strong> uses forward Sweepless Sweep and return XPERTrak. Other or unidentified splits require confirmation of their procedure. This screen records measured work separately from route predictions.</p>
 <p>Choose <strong>Before adjustments</strong> or <strong>After adjustments</strong>. Each stage keeps its own pilots, targets, readings, installed settings and last edit time. Enter forward readings and targets at the same output port, measurement plane and channel-power convention; apply any test-point correction once before typing readings. All new station company targets and optional tolerances start blank, meaning unknown. An entered zero remains zero. The existing pad/EQ solver reports low/high level error, tilt error and sourced GainMaker input-part changes when the installed parts and pilots are covered. Quantum18 shows its electronic procedure and offers no plug-in part picks. OEM AGC, ACI DSIM and manual/thermal setup still require their separate exact equipment procedures.</p>
 <p>The return worksheet uses <strong>required physical injection = reference-point target + net insertion loss to that point</strong> (SCTE 180 2025 §13.2.2.2). Include applicable test point, lead, path and EQ losses once. Actual injection is a separate reading; its delta is actual minus required. Receiver delta is the reading minus the saved reference at the same identified receiver plane and power convention. Record that plane and reference ID. Referenced dB response from Return Sweepless Sweep cannot fill absolute dBmV receiver fields. This physical budget does not program an ONX setting or add compensated losses again. Return pad/attenuation and EQ/tilt are recorded settings, without automatic return-part selection. No universal return tolerance is supplied.</p>
-<p>The local <strong>38 dBmV return TX</strong> reference, the SCU-1800’s <strong>0 dBmV recommended input</strong>, the configurable <strong>CMTS receive set point</strong> and the Quantum18 HGD’s <strong>9 dBmV per 6.4 MHz recommended input</strong> belong to different planes; none pre-fills this worksheet. Tap the Company or Spec tags for the source and conditions.</p>
-<p>Record <strong>Balanced</strong> and <strong>Swept</strong> separately with their own dates. Neither matching two pilots nor checking Balanced records a sweep. These are technician records, not automatic RF acceptance. Legacy UBT stations remain readable with disabled worksheet controls. Removed or replaced stations retain their history in JSON backups; a new station starts blank even when a route point ID is reused. Changing the launch asset, output port or installed node module also starts a blank worksheet and retains prior observations. Imported numeric text that the number fields cannot show produces no result; its original text stays in the backup. Named-job switching and project backups retain both measurement stages and the separate dates.</p>
+<p>On <strong>42/54 MHz</strong>, the reminder shows this job’s editable operator return TX entry; it starts unknown in a fresh job. A local 38 dBmV value applies only when entered and approved at its transmitter plane. On an exact <strong>204/258 MHz Quantum18 HGD</strong>, the separately tagged preliminary sheet’s 9 dBmV per 6.4 MHz input recommendation is shown; it is not transferred to other models or splits. Receiver reference details separately identify the SCU-1800 recommendation and configurable CMTS receive set point. Their source tags disclose each document and any unverified issued revision. None pre-fills injection or receiver targets.</p>
+<p>Record <strong>Balanced</strong> and <strong>Swept</strong> separately with their own dates. Neither matching two pilots nor checking Balanced records a sweep. These are technician records, not automatic RF acceptance. Legacy UBT stations remain readable with disabled worksheet controls. Removed or replaced stations retain their history in JSON backups; a new station starts blank even when a route point ID is reused. Changing the launch asset, output port or installed node module also starts a blank worksheet and retains prior observations. Imported numeric text that the number fields cannot show produces no result; its original text stays in the backup. Named-job switching and project backups retain both measurement stages and the separate dates. Correcting catalog band information keeps saved observations available. Older saved worksheets with incomplete station-binding information remain visible and read-only with a notice. Confirm the actual selected model, installed split, asset, port and module before using <strong>Confirm saved worksheet belongs to this station</strong>; it creates a bound copy and preserves the original worksheet in the job backup.</p>
 <p>For practice, open the complete GS7K/GainMaker exercise’s <strong>Station balance and separate sweep record</strong> step. Synthetic 54/860 MHz pilots, targets 39/49, readings 36.4/49.6 dBmV, installed pad 6 and EQ 9 dB give an input EQ pick of 4.5 dB and pad 7 dB. A return reference-point target of 19 dBmV plus 20 dB net insertion loss gives 39 dBmV required injection; receiver −1.25 minus reference −3.5 dBmV gives +2.25 dB. Back up, restore and compare the station worksheet. The six-active Vecima/AOI exercise has a separate electronic-alignment station step. Practice values never establish real operating targets.</p>
 </article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>
