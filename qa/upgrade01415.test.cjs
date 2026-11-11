@@ -72,7 +72,7 @@ async function check(name,fn){await fn();cases.push(name);console.log('PASS '+na
   const out=await app.w.evidenceExportProject(app.ev('state'));assert.equal(out.evidenceFiles.length,2);for(const meta of out.evidence){const bytes=app.w.EvidenceCore.base64ToBytes(out.evidenceFiles.find(x=>x.id===meta.id).base64);assert.deepEqual([...bytes],[...(meta.name.endsWith('.csv')?csv:opaque)]);}
  });
  await check('Current export names use 1.6 and preserve unknown metadata and signed negative levels',async()=>{
-  await app.d.getElementById('save').onclick();const download=app.downloads.at(-1);assert.equal(download.name,'CarpeNoctum_2.0_Alpha_build_2_Project.json');
+  await app.d.getElementById('save').onclick();const download=app.downloads.at(-1);assert.equal(download.name,'CarpeNoctum_2.0_Alpha_build_3_Project.json');
   const restored=JSON.parse(download.text);assert.deepEqual(restored.futureFieldNotes,copy(bundle.futureFieldNotes));assert.deepEqual(restored.rows,copy(bundle.rows));assert.equal(restored.evidenceFiles.length,2);
  });
  await check('Invalid gain/TDR payloads reject without overwriting the migrated working job',()=>{
@@ -81,6 +81,6 @@ async function check(name,fn){await fn();cases.push(name);console.log('PASS '+na
   }
  });
  await check('Original and both new app instances complete migration without script errors',()=>{for(const x of [old,updated,app])assert.deepEqual(x.errors,[]);});
- fs.writeFileSync('qa/upgrade01415-results.json',JSON.stringify({version:'2.0 Alpha build 2',count:cases.length,cases,sourceSha256:require('node:crypto').createHash('sha256').update(fs.readFileSync('qa/fixtures/alpha014.html')).digest('hex'),scope:'Actual 1.4 web code produces synthetic portable backups and stored autosave/named-job/IndexedDB evidence; no physical Android upgrade claim.'},null,2)+'\n');
+ fs.writeFileSync('qa/upgrade01415-results.json',JSON.stringify({version:'2.0 Alpha build 3',count:cases.length,cases,sourceSha256:require('node:crypto').createHash('sha256').update(fs.readFileSync('qa/fixtures/alpha014.html')).digest('hex'),scope:'Actual 1.4 web code produces synthetic portable backups and stored autosave/named-job/IndexedDB evidence; no physical Android upgrade claim.'},null,2)+'\n');
  console.log('1.4 to 1.5 upgrade: '+cases.length+' checks passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{for(const dom of instances){if(dom.window.document){const end=Date.now()+5000;while(dom.window.evidenceIsBusy?.()&&Date.now()<end)await new Promise(r=>setImmediate(r));dom.window.close();}}});

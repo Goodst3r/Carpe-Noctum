@@ -68,7 +68,7 @@ const error=(name,message)=>Object.assign(new Error(message),{name});
  assert.deepEqual(h.errors,[]);h.w.close();
  const app=harness(true),a=app.w,doc=app.d,ev=app.ev;
  await check('Full app browser project export dispatches JSON through the helper',async()=>{
-  await doc.getElementById('save').onclick();const file=app.shared.at(-1).files[0];assert.equal(file.name,'CarpeNoctum_2.0_Alpha_build_2_Project.json');const data=JSON.parse(await file.text());assert.equal(data.version,1);assert.equal(data.rows.length,ev('state.rows.length'));assert.match(doc.getElementById('message').textContent,/Check Files/);
+  await doc.getElementById('save').onclick();const file=app.shared.at(-1).files[0];assert.equal(file.name,'CarpeNoctum_2.0_Alpha_build_3_Project.json');const data=JSON.parse(await file.text());assert.equal(data.version,1);assert.equal(data.rows.length,ev('state.rows.length'));assert.match(doc.getElementById('message').textContent,/Check Files/);
  });
  const originalBytes=new Uint8Array([60,104,116,109,108,62,0,128,255]);
  await check('Async evidence-bearing project export requires a fresh click and embeds exact originals',async()=>{
@@ -79,7 +79,7 @@ const error=(name,message)=>Object.assign(new Error(message),{name});
   const count=app.shared.length;await ev('evidenceDownload(state.evidence[0].id)');assert.equal(app.shared.length,count);assert.match(doc.getElementById('browserFileName').textContent,/original.html/);await a.BrowserFiles.share();const file=app.shared.at(-1).files[0];assert.equal(file.type,'text/html');assert.deepEqual([...new Uint8Array(await file.arrayBuffer())],[...originalBytes]);assert.equal(doc.querySelectorAll('#browserFileExport iframe').length,0);
  });
  await check('Run-sheet text and CSV use real browser file exports',async()=>{
-  await doc.getElementById('runSheetShare').onclick();let file=app.shared.at(-1).files[0];assert.equal(file.name,'CarpeNoctum_2.0_Alpha_build_2_Run_Sheet.txt');assert.match(await file.text(),/Run sheet/);doc.getElementById('runSheetCsv').click();await flush();file=app.shared.at(-1).files[0];assert.match(file.name,/Run_Sheet.csv$/);assert.match(await file.text(),/Prediction frequency/);
+  await doc.getElementById('runSheetShare').onclick();let file=app.shared.at(-1).files[0];assert.equal(file.name,'CarpeNoctum_2.0_Alpha_build_3_Run_Sheet.txt');assert.match(await file.text(),/Run sheet/);doc.getElementById('runSheetCsv').click();await flush();file=app.shared.at(-1).files[0];assert.match(file.name,/Run_Sheet.csv$/);assert.match(await file.text(),/Prediction frequency/);
  });
  await check('Cancelled real project sharing does not get overwritten by a prepared/saved success message',async()=>{
   await doc.getElementById('save').onclick();app.control.shareError=error('AbortError','Cancelled');await a.BrowserFiles.share();assert.match(doc.getElementById('message').textContent,/Sharing cancelled/);app.control.shareError=null;
@@ -90,7 +90,7 @@ const error=(name,message)=>Object.assign(new Error(message),{name});
  });
  await check('Older partial Android bridge uses saveFile when shareText is unavailable',async()=>{
   const native=[];a.NightSweepAndroid={saveFile:(...x)=>native.push(x),saveBinary:()=>{},printReport:()=>{}};const count=app.shared.length;
-  await doc.getElementById('runSheetShare').onclick();assert.equal(native.length,1);assert.equal(native[0][0],'CarpeNoctum_2.0_Alpha_build_2_Run_Sheet.txt');assert.equal(native[0][2],'text/plain');assert.match(native[0][1],/Run sheet/);assert.equal(app.shared.length,count);assert.match(doc.getElementById('message').textContent,/Complete the save dialog/);
+  await doc.getElementById('runSheetShare').onclick();assert.equal(native.length,1);assert.equal(native[0][0],'CarpeNoctum_2.0_Alpha_build_3_Run_Sheet.txt');assert.equal(native[0][2],'text/plain');assert.match(native[0][1],/Run sheet/);assert.equal(app.shared.length,count);assert.match(doc.getElementById('message').textContent,/Complete the save dialog/);
  });
  await check('JSON import picker remains compatible with Files JSON selections',()=>assert.equal(doc.getElementById('load').getAttribute('accept'),'.json,application/json'));
  assert.deepEqual(app.errors,[]);

@@ -70,7 +70,7 @@ digest = hashlib.sha256()
 for name, data in [('base-app.html', app.encode()), ('worker-template.js', worker_template.encode()), ('build-pwa.py', Path(__file__).read_bytes()), *sorted(files.items())]:
     digest.update(name.encode() + b'\0' + data + b'\0')
 version = digest.hexdigest()[:20]
-release = {'version': version, 'worker': f'sw.{version}.js', 'appVersion': '2.0 Alpha build 2'}
+release = {'version': version, 'worker': f'sw.{version}.js', 'appVersion': '2.0 Alpha build 3'}
 metadata = '\n'.join([
     '<meta name="robots" content="noindex,nofollow">',
     '<meta name="theme-color" content="#071014">',
@@ -104,4 +104,4 @@ for name, data in sorted(files.items()):
     target = DIST / name
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(data)
-print(f'Built Carpe Noctum 2.0 Alpha build 2 PWA {version}: {len(assets)} offline assets → {DIST}')
+print(f'Built Carpe Noctum 2.0 Alpha build 3 PWA {version}: {len(assets)} offline assets → {DIST}')

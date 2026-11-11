@@ -7,7 +7,7 @@ function html(){
  if(process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST==='1')return require('./build2-source-harness.cjs').assembleHtml();
  let source=fs.readFileSync(path.join(root,'outputs/Night_Sweep.html'),'utf8');
  if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')return source;
- for(const [file,startMarker,endMarker] of [['training.js','/* Offline synthetic practice job.','function initTraining(){TrainingJob.init();}'],['sweep-setup.js','/* 2.0 Alpha build 2 guided field setup.',"if(typeof module!=='undefined'&&module.exports)module.exports=SweepSetup;"]]){
+ for(const [file,startMarker,endMarker] of [['training.js','/* Offline synthetic practice job.','function initTraining(){TrainingJob.init();}'],['sweep-setup.js','/* 2.0 Alpha build 3 guided field setup.',"if(typeof module!=='undefined'&&module.exports)module.exports=SweepSetup;"]]){
   const start=source.indexOf(startMarker),end=source.indexOf(endMarker,start);assert(start>=0&&end>start,file);
   source=source.slice(0,start)+fs.readFileSync(path.join(root,'night-sweep',file),'utf8')+source.slice(end+endMarker.length);
  }

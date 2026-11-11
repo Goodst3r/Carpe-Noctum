@@ -56,7 +56,7 @@
  function parseText(text,filename,kind){
   const attachment=message=>({status:'attachment',message});
   if(typeof text!=='string')return attachment('Original attachment retained; no text was supplied for decoding.');
-  if(!/\.csv$/i.test(String(filename||'')))return attachment('Original attachment only. Native ONX JSON, XML, ZIP, PDF and other schemas are not decoded in Carpe Noctum 2.0 Alpha build 2.');
+  if(!/\.csv$/i.test(String(filename||'')))return attachment('Original attachment only. Native ONX JSON, XML, ZIP, PDF and other schemas are not decoded in Carpe Noctum 2.0 Alpha build 3.');
   if(!kinds.includes(kind))return attachment('Choose Sweep, Ingress or OneCheck before importing.');
   if(textBytes(text)>limits.textBytes)return attachment('Original CSV retained. Preview decoding is limited to 2 MiB of text.');
   if(unsafe.test(text))return attachment('Original CSV retained. Unsupported control characters prevent decoding.');
