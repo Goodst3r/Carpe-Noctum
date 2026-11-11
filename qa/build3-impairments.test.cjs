@@ -150,6 +150,15 @@ const title = h => h.d.getElementById('impCardTitle')?.textContent;
     for (const t of h.d.querySelectorAll('#impairmentsPanel [data-threshold]')) assert.equal(h.json(`Thresholds.matches(${JSON.stringify(t.dataset.threshold)})`), 1, t.dataset.threshold);
   });
 
+  await check('Wide-band interference is kept among the look-alikes (SCTE 280 §9.4): a raised floor alone does not identify CPD, and extra cable is not flat loss', () => {
+    const cpd = h.json("Impairments.card('cpd')"), ingress = h.json("Impairments.card('ingress')"), flat = h.json("Impairments.card('flat-loss')");
+    assert(cpd.lookalikes.some(x => /wide-band interference/i.test(x) && /raised floor alone does not point to CPD/i.test(x)), 'the CPD card keeps wide-band interference as a look-alike');
+    assert(!cpd.lookalikes.some(x => /^Ingress is at fixed frequencies/.test(x)), 'the old blanket statement is gone');
+    assert(ingress.lookalikes.some(x => /wide-band interference raises the noise floor/i.test(x)), 'the ingress card separates narrow spikes from a raised floor');
+    assert(!flat.causes.some(x => /very long cable/i.test(x)), 'very long cable is not listed as a flat-loss cause');
+    assert(flat.lookalikes.some(x => /More cable than the design has/i.test(x) && /not flat loss/i.test(x)), 'extra cable is named as frequency-dependent loss');
+  });
+
   await check('The module is bundled once, loads without script errors and the built-in self-check still passes', () => {
     assert.equal((html.match(/const Impairments=\(\(\)=>/g) || []).length, 1); assert.equal(h.json('NightSweep.selfCheck.ok'), true); assert.deepEqual(h.errors, []);
   });

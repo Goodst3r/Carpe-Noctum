@@ -76,8 +76,8 @@ const Impairments=(()=>{
     validate:'Measure the two pilots again and confirm the tilt is back inside your target.'}},
   {id:'flat-loss',name:'Excessive flat loss',group:GROUPS[1],ref:'SCTE 280 §9.9 (heading only); SCTE PNM series, Course 4',verified:'unverified',
    looks:'The whole spectrum sits lower by about the same number of dB at every frequency, with the same shape as a good response.',
-   causes:['A part or connection that adds loss equally at all frequencies: a bad connector, a pad that is too large, a damaged or very long cable.','A device that is not delivering its gain.'],
-   lookalikes:['Loss that grows with frequency is tilt or roll-off.'],
+   causes:['A part or connection that adds loss equally at all frequencies: a bad connector, a pad that is too large, a damaged cable.','A device that is not delivering its gain.'],
+   lookalikes:['Loss that grows with frequency is tilt or roll-off. More cable than the design has is that kind of loss, not flat loss.'],
    flow:{analyze:'Check whether the shape is unchanged and only the level is down. Note by how many dB.',
     localize:'Compare levels against the design at each point along the path. The step where the drop begins is the place.',
     prioritize:'Take a drop that puts channels below the modem\'s input range, or one that affects many customers, first.',
@@ -86,7 +86,7 @@ const Impairments=(()=>{
   {id:'ingress',name:'Ingress (narrow-band)',group:GROUPS[2],ref:'SCTE 280 §9.4, §9.4.2, §9.4.4; SCTE 294 2024r1',verified:'primary',
    looks:'Narrow spikes at fixed frequencies on the noise floor or between channels, for example from FM broadcast, VHF, UHF, two-way radio or amateur radio. They can be steady or come and go.',
    causes:['A fault in the shielding of the network: loose, wrong or damaged connectors, cracked shielding, rodent chews, warped or loose lids on amplifiers and passives.','Damaged drop cable, including a drop that is old or kinked.','Ingress can sit on any frequency, so a spike at one frequency does not mean other frequencies are clear.'],
-   lookalikes:['Direct pickup enters a device without a cable.','HPNA and other in-home signals are inside the plant, not over the air.'],
+   lookalikes:['Direct pickup enters a device without a cable.','HPNA and other in-home signals are inside the plant, not over the air.','Wide-band interference raises the noise floor over a span instead of making narrow spikes; a raised floor can be wide-band ingress, noise or CPD, so look at the shape and at whether it follows the downstream signals.'],
    flow:{analyze:'Note the frequencies and whether they match a known broadcaster or service. Check whether it is steady or intermittent.',
     localize:'Compare modems or nodes: ingress that shows on many at once is early in the path; on one it is at the house. Move toward the stronger reading.',
     prioritize:'Ingress near the node end of the downstream path or in the upstream affects the most customers.',
@@ -104,7 +104,7 @@ const Impairments=(()=>{
   {id:'cpd',name:'Common path distortion (CPD)',group:GROUPS[2],ref:'SCTE 280 §9.4.7; SCTE 294 2024r1',verified:'primary',
    looks:'In the upstream, a raised noise floor (third order) or repeating hump-shaped haystacks (second order) that appear when the downstream signals are present. It is not ingress, and not true noise, though it can look like noise.',
    causes:['The downstream signals pass through a diode-like nonlinearity where corrosion has formed in the signal path shared by the downstream and the upstream: a loose seizure screw, a defective end-of-line terminator, a corroded connector.','The oxide layer is fragile, so wind, vibration, temperature and the downstream level can make it come and go.'],
-   lookalikes:['Impulse and burst noise are short events, not a steady raised floor.','Ingress is at fixed frequencies, not a smooth floor.'],
+   lookalikes:['Impulse and burst noise are short events, not a steady raised floor.','Narrow-band ingress is a set of spikes at fixed frequencies, but wide-band interference can also lift the floor over a span, so a raised floor alone does not point to CPD. CPD follows the downstream signals being present.'],
    flow:{analyze:'Look at the upstream with the downstream carriers present and note the shape of the floor and any haystacks.',
     localize:'Because it comes and goes, check places where the shared path has metal-to-metal joints: amplifier seizure screws, terminators, connectors, starting at the strongest reading.',
     prioritize:'Take CPD that raises the floor under upstream channels used by many modems first.',
@@ -163,6 +163,7 @@ const ImpairmentsUI=(()=>{
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
  const trim=(v,d=1)=>String(Number(v.toFixed(d)));
+ const BOX_NAME={spacing:'ripple spacing',vp:'velocity of propagation',width:'search width'};
  let selected='',initialized=false;
  function shapePicker(){
   return `<fieldset class="imp-picker"><legend>What does the meter or spectrum show?</legend>${Impairments.SHAPES.map(s=>`<label class="imp-shape"><input type="radio" name="impShape" value="${s.id}"${selected===s.id?' checked':''}><span>${escape(s.text)}</span></label>`).join('')}</fieldset>`;
@@ -184,7 +185,13 @@ const ImpairmentsUI=(()=>{
  }
  function updateRipple(){
   const out=document.getElementById('impRippleResult');if(!out)return;
-  const v={};document.querySelectorAll('[data-imp]').forEach(el=>{v[el.dataset.imp]=el.value;});
+  const v={},bad=[];
+  document.querySelectorAll('[data-imp]').forEach(el=>{
+   v[el.dataset.imp]=el.value;
+   /* a native number box with an unfinished entry (a lone minus sign) reads as "" but is not blank */
+   if(el.validity&&el.validity.badInput===true){bad.push(BOX_NAME[el.dataset.imp]||'number');el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+  });
+  if(bad.length){out.classList.add('error');out.innerHTML=`<p class="note" role="alert">Not calculated. The ${escape(bad.join(' and the '))} box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box${bad.length&&v.width===''&&bad.includes(BOX_NAME.width)?' to use the default width':''}. The route search waits until then.</p>`;return;}
   if(String(v.spacing??'').trim()===''&&String(v.vp??'').trim()===''){out.classList.remove('error');out.innerHTML='<p class="note">Enter the spacing and the cable velocity to see the distance and the candidate places on your route.</p>';return;}
   const r=typeof FieldCalc!=='undefined'?FieldCalc.rippleDistance(v.spacing,v.vp):{ok:false,error:'The ripple calculator is not available.'};
   if(!r.ok){out.classList.add('error');out.innerHTML=`<p class="note">${escape(r.error)}</p>`;return;}
@@ -210,6 +217,8 @@ const ImpairmentsUI=(()=>{
    else if(t.dataset&&t.dataset.imp)updateRipple();
   });
   panel.addEventListener('input',event=>{const t=event.target;if(t.dataset&&t.dataset.imp)updateRipple();});
+  /* leaving a half-filled box from empty sends no change event */
+  panel.addEventListener('focusout',event=>{const t=event.target;if(t.dataset&&t.dataset.imp)updateRipple();});
  }
  return {init,render,updateRipple,select:id=>{selected=id;render();}};
 })();
