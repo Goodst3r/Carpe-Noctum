@@ -131,7 +131,7 @@ const title = h => h.d.getElementById('impCardTitle')?.textContent;
     const before = JSON.stringify(f.json('evidenceExportProject(state)')), keys = JSON.stringify(Object.keys(f.w.localStorage).sort()), values = JSON.stringify(Object.keys(f.w.localStorage).sort().map(k => f.w.localStorage.getItem(k)));
     await goto(f, 'projects'); assert.equal(f.d.getElementById('impairmentsPanel').hidden, true);
     await goto(f, 'impairments');
-    const tabs = [...f.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-7, -4), ['DOCSIS health', 'Leakage', 'Impairments']);
+    const tabs = [...f.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-8, -5), ['DOCSIS health', 'Leakage', 'Impairments']);
     assert.equal(f.d.getElementById('impairmentsPanel').hidden, false); assert.match(f.d.getElementById('screenTitle').textContent, /Find the impairment/);
     pick(f, 'ripple'); set(f, '[data-imp=spacing]', '1.7'); set(f, '[data-imp=vp]', '0.87'); pick(f, 'slope');
     assert.equal(JSON.stringify(f.json('evidenceExportProject(state)')), before, 'job export identical'); assert.equal(JSON.stringify(Object.keys(f.w.localStorage).sort()), keys, 'no new key');

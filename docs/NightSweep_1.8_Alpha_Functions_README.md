@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 32 task screens and 49 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 33 task screens and 50 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds nine Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split), [Why cards](#why-cards) and [Proof of performance](#proof-of-performance), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains eleven guide steps for them, and the feature index gains entries 38, 39 and 41 to 49. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds ten Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split), [Why cards](#why-cards), [Proof of performance](#proof-of-performance) and [Study mode](#study-mode), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains twelve guide steps for them, and the feature index gains entries 38, 39 and 41 to 50. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -34,18 +34,19 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 22. [High split](#high-split)
 23. [Why cards](#why-cards)
 24. [Proof of performance](#proof-of-performance)
-25. [Power-supply load](#power-supply-load)
-26. [Power what-if](#power-what-if)
-27. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-28. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-29. [Pre-work safety](#pre-work-safety)
-30. [Outage first response](#outage-first-response)
-31. [Project records and closeout](#project-records-and-closeout)
-32. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-33. [Offline use, updates and Help](#offline-use-updates-and-help)
-34. [Checked example answers](#checked-example-answers)
-35. [49-feature coverage index](#49-feature-coverage-index)
-36. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+25. [Study mode](#study-mode)
+26. [Power-supply load](#power-supply-load)
+27. [Power what-if](#power-what-if)
+28. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+29. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+30. [Pre-work safety](#pre-work-safety)
+31. [Outage first response](#outage-first-response)
+32. [Project records and closeout](#project-records-and-closeout)
+33. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+34. [Offline use, updates and Help](#offline-use-updates-and-help)
+35. [Checked example answers](#checked-example-answers)
+36. [50-feature coverage index](#50-feature-coverage-index)
+37. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -55,7 +56,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance; Study | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -101,7 +102,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 19 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 20 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -518,6 +519,16 @@ Four cards. **How often, where and on what** (76.601): tests at least twice each
 
 These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, *FCC Proof-of-Performance Checklist for Analog and Digital Signals*, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and **not read**.
 
+## Study mode
+
+**Where:** Test → Study. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Answer a practice question.
+
+Practice questions made from this app's own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains: **architectures; distribution components; signal types; maintenance and troubleshooting; safety and construction**. **They are original, not SCTE or NCTI questions, and not an exam.** Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the two checklists), so the question and the answer cannot disagree with the screen it practices.
+
+Choose a domain (or all five), read the question, type a number or pick an answer and tap **Check my answer**. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. **Next question** moves on and **New numbers** asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: **nothing is saved**, in the job or anywhere else, and a score here is not a test result.
+
+The safety and construction questions only ask which section of this app's own pre-work safety or outage card a reminder belongs to. They test the card, not safe practice, and follow company policy first. The domains are the build list's grouping; the questions do not follow any exam blueprint.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -770,7 +781,7 @@ The return worksheet keeps reference-point target plus applicable net insertion 
 
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
-## 49-feature coverage index
+## 50-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -825,6 +836,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 47 | High split band plans, aeronautical band and Remote PHY order <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
 | 48 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
 | 49 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
+| 50 | Study mode: practice questions in five domains <!-- feature:study --> | [Study mode](#study-mode) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

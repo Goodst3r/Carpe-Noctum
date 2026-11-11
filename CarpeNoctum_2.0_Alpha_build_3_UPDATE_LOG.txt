@@ -319,6 +319,24 @@ CHANGES
      and the feature index gains entry 49. Sources and gaps:
      research/build3/POP_SOURCES.md.
 
+15. Study mode (build list item 19), Test -> Study
+   - Practice questions in the five BDS domains (architectures;
+     distribution components; signal types; maintenance and
+     troubleshooting; safety and construction), made from this app's own
+     calculators and reference screens: nineteen generators, numbers from a
+     seed on a fixed grid, each answer computed by the function the screen
+     uses, with the working and a link to that screen after an answer.
+   - Original: no SCTE or NCTI question or key was used, and the screen says
+     it is not an exam. A blank answer, a lone minus sign or text is never
+     taken as an answer. A score is kept for the visit only; nothing is
+     stored, no new storage key, no change to the job format (tested).
+   - Checked against an independent Python decimal recomputation of every
+     numeric answer (research/build3/study-reference.py). Safety and
+     construction questions only ask which section of the app's own cards a
+     reminder belongs to. Sources: research/build3/STUDY_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (twenty in total) and
+     the feature index gains entry 50.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all

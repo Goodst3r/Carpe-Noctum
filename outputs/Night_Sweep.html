@@ -243,7 +243,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -323,6 +323,16 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .why-body p{margin:8px 0;overflow-wrap:anywhere}
 .why-go{min-height:44px;margin:2px 6px 2px 0}
 .why-tags .source-tag{margin-right:6px}
+.study-card{min-width:0}
+.study-prompt{font-size:16px;margin:10px 0;overflow-wrap:anywhere}
+.study-choices{border:0;margin:8px 0;padding:0;min-width:0}
+.study-choice{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:8px 4px;overflow-wrap:anywhere}
+.study-choice input{width:24px;height:24px;flex:0 0 24px;margin:0}
+.study-number{display:block;margin:8px 0}
+.study-feedback{margin-top:10px;min-width:0}
+.study-feedback p,.study-feedback li{overflow-wrap:anywhere}
+.study-card .toolbar button,.study-go{min-height:44px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Guided 42 MHz / 204 MHz field setup. Inherits the established night / sun palette. */
 .sweep-setup-panel{max-width:1050px;margin-left:auto;margin-right:auto}
@@ -422,6 +432,7 @@ html[data-theme=sun] .sweep-split-switch button[aria-pressed=true]{background:#d
 <section class="panel calculator-panel hs-panel" data-screen="test" hidden="" id="highSplitPanel"></section>
 <section class="panel calculator-panel why-panel" data-screen="test" hidden="" id="whyPanel"></section>
 <section class="panel calculator-panel pop-panel" data-screen="test" hidden="" id="popPanel"></section>
+<section class="panel calculator-panel study-panel" data-screen="test" hidden="" id="studyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
@@ -3724,7 +3735,7 @@ const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[]},
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
-  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance']]},
+  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance'],['study','Study']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
   job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet']]}
  };
@@ -3744,6 +3755,7 @@ const WorkflowUI=(()=>{
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['test','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
   fiber:['test','Fiber color code and loss budget','Find a fiber by number, tube and color, and estimate a link\'s loss from length, connectors and splices. Nothing is read from a meter.'],
+  study:['test','Study mode: practice questions','Original practice questions made from this app\'s calculators and reference screens, grouped by the five SCTE BDS domains, with working shown. Practice only: a score is kept for this visit and nothing is saved.'],
   pop:['test','FCC proof of performance','The FCC technical limits and test rules an operator\'s proof-of-performance tests are measured against, with their rule sections. A reference only: official results belong to engineering. Nothing is typed, stored or read from a meter.'],
   why:['test','Why cards: the basics in plain words','Fourteen short cards on the basics behind the numbers in this app, one for each SCTE 293 "What is …?" monograph, each linking to the screen that uses it. A summary, not a copy. Nothing is typed, stored or read from a meter.'],
   highSplit:['test','High split and Remote PHY','Band plans for the 204/258 MHz plant, where the aeronautical band falls, and what is public about Remote PHY bring-up. Each statement names its document and issue. A reading aid: nothing is read from a node or stored.'],
@@ -3773,7 +3785,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4029,6 +4041,7 @@ const TrainingJob=(()=>{
   ['highSplit','Read the band plans and the Remote PHY order','highSplit','','Open Test → High split. In the band table read the high-split row: upstream 5 to 204 MHz, downstream 258 to 1794 MHz, and the mid-split row: 5 to 85 and 108 to 1644. In the gap table the high-split gap is 54 MHz. In the side table 108 to 137 MHz is upstream on the 204/258 plant and downstream on the 42/54 plant, which is why a downstream leakage tag no longer stands for that band. Under Remote PHY bring-up read the eight steps in order and note who does each one. Every statement names its document and issue; the Vecima guide is not public, so the screen does not describe it. Nothing is typed or stored.'],
   ['why','Read a why card and follow its link','why','','Open Test → Why cards. Open the decibel card (SCTE 293-1 2024): a bare dB is only ever a ratio, and a level needs a reference such as dBmV. Open the unity gain card, read why it matters and tap Route → Station to go to the screen that uses it. The cards are our own short summaries and each names the SCTE monograph to read in full. Nothing is typed or stored.'],
   ['pop','Read the FCC proof-of-performance limits','pop','','Open Test → Proof of performance. In the second table read the visual carrier to noise row: not less than 43 dB, 76.605(b)(7). In the first table read how often the tests are made: at least twice each calendar year, no more than seven months apart, and how many points: six for a system of 1,000 to 12,500 subscribers. Every row names its rule section and has a source tag. It is a reference only; official results belong to your engineering group. Nothing is typed or stored.'],
+  ['study','Answer a practice question','study','','Open Test → Study and choose Signal types. The first question asks for a level in dBm: the answer is the dBmV reading minus 48.75 dB at 75 ohms. Type your answer and tap Check my answer; a wrong answer shows the right one with its working and a button to the calculator that does it. Tap New numbers for the same kind of question with different values. The questions are original, made from this app’s own calculators, and a score is kept for this visit only: nothing is saved.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4044,7 +4057,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'21 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'13 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'19 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'20 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4099,9 +4112,10 @@ const TrainingJob=(()=>{
   ['fiber','Fiber color finder and link loss budget','Test','custom-curves','fiber','fiber','Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored.'],
   ['highSplit','Band plans, aeronautical band and Remote PHY order','Test','custom-curves','highSplit','highSplit','The high-split band table, the side of 108 to 137 MHz on each plant and the eight Remote PHY bring-up steps, each read with its document and issue; nothing is typed, read from a node or stored.'],
   ['why','Why cards: the SCTE 293 basics','Test','custom-curves','why','why','The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored.'],
-  ['pop','FCC proof-of-performance limits and test rules','Test','custom-curves','pop','pop','The carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored.']
+  ['pop','FCC proof-of-performance limits and test rules','Test','custom-curves','pop','pop','The carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored.'],
+  ['study','Study mode: practice questions','Test','custom-curves','study','study','A level conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={pop:'#popPanel .pop-table',why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',station:'[data-station-target]',fiber:'[data-fiber="finder"][data-field="fiber"]',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={study:'#studyDomain',pop:'#popPanel .pop-table',why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',station:'[data-station-target]',fiber:'[data-fiber="finder"][data-field="fiber"]',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -7135,5 +7149,236 @@ const ProofOfPerformanceUI=(()=>{
  return {init,markup};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();initWorkflow();initTraining();</script>
+<script>/* Study mode (build list item 19, 2.0 Alpha build 3): original practice questions built from this app's own calculators
+   and reference screens, tagged by the five SCTE BDS domains (architectures; distribution components; signal types;
+   maintenance and troubleshooting; safety and construction). Nothing here is taken from an SCTE or NCTI exam or question
+   bank: every question is generated from a calculator or a screen of this app, with numbers chosen on a fixed grid from a
+   seed, and its answer is computed by the same function the app uses. Practice only: a score is kept for this visit,
+   never saved, and it is not a test result. */
+const StudyMode=(()=>{
+ const DOMAINS=Object.freeze([
+  {id:'architectures',name:'Architectures'},
+  {id:'components',name:'Distribution components'},
+  {id:'signals',name:'Signal types'},
+  {id:'troubleshooting',name:'Maintenance and troubleshooting'},
+  {id:'safety',name:'Safety and construction'}
+ ].map(Object.freeze));
+ /* A small seeded generator, so a question can be reproduced from its number and seed. */
+ function rng(seed){
+  let a=(Math.trunc(seed)>>>0)||1;
+  return ()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};
+ }
+ const pick=(r,list)=>list[Math.floor(r()*list.length)];
+ const grid=(r,lo,hi,step)=>{const n=Math.round((hi-lo)/step);return lo+Math.floor(r()*(n+1))*step;};
+ const round=(x,d=2)=>Number(x.toFixed(d));
+ const shuffle=(r,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+ const app=()=>({
+  calc:typeof FieldCalc!=='undefined'?FieldCalc:null,leak:typeof Leakage!=='undefined'?Leakage:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
+  docsis:typeof DocsisHealth!=='undefined'?DocsisHealth:null,split:typeof HighSplit!=='undefined'?HighSplit:null,imp:typeof Impairments!=='undefined'?Impairments:null,
+  safety:typeof Safety!=='undefined'?Safety:null,outage:typeof Outage!=='undefined'?Outage:null
+ });
+ /* Choices: the right answer is placed at a random position among the others, never repeated. */
+ function choice(r,right,others){
+  const pool=[...new Set(others.filter(x=>x!==right))];
+  const picked=shuffle(r,pool).slice(0,3);
+  const all=shuffle(r,[right,...picked]);
+  return {choices:all,correct:all.indexOf(right)};
+ }
+ const number=(q)=>({kind:'number',...q});
+ /* Each generator: id, domain, tool (the screen that practices it) and make(seed) -> a question. `params` holds the inputs of a
+    numeric answer, so qa/build3-study.test.cjs can recompute it independently. */
+ const GENERATORS=[
+  {id:'dbm',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const level=grid(r,-10,50,0.5),a=app();
+   const x=a.calc.convertLevel(level,'dBmV',75);
+   return number({prompt:`A meter reads ${level} dBmV across 75 ohms. What is that level in dBm?`,unit:'dBm',answer:x.dBm,tol:0.05,params:{level},working:['dBm = dBmV − 48.75 dB at 75 ohms (the dB converter in Test → Calculators).',`${level} − 48.75 = ${round(x.dBm)} dBm.`],source:'SCTE 293-10 2025, signal level'});
+  }},
+  {id:'dbuv',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const level=grid(r,-10,50,0.5),a=app();
+   const x=a.calc.convertLevel(level,'dBmV',75);
+   return number({prompt:`A level is ${level} dBmV. What is it in dBµV?`,unit:'dBµV',answer:x.dBuV,tol:0.05,params:{level},working:['dBµV = dBmV + 60 dB, because 1 mV is 1000 µV.',`${level} + 60 = ${round(x.dBuV)} dBµV.`],source:'SCTE 293-1 2024, the decibel'});
+  }},
+  {id:'ofdm6',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const bandwidth=pick(r,[24,48,96,192]),power=grid(r,10,60,0.5),a=app();
+   const x=a.calc.ofdmPower(power,bandwidth,bandwidth);
+   return number({prompt:`A downstream OFDM channel measures ${power} dBmV of total power over ${bandwidth} MHz. What is its power per 6 MHz?`,unit:'dBmV per 6 MHz',answer:x.per6,tol:0.05,params:{power,bandwidth},working:['Power per 6 MHz = total power − 10·log10(occupied bandwidth ÷ 6 MHz).',`${power} − 10·log10(${bandwidth} ÷ 6) = ${round(x.per6)} dBmV per 6 MHz.`],source:'SCTE 293-10 2025, signal level'});
+  }},
+  {id:'scqam',domain:'signals',tool:{task:'docsisHealth',label:'Test → DOCSIS health'},make:r=>{
+   const level=grid(r,-20,20,1),a=app();
+   const x=a.docsis.scqam({level});
+   const right=x.status==='inside'?'Inside the range':x.status==='below'?'Below the range':'Above the range';
+   const c=choice(r,right,['Inside the range','Below the range','Above the range']);
+   return {kind:'choice',prompt:`A downstream SC-QAM channel reads ${level} dBmV at the modem. A DOCSIS modem must accept −15 to +15 dBmV per 6 MHz channel. Where is the reading?`,choices:c.choices,correct:c.correct,params:{level},working:['The range is inclusive: −15 and +15 dBmV are inside it.',`${level} dBmV is ${right.toLowerCase()}.`],source:'CM-SP-PHYv3.0 C01, Table 6–22'};
+  }},
+  {id:'ofdmbasis',domain:'signals',tool:{task:'why',label:'Test → Why cards'},make:r=>{
+   const right='Average power per 6 MHz';
+   const c=choice(r,right,['Peak envelope power of the visual carrier','Power of the strongest subcarrier','Total power over the whole channel bandwidth, whatever its width','The voltage across 50 ohms']);
+   return {kind:'choice',prompt:'How is the signal level of a downstream OFDM channel usually stated?',choices:c.choices,correct:c.correct,working:['A downstream OFDM channel’s level is its average power, stated per 6 MHz so it can be compared with other channels.','Peak envelope power is how an analog TV visual carrier is measured.'],source:'SCTE 293-10 2025, signal level'};
+  }},
+  {id:'splitter',domain:'components',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const ways=pick(r,[2,3,4,8]),level=grid(r,0,50,1);
+   const answer=level-10*Math.log10(ways);
+   return number({prompt:`An ideal ${ways}-way splitter shares the signal equally. The input is ${level} dBmV. What is the level at each output?`,unit:'dBmV',answer,tol:0.05,params:{ways,level},working:['An equal split divides the power by the number of outputs: loss = 10·log10(outputs).',`${level} − 10·log10(${ways}) = ${round(answer)} dBmV. A real splitter has more loss than the ideal.`],source:'SCTE 293-4 2024, loss'});
+  }},
+  {id:'fiberbudget',domain:'components',tool:{task:'fiber',label:'Test → Fiber'},make:r=>{
+   const length=pick(r,[2,5,8,12,20]),attenuation=pick(r,[0.35,0.4,0.5]),connectors=pick(r,[2,4,6]),splices=pick(r,[0,2,4,6]),a=app();
+   const x=a.fiber.budget({length,attenuation,connectors,connectorLoss:0.3,splices,spliceLoss:0.1,margin:0});
+   return number({prompt:`A single-mode link is ${length} km at ${attenuation} dB/km with ${connectors} mated connector pairs at 0.3 dB each and ${splices} splices at 0.1 dB each. No other loss, no margin. What is the estimated loss?`,unit:'dB',answer:x.estimated,tol:0.01,params:{length,attenuation,connectors,splices},working:['Loss = length × attenuation + pairs × loss per pair + splices × loss per splice.',`${length} × ${attenuation} + ${connectors} × 0.3 + ${splices} × 0.1 = ${round(x.estimated)} dB.`],source:'SCTE 181 2025 and FOA loss-budget guidance (see Test → Fiber)'});
+  }},
+  {id:'fibercolor',domain:'components',tool:{task:'fiber',label:'Test → Fiber'},make:r=>{
+   const fiber=grid(r,1,288,1),a=app();
+   const x=a.fiber.locate(fiber);
+   const c=choice(r,x.fiberColor,a.fiber.COLORS);
+   return {kind:'choice',prompt:`Counting from 1 with 12 fibers in each tube, which color is fiber ${fiber}?`,choices:c.choices,correct:c.correct,params:{fiber},working:[`Fiber ${fiber} is position ${x.position} in tube ${x.tube}.`,`The TIA-598 order is ${a.fiber.COLORS.join(', ')}, so position ${x.position} is ${x.fiberColor}.`],source:'TIA-598 color code (see Test → Fiber)'};
+  }},
+  {id:'unity',domain:'components',tool:{task:'gain',label:'Route → Amp gain'},make:r=>{
+   const cable=grid(r,10,30,0.5),passives=grid(r,1,8,0.5);
+   const answer=cable+passives;
+   return number({prompt:`A span has ${cable} dB of cable loss and ${passives} dB of passive loss at the highest operating frequency. For unity gain, how much operational gain should the amplifier after it have?`,unit:'dB',answer,tol:0.05,params:{cable,passives},working:['Unity gain: the amplifier’s gain equals the loss of the span ahead of it at the same frequency.',`${cable} + ${passives} = ${round(answer)} dB.`],source:'SCTE 293-5 2024, unity gain'});
+  }},
+  {id:'aero',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS);
+   const names={sub:'a 42/54 MHz plant',mid:'a mid-split (85/108 MHz) plant',high:'a 204/258 MHz plant'};
+   const right=a.split.aeroBandSide(plan)==='upstream'?'Upstream':'Downstream';
+   const c={choices:['Upstream','Downstream'],correct:['Upstream','Downstream'].indexOf(right)};
+   return {kind:'choice',prompt:`On ${names[plan.id]}, which direction carries the 108 to 137 MHz aeronautical band?`,choices:c.choices,correct:c.correct,params:{plan:plan.id},working:[`The upstream ends at ${plan.upper[0]} MHz and the downstream starts at ${plan.dsLow[0]} MHz.`,`108 to 137 MHz is ${right.toLowerCase()} on this plan.`],source:'CM-SP-PHYv4.0 I08, Table 29'};
+  }},
+  {id:'edge',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS.filter(p=>p.dsLow.length===1));
+   const names={mid:'Mid-split',high:'High-split'};
+   const right=names[plan.id];
+   const c=choice(r,right,['Mid-split','High-split','Sub-split','Ultra-high split']);
+   return {kind:'choice',prompt:`Which DOCSIS 4.0 split has its downstream starting at ${plan.dsLow[0]} MHz?`,choices:c.choices,correct:c.correct,params:{plan:plan.id},working:['From the band table: sub-split 50 to 54 MHz, mid-split 108 MHz, high-split 258 MHz.',`${plan.dsLow[0]} MHz is the ${right.toLowerCase()} downstream edge.`],source:'CM-SP-PHYv4.0 I08, Table 29'};
+  }},
+  {id:'gap',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS.filter(p=>p.dsLow.length===1));
+   const g=a.split.gaps().find(x=>x.id===plan.id);
+   return number({prompt:`In the ${plan.id==='mid'?'mid':'high'}-split plan the upstream ends at ${plan.upper[0]} MHz and the downstream starts at ${plan.dsLow[0]} MHz. How many MHz lie between them?`,unit:'MHz',answer:g.min,tol:0,params:{upper:plan.upper[0],dsLow:plan.dsLow[0]},working:['Subtract the upstream upper edge from the downstream lower edge.',`${plan.dsLow[0]} − ${plan.upper[0]} = ${g.min} MHz (the specification calls this a transition band).`],source:'CM-SP-PHYv4.0 I08, Table 29 (our subtraction)'});
+  }},
+  {id:'ripple',domain:'troubleshooting',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const spacing=grid(r,0.5,8,0.1),vp=pick(r,[0.85,0.87,0.9]),a=app();
+   const spacingR=round(spacing,1);
+   const x=a.calc.rippleDistance(spacingR,vp);
+   return number({prompt:`A sweep shows a standing-wave ripple whose peaks are ${spacingR} MHz apart, on cable with a velocity of propagation of ${vp}. How far apart, in feet, are the two mismatches?`,unit:'ft',answer:x.feet,tol:0.01,relative:true,params:{spacing:spacingR,vp},working:[`Distance (ft) = ${round(a.calc.C_FT_PER_US/2,1)} × VP ÷ ripple spacing (MHz), where ${round(a.calc.C_FT_PER_US/2,1)} ft·MHz is half the speed of light in feet per microsecond.`,`${round(a.calc.C_FT_PER_US/2,1)} × ${vp} ÷ ${spacingR} = ${round(x.feet,1)} ft.`],source:'SCTE 280 2022, standing waves (see Test → Impairments)'});
+  }},
+  {id:'leak3m',domain:'troubleshooting',tool:{task:'leakage',label:'Test → Leakage'},make:r=>{
+   const field=grid(r,20,200,5),distance=pick(r,[10,30,100]),a=app();
+   const x=a.leak.normalize({field,distance,unit:'m'});
+   return number({prompt:`A leak reads ${field} µV/m at ${distance} m. What is that restated at 3 m?`,unit:'µV/m',answer:x.at3,tol:0.005,relative:true,params:{field,distance},working:['In the far field the field strength falls in proportion to distance: E at 3 m ≈ E × distance ÷ 3 m.',`${field} × ${distance} ÷ 3 = ${round(x.at3,1)} µV/m (an approximation; measure at 3 m when you can).`],source:'SCTE 221 2020 (R2026) and SCTE 293-12 2025'});
+  }},
+  {id:'cli',domain:'troubleshooting',tool:{task:'leakage',label:'Test → Leakage'},make:r=>{
+   const leaks=[grid(r,60,300,10),grid(r,60,300,10),grid(r,60,300,10)],theta=pick(r,[0.8,0.9,1]),a=app();
+   const x=a.leak.cli({leaks:leaks.join(' '),theta:String(theta)});
+   return number({prompt:`Three leaks of ${leaks.join(', ')} µV/m were found at 3 m on the 108–137 MHz basis, with ${Math.round(theta*100)}% of the plant examined. What is the cumulative leakage index in dB?`,unit:'dB',answer:x.cli,tol:0.05,params:{leaks,theta},working:['CLI = 10·log10( (1 ÷ fraction examined) × the sum of each leak’s field strength squared ), counting leaks of 50 µV/m or more.',`10·log10( (${leaks.map(v=>v+'²').join(' + ')}) ÷ ${theta} ) = ${round(x.cli)} dB. The limit is 64 dB.`],source:'47 CFR 76.611(a)(1)'});
+  }},
+  {id:'impairment',domain:'troubleshooting',tool:{task:'impairments',label:'Test → Impairments'},make:r=>{
+   const a=app(),ids=['ripple','notch','high-decline','slope','flat-drop','bursts'],shapeId=pick(r,ids),shape=a.imp.SHAPES.find(s=>s.id===shapeId);
+   const right=a.imp.cardForShape(shape.id).name;
+   const others=ids.filter(i=>i!==shape.id).map(i=>a.imp.cardForShape(i).name);
+   const c=choice(r,right,others);
+   return {kind:'choice',prompt:`A trace shows this: ${shape.text.charAt(0).toLowerCase()+shape.text.slice(1)}. Which impairment card fits?`,choices:c.choices,correct:c.correct,params:{shape:shape.id},working:[`The impairment cards are picked by what the trace looks like. This shape opens the “${right}” card.`],source:'SCTE 280 2022 (see Test → Impairments)'};
+  }},
+  {id:'popcnr',domain:'troubleshooting',tool:{task:'pop',label:'Test → Proof of performance'},make:r=>{
+   const right='Not less than 43 dB';
+   const c=choice(r,right,['Not less than 51 dB','Not less than 18 dB','Not less than 30 dB','Not less than 60 dB']);
+   return {kind:'choice',prompt:'What is the FCC minimum ratio of visual carrier to system noise for an analog channel?',choices:c.choices,correct:c.correct,working:['47 CFR 76.605(b)(7): the ratio of RF visual signal level to system noise shall not be less than 43 dB.','51 dB is the coherent-disturbance figure and 18 dB the terminal isolation.'],source:'47 CFR 76.605(b)(7)'};
+  }},
+  {id:'safetysection',domain:'safety',tool:{task:'safety',label:'Job → Safety'},make:r=>{
+   const a=app(),items=a.safety.ITEMS,item=pick(r,items);
+   const groups=[...new Set(items.map(i=>i.group))];
+   const c=choice(r,item.group,groups);
+   return {kind:'choice',prompt:`In which section of the pre-work safety card does this reminder appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of reminders written for this app. It is not your company’s procedure; follow company policy first.'],source:'This app’s Job → Safety card'};
+  }},
+  {id:'outagesection',domain:'safety',tool:{task:'outage',label:'Job → Outage'},make:r=>{
+   const a=app(),items=a.outage.ITEMS,item=pick(r,items);
+   const groups=[...new Set(items.map(i=>i.group))];
+   const c=choice(r,item.group,groups);
+   return {kind:'choice',prompt:`In which section of the outage first-response card does this prompt appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of prompts written for this app. It is not your company’s procedure; follow it first.'],source:'This app’s Job → Outage card'};
+  }}
+ ].map(g=>Object.freeze(g));
+ const SEED_STEP=7919;
+ /* Question number k (0 based) within a domain filter, for a base seed. */
+ function list(domain){return domain&&domain!=='all'?GENERATORS.filter(g=>g.domain===domain):GENERATORS;}
+ function question(domain,index,seed){
+  const gens=list(domain);if(!gens.length)return null;
+  const g=gens[((Math.trunc(index)%gens.length)+gens.length)%gens.length];
+  const q=g.make(rng(Math.trunc(seed)+Math.trunc(index)*SEED_STEP));
+  return {id:g.id,domain:g.domain,tool:g.tool,...q};
+ }
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/;
+ /* Checks one response. A number is read strictly as a plain decimal; blank is "no answer", never zero. */
+ function check(q,response){
+  if(!q)return {ok:false,error:'There is no question.'};
+  if(q.kind==='choice'){
+   if(response===null||response===undefined||response==='')return {ok:false,error:'Choose an answer first.'};
+   const i=Number(response);if(!Number.isInteger(i)||i<0||i>=q.choices.length)return {ok:false,error:'Choose one of the answers shown.'};
+   return {ok:true,right:i===q.correct,answer:q.choices[q.correct]};
+  }
+  const text=String(response??'').trim();
+  if(text==='')return {ok:false,error:'Type your answer first.'};
+  if(text.length>20||!DECIMAL.test(text))return {ok:false,error:'Type the answer as a plain number, such as 12.5.'};
+  const v=Number(text);if(!Number.isFinite(v))return {ok:false,error:'Type the answer as a plain number, such as 12.5.'};
+  const allowed=q.relative?Math.abs(q.answer)*q.tol:q.tol;
+  return {ok:true,right:Math.abs(v-q.answer)<=allowed+1e-9,answer:round(q.answer,2),entered:v};
+ }
+ return {DOMAINS,GENERATORS,list,question,check,rng};
+})();
+
+const StudyModeUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ /* A number box whose text is not a number (a lone "-") reports an empty value but is marked badInput; it must read as text
+    that is not a number, never as an empty answer. */
+ const typed=el=>el.validity&&el.validity.badInput?'not a number':el.value;
+ const state={domain:'all',index:0,seed:1,right:0,asked:0,answered:false};
+ let initialized=false;
+ function current(){return StudyMode.question(state.domain,state.index,state.seed);}
+ function body(q){
+  const total=StudyMode.list(state.domain).length;
+  const answer=q.kind==='choice'
+   ?`<fieldset class="study-choices"><legend class="sr-only">Answers</legend>${q.choices.map((c,i)=>`<label class="study-choice"><input type="radio" name="studyAnswer" value="${i}"> <span>${escape(c)}</span></label>`).join('')}</fieldset>`
+   :`<label class="study-number">Your answer${q.unit?` (${escape(q.unit)})`:''}<input type="number" step="any" id="studyNumber" data-study="answer" autocomplete="off"></label>`;
+  return `<p class="note tight" id="studyWhere">Question ${state.index+1} · ${escape(StudyMode.DOMAINS.find(d=>d.id===q.domain).name)} · ${total} question${total===1?'':'s'} in this set</p><p class="study-prompt" id="studyPrompt">${escape(q.prompt)}</p>${answer}<div class="toolbar"><button type="button" id="studyCheck">Check my answer</button><button type="button" id="studyNext">Next question</button><button type="button" id="studyNew">New numbers</button></div><div class="study-feedback" id="studyFeedback" role="status" aria-live="polite"></div>`;
+ }
+ function render(){
+  const panel=document.getElementById('studyPanel');if(!panel)return;
+  const q=current();state.answered=false;
+  const where=panel.querySelector('#studyBody');if(where)where.innerHTML=q?body(q):'<p class="note">No questions in this set.</p>';
+  const score=panel.querySelector('#studyScore');if(score)score.textContent=state.asked?`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`:'Nothing is saved, and a score here is not a test result.';
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All five domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
+ }
+ function showResult(q,res,panel){
+  const out=panel.querySelector('#studyFeedback');
+  if(!res.ok){out.classList.add('error');out.innerHTML=`<p class="note">${escape(res.error)}</p>`;return;}
+  out.classList.remove('error');
+  if(!state.answered){state.answered=true;state.asked++;if(res.right)state.right++;}
+  const score=panel.querySelector('#studyScore');if(score)score.textContent=`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`;
+  const tool=q.tool?`<button type="button" class="study-go" data-study-go="${escape(q.tool.task)}">${escape(q.tool.label)}</button>`:'';
+  out.innerHTML=`<p class="health-status ${res.right?'ok':'warn'}">${res.right?'✓ Right.':'✗ Not quite.'} The answer is ${escape(res.answer)}${q.unit&&q.kind==='number'?' '+escape(q.unit):''}.</p><p><strong>Working.</strong></p><ul class="hs-list">${q.working.map(w=>`<li>${escape(w)}</li>`).join('')}</ul><p class="note tight">Source: ${escape(q.source)}. ${tool}</p>`;
+ }
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('studyPanel');if(!panel)return;
+  panel.innerHTML=markup();render();
+  panel.addEventListener('change',event=>{
+   if(event.target.id==='studyDomain'){state.domain=event.target.value;state.index=0;render();}
+  });
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button');if(!b||!panel.contains(b))return;
+   const q=current();
+   if(b.id==='studyCheck'){
+    let response='';
+    if(q.kind==='choice'){const r=panel.querySelector('input[name="studyAnswer"]:checked');response=r?r.value:'';}
+    else{const el=panel.querySelector('#studyNumber');response=el?typed(el):'';}
+    showResult(q,StudyMode.check(q,response),panel);
+   }else if(b.id==='studyNext'){state.index++;render();}
+   else if(b.id==='studyNew'){state.seed++;render();}
+   else if(b.dataset.studyGo&&typeof WorkflowUI!=='undefined')WorkflowUI.go(b.dataset.studyGo);
+  });
+ }
+ return {init,markup,state,render};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();initWorkflow();initTraining();</script>
 </body></html>

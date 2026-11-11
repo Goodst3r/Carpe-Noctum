@@ -46,6 +46,7 @@ MODULES = [
     ('<!--HIGHSPLIT-->', 'highsplit.js'),
     ('<!--WHYCARDS-->', 'why-cards.js'),
     ('<!--POP-->', 'proof-of-performance.js'),
+    ('<!--STUDY-->', 'study-mode.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
 ]
