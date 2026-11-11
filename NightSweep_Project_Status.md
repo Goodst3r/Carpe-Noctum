@@ -1,4 +1,52 @@
-# NightSweep project status
+# Carpe Noctum (formerly NightSweep) project status
+
+## Current: 2.0 Alpha build 3 · in development · Android code 27 (no APK yet) · November 11, 2026 UTC
+
+Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on GitHub, branch `claude/build-list`). Development happens on branch `ccr-7abea525-rljsni`. The released installer is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, code 26). No build 3 APK exists: it must be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the full QA run. `android-build/build-readiness.json` says so explicitly.
+
+### Build list progress
+
+| Build list item | Status in build 3 |
+| --- | --- |
+| 1. Threshold and source registry | **Done.** Test → Limits, plus a source tag on every calculator formula |
+| 2. Tilt/EQ/pad solver | Not started; next in the build order |
+| 3. Station view and unity-gain worksheet | Not started; depends on item 2 |
+| 4. Calculator bundle | **Done.** Test → Calculators: dB converter, ripple to distance, pre-EQ tap distance, OFDM power, echo delay |
+| 5–20 | Not started. Source checks for items 5 and 7 are recorded in `research/build3/SOURCE_VERIFICATION.md` |
+
+### What changed
+
+- **Version:** labels, export filenames and PWA identity read 2.0 Alpha build 3; Android source identity is code 27. Package, provider/origin and storage keys are unchanged, so jobs and updates carry over.
+- **Registry (`night-sweep/thresholds.js`):** 28 rows, each labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile and meter setup, or the built-in 31/43/38 local preset); blank is unknown and never zero. There is no new storage. Two existing app approximations (0.1 %/°F cable temperature correction, 0.004/°C resistance coefficient) are labeled Unknown because no published source is recorded.
+- **Calculators (`night-sweep/field-calcs.js`):** offline, deterministic, no job or storage writes. Invalid or missing input gives a reason, never a number. VP comes from catalog cables that list one (four today) or is typed in.
+- **Practice:** the custom-curves exercise gains two guide steps (ten in total) and the feature index gains entries 38 and 39, so every task screen still has a seeded exercise.
+- **QA:** `qa/build2-layout.test.py` now honors `NIGHTSWEEP_CHROMIUM`. New suites: `build3-registry.test.cjs`, `build3-field-calcs.test.cjs` (app output against independent 50-digit decimal references in `research/build3/field-calcs-reference.json`) and `build3-layout.test.py` (rendered Chromium, run separately like `browser-smoke.py`).
+
+### Current verification
+
+All results below are from runs on November 11, 2026 in this cloud container, against standalone `outputs/Night_Sweep.html` SHA-256 `2634882910363f50fb11fc2f4bcfcf6fa09741139d872d2495cbf4e38fbc4dd8`.
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Automated suites | `NIGHTSWEEP_CHROMIUM=/opt/pw-browsers/chromium python3 qa/run-pwa.py` | **1,096 checks across 60 suites passed**; generated build unchanged during tests |
+| New: registry | `node qa/build3-registry.test.cjs` (in the suite) | 12 checks |
+| New: calculators | `node qa/build3-field-calcs.test.cjs` (in the suite) | 10 checks, 123 comparisons with the independent decimal references |
+| New: rendered layout | `python3 qa/build3-layout.test.py` | **121 rendered Chromium checks passed** (320–1280 px, both palettes) |
+| Existing rendered smoke | `python3 qa/browser-smoke.py` | **328 rendered Chromium checks passed** |
+
+The baseline before any change was 1,013 checks across 55 passing suites; two suites could not run here (no Python Playwright, no Android build receipt) and now run. Rendered checks are desktop Chromium with phone viewports, not Safari, WebView or a physical phone. No APK was built and no device was tested.
+
+### Outstanding checks
+
+- Build and sign the build 3 Preview APK with the original key; verify package, code 27, label, certificate, v2/v3 signatures, alignment and embedded HTML.
+- Physical Android and iPhone checks remain undone for every 2.0 build, including the new screens.
+- Most hardline catalog cables (P3, QR, MC2 .500–.750) do not list a VP yet; add datasheet VP with provenance before relying on catalog VP for them.
+- Item 5 and 7 values are source-checked but not built. 47 CFR 76.611 (CLI) and 76.1706 were not checked yet.
+- Pull request #1 (roadmap) and #2 (build list) are still open; this branch does not include their files.
+
+---
+
+# Previous baseline record (1.8 Alpha build 2)
 
 **1.8 Alpha build 2 · Local release preparation · Android Preview code 24 · November 11, 2026 UTC**
 

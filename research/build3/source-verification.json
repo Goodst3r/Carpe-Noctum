@@ -1,0 +1,330 @@
+{
+ "generated": "2026-11-11",
+ "method": "Background research workflow: one researcher per source cluster (SCTE catalog, DOCSIS pre-EQ, Hranac/SCTE 293-2, DOCSIS 3.1 OFDM), then an independent skeptic re-check of every claimed citation. Findings are paraphrased; no copyrighted text is copied.",
+ "items": [
+  {
+   "key": "scte258-revision",
+   "claim": "A 2026 revision of SCTE 258 exists and is the latest; designation of the form 'SCTE 258 2026'",
+   "status": "confirmed-primary",
+   "document": "SCTE 258 2026, DOCSIS 3.1 Downstream OFDM Power Definition, Calculation, and Measurement Techniques (SCTE Operational Practice, Network Operations Subcommittee)",
+   "locator": "SCTE catalog page header; PDF title page; Document Release History table (p. 3 per the PDF table of contents)",
+   "url": "https://account.scte.org/standards/library/catalog/scte-258-docsis3-1-downstream-ofdm-power-definition-calculation-and-measurement-techniques/",
+   "finding": "Re-checked on 2026-11-11 and reproduced. The SCTE catalog page is headed 'SCTE 258 2026' (modified 2026-09-09). The main catalog lists it as 'SCTE 258 2026'. The 35-page PDF (account.scte.org/documents/8422/SCTE_258_2026.pdf, read through the Firecrawl PDF parser because direct download returns 403) has a title page reading Network Operations Subcommittee, SCTE OPERATIONAL PRACTICE, SCTE 258 2026, (c) 2026. Its release history lists SCTE 258 2020 (2020) and SCTE 258 2026 (09/2026). The SCTE Standards Updates page lists it under September 2026. The CableLabs library page (library.cablelabs.com/documents/SCTE%20258) shows 2026 as the latest version. Its 'Published' field reads Jan 1, 2026, which looks like a year-only placeholder, so cite the release month as 09/2026 from the PDF release history. The 2026 edition replaces SCTE 258 2020."
+  },
+  {
+   "key": "scte-ansi-prefix",
+   "claim": "Designation format 'ANSI/SCTE 258 2026' (ANSI prefix) applies to SCTE 258, 270, 280, 294 and 297",
+   "status": "contradicted",
+   "document": "SCTE Standards Catalog (account.scte.org/standards/library/catalog/), plus the title pages of SCTE 258 2026, SCTE 270 2021r1, SCTE 280 2022, SCTE 294 2024r1 and SCTE 297 2025r1",
+   "locator": "Catalog 'Number' column; individual catalog page headers; PDF title pages",
+   "url": "https://account.scte.org/standards/library/catalog/",
+   "finding": "Re-checked and reproduced. The catalog's Number column lists all five without an ANSI/ prefix: SCTE 258 2026, SCTE 270 2021r1, SCTE 280 2022, SCTE 294 2024r1 and SCTE 297 2025r1. The same catalog uses the ANSI/ prefix many times for other entries (for example ANSI/SCTE 292 2024r1), so the missing prefix is meaningful. All five PDF title pages were opened and none carries an ANSI prefix. Title-page document types: 258, 270 and 297 are labelled SCTE OPERATIONAL PRACTICE; 294 is labelled SCTE INDUSTRY REFERENCE; 280's cover says SCTE STANDARD, but its Document Type field says Industry Reference. Cite these as 'SCTE nnn yyyy[rN]', not 'ANSI/SCTE'."
+  },
+  {
+   "key": "scte258-title",
+   "claim": "SCTE 258 title: DOCSIS 3.1 downstream OFDM power definition, calculation and measurement techniques",
+   "status": "confirmed-primary",
+   "document": "SCTE 258 2026, DOCSIS 3.1 Downstream OFDM Power Definition, Calculation, and Measurement Techniques",
+   "locator": "Catalog page H1 title; PDF title page",
+   "url": "https://account.scte.org/standards/library/catalog/scte-258-docsis3-1-downstream-ofdm-power-definition-calculation-and-measurement-techniques/",
+   "finding": "Reproduced. The catalog H1 and the catalog list title are 'DOCSIS 3.1 Downstream OFDM Power Definition, Calculation, and Measurement Techniques'. The PDF title page shows the same title with the registered mark on DOCSIS. The catalog scope confirms the two-part structure. Part 1 covers measuring OFDM power. Part 2 explains how OFDM power is calculated to set downstream signal fidelity requirements. The PDF section headings are 'Part 1: OFDM RF Power Measurement' (Section 6) and 'Part 2: Understanding CMTS OFDM Power Configuration' (Section 7)."
+  },
+  {
+   "key": "scte258-flat-psd-assumption",
+   "claim": "SCTE 258 states that converting per-6 MHz power to total OFDM power by adding 10*log10(occupied bandwidth / 6 MHz) assumes flat power across the band (not valid for tilted outputs)",
+   "status": "confirmed-primary",
+   "document": "SCTE 258 2026, DOCSIS 3.1 Downstream OFDM Power Definition, Calculation, and Measurement Techniques",
+   "locator": "Section 6.2.1 'Power per 6 MHz' (p. 13), footnote 4; Section 5.2 Definitions ('OFDM power', 'CTA channel'); Section 7 'Part 2: Understanding CMTS OFDM Power Configuration'; Section 7.2 'Total Power' worked examples 7.2.1-7.2.3",
+   "url": "https://account.scte.org/documents/8422/SCTE_258_2026.pdf",
+   "finding": "Reproduced from the PDF text. In Section 5.2, a CTA channel is a 6 MHz slice of spectrum. OFDM total power is defined as power per CTA channel plus 10log10 of the number of CTA channels the OFDM signal occupies. The same definition notes that per-6 MHz power may vary across the signal because of exclusion bands and other factors. Since occupied bandwidth is a whole number of 6 MHz CTA channels, this is equivalent to the claim's 10log10(BW/6 MHz) form. Footnote 4 is attached in Section 6.2.1 to the guidance on matching OFDM PSD to SC-QAM at the source. It says the original document and the Section 7 calculations assumed a flat PSD. It says some DAA equipment supports a tilted output, which needs a different power calculation that this document does not cover. It points to SCTE 270 Section 30.14 and Appendix J. Section 7 notes CCAP output levels may be flat or tilted. It also says the PHY 3.1 definition assumes every legacy SC-QAM slot is set to the same power. The September 2026 Standards Updates entry describes the revision the same way. Wording caveat: the source says tilted outputs are 'not covered' and need 'a different approach'. It does not say the formula is 'not valid', so the app should paraphrase it as 'assumes flat PSD; for tilted outputs use the SCTE 270 TCP method'."
+  },
+  {
+   "key": "scte258-scte270-tilt-crossref",
+   "claim": "SCTE 258 2026 points to SCTE 270 Section 30.14 and Appendix J for total composite power with tilted outputs",
+   "status": "confirmed-primary",
+   "document": "SCTE 258 2026 (footnote 4) cross-referencing SCTE 270 2021r1, Mathematics of Cable (SCTE Operational Practice)",
+   "locator": "SCTE 258 2026 Section 6.2.1 footnote 4; SCTE 270 2021r1 Section 30.14 'Total composite power' (p. 301) and 30.14.1 'Amplifier equalizer total composite power formulas' (p. 302); SCTE 270 appendix 'Derivation of Node and Amplifier Equalizer Total Composite Power Formulas' (p. 395) = Appendix J",
+   "url": "https://library.cablelabs.com/server/download/2bada83b-e5a8-4c79-ada8-3be5a84c797c",
+   "finding": "Strengthened on re-check. This time the full 425-page SCTE 270 2021r1 PDF was extracted (the first pass read only 22 pages). The Section 30.14 body text explicitly sends the reader to Appendix J for the mathematical derivation of the tilt/equalizer TCP formulas. It says the total-power calculation is simple when every channel has the same power, and gets more complicated when the spectrum is tilted, as at a node or amplifier output. The derivation appendix's own opening says it derives the TCP formulas used in Section 30.14. So the letter J is now read from the document's own cross-reference rather than inferred by counting. The appendix heading letters are still rendered as images. The other in-text appendix references are consistent with this lettering: A base-2 logs, B SI units, C micro-reflections, D distortion, E error-test confidence, F analog optical links, H field strength, I total power/PSD, J TCP derivation, K phase noise, L spectral efficiency. Section 30.14 also refers to Appendix I (Total Power and Power Spectral Density, p. 389) for background on total power. SCTE 258 2026 cites 'SCTE 270 2021r1, Mathematics of Cable' in Informative References 3.1."
+  },
+  {
+   "key": "scte270-revision",
+   "claim": "SCTE 270 Mathematics of Cable, latest revision 2021r1",
+   "status": "confirmed-primary",
+   "document": "SCTE 270 2021r1, Mathematics of Cable (SCTE Operational Practice, Network Operations Subcommittee)",
+   "locator": "Catalog page header; PDF title page; CableLabs library versions table",
+   "url": "https://account.scte.org/standards/library/catalog/scte-270-mathematics-of-cable/",
+   "finding": "Reproduced. The catalog page is headed 'SCTE 270 2021r1', titled 'Mathematics of Cable' (modified 2022-12-07). The PDF title page reads Network Operations Subcommittee, SCTE OPERATIONAL PRACTICE, SCTE 270 2021r1, Mathematics of Cable. The CableLabs library page shows a single version, '2021r1 (Latest)'. SCTE 258 2026 (09/2026) still cites SCTE 270 2021r1, and the catalog shows nothing newer as of 2026-11-11. 'r1' is SCTE's notation for an editorial change to a released document, according to the release-history notes in other SCTE PDFs."
+  },
+  {
+   "key": "scte280-revision-title",
+   "claim": "SCTE 280 (claim: 2022) is the downstream (forward) troubleshooting / linear impairments document",
+   "status": "confirmed-primary",
+   "document": "SCTE 280 2022, Understanding and Troubleshooting Cable RF Spectrum (Network Operations Subcommittee)",
+   "locator": "Catalog page header; PDF title page; CableLabs library versions table; SCTE 294 catalog Scope paragraph",
+   "url": "https://account.scte.org/standards/library/catalog/scte-280-understanding-and-troubleshooting-cable-rf-spectrum/",
+   "finding": "Confirmed for the designation and year. Catalog, PDF title page and CableLabs library ('2022 (Latest)') all give SCTE 280 2022. Correct the descriptor, though. The exact title is 'Understanding and Troubleshooting Cable RF Spectrum'. The title contains neither 'downstream' nor 'linear impairments'. Calling it 'downstream' as a description is supported by SCTE 294's own scope, which says SCTE 280 focuses primarily on downstream spectrum. The phrase 'linear impairments' does not appear anywhere in the SCTE 280 text. The document covers impairments generally, including nonlinear ones such as CPD, so the app should not describe it as a 'linear impairments' document. Its scope is DOCSIS 3.0+ CPE with full band capture."
+  },
+  {
+   "key": "scte280-doc-type",
+   "claim": "SCTE 280 is an operational practice",
+   "status": "contradicted",
+   "document": "SCTE 280 2022, Understanding and Troubleshooting Cable RF Spectrum",
+   "locator": "PDF 'Document Types and Tags' page (p. 3 per TOC); executive summary; catalog page Benefits paragraph",
+   "url": "https://account.scte.org/documents/5475/SCTE_280_2022.pdf",
+   "finding": "Reproduced from the full 74-page PDF. The 'Document Types and Tags' page says Document Type: Industry Reference. The executive summary, on both the catalog page and in the PDF, calls the document an Industry Reference (IR). The cover banner says 'SCTE STANDARD'. The Benefits paragraph, on the catalog page and in the PDF, calls it an Operational Practice, so SCTE's own wording is inconsistent. The formal Document Type field, however, is Industry Reference. SCTE 294's catalog page also calls SCTE 294, the companion upstream document, an Industry Reference. Cite SCTE 280 as an Industry Reference."
+  },
+  {
+   "key": "scte280-ripple-vop",
+   "claim": "SCTE 280 relates standing-wave / ripple spacing to distance via velocity of propagation",
+   "status": "confirmed-primary",
+   "document": "SCTE 280 2022, Understanding and Troubleshooting Cable RF Spectrum",
+   "locator": "Section 9.7 'Standing Waves' (p. 50), Figures 52-53; subsections 9.7.1 Compound Standing Wave (p. 51), 9.7.2 Non-Uniform Magnitude Standing Wave (p. 52); companion: SCTE 270 2021r1 Section 21.3.2 (p. 192)",
+   "url": "https://account.scte.org/documents/5475/SCTE_280_2022.pdf",
+   "finding": "Reproduced from the full PDF; all 74 pages were extracted this time. Section 9.7 says periodic ripple in the spectrum comes from impedance mismatches, with energy reflecting between two points (the echo tunnel). Wider peak-to-peak spacing in MHz means a shorter echo. The distance in feet between the mismatches equals 492 times the cable's velocity of propagation, divided by the peak-to-peak ripple spacing in MHz. A paraphrased formula is d_ft = 492 x VoP / delta_f_MHz, with VoP as a decimal fraction. The section notes that 'standing wave' is commonly used for amplitude ripple, though the two are technically not the same. It also points to Section A.2.5 for more on impedance mismatches. SCTE 270 2021r1 Section 21.3.2, 'Distance to impedance mismatch or length of echo tunnel', exists (TOC p. 192, heading confirmed in the full text) and covers the same calculation. Section 21.3.2.1 there covers calculating it from upstream adaptive pre-equalization graphs."
+  },
+  {
+   "key": "scte297-revision",
+   "claim": "SCTE 297 pre-equalization-based upstream frequency response measurements, latest 2025r1",
+   "status": "confirmed-primary",
+   "document": "SCTE 297 2025r1, Pre-Equalization Based Upstream Frequency Response Measurements (SCTE Operational Practice, Network Operations Subcommittee)",
+   "locator": "Catalog page header; PDF title page and Document Release History (p. 3); CableLabs library versions table; Standards Updates, June 2025",
+   "url": "https://account.scte.org/standards/library/catalog/scte_297-pre-equalization-based-upstream-frequency-response-measurements/",
+   "finding": "Upgraded evidence: the PDF front matter was opened this time, using the CableLabs library download f14a623d-33e7-473c-8a62-3d33e7b73c9a (27 pages). Its title page reads Network Operations Subcommittee, SCTE OPERATIONAL PRACTICE, SCTE 297 2025r1, Pre-Equalization Based Upstream Frequency Response Measurements, (c) 2025. The catalog page and list also show 'SCTE 297 2025r1'. The CableLabs library shows '2025r1 (Latest)', published May 19, 2025. Date correction: the PDF release history gives the original release as SCTE 297 2025 dated 5/19/2025. June 2025 is only when the Standards Updates page announced it, so cite the release date as May 2025, not June. The r1 editorial revision is not listed separately in the release-history table. Scope: upstream frequency response derived from cable modem pre-equalization coefficients, with per-channel responses across SC-QAM and/or OFDMA channels stitched together."
+  },
+  {
+   "key": "scte294-revision",
+   "claim": "SCTE 294 upstream troubleshooting, latest 2024r1",
+   "status": "confirmed-primary",
+   "document": "SCTE 294 2024r1, Understanding and Troubleshooting Cable Upstream RF Spectrum (SCTE Industry Reference, Network Operations Subcommittee)",
+   "locator": "Catalog page header; PDF title page and Document Release History (p. 3); CableLabs library versions table",
+   "url": "https://account.scte.org/standards/library/catalog/scte-294-understanding-and-troubleshooting-cable-upstream-rf-spectrum/",
+   "finding": "Upgraded evidence: the PDF front matter was opened this time, using the CableLabs library download e79514d6-4de7-4afb-9514-d64de77afb19 (61 pages). Its title page reads Network Operations Subcommittee, SCTE INDUSTRY REFERENCE, SCTE 294 2024r1, Understanding and Troubleshooting Cable Upstream RF Spectrum, (c) 2024. The release history lists SCTE 294 2024 dated 10/4/2024; r1 is an editorial revision and is not listed separately. The catalog page and list show 'SCTE 294 2024r1' (modified 2024-10-04). The CableLabs library shows '2024r1 (Latest)', published Oct 4, 2024. The catalog Scope says it complements SCTE 280, emphasizes upstream spectrum, and applies to DOCSIS 3.0+ CPE with full band capture. The TOC includes split options (sub-split through full duplex) and upstream unity gain (Section 6.4.3)."
+  },
+  {
+   "key": "preeq-24-taps-t-spaced",
+   "claim": "The DOCSIS 2.0/3.0 (ATDMA/SC-QAM) upstream pre-equalizer has 24 taps, T-spaced (one symbol period per tap).",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.0-I04-070518, Data Over Cable Service Interface Specifications DOCSIS 3.0 Physical Layer Specification (Issued; I04 released 05/18/2007). Corroborating, non-normative: CableLabs CM-GL-PNMP-V03-160725, DOCSIS Best Practices and Guidelines: PNM Best Practices: HFC Networks (DOCSIS 3.0) (V03 released 07/25/2016; earlier editions titled Proactive Network Maintenance Using Pre-equalization).",
+   "locator": "PHYv3.0-I04 section 6.2.16 Transmit Pre-Equalizer, pp. 62-63 (Figure 6-30 on p. 62). The same text appears in PHYv3.0-I09-101008 section 6.2.16, pp. 61-63. PNMP-V03 section 5.3, Figure 5, p. 32; section 5.5, p. 37.",
+   "url": "https://account.cablelabs.com/server/alfresco/f0059e13-5507-400e-9d2f-6fa87d4cc752",
+   "finding": "Re-verified. I downloaded the PDF from the CableLabs server again. Its cover, status sheet and PDF metadata all identify it as CM-SP-PHYv3.0-I04-070518, dated May 18, 2007. The revision history runs I01 (8/4/06) to I04 (05/18/07). One title correction: the I04 cover prints 'Data Over Cable' without hyphens. Section 6.2.16 starts on p. 62, with Figure 6-30 on p. 62, and runs to p. 64. 2.0 pre-equalization mode requires a symbol (T)-spaced structure with 24 taps. 1.1 mode requires 8 T-spaced taps; the CM may use 1, 2 or 4 samples per symbol with a longer span, and the CMTS may support T/2 and T/4 formats. On 2.0-only and 3.0-only logical channels (types 3 and 4), the CMTS must always send 24 T-spaced coefficients. Mixed type-2 channels switch to 24 taps once 2.0 mode or Multiple Transmit Channel mode is enabled. Note that 2.0 mode covers both TDMA/ATDMA and S-CDMA bursts, not ATDMA alone. Later issues: I also opened CM-SP-PHYv3.0-I09-101008 from the CableLabs server. Its section 6.2.16 has the same normative text but starts one page earlier (p. 61), so page locators depend on the issue. ITU-T references found in search name CM-SP-PHYv3.0-C01-171207 as the final (Closed) issue; I did not open it. PNMP-V03: the copy is a third-party mirror (volpefirm.com). Its cover, status sheet (V03 released 07/25/2016) and metadata (created 2016-07-28) match the document number. Figure 5 on p. 32 shows a 24-tap structure (F1 to F24); each delay element in the 2.0 pre-equalizer equals the symbol period T. Section 5.5 (p. 37) says 2.0/3.0 always use 1 tap per symbol. I could not find an official CableLabs-hosted copy of PNMP-V03."
+  },
+  {
+   "key": "preeq-main-tap-position",
+   "claim": "The main tap is usually tap 8 of 24 (7 pre-main taps, 16 post-main taps). Is the main tap position configurable?",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.0-I04-070518, Data Over Cable Service Interface Specifications DOCSIS 3.0 Physical Layer Specification (05/18/2007); CableLabs CM-GL-PNMP-V03-160725, PNM Best Practices: HFC Networks (DOCSIS 3.0) (07/25/2016); IETF RFC 4546, Radio Frequency (RF) Interface Management Information Base for Data over Cable Service Interface Specifications (DOCSIS) 2.0 Compliant RF Interfaces (Standards Track, June 2006).",
+   "locator": "PHYv3.0-I04 section 6.2.16, pp. 62-64. PNMP-V03 section 6.3.1, p. 44; section 5.5 and Table 1, p. 37; section 6.5.2, p. 59. RFC 4546 section 4, DocsEqualizerData TEXTUAL-CONVENTION, pp. 27-28.",
+   "url": "https://volpefirm.com/wp-content/uploads/2017/01/CM-GL-PNMP-V03-160725.pdf",
+   "finding": "Re-verified, with one correction and one addition. Correction: RFC 4546's full title is 'Radio Frequency (RF) Interface Management Information Base for Data over Cable Service Interface Specifications (DOCSIS) 2.0 Compliant RF Interfaces'. It is Standards Track, June 2006, and obsoletes RFC 2670. Its DocsEqualizerData convention (pp. 27-28) gives a 4-byte header: main tap location (1..n+m), forward taps per symbol, number of forward taps n, number of reverse taps m. Complex coefficients follow as signed 16-bit real/imaginary pairs. The convention cites SP-RFIv2.0-I10-051209 Figure 8-23. PHYv3.0-I04 (pp. 62-63) puts the main tap wherever the CMTS's last RNG-RSP designates it. In 2.0 mode the CMTS may move it during unicast initial ranging or periodic ranging. In 1.1 mode it must not move it during periodic ranging. The CM, not the CMTS, compensates its ranging offset for a main tap move. Before initial ranging, and on any change of upstream frequency or modulation rate, the CM resets all coefficients to zero except the real part of F1. PNMP section 5.5 and Table 1 (p. 37) give typical main tap positions: 8 of 24 for 2.0/3.0 and 4 for 1.1, so the post-main span is 16T. Section 6.5.2 (p. 59) decodes a sample header 08 01 18 00: main tap 8, 1 tap per symbol, 0x18 = 24 taps, reserved byte. Addition the first researcher missed: PNMP section 6.3.1 (p. 44) says the 2.0 main tap is typically at position 8, but some CMTS implementations place it as early as position 6. Tap 8 is therefore typical, not fixed. With the main tap at 8 there are 7 pre-main and 16 post-main taps, but this varies with the CMTS. A calculator should read the main tap position from header byte 1 and the tap count from byte 3. Not checked: vendor CLI documentation on whether operators can set the main tap position. The PNMP copy is a third-party mirror."
+  },
+  {
+   "key": "preeq-tap-to-distance-roundtrip",
+   "claim": "Each tap is one symbol period; at 5.12 Msym/s that is 195.3125 ns. The distance to an echo for a tap offset n is approximately n * (c * VP * T) / 2, halved for the round trip.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-GL-PNMP-V03-160725, PNM Best Practices: HFC Networks (DOCSIS 3.0) (07/25/2016); CableLabs CM-SP-PHYv3.0-I04-070518 (05/18/2007) for modulation rates. Secondary: 'Troubleshooting Digitally Modulated Signals, Part 2', Communications Technology, Cablefax archive (published 2006-07-01); 'How Adaptive Equalization Works', Broadband Library (2019-02-23 per search-index metadata).",
+   "locator": "PNMP-V03 section 5.5 Table 1, p. 37; section 6.6.2, p. 64; section 6.6.4 Parabolic Interpolation, p. 65; Appendix I.5, pp. 121-122 (234 ns example on p. 122); section 6.8.1.1 Issues item 2, p. 84. PHYv3.0-I04 section 6.2.11.1 DOCSIS 3.0 Modulation Rates, p. 38. Cablefax article, 'Linear distortions' section (Figures 2-3). Broadband Library article, Figure 2 discussion.",
+   "url": "https://volpefirm.com/wp-content/uploads/2017/01/CM-GL-PNMP-V03-160725.pdf",
+   "finding": "Re-verified; all locators reproduce. PHYv3.0-I04 6.2.11.1 (p. 38): in TDMA and S-CDMA modes the CM must support 1280, 2560 and 5120 kHz modulation rates. PNMP Table 1 (p. 37) lists T = 0.195 us and 16T = 3.125 us at 5.12 MHz, and also 0.391 and 0.781 us at 2.56 and 1.28. T therefore depends on the channel's actual symbol rate; it is not fixed at 195 ns. PNMP 6.6.2 (p. 64) says the reflector spacing is computed from half the delay. Doubt: the same sentence loosely calls T 'the inverse of the symbol period'; it means the symbol period, the inverse of the symbol rate. Appendix I.5 (p. 122) works an example: 100 ft at 87% VP, about 1.17 ns/ft, 200 ft round trip, about 234 ns. 6.8.1.1 Issues item 2 (p. 84) says distance estimates give the spacing between two impedance mismatches, not the distance from the CM or node. Cablefax: page metadata confirms publication on 2006-07-01. The article halves for the round trip, e.g. (2,500/1.17)/2 = 1,068 ft and (590/1.17)/2 = 252 ft. Caveat: those examples use a QAM analyzer's adaptive-equalizer display, not upstream pre-equalizer coefficients, but the physics is the same. Broadband Library: the 2019-02-23 date comes from Exa index metadata. The page itself shows no explicit date, and its figure images sit in a 2019/02 upload folder, which is consistent. Its Figure 2 discussion equates one T-spaced delay element to about 167 ft of coax at about 1.17 ns/ft, about 195 ns, a single transit; it does not mention 5.12 Msym/s. Arithmetic re-run: T = 1/5.12e6 = 195.3125 ns. c*VP*T = 50.94 m (167.13 ft) at VP 0.87; halved, 25.47 m (83.57 ft) per tap. 16 taps is about 1,337 ft of reflector spacing. 1.17 ns/ft matches VP 0.87 (1.1686 ns/ft). No source states the claim's formula as written; it combines T-spacing with the documented round-trip halving. Additional caveats: PNMP 6.6.4 (p. 65) shows parabolic interpolation can resolve delay to a fraction of a tap. Echo delays that are not whole multiples of T spread energy across neighbouring taps, and strong echoes can leave taps at 2-3 times the delay (5.5, p. 37). VP must be supplied per cable. The PNMP copy is a third-party mirror. My queries used article titles only, no author names."
+  },
+  {
+   "key": "preeq-not-docsis31-ofdma",
+   "claim": "These 24-tap, tap-to-distance approaches do not apply directly to DOCSIS 3.1 OFDMA upstream pre-equalization, which uses per-subcarrier coefficients.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I08-151210, Data-Over-Cable Service Interface Specifications DOCSIS 3.1 Physical Layer Specification (Issued; I08 released 12/10/2015).",
+   "locator": "PHYv3.1-I08 section 7.4.17 Upstream Pre-Equalization, p. 120; sections 7.4.1.5 Pre-Equalization and 7.4.1.6 IFFT Transformation, p. 57; section 6.2.16 Transmit Pre-Equalizer, p. 45 (refers to PHYv3.0 section 6.2.16).",
+   "url": "https://volpefirm.com/wp-content/uploads/2017/01/CM-SP-PHYv3.1-I08-151210.pdf",
+   "finding": "Re-verified, with locator refinements. The mirror copy's cover, status sheet and PDF metadata match CM-SP-PHYv3.1-I08-151210: I08 released 12/10/15, Issued, revision history I01 (10/29/13) to I08, PDF created 2015-12-04. Section 7.4.17 (p. 120) requires a linear pre-equalizer with one complex coefficient per subcarrier. The CMTS derives updates from the CM's probes and sends them in RNG-RSP, and may limit updates to a range of subcarriers. Defaults are 1+j0 on used and unused subcarriers and zero on excluded ones. RNG-RSP marks a set as initialization (replace) or adjustment (complex multiply per subcarrier). Update values use 16-bit s1.14 fixed point. This differs from the SC-QAM convolve/load of a 24-tap time-domain filter. Locator correction: 7.4.1.5 only points to 7.4.17. The statement that each pre-equalized symbol then goes through the IFFT is in 7.4.1.6, also on p. 57. Section 6.2.16 (p. 45) just refers to PHYv3.0 6.2.16, so 24-tap T-spaced pre-equalization still governs SC-QAM channels on 3.1 devices. That the tap-to-distance method does not carry over directly to OFDMA is a sound inference, but the spec never says so. Recovering echo delay would need an inverse transform of the per-subcarrier coefficients, and its time resolution would depend on the probed bandwidth; no opened source describes this. Doubts: I opened only I08, from a third-party mirror. A search snippet says ANSI/SCTE 220-1 2022 endorses CM-SP-PHYv3.1-I19-211110. The first researcher mentioned I18. I could not open either; the SCTE PDF returned 403. Section numbering and wording in later issues remain unverified."
+  },
+  {
+   "key": "hranac-ld2-ripple-formula",
+   "claim": "Standing-wave (ripple) distance formula D(ft) = 492 x VP / dF(MHz), dF = frequency spacing between ripple peaks, appears in Hranac 'Linear Distortions, Part 2'.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Linear Distortions, Part 2,\" Communications Technology (Access Intelligence), August 2005; archived on Cablefax and in the SCTE Communications Technology article archive",
+   "locator": "Section 'Linear distortions in the real world' (discussion of Figure 3); SCTE archive PDF p. 2 (formula and definitions) and p. 3 (worked calculation; 400 kHz / ~1,070 ft remark in 'A clean upstream: Or is it?')",
+   "url": "https://account.scte.org/documents/3389/05-08-0120Linear20Distortions20Part20Two.pdf",
+   "finding": "Re-verified by reading the full SCTE archive PDF (14 pp.) and the Cablefax archive page; the two texts match. The article gives D = 492 x VP/F as the approximate distance in feet from the test point to an impedance mismatch. VP is the cable's velocity of propagation (about 0.87 for hardline), and F is the spacing in MHz between successive standing-wave peaks on the sweep trace. In the Figure 3 example, peaks about 2.08 MHz apart give 'just over 200 feet'. The article prints 206.64 ft because it rounds 0.87/2.08 to 0.42 first; unrounded, 492 x 0.87/2.08 = 205.8 ft. In the 'A clean upstream: Or is it?' section it notes that 400 kHz ripple spacing points to a mismatch about 1,070 ft away. Part 1 (July 2005) has the same formula, which I confirmed separately. The article does not explain where 492 comes from."
+  },
+  {
+   "key": "hranac-ld2-date",
+   "claim": "Publication date and venue of 'Linear Distortions, Part 2' (claimed Cablefax / Communications Technology).",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Linear Distortions, Part 2,\" Communications Technology, August 2005",
+   "locator": "Header line of SCTE archive PDF (original appearance in the August 2005 issue of Communications Technology); Cablefax page metadata article:published_time 2005-08-01",
+   "url": "https://www.cablefax.com/archives/linear-distortions-part-2",
+   "finding": "Re-verified. The first line of the SCTE archive PDF says the article first ran in the August 2005 issue of Communications Technology. The Cablefax archive page carries published_time 2005-08-01T04:00Z. The Cablefax byline calls Hranac senior technology editor of Communications Technology at the time. The SCTE copy has a later bio ('former' editor), so it is a reprint. Cite the original as Communications Technology, Aug. 2005; Cablefax is the later web archive. Part 1 is dated 2005-07-01 on Cablefax, and Part 2 itself refers to Part 1 as 'last month'."
+  },
+  {
+   "key": "ripple-492-derivation",
+   "claim": "The constant 492 arises from (speed of light ~983.6 ft/us)/2.",
+   "status": "confirmed-primary",
+   "document": "Bell System Practices, Plant Series, Section 402-400-100, Issue 1, November 1963, \"Microwave Antennas Return Loss Measurements - General Theory\" (AT&TCo Standard); cross-checked against SCTE 293-2 2024 section 4.1 for c0",
+   "locator": "BSP 402-400-100 page 2: para. 2.03, equation (1) L = 492 d/(f2 - f1) with its 'where' definitions; para. 2.08 (f2 - f1 = spacing between adjacent peaks, the 'ripple frequency'); SCTE 293-2 2024 section 4.1 for c0 in ft/s",
+   "url": "https://telecom.wiki/download/attachments/819855/402-400-100_I1.pdf",
+   "finding": "Re-verified from the PDF's own text layer (7-page scan; header and copyright read 'Section 402-400-100, Issue 1, November, 1963' and 'AT&T Co 1963'). Under equation (1), the BSP defines 492 as one-half wavelength, in feet, of a 1 Mc/s wave in free space. It defines d as the ratio of the line's velocity to the free-space velocity, and f1 and f2 as frequencies of voltage maxima. Para. 2.08 says that for longer distances, f2 - f1 is the spacing between adjacent peaks, called the ripple frequency. SCTE 293-2 2024 section 4.1 gives c0 = 299,792,458/0.3048 = 983,571,056.43 ft/s. The 1 MHz free-space wavelength is therefore 983.57 ft, and half of it is 491.79, about 492, which supports the c/2 derivation. Caveats: the scan is on a third-party wiki, since AT&T has no official host for BSPs. The Hranac articles do not state this derivation, so do not attribute it to him."
+  },
+  {
+   "key": "ripple-492-cablelabs-current",
+   "claim": "Current CableLabs guidance uses the same 492 x VP / dF ripple distance relationship.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-GL-PNM-HFC-V02-260130, \"PNM Methods and Practices in HFC Networks\" (Document Status Sheet: V01 Released 12/20/2024; V02 Released 01/30/2026)",
+   "locator": "Section 5.2.6.11 'Amplitude Ripple' (near Figure 37, p. 74 per List of Figures): feet and metre formulas; Section 5.3.4.2 'Why an RxMER Plot May Display Flat in the Presence of Channel Ripple' (Figure 69, p. 96 per List of Figures): 8 MHz to 53.5 ft example; also Appendix I.6 'Amplitude Ripple' (pp. 451-454) and IV.3.2 'Amplitude Ripple'",
+   "url": "https://library.cablelabs.com/server/download/61901422-7a22-473c-bd1b-cbb2a99d841b",
+   "finding": "Re-verified on the official CableLabs library host. Firecrawl read the cover and status sheet (537-page PDF), and an Exa full-text extraction of the whole document was grep-searched; I did not read it end to end. Section 5.2.6.11 gives distance in feet = 492 x Vp/f and a metric version with 150. Vp is the velocity factor as a decimal (typically 0.87), and f is the ripple periodicity in MHz, estimated from the spacing between adjacent peaks or troughs. The section says the result is more accurately the length of the echo tunnel, the distance between the two mismatches, not necessarily the distance from the test point. Section 5.3.4.2 applies the same formula to ripple in an RxMER-per-subcarrier plot: about 8 MHz spacing at VF 0.87 gives an echo cavity of about 53.5 ft (492 x 0.87/8 = 53.5). Appendix I.6 repeats the 4.27 MHz to about 100 ft tutorial example. The prior locator said section numbers were not captured; they are now supplied."
+  },
+  {
+   "key": "echo-delay-hranac-microreflection",
+   "claim": "Micro-reflection echo delay relationship: delay(ns) = 2 x length(ft) x (ns per foot at the cable's VP); Hranac source for round-trip ns-per-foot.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Broadband: What is a Micro-Reflection?,\" Communications Technology, November 2009 (Cablefax archive; SCTE CT article index lists 'What is a Micro-Reflection?' under November, file prefix 09-11-01)",
+   "locator": "Section 'Definitions, examples': example of two water-damaged taps 100 ft apart (23 dB and 20 dB 4-port taps)",
+   "url": "https://www.cablefax.com/archives/broadband-what-is-a-micro-reflection",
+   "finding": "Re-verified by reading the full Cablefax page (published_time 2009-11-01) and the SCTE index entry. Hranac says RF takes 1.17 ns to travel 1 ft of 87%-VP coax. The reflection's delay is set by the round-trip time between the taps, (100 + 100 ft) x 1.17 ns = 234 ns. This matches delay = 2 x L x (ns/ft at that VP). Arithmetic correction to the earlier note: 2 x 100 x 1.017/0.87 = 233.8 ns, not 233.7. The 233.7 figure only comes from the unrounded 1.0167 ns/ft. The article itself uses only the rounded 1.17 ns/ft figure, not 1.017/VP. 'Broadband' is the column name; SCTE indexes the title without it."
+  },
+  {
+   "key": "echo-delay-hranac-ld1",
+   "claim": "Same round-trip echo delay relationship in Hranac 'Linear Distortions, Part 1'.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Linear Distortions, Part 1,\" Communications Technology, July 2005 (Cablefax archive)",
+   "locator": "'Micro-reflections' section, discussion of Figures 5-8 (two taps separated by 100 ft of half-inch hardline); D = 492 x VP/F worked example on Figure 8; the formula is repeated in the John Downey troubleshooting tips",
+   "url": "https://www.cablefax.com/archives/linear-distortions-part-1",
+   "finding": "Upgraded from search excerpts: I read the full Cablefax page (published_time 2005-07-01). Part 1 says signals cross 87%-VP hardline in about 1.17 ns per foot. It says the echo needs about 234 ns for the round trip across the 100-ft span. It then gives D = 492 x VP/F, with amplitude-ripple peaks about 4.27 MHz apart in Figure 8 giving about 100 ft. That is the same 100-ft span, which ties the time-domain and frequency-domain views together. Arithmetic nit: the article prints 100.27 ft, but 492 x 0.2037 = 100.22 and the unrounded value is 100.24. The tips also give 492 x 0.87/2 = 214 ft as the resolution limit for 1 MHz reverse-sweep points."
+  },
+  {
+   "key": "echo-delay-hranac-tdms2",
+   "claim": "Hranac source that converts echo time offset to distance using ns per foot and division by two for round trip.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Troubleshooting Digitally Modulated Signals, Part 2,\" Communications Technology, July 2006 (Cablefax archive; SCTE CT index lists it under July, file prefix 06-07-01)",
+   "locator": "'Linear distortions' section: equalizer-graph / micro-reflection distance passage (Figures 2-3)",
+   "url": "https://www.cablefax.com/archives/troubleshooting-digitally-modulated-signals-part-2",
+   "finding": "Upgraded from search excerpts: I read the full Cablefax page (published_time 2006-07-01) and confirmed the SCTE index entry. Hranac first estimates with 1 ns/ft: a 2.5 us equalizer-graph offset is about 2,500 ft, and halving it for the round trip gives about 1,250 ft. For better accuracy he uses 1.17 ns/ft: (2,500/1.17)/2 = 1,068 ft. He restates d(ft) = 492 x (VP/F MHz), and the 400 kHz ripple in Figure 2 gives 492 x 0.87/0.4, about 1,070 ft, which agrees. In Figure 3, a 0.59 us micro-reflection works out to (590/1.17)/2 = 252 ft, matching the analyzer's own calculation. The piece is Part 2 of his Expo workshop write-up."
+  },
+  {
+   "key": "echo-delay-cablelabs-2016",
+   "claim": "CableLabs source stating the ns-per-foot round-trip echo relationship.",
+   "status": "confirmed-secondary",
+   "document": "CableLabs CM-GL-PNMP-V03-160725, \"PNM Best Practices: HFC Networks (DOCSIS 3.0)\" (previously published as Proactive Network Maintenance Using Pre-equalization; V01 04/15/2010, V02 06/23/2011, V03 07/25/2016)",
+   "locator": "Appendix I (Tutorial): end of I.5 'Impedance Mismatch' just before I.5.1 (200 ft x 1.17 ns = 234 ns); I.6 'Amplitude Ripple' (reciprocal 1/234 ns = 4.27 MHz and 492*(V/F MHz) about 100 ft); I.4 'Group Delay' and I.12 'Velocity of Propagation' (1.02 ns/ft vacuum, 1.17 ns/ft at 87%)",
+   "url": "https://volpefirm.com/wp-content/uploads/2017/01/CM-GL-PNMP-V03-160725.pdf",
+   "finding": "Re-verified from an Exa full-text extraction of the third-party copy. The status sheet matches: CM-GL-PNMP-V03-160725, V01-V03 dates as listed. The 234 ns round trip for a 100-ft span (200 ft x 1.17 ns) is at the end of I.5, just before I.5.1. Locator correction: the reciprocal relation (1/234 ns = 4.27 MHz) and the 492*(V/F) of about 100 ft are in I.6 Amplitude Ripple, not I.5. I.4 and I.12 state 1.02 ns per foot in vacuum and 1.17 ns per foot in 87%-VP coax. It stays secondary because no CableLabs-hosted copy could be found or opened; searches turned up only citing documents. Mitigation: the same tutorial text (I.4, I.5 with 234 ns, I.6 with 4.27 MHz to about 100 ft) appears in the primary-hosted CM-GL-PNM-HFC-V02-260130, Appendix I (pp. 442-454), which can be cited instead."
+  },
+  {
+   "key": "echo-delay-cablelabs-2026-time-distance",
+   "claim": "Current CableLabs guidance treats the echo delay as round-trip and halves it for cavity length.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-GL-PNM-HFC-V02-260130, \"PNM Methods and Practices in HFC Networks\" (V02 released 01/30/2026)",
+   "locator": "Section 9.5.4 'Time and Distance' (p. 376 per TOC) and its footnote 7; Section 6.2.1.1.1 'Reflection Example 1' under 6.2.1.1 'Reflection Types' (IIR echo passage, spans the page 143/144 footer)",
+   "url": "https://library.cablelabs.com/server/download/61901422-7a22-473c-bd1b-cbb2a99d841b",
+   "finding": "Re-verified from an Exa full-text extraction of the official CableLabs host, searched by grep. Section 9.5.4 says the IFFT bin spacing at the 204.8 MHz downstream rate (4.8828 ns) represents the round-trip delay across the reflection cavity. To get length, multiply by the cable's propagation factor and the speed of light, then divide by two. Its bullet list gives 2.4414 ns one way (4.8828 ns round trip) for OFDM, and 4.8828 ns one way (9.7656 ns round trip) for 102.4 MHz OFDMA. Footnote 7 says the signal crosses the cavity at least two extra times. Section 6.2.1.1.1 says the IIR echoes are separated by twice the one-way propagation delay between the two reflectors. That gives the reflector spacing but not where the reflectors sit in the plant (see Section 8.10). The earlier locator 'page footer 143' is approximate; the section is now identified. Doubt: 9.5.4 gives c as 983,571,088 ft/s, which disagrees with 299,792,458/0.3048 = 983,571,056.43 ft/s (SCTE 293-2). It looks like a typo, so do not take c from this section."
+  },
+  {
+   "key": "free-space-ns-per-foot",
+   "claim": "1.017 ns per foot in free space (used as delay(ns) = 2 x L(ft) x 1.017 / VP).",
+   "status": "confirmed-primary",
+   "document": "SCTE 293-2 2024, \"What is ... Velocity of Propagation?\" (SCTE Industry Reference, Network Operations Subcommittee; Document Release History: released 8/12/2024)",
+   "locator": "Section 4.1 Speed of Light; Section 4.2 Defining Velocity of Propagation; Section 4.6.1 Metallic TDR (Figure 4, round-trip time); Section 4.6.2 Transit Delay (one-way example)",
+   "url": "https://library.cablelabs.com/server/download/f282c737-80db-46df-82c7-3780dbb6dfe5",
+   "finding": "Re-verified by reading the full 13-page PDF on the CableLabs library host. Section 4.1 converts c0 to 983,571,056.43 ft/s and prints its reciprocal rounded to 1.02 ns per foot in vacuum. Section 4.2 gives 1.20 ns/ft at 85% VP and 1.17 ns/ft at 87% VP. Section 4.6.1 (Figure 4) describes a metallic TDR timing the round trip to a mismatch and converting that time to distance. Note that the 4.6.2 transit-delay example is one-way (5,000 ft x 1.17 ns = 5.85 us), not round trip. The literal figure 1.017 is not printed. It is the unrounded value from the document's own c0, 1/983,571,056.43 s = 1.0167 ns, so cite it as derived from SCTE 293-2's c0. Section 4 says it is adapted from Hranac's 'Velocity of Propagation,' Communications Technology, March 2010. The SCTE CT index lists that column under March 2010."
+  },
+  {
+   "key": "frt-author-date",
+   "claim": "'Frequency Response Testing' on broadbandlibrary.com: author and publication date.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Frequency Response Testing\" (Broadband Library, PRIMARY SOURCE column), posted 2022-02-19",
+   "locator": "Byline 'By Ron Hranac'; page metadata article:published_time 2022-02-19T16:09:09Z (modified 2022-02-19T16:40:46Z); closing Note citing the source paper",
+   "url": "https://broadbandlibrary.com/frequency-response-testing/",
+   "finding": "Re-verified by reading the full page. The byline and author box name Ron Hranac, Technical Editor of Broadband Library. The WordPress author field ('Broadband Library') is the site account, not the writer. The web post is dated 19 Feb 2022; I did not verify the print-issue name. The closing Note says it was adapted from his paper 'Developments in Cable Network Frequency Response Characterization,' SCTE Journal of Network Operations, Vol. 6, No. 2, December 2020. That journal issue was not opened, so the paper citation rests on this note alone."
+  },
+  {
+   "key": "frt-balance-not-sweep",
+   "claim": "The article says balancing (setting pad/EQ from low and high pilots) does not replace sweep.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"Frequency Response Testing,\" Broadband Library, posted 2022-02-19",
+   "locator": "Section 'Sweep or balance?'",
+   "url": "https://broadbandlibrary.com/frequency-response-testing/",
+   "finding": "Re-verified. The section describes balance (also called rough or band-edge balance). The technician measures two RF signals, one near the low end and one near the high end of the downstream spectrum. He then sets input padding, equalization, output levels and tilt to get the amplifier roughly right. The article states plainly that balancing does not replace sweep alignment, because levels at only two signals cannot show the response across the whole spectrum. Wording nuance: it says 'two RF signals' at the downstream band edges, not 'pilots', and it is about the downstream only."
+  },
+  {
+   "key": "leak-article-date",
+   "claim": "Hranac 'A Leak Is A Leak... Or Is It?' publication venue/date.",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"A Leak Is A Leak...Or Is It?,\" Communications Technology (CT Mid-Day Report), May 2012",
+   "locator": "SCTE archive PDF header (original appearance in the May 2012 issue of Communications Technology); SCTE CT article index, May 2012 entry tagged 'Mid-Day Report' (file prefix 12-05-20); Cablefax metadata article:published_time 2012-05-20",
+   "url": "https://account.scte.org/documents/3297/12-05-2020A20Leak20Is20A20LeakOr20Is20It201.pdf",
+   "finding": "Re-verified from all four sources. The 3-page SCTE archive PDF has the May 2012 header. The SCTE CT index entry lists it under May with the 'Mid-Day Report' tag. The Cablefax page is dated 2012-05-20 and tagged ctreports and CT Eletters. Hranac and Tresness's white paper 'Another Look at Signal Leakage' (on Arcom Digital's site) cites it as the May 2012 Communications Technology Mid-Day Report. Minor tension: the SCTE PDF header says 'issue', while the index and the white paper call it a Mid-Day Report (an e-newsletter). Suggested citation: Communications Technology Mid-Day Report, May 2012 (web-dated 20 May 2012)."
+  },
+  {
+   "key": "leak-repair-thresholds",
+   "claim": "The article says many operators repair leaks at 10 or 5 uV/m (below FCC limits).",
+   "status": "confirmed-primary",
+   "document": "Ron Hranac, \"A Leak Is A Leak...Or Is It?,\" Communications Technology Mid-Day Report, May 2012",
+   "locator": "Second paragraph after the reproduced FCC leakage table (the paragraph on the 133.2625 MHz CEA channel 16 visual carrier), before 'The LTE Problem'",
+   "url": "https://www.cablefax.com/technology/a-leak-is-a-leak-hellip-or-is-it",
+   "finding": "Re-verified, and the Cablefax and SCTE texts match. Hranac writes that some operators use the FCC's 20 uV/m limit as their repair trigger. Many are stricter, with an internal spec of roughly 10 uV/m or even 5 uV/m, and a few fix any leak regardless of level. This is his qualitative observation, not survey data or a regulatory requirement. The 'below FCC limits' framing holds against the 20 uV/m at 3 m limit for 54-216 MHz, which covers the 108-137 MHz aeronautical band where monitoring takes place. The article's main point is that aeronautical-band leakage correlates poorly with leakage at higher frequencies, such as around 750 MHz. It cites the table as 76.605(a)(12), the designation in use in 2012."
+  },
+  {
+   "key": "fcc-leakage-limits-current",
+   "claim": "Current FCC cable signal leakage limits (context for 'below FCC limits').",
+   "status": "confirmed-primary",
+   "document": "47 CFR 76.605(c), Table 1 to paragraph (c) (eCFR, displaying title 47 up to date as of 11/09/2026; section text credited to 83 FR 7627, Feb. 22, 2018)",
+   "locator": "47 CFR 76.605(c) and Table 1 to paragraph (c)",
+   "url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-K/section-76.605",
+   "finding": "Re-verified with a live fetch. The banner reads 'up to date as of 11/09/2026', and Title 47 was last amended 11/05/2026. Paragraph (c) says leakage \"shall be measured in accordance with the procedures outlined in § 76.609(h) and shall be limited as shown in table 1 to paragraph (c)\". Table limits: analog at or below 54 MHz and over 216 MHz, 15 uV/m at 30 m; digital in the same ranges, 13.1 uV/m at 30 m; analog over 54 up to and including 216 MHz, 20 uV/m at 3 m; digital in that range, 17.4 uV/m at 3 m. Resolved: the old (a)(12) designation no longer exists. Paragraph (a) is now a single unnumbered paragraph, (b)(1)-(11) are the NTSC-channel requirements with no (12), and leakage sits in (c). The section text is credited to 83 FR 7627 (Feb. 22, 2018); the timeline lists changes on 8/10/2017, 2/22/2018 and 4/23/2018. The 2012 article's table showed only the analog 15 and 20 uV/m values. The 10 and 5 uV/m practices are below both the analog 20 and the digital 17.4 uV/m 3-m limits."
+  },
+  {
+   "key": "docsis31-ofdm-total-power-formula",
+   "claim": "Total downstream OFDM power over an occupied bandwidth = power per 6 MHz + 10*log10(occupied MHz / 6).",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419, DOCSIS 3.1 Physical Layer Specification (Issued, April 19, 2023)",
+   "locator": "Section 7.5.9 Fidelity Requirements (p.136); Section 7.5.9.1 CMTS Output Electrical Requirements (p.136); related: Section 7.5.12.1 CM Error Ratio Performance in AWGN Channel (p.147), P6AVG definition",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.1",
+   "finding": "Re-verified against the I20 PDF, downloaded today from the CableLabs library link; the cover reads CM-SP-PHYv3.1-I20-230419 ISSUED. Section 7.5.9 starts on p.136 and defines the number of occupied CEA channels as the OFDM occupied bandwidth divided by 6 MHz. Section 7.5.9.1, also on p.136, says CMTS power is configured as a power per CEA channel plus a count of occupied CEA channels. The total OFDM channel power is then the per-CEA-channel power plus 10log10 of that count. Nuance the first pass understated: the spec gives this list of steps as the way to compute the 'commanded transmit power per channel' for spurious-emissions requirements. It is a configuration and accounting rule, not a measurement procedure. Other caveats hold. (a) Occupied bandwidth is a multiple of 6 MHz, at least 24 MHz, and includes the windowing taper. The spec's example has 189.7 MHz of encompassed spectrum giving 192 MHz occupied. (b) All data subcarriers have equal average power; pilots are boosted 6 dB. (c) Applying this at a field test point assumes a flat PSD. P6AVG appears in 7.5.12.1 (p.147), where it is defined as measured channel power divided by the number of occupied CEA channels. There it is a test condition (at most 15 dBmV) for the AWGN CNR requirement."
+  },
+  {
+   "key": "docsis31-ofdm-total-power-example",
+   "claim": "Worked example: 42 dBmV per 6 MHz over 192 MHz occupied bandwidth -> 57.05 dBmV total.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419 (formula source); arithmetic computed locally",
+   "locator": "Section 7.5.9 / 7.5.9.1 (p.136)",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.1",
+   "finding": "Arithmetic re-checked locally: 192/6 = 32 occupied CEA channels, 10log10(32) = 15.0515 dB, and 42 + 15.0515 = 57.0515, which rounds to 57.05 dBmV. The formula comes from the primary spec (7.5.9.1, p.136), and 7.5.9 does use 192 MHz occupied bandwidth as its own example. The spec has no worked power example at 42 dBmV, so only the formula is primary-sourced; the numbers are a local derivation. The same caveats apply as for the formula: it is a CMTS configuration and spurious-emissions accounting rule, and it assumes a flat PSD."
+  },
+  {
+   "key": "docsis31-cm-ofdm-input-range",
+   "claim": "CM downstream OFDM input level range is -9 to +21 dBmV per 24 MHz.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419, DOCSIS 3.1 Physical Layer Specification",
+   "locator": "Section 7.5.11 Cable Modem Receiver Input Requirements, Table 45 - Electrical Input to CM (pp.146-147); 'Level Range (24 MHz min occupied BW)' row on p.146; per-MHz cap row on p.147",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.1",
+   "finding": "Re-verified in the I20 PDF. On p.146, Table 45 gives the level range as -9 dBmV/24 MHz to 21 dBmV/24 MHz, on a 24 MHz minimum occupied bandwidth basis, and equates it to an SC-QAM PSD of -15 to +15 dBmV per 6 MHz. Local conversion: -15.02 and +14.98 dBmV per 6 MHz. The table continues on p.147 with a cap on average power per MHz, over 54-1218 MHz or 258-1794 MHz, relative to X, the lowest-power 24 MHz of demodulated spectrum. Additional demodulated bandwidth may be at most 10 dB above X's PSD and no higher than the 21 dBmV/24 MHz PSD. Up to 12 MHz of non-demodulated occupied bandwidth may go up to a 26 dBmV/24 MHz PSD, still within X + 10 dB. A note says the level range implies nothing about BER performance."
+  },
+  {
+   "key": "docsis31-cm-scqam-input-range",
+   "claim": "CM downstream SC-QAM input level range is -15 to +15 dBmV per 6 MHz.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419 (Section 6.4.2, by reference) and CM-SP-PHYv3.0-C01-171207, DOCSIS 3.0 Physical Layer Specification (Closed, December 7, 2017)",
+   "locator": "PHYv3.1 Section 6.4.2 Downstream Electrical Input to the CM (p.43); PHYv3.0-C01 Section 6.3.2 Downstream Electrical Input to CM (p.99) and Table 6-22 Electrical Input to CM (p.100); also PHYv3.1 Table 45 'Equivalent PSD to SC-QAM' (p.146)",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.0",
+   "finding": "Re-verified in both PDFs. PHYv3.1 6.4.2 (p.43) points to PHYv3.0 section 6.3.2. Its only exception is that the CM (and CMTS) must support at least 32 active downstream channels. The normative reference list cites CM-SP-PHYv3.0-C01-171207, dated December 7, 2017. The CableLabs library page shows C01 as the newest version, status Closed, published 12/07/2017. In PHYv3.0-C01, Section 6.3.2 starts on p.99 and Table 6-22 is on p.100. Table 6-22 gives a level range of -15 to +15 dBmV for one DOCSIS channel: 64-QAM and 256-QAM in 6 MHz, with center frequencies of 111 to 867 MHz (a CM may tune up to 999 MHz). A demodulated channel may be at most 10 dB above the weakest demodulated channel, capped at +15 dBmV. Detail the first pass omitted: up to two non-demodulated 6 MHz bands may reach +20 dBmV, still within X + 10 dB."
+  },
+  {
+   "key": "docsis31-cm-total-input-power",
+   "claim": "CM total downstream input power must be < 40 dBmV.",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419, DOCSIS 3.1 Physical Layer Specification",
+   "locator": "Section 7.5.11, Table 45 - Electrical Input to CM (p.146), row 'Total Input Power'",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.1",
+   "finding": "Re-verified in the I20 PDF. On p.146, Table 45 sets total input power below 40 dBmV across 54 MHz to 1794 MHz, assuming negligible power outside that range. The caveat is confirmed in PHYv3.0-C01 Table 6-22 (p.100): total input power there is below 33 dBmV at 40 MHz and above. Use the < 40 dBmV figure only for DOCSIS 3.1 CMs, not for DOCSIS 3.0-only modems."
+  },
+  {
+   "key": "docsis31-phy-latest-issue",
+   "claim": "Latest issue of CM-SP-PHYv3.1 is I20-230419 (or newer).",
+   "status": "confirmed-primary",
+   "document": "CableLabs CM-SP-PHYv3.1-I20-230419, DOCSIS 3.1 Physical Layer Specification, Issued, published 04/19/2023",
+   "locator": "CableLabs specification library page, 'Version I20 (newest version)', Publish Date 04/19/2023, Status Issued; PDF cover page",
+   "url": "https://www.cablelabs.com/specifications/CM-SP-PHYv3.1",
+   "finding": "Re-fetched the library page live today (2026-11-11, no cache). It lists Version I20 as the newest, Status Issued, published 04/19/2023, with no Engineering Change Notices. The previous issue is I19 (11/10/2021). The downloaded PDF cover reads CM-SP-PHYv3.1-I20-230419 ISSUED. A web search for an I21 designation returned no results, and the I20 text never mentions I21. Normative references in I20 confirmed: CM-SP-MULPIv3.1-I25-230419, CM-SP-PHYv3.0-C01-171207 (December 7, 2017) and CM-SP-DRFI-I16-170111 (January 11, 2017). Re-check before release, because CableLabs may issue a newer version or ECNs later."
+  }
+ ]
+}

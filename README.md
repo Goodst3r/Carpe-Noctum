@@ -2,6 +2,8 @@
 
 > The app was renamed from NightSweep to Carpe Noctum in 2.0 Alpha build 2. The Android package ID, storage names and job file format keep their NightSweep-era identifiers so saved jobs and updates carry over. Sections below describe the 1.8 baseline unless they say otherwise.
 
+> **2.0 Alpha build 3 is in development** on branch `ccr-7abea525-rljsni`. It adds **Test → Calculators** (dB converter, ripple and pre-EQ tap distance, OFDM power, echo delay) and **Test → Limits** (every limit, target and formula with its spec, expert, company or unknown label and source), the first two items of the build list. No build 3 APK exists yet; the signed installer is still build 2. See [project status](NightSweep_Project_Status.md) and the [build 3 update log](CarpeNoctum_2.0_Alpha_build_3_UPDATE_LOG.txt).
+
 Offline HFC field calculations, exact-model setup references, synthetic training and local job/evidence records for maintenance technicians, team leaders and supervisors.
 
 This source belongs to the single **NightSweep 1.8 Alpha build 2.zip** delivery. Android and iOS share the same tested web application; the Android Preview installer uses the existing package/origin identity with version code **24**. The package's verification receipts identify the accepted final artifacts. No hosted deployment, physical phone installation or field RF acceptance is implied.

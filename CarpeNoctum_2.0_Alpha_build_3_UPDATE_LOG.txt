@@ -1,0 +1,95 @@
+CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
+UPDATE AND VERIFICATION LOG
+Prepared November 11, 2026 UTC
+
+RELEASE IDENTITY
+Application: 2.0 Alpha build 3 (in development; formerly NightSweep)
+Export filename prefix: CarpeNoctum_2.0_Alpha_build_3_
+Android Preview version code: 27 (source identity only)
+Android package: com.spencerwilliams.nightsweep.preview (unchanged)
+Build 3 APK: NOT BUILT. The original signing key is not in this environment.
+Latest signed installer: apk/CarpeNoctum-2.0-build2-preview.apk (code 26)
+Branch: ccr-7abea525-rljsni
+
+No deployment, APK, physical phone installation or plant acceptance is
+claimed. Storage keys and the job file format are unchanged.
+
+SOURCE OF THE WORK
+The prioritized build list (docs/BUILD_LIST.md, GitHub pull request #2,
+branch claude/build-list) sets the order: 1 threshold and source registry,
+2 tilt/EQ/pad solver, 3 station view, 4 calculator bundle, and so on.
+Build 3 delivers items 1 and 4.
+
+CHANGES
+1. Threshold and source registry (build list item 1)
+   - Test -> Limits lists every limit, target and formula the field tools
+     use, filterable by label: Spec, Expert, Company, Unknown.
+   - Each entry keeps its source, revision, page or section, units,
+     conditions, plant and checked date. Tapping a tag opens a source sheet.
+   - Company values are read where they already live: the job's project
+     profile, the meter setup TX references, or the built-in local preset
+     (31 dBmV at 54 MHz, 43 dBmV at 860 MHz, separate 38 dBmV return TX).
+     A blank value shows "Unknown - not entered"; an entered 0 stays 0.
+   - Two existing approximations are labeled Unknown because no published
+     source is recorded: the 0.1 %/F cable-loss temperature correction and
+     the 0.004 per C default power-cable resistance coefficient.
+   - No new storage. Opening the registry never changes the job.
+
+2. Field calculators (build list item 4), Test -> Calculators
+   - dB converter: dBmV, dBm, dBuV, mV, mW at 75 or 50 ohm.
+   - Ripple to distance: 491.79 x VP / ripple spacing (published as 492).
+   - Pre-EQ tap to distance: DOCSIS 2.0/3.0 SC-QAM upstream, 24 taps,
+     1.28 / 2.56 / 5.12 Msym/s, +/- half-tap range. Not DOCSIS 3.1 OFDMA.
+   - OFDM power: restate power per 6, 24 or 1.6 MHz and over the occupied
+     band. Assumes flat power; a tilt needs SCTE 270 section 30.14.
+   - Echo delay: round trip 2 x length / (VP x c).
+   - VP from the four catalog cables that list one, or typed in (0.50-1.00).
+   - Invalid or missing input shows a reason, never a number.
+
+3. Practice library
+   - Custom-curves exercise: two new guide steps (ten in total).
+   - Feature index: entries 38 (calculators) and 39 (limits).
+
+4. Version and QA
+   - 2.0 Alpha build 3 labels everywhere; Android code 27 source identity;
+     build-readiness.json records that no build 3 APK exists.
+   - qa/build2-layout.test.py honors NIGHTSWEEP_CHROMIUM.
+
+SOURCES CHECKED
+A research pass opened each source and an independent second pass tried to
+reproduce every citation. See research/build3/SOURCE_VERIFICATION.md and
+source-verification.json (36 findings: 33 primary, 1 secondary, 2 wrong
+assumptions corrected). Key citations: SCTE 293-2 2024 section 4.1;
+CableLabs CM-SP-PHYv3.0-I04 section 6.2.16 and CM-GL-PNMP-V03; CableLabs
+CM-SP-PHYv3.1-I20 section 7.5.9.1; SCTE 258 2026; SCTE 280 2022 section 9.7;
+Hranac, Communications Technology, Aug. 2005 and Nov. 2009. SCTE and
+CableLabs text is paraphrased and cited by number only.
+
+INDEPENDENT ARITHMETIC
+research/build3/field-calcs-reference.py recomputes every calculator case
+with Python decimal arithmetic at 50 significant digits, written separately
+from the app. Wolfram was not available in this session; this is the
+independent check used instead.
+
+VERIFICATION (THIS RUN)
+Automated suites (python3 qa/run-pwa.py): 1,096 checks across 60
+  suites passed; generated build unchanged during tests.
+  New suites: registry 12 checks; calculators 10 checks with 123
+  comparisons against the independent decimal references.
+Rendered Chromium (qa/build3-layout.test.py): 121 checks passed at
+  320-1280 px in both palettes.
+Existing rendered smoke (qa/browser-smoke.py): 328 checks passed.
+Standalone SHA-256: 2634882910363f50fb11fc2f4bcfcf6fa09741139d872d2495cbf4e38fbc4dd8
+Baseline before changes: 1,013 checks across 55 passing suites; two
+  suites could not run in this container until fixed (Python Playwright,
+  Android receipt), and both now pass.
+
+NOT VERIFIED
+- No build 3 APK, emulator or physical Android/iPhone test.
+- Rendered checks are desktop Chromium with phone-sized viewports, not
+  Safari, WebView or a real phone.
+- Calculator results are arithmetic checks, not field acceptance.
+
+BACKUPS
+Export a full project backup before installing any new build. The registry
+and calculators do not change saved jobs.
