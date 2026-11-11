@@ -195,8 +195,18 @@ Focused native 69 / core 93 / grading UI 43 / Station 22 / review 11 /
 registry 13 plus training/storage/import checks passed; rendered Station 121
 and grading 47 passed. Actual Chrome DevTools MCP combined synthetic check
 at 390px passed. Integrated full gate and Lane B review remain pending.
-Combined guides: 23 task screens, 41 features; practice steps 22/14/11 for
+Current combined guides: 24 task screens, 42 features; practice steps 22/14/12 for
 complete/six-active/custom-curves; both main README copies identical.
 No APK/signing, emulator, physical phone, Safari/WebView, RF hardware or field
 verification. Existing nonblocking gaps remain. A2 underway, then A3;
 D1-D5 are incomplete. Older global paperwork reconciliation belongs to D4.
+
+A4 — REVIEWED DOCSIS BASE INTEGRATION
+Ordinary source merge25d5bb32bf311630d7fe077933e4b62e1acbea1f integrates
+reviewed build3bc69bb4. A4/Station source unchanged; DOCSIS matches base.
+All three registry stores/edit links, practice/guide controls and module/QA
+registrations retained; actual runtime24 screens/42 features, steps22/14/12.
+Focused registry13/DOCSIS20(517)/gradingUI43 and training/design suites pass;
+actual synthetic MCP390 replay passes. Final combined full gate pending.
+PR7 exact1f239b6 reviewed and mergedbc69bb4: Lane A67/1296 +layout255/smoke334.
+These peer counts are separate from A4; no new physical-device/field claim.

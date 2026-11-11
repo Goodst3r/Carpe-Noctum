@@ -118,6 +118,12 @@ Four company plant/direction profiles start blank. Supported typed TestGroup/CDM
 
 Fresh focused integration checks at 5f7e2e passed: native **69**, core **93**, grading UI **43**, Station **22**, Station review **11**, registry **13**, training/library/control/name and storage/import suites; rendered Station **121** and grading **47**. Actual Chrome DevTools MCP at 390px also verified synthetic native import, v2 capture, pending hash rejection and exact compressed-byte restore with no console error or overflow. These focused results do not claim a completed full gate on the integrated head; its final gate and Lane B peer review are pending. Exact commands and limitations are in the integration handoff.
 
-The combined runtime has **23 task screens / 41 feature choices**; complete practice **22** steps, six-active **14**, custom-curves **11**. Main README copies are identical; main, Functions and Training Coverage guides cover both features. Other older paperwork remains for Lane B's D4 reconciliation. Existing Station and native-parser nonblocking limitations remain in `handoff_docs/KNOWN_GAPS.md`.
+The current combined runtime has **24 task screens / 42 feature choices**; complete practice **22** steps, six-active **14**, custom-curves **12**. Main README copies are identical; main, Functions and Training Coverage guides cover both features. Other older paperwork remains for Lane B's D4 reconciliation. Existing Station and native-parser nonblocking limitations remain in `handoff_docs/KNOWN_GAPS.md`.
 
 No emulator, physical Android/iPhone, Safari/WebView, meter/reference-plane, RF hardware or field check is claimed. No APK/signing, version, package, storage-key or deployment change. A2 night log is being built from merged build3; A3 follows. D1–D5 remain incomplete.
+
+### A4 latest reviewed-base integration
+
+Source freeze `25d5bb32bf311630d7fe077933e4b62e1acbea1f` ordinary-merges reviewed DOCSIS/build3 `bc69bb4767e71107cb8ae3f83e4134c2ffafe41e` into the earlier Station integration. A4 and Station modules remain unchanged; DOCSIS source matches its reviewed base. Registry stores/edit links and practice/guide registrations retain all three features. Fresh focused registry13, DOCSIS20/517, gradingUI43, training/library/control/name and design suites passed; actual synthetic Chrome DevTools MCP replay passed at390px. These are focused results; final combined full gate is pending. See `handoff_docs/reviews/codex-a4-docsis-integration.md`.
+
+PR #7 was independently reviewed by Lane A at1f239b6 and merged tobc69bb4: own67/1296 in419.3s plus separate layout255/smoke334, all unchanged/clean. These are that PR's exact-head results, not a full A4 run. The original21ed baseline remains historical.
