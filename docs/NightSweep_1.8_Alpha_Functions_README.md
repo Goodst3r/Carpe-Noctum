@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 26 task screens and 43 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 28 task screens and 45 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Sweep due adds personal reminders and feature 43, with an interval that starts unknown.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains six guide steps for these screens and the device-only Safety and Outage prompts, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Safety and Job → Outage add features 43 and 44; Job → Sweep due adds personal reminders and feature 45, with an interval that starts unknown.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -33,14 +33,16 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 21. [Power what-if](#power-what-if)
 22. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
 23. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-24. [Project records and closeout](#project-records-and-closeout)
-25. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-26. [Offline use, updates and Help](#offline-use-updates-and-help)
-27. [Checked example answers](#checked-example-answers)
-28. [Station worksheet](#station-worksheet)
-29. [Sweep due](#sweep-due)
-30. [43-feature coverage index](#43-feature-coverage-index)
-31. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+24. [Pre-work safety](#pre-work-safety)
+25. [Outage first response](#outage-first-response)
+26. [Project records and closeout](#project-records-and-closeout)
+27. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+28. [Offline use, updates and Help](#offline-use-updates-and-help)
+29. [Checked example answers](#checked-example-answers)
+30. [Station worksheet](#station-worksheet)
+31. [Sweep due](#sweep-due)
+32. [45-feature coverage index](#45-feature-coverage-index)
+33. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -52,7 +54,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Acceptance; Run sheet; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -388,6 +390,7 @@ What the list holds:
 - Your built-in local preset: **31 dBmV at 54 MHz**, **43 dBmV at 860 MHz** and the separate **38 dBmV return TX reference** (42/54 plant).
 - This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX reference of the 42/54 workflow. The 204/258 workflow has no TX reference. Blank entries show **Unknown — not entered**; an entered 0 stays 0. New jobs start blank, except the 750 MHz example profile's labeled 32 / 43 dBmV launch levels. A company sheet links to the screen where you edit the value.
 - Two built-in approximations labeled **Unknown** because their sources are not verified: the 0.1 % per °F cable-loss temperature correction, traced only to an indexed copy of CommScope's MX0398 pocket guide, and the 0.004 per °C default power-cable resistance coefficient, which has no recorded source.
+- Three software caps of the checklist cards (Pre-work safety, and the Outage card that shares the engine), labeled **Unknown** and listed under **Checklist cards application guards**: up to **40 items** you add, **160 characters** in one item and **120 characters** in a note box (some boxes are shorter). Each has a tag beside the **Add an item** and **Notes for this job** headings. They are storage and display bounds, not safety, company or RF limits.
 
 The list describes values; it does not approve criteria or change the job. Example targets on older screens, such as the workbook and sample targets in Test → References, are not listed yet, and older screens do not show tags; later build-list tools add them where their values appear.
 
@@ -527,6 +530,56 @@ An oversized/unsupported preview can remain an original attachment within the or
 
 Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm power, leakage field strength or proof of a measured level.
 
+## Pre-work safety
+
+**Where:** Job → Safety. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Tick off pre-work safety reminders.
+
+A reminder list to tick before you climb, open plant or work near a road. **It opens with "Follow company policy" and it is not your company's procedure.** The wording was written for this app from general field-safety practice. No NCTI or SCTE course text is copied; only course headings (NCTI Field Safety and Fiber-Optic Installation I: Safety, and the SCTE safety and construction domain) were consulted. A supervisor or safety officer has not reviewed it yet, so treat it as a prompt and keep to your company's rules, permits and training.
+
+| Section | What it reminds you about |
+| --- | --- |
+| Before you leave | The work order, the site's hazards, weather, telling someone where you are, a charged phone and your company's safety line |
+| Protective equipment | The equipment your company requires, checked before use |
+| Vehicle and traffic | Parking and warning devices, traffic control before working near traffic, the ground around the work area |
+| Ladders and climbing | Ladder and climbing-gear inspection, a stable set-up, the pole or strand, and overhead power lines |
+| Electrical | Treating plant as possibly energized, checking for stray voltage, your company's procedure for opening actives and power supplies, wet weather |
+| Digging and underground | Utility locates and the company's confined-space rules for vaults |
+| Fiber and laser | Never looking into a fiber end, scraps, approved inspection equipment, hygiene |
+| Before you leave the site | Tools and enclosures, telling your contact you are done, reporting hazards and near misses |
+
+**Your notes** (below the list): who knows where you are, written as a name or role, a check-in time on a 24-hour clock, and where your company keeps its safety policy or safety line. Enter no customer names, addresses or account numbers.
+
+**Change this list** opens an editor: reword any item, hide an original item (it moves to a hidden list with a Show again button), add your own item to any section, or Restore the original list. Start a new pass unticks everything and clears the notes for this job (it asks first); the note about where your company keeps its safety policy and your changes to the list stay. Save as text prepares a short note of the list and your notes to check before you share it. Clear everything on this device asks first and cannot be undone.
+
+**Where it is kept:** in this browser on this device only, for every job, under its own storage key. It is not in a job or its backups, and clearing browser data erases it. If this browser would not save a change, the screen says so and keeps it until the page closes. If the saved list cannot be read, the original list is shown and, before your next change replaces the unreadable data, a copy of it is set aside on the device. If that copy cannot be made (for example storage is full), the unreadable data is left exactly as it was, the screen says **Not saved**, and your change lasts only until the page closes; **Clear everything on this device** is the deliberate way to discard it. If the list was saved by a newer version of the app, this version will not overwrite it. A check-in time you only half fill in is not saved as blank: the box is marked, the reason appears right under it with the time that is still saved, and clearing every part of the box is how you leave it blank.
+
+What this screen leaves out on purpose: any numeric limit, rating or distance (those belong to your company's rules), regulatory requirements, and anything that would claim to be a complete safety procedure.
+
+## Outage first response
+
+**Where:** Job → Outage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Walk through an outage first response.
+
+Prompts for the first steps of an outage call. **It opens with "Follow your company's outage procedure first" and it is not your company's procedure.** The wording was written for this app from general field practice, with no NCTI or SCTE text copied. It has **not** been reviewed by a supervisor against the local outage procedure, and that review is needed before coworkers use it.
+
+| Section | What it prompts |
+| --- | --- |
+| Confirm the scope | What is down (a tap or leg, an amplifier or node, a wider area), nearby nodes, planned work, utility power or weather, and the dispatch notes, with no customer names or addresses copied in |
+| Safety on arrival | Looking the site over before you get out, then your company's pre-work safety steps (Job → Safety has reminders) |
+| Power | Utility AC at the power supply, its status on utility power or battery and alarm lights, and telling your supervisor or the ROC when it is on battery or off |
+| Node and optics | The node's status lights and alarm, the optical input and return path indicator against the value your company expects, and what to do when there is no light |
+| Actives, in order | Working outward from the node one active at a time, noting the last that works and the first that does not, then the passives and cable between them |
+| Tell the right people | The ROC or dispatch (what, where, when), your supervisor, and a damage, theft or vandalism report before you touch anything |
+| If damage or theft is suspected | Safety first, leaving the scene as it is until your procedure says otherwise, and writing down what you found, where and when, leaving customers out |
+| Record the times | When you arrived, found the cause, told the ROC and when service came back, what you found and did, and confirming restoration with the ROC |
+
+**Your notes** (below the list): a plant place such as node leg 3 or amp 2, four times on a 24-hour clock (arrived, found the cause, told the ROC or dispatch, service restored), what you found and did, who you told as a role, and three optional damage or theft notes (what was found, who was told as a role, and the time it was reported). **Enter plant places and roles only: no customer names, addresses, phone numbers or account numbers.** The card has no field for them and holds no photos or locations. SCTE's 2026 Critical Infrastructure Protection Subcommittee is still writing an evidence-collection standard for damage and theft; this card does not implement it and only reminds you to follow your company's procedure.
+
+**Change this list** lets you reword, hide, add and restore items, as on the safety card. **Start a new call** unticks everything and clears all the notes (it asks first); your changes to the list stay. **Save as text** prepares a short note of the ticks and your notes to check before you share it. **Clear everything on this device** asks first and cannot be undone.
+
+**Where it is kept:** in this browser on this device only, under its own storage key, apart from the safety card and outside every job and backup. A change this browser would not store stays on the screen until the page closes and is written with the next change that saves; unreadable data is copied aside before it is replaced, and data saved by a newer version is never overwritten.
+
+What this screen leaves out on purpose: numbers, limits and levels (those are your company's), outage procedures, ticket or customer lookups, photos and locations, and any live read of a node, modem or amplifier.
+
 ## Project records and closeout
 
 **Where:** Job → Acceptance. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
@@ -662,7 +715,7 @@ Dates use exact Gregorian `YYYY-MM-DD`, years 0001–9999. Future, invalid or un
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 43-feature coverage index
+## 45-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -710,7 +763,9 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 | 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
-| 43 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
+| 43 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
+| 44 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
+| 45 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

@@ -240,7 +240,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -271,3 +271,22 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .leak-item.open{border-left:3px solid var(--warn);padding-left:10px}
 .leak-repair{display:grid;gap:3px;font-size:13px}
 .leak-card [hidden]{display:none!important}
+.check-panel .check-policy{margin:12px 0}
+.check-section{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
+.check-section legend{padding:0 6px;font-weight:700}
+.check-list{list-style:none;margin:0;padding:0}
+.check-row{margin:0;padding:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line)}
+.check-row:first-child{border-top:0}
+.check-item{display:flex;align-items:flex-start;gap:12px;min-height:48px;padding:10px 0;flex:1 1 240px;min-width:0;cursor:pointer}
+.check-item input{flex:0 0 auto;width:26px;height:26px;margin:0;accent-color:var(--blue)}
+.check-item span{min-width:0;overflow-wrap:anywhere}
+.check-progress{margin:10px 0 0}
+.check-editing{display:grid;gap:6px;padding:8px 0}
+.check-edit{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.check-edit input{font:inherit;color:var(--ink,inherit);min-width:0;width:100%}
+.check-notes,.check-add,.check-hidden{margin:14px 0}
+.check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.check-panel button.danger{border-color:var(--bad);color:var(--bad)}
+.check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel h3 .source-tag{min-height:44px;min-width:44px;margin-left:6px;vertical-align:middle}
+.check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}

@@ -274,6 +274,7 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     for (const [main, tab] of [['route', 'amp / node setup'], ['test', 'meter setup'], ['test', 'predicted levels'], ['job', 'acceptance'], ['route', 'catalog']]) {
       assert(info.subTabs.get(main).has(tab), main + ' → ' + tab);
     }
+    assert.deepEqual([...info.subTabs.get('job')], ['details','onx files','checklists','safety','outage','acceptance','run sheet','sweep due']);
     assert(info.universe.has('save now') && info.universe.has('back up project'));
     assert.deepEqual(info.errors, []);
   });
