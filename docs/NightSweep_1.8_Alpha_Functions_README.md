@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 24 screens and 41 entries.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 25 task screens and 42 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38 to 41.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -37,7 +37,7 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 25. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
 26. [Offline use, updates and Help](#offline-use-updates-and-help)
 27. [Checked example answers](#checked-example-answers)
-28. [41-feature coverage index](#41-feature-coverage-index)
+28. [42-feature coverage index](#42-feature-coverage-index)
 29. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
@@ -92,8 +92,8 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
-| **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
+| **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 12 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
@@ -632,7 +632,15 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 41-feature coverage index
+## Station worksheet
+
+Open **Route → Station**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
+
+The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
+
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+
+## 42-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -677,8 +685,9 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 37 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
 | 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
-| 40 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
-| 41 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
+| 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
+| 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
+| 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
