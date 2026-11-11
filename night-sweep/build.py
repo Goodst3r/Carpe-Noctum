@@ -5,7 +5,40 @@ import subprocess
 root=Path(__file__).resolve().parent
 subprocess.run(['node',str(root/'selfcheck.js')],check=True,stdout=subprocess.DEVNULL)
 shell=(root/'shell.html').read_text()
-for token,name in [('<!--STYLE-->', 'style.css'), ('<!--SWEEPSTYLE-->', 'sweep-setup.css'), ('<!--SWEEPGUIDE-->', 'sweep-guide.js'), ('<!--SWEEPSETUP-->', 'sweep-setup.js'), ('<!--CATALOG-->', 'catalog.json'), ('<!--ENGINE-->', 'engine.js'), ('<!--PROJECTS-->', 'projects.js'), ('<!--FREQUENCY-->', 'frequency.js'), ('<!--EVIDENCE-->', 'evidence.js'), ('<!--BROWSERFILES-->', 'browser-files.js'), ('<!--EVIDENCEUI-->', 'evidence-ui.js'), ('<!--NODES-->', 'nodes.js'), ('<!--FIELDWORK-->', 'field-work.js'), ('<!--FIELDREFERENCE-->', 'field-reference.js'), ('<!--LAUNCHSOURCE-->', 'launch-source.js'), ('<!--EQUIPMENTSETUP-->', 'equipment-setup.js'), ('<!--APP-->', 'app.js'), ('<!--SELFCHECK-->', 'selfcheck.js'), ('<!--METERS-->', 'meter.js'), ('<!--ROUTETOOLS-->', 'route-tools.js'), ('<!--JOBS-->', 'jobs.js'), ('<!--FIELDREPORT-->', 'field-report.js'), ('<!--WORKFLOW-->', 'workflow.js'), ('<!--TRAINING-->', 'training.js'), ('<!--THRESHOLDS-->', 'thresholds.js'), ('<!--ALIGNMENT-->', 'alignment.js'), ('<!--FIELDCALCS-->', 'field-calcs.js'), ('<!--DOCSISHEALTH-->', 'docsis-health.js')]:
+# One module per line, in splice order. To add a module, put its placeholder in
+# shell.html and add one line below (placeholder, then file name). Keep sample
+# entries out of comments: some tests read this file with a pattern match.
+MODULES = [
+    ('<!--STYLE-->', 'style.css'),
+    ('<!--SWEEPSTYLE-->', 'sweep-setup.css'),
+    ('<!--SWEEPGUIDE-->', 'sweep-guide.js'),
+    ('<!--SWEEPSETUP-->', 'sweep-setup.js'),
+    ('<!--CATALOG-->', 'catalog.json'),
+    ('<!--ENGINE-->', 'engine.js'),
+    ('<!--PROJECTS-->', 'projects.js'),
+    ('<!--FREQUENCY-->', 'frequency.js'),
+    ('<!--EVIDENCE-->', 'evidence.js'),
+    ('<!--BROWSERFILES-->', 'browser-files.js'),
+    ('<!--EVIDENCEUI-->', 'evidence-ui.js'),
+    ('<!--NODES-->', 'nodes.js'),
+    ('<!--FIELDWORK-->', 'field-work.js'),
+    ('<!--FIELDREFERENCE-->', 'field-reference.js'),
+    ('<!--LAUNCHSOURCE-->', 'launch-source.js'),
+    ('<!--EQUIPMENTSETUP-->', 'equipment-setup.js'),
+    ('<!--APP-->', 'app.js'),
+    ('<!--SELFCHECK-->', 'selfcheck.js'),
+    ('<!--METERS-->', 'meter.js'),
+    ('<!--ROUTETOOLS-->', 'route-tools.js'),
+    ('<!--JOBS-->', 'jobs.js'),
+    ('<!--FIELDREPORT-->', 'field-report.js'),
+    ('<!--WORKFLOW-->', 'workflow.js'),
+    ('<!--TRAINING-->', 'training.js'),
+    ('<!--THRESHOLDS-->', 'thresholds.js'),
+    ('<!--ALIGNMENT-->', 'alignment.js'),
+    ('<!--FIELDCALCS-->', 'field-calcs.js'),
+    ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
+]
+for token,name in MODULES:
     if token not in shell:raise ValueError(f'Missing build token {token}')
     data=(root/name).read_text()
     if name=='catalog.json' and (root/'setup-manuals.json').exists():

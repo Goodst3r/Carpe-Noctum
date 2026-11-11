@@ -4621,10 +4621,10 @@ const DocsisHealth=(()=>{
  const READING_BOUNDS=Object.freeze({min:-100,max:150});
  const MEASUREMENTS=Object.freeze(['scqam','ofdm','total','upstream']);
  const fail=error=>({ok:false,error});
- const DECIMAL=/^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i;
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
  const num=x=>{
   if(typeof x==='number')return Number.isFinite(x)?x:null;
-  if(typeof x!=='string'||!DECIMAL.test(x.trim()))return null;
+  if(typeof x!=='string'||x.length>50||!DECIMAL.test(x.trim()))return null;
   const n=Number(x.trim());return Number.isFinite(n)?n:null;
  };
  const has=(object,key)=>Object.prototype.hasOwnProperty.call(object,key);
