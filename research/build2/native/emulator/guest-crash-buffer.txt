@@ -1,0 +1,46 @@
+--------- beginning of crash
+11-11 02:44:32.331  1161  1236 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1236 (bt_stack_manage), pid 1161 (droid.bluetooth)
+11-11 02:45:44.059  1403  1567 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1567 (bt_stack_manage), pid 1403 (droid.bluetooth)
+11-11 02:47:09.659  1848  2004 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2004 (bt_stack_manage), pid 1848 (droid.bluetooth)
+Opaque stock-WebView crashpad minidump omitted; relevant fatal/stack text retained.
+Opaque stock-WebView crashpad minidump omitted; relevant fatal/stack text retained.
+11-11 02:48:20.790  2161  2222 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2222 (bt_stack_manage), pid 2161 (droid.bluetooth)
+11-11 02:48:30.595  1965  2021 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-11 02:48:30.602  1965  2021 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-11 02:48:30.602  1965  2021 F DEBUG   : Revision: '0'
+11-11 02:48:30.602  1965  2021 F DEBUG   : ABI: 'x86_64'
+11-11 02:48:30.602  1965  2021 F DEBUG   : Timestamp: 2026-11-11 02:48:14.976018262+0000
+11-11 02:48:30.602  1965  2021 F DEBUG   : Process uptime: 77s
+11-11 02:48:30.609  1965  2021 F DEBUG   : Cmdline: com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0
+11-11 02:48:30.609  1965  2021 F DEBUG   : pid: 1965, tid: 2021, name: CrRendererMain  >>> com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0 <<<
+11-11 02:48:30.609  1965  2021 F DEBUG   : uid: 99001
+11-11 02:48:30.609  1965  2021 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr --------
+11-11 02:48:30.610  1965  2021 F DEBUG   :     rax 00000000b2987c00  rbx 000010e2001dc000  rcx 0000000000007c76  rdx 000000000007ff88
+11-11 02:48:30.610  1965  2021 F DEBUG   :     r8  0000000000000000  r9  0000000080078071  r10 00000000000074db  r11 0000000000000042
+11-11 02:48:30.610  1965  2021 F DEBUG   :     r12 00007f38f46bcb90  r13 000010e200152428  r14 00007f389f47ee90  r15 0000000000000000
+11-11 02:48:30.611  1965  2021 F DEBUG   :     rdi 0000000000007c76  rsi 0000000000000008
+11-11 02:48:30.611  1965  2021 F DEBUG   :     rbp 000010e200000000  rsp 00007f38f46bcab0  rip 00007f389a8c01cc
+11-11 02:48:30.611  1965  2021 F DEBUG   : 1 total frames
+11-11 02:48:30.611  1965  2021 F DEBUG   : backtrace:
+11-11 02:48:30.612  1965  2021 F DEBUG   :       #00 pc 00000000017971cc  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-11 02:48:31.466  1830  1830 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 1830 (htsweep.preview), pid 1830 (htsweep.preview)
+11-11 02:48:51.622  2279  2279 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-11 02:48:51.624  2279  2279 F DEBUG   : Build fingerprint: 'Android/sdk_phone64_x86_64/emu64x:15/AE3A.240806.019/12368160:userdebug/test-keys'
+11-11 02:48:51.627  2279  2279 F DEBUG   : Revision: '0'
+11-11 02:48:51.634  2279  2279 F DEBUG   : ABI: 'x86_64'
+11-11 02:48:51.634  2279  2279 F DEBUG   : Timestamp: 2026-11-11 02:48:41.128772946+0000
+11-11 02:48:51.634  2279  2279 F DEBUG   : Process uptime: 129s
+11-11 02:48:51.635  2279  2279 F DEBUG   : Cmdline: com.spencerwilliams.nightsweep.preview
+11-11 02:48:51.635  2279  2279 F DEBUG   : pid: 1830, tid: 1830, name: htsweep.preview  >>> com.spencerwilliams.nightsweep.preview <<<
+11-11 02:48:51.640  2279  2279 F DEBUG   : uid: 10148
+11-11 02:48:51.640  2279  2279 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+11-11 02:48:51.641  2279  2279 F DEBUG   : Abort message: '[FATAL:crashpad_client_linux.cc(745)] Render process (1965)'s crash wasn't handled by all associated  webviews, triggering application crash.'
+11-11 02:48:51.641  2279  2279 F DEBUG   :     rax 00007f38a8921938  rbx 00007ffe76285ec8  rcx 0000000000000000  rdx 0000000000000002
+11-11 02:48:51.642  2279  2279 F DEBUG   :     r8  00007ffe762900a0  r9  00007f38a8920f08  r10 ffffffffffffffff  r11 0000000000000246
+11-11 02:48:51.642  2279  2279 F DEBUG   :     r12 00007ffe76285a80  r13 00007ffe76285ee0  r14 000000000000008d  r15 00007ffe76285f48
+11-11 02:48:51.642  2279  2279 F DEBUG   :     rdi 00007f38a8920ee0  rsi 00007f38a30d35a6
+11-11 02:48:51.642  2279  2279 F DEBUG   :     rbp 00000000000002e9  rsp 00007ffe76285a40  rip 00007f38a6427a34
+11-11 02:48:51.643  2279  2279 F DEBUG   : 1 total frames
+11-11 02:48:51.643  2279  2279 F DEBUG   : backtrace:
+11-11 02:48:51.643  2279  2279 F DEBUG   :       #00 pc 0000000003e61a34  /product/app/webview/webview.apk!libwebviewchromium.so (offset 0x7428000) (BuildId: 68dabd72c6088238cbfc9a5fbfe211f916771df5)
+11-11 02:49:24.080  2389  2458 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2458 (bt_stack_manage), pid 2389 (droid.bluetooth)

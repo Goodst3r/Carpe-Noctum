@@ -1,0 +1,155 @@
+test_bad_frozen_hash_stops_before_sdk_commands (__main__.AndroidPreviewTests.test_bad_frozen_hash_stops_before_sdk_commands) ... ok
+test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) ... 
+  test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) ... 
+  test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) (prior_validated_release=True) ... FAIL
+test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) ... 
+  test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) ... 
+  test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) ... 
+  test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) ... 
+  test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+test_release_identity_and_offline_permissions (__main__.AndroidPreviewTests.test_release_identity_and_offline_permissions) ... ok
+test_standard_and_preview_staging_preserve_canonical_sources (__main__.AndroidPreviewTests.test_standard_and_preview_staging_preserve_canonical_sources) ... ok
+test_validated_candidate_publishes_matching_receipt (__main__.AndroidPreviewTests.test_validated_candidate_publishes_matching_receipt) ... ok
+test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) ... 
+  test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) (prior_validated_release=False) ... FAIL
+  test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) (prior_validated_release=True) ... FAIL
+
+======================================================================
+FAIL: test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'apk-manifest-tree.txt': b'com.spencerwil[469 chars]e\n'} != {}
+Diff is 855 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'apk-manifest-tree.txt': b'com.spencerwill[520 chars]e\n'} != {'NightSweep-1.8-preview.apk': b'previous v[258 chars]ipt'}
+Diff is 1171 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'apk-manifest-tree.txt': b'previous valida[189 chars]ipt'} != {'NightSweep-1.8-preview.apk': b'previous v[258 chars]ipt'}
++ {'NightSweep-1.8-preview.apk': b'previous validated APK placeholder',
+- {'apk-manifest-tree.txt': b'previous validated receipt',
+? ^
+
++  'apk-manifest-tree.txt': b'previous validated receipt',
+? ^
+
+   'apk-manifest-verification.txt': b'previous validated receipt',
+   'apk-signature-verification.txt': b'previous validated receipt',
+   'build-info.json': b'{"priorValidatedBuild":true}'} : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'NightSweep-1.8-preview.apk': b'PK\x03\x0[880 chars]e\n'} != {}
+Diff is 1602 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'Nig[23 chars]': b'PK\x03\x04\x14\x00\x00\x00\x00\x00\xf1\nk[900 chars]e\n'} != {'Nig[23 chars]': b'previous validated APK placeholder', 'apk[227 chars]ipt'}
+Diff is 1918 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'NightSweep-1.8-preview.apk': b"PK\x03\x0[763 chars]e\n'} != {}
+Diff is 1399 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'Nig[22 chars]k': b"PK\x03\x04\x14\x00\x00\x00\x00\x00\xf1\n[840 chars]e\n'} != {'Nig[22 chars]k': b'previous validated APK placeholder', 'ap[228 chars]ipt'}
+Diff is 1833 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'NightSweep-1.8-preview.apk': b"PK\x03\x0[932 chars]e\n'} != {}
+Diff is 1691 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'Nig[22 chars]k': b"PK\x03\x04\x14\x00\x00\x00\x00\x00\xf1\n[953 chars]e\n'} != {'Nig[22 chars]k': b'previous validated APK placeholder', 'ap[228 chars]ipt'}
+Diff is 2007 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'NightSweep-1.8-preview.apk': b"PK\x03\x0[969 chars]e\n'} != {}
+Diff is 1728 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'Nig[22 chars]k': b"PK\x03\x04\x14\x00\x00\x00\x00\x00\xf1\n[990 chars]e\n'} != {'Nig[22 chars]k': b'previous validated APK placeholder', 'ap[228 chars]ipt'}
+Diff is 2044 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'apk-manifest-tree.txt': b'com.spencerwil[469 chars]e\n'} != {}
+Diff is 855 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+======================================================================
+FAIL: test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 144, in assert_rejection_preserves_release
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'apk-manifest-tree.txt': b'com.spencerwill[520 chars]e\n'} != {'NightSweep-1.8-preview.apk': b'previous v[258 chars]ipt'}
+Diff is 1171 characters long. Set self.maxDiff to None to see it. : Rejected candidates and partial receipts must not replace a validated release
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.141s
+
+FAILED (failures=13)

@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-10",
+  "records": 27,
+  "mappedActiveProfiles": 25,
+  "mappedNodeProfiles": 3,
+  "mappedPowerProfiles": 25,
+  "unknownEquipmentIds": [],
+  "malformedUrls": [],
+  "verification": "ID/schema/URL syntax validated; link provenance and source availability statuses retained per record. This is not an assertion that every historical URL currently downloads successfully."
+}

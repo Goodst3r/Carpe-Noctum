@@ -1,0 +1,82 @@
+{
+  "version": "1.8 Alpha",
+  "date": "2026-11-11",
+  "input_handoff_sha256": "7fc279d4ba9a604deac2ae5994142b7a401a31402259aad9b9eac6efd82e56fa",
+  "baseline_site_commit": "d4228cad024406b17feb5bde134f2c6f6a75d08e",
+  "release": "9f1f3278a467e0bacc54",
+  "automated": {
+    "command": "python3 qa/run-pwa.py",
+    "checks": 921,
+    "suites": 48,
+    "all_passed": true,
+    "build_unchanged_during_tests": true
+  },
+  "chromium": {
+    "command": "python3 qa/browser-smoke.py",
+    "checks": 316,
+    "all_passed": true,
+    "browser": "Chromium 156.0.8078.79",
+    "scope": "Rendered desktop Chromium at 360/390/768/1280px, touch/mobile emulation, real IndexedDB import/export, service-worker offline reload and new-tab reopening. No physical Android/iPhone, Safari/WebView or signed APK verification."
+  },
+  "artifacts": {
+    "standalone_sha256": "7d52800252e38f4e689b77ef84f4b38e8f0f1fdf1970ca54f2ac708e10e100e2",
+    "pwa_html_sha256": "b1f408ece26a92e7fbd9684f386d86b38ea734ce9165a9ce1987aca291e0e5e0",
+    "worker_sha256": "88b6126e31d27a5b1b5448892bfd2ae66db766b311b3699c676ec10b83049307"
+  },
+  "training": {
+    "exercises": 7,
+    "features": 37,
+    "task_screens": 20,
+    "serial_actives": 6,
+    "portable_examples": 7,
+    "complete_originals": 6,
+    "complete": {
+      "revision": "gs7k-gan-alpha18-v1",
+      "source": "gs7000-12g",
+      "actives": [
+        "active_gm_gan_hgd",
+        "active_gm_gan_hgd"
+      ],
+      "passive_brands": [
+        "Scientific Atlanta",
+        "GigaXtend",
+        "Technetix"
+      ],
+      "workflow": "42/54 MHz",
+      "anchors_mhz": [
+        54,
+        860
+      ],
+      "launch_dbmv": [
+        31,
+        43
+      ],
+      "return_tx_reference_dbmv": 38,
+      "operating_upper_mhz": 1000,
+      "available_upper_mhz": 860,
+      "synthetic": true
+    }
+  },
+  "independent_math": {
+    "fresh_wolfram_cases": 10,
+    "curves_audited": 1324,
+    "numeric_rows": 14126,
+    "complete_workflow_grouped_checks": 17,
+    "complete_workflow_numeric_comparisons": 82,
+    "complete_workflow_record": "research/alpha18/complete-workflow-application.json"
+  },
+  "android": {
+    "source_version_code": 23,
+    "mocked_checks": 14,
+    "apk_compiled": false,
+    "apk_signed": false,
+    "physical_device_tested": false,
+    "signing_material_present": false
+  },
+  "published": false,
+  "upstream_changed": false,
+  "independent_review": "research/alpha18/independent-review.md",
+  "limits": "research/alpha18/TOOLS_AND_LIMITS.md",
+  "correction": "Complete workflow: GS7K and GainMaker GaN with Scientific Atlanta, GigaXtend and Technetix passives",
+  "correction_review": "research/alpha18/complete-workflow-review.md"
+}

@@ -1,0 +1,181 @@
+✖ Practice library exposes seven identifiable loadable exercises and preserves the four original paths (1210.010141ms)
+✖ Every task screen and important calculator subfeature has a seeded exercise and valid guide target (800.588629ms)
+✖ Six-active exercise is a single six-amplifier serial path with exact restored endpoint levels (1739.760413ms)
+✖ Six-active TDR example begins after active six and blocks an attempt across the upstream active chain (1785.291035ms)
+✖ Custom-curves exercise loads actual manual-source, cable and passive tables without duplicate temperature correction (1663.405912ms)
+✖ Manual-thermal practice selects that installed control path without DSIM configuration or inferred switch values (1564.764956ms)
+✖ Loading any feature opens its seeded exercise, the right guide step, and a visible intended control (724.589129ms)
+✖ Feature selector loads the selected example and cancellation leaves current job and navigation unchanged (786.192074ms)
+✖ All three new variants preserve current jobs, learning progress and original bytes through portable export/import (3129.687578ms)
+✖ Unknown requested variants/features reject before switching and retained future variants hide incompatible guidance (1817.532287ms)
+✖ New guides reveal their configured route, gain, TDR and reference fields without altering practice data (2005.258867ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 0
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17721.6102
+
+✖ failing tests:
+
+test at qa/training-library.test.cjs:24:1
+✖ Practice library exposes seven identifiable loadable exercises and preserves the four original paths (1210.010141ms)
+  SyntaxError [Error]: "undefined" is not valid JSON
+      at JSON.parse (<anonymous>)
+      at Object.json (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:17:103)
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:25:20
+      at withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:69)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at qa/training-library.test.cjs:30:1
+✖ Every task screen and important calculator subfeature has a seeded exercise and valid guide target (800.588629ms)
+  SyntaxError [Error]: "undefined" is not valid JSON
+      at JSON.parse (<anonymous>)
+      at Object.json (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:17:103)
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:31:19
+      at withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:69)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at qa/training-library.test.cjs:44:1
+✖ Six-active exercise is a single six-amplifier serial path with exact restored endpoint levels (1739.760413ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'aoi-six-active'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:46:9
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'aoi-six-active',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:58:1
+✖ Six-active TDR example begins after active six and blocks an attempt across the upstream active chain (1785.291035ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'r5' !== 'r7'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:59:156
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'r5',
+    expected: 'r7',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:63:1
+✖ Custom-curves exercise loads actual manual-source, cable and passive tables without duplicate temperature correction (1663.405912ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'node' !== 'manual'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:64:57
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'node',
+    expected: 'manual',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:73:1
+✖ Manual-thermal practice selects that installed control path without DSIM configuration or inferred switch values (1564.764956ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'gainmaker-manual'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:74:60
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'gainmaker-manual',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:79:1
+✖ Loading any feature opens its seeded exercise, the right guide step, and a visible intended control (724.589129ms)
+  SyntaxError [Error]: "undefined" is not valid JSON
+      at JSON.parse (<anonymous>)
+      at Object.json (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:17:103)
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:80:19
+      at withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:69)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at qa/training-library.test.cjs:90:1
+✖ Feature selector loads the selected example and cancellation leaves current job and navigation unchanged (786.192074ms)
+  TypeError [Error]: Cannot set properties of null (setting 'value')
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:91:71
+      at withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:69)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at qa/training-library.test.cjs:97:1
+✖ All three new variants preserve current jobs, learning progress and original bytes through portable export/import (3129.687578ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'aoi-six-active'
+  
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:102:72
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'aoi-six-active',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:109:1
+✖ Unknown requested variants/features reject before switching and retained future variants hide incompatible guidance (1817.532287ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:110:85
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Unknown practice/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at qa/training-library.test.cjs:114:1
+✖ New guides reveal their configured route, gain, TDR and reference fields without altering practice data (2005.258867ms)
+  TypeError [Error]: TrainingJob.stepsFor is not a function
+      at eval (eval at json (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:17:120), <anonymous>:1:28)
+      at eval (<anonymous>)
+      at Object.json (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:17:120)
+      at /workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:116:76
+      at async withApp (/workspace/NightSweep_1.8_Alpha/qa/training-library.test.cjs:20:63)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

@@ -1,0 +1,134 @@
+{
+  "audit": "NightSweep 1.7 final platform/interface read-only audit",
+  "timestamp_utc": "2026-11-11T00:28:56.406323+00:00",
+  "scope": "frozen product source; only this research markdown/json written",
+  "source_sha256": {
+    "night-sweep/style.css": "fb7b35879d13e5a173126c2ca15b8996b096470390fcc62b5bb79b48ff2c500f",
+    "night-sweep/field-reference.js": "27cba69b9d868a40dce1d6080a9840fe3fd53eef286b9936bc048c71def612a3",
+    "night-sweep/sweep-setup.js": "252463bf2ecff3007b83afdcfc59bdffa8ab287808af0b8a8cb10e79a74e1fa3",
+    "night-sweep/training.js": "1244a27063de785c3575088290bfa03b6dcf7efcf953bed7acc80ecd335bd451",
+    "night-sweep/evidence-ui.js": "fdf31b4f160833c755ab5fa5f653f01165dd1717ecca289c9cd5a5e0d83c19c5",
+    "night-sweep/browser-files.js": "8517725805c7fe2f302c5ff1047f4301fa298169009f8a1f2e2fc7142019427a",
+    "night-sweep/equipment-setup.js": "e3cccbc2c5ac9eddbfadaa57044cc95381d039df9f37e8d1e118af24171cc8dc",
+    "night-sweep/app.js": "778496c81ad529d73b56550066bab76e6d6abd2d6016fb3c04fbf6cc9a1de9b0",
+    "pwa/pwa.js": "2a8243f8199e6c790142432bba56a0d39d3597064bdda23b370a1bb49b3df97d",
+    "pwa/service-worker.js": "cbdfe753c97fa28c3a605fa9782bdeabdc21b166808f014fc0854c82ae92dba3"
+  },
+  "figma": {
+    "file_key": "C1zOM5qj4LF3YOd5NMCN8G",
+    "session_id": "ed19aa1f-9412-4cfb-a8a5-0127ae2e5f6d",
+    "wrapper_id": "4:2406",
+    "launch_id": "4:2410",
+    "equipment_setup_id": "4:2572",
+    "read_only": true,
+    "wrapper_size": [
+      844,
+      1289
+    ],
+    "screen_width": 390,
+    "descendants": 227,
+    "text_layers": 73,
+    "control_instances": 32,
+    "controls_below_44": [],
+    "font_families": [
+      "Roboto"
+    ],
+    "represents_current_product": false,
+    "functional_test": false
+  },
+  "source_interface": {
+    "ordinary_input_min_height_px": 50,
+    "button_filelabel_min_height_px": 48,
+    "equipment_button_select_min_height_px": 44,
+    "explicit_visible_labels": true,
+    "local_carrier_units": "MHz",
+    "target_units": "dBmV",
+    "tx_reference_separate_from_injection_and_receive": true,
+    "practice_choices": [
+      "complete AOI",
+      "GainMaker OEM AGC",
+      "GainMaker DSIM",
+      "conventional GS7K"
+    ],
+    "contrast_ratios_on_paper": {
+      "ink": 13.31,
+      "muted": 8.72,
+      "blue": 9.01,
+      "warn": 8.99
+    }
+  },
+  "context7": {
+    "resolved_library": "/mdn/content",
+    "resolve_calls": 1,
+    "query_calls": 3,
+    "queries": [
+      "file input/drop FileList and selected File reads",
+      "Blob export/share/clipboard activation and resource lifecycle",
+      "localStorage/offline PWA lifecycle"
+    ],
+    "all_calls_success": true,
+    "coverage_gaps_filled_from_direct_official_mdn": [
+      "Clipboard.writeText",
+      "Using Service Workers",
+      "Window.localStorage",
+      "Clipboard API"
+    ]
+  },
+  "contracts": [
+    {
+      "api": "file input",
+      "status": "source aligned",
+      "evidence": "evidence-ui.js:76,223,230; app.js project open validates/imports",
+      "limit": "file chooser only; no drop zone implemented or claimed"
+    },
+    {
+      "api": "blob download/share",
+      "status": "source aligned",
+      "evidence": "browser-files.js:30-79",
+      "limit": "OS destination completion cannot be confirmed by download click or share completion"
+    },
+    {
+      "api": "clipboard",
+      "status": "source aligned",
+      "evidence": "equipment-setup.js:126-137",
+      "limit": "secure-context/browser permission failure uses explicit selected-text fallback"
+    },
+    {
+      "api": "localStorage",
+      "status": "source aligned",
+      "evidence": "app.js saveLocal; field-reference.js:93-107",
+      "limit": "quota/security failures remain possible; origin/file URLs are distinct; backups required"
+    },
+    {
+      "api": "offline lifecycle",
+      "status": "source aligned",
+      "evidence": "pwa/service-worker.js:71-95; pwa/pwa.js:54-65,224-239",
+      "limit": "readiness requires controlling worker and verified cache; online is only a hint"
+    }
+  ],
+  "official_sources": [
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/accept",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/files",
+    "https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/files",
+    "https://developer.mozilla.org/en-US/docs/Web/API/File_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static",
+    "https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL_static",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem",
+    "https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers"
+  ],
+  "functional_tests_in_this_audit": 0,
+  "parent_reported_verification": {
+    "full_qa_suites_passed": 38,
+    "classification": "root-reported separate run; not rerun or counted as this audit",
+    "desktop_chrome": "GS7K flow and calculation verified by root",
+    "blocked": "fresh narrow rendered checks/DevTools blocked by organization policy; physical Android/iPhone testing unavailable"
+  },
+  "new_findings": [],
+  "overall": "No additional API-contract mismatch found in bounded source paths. This is not every-function or physical-device certification."
+}

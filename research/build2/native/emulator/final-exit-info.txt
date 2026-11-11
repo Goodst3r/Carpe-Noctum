@@ -1,0 +1,26 @@
+ACTIVITY MANAGER PROCESS EXIT INFO (dumpsys activity exit-info)
+Last Timestamp of Persistence Into Persistent Storage: 1970-01-01 00:00:00.000
+  package: com.spencerwilliams.nightsweep.preview
+    Historical Process Exit for uid=10148
+        ApplicationExitInfo #0:
+          timestamp=2026-11-11 02:55:46.418 pid=3449 realUid=10148 packageUid=10148 definingUid=10148 user=0
+          process=com.spencerwilliams.nightsweep.preview reason=5 (APP CRASH(NATIVE)) subreason=0 (UNKNOWN) status=5
+          importance=100 pss=0.00 rss=0.00 description=crash state=empty trace=null
+        ApplicationExitInfo #1:
+          timestamp=2026-11-11 02:48:54.540 pid=1830 realUid=10148 packageUid=10148 definingUid=10148 user=0
+          process=com.spencerwilliams.nightsweep.preview reason=5 (APP CRASH(NATIVE)) subreason=0 (UNKNOWN) status=5
+          importance=100 pss=0.00 rss=0.00 description=crash state=empty trace=null
+        ApplicationExitInfo #2:
+          timestamp=2026-11-11 02:46:58.463 pid=1899 realUid=99000 packageUid=10148 definingUid=10113 user=0
+          process=com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0 reason=13 (OTHER KILLS BY SYSTEM) subreason=17 (ISOLATED NOT NEEDED) status=0
+          importance=300 pss=0.00 rss=0.00 description=isolated not needed state=empty trace=null
+    Historical Process Exit for uid=99001
+        ApplicationExitInfo #0:
+          timestamp=2026-11-11 02:48:31.290 pid=1965 realUid=99001 packageUid=10148 definingUid=10113 user=0
+          process=com.android.webview:sandboxed_process1:org.chromium.content.app.SandboxedProcessService1:0 reason=2 (SIGNALED) subreason=0 (UNKNOWN) status=5
+          importance=100 pss=0.00 rss=0.00 description=null state=empty trace=null
+    Historical Process Exit for uid=99002
+        ApplicationExitInfo #0:
+          timestamp=2026-11-11 02:55:41.146 pid=3485 realUid=99002 packageUid=10148 definingUid=10113 user=0
+          process=com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0 reason=2 (SIGNALED) subreason=0 (UNKNOWN) status=5
+          importance=100 pss=0.00 rss=0.00 description=null state=empty trace=null

@@ -1,0 +1,4577 @@
+{
+  "title": "NightSweep 1.7 Alpha bounded function and feature coverage audit",
+  "created_utc": "2026-11-11T00:28:37.550452+00:00",
+  "method": "Read-only source inventory and suite mapping; regex fallback, no parser installed and no dependency installation. Bounded review, not line-by-line semantic proof.",
+  "source_files": 24,
+  "named_function_lower_bound": 530,
+  "public_method_entries": 144,
+  "test_evidence": {
+    "file": "qa/pwa-test-results.json",
+    "suite_count": 38,
+    "checks": 819,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "standalone_sha256": "26abddfcce351f0323e58dc50b7d1ee1ca2a888b7d248d10d122d5cfad6e6e4d",
+    "current_standalone_sha256": "26abddfcce351f0323e58dc50b7d1ee1ca2a888b7d248d10d122d5cfad6e6e4d",
+    "rerun_by_this_audit": false,
+    "suites": [
+      {
+        "name": "1.6 current release migration and1.7 portable example",
+        "script": "upgrade01617.test.cjs",
+        "passed": true,
+        "checks": 6
+      },
+      {
+        "name": "1.7 stable workflow rendering",
+        "script": "alpha17-render.test.cjs",
+        "passed": true,
+        "checks": 3
+      },
+      {
+        "name": "1.7 source and equipment reports",
+        "script": "alpha17-report.test.cjs",
+        "passed": true,
+        "checks": 11
+      },
+      {
+        "name": "1.7 launch source workflow",
+        "script": "launch-source.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "1.7 equipment setup and DSIM",
+        "script": "equipment-setup.test.cjs",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "1.7 local operator targets and available carriers",
+        "script": "local-operator-preset.test.cjs",
+        "passed": true,
+        "checks": 19
+      },
+      {
+        "name": "1.7 DSIM historical pilot-code lookup",
+        "script": "dsim-pilot-codes.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "1.7 separate installed gain-control paths",
+        "script": "equipment-control.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 current node setup references",
+        "script": "node-setup-refresh.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.7 retired UBT compatibility",
+        "script": "retired-equipment.test.cjs",
+        "passed": true,
+        "checks": 7
+      },
+      {
+        "name": "1.7 fresh independent numerical references",
+        "script": "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "1.7 RF band and hidden view regressions",
+        "script": "alpha17-engine.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 evidence job context",
+        "script": "evidence-context.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Wolfram record and measurement guards",
+        "script": "wolfram-records.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "Wolfram RF, distance and sweep references",
+        "script": "wolfram-rf.test.cjs",
+        "passed": true,
+        "checks": 25
+      },
+      {
+        "name": "Wolfram power references and edge cases",
+        "script": "wolfram-power.test.cjs",
+        "passed": true,
+        "checks": 30
+      },
+      {
+        "name": "Guided sweep setup and 1.5 migration",
+        "script": "sweep-setup.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "Equipment reference catalog",
+        "script": "equipment-reference.test.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "PWA package and service worker",
+        "script": "pwa-worker.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "PWA install and update interface",
+        "script": "pwa-client.test.cjs",
+        "passed": true,
+        "checks": 20
+      },
+      {
+        "name": "Browser file export and sharing",
+        "script": "browser-files.test.cjs",
+        "passed": true,
+        "checks": 23
+      },
+      {
+        "name": "Guided training job and preserved work",
+        "script": "training-job.test.cjs",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "RF and power engine",
+        "script": "engine.test.js",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "Route distances, TDR and gain budgets",
+        "script": "route14.test.cjs",
+        "passed": true,
+        "checks": 34
+      },
+      {
+        "name": "Project records and acceptance",
+        "script": "projects.test.js",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "Frequency calculations",
+        "script": "frequency-regression.cjs",
+        "passed": true,
+        "checks": 16
+      },
+      {
+        "name": "Retained interface behavior",
+        "script": "dom-tests.cjs",
+        "passed": true,
+        "checks": 38
+      },
+      {
+        "name": "Active and TDR interface calculations",
+        "script": "alpha14-ui.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "Technician task navigation and live controls",
+        "script": "alpha15-ui.test.cjs",
+        "passed": true,
+        "checks": 22
+      },
+      {
+        "name": "Node profiles and current curves",
+        "script": "nodes.test.cjs",
+        "passed": true,
+        "checks": 29
+      },
+      {
+        "name": "Evidence parser and validation",
+        "script": "evidence.test.cjs",
+        "passed": true,
+        "checks": 52
+      },
+      {
+        "name": "Evidence UI and storage",
+        "script": "evidence-ui.test.cjs",
+        "passed": true,
+        "checks": 28
+      },
+      {
+        "name": "Legacy upgrade and portable backup",
+        "script": "alpha011-integration.cjs",
+        "passed": true,
+        "checks": 21
+      },
+      {
+        "name": "Retained field tools and named jobs",
+        "script": "alpha012.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "0.13 APK backup migration",
+        "script": "upgrade01314.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.4 backup and active/TDR migration",
+        "script": "upgrade01415.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Built-in reference calculations",
+        "script": "../night-sweep/selfcheck.js",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Catalog structure",
+        "script": "catalog-audit.cjs",
+        "passed": true,
+        "checks": 0
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "file": "night-sweep/app.js",
+      "sha256": "778496c81ad529d73b56550066bab76e6d6abd2d6016fb3c04fbf6cc9a1de9b0",
+      "lines": 325,
+      "named_function_lower_bound": 73,
+      "functions": [
+        {
+          "name": "$",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "setSpectrumView",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "csvCell",
+          "line": 7,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "jobContextCsvRows",
+          "line": 8,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "partSearchMatches",
+          "line": 16,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "routePicker",
+          "line": 17,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "device",
+          "line": 18,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "modelId",
+          "line": 19,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "freshRow",
+          "line": 20,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "example",
+          "line": 21,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initial",
+          "line": 22,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "saveLocal",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "name",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "option",
+          "line": 25,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "passiveType",
+          "line": 27,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "partTypeLabel",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "partConfig",
+          "line": 42,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "partCaption",
+          "line": 58,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "typeOptions",
+          "line": 59,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "familyOptions",
+          "line": 60,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "deviceOptions",
+          "line": 61,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "parents",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderSetup",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderRoute",
+          "line": 64,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "publishedGainHtml",
+          "line": 67,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "gainText",
+          "line": 69,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "gainBudgetSetup",
+          "line": 72,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "gainBudgetTarget",
+          "line": 73,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "activeEditor",
+          "line": 74,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "measuredGain",
+          "line": 78,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "useMeasuredGain",
+          "line": 79,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ft",
+          "line": 80,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "routeToolState",
+          "line": 81,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderDistanceTools",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "routeToolChanged",
+          "line": 90,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshRouteMath",
+          "line": 91,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshGainBudget",
+          "line": 100,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshTdr",
+          "line": 107,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "allTraces",
+          "line": 116,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderTraceChoices",
+          "line": 117,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evaluate",
+          "line": 118,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "val",
+          "line": 119,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "loss",
+          "line": 120,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fmt",
+          "line": 121,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "tableFreq",
+          "line": 122,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshResults",
+          "line": 123,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "freshPowerRow",
+          "line": 146,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "freshPower",
+          "line": 147,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "powerEquipment",
+          "line": 148,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "powerName",
+          "line": 149,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "powerParents",
+          "line": 150,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "equipmentOptions",
+          "line": 151,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applyEquipment",
+          "line": 152,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderPower",
+          "line": 153,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshPower",
+          "line": 157,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "powerChanged",
+          "line": 163,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "drawChart",
+          "line": 168,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "yAt",
+          "line": 174,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "x",
+          "line": 180,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "equipmentSourceLink",
+          "line": 193,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "catalogEntries",
+          "line": 203,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "catalogTables",
+          "line": 209,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "catalogKind",
+          "line": 215,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "updateCatalogFamilies",
+          "line": 216,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderCatalog",
+          "line": 217,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderAll",
+          "line": 221,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "download",
+          "line": 236,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateImport",
+          "line": 247,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "record",
+          "line": 248,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "scalar",
+          "line": 249,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "loadState",
+          "line": 279,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "openProjectText",
+          "line": 280,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "showTab",
+          "line": 304,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "dom-tests.cjs",
+        "alpha17-engine.test.cjs",
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "launch-source.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/browser-files.js",
+      "sha256": "8517725805c7fe2f302c5ff1047f4301fa298169009f8a1f2e2fc7142019427a",
+      "lines": 84,
+      "named_function_lower_bound": 10,
+      "functions": [
+        {
+          "name": "message",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ensurePanel",
+          "line": 10,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sync",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "shareSupported",
+          "line": 30,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "activeGesture",
+          "line": 34,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "makeFile",
+          "line": 35,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "prepare",
+          "line": 42,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "share",
+          "line": 53,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "download",
+          "line": 68,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dismiss",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "BrowserFiles",
+      "public_methods": [
+        {
+          "name": "prepare",
+          "qualified_test_text_mentions": [
+            "browser-files.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "share",
+          "qualified_test_text_mentions": [
+            "browser-files.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "download",
+          "qualified_test_text_mentions": [
+            "browser-files.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "dismiss",
+          "qualified_test_text_mentions": [
+            "browser-files.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "browser-files.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/dsim-pilot-codes.js",
+      "sha256": "016f7a121e3c3ad9a57d11678709106c26625623c3bc3460bb9801e10ba48038",
+      "lines": 118,
+      "named_function_lower_bound": 2,
+      "functions": [
+        {
+          "name": "DsimPilotCodes",
+          "line": 5,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "lookup",
+          "line": 106,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "DsimPilotCodes",
+      "public_methods": [
+        {
+          "name": "lookup",
+          "qualified_test_text_mentions": [
+            "dsim-pilot-codes.test.cjs",
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "dsim-pilot-codes.test.cjs",
+        "equipment-setup.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/engine.js",
+      "sha256": "13852cb9a54120f2f231d815483885e62a1e17d81ebde4f2cd9e70985dc1d42a",
+      "lines": 316,
+      "named_function_lower_bound": 29,
+      "functions": [
+        {
+          "name": "HFC",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "number",
+          "line": 3,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "curveValue",
+          "line": 4,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "t",
+          "line": 23,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "parseTable",
+          "line": 26,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "launchAt",
+          "line": 33,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "t",
+          "line": 44,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "portsFor",
+          "line": 47,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "selectedCurve",
+          "line": 51,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "passiveAt",
+          "line": 52,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "activeGainAt",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "spanLength",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "routeDistances",
+          "line": 87,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "tdrLocate",
+          "line": 110,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fail",
+          "line": 111,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "present",
+          "line": 122,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "cableAt",
+          "line": 149,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "run",
+          "line": 160,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "gainBudget",
+          "line": 182,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fail",
+          "line": 184,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "present",
+          "line": 192,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "inHardwareBand",
+          "line": 210,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "grid",
+          "line": 222,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dcSegment",
+          "line": 223,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dcRoute",
+          "line": 232,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "finite",
+          "line": 247,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "powerRun",
+          "line": 253,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fail",
+          "line": 254,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "currents",
+          "line": 286,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "HFC",
+      "public_methods": [
+        {
+          "name": "number",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs",
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "curveValue",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "alpha17-engine.test.cjs",
+            "wolfram-rf.test.cjs",
+            "equipment-reference.test.cjs",
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "parseTable",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs",
+            "engine.test.js",
+            "route14.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "launchAt",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "wolfram-rf.test.cjs",
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "portsFor",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs",
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "selectedCurve",
+          "qualified_test_text_mentions": [
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "passiveAt",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "activeGainAt",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs",
+            "route14.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "spanLength",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "routeDistances",
+          "qualified_test_text_mentions": [
+            "upgrade01617.test.cjs",
+            "wolfram-rf.test.cjs",
+            "sweep-setup.test.cjs",
+            "training-job.test.cjs",
+            "route14.test.cjs",
+            "alpha15-ui.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "tdrLocate",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "wolfram-rf.test.cjs",
+            "training-job.test.cjs",
+            "route14.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "cableAt",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "wolfram-rf.test.cjs",
+            "engine.test.js",
+            "route14.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "run",
+          "qualified_test_text_mentions": [
+            "retired-equipment.test.cjs",
+            "alpha17-engine.test.cjs",
+            "wolfram-rf.test.cjs",
+            "engine.test.js",
+            "route14.test.cjs",
+            "alpha011-integration.cjs",
+            "alpha012.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "gainBudget",
+          "qualified_test_text_mentions": [
+            "alpha17-engine.test.cjs",
+            "wolfram-rf.test.cjs",
+            "training-job.test.cjs",
+            "route14.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "grid",
+          "qualified_test_text_mentions": [
+            "alpha17-engine.test.cjs",
+            "wolfram-rf.test.cjs",
+            "engine.test.js"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "dcSegment",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "route14.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "dcRoute",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "powerRun",
+          "qualified_test_text_mentions": [
+            "retired-equipment.test.cjs",
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "equipment-reference.test.cjs",
+            "training-job.test.cjs",
+            "engine.test.js",
+            "dom-tests.cjs",
+            "nodes.test.cjs",
+            "alpha011-integration.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "engine.test.js",
+        "route14.test.cjs",
+        "wolfram-rf.test.cjs",
+        "wolfram-power.test.cjs",
+        "alpha17-engine.test.cjs",
+        "../night-sweep/research/alpha17-fresh-reference-check.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/equipment-setup.js",
+      "sha256": "e3cccbc2c5ac9eddbfadaa57044cc95381d039df9f37e8d1e118af24171cc8dc",
+      "lines": 204,
+      "named_function_lower_bound": 49,
+      "functions": [
+        {
+          "name": "EquipmentSetup",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "record",
+          "line": 5,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "own",
+          "line": 6,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "cat",
+          "line": 7,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "escape",
+          "line": 8,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "choice",
+          "line": 9,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "safeKey",
+          "line": 10,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "validate",
+          "line": 16,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "draft",
+          "line": 36,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "station",
+          "line": 37,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "findDevice",
+          "line": 38,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "manualFor",
+          "line": 39,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "controlFor",
+          "line": 40,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applicableManuals",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "gainControlPanel",
+          "line": 46,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "setupFrequencyPanel",
+          "line": 51,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "value",
+          "line": 53,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "bandText",
+          "line": 59,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "targets",
+          "line": 60,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "target",
+          "line": 75,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "bindingContext",
+          "line": 76,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "hasDsim",
+          "line": 77,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "boundDsim",
+          "line": 78,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "visibleKeyStatus",
+          "line": 79,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "context",
+          "line": 80,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "checkId",
+          "line": 81,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "safeUrl",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reportSections",
+          "line": 83,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "link",
+          "line": 93,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "manualCard",
+          "line": 94,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "field",
+          "line": 98,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "pilotCodes",
+          "line": 99,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "pilotMatch",
+          "line": 100,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "pilotNote",
+          "line": 101,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "pilotResult",
+          "line": 111,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "pilotLookup",
+          "line": 116,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshPilotLookup",
+          "line": 122,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "copyPilot",
+          "line": 126,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "current",
+          "line": 129,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "status",
+          "line": 130,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "sgManual",
+          "line": 140,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reviewManuals",
+          "line": 141,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dsimInterfaceGuide",
+          "line": 142,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dsimPanel",
+          "line": 143,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 147,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "persist",
+          "line": 159,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshReviews",
+          "line": 166,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edit",
+          "line": 173,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 200,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "EquipmentSetup",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [
+            "alpha17-report.test.cjs",
+            "equipment-setup.test.cjs",
+            "equipment-control.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [
+            "alpha17-render.test.cjs",
+            "equipment-control.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validate",
+          "qualified_test_text_mentions": [
+            "equipment-control.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "manualFor",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "reportSections",
+          "qualified_test_text_mentions": [
+            "equipment-control.test.cjs",
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "equipment-setup.test.cjs",
+        "equipment-control.test.cjs",
+        "node-setup-refresh.test.cjs",
+        "alpha17-report.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/evidence-ui.js",
+      "sha256": "fdf31b4f160833c755ab5fa5f653f01165dd1717ecca289c9cd5a5e0d83c19c5",
+      "lines": 254,
+      "named_function_lower_bound": 34,
+      "functions": [
+        {
+          "name": "EvidenceUI",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "$e",
+          "line": 6,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "current",
+          "line": 7,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "list",
+          "line": 8,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "mib",
+          "line": 9,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "compactState",
+          "line": 10,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "report",
+          "line": 15,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "requireCrypto",
+          "line": 21,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "digest",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "openDB",
+          "line": 25,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "putFiles",
+          "line": 36,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "getFile",
+          "line": 45,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "newId",
+          "line": 55,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "safeParse",
+          "line": 56,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ensureOwner",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "importFiles",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "bytesFor",
+          "line": 92,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "exportProject",
+          "line": 99,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "prepareImport",
+          "line": 114,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "downloadOriginal",
+          "line": 139,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reloadPreviews",
+          "line": 154,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "cleanupUnused",
+          "line": 170,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "chart",
+          "line": 189,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "x",
+          "line": 194,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "preview",
+          "line": 200,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 209,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 225,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initEvidence",
+          "line": 248,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderEvidence",
+          "line": 249,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evidenceIsBusy",
+          "line": 250,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evidenceCompactState",
+          "line": 251,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evidenceExportProject",
+          "line": 252,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evidencePrepareImport",
+          "line": 253,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evidenceDownload",
+          "line": 254,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "EvidenceUI",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "importFiles",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "exportProject",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "prepareImport",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "downloadOriginal",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "reloadPreviews",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "compactState",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "cleanupUnused",
+          "qualified_test_text_mentions": [
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "isBusy",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "evidence-ui.test.cjs",
+        "evidence-context.test.cjs",
+        "training-job.test.cjs",
+        "browser-files.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/evidence.js",
+      "sha256": "f102186082412de718adc083e51cf36cc7ec1ef5f04dc75ffde6d701e67fc8c3",
+      "lines": 157,
+      "named_function_lower_bound": 17,
+      "functions": [
+        {
+          "name": "plain",
+          "line": 11,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "owns",
+          "line": 12,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "scalar",
+          "line": 16,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "textBytes",
+          "line": 17,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "boundedString",
+          "line": 21,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ownKeys",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "numberCell",
+          "line": 27,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "csvRows",
+          "line": 32,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "addValue",
+          "line": 34,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "addRow",
+          "line": 35,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "parseText",
+          "line": 56,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "attachment",
+          "line": 57,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "validateParse",
+          "line": 91,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateEvidence",
+          "line": 114,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "bytesToBase64",
+          "line": 135,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "base64ToBytes",
+          "line": 140,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "bytesToCanonicalBase64",
+          "line": 152,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "EvidenceCore",
+      "public_methods": [
+        {
+          "name": "parseText",
+          "qualified_test_text_mentions": [
+            "evidence.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validateEvidence",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validateParse",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "bytesToBase64",
+          "qualified_test_text_mentions": [
+            "evidence.test.cjs",
+            "alpha011-integration.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "base64ToBytes",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs",
+            "browser-files.test.cjs",
+            "training-job.test.cjs",
+            "evidence.test.cjs",
+            "alpha011-integration.cjs",
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "evidence.test.cjs",
+        "evidence-ui.test.cjs",
+        "evidence-context.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/field-reference.js",
+      "sha256": "27cba69b9d868a40dce1d6080a9840fe3fd53eef286b9936bc048c71def612a3",
+      "lines": 150,
+      "named_function_lower_bound": 33,
+      "functions": [
+        {
+          "name": "FieldReference",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "record",
+          "line": 11,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "number",
+          "line": 12,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "text",
+          "line": 13,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "current",
+          "line": 14,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "has",
+          "line": 15,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "validate",
+          "line": 16,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "scalar",
+          "line": 18,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "selectedProfile",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "draft",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "status",
+          "line": 28,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "saveDraft",
+          "line": 29,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applyAnchors",
+          "line": 30,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "targetCenters",
+          "line": 38,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fillTargets",
+          "line": 43,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "targetCalculation",
+          "line": 53,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applyTargets",
+          "line": 61,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "localProfileError",
+          "line": 68,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "setupTargets",
+          "line": 77,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "invalid",
+          "line": 80,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "saveLocalMarkers",
+          "line": 93,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fillLocalMarkers",
+          "line": 98,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applyLocalNonHighSplit",
+          "line": 99,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "cableLoss",
+          "line": 109,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "tapRows",
+          "line": 113,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "selectedTap",
+          "line": 114,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "publishedFaces",
+          "line": 115,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "openTap",
+          "line": 116,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshReadouts",
+          "line": 117,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 125,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edit",
+          "line": 132,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 139,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initFieldReference",
+          "line": 149,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "FieldReference",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validate",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "applyAnchors",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "applyTargets",
+          "qualified_test_text_mentions": [
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "applyLocalNonHighSplit",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "localNonHighSplitPreset",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "setupTargets",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "fillLocalMarkers",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "fillTargets",
+          "qualified_test_text_mentions": [
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "targetCalculation",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "targetCenters",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "cableLoss",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "publishedFaces",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "openTap",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "draft",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "refreshReadouts",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "local-operator-preset.test.cjs",
+        "alpha012.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/field-report.js",
+      "sha256": "6dd39c56ced693eefbb6c21e224c92d4debe148a1d60cc7e3fdddbfe0cf98b19",
+      "lines": 182,
+      "named_function_lower_bound": 37,
+      "functions": [
+        {
+          "name": "FieldReport",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "finite",
+          "line": 5,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "trialSettings",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "calculatePowerWhatIf",
+          "line": 7,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderTrialInputs",
+          "line": 18,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshTrial",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "keepTrial",
+          "line": 30,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "syncReportOwner",
+          "line": 35,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sheetFrequency",
+          "line": 36,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "valueText",
+          "line": 37,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workOrderData",
+          "line": 38,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workOrderEntries",
+          "line": 43,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fieldWorkSections",
+          "line": 48,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "equipmentSections",
+          "line": 49,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "keyAvailability",
+          "line": 50,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "controlText",
+          "line": 51,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dsimEntries",
+          "line": 55,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dsimText",
+          "line": 61,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "manualReviewText",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "equipmentText",
+          "line": 66,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "equipmentMarkup",
+          "line": 76,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "equipmentCsvRows",
+          "line": 77,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workflowMarkup",
+          "line": 85,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workflowText",
+          "line": 88,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workflowCsvRows",
+          "line": 89,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sheetData",
+          "line": 90,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "carrierTargetText",
+          "line": 108,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderSheet",
+          "line": 114,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sheetText",
+          "line": 126,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "shareSheet",
+          "line": 130,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "csvRows",
+          "line": 140,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sheetCsv",
+          "line": 143,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "printSheet",
+          "line": 146,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "openSheet",
+          "line": 150,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 151,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initFieldReport",
+          "line": 181,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "powerWhatIfCalculation",
+          "line": 182,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "FieldReport",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "calculatePowerWhatIf",
+          "qualified_test_text_mentions": [
+            "wolfram-power.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "refreshTrial",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "sheetData",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs",
+            "alpha012.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "sheetText",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "training-job.test.cjs",
+            "alpha15-ui.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "csvRows",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "sheetCsv",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "renderSheet",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "openSheet",
+          "qualified_test_text_mentions": [
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "printSheet",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "alpha17-report.test.cjs",
+        "alpha012.test.cjs",
+        "browser-files.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/field-work.js",
+      "sha256": "ed3b72809d1b5446c73c0a49028410982c0c6cc90d3abaa9e09fe8809fc918e3",
+      "lines": 113,
+      "named_function_lower_bound": 22,
+      "functions": [
+        {
+          "name": "FieldWork",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "record",
+          "line": 18,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "text",
+          "line": 19,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "ownState",
+          "line": 20,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "numeric",
+          "line": 21,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "convert",
+          "line": 22,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "normalize",
+          "line": 26,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validate",
+          "line": 31,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "optionalRecord",
+          "line": 34,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "checkedText",
+          "line": 35,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "units",
+          "line": 49,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "formatted",
+          "line": 50,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "referenceText",
+          "line": 51,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reportSections",
+          "line": 52,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reportRows",
+          "line": 58,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 65,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refresh",
+          "line": 75,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "persist",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edit",
+          "line": 86,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 104,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initFieldWork",
+          "line": 111,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateFieldWork",
+          "line": 112,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "FieldWork",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "refresh",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validate",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "normalize",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "convert",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "wolfram-rf.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "reportSections",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "reportRows",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "alpha012.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/frequency.js",
+      "sha256": "933ed011e3a85accfe1af90aaf2a07c3d61995dcad567251a77295ca662a236d",
+      "lines": 56,
+      "named_function_lower_bound": 10,
+      "functions": [
+        {
+          "name": "freshFrequency",
+          "line": 3,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ensureFrequency",
+          "line": 4,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "frequencyNumber",
+          "line": 5,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateFrequency",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "frequencyCalculation",
+          "line": 11,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "frequencyResults",
+          "line": 34,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "frequencyOverrides",
+          "line": 35,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderFrequency",
+          "line": 36,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderSpanSummary",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initFrequency",
+          "line": 49,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "frequency-regression.cjs",
+        "dom-tests.cjs",
+        "training-job.test.cjs",
+        "wolfram-rf.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/jobs.js",
+      "sha256": "0debafb713e76e3b24493a89188633287e559bbe829032d869fdfc089d8e8c4d",
+      "lines": 191,
+      "named_function_lower_bound": 39,
+      "functions": [
+        {
+          "name": "JobsUI",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "clone",
+          "line": 8,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "training",
+          "line": 9,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "sample",
+          "line": 10,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "compact",
+          "line": 11,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "isBusy",
+          "line": 12,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "makeId",
+          "line": 13,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "readLibrary",
+          "line": 14,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "getLibrary",
+          "line": 25,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "writeLibrary",
+          "line": 26,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "metadata",
+          "line": 27,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "workOrderWarnings",
+          "line": 34,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "valid",
+          "line": 37,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "refreshTimeWarning",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshLinkedControls",
+          "line": 42,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "setJobField",
+          "line": 49,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectMetaChanged",
+          "line": 56,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "orderControls",
+          "line": 60,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "record",
+          "line": 61,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "status",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "requireIdle",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "syncCurrent",
+          "line": 64,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "snapshots",
+          "line": 74,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "referencedEvidenceIds",
+          "line": 75,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "retainWorking",
+          "line": 76,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "confirmSwitch",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "hasWorkingContent",
+          "line": 86,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "beforeProjectOpen",
+          "line": 89,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "saveNamed",
+          "line": 95,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "open",
+          "line": 104,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "newJob",
+          "line": 117,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "openTraining",
+          "line": 125,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "duplicate",
+          "line": 141,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "remove",
+          "line": 146,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "theme",
+          "line": 153,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 159,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 169,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "editJobField",
+          "line": 179,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "initJobs",
+          "line": 191,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "JobsUI",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "open",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs",
+            "training-job.test.cjs",
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "newJob",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs",
+            "training-job.test.cjs",
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "openTraining",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "saveNamed",
+          "qualified_test_text_mentions": [
+            "upgrade01617.test.cjs",
+            "sweep-setup.test.cjs",
+            "training-job.test.cjs",
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "duplicate",
+          "qualified_test_text_mentions": [
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "remove",
+          "qualified_test_text_mentions": [
+            "alpha012.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "beforeProjectOpen",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "snapshots",
+          "qualified_test_text_mentions": [
+            "upgrade01617.test.cjs",
+            "sweep-setup.test.cjs",
+            "training-job.test.cjs",
+            "alpha012.test.cjs",
+            "upgrade01314.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "referencedEvidenceIds",
+          "qualified_test_text_mentions": [
+            "alpha012.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "theme",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs",
+            "alpha012.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "isBusy",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "metadata",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "workOrderWarnings",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "setJobField",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "projectMetaChanged",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "alpha012.test.cjs",
+        "training-job.test.cjs",
+        "evidence-context.test.cjs",
+        "upgrade01617.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/launch-source.js",
+      "sha256": "1bd394c8b8da85a190fa28f6b7b087588236a6e8de6f90e8c65bf4f5f2b1d413",
+      "lines": 63,
+      "named_function_lower_bound": 10,
+      "functions": [
+        {
+          "name": "LaunchSource",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "type",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "model",
+          "line": 5,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "label",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validate",
+          "line": 11,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "issues",
+          "line": 16,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "status",
+          "line": 28,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 29,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "changed",
+          "line": 36,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 50,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "LaunchSource",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [
+            "retired-equipment.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "status",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validate",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "type",
+          "qualified_test_text_mentions": [
+            "launch-source.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "model",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "label",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "issues",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "launch-source.test.cjs",
+        "alpha17-report.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/meter.js",
+      "sha256": "5b349228aceddac29007e7341a145434516084943e5fe0d2da36623340f5e27f",
+      "lines": 109,
+      "named_function_lower_bound": 15,
+      "functions": [
+        {
+          "name": "publishedNodeTestPoint",
+          "line": 2,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "meterCoupling",
+          "line": 7,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "effectiveLaunchSetup",
+          "line": 11,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "meterProfileTarget",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "meterComparison",
+          "line": 30,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "testPointChoices",
+          "line": 37,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "launchMeterSignature",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderLaunchTestPoint",
+          "line": 42,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderLaunchConversionStatus",
+          "line": 53,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "meterBox",
+          "line": 59,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderMeters",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderMeterResults",
+          "line": 67,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "applyTestPointChoice",
+          "line": 75,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initMeters",
+          "line": 83,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edited",
+          "line": 89,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "wolfram-records.test.cjs",
+        "alpha17-report.test.cjs",
+        "launch-source.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/nodes.js",
+      "sha256": "5852c898716697414252acd66816b5c924da9c5dcf3991df4a8169e8f9fce2ac",
+      "lines": 61,
+      "named_function_lower_bound": 15,
+      "functions": [
+        {
+          "name": "NodeTools",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "defaults",
+          "line": 3,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "number",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "profile",
+          "line": 5,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "band",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "issues",
+          "line": 7,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "choice",
+          "line": 13,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "patch",
+          "line": 14,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateNode",
+          "line": 17,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ensureNode",
+          "line": 29,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "nodeField",
+          "line": 30,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderNodeSummary",
+          "line": 31,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderNodes",
+          "line": 37,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "copyNodeBand",
+          "line": 43,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initNodes",
+          "line": 52,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "NodeTools",
+      "public_methods": [
+        {
+          "name": "defaults",
+          "qualified_test_text_mentions": [
+            "equipment-reference.test.cjs",
+            "alpha011-integration.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "number",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "profile",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "band",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "issues",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "choice",
+          "qualified_test_text_mentions": [
+            "equipment-reference.test.cjs",
+            "alpha011-integration.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "patch",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "nodes.test.cjs",
+        "launch-source.test.cjs",
+        "node-setup-refresh.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/projects.js",
+      "sha256": "fd3f4ea2f0fb6a4890fde01645c8121949c577126ff2b3b1a27d3aae34e65a46",
+      "lines": 124,
+      "named_function_lower_bound": 24,
+      "functions": [
+        {
+          "name": "ProjectMath",
+          "line": 3,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "n",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "required",
+          "line": 5,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "coverage",
+          "line": 6,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "evaluate",
+          "line": 17,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "generator",
+          "line": 49,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectDefaults",
+          "line": 61,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validateProject",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "record",
+          "line": 63,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "ensureProject",
+          "line": 71,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectProfile",
+          "line": 72,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectField",
+          "line": 73,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectFields",
+          "line": 78,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectCards",
+          "line": 79,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectLogSection",
+          "line": 80,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderProjects",
+          "line": 81,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectFormat",
+          "line": 84,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectDsimStatus",
+          "line": 85,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectPunchStatus",
+          "line": 102,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderProjectResults",
+          "line": 103,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectNewRecord",
+          "line": 111,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectCsv",
+          "line": 115,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initProjects",
+          "line": 119,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "projectChanged",
+          "line": 124,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "ProjectMath",
+      "public_methods": [
+        {
+          "name": "n",
+          "qualified_test_text_mentions": [
+            "wolfram-rf.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "coverage",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "evaluate",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+            "wolfram-rf.test.cjs",
+            "training-job.test.cjs",
+            "dom-tests.cjs",
+            "alpha011-integration.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "generator",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "projects.test.js",
+        "wolfram-records.test.cjs",
+        "upgrade01617.test.cjs",
+        "alpha011-integration.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/route-tools.js",
+      "sha256": "e22d4b9671f4e50a23c067928d6a5a9166c37ba9621899a7e07ce1a86783848b",
+      "lines": 113,
+      "named_function_lower_bound": 18,
+      "functions": [
+        {
+          "name": "faceValue",
+          "line": 2,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "faceChoices",
+          "line": 3,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "facePrediction",
+          "line": 7,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "nextTapChoice",
+          "line": 12,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "sameSpanNextTap",
+          "line": 16,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dropSplitters",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "dropCalculation",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "fail",
+          "line": 26,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "routeToolFrequency",
+          "line": 47,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "routeToolCard",
+          "line": 48,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "routeToolMarkChanged",
+          "line": 49,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderCascade",
+          "line": 50,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "chain",
+          "line": 55,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderRouteTools",
+          "line": 68,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "arithmeticMarkup",
+          "line": 76,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshRouteTools",
+          "line": 83,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initRouteTools",
+          "line": 95,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edited",
+          "line": 111,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "alpha14-ui.test.cjs",
+        "route14.test.cjs",
+        "alpha15-ui.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/selfcheck.js",
+      "sha256": "b2e5005a833a8477d7a46ce4466a44e524035e407438ec00a0000cdc807902c6",
+      "lines": 47,
+      "named_function_lower_bound": 5,
+      "functions": [
+        {
+          "name": "referenceCases",
+          "line": 2,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "test",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "near",
+          "line": 5,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "powerRow",
+          "line": 14,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "runBuildSelfCheck",
+          "line": 38,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "module.exports",
+      "public_methods": [
+        {
+          "name": "referenceCases",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Executed directly by ../night-sweep/selfcheck.js in qa/run-pwa.py; alias-based callers not resolved by text-mention scan."
+        }
+      ],
+      "workflow_suites": [
+        "../night-sweep/selfcheck.js",
+        "equipment-reference.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/sweep-guide.js",
+      "sha256": "522447eaa9b3b1d5b1566e38c2125c050cfbd6f6719e6bba8b1932ddd64eb819",
+      "lines": 51,
+      "named_function_lower_bound": 1,
+      "functions": [
+        {
+          "name": "SweepSetupGuide",
+          "line": 3,
+          "kind": "named-arrow-initializer"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "sweep-setup.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/sweep-setup.js",
+      "sha256": "252463bf2ecff3007b83afdcfc59bdffa8ab287808af0b8a8cb10e79a74e1fa3",
+      "lines": 214,
+      "named_function_lower_bound": 34,
+      "functions": [
+        {
+          "name": "SweepSetup",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "record",
+          "line": 16,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "text",
+          "line": 17,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "number",
+          "line": 18,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "ownState",
+          "line": 19,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "escape",
+          "line": 20,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "fmt",
+          "line": 21,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "profileDefaults",
+          "line": 23,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "defaults",
+          "line": 24,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validate",
+          "line": 25,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "normalized",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "draft",
+          "line": 72,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "guide",
+          "line": 73,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "activeStep",
+          "line": 74,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "frequencyStatus",
+          "line": 75,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "comparison",
+          "line": 82,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "generator",
+          "line": 100,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "methodNote",
+          "line": 108,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "persist",
+          "line": 113,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "storeProfile",
+          "line": 114,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "field",
+          "line": 115,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "area",
+          "line": 116,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "selection",
+          "line": 117,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 118,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refresh",
+          "line": 153,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "changeStep",
+          "line": 161,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "edit",
+          "line": 162,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "plain",
+          "line": 169,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "profileReport",
+          "line": 173,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "reportText",
+          "line": 177,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "exportText",
+          "line": 185,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "saveSnapshot",
+          "line": 189,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "exportNotes",
+          "line": 196,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 201,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "SweepSetup",
+      "public_methods": [
+        {
+          "name": "defaults",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "profileDefaults",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "validate",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "normalized",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "draft",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "number",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "frequencyStatus",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "comparison",
+          "qualified_test_text_mentions": [
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "generator",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "../night-sweep/research/alpha17-fresh-reference-check.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "methodNote",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "render",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "refresh",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "reportText",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "exportText",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "exportNotes",
+          "qualified_test_text_mentions": [
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "saveSnapshot",
+          "qualified_test_text_mentions": [
+            "local-operator-preset.test.cjs",
+            "sweep-setup.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "sweep-setup.test.cjs",
+        "local-operator-preset.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/training.js",
+      "sha256": "1244a27063de785c3575088290bfa03b6dcf7efcf953bed7acc80ecd335bd451",
+      "lines": 192,
+      "named_function_lower_bound": 18,
+      "functions": [
+        {
+          "name": "TrainingJob",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "isTraining",
+          "line": 4,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "variant",
+          "line": 60,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "currentSteps",
+          "line": 61,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "model",
+          "line": 62,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "makeState",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "row",
+          "line": 64,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "powerRow",
+          "line": 76,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "makeDsimState",
+          "line": 95,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "makeOemState",
+          "line": 110,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "makeGs7kState",
+          "line": 122,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "bundle",
+          "line": 142,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "progress",
+          "line": 155,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "guideHtml",
+          "line": 156,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "render",
+          "line": 157,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "open",
+          "line": 168,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 174,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initTraining",
+          "line": 192,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "TrainingJob",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "open",
+          "qualified_test_text_mentions": [
+            "upgrade01617.test.cjs",
+            "training-job.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "isTraining",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "makeState",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "makeDsimState",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "makeOemState",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "makeGs7kState",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "training-job.test.cjs",
+        "upgrade01617.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "night-sweep/workflow.js",
+      "sha256": "1798cbc1432fbc7f51d42266bcb0121d6d0ac1ba43f0c364653be7253a16fa0e",
+      "lines": 173,
+      "named_function_lower_bound": 20,
+      "functions": [
+        {
+          "name": "WorkflowUI",
+          "line": 2,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "hidden",
+          "line": 35,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "text",
+          "line": 36,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "all",
+          "line": 37,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "selectedRows",
+          "line": 39,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "chosen",
+          "line": 40,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "setPoint",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "renderNav",
+          "line": 42,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "go",
+          "line": 50,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "capturePointDetails",
+          "line": 63,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "structural",
+          "line": 64,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "updatePointControls",
+          "line": 83,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "updateJobViews",
+          "line": 99,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "updateHome",
+          "line": 111,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "apply",
+          "line": 121,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "queue",
+          "line": 133,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "prepareVisibilityForPrint",
+          "line": 134,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "restoreVisibilityAfterPrint",
+          "line": 135,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "init",
+          "line": 136,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "initWorkflow",
+          "line": 173,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": "WorkflowUI",
+      "public_methods": [
+        {
+          "name": "init",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "go",
+          "qualified_test_text_mentions": [
+            "alpha17-render.test.cjs",
+            "launch-source.test.cjs",
+            "local-operator-preset.test.cjs",
+            "sweep-setup.test.cjs",
+            "equipment-reference.test.cjs",
+            "pwa-client.test.cjs",
+            "training-job.test.cjs",
+            "alpha15-ui.test.cjs",
+            "upgrade01415.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "current",
+          "qualified_test_text_mentions": [
+            "launch-source.test.cjs",
+            "sweep-setup.test.cjs",
+            "equipment-reference.test.cjs",
+            "pwa-client.test.cjs",
+            "training-job.test.cjs",
+            "alpha15-ui.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "selectPoint",
+          "qualified_test_text_mentions": [
+            "training-job.test.cjs",
+            "alpha15-ui.test.cjs"
+          ],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        },
+        {
+          "name": "apply",
+          "qualified_test_text_mentions": [],
+          "coverage_interpretation": "Review signal only; aliases/UI/indirect calls are not resolved."
+        }
+      ],
+      "workflow_suites": [
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": true
+    },
+    {
+      "file": "pwa/pwa.js",
+      "sha256": "2a8243f8199e6c790142432bba56a0d39d3597064bdda23b370a1bb49b3df97d",
+      "lines": 244,
+      "named_function_lower_bound": 11,
+      "functions": [
+        {
+          "name": "$",
+          "line": 23,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "status",
+          "line": 24,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "update",
+          "line": 29,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "workerStatus",
+          "line": 41,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "refreshStatus",
+          "line": 54,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "watch",
+          "line": 69,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "changed",
+          "line": 71,
+          "kind": "named-arrow-initializer"
+        },
+        {
+          "name": "attach",
+          "line": 92,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "validRelease",
+          "line": 101,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "setup",
+          "line": 104,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "storageStatus",
+          "line": 205,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "pwa-client.test.cjs",
+        "pwa-worker.test.cjs",
+        "browser-files.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": null
+    },
+    {
+      "file": "pwa/service-worker.js",
+      "sha256": "cbdfe753c97fa28c3a605fa9782bdeabdc21b166808f014fc0854c82ae92dba3",
+      "lines": 121,
+      "named_function_lower_bound": 4,
+      "functions": [
+        {
+          "name": "fetchPublicAsset",
+          "line": 18,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "complete",
+          "line": 35,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "ready",
+          "line": 39,
+          "kind": "named-function-declaration-or-expression"
+        },
+        {
+          "name": "saveOfflineCopy",
+          "line": 44,
+          "kind": "named-function-declaration-or-expression"
+        }
+      ],
+      "public_module": null,
+      "public_methods": [],
+      "workflow_suites": [
+        "pwa-worker.test.cjs",
+        "pwa-client.test.cjs"
+      ],
+      "source_text_embedded_in_tested_standalone": null
+    }
+  ],
+  "features": [
+    {
+      "feature": "Navigation, mobile task controls, focus and render stability",
+      "modules": [
+        "workflow.js",
+        "app.js"
+      ],
+      "mapped_suites": [
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "training-job.test.cjs",
+        "dom-tests.cjs",
+        "alpha17-engine.test.cjs",
+        "launch-source.test.cjs"
+      ],
+      "review_scope": "Task navigation and controls are exercised in DOM; visual/touch/accessibility behavior needs rendered browser and device review."
+    },
+    {
+      "feature": "RF route, cable/passive interpolation, temperature, active gain, branches, drops",
+      "modules": [
+        "engine.js",
+        "app.js",
+        "route-tools.js"
+      ],
+      "mapped_suites": [
+        "engine.test.js",
+        "route14.test.cjs",
+        "wolfram-rf.test.cjs",
+        "wolfram-power.test.cjs",
+        "alpha17-engine.test.cjs",
+        "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "dom-tests.cjs",
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "launch-source.test.cjs",
+        "training-job.test.cjs",
+        "alpha14-ui.test.cjs"
+      ],
+      "review_scope": "Independent RF references plus route/DOM integration; not every model/frequency/configuration combination."
+    },
+    {
+      "feature": "TDR distance, velocity factor, boundary and active barriers",
+      "modules": [
+        "engine.js",
+        "app.js"
+      ],
+      "mapped_suites": [
+        "engine.test.js",
+        "route14.test.cjs",
+        "wolfram-rf.test.cjs",
+        "wolfram-power.test.cjs",
+        "alpha17-engine.test.cjs",
+        "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "dom-tests.cjs",
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "launch-source.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "review_scope": "Synthetic distance examples and active-boundary guards."
+    },
+    {
+      "feature": "Power circuit, curves, voltage drop, nonlinear load and what-if",
+      "modules": [
+        "engine.js",
+        "field-report.js"
+      ],
+      "mapped_suites": [
+        "engine.test.js",
+        "route14.test.cjs",
+        "wolfram-rf.test.cjs",
+        "wolfram-power.test.cjs",
+        "alpha17-engine.test.cjs",
+        "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "alpha17-report.test.cjs",
+        "alpha012.test.cjs",
+        "browser-files.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "review_scope": "Independent numeric and invalid/convergence edge cases; installed load/waveform not physically measured."
+    },
+    {
+      "feature": "Frequency checker and exact overrides",
+      "modules": [
+        "frequency.js"
+      ],
+      "mapped_suites": [
+        "frequency-regression.cjs",
+        "dom-tests.cjs",
+        "training-job.test.cjs",
+        "wolfram-rf.test.cjs"
+      ],
+      "review_scope": "Frequency limits, units, overrides and unknown launch exercised."
+    },
+    {
+      "feature": "Node identity, split limits, source selection and launch correction",
+      "modules": [
+        "nodes.js",
+        "launch-source.js",
+        "meter.js"
+      ],
+      "mapped_suites": [
+        "nodes.test.cjs",
+        "launch-source.test.cjs",
+        "node-setup-refresh.test.cjs",
+        "training-job.test.cjs",
+        "alpha17-report.test.cjs",
+        "wolfram-records.test.cjs"
+      ],
+      "review_scope": "Standard GS7000 1G/1.2G and EN9000 selectable; SHO/Intelligent/RPD procedures not selectable setup claims."
+    },
+    {
+      "feature": "Equipment manuals, OEM AGC, DSIM and historical code lookup",
+      "modules": [
+        "equipment-setup.js",
+        "dsim-pilot-codes.js"
+      ],
+      "mapped_suites": [
+        "equipment-setup.test.cjs",
+        "equipment-control.test.cjs",
+        "node-setup-refresh.test.cjs",
+        "alpha17-report.test.cjs",
+        "training-job.test.cjs",
+        "dsim-pilot-codes.test.cjs"
+      ],
+      "review_scope": "Exact model/control bindings, procedure selection, stale-context guards, source pages and pilot code tests; no physical DSIM controller/app connection."
+    },
+    {
+      "feature": "Local targets and available-carrier estimates",
+      "modules": [
+        "field-reference.js"
+      ],
+      "mapped_suites": [
+        "local-operator-preset.test.cjs",
+        "alpha012.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "review_scope": "Local 54/860 targets and 42 MHz TX reference separated from measured launch, pilot, injection and receive references; independent equations."
+    },
+    {
+      "feature": "Forward/return setup and referenced measurements",
+      "modules": [
+        "sweep-setup.js",
+        "sweep-guide.js",
+        "meter.js",
+        "projects.js"
+      ],
+      "mapped_suites": [
+        "sweep-setup.test.cjs",
+        "local-operator-preset.test.cjs",
+        "training-job.test.cjs",
+        "wolfram-records.test.cjs",
+        "alpha17-report.test.cjs",
+        "launch-source.test.cjs",
+        "projects.test.js",
+        "upgrade01617.test.cjs",
+        "alpha011-integration.cjs"
+      ],
+      "review_scope": "42 MHz forward/return sweepless distinct from 204/258 XPERTrak return; reference/compensation/acceptance guards; actual instrument capability and traces remain operator verification."
+    },
+    {
+      "feature": "Jobs, named copies, migration, imports/exports and training",
+      "modules": [
+        "jobs.js",
+        "training.js",
+        "app.js",
+        "browser-files.js"
+      ],
+      "mapped_suites": [
+        "alpha012.test.cjs",
+        "training-job.test.cjs",
+        "evidence-context.test.cjs",
+        "upgrade01617.test.cjs",
+        "dom-tests.cjs",
+        "alpha17-engine.test.cjs",
+        "alpha15-ui.test.cjs",
+        "alpha17-render.test.cjs",
+        "launch-source.test.cjs",
+        "browser-files.test.cjs"
+      ],
+      "review_scope": "Working-job retention, cancellation, quota failures, portable recoveries and current/legacy migration fixtures."
+    },
+    {
+      "feature": "Evidence originals, CSV decoder, storage, hashes and context",
+      "modules": [
+        "evidence.js",
+        "evidence-ui.js"
+      ],
+      "mapped_suites": [
+        "evidence.test.cjs",
+        "evidence-ui.test.cjs",
+        "evidence-context.test.cjs",
+        "training-job.test.cjs",
+        "browser-files.test.cjs"
+      ],
+      "review_scope": "Original bytes preserved; native ONX/JSON/ZIP/PDF/XML/images are attachments, not a verified native schema decoder."
+    },
+    {
+      "feature": "Reports, checklists, CSV/text/print/share",
+      "modules": [
+        "field-report.js",
+        "field-work.js",
+        "browser-files.js"
+      ],
+      "mapped_suites": [
+        "alpha17-report.test.cjs",
+        "alpha012.test.cjs",
+        "browser-files.test.cjs",
+        "training-job.test.cjs"
+      ],
+      "review_scope": "Content/dispatch/print restoration tested; actual OS file persistence, print pages and pagination unverified."
+    },
+    {
+      "feature": "Offline PWA installation, cache, update and retained work",
+      "modules": [
+        "pwa.js",
+        "service-worker.js"
+      ],
+      "mapped_suites": [
+        "pwa-client.test.cjs",
+        "pwa-worker.test.cjs",
+        "browser-files.test.cjs"
+      ],
+      "review_scope": "Service-worker network/cache lifecycle and install prompt simulations; actual Android/iOS lifecycle/offline eviction not proven."
+    }
+  ],
+  "gaps": [
+    {
+      "priority": "physical-platform",
+      "area": "Android APK / Android browser / iPhone Safari",
+      "finding": "No physical Android SAF save/share/print callback, real iOS Files/share-sheet, native print pagination, real touch/night/sun layout, process-kill recovery, iOS storage eviction, offline launch/install/update evidence is established by these Node/DOM suites.",
+      "evidence": "qa/browser-files.test.cjs uses navigator/bridge doubles; evidence tests use fake IndexedDB; qa/pwa-test-results.json explicitly limits scope.",
+      "next_verification": "Device matrix for APK, Android Chrome and iPhone Safari with import/export originals, named-job retention and offline update."
+    },
+    {
+      "priority": "branch-gap",
+      "area": "Evidence IndexedDB failure lifecycle",
+      "finding": "Inspected tests inject put/autosave/quota/owner failures, but no dedicated openDB blocked/open error/versionchange or getFile/cleanup transaction-abort injection was located. This is a branch-testing gap, not a confirmed defect or absent public-method coverage.",
+      "evidence": [
+        "night-sweep/evidence-ui.js:25",
+        "night-sweep/evidence-ui.js:170",
+        "qa/evidence-ui.test.cjs",
+        "qa/training-job.test.cjs"
+      ],
+      "next_verification": "Bounded IDB failure-injection tests and real browser recovery checks."
+    },
+    {
+      "priority": "branch-gap",
+      "area": "Named-job library validation limits",
+      "finding": "Save/open/duplicate/delete/new/import/cancellation/quota/busy/reference-cleanup workflows are tested. No dedicated corrupt-library-entry or 1000-job ceiling injection test was located in the inspected suites. This is not evidence of a failing public method.",
+      "evidence": [
+        "night-sweep/jobs.js:14",
+        "night-sweep/jobs.js:26",
+        "qa/alpha012.test.cjs",
+        "qa/training-job.test.cjs"
+      ],
+      "next_verification": "Test malformed named-library entries and the 1000-to-1001 boundary without replacing the working job."
+    },
+    {
+      "priority": "scope-limit",
+      "area": "Every-function claim",
+      "finding": "No runtime V8/Istanbul branch/function coverage report or instrumented all-public-function invocation ledger is present. Passing 819 grouped checks does not prove every named function, callback, branch or equipment combination executed. Regex inventory misses anonymous callbacks, object method shorthand and secondary comma-bound arrows and can include text matches.",
+      "next_verification": "Instrumented coverage in a separate QA task; review critical uncovered branches from that evidence."
+    },
+    {
+      "priority": "operator-manual",
+      "area": "Hardware commissioning and acceptance",
+      "finding": "Actual receiver/transmitter/RPD/firmware/service plan/pilot suitability, local targets and measurement planes still require installed configuration verification. EN9000 portal commissioning text is unavailable; public briefs are capability references.",
+      "next_verification": "Exact installed manuals/operator procedure plus physical measurements; never substitute generic or analog-return examples."
+    }
+  ],
+  "confirmed_bugs": [],
+  "review_notes": [
+    "No new tests were run by this report; 38/819 evidence is from the completed matching frozen-build report.",
+    "All 22 night-sweep JavaScript source texts are embedded unchanged in that tested standalone; the additional two files are PWA client/worker source templates.",
+    "Independent bounded review of browser export/evidence/jobs/reports/navigation found no product defect; direct call absence is not treated as absence of workflow coverage.",
+    "No executable function/branch coverage percentage is claimed."
+  ]
+}

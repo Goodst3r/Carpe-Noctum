@@ -1,0 +1,167 @@
+{
+  "version": "1.8 Alpha build 2",
+  "date_utc": "2026-11-11",
+  "release_kind": "Private owner master archive",
+  "standalone_sha256": "4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758",
+  "pwa_sha256": "b30958b618f9e1aa34cc940ac0a1a27e97db921b52cf4a86ed3868e9c023abb8",
+  "worker_sha256": "fb383cf09e1f07a19498f333b8de153fa9a6e627ae7e8181813f281fdf1b0f88",
+  "pwa_release": "1bcb7a717b6430e94189",
+  "apk_sha256": "55660a8992ba7d498daaddb2db63f0664469823eecd080226a66d9cc697a6237",
+  "qa": {
+    "checks": 1066,
+    "suites": 57,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "command": "python3 qa/run-pwa.py",
+    "report": "Source/qa/pwa-test-results.json",
+    "source_mapping": "Build 2 DOM tests use frozen standalone in release mode; release integration asserts built modules exactly match source."
+  },
+  "browser": {
+    "checks": 322,
+    "all_passed": true,
+    "runtime_errors": 0,
+    "browser": "Chromium 156.0.8078.79",
+    "viewport_widths": [
+      360,
+      390,
+      768,
+      1280
+    ],
+    "real_indexeddb_and_original_bytes": true,
+    "offline_reload_new_tab_and_ten_guides": true,
+    "scope": "Rendered desktop Chromium at 360/390/768/1280px, touch/mobile emulation, real IndexedDB import/export, service-worker offline reload and new-tab reopening. No physical Android/iPhone, Safari/WebView or signed APK verification.",
+    "report": "Source/research/build2/browser/results.json"
+  },
+  "math": {
+    "grouped_checks": 54,
+    "included_in_qa_total": true,
+    "numeric_comparisons": 72001,
+    "unavailable_result_comparisons": 3634,
+    "synthetic_examples": 7,
+    "frequency_frames": 329,
+    "rf_numeric_comparisons": 49619,
+    "example_numeric_comparisons": 6096,
+    "power_numeric_comparisons": 16286,
+    "manufacturer_curve_cases": 2340,
+    "constructed_power_circuits": 102,
+    "max_power_points": 200,
+    "scope": "Synthetic analytical/property replay with independent expected values; not measured field backtesting or full branch coverage.",
+    "report": "Source/research/build2/MATH_BACKTEST.md"
+  },
+  "training": {
+    "examples": 7,
+    "feature_choices": 37,
+    "screens": 20,
+    "complete": "GS7K plus two GainMaker HGD GaN; Scientific Atlanta/GigaXtend/Technetix passives; 42/54 MHz",
+    "six_active": "Six serial Vecima/AOI actives after the source; 204/258 MHz",
+    "synthetic_original_attachments_in_complete": 6
+  },
+  "layout": {
+    "checks": 55,
+    "included_in_qa_total": true,
+    "passed": true,
+    "scope": "Rendered Chromium, keyboard/mobile viewport scrolling and print bounds; not physical phone."
+  },
+  "android_artifact": {
+    "real_compile": true,
+    "compiler_errors": 0,
+    "compiler_deprecation_warnings": 7,
+    "signed": true,
+    "original_certificate_verified": true,
+    "certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+    "package": "com.spencerwilliams.nightsweep.preview",
+    "version_code": 24,
+    "version": "1.8 Alpha build 2",
+    "apk_bytes": 283164,
+    "v2_v3_signatures": true,
+    "alignment": true,
+    "embedded_html_exact": true,
+    "final_integrated_release_checks": {
+      "checks": 6,
+      "all_passed": true,
+      "not_additive_to_qa_total": true
+    },
+    "report": "Android/APK/build-info.json"
+  },
+  "android_emulator": {
+    "environment": {
+      "kind": "Official Android35 x86_64 software emulator",
+      "os": "Android15",
+      "emulator_version": "37.2.13",
+      "webview_package": "com.android.webview",
+      "webview_version": "124.0.6367.219",
+      "hardware_acceleration": false,
+      "kvm_available": false,
+      "physical_phone": false
+    },
+    "boot": {
+      "passed": true,
+      "seconds": 439.37
+    },
+    "legacy_build22_install": {
+      "passed": true
+    },
+    "final_build24_compatible_update": {
+      "passed": true,
+      "command": "adb -s emulator-5556 install -r <final-signed-APK>",
+      "same_package_uid": true,
+      "generic_app_private_fixture_preserved": true,
+      "saved_job_retention_proven": false,
+      "record": "emulator/final-compatible-update.json"
+    },
+    "runtime": {
+      "legacy_build22_launch": "Failed: stock WebView renderer SIGTRAP; host terminated after unhandled renderer death",
+      "final_build24_launch": "Failed: same stock WebView renderer SIGTRAP; host terminated after unhandled renderer death",
+      "app_java_exception_established": false,
+      "app_javascript_exception_established": false,
+      "native_ui_smoke_passed": false,
+      "native_file_picker_save_share_print_verified": false,
+      "saved_job_or_original_evidence_retention_verified": false,
+      "isolation_or_security_settings_weakened": false,
+      "platform_control": "Stock Settings displayed but the guest also showed Quickstep ANR and repeated Bluetooth-service native crashes",
+      "scope_limit": "The software CPU emulation mode is unsupported/slow per official emulator documentation. These failures do not establish physical-phone behavior; no native-runtime pass is claimed."
+    },
+    "evidence": [
+      "emulator/legacy-exit-info.txt",
+      "emulator/legacy-fatal-context.txt",
+      "emulator/final-exit-info.txt",
+      "emulator/final-fatal-context.txt",
+      "emulator/settings-control.png",
+      "emulator/final-launch.png"
+    ],
+    "physical_device_tests": false
+  },
+  "documentation": {
+    "status": "PASS",
+    "functions_pdf_pages": 29,
+    "installation_pdf_pages": 7,
+    "html_links_and_pdf_bounds_checked": true,
+    "source_inputs_unchanged": true,
+    "report": "Source/research/build2/documentation-validation.json"
+  },
+  "dependency_audit": {
+    "tool": "npm audit --prefix qa/runtime --json",
+    "vulnerabilities": 0,
+    "report": "Source/research/build2/dependency-audit.json"
+  },
+  "private_signing": {
+    "included": true,
+    "owner_explicitly_requested": true,
+    "paths": [
+      "PRIVATE_SIGNING/nightsweep-release.p12",
+      "PRIVATE_SIGNING/keystore-password.txt"
+    ],
+    "source_and_public_web_exclude_signing_files": true,
+    "credentials_not_printed_or_sent_to_plugins": true
+  },
+  "physical_device_tests": false,
+  "hosted_site_updated": false,
+  "repository_pushed": false,
+  "limits": [
+    "Native UI and picker/save/share/print are unverified: old and new builds hit the same stock WebView renderer crash in the software emulator.",
+    "Compatible emulator install preserved a generic fixture, not an actual saved job or original-evidence library.",
+    "No physical Android/iPhone, Safari/Home Screen, device storage eviction, live plant or exhaustive internal branch coverage.",
+    "Exact GaN/Quantum18 LE/BA/EN9000-RFAM-RPD/DSIM-A commissioning references remain gaps; training remains synthetic."
+  ],
+  "independent_review": "Source/research/build2/INDEPENDENT_REVIEW.md"
+}

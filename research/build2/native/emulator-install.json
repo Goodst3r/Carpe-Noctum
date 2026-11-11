@@ -1,0 +1,56 @@
+{
+  "source": "Official Google SDK repository, stable channel",
+  "artifacts": [
+    {
+      "package": "platform-tools",
+      "revision": {
+        "major": "37",
+        "minor": "0",
+        "micro": "1"
+      },
+      "host": "linux",
+      "url": "https://dl.google.com/android/repository/platform-tools_r37.0.1-linux.zip",
+      "size": 9054187,
+      "sha1": "477254aa5f903c15cf51001717bdf347fb6b53e0",
+      "channel": "channel-0",
+      "download": "android-build/toolchain/runtime/platform-tools_r37.0.1-linux.zip",
+      "verified_size": 9054187,
+      "verified_sha1": "477254aa5f903c15cf51001717bdf347fb6b53e0",
+      "sha256": "d230f13842f60f782a8645f9c813f8f845bf36089ea7289f28c48f17979313f1"
+    },
+    {
+      "package": "emulator",
+      "revision": {
+        "major": "37",
+        "minor": "2",
+        "micro": "13"
+      },
+      "host": "linux",
+      "url": "https://dl.google.com/android/repository/emulator-linux_x64-16740729.zip",
+      "size": 349658551,
+      "sha1": "f41f9e31eb5ca64926603c03265c50bbc0ff4172",
+      "channel": "channel-0",
+      "download": "android-build/toolchain/runtime/emulator-linux_x64-16740729.zip",
+      "verified_size": 349658551,
+      "verified_sha1": "f41f9e31eb5ca64926603c03265c50bbc0ff4172",
+      "sha256": "cbc7c3cfb83220b8a0f9c513fdab557712e74d339ec19ddffa43f23350ae9bdd"
+    },
+    {
+      "package": "system-images;android-35;default;x86_64",
+      "revision": {
+        "major": "2"
+      },
+      "host": null,
+      "url": "https://dl.google.com/android/repository/sys-img/android/x86_64-35_r02.zip",
+      "size": 782404023,
+      "sha1": "2d857d170c0d1b827149565da34b3383e5306f7f",
+      "channel": "channel-0",
+      "download": "android-build/toolchain/runtime/x86_64-35_r02.zip",
+      "verified_size": 782404023,
+      "verified_sha1": "2d857d170c0d1b827149565da34b3383e5306f7f",
+      "sha256": "6dd7de33e63ef105cf2fabea6badda1dbe7665c96d8908e5f6e1407e63ff4556"
+    }
+  ],
+  "host_kvm_available": false,
+  "physical_device": false
+}

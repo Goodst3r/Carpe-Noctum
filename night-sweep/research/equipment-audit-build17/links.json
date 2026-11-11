@@ -1,0 +1,624 @@
+[
+  {
+    "url": "http://www.arris.com/globalassets/resources/data-sheets/regal-rmt2000multitaps_ds.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.vistancenetworks.com/globalassets/resources/data-sheets/regal-rmt2000multitaps_ds.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn23view0",
+    "observation": "1. [Home](https://www.vistancenetworks.com/)\n2. For All Sites\n\n# 404 - Page not found\n\n## It appears the page you are looking for is no longer available!\n\nEnter a keyword(s) in the; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 404,
+    "scrapeId": "01a1c6b0-e537-75ab-8657-30e4f8a73229",
+    "replacement": {
+      "url": "https://dockets.alexandriava.gov/fy11/121410rm/di10c.pdf",
+      "kind": "third-party archive",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Government-hosted filing reproduces Regal RMT2000 1 GHz Multi-Taps manufacturer datasheet. Historical archive, not current manufacturer endpoint."
+    }
+  },
+  {
+    "url": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+    "status": "verified",
+    "finalUrl": "http://www.mymyia.com/manuals/SA/SAGM_LE.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn23view1",
+    "observation": "Data Sheet - GainMaker Line Extender 870 MHz with 40/52 MHz Split; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e509-7658-a9a7-f12fecd794df",
+    "numPages": 5
+  },
+  {
+    "url": "https://antronix.com/milenium-1-2-ghz-series/MGLSH-CMGDCH-CMGPIH-C",
+    "status": "redirected",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/08/MGLSH-CMGDCH-CMGPIH-C.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view2",
+    "observation": "## Features\n\n## and Benefits\n\n# MGPIH-C-G2/MGLSH-C-G2/MGDCH-C-G2 Power Inserter/Line Splitter/Directional Coupler Milenium 1.2 GHz Continuous RF and AC Line Passives\n\nAntronix offe; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4fd-7619-88de-90eff1f7c338",
+    "numPages": 3,
+    "replacement": {
+      "url": "https://antronix.com/wp-content/uploads/2026/08/MGLSH-CMGDCH-CMGPIH-C.pdf",
+      "kind": "manufacturer PDF",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Resolved to matching technical PDF."
+    }
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/07/MHLS_MHDC-MHPI_Line_Passives.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/07/MHLS_MHDC-MHPI_Line_Passives.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view3",
+    "observation": "## Features\n\n## and Benefits\n\n# Power Inserter/Line Splitter/Directional Coupler\n\n# Milenium NXT Series 2.0 GHz Line Passives\n\n# MHPI-2000F/MHLS-xF/MHDC-21xxF\n\n**Antronix offers a ; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4ce-706d-9ed2-ee06e4261de4",
+    "numPages": 4
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/07/MHT2000_Taps.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/07/MHT2000_Taps.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view4",
+    "observation": "## Features and Benefits\n\n# MHT2000 2.0 GHz Series Milenium NXT Full Spectrum Multi-taps\n\nThe Antronix MHT2000 series 2.0 GHz multi-taps leads the CATV industry in \nperformance, re; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e522-701d-9b8c-005d8ac0fe9b",
+    "numPages": 9
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/08/CMC5000_Splitters.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/08/CMC5000_Splitters.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view5",
+    "observation": "## Features\n\nReliability, quality and performance define the Antronix extended \nbandwidth 1.8 GHz digital horizontal splitters. The CMC5000 series digital \nsplitters provide the da; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4ef-72a8-805d-ea055f52033c",
+    "numPages": 3
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/09/MGDCH-FEC_Directional_Coupler.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/09/MGDCH-FEC_Directional_Coupler.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view6",
+    "observation": "## Features and\n\n# MGDCH-2116FEC-G2 Milenium 1.2 GHz Directional Coupler\n\nAntronix’s 1.2 GHz 16 dB directional couplers come equipped with a plug-in \nEQ option for flexibility to h; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4ee-776b-8762-60ea8a7f4293",
+    "numPages": 2
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/09/MGLS_MGDC_MGPI_Line_Passives.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/09/MGLS_MGDC_MGPI_Line_Passives.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn23view7",
+    "observation": "## Features\n\n## and Benefits\n\n# 1.2 GHz Milenium Line Passives\n\n# Line Splitter/Directional Coupler/Power Inserter\n\n# MGLSH-G2/MGDCH-G2/MGPIH-G2\n\n**Antronix offers a complete main ; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4ba-7792-beac-ced5d5f9a1c1",
+    "numPages": 2
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/09/MGT2000SEP-G8_Tap_Faceplates.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/09/MGT2000SEP-G8_Tap_Faceplates.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn25view0",
+    "observation": "## Features\n\n**The Milenium MGT2000-SEP-G8 series 1.8 GHz upgrade tap \nfaceplates are compatible with legacy Antronix Milenium \nhousings*. Simply swap out a legacy tap faceplate wi; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e574-774c-bf00-5bae36b277ad",
+    "numPages": 9
+  },
+  {
+    "url": "https://antronix.com/wp-content/uploads/2026/09/MGT2000_Taps.pdf",
+    "status": "verified",
+    "finalUrl": "https://antronix.com/wp-content/uploads/2026/09/MGT2000_Taps.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn25view1",
+    "observation": "## Features and Benefits\n\n# MGT2000-SE-G2 1.2 GHz Milenium Series Multi-tap\n\nThe Antronix Milenium MGT2000-SE-G2 series 1.2 GHz multi-taps lead the CATV \nindustry in performance an; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-9d5d-7148-9de0-50630baa2fba",
+    "numPages": 6
+  },
+  {
+    "url": "https://ao-inc.com/assets/resources-element-files/English/QB18-HGD-SA-Datasheet.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://ao-inc.com/assets/resources-element-files/English/QB18-HGD-SA-Datasheet.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn25view2",
+    "observation": "Internal Error ()\n【turn25view2】 [wordlim: 200] Source: open({\"ref_id\":\"https://ao-inc.com/assets/resources-element-files/English/QB18-HGD-SA-Datasheet.pdf\",\"lineno\":null}); \nFailed to fetch https://ao-inc.com/assets/resources-element-files/English/QB18-HGD-SA-Datasheet.pdf: (404) Not Found"
+  },
+  {
+    "url": "https://ao-inc.com/assets/resources-element-files/English/QB18-LE-Datasheet.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://ao-inc.com/assets/resources-element-files/English/QB18-LE-Datasheet.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn25view3",
+    "observation": "Internal Error ()\n【turn25view3】 [wordlim: 200] Source: open({\"ref_id\":\"https://ao-inc.com/assets/resources-element-files/English/QB18-LE-Datasheet.pdf\",\"lineno\":null}); \nFailed to fetch https://ao-inc.com/assets/resources-element-files/English/QB18-LE-Datasheet.pdf: (404) Not Found"
+  },
+  {
+    "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+    "status": "verified",
+    "finalUrl": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn25view4",
+    "observation": "(https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf)\n【turn25view4】 [wordlim: 200] Crawled: yesterday; Content type: application/pdf; Number of pages: 3; Source: open({\"ref_id\":\"https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf\",\"lineno\":null}); Total lines: 139\nL"
+  },
+  {
+    "url": "https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgt-1-25ghz-taps/",
+    "status": "verified",
+    "finalUrl": "https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgt-1-25ghz-taps/",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer page",
+    "reference": "turn25view5",
+    "observation": "GigaXtend SGT 1.2GHz Taps - ATX Networks (https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgt-1-25ghz-taps/)\n【turn25view5】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://atx.com/products/taps-passives/gigaxtend-sg-series-1-2ghz-taps-passives/gigaxtend-sgt-1-25ghz-taps/\",\"lineno\":null}); Total lines: 475\n"
+  },
+  {
+    "url": "https://atx.com/products/taps-passives/gigaxtend-xs-series-2ghz-taps-passives/gigaxtend-2ghz-hardline-passives/",
+    "status": "verified",
+    "finalUrl": "https://atx.com/products/taps-passives/gigaxtend-xs-series-2ghz-taps-passives/gigaxtend-2ghz-hardline-passives/",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer page",
+    "reference": "turn25view6",
+    "observation": "GigaXtend 2GHz Hardline Passives - ATX Networks (https://atx.com/products/taps-passives/gigaxtend-xs-series-2ghz-taps-passives/gigaxtend-2ghz-hardline-passives/)\n【turn25view6】 [wordlim: 200] Crawled: 2 weeks ago; Content type: text/html; Source: open({\"ref_id\":\"https://atx.com/products/taps-passives/gigaxtend-xs-series-2ghz-taps-passives/gigaxtend-2ghz-hardline-passives/\",\"lineno\":null}); Total lines: 443\n"
+  },
+  {
+    "url": "https://atx.com/wp-content/uploads/MD-Notice-Low-Value-Flat-Taps_032024-FINAL.pdf",
+    "status": "verified",
+    "finalUrl": "https://atx.com/wp-content/uploads/MD-Notice-Low-Value-Flat-Taps_032024-FINAL.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn25view7",
+    "observation": "(https://atx.com/wp-content/uploads/MD-Notice-Low-Value-Flat-Taps_032024-FINAL.pdf)\n【turn25view7】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 5; Source: open({\"ref_id\":\"https://atx.com/wp-content/uploads/MD-Notice-Low-Value-Flat-Taps_032024-FINAL.pdf\",\"lineno\":null}); Total lines: 151\nL"
+  },
+  {
+    "url": "https://docs.technetix.com/datasheets/19015183_XFORWZ-4-14_DS_AE.pdf",
+    "status": "verified",
+    "finalUrl": "https://docs.technetix.com/datasheets/19015183_XFORWZ-4-14_DS_AE.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view0",
+    "observation": "(https://docs.technetix.com/datasheets/19015183_XFORWZ-4-14_DS_AE.pdf)\n【turn30view0】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 10; Source: open({\"ref_id\":\"https://docs.technetix.com/datasheets/19015183_XFORWZ-4-14_DS_AE.pdf\",\"lineno\":null}); Total lines: 450\n"
+  },
+  {
+    "url": "https://docs.technetix.com/datasheets/19015208_XFORNZ-4-14_DS_AE.pdf",
+    "status": "verified",
+    "finalUrl": "https://docs.technetix.com/datasheets/19015208_XFORNZ-4-14_DS_AE.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view1",
+    "observation": "(https://docs.technetix.com/datasheets/19015208_XFORNZ-4-14_DS_AE.pdf)\n【turn30view1】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 9; Source: open({\"ref_id\":\"https://docs.technetix.com/datasheets/19015208_XFORNZ-4-14_DS_AE.pdf\",\"lineno\":null}); Total lines: 375\nL"
+  },
+  {
+    "url": "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?docTitle=Technical+Specs&ext=pdf&id=%7BF4517249-4256-410C-9C6F-4E8D9B36FA33%7D",
+    "status": "verified",
+    "finalUrl": "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?docTitle=Technical+Specs&ext=pdf&id=%7BF4517249-4256-410C-9C6F-4E8D9B36FA33%7D",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn30view2",
+    "observation": "(https://documents.dps.ny.gov/search/Home/ViewDoc/Find?docTitle=Technical+Specs&ext=pdf&id=%7BF4517249-4256-410C-9C6F-4E8D9B36FA33%7D)\n【turn30view2】 [wordlim: 200] Crawled: last month; Content type: application/pdf; Number of pages: 170; Source: open({\"ref_id\":\"https://documents.dps.ny.gov/search/Home/ViewDoc/Find?docTitle=Technical+Specs&ext=pdf&id=%7BF4517249-4256-410C-9C6F-4E8D9B36FA33%7D\",\"lineno\":null}); Total lines: 5551\nL"
+  },
+  {
+    "url": "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?ext=pdf&id=%7BBE7E1CDA-DDFC-497E-8AA3-0E5E8A6D3B6A%7D",
+    "status": "blocked",
+    "finalUrl": "https://documents.dps.ny.gov/search/Home/ViewDoc/Find?ext=pdf&id=%7BBE7E1CDA-DDFC-497E-8AA3-0E5E8A6D3B6A%7D",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn30view3",
+    "observation": "Internal Error ()\n【turn30view3】 [wordlim: 200] Source: open({\"ref_id\":\"https://documents.dps.ny.gov/search/Home/ViewDoc/Find?ext=pdf&id=%7BBE7E1CDA-DDFC-497E-8AA3-0E5E8A6D3B6A%7D\",\"lineno\":null}); \nFailed to fetch https://documents.dps.ny.gov/search/Home/ViewDoc/Find?ext=pdf&id=%7BBE7E1CDA-DDFC-497E-8AA3-0E5E8A6D3B6A%7D: (400) Content length is too large: 15196348"
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2023/12/LH100_1.2GHz_Series_V1b_DS_EN.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2023/12/LH100_1.2GHz_Series_V1b_DS_EN.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view4",
+    "observation": "(https://emea.technetix.com/wp-content/uploads/sites/2/2023/12/LH100_1.2GHz_Series_V1b_DS_EN.pdf)\n【turn30view4】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 3; Source: open({\"ref_id\":\"https://emea.technetix.com/wp-content/uploads/sites/2/2023/12/LH100_1.2GHz_Series_V1b_DS_EN.pdf\",\"lineno\":null}); Total lines: 134\nL"
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2024/07/19200547_LH100-1.8G_series_V3_DS_EN.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2024/07/19200547_LH100-1.8G_series_V3_DS_EN.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view5",
+    "observation": "(https://emea.technetix.com/wp-content/uploads/sites/2/2024/07/19200547_LH100-1.8G_series_V3_DS_EN.pdf)\n【turn30view5】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 3; Source: open({\"ref_id\":\"https://emea.technetix.com/wp-content/uploads/sites/2/2024/07/19200547_LH100-1.8G_series_V3_DS_EN.pdf\",\"lineno\":null}); Total lines: 128\nL"
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2025/05/19013833_XGS1800-33_DS_EN-3.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2025/05/19013833_XGS1800-33_DS_EN-3.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view6",
+    "observation": "(https://emea.technetix.com/wp-content/uploads/sites/2/2025/05/19013833_XGS1800-33_DS_EN-3.pdf)\n【turn30view6】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 6; Source: open({\"ref_id\":\"https://emea.technetix.com/wp-content/uploads/sites/2/2025/05/19013833_XGS1800-33_DS_EN-3.pdf\",\"lineno\":null}); Total lines: 183\nL"
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014593_OTTZ-2-xx_V3_DS_EN.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014593_OTTZ-2-xx_V3_DS_EN.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn30view7",
+    "observation": "**Outdoor multitaps**\n\n## 1.8 GHz 2-way traditional outdoor multitaps\n\n### ■ Frequency range 5-1800 MHz\n\n**■ Housing including RF/AC bypass switch** \n**3.0 GHz ready**\n\n### ■ Tradi; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e52e-74be-b67d-e8c2af96178b",
+    "numPages": 4
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014602_OTTZ-4-xx_V3_DS_EN.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014602_OTTZ-4-xx_V3_DS_EN.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view0",
+    "observation": "(https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014602_OTTZ-4-xx_V3_DS_EN.pdf)\n【turn31view0】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 4; Source: open({\"ref_id\":\"https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014602_OTTZ-4-xx_V3_DS_EN.pdf\",\"lineno\":null}); Total lines: 123\n"
+  },
+  {
+    "url": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014610_OTTZ-8-xx_V3_DS_EN.pdf",
+    "status": "verified",
+    "finalUrl": "https://emea.technetix.com/wp-content/uploads/sites/2/2026/04/19014610_OTTZ-8-xx_V3_DS_EN.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view1",
+    "observation": "## Outdoor multitaps\n\ntechnetix\n\n## 1.8 GHz 8-way traditional outdoor multitaps\n\n### ■ Frequency range 5-1800 MHz\n\n**■ Housing including RF/AC bypass switch** \n**3.0 GHz ready**\n\n#; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e4f6-710e-85ad-a9b5adadf99b",
+    "numPages": 4
+  },
+  {
+    "url": "https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf",
+    "status": "verified",
+    "finalUrl": "https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn31view2",
+    "observation": "Broadband Communications Division (https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf)\n【turn31view2】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 108; Source: open({\"ref_id\":\"https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf\",\"lineno\":null}); Total lines: 3949\n"
+  },
+  {
+    "url": "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+    "status": "verified",
+    "finalUrl": "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view3",
+    "observation": "VEC-198 - Product Brief_Entra EN9000_v3_1May-KM (https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf)\n【turn31view3】 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 2; Source: open({\"ref_id\":\"https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf\",\"lineno\":null}); Total lines: 104\n"
+  },
+  {
+    "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view4",
+    "observation": "(https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf)\n【turn31view4】 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 5; Source: open({\"ref_id\":\"https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf\",\"lineno\":null}); Total lines: 282\nL"
+  },
+  {
+    "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view5",
+    "observation": "(https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf)\n【turn31view5】 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 5; Source: open({\"ref_id\":\"https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf\",\"lineno\":null}); Total lines: 324\nL"
+  },
+  {
+    "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view6",
+    "observation": "(https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf)\n【turn31view6】 [wordlim: 200] Crawled: last month; Content type: application/pdf; Number of pages: 5; Source: open({\"ref_id\":\"https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d3631.pdf\",\"lineno\":null}); Total lines: 322\nL"
+  },
+  {
+    "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn31view7",
+    "observation": "(https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf)\n【turn31view7】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 20; Source: open({\"ref_id\":\"https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf\",\"lineno\":null}); Total lines: 1043\nL"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731154.pdf",
+    "status": "redirected",
+    "finalUrl": "https://www.cisco.com/site/us/en/index.html",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer retirement/homepage (wrong target)",
+    "reference": "turn54view0",
+    "observation": "Initial web open served 11-month cached 731154 GaN85/102 PDF; fresh follow-up redirected to Cisco homepage (turn54view0). Not a working technical document link."
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.pdf",
+    "status": "redirected",
+    "finalUrl": "https://www.cisco.com/c/en/us/obsolete/video/cisco-gainmaker-amplifiers.html",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer retirement page (wrong target)",
+    "reference": "turn33view1",
+    "observation": "Cisco GainMaker Amplifiers - Retirement Notification - Cisco (https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.pdf ; rewritten summary of https://www.cisco.com/c/en/us/obsolete/video/cisco-gainmaker-amplifiers.html)\n【turn33view1】 [wordlim: 200] Crawled: 10 months ago; Content type: text/html; Source: open({\"ref_id\":\"https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.pdf\",\"lineno\":null}); Redirected to URL: https://www.cisco.com/c/en/us/obsolete/video/cisco-gainmaker-amplifiers.html; Total lines: 38\n"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer page",
+    "reference": "turn33view2",
+    "observation": "Cisco GS7000 1218-MHz 4-Way Segmentable Node Data Sheet - Cisco (https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html)\n【turn33view2】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html\",\"lineno\":null}); Total lines: 578\n"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer page",
+    "reference": "turn33view3",
+    "observation": "Cisco GS7000 1218-MHz 4-Port Fiber Deep Node Data Sheet - Cisco (https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html)\n【turn33view3】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html\",\"lineno\":null}); Total lines: 453\n"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer page",
+    "reference": "turn33view4",
+    "observation": "Cisco GS7000 1218MHz Fiber Deep Intelligent Node Data Sheet - Cisco (https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html)\n【turn33view4】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html\",\"lineno\":null}); Total lines: 245\n"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/products/collateral/video/surge-gap-passives/datasheet-c78-732059.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.cisco.com/c/en/us/products/collateral/video/surge-gap-passives/datasheet-c78-732059.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn33view5",
+    "observation": "Cisco 1.25 GHz Surge-Gap Passives Data Sheet (https://www.cisco.com/c/en/us/products/collateral/video/surge-gap-passives/datasheet-c78-732059.pdf)\n【turn33view5】 [wordlim: 200] Crawled: 11 months ago; Content type: application/pdf; Number of pages: 5; Source: open({\"ref_id\":\"https://www.cisco.com/c/en/us/products/collateral/video/surge-gap-passives/datasheet-c78-732059.pdf\",\"lineno\":null}); Total lines: 173\n"
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn33view6",
+    "observation": "Internal Error ()\n【turn33view6】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114325-p360-530091803-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5301803/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Related P3 500 JCA SM product page (SKU 5301803), not original 530091803 PDF. Product family fallback only; preserve original numeric source provenance separately."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn33view7",
+    "observation": "Internal Error ()\n【turn33view7】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114365-p360-5304002-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5304002/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view0",
+    "observation": "Internal Error ()\n【turn35view0】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114385-p360-5308003-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5308003/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view1",
+    "observation": "Internal Error ()\n【turn35view1】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114399-p360-5309003-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5309003/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view2",
+    "observation": "Internal Error ()\n【turn35view2】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114513-p360-5501302-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5501302/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view3",
+    "observation": "Internal Error ()\n【turn35view3】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/114515-p360-5506302-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5506302/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn35view4",
+    "observation": "5522802    |    QR® 715 JCAT G (https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf)\n【turn35view4】 [wordlim: 200] Crawled: 1.2 years ago; Content type: application/pdf; Number of pages: 4; Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/114556-p360-5522802-external.pdf\",\"lineno\":null}); Total lines: 77\n"
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view5",
+    "observation": "Internal Error ()\n【turn35view5】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/118114-p360-5727603-external.pdf: (404) Not Found",
+    "replacement": {
+      "url": "https://www.commscope.com/product-type/cables/coaxial-cables/hardline-cables/item5727603/",
+      "kind": "manufacturer product page",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Matching product page is accessible. Use as product reference; availability alone does not reverify every inherited numeric table cell."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+    "status": "unavailable",
+    "finalUrl": "https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "unknown",
+    "reference": "turn35view6",
+    "observation": "Internal Error ()\n【turn35view6】 [wordlim: 200] Source: open({\"ref_id\":\"https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf\",\"lineno\":null}); \nFailed to fetch https://www.commscope.com/globalassets/digizuite/1695-cable-technician-pocket-guide.pdf: (404) Not Found"
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/62133-regal-rl12.pdf",
+    "status": "redirected",
+    "finalUrl": "https://webresources.commscope.com/download/assets/Regal+RL12+Series+1.2+GHz+System+Passives+Data+Sheet/d4d7ffbc3bd711f0b092ea1fa90d937b",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn35view7",
+    "observation": "Regal RL12 Series 1.2 GHz System Passives Data Sheet; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e537-74cc-98f1-c826a62239bf",
+    "numPages": 4,
+    "replacement": {
+      "url": "https://webresources.commscope.com/download/assets/Regal+RL12+Series+1.2+GHz+System+Passives+Data+Sheet/d4d7ffbc3bd711f0b092ea1fa90d937b",
+      "kind": "manufacturer PDF",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Resolved to matching technical PDF."
+    }
+  },
+  {
+    "url": "https://www.commscope.com/globalassets/digizuite/920217-regal-rmt2120-ds.pdf",
+    "status": "redirected",
+    "finalUrl": "https://webresources.commscope.com/download/assets/Regal+Series+1.2+GHz+Full-Feature+Equalizable+Taps+Data+Sheet/acd7266c3bd911f0b87efaa31792deb3",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn36view0",
+    "observation": "Regal Series 1.2 GHz Full-Feature Equalizable Taps Data Sheet; verified via fresh Firecrawl maxAge=0",
+    "httpStatus": 200,
+    "scrapeId": "01a1c6b0-e52a-7765-939c-3d6994329ebf",
+    "numPages": 8,
+    "replacement": {
+      "url": "https://webresources.commscope.com/download/assets/Regal+Series+1.2+GHz+Full-Feature+Equalizable+Taps+Data+Sheet/acd7266c3bd911f0b87efaa31792deb3",
+      "kind": "manufacturer PDF",
+      "status": "verified",
+      "checkedAt": "2026-11-10",
+      "note": "Resolved to matching technical PDF."
+    }
+  },
+  {
+    "url": "https://www.covertel.com.au/wp-content/uploads/2023/04/ATX_GigaXtend_2GHz_Taps_DataSheet.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.covertel.com.au/wp-content/uploads/2023/04/ATX_GigaXtend_2GHz_Taps_DataSheet.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn36view1",
+    "observation": "(https://www.covertel.com.au/wp-content/uploads/2023/04/ATX_GigaXtend_2GHz_Taps_DataSheet.pdf)\n【turn36view1】 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 10; Source: open({\"ref_id\":\"https://www.covertel.com.au/wp-content/uploads/2023/04/ATX_GigaXtend_2GHz_Taps_DataSheet.pdf\",\"lineno\":null}); Total lines: 418\nL"
+  },
+  {
+    "url": "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-passives_spec-sheet.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-passives_spec-sheet.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn36view2",
+    "observation": "1.8GHz Line Passives Spec Sheet (https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-passives_spec-sheet.pdf)\n【turn36view2】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 3; Source: open({\"ref_id\":\"https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-passives_spec-sheet.pdf\",\"lineno\":null}); Total lines: 162\n"
+  },
+  {
+    "url": "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-taps_spec-sheet.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-taps_spec-sheet.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "manufacturer PDF",
+    "reference": "turn36view3",
+    "observation": "1.8GHz Line Passives Spec Sheet (https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-taps_spec-sheet.pdf)\n【turn36view3】 [wordlim: 200] Crawled: 4 days ago; Content type: application/pdf; Number of pages: 8; Source: open({\"ref_id\":\"https://www.ppc-online.com/hubfs/DOWNLOADABLE%20DOCUMENTS/Product_Spec_Sheets/1.8GHz-line-taps_spec-sheet.pdf\",\"lineno\":null}); Total lines: 419\n"
+  },
+  {
+    "url": "https://www.scribd.com/document/157106375/Hoja-de-Datos-Pasivos",
+    "status": "verified",
+    "finalUrl": "https://www.scribd.com/document/157106375/Hoja-de-Datos-Pasivos",
+    "checkedAt": "2026-11-10",
+    "kind": "gated third-party archive",
+    "reference": "turn36view4",
+    "observation": "Multimedia Passives for Advanced Networks | PDF | Electricity | Telecommunications (https://www.scribd.com/document/157106375/Hoja-de-Datos-Pasivos)\n【turn36view4】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({\"ref_id\":\"https://www.scribd.com/document/157106375/Hoja-de-Datos-Pasivos\",\"lineno\":null}); Total lines: 1000\n"
+  },
+  {
+    "url": "https://www.scribd.com/document/271691353/BroadbandTrunkCable-pdf",
+    "status": "verified",
+    "finalUrl": "https://www.scribd.com/document/271691353/BroadbandTrunkCable-pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "gated third-party archive",
+    "reference": "turn36view5",
+    "observation": "Commscope Trunk & Distribution Cable Products | PDF | Coaxial Cable | Cable (https://www.scribd.com/document/271691353/BroadbandTrunkCable-pdf)\n【turn36view5】 [wordlim: 200] Crawled: 2 weeks ago; Content type: text/html; Source: open({\"ref_id\":\"https://www.scribd.com/document/271691353/BroadbandTrunkCable-pdf\",\"lineno\":null}); Total lines: 9894\n"
+  },
+  {
+    "url": "https://www.tulsat.com/product-p/gainmaker1.2ghz.htm",
+    "status": "verified",
+    "finalUrl": "https://www.tulsat.com/product-p/gainmaker1.2ghz.htm",
+    "checkedAt": "2026-11-10",
+    "kind": "reseller product page",
+    "reference": "turn36view6",
+    "observation": "Cisco 1.2GHz GainMaker Line Extender (https://www.tulsat.com/product-p/gainmaker1.2ghz.htm)\n【turn36view6】 [wordlim: 200] Crawled: 2 months ago; Content type: text/html; Source: open({\"ref_id\":\"https://www.tulsat.com/product-p/gainmaker1.2ghz.htm\",\"lineno\":null}); Total lines: 309\n"
+  },
+  {
+    "url": "https://www.tvcinc.com/shared-downloads/CommScope%20P3%20565-2.pdf",
+    "status": "verified",
+    "finalUrl": "https://www.tvcinc.com/shared-downloads/CommScope%20P3%20565-2.pdf",
+    "checkedAt": "2026-11-10",
+    "kind": "third-party archive",
+    "reference": "turn36view7",
+    "observation": "CommScope P3 565 (https://www.tvcinc.com/shared-downloads/CommScope%20P3%20565-2.pdf)\n【turn36view7】 [wordlim: 200] Crawled: 3 weeks ago; Content type: application/pdf; Number of pages: 4; Source: open({\"ref_id\":\"https://www.tvcinc.com/shared-downloads/CommScope%20P3%20565-2.pdf\",\"lineno\":null}); Total lines: 238\n"
+  }
+]

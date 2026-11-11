@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — Training coverage: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — Training coverage — Technician guide</title>
+<style>
+:root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
+</style></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#loadable-exercises">Loadable exercises</a><a href="#every-task-has-an-example">Every task has an example</a><a href="#additional-tools-within-those-tasks">Additional tools within those tasks</a><a href="#verification-and-boundaries">Verification and boundaries</a><a href="#portable-example-filenames">Portable example filenames</a><a href="#build-2-checks-and-delivery">Build 2 checks and delivery</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-training-coverage">NightSweep 1.8 Alpha build 2 — Training coverage</h1>
+<p>Open <strong>Home → Practice library</strong>. Choose an exercise to open its seeded job, or select a feature to load the matching example and reveal its guide step. The library is bundled for offline use after the installed browser app reports <strong>Ready for offline use</strong>. The standalone app includes the same training.</p>
+<p>All example values and findings remain synthetic. Opening/resetting an example first preserves the current working job locally; export an external project backup for important work. Reviewed checkboxes describe learning progress and do not establish measurements, physical setup or acceptance.</p>
+<h2 id="loadable-exercises">Loadable exercises</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Exercise</th>
+<th>Purpose</th>
+<th>Supplied evidence</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Complete Cedar Lane</td>
+<td>GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 21 steps</td>
+<td>Five synthetic interchange CSVs and one original-only SVG diagram</td>
+</tr>
+<tr>
+<td>GainMaker OEM AGC</td>
+<td>Separate 42/54 OEM detector/pilot and exact-manual path; eight steps</td>
+<td>None</td>
+</tr>
+<tr>
+<td>GainMaker / DSIM</td>
+<td>Separate 42/54 ACI DSIM lookup/manual/record path; nine steps</td>
+<td>None</td>
+</tr>
+<tr>
+<td>GainMaker manual / thermal</td>
+<td>Separate 42/54 manual/thermal installed-control path; seven steps</td>
+<td>None</td>
+</tr>
+<tr>
+<td>GS7K node</td>
+<td>Conventional standard GS7000 identity and manual setup path; ten steps</td>
+<td>None; launch inputs remain unverified</td>
+</tr>
+<tr>
+<td>Six-active AOI cascade</td>
+<td>Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 13 steps</td>
+<td>Synthetic entered teaching data</td>
+</tr>
+<tr>
+<td>Custom curves</td>
+<td>Manual launch and cable/passive table inputs, interpolation and missing ranges; eight steps</td>
+<td>Synthetic entered teaching tables</td>
+</tr>
+</tbody></table></div>
+<p>The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.</p>
+<h2 id="every-task-has-an-example">Every task has an example</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Application feature</th>
+<th>Loadable exercise</th>
+<th>What to inspect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Home and task navigation</td>
+<td>Complete</td>
+<td>Guide, current-job summary, theme and Help</td>
+</tr>
+<tr>
+<td>Route → Setup</td>
+<td>Complete, GS7K, custom curves</td>
+<td>Source model/port, launch markers/levels, remaining TP compensation, temperature</td>
+</tr>
+<tr>
+<td>Route → Cable route</td>
+<td>Complete, six-active</td>
+<td>Feed parents, cable/slack, splitter branches, through/tap paths</td>
+</tr>
+<tr>
+<td>Route → Amp gain</td>
+<td>Complete and six-active</td>
+<td>Gain anchors/table, required gain, reserve and output limits</td>
+</tr>
+<tr>
+<td>Route → Equipment setup</td>
+<td>Complete, OEM AGC, DSIM, GS7K</td>
+<td>Exact source/active model, manual provenance, reviewed procedure steps</td>
+</tr>
+<tr>
+<td>Route → Equipment</td>
+<td>Complete</td>
+<td>Cable/passive/active/node/power references; published capability versus entered gain</td>
+</tr>
+<tr>
+<td>Test → Sweep setup</td>
+<td>Complete, six-active, OEM AGC, DSIM, GS7K</td>
+<td>Separate 204/258 and 42/54 workflows, instrument/reference checks and saved setup</td>
+</tr>
+<tr>
+<td>Test → TDR</td>
+<td>Complete, six-active</td>
+<td>Cable-side origin, lead correction, velocity factor and active-boundary rejection</td>
+</tr>
+<tr>
+<td>Test → Sweep</td>
+<td>Complete, six-active</td>
+<td>Absolute/normalized predictions and selected route outputs</td>
+</tr>
+<tr>
+<td>Test → Frequency</td>
+<td>Complete, custom curves</td>
+<td>Exact-frequency loss budget, table interpolation and unavailable ranges</td>
+</tr>
+<tr>
+<td>Test → Readings</td>
+<td>Complete, six-active</td>
+<td>Corrected measurement minus prediction, intentional mismatch and TP compensation</td>
+</tr>
+<tr>
+<td>Test → References</td>
+<td>Complete, OEM AGC, DSIM</td>
+<td>Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates</td>
+</tr>
+<tr>
+<td>Power → Load</td>
+<td>Complete</td>
+<td>Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom</td>
+</tr>
+<tr>
+<td>Power → What-if</td>
+<td>Complete</td>
+<td>Extra cable/load trial, keep/reset and changed shared current</td>
+</tr>
+<tr>
+<td>Job → Details</td>
+<td>Complete</td>
+<td>Work order, named save/open, duplicate and new blank job</td>
+</tr>
+<tr>
+<td>Job → ONX files</td>
+<td>Complete</td>
+<td>Sweep/Ingress/OneCheck CSV previews and preserved original bytes</td>
+</tr>
+<tr>
+<td>Job → Checklists</td>
+<td>Complete</td>
+<td>Inspection notes, maintenance tasks and dBµV/dBmV conversion</td>
+</tr>
+<tr>
+<td>Job → Records</td>
+<td>Complete, OEM AGC, DSIM</td>
+<td>Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms</td>
+</tr>
+<tr>
+<td>Job → Run sheet</td>
+<td>Complete</td>
+<td>Predictions, actual input context, warnings, as-built notes and synthetic export labels</td>
+</tr>
+<tr>
+<td>Help &amp; methods / build self-check</td>
+<td>Complete</td>
+<td>Calculation assumptions, limits and independent reference checks</td>
+</tr>
+</tbody></table></div>
+<h2 id="additional-tools-within-those-tasks">Additional tools within those tasks</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Example and location</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tap-face comparison, drop cable/splitter and map note</td>
+<td>Complete → Tap faces, drop and map note</td>
+</tr>
+<tr>
+<td>Detailed RF arithmetic</td>
+<td>Complete → Cable route/drop; custom curves → table exercises</td>
+</tr>
+<tr>
+<td>Gain from input/output test points</td>
+<td>Complete → GainMaker GaN gain; equal +20 dB addbacks produce 9 dB gain from 7.1/16.1 readings</td>
+</tr>
+<tr>
+<td>Custom inline loss and cable-only point</td>
+<td>Complete → branch; custom curves → custom path</td>
+</tr>
+<tr>
+<td>Custom launch, cable and passive tables</td>
+<td>Custom curves → matching guide steps</td>
+</tr>
+<tr>
+<td>Active gain table</td>
+<td>Six-active AOI → Gain-table example at A2</td>
+</tr>
+<tr>
+<td>Available-carrier square-root and linear targets</td>
+<td>OEM AGC or DSIM → Available carriers and launch targets</td>
+</tr>
+<tr>
+<td>OEM, manual/thermal and DSIM control paths</td>
+<td>OEM AGC, manual/thermal and DSIM → exact-manual steps, kept separate</td>
+</tr>
+<tr>
+<td>Historical DSIM code lookup</td>
+<td>DSIM → approved pilot code; channel 110 digital, 711 MHz, <code>@@?&lt;A</code>; lookup does not verify pilot lock</td>
+</tr>
+<tr>
+<td>Both sweep workflows</td>
+<td>Complete and focused GainMaker/GS7K → 42/54; separate six-active Vecima/AOI → 204/258</td>
+</tr>
+<tr>
+<td>Return injection budget</td>
+<td>Complete → Records: 40 + 20 + 1 = 61 dBmV; this is arithmetic, not an instrument setting</td>
+</tr>
+<tr>
+<td>Power watts and power factor, custom/current-curve loads</td>
+<td>Complete → Power circuit and What-if</td>
+</tr>
+<tr>
+<td>Sweep/Ingress before-and-after comparison and OneCheck</td>
+<td>Complete → Synthetic meter files</td>
+</tr>
+<tr>
+<td>Original-only unsupported attachment handling</td>
+<td>Complete → synthetic SVG diagram</td>
+</tr>
+<tr>
+<td>RF/frequency/power/run-sheet exports, print/share</td>
+<td>Complete → Run sheet and exports; complete matching task for individual CSV buttons</td>
+</tr>
+<tr>
+<td>Full project/evidence backup and recovery</td>
+<td>Complete → Backup and return to work; Files → Save project/Open project</td>
+</tr>
+<tr>
+<td>Named-job retention and reset</td>
+<td>Open a different exercise or reset the current one, then Job → Details</td>
+</tr>
+</tbody></table></div>
+<h2 id="verification-and-boundaries">Verification and boundaries</h2>
+<p>The QA suite checks topology, example numeric outputs, guide destinations, persistence and supported backup round trips. Current executed counts and browser evidence belong to the 1.8 validation record. Physical Android/iPhone behavior and installed-equipment procedures require separate testing. External manufacturer manuals need a connection; practice data cannot establish RF acceptance.</p>
+<h2 id="portable-example-filenames">Portable example filenames</h2>
+<p>The 1.8 example exports use these filenames. Open them with <strong>Files → Open project</strong> and confirm the training label.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Exercise</th>
+<th>JSON backup</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Complete</td>
+<td><code>NightSweep_1.8_Alpha_build_2_Training_Job.json</code></td>
+</tr>
+<tr>
+<td>Six active devices in series</td>
+<td><code>NightSweep_1.8_Alpha_build_2_Six_Active_Practice.json</code></td>
+</tr>
+<tr>
+<td>Custom curves and reverse TDR</td>
+<td><code>NightSweep_1.8_Alpha_build_2_Custom_Curves_Practice.json</code></td>
+</tr>
+<tr>
+<td>GainMaker OEM AGC</td>
+<td><code>NightSweep_1.8_Alpha_build_2_GainMaker_OEM_AGC_Practice.json</code></td>
+</tr>
+<tr>
+<td>GainMaker / DSIM</td>
+<td><code>NightSweep_1.8_Alpha_build_2_GainMaker_DSIM_Practice.json</code></td>
+</tr>
+<tr>
+<td>GainMaker manual / thermal</td>
+<td><code>NightSweep_1.8_Alpha_build_2_GainMaker_Manual_Thermal_Practice.json</code></td>
+</tr>
+<tr>
+<td>GS7K</td>
+<td><code>NightSweep_1.8_GS7K_Practice.json</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="build-2-checks-and-delivery">Build 2 checks and delivery</h2>
+<p>The seven examples and 37 feature mappings remain. Build 2 checks the complete point/branch structure, co-located TDR barriers, forward/reverse distance behavior, preserved originals, latest-state duplication, common project-import limits and same-refresh numerical consistency. The current source replay also probes all seven example states over frequency frames and checks unavailable results explicitly. Read final build 2 receipts for actual commands, counts and hashes.</p>
+<p>All seven JSONs are organized under <strong>Examples/</strong> in the one <strong>NightSweep 1.8 Alpha build 2.zip</strong> delivery. Android/Web and iOS/Web use the same frozen shared application. The separate Android Preview installer has its own build/signature receipts; no physical-device or plant acceptance is inferred from these checks.</p>
+</article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>

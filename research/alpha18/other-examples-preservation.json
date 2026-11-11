@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "scope": "Regenerated portable examples compared with actual pre-correction exports; current complete excluded because intentionally corrected.",
+  "examples": [
+    {
+      "example": "NightSweep_1.8_Custom_Curves_Practice.json",
+      "variant": "custom-curves",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    },
+    {
+      "example": "NightSweep_1.8_GainMaker_OEM_AGC_Practice.json",
+      "variant": "gainmaker-oem",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    },
+    {
+      "example": "NightSweep_1.8_GS7K_Practice.json",
+      "variant": "gs7k-node",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    },
+    {
+      "example": "NightSweep_1.8_Six_Active_Practice.json",
+      "variant": "aoi-six-active",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    },
+    {
+      "example": "NightSweep_1.8_GainMaker_DSIM_Practice.json",
+      "variant": "gainmaker-dsim",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    },
+    {
+      "example": "NightSweep_1.8_GainMaker_Manual_Thermal_Practice.json",
+      "variant": "gainmaker-manual",
+      "unchanged": [
+        "node",
+        "setup",
+        "rows",
+        "power",
+        "sweepSetup"
+      ]
+    }
+  ]
+}

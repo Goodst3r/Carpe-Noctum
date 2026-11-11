@@ -1,0 +1,21 @@
+{
+  "platform": "Cloud Chrome desktop",
+  "tested_candidate_release": "1920d7a236b43a6d6032",
+  "final_release": "432d998a9dffd87f392e",
+  "scope": "Same final training source. Subsequent final code change was IndexedDB abnormal-close recovery, covered by final automated regression.",
+  "observed": [
+    "synthetic named job persisted after reload",
+    "complete practice opens with 21 steps and six original files",
+    "complete Sweep setup visibly selected 204/258, Vecima EN9000/AOI and XPERTrak return",
+    "OEM practice opens with 8 steps",
+    "DSIM practice opens with 9 steps",
+    "GS7K practice opens with 10 steps and 42/54 guidance",
+    "References Open step reveals root and available-carrier controls",
+    "PWA install update reached Reload app; existing page retained and new tab opened updated training source"
+  ],
+  "not_executed": [
+    "Existing-tab reload confirmation was rejected by automatic approval review for potential unsaved state; a readable synthetic project export was verified and a new tab supplied a safer UI check.",
+    "Physical Android and iPhone Safari/Home Screen installation, cold-start, quota/eviction and native picker/share/print not tested"
+  ],
+  "proof": "NightSweep_Build22_Training_Verified.png"
+}

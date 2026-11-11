@@ -1,0 +1,57 @@
+{
+  "version": "2.0 Alpha build 2",
+  "version_code": 26,
+  "launcher_label": "Carpe Noctum 2.0 Preview build 2",
+  "package": "com.spencerwilliams.nightsweep.preview",
+  "status": "Carpe Noctum 2.0 Alpha build 2 Preview APK compiled and signed with the original compatible-update certificate; package, v2/v3 signatures, alignment and embedded HTML verified with official tools",
+  "standalone_frozen": true,
+  "final_apk_built": true,
+  "candidate_apk_built": true,
+  "signing_material_present": false,
+  "physical_device_tests": false,
+  "historical_readiness": "../docs/history/Android_Build20_Readiness.json",
+  "historical_apk": "../release/build22/NightSweep-1.7-preview-build22.apk",
+  "notes": [
+    "Original authorized signer verified against the pinned public certificate. Working files are outside the project; Source/APK/public Web exclude them. The owner explicitly authorized the original key/password only in PRIVATE_SIGNING/ in the private master ZIP.",
+    "No replacement signer or alternate package generated.",
+    "Exact frozen shared HTML bytes are embedded in the final signed APK.",
+    "Emulator and physical-device testing have separate scope; no physical-device test claim."
+  ],
+  "source_staging_validation": {
+    "command": "python3 qa/android-preview.test.py",
+    "grouped_checks_passed": 18,
+    "sdk_commands": "synthetic mocked results; no real APK compilation/signing",
+    "release_candidate_failures_checked": true,
+    "publication_copy_and_promotion_failures_checked": true
+  },
+  "signing_material_available_outside_project": true,
+  "signing_material_included": false,
+  "native_java_edge_validation": {
+    "command": "python3 qa/android-native-edge.test.py",
+    "checks_passed": 12,
+    "scope": "Extracted production Java bodies and platform stand-ins; no device testing"
+  },
+  "preflight_record": "../research/build2/native/toolchain-and-signer-preflight.json",
+  "preliminary_build_record": "../research/build2/native/preliminary-real-build.json",
+  "standalone_sha256": "b72d4b8930ee746f8433796c736174dadce230ac06b3d5153f2101c2c251af9d",
+  "apk_sha256": "2fd242112647c9b8f78006845b984bb1c11344eef81e2fcb7d779abca4a22f41",
+  "apk_file": "dist/preview/CarpeNoctum-2.0-build2-preview.apk",
+  "final_build_record": "../research/build2/native/final-real-build.json",
+  "emulator_validation": {
+    "record": "../research/build2/native/emulator-validation.json",
+    "compatible_update_installation_passed": true,
+    "generic_private_fixture_preserved": true,
+    "native_runtime_smoke_passed": false,
+    "saved_job_retention_verified": false,
+    "physical_device_tests": false,
+    "blocker": "Stock WebView124 renderer SIGTRAP on both historical Build22 and final Build24 in unsupported software CPU emulator"
+  },
+  "signing_material_scope": "signing_material_present/included describe this source tree and APK, not the separately authorized private master backup.",
+  "private_master_signing_backup_included": true,
+  "previous_release": {
+    "version": "2.0 Alpha build 1",
+    "version_code": 25,
+    "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881"
+  },
+  "app_name": "Carpe Noctum (formerly NightSweep)"
+}

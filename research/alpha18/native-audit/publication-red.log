@@ -1,0 +1,47 @@
+test_bad_frozen_hash_stops_before_sdk_commands (__main__.AndroidPreviewTests.test_bad_frozen_hash_stops_before_sdk_commands) ... ok
+test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) ... ok
+test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) ... ok
+test_promotion_failure_restores_previous_release (__main__.AndroidPreviewTests.test_promotion_failure_restores_previous_release) ... FAIL
+test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) ... 
+  test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) (prior_validated_release=False) ... FAIL
+  test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) (prior_validated_release=True) ... FAIL
+test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) ... ok
+test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) ... ok
+test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) ... ok
+test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) ... ok
+test_release_identity_and_offline_permissions (__main__.AndroidPreviewTests.test_release_identity_and_offline_permissions) ... ok
+test_standard_and_preview_staging_preserve_canonical_sources (__main__.AndroidPreviewTests.test_standard_and_preview_staging_preserve_canonical_sources) ... ok
+test_validated_candidate_publishes_matching_receipt (__main__.AndroidPreviewTests.test_validated_candidate_publishes_matching_receipt) ... ok
+test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) ... ok
+
+======================================================================
+FAIL: test_promotion_failure_restores_previous_release (__main__.AndroidPreviewTests.test_promotion_failure_restores_previous_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 201, in test_promotion_failure_restores_previous_release
+    with self.assertRaisesRegex(OSError, 'Synthetic directory promotion'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: OSError not raised
+
+======================================================================
+FAIL: test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) (prior_validated_release=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 189, in test_publication_copy_failure_preserves_release_and_receipt
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'NightSweep-1.8-preview.apk': b"PK\x03\x0[972 chars]e\n'} != {}
+Diff is 1768 characters long. Set self.maxDiff to None to see it. : Copy failure cannot publish a new APK beside an old receipt
+
+======================================================================
+FAIL: test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) (prior_validated_release=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/NightSweep_1.8_Alpha/qa/android-preview.test.py", line 189, in test_publication_copy_failure_preserves_release_and_receipt
+    self.assertEqual(files_under(harness.out), harness.before,
+AssertionError: {'Nig[22 chars]k': b"PK\x03\x04\x14\x00\x00\x00\x00\x00\xc4\x[993 chars]e\n'} != {'Nig[22 chars]k': b'previous validated APK placeholder', 'ap[228 chars]ipt'}
+Diff is 2084 characters long. Set self.maxDiff to None to see it. : Copy failure cannot publish a new APK beside an old receipt
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.447s
+
+FAILED (failures=3)

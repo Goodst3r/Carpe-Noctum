@@ -1,0 +1,22 @@
+PASS complete refresh displays current table predictions
+PASS complete hidden sweep preserves its grid until reveal
+PASS complete sweep reveal draws current corrected source
+PASS aoi-six-active refresh displays current table predictions
+PASS aoi-six-active hidden sweep preserves its grid until reveal
+PASS aoi-six-active sweep reveal draws current corrected source
+PASS custom-curves refresh displays current table predictions
+PASS custom-curves hidden sweep preserves its grid until reveal
+PASS custom-curves sweep reveal draws current corrected source
+PASS gainmaker-oem refresh displays current table predictions
+PASS gainmaker-oem hidden sweep preserves its grid until reveal
+PASS gainmaker-oem sweep reveal draws current corrected source
+PASS gainmaker-dsim refresh displays current table predictions
+PASS gainmaker-dsim hidden sweep preserves its grid until reveal
+PASS gainmaker-dsim sweep reveal draws current corrected source
+PASS gainmaker-manual refresh displays current table predictions
+PASS gainmaker-manual hidden sweep preserves its grid until reveal
+PASS gainmaker-manual sweep reveal draws current corrected source
+PASS Print preparation redraws hidden chart with remaining TP correction zero
+PASS Print restoration preserves selected task/point and child visibility
+PASS No runtime DOM exceptions
+Independent Build2 runtime: 21 checks passed

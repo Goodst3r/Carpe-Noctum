@@ -1,0 +1,15 @@
+{
+  "queriedAt": "2026-11-11",
+  "scope": "Ten independent synthetic arithmetic references. Agreement does not establish equipment assumptions or certify entire app.",
+  "code": "ExportString[<|\"forwardSquareRoot57MHz\"->N[31+12 (Sqrt[57]-Sqrt[54])/(Sqrt[860]-Sqrt[54]),15],\"forwardSquareRoot753MHz\"->N[31+12 (Sqrt[753]-Sqrt[54])/(Sqrt[860]-Sqrt[54]),15],\"forwardLinear550MHz\"->N[31+12 (550-54)/(860-54),15],\"rfCableHotLossDb\"->N[(400+20)/100 * 178/100 * (1+1/1000*(104-68)),15],\"dcCableHotLoopOhm\"->N[11/10 * (2000+100)/1000 * (1+4/1000*(104-68)*5/9),15],\"tpCorrectedOutputDbmv\"->N[-4+20,15],\"injectionPhysicalOutputDbmv\"->N[10+20+3/2,15],\"tdrCorrectedFeet\"->N[500*(87/100)/(82/100)-25,15],\"constantPowerStableVoltage\"->N[(90+Sqrt[90^2-4*2*180])/2,15],\"constantPowerStableCurrent\"->N[180/((90+Sqrt[90^2-4*2*180])/2),15]|>,\"RawJSON\"]",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"forwardSquareRoot57MHz\\\":31.1099490779957,\\n\\t\\\"forwardSquareRoot753MHz\\\":41.9708041228738,\\n\\t\\\"forwardLinear550MHz\\\":38.3846153846154,\\n\\t\\\"rfCableHotLossDb\\\":7.74513600000000,\\n\\t\\\"dcCableHotLoopOhm\\\":2.49480000000000,\\n\\t\\\"tpCorrectedOutputDbmv\\\":16.0000000000000,\\n\\t\\\"injectionPhysicalOutputDbmv\\\":31.5000000000000,\\n\\t\\\"tdrCorrectedFeet\\\":505.487804878049,\\n\\t\\\"constantPowerStableVoltage\\\":85.8044115262063,\\n\\t\\\"constantPowerStableCurrent\\\":2.09779423689683\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

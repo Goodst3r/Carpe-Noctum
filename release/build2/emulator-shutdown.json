@@ -1,0 +1,11 @@
+{
+  "emulator_serial": "emulator-5556",
+  "get_state_exit_code": 1,
+  "get_state_output": "error: device 'emulator-5556' not found",
+  "task_emulator_stopped": true,
+  "supervisor_stop_reason": "20-minute software runtime limit",
+  "supervisor_runtime_exit_code": -11,
+  "evidence_complete_before_stop": true,
+  "other_device_or_emulator_stop_commands_issued": false,
+  "private_signer_files_left_available": true
+}

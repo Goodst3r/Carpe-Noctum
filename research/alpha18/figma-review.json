@@ -1,0 +1,28 @@
+{
+  "sessionId": "bfd4ce1d-5bd8-4c3a-b95b-d460fb49f997",
+  "fileKey": "C1zOM5qj4LF3YOd5NMCN8G",
+  "frames": [
+    {
+      "id": "4:2410",
+      "name": "Launch",
+      "width": 390,
+      "height": 1011,
+      "descendants": 124,
+      "actionInputInstances": 18
+    },
+    {
+      "id": "4:2572",
+      "name": "Equipment setup",
+      "width": 390,
+      "height": 1139,
+      "descendants": 98,
+      "actionInputInstances": 14
+    }
+  ],
+  "minimumActionWidth": 44,
+  "minimumActionHeight": 44,
+  "modified": false,
+  "screenshotMetadataReturned": true,
+  "screenshotDownloadStatus": 403,
+  "visualInspectionClaimed": false
+}

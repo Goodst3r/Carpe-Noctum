@@ -1,0 +1,11 @@
+{
+  "node_records_merged": 12,
+  "existing_node_records_replaced": 7,
+  "node_records_added": 5,
+  "unrelated_records_preserved": 25,
+  "before_records": 32,
+  "after_records": 37,
+  "prior_registry_sha256": "a0b0efa34ea6305b08daf719580a37f2e4a1d44d4565768a42aefe1c649152b5",
+  "merged_registry_sha256": "8db52cfdc0f18b52a4411eea89c370f53a27abaa8a6981056381598b7c4a3169",
+  "active_records_modified": false
+}

@@ -1,0 +1,17 @@
+{
+  "scope": "Independent final APK structure/signature/alignment/content verification; no physical install or upgrade test",
+  "status": "PASS",
+  "apk": "android-build/dist/preview/NightSweep-1.8-build2-preview.apk",
+  "apk_sha256": "55660a8992ba7d498daaddb2db63f0664469823eecd080226a66d9cc697a6237",
+  "bytes": 283164,
+  "standalone_sha256": "4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758",
+  "public_certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+  "package": "com.spencerwilliams.nightsweep.preview",
+  "version_code": 24,
+  "version": "1.8 Alpha build 2",
+  "v2_v3_signatures": true,
+  "zip_alignment": true,
+  "provider_authority": true,
+  "embedded_html_exact": true,
+  "private_key_entries_absent": true
+}

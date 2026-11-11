@@ -1,0 +1,43 @@
+PASS numeric blanks, booleans, objects, infinities rejected
+PASS square-root launch midpoint independently verified by Wolfram
+PASS linear launch midpoint
+PASS launch source values stop at anchors
+PASS invalid or out-of-band launch frequencies rejected
+PASS launch table accepts negative dBmV and sorts rows
+PASS duplicate/nonfinite launch rows rejected
+PASS passive loss custom table requires nonnegative loss and unique rows
+PASS catalog P3 .625 actual points, length and RF temperature
+PASS RF temperature validation even when zero length
+PASS RF custom actual-temperature table is not corrected twice
+PASS zero cable needs no cable model but rejects invalid frequency
+PASS catalog legacy maximum band stops without extrapolation
+PASS published maximum-only passive basis does not invent missing max
+PASS custom terminal tap has no through port
+PASS workbook backtest: 798ft legacy .625 + two through taps
+PASS modern source discrepancy vs legacy workbook remains explicit
+PASS missing parent cannot produce RF output
+PASS invalid physical RF setup suppresses both levels and path loss
+PASS path loss remains usable outside launch anchors
+PASS grid enforces supported frequency boundaries
+PASS constant current cable output and loss
+PASS branched current Kirchhoff golden case verified by Wolfram
+PASS constant 180W load 90V and 2ohm selects high stable solution
+PASS VA and watts/PF equivalence under model
+PASS zero resistance no voltage drop and exact power division
+PASS constant-power voltage collapse rejected
+PASS published AOI HGD current endpoints and interpolation
+PASS manufacturer current tables never extrapolate
+PASS power cable temperature raises resistance and lowers equipment voltage
+PASS temperature correction applies cable only, preserves contact resistance
+PASS custom actual-temperature resistance not corrected twice
+PASS zero resistance coefficient disables nominal temperature estimate
+PASS old route missing new power fields retains 68F behavior
+PASS invalid power temperatures and coefficients rejected
+PASS power invalid electrical loads reject whole circuit
+PASS invalid supply, IDs, duplicates, cycles, >200 rows rejected
+PASS supply overload and equipment undervoltage produce warnings
+PASS 100 deterministic branched fixed-current circuits conserve current, voltage, power
+PASS shared band boundaries choose next higher band, final endpoint included
+PASS catalog curve bounds, uniqueness and finite nonnegative losses
+
+41 engine checks passed (including 100 generated branch circuits).

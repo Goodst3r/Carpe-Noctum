@@ -1,0 +1,53 @@
+PASS Explicit absolute values preserve levels without correction
+PASS Relative response remains dB
+PASS BOM, quoted headers, escaped channel quotes and CRLF
+PASS Unordered samples sort for charting without changing values
+PASS Explicit exponent and leading decimal numbers accepted
+PASS Unknown extra columns retained but not interpreted
+PASS Unspecified frequency units rejected
+PASS Unspecified level units rejected
+PASS Two alternative frequency columns are ambiguous
+PASS Duplicate raw header rejected
+PASS Both absolute and relative data rejected
+PASS Duplicate numeric frequencies rejected
+PASS No silently skipped malformed rows
+PASS Blank level is not zero
+PASS Nonfinite values rejected
+PASS Hexadecimal values rejected
+PASS Numeric suffixes rejected
+PASS Out-of-band frequency rejected
+PASS Both supported endpoints accepted
+PASS Unequal row widths rejected
+PASS Interior blank lines rejected
+PASS Unclosed quote rejected
+PASS Characters following quoted field rejected
+PASS Binary control character blocks decoding
+PASS Channel CSV requires MER and OneCheck classification
+PASS OneCheck malformed MER blocks entire decode
+PASS Native JSON and XML remain attachments even with readable data
+PASS CSV size cap enforced
+PASS UTF-8 size cap counts multi-byte characters
+PASS Sample cap enforced
+PASS Valid metadata round trips
+PASS Attachment-only metadata accepted
+PASS Duplicate IDs rejected
+PASS Unsafe IDs rejected
+PASS Invalid filename controls rejected
+PASS Oversized file rejected
+PASS Aggregate size enforced
+PASS Attachment count enforced
+PASS Invalid kind and stage rejected
+PASS Hash and date validated
+PASS Nested unrecognized metadata rejected
+PASS Attachment-only data cannot claim measurements
+PASS Imported nonfinite samples rejected
+PASS Imported unsorted or duplicate points rejected
+PASS Imported channel values must match series
+PASS Binary base64 round trip preserves all byte values
+PASS Empty byte file supported
+PASS Invalid, whitespace and noncanonical base64 rejected
+PASS Base64 length guard enforced before decode
+PASS Base64 decoded size guard enforced with padding
+PASS Maximum permitted 8 MiB binary round trips without stack overflow
+PASS Browser UMD path works without Buffer or TextEncoder
+Evidence core QA: 52 tests passed. Synthetic fixtures; native ONX decoding remains unvalidated.

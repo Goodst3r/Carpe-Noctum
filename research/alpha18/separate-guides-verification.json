@@ -1,0 +1,111 @@
+{
+  "scope": "Separate technician documentation only; no app build or physical device installation performed.",
+  "documents": [
+    {
+      "name": "NightSweep_1.8_Alpha_Functions_README",
+      "checks": {
+        "headingCount": 31,
+        "ids": 33,
+        "uniqueIds": 33,
+        "fragmentLinks": 93,
+        "missingFragments": [],
+        "externalScripts": 0
+      },
+      "viewportWidths": [
+        390,
+        1280
+      ],
+      "pdfPages": 28,
+      "pdfTextCharacters": 59780,
+      "pdfTextWithinPage": true,
+      "runtimeErrors": [],
+      "files": {
+        ".md": {
+          "bytes": 65398,
+          "sha256": "fffef1d19f3eb5a1f400cf993af7e18d111240ab6cbddc2a5e6e531d0951ae11"
+        },
+        ".html": {
+          "bytes": 89769,
+          "sha256": "07fcf0b3d29ee2152590f2112004fd67898f80f6fe58e5b6078d38cb0fb40af7"
+        },
+        ".pdf": {
+          "bytes": 661460,
+          "sha256": "db6865d0031910b2be0eee4f6a79856e995b335c09e03607691b5196282d663d"
+        }
+      }
+    },
+    {
+      "name": "NightSweep_1.8_Alpha_Android_iOS_Installation",
+      "checks": {
+        "headingCount": 12,
+        "ids": 14,
+        "uniqueIds": 14,
+        "fragmentLinks": 12,
+        "missingFragments": [],
+        "externalScripts": 0
+      },
+      "viewportWidths": [
+        390,
+        1280
+      ],
+      "pdfPages": 7,
+      "pdfTextCharacters": 15188,
+      "pdfTextWithinPage": true,
+      "runtimeErrors": [],
+      "files": {
+        ".md": {
+          "bytes": 15802,
+          "sha256": "ae14d6f65f2c12955a084ac00e0d676449c440094412391102921e0835e8554f"
+        },
+        ".html": {
+          "bytes": 25225,
+          "sha256": "d37ccd3ffc8ba115f8229ed95303465bbc20beaf4b7fb70f8468467c7fb7cd5d"
+        },
+        ".pdf": {
+          "bytes": 170225,
+          "sha256": "d4c22382e1e7424f1b749d1162cff0598d4664b6042711b100144712d5376837"
+        }
+      }
+    }
+  ],
+  "browser": "156.0.8078.79",
+  "unchangedApplication": {
+    "outputs/Night_Sweep.html": "7d52800252e38f4e689b77ef84f4b38e8f0f1fdf1970ca54f2ac708e10e100e2",
+    "dist/index.html": "b1f408ece26a92e7fbd9684f386d86b38ea734ce9165a9ce1987aca291e0e5e0"
+  },
+  "status": "PASS",
+  "featureCoverage": {
+    "taskScreens": 20,
+    "featureEntries": 37,
+    "exercises": 7,
+    "indexMatchesCurrentApp": true,
+    "independentReview": "All function/control corrections verified against current source; no unresolved material finding in these two documents."
+  },
+  "toolsUsed": [
+    "Local file/source inspection and existing Markdown renderer",
+    "Chromium via Playwright: mobile/desktop layout, internal links, PDF generation",
+    "PyMuPDF: all-page text bounds and PDF link inspection",
+    "Parallel: official Google and Apple installation instructions checked by installation author",
+    "Superpowers verification/review workflow reused; independent documentation review"
+  ],
+  "physicalDeviceInstallationTested": false,
+  "applicationQaRerun": false,
+  "visualReview": {
+    "pdfPagesInspected": [
+      "Functions1",
+      "Functions11",
+      "Functions26",
+      "Installation1"
+    ],
+    "result": "Readable headings and tables; no observed clipping. All-page text-bound and link checks passed."
+  },
+  "delivery": {
+    "folder": "/workspace/deliverables",
+    "formats": [
+      "Markdown",
+      "PDF",
+      "self-contained HTML"
+    ],
+    "checksum_file": "SHA256SUMS.txt"
+  }
+}

@@ -1,0 +1,24 @@
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Missing expected exception.
+    at /workspace/NightSweep_1.8_Alpha/qa/import-id-boundaries.test.cjs:26:11
+    at check (/workspace/NightSweep_1.8_Alpha/qa/import-id-boundaries.test.cjs:21:25)
+    at Object.<anonymous> (/workspace/NightSweep_1.8_Alpha/qa/import-id-boundaries.test.cjs:23:2)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: /Invalid route rows/,
+  operator: 'throws',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

@@ -1,0 +1,19 @@
+✔ Practice library exposes seven identifiable loadable exercises and preserves the four original paths (1840.750775ms)
+✔ Every task screen and important calculator subfeature has a seeded exercise and valid guide target (1046.525761ms)
+✔ Six-active exercise is a single six-amplifier serial path with exact restored endpoint levels (1800.117439ms)
+✔ Six-active TDR example begins after active six and blocks an attempt across the upstream active chain (1685.951727ms)
+✔ Custom-curves exercise loads actual manual-source, cable and passive tables without duplicate temperature correction (1412.069904ms)
+✔ Manual-thermal practice selects that installed control path without DSIM configuration or inferred switch values (1643.658144ms)
+✔ Loading any feature opens its seeded exercise, the right guide step, and a visible intended control (34467.478882ms)
+✔ Feature selector loads the selected example and cancellation leaves current job and navigation unchanged (1677.208172ms)
+✔ All three new variants preserve current jobs, learning progress and original bytes through portable export/import (4240.085231ms)
+✔ Unknown requested variants/features reject before switching and retained future variants hide incompatible guidance (2175.378464ms)
+✔ New guides reveal their configured route, gain, TDR and reference fields without altering practice data (4473.647738ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57049.157807

@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-11-10",
+  "provider": "Wolfram Language evaluator",
+  "scope": "Independent arithmetic for explicit synthetic cases; does not validate equipment specifications, physical devices, or all future inputs.",
+  "expected": {
+    "sqrtLaunch576": 40,
+    "cableSqrtInterpolation": 2,
+    "cableHotLoss": 7.77,
+    "testPointGain": 9,
+    "tdrCorrected": 200,
+    "resistanceHot": 1.188,
+    "constantPowerHighVoltage": 85.80441152620632,
+    "constantPowerCurrent": 2.097794236896835,
+    "constantPowerCollapseDiscriminant": -7900,
+    "branchedVoltages": [
+      87,
+      85,
+      81
+    ],
+    "branchedWireLoss": 23,
+    "unitConversion": 12,
+    "physicalInjection": 52,
+    "receiveLevelCorrection": [
+      6,
+      8
+    ],
+    "returnRelativeTiltError": 0.6
+  },
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"sqrtLaunch576\\\":40.00000000000000,\\n\\t\\\"cableSqrtInterpolation\\\":2.000000000000000,\\n\\t\\\"cableHotLoss\\\":7.770000000000000,\\n\\t\\\"testPointGain\\\":9.000000000000000,\\n\\t\\\"tdrCorrected\\\":200.0000000000000,\\n\\t\\\"resistanceHot\\\":1.188000000000000,\\n\\t\\\"constantPowerHighVoltage\\\":85.80441152620633,\\n\\t\\\"constantPowerCurrent\\\":2.097794236896835,\\n\\t\\\"constantPowerCollapseDiscriminant\\\":-7900.000000000000,\\n\\t\\\"branchedVoltages\\\":[\\n\\t\\t87.00000000000000,\\n\\t\\t85.00000000000000,\\n\\t\\t81.00000000000000\\n\\t],\\n\\t\\\"branchedWireLoss\\\":23.00000000000000,\\n\\t\\\"unitConversion\\\":12.00000000000000,\\n\\t\\\"physicalInjection\\\":52.00000000000000,\\n\\t\\\"receiveLevelCorrection\\\":[\\n\\t\\t6.000000000000000,\\n\\t\\t8.000000000000000\\n\\t],\\n\\t\\\"returnRelativeTiltError\\\":0.6000000000000000\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

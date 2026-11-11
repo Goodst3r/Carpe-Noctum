@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-11-10T23:56:56.363Z",
+  "scope": "Current engine against all current printed numerical table rows/endpoints, gaps, out-of-table bounds and eight independent worked/guardrail examples. Does not verify inherited source transcription, hardware or a release build.",
+  "catalogRevision": "2026-11-10-build17",
+  "inputSha256": {
+    "catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
+    "engine.js": "13852cb9a54120f2f231d815483885e62a1e17d81ebde4f2cd9e70985dc1d42a"
+  },
+  "curveCount": 1324,
+  "checks": {
+    "printedPointValues": 12219,
+    "printedBandEndpoints": 3814,
+    "printedBandGapMidpoints": 713,
+    "outsideDomains": 2648,
+    "workedExamples": 8
+  },
+  "failures": [],
+  "status": "PASS"
+}

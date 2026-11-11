@@ -1,0 +1,13 @@
+{
+  "code": "ExportString[N[<|\"dbuvToDbmv\"->96.7-20 Log[10,1000],\"dbmvToDbuv\"->(-12.5)+20 Log[10,1000],\"evidenceMin\"->-1.5-(0.25-(-1.5))*0.08,\"evidenceMax\"->0.25+(0.25-(-1.5))*0.08,\"evidenceX42\"->48+((42-5)/(42-5))*492,\"evidenceYMin\"->170-((-1.5-(-1.64))/(0.39-(-1.64)))*140,\"evidenceYMax\"->170-((0.25-(-1.64))/(0.39-(-1.64)))*140|>,16],\"RawJSON\"]",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"dbuvToDbmv\\\":3.67e1,\\n\\t\\\"dbmvToDbuv\\\":4.75e1,\\n\\t\\\"evidenceMin\\\":-1.6400000000000001,\\n\\t\\\"evidenceMax\\\":0.39,\\n\\t\\\"evidenceX42\\\":540.0000000000000,\\n\\t\\\"evidenceYMin\\\":1.603448275862069e2,\\n\\t\\\"evidenceYMax\\\":3.965517241379308e1\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}

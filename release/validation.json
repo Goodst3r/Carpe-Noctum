@@ -1,0 +1,317 @@
+{
+  "app_version": "1.7 Alpha",
+  "android_build": 22,
+  "date": "2026-11-10 America/Chicago",
+  "baseline_source": "a625de75a812592d4766f6475f143cd72c2d1bee",
+  "automated": {
+    "release": "432d998a9dffd87f392e",
+    "version": "1.7 Alpha",
+    "suites": [
+      {
+        "name": "1.6 current release migration and1.7 portable example",
+        "script": "upgrade01617.test.cjs",
+        "passed": true,
+        "checks": 6
+      },
+      {
+        "name": "1.7 stable workflow rendering",
+        "script": "alpha17-render.test.cjs",
+        "passed": true,
+        "checks": 3
+      },
+      {
+        "name": "1.7 source and equipment reports",
+        "script": "alpha17-report.test.cjs",
+        "passed": true,
+        "checks": 11
+      },
+      {
+        "name": "1.7 launch source workflow",
+        "script": "launch-source.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "1.7 equipment setup and DSIM",
+        "script": "equipment-setup.test.cjs",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "1.7 local operator targets and available carriers",
+        "script": "local-operator-preset.test.cjs",
+        "passed": true,
+        "checks": 19
+      },
+      {
+        "name": "1.7 DSIM historical pilot-code lookup",
+        "script": "dsim-pilot-codes.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "1.7 separate installed gain-control paths",
+        "script": "equipment-control.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 current node setup references",
+        "script": "node-setup-refresh.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.7 retired UBT compatibility",
+        "script": "retired-equipment.test.cjs",
+        "passed": true,
+        "checks": 7
+      },
+      {
+        "name": "1.7 fresh independent numerical references",
+        "script": "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "1.7 RF band and hidden view regressions",
+        "script": "alpha17-engine.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "1.7 evidence job context",
+        "script": "evidence-context.test.cjs",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Wolfram record and measurement guards",
+        "script": "wolfram-records.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "Wolfram RF, distance and sweep references",
+        "script": "wolfram-rf.test.cjs",
+        "passed": true,
+        "checks": 25
+      },
+      {
+        "name": "Wolfram power references and edge cases",
+        "script": "wolfram-power.test.cjs",
+        "passed": true,
+        "checks": 30
+      },
+      {
+        "name": "Guided sweep setup and 1.5 migration",
+        "script": "sweep-setup.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "Equipment reference catalog",
+        "script": "equipment-reference.test.cjs",
+        "passed": true,
+        "checks": 18
+      },
+      {
+        "name": "PWA package and service worker",
+        "script": "pwa-worker.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "PWA install and update interface",
+        "script": "pwa-client.test.cjs",
+        "passed": true,
+        "checks": 20
+      },
+      {
+        "name": "Browser file export and sharing",
+        "script": "browser-files.test.cjs",
+        "passed": true,
+        "checks": 23
+      },
+      {
+        "name": "Guided training job and preserved work",
+        "script": "training-job.test.cjs",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "Production training buttons and fleet split",
+        "script": "training-controls.test.cjs",
+        "passed": true,
+        "checks": 9
+      },
+      {
+        "name": "RF and power engine",
+        "script": "engine.test.js",
+        "passed": true,
+        "checks": 41
+      },
+      {
+        "name": "Route distances, TDR and gain budgets",
+        "script": "route14.test.cjs",
+        "passed": true,
+        "checks": 34
+      },
+      {
+        "name": "Project records and acceptance",
+        "script": "projects.test.js",
+        "passed": true,
+        "checks": 39
+      },
+      {
+        "name": "Frequency calculations",
+        "script": "frequency-regression.cjs",
+        "passed": true,
+        "checks": 16
+      },
+      {
+        "name": "Retained interface behavior",
+        "script": "dom-tests.cjs",
+        "passed": true,
+        "checks": 38
+      },
+      {
+        "name": "Active and TDR interface calculations",
+        "script": "alpha14-ui.test.cjs",
+        "passed": true,
+        "checks": 36
+      },
+      {
+        "name": "Technician task navigation and live controls",
+        "script": "alpha15-ui.test.cjs",
+        "passed": true,
+        "checks": 22
+      },
+      {
+        "name": "Node profiles and current curves",
+        "script": "nodes.test.cjs",
+        "passed": true,
+        "checks": 29
+      },
+      {
+        "name": "Evidence parser and validation",
+        "script": "evidence.test.cjs",
+        "passed": true,
+        "checks": 52
+      },
+      {
+        "name": "Evidence UI and storage",
+        "script": "evidence-ui.test.cjs",
+        "passed": true,
+        "checks": 28
+      },
+      {
+        "name": "IndexedDB failure and commit boundaries",
+        "script": "evidence-storage-failures.test.cjs",
+        "passed": true,
+        "checks": 13
+      },
+      {
+        "name": "Named jobs corruption and capacity",
+        "script": "named-jobs-storage.test.cjs",
+        "passed": true,
+        "checks": 5
+      },
+      {
+        "name": "Legacy upgrade and portable backup",
+        "script": "alpha011-integration.cjs",
+        "passed": true,
+        "checks": 21
+      },
+      {
+        "name": "Retained field tools and named jobs",
+        "script": "alpha012.test.cjs",
+        "passed": true,
+        "checks": 32
+      },
+      {
+        "name": "0.13 APK backup migration",
+        "script": "upgrade01314.test.cjs",
+        "passed": true,
+        "checks": 15
+      },
+      {
+        "name": "1.4 backup and active/TDR migration",
+        "script": "upgrade01415.test.cjs",
+        "passed": true,
+        "checks": 10
+      },
+      {
+        "name": "Built-in reference calculations",
+        "script": "../night-sweep/selfcheck.js",
+        "passed": true,
+        "checks": 8
+      },
+      {
+        "name": "Catalog structure",
+        "script": "catalog-audit.cjs",
+        "passed": true,
+        "checks": 0
+      }
+    ],
+    "checks": 846,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "html_sha256": "9c168532a534a1a867ec218b54dc29a2fee68f757624479ceca2220d35b24d7b",
+    "standalone_sha256": "6c48254cb13d62ed0047621bdb4a96d88cabd5d350b6338a6ef544e82cf54899",
+    "worker_sha256": "64632c4f74a918212213d1d2e96b55528c16c76f5b9bb572439f836e59506f9b",
+    "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
+  },
+  "android": {
+    "file": "NightSweep-1.7-preview.apk",
+    "size_bytes": 270876,
+    "sha256": "5c387e61055e7c62d7e2f0b8a40327d2fa9d833f26d6b4bfef856ab5c4cd97fd",
+    "html_sha256": "6c48254cb13d62ed0047621bdb4a96d88cabd5d350b6338a6ef544e82cf54899",
+    "frozen_html_sha256": "6c48254cb13d62ed0047621bdb4a96d88cabd5d350b6338a6ef544e82cf54899",
+    "version": "1.7 Alpha",
+    "version_code": 22,
+    "package": "com.spencerwilliams.nightsweep.preview",
+    "label": "NightSweep 1.7 Preview",
+    "min_sdk": 26,
+    "target_sdk": 35,
+    "tested_on_device": false,
+    "preview": true,
+    "separate_storage_from_supplied_013": true,
+    "can_update_14_preview": true,
+    "shares_storage_with_14_preview": true,
+    "can_update_prior_15_preview": true,
+    "can_update_prior_16_preview": true,
+    "training_job_included": true,
+    "sweep_setup_included": true,
+    "can_coexist_with_supplied_013": true,
+    "embedded_html_matches_input": true,
+    "certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+    "matches_original_signing_identity": true,
+    "supplied_013_certificate_sha256": "7998433ff49dc46b1157f69c917fb9b7e93936a5845140f054f9488ad7519e5b",
+    "can_update_supplied_013_in_place": false
+  },
+  "browser": {
+    "platform": "Cloud Chrome desktop",
+    "tested_candidate_release": "1920d7a236b43a6d6032",
+    "final_release": "432d998a9dffd87f392e",
+    "scope": "Same final training source. Subsequent final code change was IndexedDB abnormal-close recovery, covered by final automated regression.",
+    "observed": [
+      "synthetic named job persisted after reload",
+      "complete practice opens with 21 steps and six original files",
+      "complete Sweep setup visibly selected 204/258, Vecima EN9000/AOI and XPERTrak return",
+      "OEM practice opens with 8 steps",
+      "DSIM practice opens with 9 steps",
+      "GS7K practice opens with 10 steps and 42/54 guidance",
+      "References Open step reveals root and available-carrier controls",
+      "PWA install update reached Reload app; existing page retained and new tab opened updated training source"
+    ],
+    "not_executed": [
+      "Existing-tab reload confirmation was rejected by automatic approval review for potential unsaved state; a readable synthetic project export was verified and a new tab supplied a safer UI check.",
+      "Physical Android and iPhone Safari/Home Screen installation, cold-start, quota/eviction and native picker/share/print not tested"
+    ],
+    "proof": "NightSweep_Build22_Training_Verified.png"
+  },
+  "review": "Independent storage review found no actionable issue. Independent training review findings were reproduced and fixed with five further failing-to-passing regressions, included in final 9-control suite.",
+  "tools_record": "research/Build22_Validation.md",
+  "publication": "Prepared; publication receipt is recorded in the persistent project status after deployment."
+}

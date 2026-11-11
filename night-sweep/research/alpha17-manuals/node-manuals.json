@@ -1,0 +1,148 @@
+{
+  "checked_at": "2026-11-10",
+  "scope": "Three existing node profiles and seven related power-equipment entries; original manufacturer documents only.",
+  "documents": [
+    {
+      "id": "gs7000-1g-manual",
+      "manufacturer": "Cisco",
+      "title": "Cisco GS7000 GainMaker Scaleable 4-Port Node Installation and Operation Guide",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-GS7000-GainMaker-Scalable-4-Port-Node-Installation-and-Operation-Guide.pdf",
+      "type": "installation_manual",
+      "revision": "OL-29643-02; Cisco support index updated October 12, 2017",
+      "location": "Chapter 4: setup p95; forward p107; reverse p111; routing p113/p124",
+      "verification": "Official Cisco support index links this exact PDF; official search index returned chapter and procedure text. Full PDF open exceeded native extraction size cap (17,189,435 bytes).",
+      "applies_to": ["gs7000-1g"],
+      "steps": [
+        "Identify launch module, receiver, transmitter and forward/reverse configuration modules against the network design.",
+        "Follow installation and powering checks before alignment; terminate unused RF ports as specified.",
+        "Under the approved service procedure, check connector cleanliness, optical input and receiver indication.",
+        "Use the model-specific forward procedure and installed configuration to set output levels and equalization to design.",
+        "Use the reverse procedure for the installed transmitter and routing; record actual readings before closing the housing."
+      ],
+      "cautions": [
+        "The manual's 3.25% OMI and 50.2 dBmV at 1002 MHz are its worked example, not universal targets.",
+        "Optical disconnection interrupts customer service; preserve the manual's laser-safety and housing instructions.",
+        "This is not the 1.2 GHz standard, Fiber Deep/SHO or Intelligent-node manual."
+      ]
+    },
+    {
+      "id": "gs7000-12g-manual",
+      "manufacturer": "Cisco",
+      "title": "Cisco 1.2 GHz GS7000 Node Installation and Operation Guide",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-1_2-GHz-GS7000-Node-Installation-and-Operation-Guide.pdf",
+      "type": "installation_manual",
+      "revision": "Cisco support index dated November 19, 2015; complete publication revision was not recoverable from primary extract",
+      "location": "Chapter 3 installation; Chapter 4 setup p85; forward p93; reverse follows forward procedure",
+      "verification": "Official support index links exact PDF and official search index returned forward/reverse text. Full PDF open exceeded native extraction size cap (13,753,980 bytes).",
+      "applies_to": ["gs7000-12g"],
+      "steps": [
+        "Confirm 1218 MHz launch amplifier, installed diplexer split, receiver type and configuration-module routing.",
+        "Complete Chapter 3 power checks and unused-port termination, then use Chapter 4 for alignment.",
+        "Measure optical input and choose the receiver attenuator setting from this manual's receiver-specific table.",
+        "Select output pads and equalizers for the installed segmentation and approved design levels.",
+        "Set the reverse input and transmitter path with the applicable transmitter procedure; record each port and verify return behavior."
+      ],
+      "cautions": [
+        "The 2.5% OMI/54 dBmV at 1218 MHz forward example and analog reverse examples are not operator acceptance criteria.",
+        "Use the actual standard-versus-low-input optical receiver table; do not borrow a different GS7000 variant's settings.",
+        "Consult installed reverse optical/EDR/RPD documentation; conventional analog-transmitter instructions are not universal RPD procedures."
+      ]
+    },
+    {
+      "id": "gs7000-sho-manual",
+      "manufacturer": "Cisco",
+      "title": "Cisco 1.2 GHz Super High Output GS7000 Node Installation and Operation Guide",
+      "url": "https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Nodes/GS7000/Cisco-1_2-GHz-Super-High-Output-GS7000-Node-Installation-and-Operation-Guide.pdf",
+      "type": "installation_manual",
+      "revision": "First published August 2016; support index August 18, 2016",
+      "location": "Chapter 3 p31; Chapter 4 p55; forward p60; reverse p63",
+      "verification": "Official 184-page PDF was parsed by native web retrieval.",
+      "applies_to_power": ["gs7000-12g-fiberdeep"],
+      "cautions": ["Fiber Deep/SHO differs from the standard 4-way segmentable node. Confirm its exact launch amplifier before using its setup procedure.", "Use the standard-or-low-input receiver table in the selected manual; its numeric examples are not universal targets."]
+    },
+    {
+      "id": "gs7000-intelligent-manual",
+      "manufacturer": "Cisco",
+      "title": "Cisco GS7000 Super High Output Intelligent Node Installation and Operation Guide",
+      "url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b_gs7000_sho_inode_install_operate_guide.html",
+      "type": "installation_manual",
+      "revision": "Cisco support index March 23, 2018; chapter update March 21, 2018",
+      "location": "Theory of Operation: RF Amplifier Module, AGC and Auto-setup; Setup and Operation chapter",
+      "verification": "Official HTML chapters retrieved.",
+      "applies_to_power": ["gs7000-12g-intelligent"],
+      "additional_url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b_gs7000_sho_inode_install_operate_guide/b_gs7000_sho_inode_install_config_guide_chapter_010.html",
+      "cautions": ["Its RF amplifier has no physical forward/reverse test points; built-in spectrum capture provides monitoring. Never automatically assign the standard node's -20 dB physical test-point correction.", "Auto-setup uses LCS and applies to the forward amplifier; follow the separate software/configuration guide and installed release."]
+    },
+    {
+      "id": "gs7000-rpd-2x2-manual",
+      "manufacturer": "Cisco",
+      "title": "Cisco 1.2 GHz GS7000 Remote PHY Module Compatible 2X2 Segmentable Node Installation and Configuration Guide",
+      "url": "https://www.cisco.com/c/en/us/td/docs/video/access_edge/Nodes/GS7000/b_gs7000_rpd_compatible_2x2_segmentable_node_install_operate_guide.html",
+      "type": "installation_manual",
+      "revision": "September 28, 2018",
+      "location": "Installation; Setup and Operation; Technical Information chapters",
+      "verification": "Official HTML contents retrieved.",
+      "applies_to": [],
+      "cautions": ["Additional distinct variant, not the existing standard 1218 MHz profile. Do not silently use as the standard analog-node manual."]
+    },
+    {
+      "id": "en9000-2025-brief",
+      "manufacturer": "Vecima",
+      "title": "EN9000 Generic Access Platform Node Product Brief",
+      "url": "https://vecima.com/wp-content/uploads/2025/03/Vecima-EN9000-Product-Brief.pdf",
+      "type": "product_brief",
+      "revision": "Publish date February 2025",
+      "location": "p2: RFAM diplexers, power and ordering information",
+      "verification": "Official two-page PDF parsed; does not constitute a setup manual.",
+      "applies_to": ["vecima-en9000"],
+      "cautions": ["RFAM/diplexer bandwidth is distinct from RPD and live-spectrum capability.", "70 dBmV is maximum total composite power, not a per-channel launch target.", "180 W is PSU total output rating; it is not a typical AC operating load."]
+    },
+    {
+      "id": "en9000-2024-brief",
+      "manufacturer": "Vecima",
+      "title": "Entra EN9000 Access Node Product Brief",
+      "url": "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+      "type": "product_brief",
+      "revision": "May 2024",
+      "location": "p2: DS/US RF test port response",
+      "verification": "Official two-page PDF parsed.",
+      "applies_to": ["vecima-en9000"],
+      "cautions": ["-20 ±1 dB DS/US test-port response is from this older brief and should be confirmed on installed hardware."]
+    },
+    {
+      "id": "vecima-manual-access",
+      "manufacturer": "Vecima",
+      "title": "Customer and Product Support — Product Documentation",
+      "url": "https://vecima.com/company/product-support/",
+      "type": "support_portal",
+      "revision": "Web page checked November 10, 2026",
+      "location": "Product Documentation section",
+      "verification": "Official page directs users to Customer Portal for installation/configuration guides, user manuals and release notes.",
+      "applies_to": ["vecima-en9000"],
+      "manual_status": "customer_portal_required; exact EN9000/RFAM/RPD manual title and revision not verified",
+      "steps": ["Record chassis, RFAM/diplexer, RPD model and firmware.", "Obtain matching EN9000 hardware and RPD/software manuals through the approved Vecima customer portal.", "Enter the job's actual split, live spectrum, RF port and operating targets.", "Confirm measured levels and meter compensation against the installed test port; retain approved operator setup/acceptance evidence."],
+      "step_basis": "NightSweep planning/checklist recommendations, not a sourced EN9000 commissioning procedure"
+    }
+  ],
+  "catalog_audit": {
+    "node_profiles": [
+      {"id": "vecima-en9000", "result": "existing bands and test-point reference match cited briefs", "bands_verified_mhz": [[5,85,102,1218],[5,204,258,1794],[5,396,492,1794],[5,492,606,1794]], "test_point_loss_db": 20, "test_point_tolerance_db": 1, "qualification": "TP value is from May 2024 brief; February 2025 brief does not repeat it. Keep revision visible."},
+      {"id": "gs7000-1g", "result": "existing standard GaAs node bands and TP reference match original data", "bands_verified_mhz": [[5,42,54,1002],[5,85,105,1002]], "test_point_loss_db":20, "test_point_tolerance_db":0.5, "qualification":"85/102 diplexer label has 105 MHz specified RF performance floor; 102–105 MHz is not covered by that performance table."},
+      {"id": "gs7000-12g", "result": "existing standard segmentable bands and TP reference match original data", "bands_verified_mhz": [[5,42,54,1218],[5,65,86,1218],[5,85,105,1218],[5,204,258,1218]], "test_point_loss_db":20, "test_point_tolerance_db":1}
+    ],
+    "power_curves": [
+      {"id":"gs7000-1g-1rx-1tx","result":"all 10 current and 10 watt cells match original table","source_url":"https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf","location":"p13 Station Powering Data"},
+      {"id":"gs7000-1g-4rx-4tx","result":"all 10 current and 10 watt cells match original table","source_url":"https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf","location":"p13 Station Powering Data"},
+      {"id":"gs7000-12g-1rx-1tx","result":"all 10 current and 10 watt cells match original table; retain 85 VAC = 1.6 A nonmonotonic value","source_url":"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html","location":"Table 6 Station Powering Data"},
+      {"id":"gs7000-12g-4rx-4tx","result":"all 10 current and 10 watt cells match original table","source_url":"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html","location":"Table 6 Station Powering Data"},
+      {"id":"gs7000-12g-fiberdeep","result":"all 10 current and 10 watt cells match original table","source_url":"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html","location":"Table 6 Station Powering Data"},
+      {"id":"gs7000-12g-intelligent","result":"all 10 current and 10 watt cells match original table","source_url":"https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html","location":"Table 5 Station Powering Data"},
+      {"id":"vecima-en9000-manual","result":"manual-load-only behavior remains appropriate; no verified typical AC current curve","source_url":"https://vecima.com/wp-content/uploads/2025/03/Vecima-EN9000-Product-Brief.pdf","location":"p2 Power"}
+    ],
+    "power_conditions": "All GS7000 curves are configuration-specific, typical 20°C CATV ferroresonant quasi-square-wave tables covering 45–90 VAC. 33 VAC UVLO is not a curve endpoint. Do not merge 1Rx/4Rx, standard/SHO/Intelligent, or different transmitter configurations.",
+    "numeric_corrections_required": [],
+    "gaps": ["Exact installed serial/PID/modules remain unknown.", "No EN9000 public commissioning manual was located; official documentation route is the customer portal.", "Large standard Cisco manuals were read through original indexed excerpts and official index, not fully parsed page by page.", "Catalog has no separate Fiber Deep/SHO or Intelligent nodeProfile although both exist in Power; route manuals using explicit variant selection if exposing them."]
+  },
+  "source_refs_for_parent": ["turn14view0","turn14view2","turn17view0","turn27search12","turn27search13","turn42search4","turn42search5","turn27view0","turn27view1","turn33view2","turn32view4","turn32view5","turn33view0","turn33view1","turn37view0","turn42search2"],
+  "tool_limits": ["Octen extract rejected: payment method required.", "Firecrawl extraction rejected: insufficient credits; no request ran.", "Native web open could not parse 13–17 MB standard PDFs; smaller 9 MB SHO manual and HTML sources parsed normally.", "A direct executor HEAD response returned text/html rather than PDF; not used as evidence of successful PDF download."]
+}

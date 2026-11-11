@@ -1,0 +1,6 @@
+PASS Unreadable JSON, duplicate IDs and oversized lists stay intact and block named-job changes
+PASS Invalid nested snapshots cannot replace current work or rewrite the stored list
+PASS Corrupt saved-job evidence stops cleanup before any original bytes are deleted
+PASS The 1,000th job is accepted and existing named jobs can still update and open at capacity
+PASS Full lists reject additions and switches needing an archive slot without replacing working or saved jobs
+Named jobs storage: 5 checks passed

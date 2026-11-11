@@ -1,0 +1,10 @@
+PASS first evidence draft identifies the current node asset
+PASS same-owner renders preserve typed evidence context
+PASS new working owner resets stale type, stage, asset and notes
+PASS default-context import uses the current owner and preserves original bytes
+PASS failed imported-project preparation keeps the current draft and owner
+PASS successful imported owner resets draft without rewriting attached metadata or bytes
+PASS job metadata supplies the asset when no node equipment is selected
+PASS legacy project metadata remains a supported asset fallback
+
+8 evidence context checks passed; 0 failed.

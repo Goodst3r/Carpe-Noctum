@@ -1,0 +1,31 @@
+PASS Wolfram constant-current solution, line heating and source/load balance
+PASS Wolfram branched circuit has shared trunk current and separate branch drops
+PASS Wolfram high-voltage quadratic root for constant watts
+PASS Wolfram watts divided by power factor gives scalar apparent-current demand
+PASS Wolfram independently solved nonlinear branched watts/VA and constant-current mix
+PASS Wolfram piecewise manufacturer curve interior near 90V with cable drop
+PASS Wolfram manufacturer curve on a different segment near 75V
+PASS Source can exceed table upper if actual equipment solution is inside table
+PASS Final equipment voltage outside manufacturer range remains rejected
+PASS Every retained manufacturer current endpoint and midpoint uses linear interpolation
+PASS Manual-only presets cannot accidentally act as zero-current curve loads
+PASS Malformed manufacturer tables fail cleanly without throwing
+PASS Wolfram hot and cold resistance conversion uses Fahrenheit-to-Celsius difference
+PASS Temperature correction excludes custom actual-temperature resistance and contacts
+PASS Span slack contributes physical loop length
+PASS Cable rate missing at zero length means no cable loss, not an invented rate
+PASS Overflow is rejected instead of reporting ok with NaN or Infinity
+PASS Wolfram discriminant proves collapse case and solver rejects it
+PASS Near-collapse bounded iteration returns no false stable acceptance
+PASS Zero load is legitimate in all manual modes
+PASS Unknown minimum voltage and supply rating remain unavailable instead of zero
+PASS Equipment undervoltage and supply overload are warnings with signed headroom
+PASS Invalid wiring, duplicate IDs, loads, temperatures and factors cannot yield results
+PASS Legacy DC route selects the actual endpoint branch and sums only its cable path
+PASS Legacy DC route invalid path and missing resistance stay unavailable
+PASS Wolfram what-if recalculates shared-trunk voltage and leaves baseline unchanged
+PASS What-if custom resistance, unknown minimum and invalid inputs stay explicit
+PASS Node numeric parser rejects structured values instead of coercing to zero
+PASS Every node band enforces hardware floor and ceiling independently from plant operation
+PASS Node selection keeps operating bandwidth separate and rejects missing split
+Wolfram power: 30 checks passed (409 catalog endpoint/midpoint cases).

@@ -1,0 +1,13 @@
+{
+  "scope": "Extracted production Java snippets executed on Java 21 with Linux filesystem and queued-UI stand-ins. No Android emulator/device claim.",
+  "source_sha256": "8fb6a19a6cd5b297122272f9748c58e9ee05c7deb66af26541212fb143836e8f",
+  "filename": {
+    "characters": "104",
+    "utf8_bytes": "304",
+    "cache_copy": "rejected",
+    "error_type": "FileSystemException"
+  },
+  "print_queue": {
+    "destroyed_before_print": "NullPointerException"
+  }
+}

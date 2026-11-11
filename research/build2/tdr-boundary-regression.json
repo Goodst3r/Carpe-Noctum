@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-11-11T02:35:02.886Z",
+  "finding": "Coordinate-only active barrier comparison allowed a TDR path to cross a distinct zero-span active at the selected origin coordinate.",
+  "baselineEngineSha256": "13852cb9a54120f2f231d815483885e62a1e17d81ebde4f2cd9e70985dc1d42a",
+  "baselineObserved": [
+    {
+      "options": {
+        "endpoint": "r3",
+        "start": "r1",
+        "direction": "forward",
+        "distance": 50
+      },
+      "ok": true,
+      "routeDistance": 150,
+      "barrier": null
+    },
+    {
+      "options": {
+        "endpoint": "r3",
+        "start": "r2",
+        "direction": "reverse",
+        "distance": 50
+      },
+      "ok": true,
+      "routeDistance": 50,
+      "barrier": null
+    }
+  ],
+  "redTest": {
+    "command": "node qa/build2-tdr-boundaries.test.cjs",
+    "exitCode": 1,
+    "assertion": "Expected ok=false; actual ok=true in forward origin-coincident active case."
+  },
+  "repair": "Require active chain position to be beyond the selected origin in the test direction, plus distance beyond the event boundary. Selected origin and arrival boundary remain allowed.",
+  "currentEngineSha256": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+  "postRepair": [
+    {
+      "options": {
+        "endpoint": "r3",
+        "start": "r1",
+        "direction": "forward",
+        "distance": 50
+      },
+      "ok": false,
+      "barrier": "r2",
+      "error": "An active lies between the TDR origin and event. Start a new cable section at that active."
+    },
+    {
+      "options": {
+        "endpoint": "r3",
+        "start": "r2",
+        "direction": "reverse",
+        "distance": 50
+      },
+      "ok": false,
+      "barrier": "r1",
+      "error": "An active lies between the TDR origin and event. Start a new cable section at that active."
+    }
+  ],
+  "greenTest": {
+    "command": "node qa/build2-tdr-boundaries.test.cjs",
+    "groupedChecks": 8,
+    "status": "PASS"
+  }
+}

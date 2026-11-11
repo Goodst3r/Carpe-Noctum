@@ -1,0 +1,11 @@
+PASS A hidden sweep chart does not recalculate its grid during a route edit
+PASS One refresh reuses each numeric frequency while preserving corrected source outputs
+PASS An input edit starts a fresh calculation batch rather than keeping stale predictions
+PASS TP correction changes and project replacement do not inherit prior batch results
+PASS Opening Sweep and preparing print render the current chart after hidden edits
+PASS An interrupted refresh releases its batch and later input changes remain fresh
+PASS Disconnected feed checking respects earlier ports and leaves orphan branches disconnected
+PASS The public project text API enforces its 20 MiB UTF-8 limit before changing work
+PASS Exactly 20 MiB of valid project text remains importable
+PASS Non-text public imports reject before replacing the working job
+Build2 frontend: 10 checks passed

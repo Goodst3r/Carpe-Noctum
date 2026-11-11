@@ -1,0 +1,81 @@
+11-11 02:46:23.555   370   370 I android.hardware.bluetooth.service.default: close
+11-11 02:46:23.573   571  1393 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 10000ms for connection
+11-11 02:46:23.588   571   600 D DisplayManagerService: Drop pending events for gone uid 1002
+11-11 02:46:40.862   346   346 I Zygote  : Process 1786 exited due to signal 9 (Killed)
+11-11 02:46:40.898  1830  1830 D nativeloader: Load /product/app/webview/webview.apk!/lib/x86_64/libwebviewchromium.so using ns product-clns-8 from class loader (caller=/product/app/webview/webview.apk): ok
+11-11 02:46:40.936   571  1865 W system_server: Long monitor contention with owner backup-0 (1448) at android.os.Bundle com.android.providers.settings.SettingsProvider.packageValuesForCallResult(java.lang.String, java.util.HashMap, boolean)(SettingsProvider.java:2557) waiters=0 in com.android.providers.settings.SettingsState$Setting com.android.providers.settings.SettingsProvider.getGlobalSetting(java.lang.String) for 674ms
+11-11 02:46:40.938   571  1552 W system_server: Long monitor contention with owner backup-0 (1448) at android.os.Bundle com.android.providers.settings.SettingsProvider.packageValuesForCallResult(java.lang.String, java.util.HashMap, boolean)(SettingsProvider.java:2557) waiters=1 in com.android.providers.settings.SettingsState$Setting com.android.providers.settings.SettingsProvider.getSecureSetting(java.lang.String, int) for 708ms
+11-11 02:46:40.972  1830  1830 D nativeloader: Load /system/lib64/libwebviewchromium_plat_support.so using ns product-clns-8 from class loader (caller=/product/app/webview/webview.apk): ok
+11-11 02:46:40.983   571  1865 I DropBoxManagerService: add tag=system_app_anr isTagEnabled=true flags=0x6
+11-11 02:46:42.433   571   600 I Choreographer: Skipped 116 frames!  The application may be doing too much work on its main thread.
+11-11 02:46:42.452  1830  1869 D SharedPreferencesImpl: Time required to fsync /data/user/0/com.spencerwilliams.nightsweep.preview/shared_prefs/WebViewChromiumPrefs.xml: [<1: 0, <2: 0, <4: 0, <8: 0, <16: 0, <32: 0, <64: 0, <128: 0, <256: 0, <512: 1, <1024: 0, <2048: 0, <4096: 0, <8192: 0, <16384: 0, >=16384: 0]
+11-11 02:46:42.527   345   345 I netd    : tetherGetStats() -> {[]} <100.78ms>
+11-11 02:46:48.169   571  1044 W IPCThreadState: Sending oneway calls to frozen process.
+11-11 02:46:48.174   571  1044 W ActivityManager: Scheduling restart of crashed service com.android.providers.media.module/com.android.providers.media.fuse.ExternalStorageServiceImpl in 1000ms for connection
+11-11 02:46:48.200   571   613 W ActivityManager: Slow operation: 3808ms so far, now at startProcess: returned from zygote!
+11-11 02:47:14.197   972   972 V SystemUIBootTiming: StartServices com.android.systemui.keyguard.domain.interactor.scenetransition.LockscreenSceneTransitionInteractor took to complete: 1ms
+11-11 02:47:14.205   165  1991 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:47:14.215   571   571 W Looper  : Slow dispatch took 196ms main h=android.app.ActivityThread$H c=null m=114
+11-11 02:47:28.909  2084  2084 E crash_dump64: failed to get the guest state header for thread 2014: Bad address
+11-11 02:47:28.930  2059  2059 D nativeloader: InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-11 02:47:29.079   972  2092 I CCodec  : setting up 'default' as default (vendor) store
+11-11 02:47:32.735  2059  2059 D nativeloader:   com_android_neuralnetworks: libneuralnetworks.so
+11-11 02:47:32.744  2059  2059 D nativeloader: InitDefaultPublicLibraries for_preload=0: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libclang_rt.hwasan-aarch64-android.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-11 02:47:32.745  2059  2059 D nativeloader: Configuring clns-1 for other apk . target_sdk_version=0, uses_libraries=ALL, library_path=/product/app/webview/lib/x86_64:/product/app/webview/webview.apk!/lib/x86_64:/system/lib64:/system_ext/lib64:/product/app/webview/lib/x86_64, permitted_path=/data:/mnt/expand
+11-11 02:47:32.805   972  2050 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+11-11 02:47:33.003  2059  2059 D nativeloader: Load /product/app/webview/webview.apk!/lib/x86_64/libwebviewchromium.so using isolated ns clns-1 (caller=/product/app/webview/webview.apk): ok
+11-11 02:47:33.524   972  2092 D CCodecBufferChannel: [c2.android.vorbis.decoder#235] MediaCodec discarded an unknown buffer
+11-11 02:47:46.626   571   599 I PreBootBroadcaster: Pre-boot of {com.android.providers.contacts/com.android.providers.contacts.ContactsUpgradeReceiver} for user 0
+11-11 02:47:46.673  2095  2095 D nativeloader: InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+11-11 02:47:46.797   571   611 W IPCThreadState: Sending oneway calls to frozen process.
+11-11 02:47:55.447   571  1491 I ActivityManager: Process com.android.bluetooth (pid 1848) has died: psvc PER 
+11-11 02:47:55.451   571  1491 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 1000ms for connection
+11-11 02:47:55.473   370   370 E android.hardware.bluetooth.service.default: Bluetooth remote service has died
+11-11 02:48:25.798   972   972 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+11-11 02:48:25.974   165  2220 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:48:26.442  2201  2254 I ExternalStorageServiceImpl: Starting session for id: emulated;0
+11-11 02:48:31.258  2201  2254 I ExternalStorageServiceImpl: Ignoring volume state for vol:external_primary. State: checking
+11-11 02:48:31.269   571  2155 W ActivityManager: Scheduling restart of crashed service com.spencerwilliams.nightsweep.preview/org.chromium.content.app.SandboxedProcessService1:0 in 1000ms for connection
+11-11 02:48:31.313   571   600 D DisplayManagerService: Drop pending events for gone uid 99001
+11-11 02:48:31.340   571  2155 D CompatChangeReporter: Compat change id reported: 311208629; UID 10148; state: ENABLED
+11-11 02:48:31.414  1830  1830 E chromium: [ERROR:aw_browser_terminator.cc(154)] Renderer process (1965) crash detected (code 5).
+11-11 02:48:31.454   345   345 I netd    : tetherGetStats() -> {[]} <12.85ms>
+11-11 02:48:31.464  1830  1830 F chromium: [FATAL:crashpad_client_linux.cc(745)] Render process (1965)'s crash wasn't handled by all associated  webviews, triggering application crash.
+11-11 02:48:31.569   571  2268 W Process : Unable to open /proc/2275/status
+11-11 02:48:58.509   571  1275 I ActivityManager: Process com.android.bluetooth (pid 2161) has died: psvc PER 
+11-11 02:48:58.511   571  1275 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 4000ms for connection
+11-11 02:48:58.565   345   345 I netd    : tetherGetStats() -> {[]} <65.47ms>
+11-11 02:49:16.762   571   589 W system_server: ApkAssets: Deleting an ApkAssets object '/vendor/overlay/SystemUI__sdk_phone64_x86_64__auto_generated_rro_vendor.apk' with 1 weak references
+11-11 02:49:16.792   571   637 W ActivityManager: Scheduling restart of crashed service android.ext.services/.autofill.InlineSuggestionRenderServiceImpl in 1000ms for connection
+11-11 02:49:16.794   571   637 W ActivityManager: Scheduling restart of crashed service android.ext.services/.notification.Assistant in 10943ms for connection
+11-11 02:49:16.808   972  1036 W Looper  : Drained
+11-11 02:49:34.971   345   345 I netd    : tetherGetStats() -> {[]} <13.63ms>
+11-11 02:49:35.149   165  2455 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:49:35.205   571   611 D OomAdjuster: Not killing cached processes
+11-11 02:50:01.434   571  2635 I ActivityManager: Process com.android.bluetooth (pid 2389) has died: psvc PER 
+11-11 02:50:01.446   571  2635 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 16000ms for connection
+11-11 02:50:01.473   571   600 D DisplayManagerService: Drop pending events for gone uid 1002
+11-11 02:50:42.342  2741  2766 D WM-ForceStopRunnable: Performing cleanup operations.
+11-11 02:50:42.315  2651  2692 E MessagingAppDataModel: SyncMessagesAction: Sync failed - terminating
+11-11 02:50:42.383   571   600 W Looper  : Slow dispatch took 209ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=com.android.server.am.UidObserverController$$ExternalSyntheticLambda0@2e30157 m=0
+11-11 02:50:53.219   571   882 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-11 02:50:53.224   165  2769 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:50:53.282   571   882 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-11 02:50:58.746   571  2823 E system_server: libdebuggerd_client: failed to send signal to pid 2749: No such process
+11-11 02:50:58.748   204   204 I tombstoned: intercept for pid 2749 and type kDebuggerdNativeBacktrace terminated: due to input
+11-11 02:50:58.789   571  2823 W ActivityManager: Native stack dump failed!
+11-11 02:51:12.435   346   346 I Zygote  : Process 2697 exited due to signal 6 (Aborted)
+11-11 02:51:12.438   571  1547 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 64000ms for connection
+11-11 02:51:12.441   370   370 E android.hardware.bluetooth.service.default: Bluetooth remote service has died
+11-11 02:51:46.479  2887  2909 V ContactsProvider: 0 Dangling Contacts have been cleaned up.
+11-11 02:51:46.521   165  2863 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:51:47.033  2876  2876 D CompatChangeReporter: Compat change id reported: 330583731; UID 1001; state: ENABLED
+11-11 02:51:57.707  2876  2883 W System  : A resource failed to call AbstractCursor.close. 
+11-11 02:51:57.728   165  2919 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:51:57.916   571   716 D ActivityManager: freezing 2651 com.android.messaging
+11-11 02:52:38.447  2527  3054 W SubscriptionInfo: MNC string is not a number
+11-11 02:52:38.495   165  3004 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:52:38.522   352   363 E IPCThreadState: binder thread pool (1 threads) starved for 124 ms
+11-11 02:53:17.615  3097  3097 I bluetooth-a2dp: system/stack/a2dp/a2dp_codec_config.cc:678 init: initialized Sink codec SBC SINK, idx 11
+11-11 02:53:17.664   165  3127 I keystore2: system/security/keystore2/watchdog/src/lib.rs:319 - Watchdog thread idle -> terminating. Have a great day.
+11-11 02:53:17.761  3097  3097 I bluetooth-a2dp: system/btif/src/btif_a2dp_source.cc:332 btif_a2dp_source_init: 

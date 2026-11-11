@@ -1,0 +1,17 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const c=JSON.parse(fs.readFileSync('night-sweep/catalog.json'));
+const ctx={catalog:c,state:{setup:{temperature:68,basis:'nominal'}},console};
+ctx.device=id=>c.devices.find(d=>d.id===id);vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('night-sweep/engine.js','utf8')+'\n'+fs.readFileSync('night-sweep/frequency.js','utf8'),ctx);
+const run=t=>vm.runInContext(t,ctx);
+run("globalThis.f=freshFrequency(); f.cable='custom';f.length=250;f.points={'981':{cable:2,passive:3,launch:40}};");
+let r=run('frequencyCalculation(f).rows.find(r=>r.hz===981)');
+assert.equal(r.total,8);assert.equal(r.budget,32);assert.equal(r.band,'Forward');
+run('f.points[981].launch=""');r=run('frequencyCalculation(f).rows.find(r=>r.hz===981)');assert.equal(r.total,8);assert.equal(r.budget,null);
+run('f.points[981].cable=-1;f.length=0');r=run('frequencyCalculation(f).rows.find(r=>r.hz===981)');assert.equal(r.total,null);
+run('f.points[981].cable=2;f.length=100;f.quantity=0;f.points[981].passive=-1');r=run('frequencyCalculation(f).rows.find(r=>r.hz===981)');assert.equal(r.total,null);
+run('f.points[981].passive=3;f.quantity=1;f.forwardFloor=204');assert(run('frequencyCalculation(f).errors.length')>0);assert.equal(run('frequencyCalculation(f).rows.find(r=>r.hz===981).total'),null);
+assert.throws(()=>run('validateFrequency({points:{"981":{cable:true}}})'));
+run('f=freshFrequency()');r=run('frequencyCalculation(f).rows');assert.equal(r.length,40);assert.equal(r[0].hz,5);assert.equal(r.at(-1).hz,1800);assert.equal(r.find(x=>x.hz===204).band,'Return');assert.equal(r.find(x=>x.hz===258).band,'Forward');
+run("f.points={'220':{cable:1,passive:0}};");assert.equal(run('frequencyCalculation(f).rows.find(r=>r.hz===220).band'),'Transition');
+console.log('Frequency regression: 16 assertions passed');

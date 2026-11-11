@@ -1,0 +1,11 @@
+{
+  "tool": "Context7",
+  "library_id": "/websites/developer_android_studio",
+  "topic": "Official APK signing order, zipalign before apksigner, verification and certificate continuity",
+  "sources": [
+    "https://developer.android.com/studio/command-line/zipalign",
+    "https://developer.android.com/studio/command-line/apksigner",
+    "https://developer.android.com/studio/build/building-cmdline"
+  ],
+  "applied": "Existing command order retained. Compatible signer pinned; unsigned candidates explicitly non-installable and separated from signed outputs."
+}

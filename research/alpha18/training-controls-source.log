@@ -1,0 +1,17 @@
+✔ Complete practice identifies Vecima/AOI high split and an explicitly synthetic EN9000 entered load (2049.058519ms)
+✔ Every References Open step exposes its previously collapsed target controls (2770.584952ms)
+✔ Every Records Open step exposes all record sections and their existing editable forms (2996.307016ms)
+✔ The gain Open step exposes its test-point measurement inputs at the intended amplifier (1851.610214ms)
+✔ Every Job details Open step reveals the work-order fields named by its teaching hint (2836.768343ms)
+✔ A retained legacy complete export keeps its data and progress while hiding the incompatible guide until Reset (2513.192319ms)
+✔ Changing the complete practice to another Vecima split hides the 204/258 guide without rewriting data (3484.514251ms)
+✔ GS7K, OEM and DSIM practice teach only the deployed 42/54 split (1534.406732ms)
+✔ A failed complete-training button reports its error next to the buttons and permits retry (1747.907075ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22130.296307

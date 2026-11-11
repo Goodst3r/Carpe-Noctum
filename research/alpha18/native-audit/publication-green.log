@@ -1,0 +1,20 @@
+test_bad_frozen_hash_stops_before_sdk_commands (__main__.AndroidPreviewTests.test_bad_frozen_hash_stops_before_sdk_commands) ... ok
+test_changed_input_never_publishes_candidate (__main__.AndroidPreviewTests.test_changed_input_never_publishes_candidate) ... ok
+test_compile_failure_preserves_previous_validated_release (__main__.AndroidPreviewTests.test_compile_failure_preserves_previous_validated_release) ... ok
+test_promotion_failure_restores_previous_release (__main__.AndroidPreviewTests.test_promotion_failure_restores_previous_release) ... ok
+test_publication_copy_failure_preserves_release_and_receipt (__main__.AndroidPreviewTests.test_publication_copy_failure_preserves_release_and_receipt) ... ok
+test_rejected_embedded_html_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_embedded_html_never_publishes_candidate) ... ok
+test_rejected_manifest_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_manifest_never_publishes_candidate) ... ok
+test_rejected_provider_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_provider_never_publishes_candidate) ... ok
+test_rejected_signature_never_publishes_candidate (__main__.AndroidPreviewTests.test_rejected_signature_never_publishes_candidate) ... ok
+test_release_identity_and_offline_permissions (__main__.AndroidPreviewTests.test_release_identity_and_offline_permissions) ... ok
+test_standard_and_preview_staging_preserve_canonical_sources (__main__.AndroidPreviewTests.test_standard_and_preview_staging_preserve_canonical_sources) ... ok
+test_standard_promotion_preserves_separate_preview_artifacts (__main__.AndroidPreviewTests.test_standard_promotion_preserves_separate_preview_artifacts) ... ok
+test_validated_candidate_publishes_matching_receipt (__main__.AndroidPreviewTests.test_validated_candidate_publishes_matching_receipt) ... ok
+test_wrong_signer_never_publishes_candidate (__main__.AndroidPreviewTests.test_wrong_signer_never_publishes_candidate) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.265s
+
+OK
+Android preview: 14 checks passed (mocked SDK; no APK/device verification)

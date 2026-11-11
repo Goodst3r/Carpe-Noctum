@@ -1,0 +1,218 @@
+{
+  "phase": "candidate",
+  "htmlSha256": "12825497a5c807993dcbc34df0ae4866232456b4e4684a72d63938ad3d8add28",
+  "scope": "Synthetic desktop Chromium, 390px mobile viewport. In-process synchronous function timings; not physical-device timing. Instrumented function counts recorded separately. Baseline core/storage source held constant.",
+  "scenarios": [
+    {
+      "routeRows": 9,
+      "refreshMs": [
+        9.5,
+        8.200000000186265,
+        6.7000000001862645,
+        5.7999999998137355,
+        6
+      ],
+      "refreshMedianMs": 6.7000000001862645,
+      "renderAllMs": 41.299999999813735,
+      "functions": {
+        "evaluate": {
+          "calls": 69,
+          "ms": 0.6999999992549419
+        },
+        "drawChart": {
+          "calls": 1,
+          "ms": 0
+        },
+        "refreshRouteMath": {
+          "calls": 1,
+          "ms": 2
+        },
+        "refreshGainBudget": {
+          "calls": 2,
+          "ms": 0.5
+        },
+        "refreshRouteTools": {
+          "calls": 1,
+          "ms": 1.7000000001862645
+        },
+        "renderCascade": {
+          "calls": 1,
+          "ms": 0.599999999627471
+        },
+        "renderRoute": {
+          "calls": 0,
+          "ms": 0
+        },
+        "renderMeters": {
+          "calls": 0,
+          "ms": 0
+        },
+        "refreshResults": {
+          "calls": 1,
+          "ms": 8
+        },
+        "saveLocal": {
+          "calls": 1,
+          "ms": 0.5
+        },
+        "HFC.run": {
+          "calls": 7,
+          "ms": 0.599999999627471
+        }
+      },
+      "layout": {
+        "cascadeHeight": 320,
+        "cascadeScrollHeight": 691,
+        "cascadeWidth": 332,
+        "cascadeScrollWidth": 1871,
+        "firstPointTop": 1590.1875,
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "domNodes": 6500
+      },
+      "errors": [],
+      "stateAndNumericsSha256": "4d135215a6235d29a46e2f161c3329bc1779dcbfa410908eb615bd578941d25c"
+    },
+    {
+      "routeRows": 100,
+      "refreshMs": [
+        38.19999999925494,
+        33.5,
+        34.40000000037253,
+        31.5,
+        32.89999999944121
+      ],
+      "refreshMedianMs": 33.5,
+      "renderAllMs": 148.40000000037253,
+      "functions": {
+        "evaluate": {
+          "calls": 210,
+          "ms": 1.2999999998137355
+        },
+        "drawChart": {
+          "calls": 1,
+          "ms": 0
+        },
+        "refreshRouteMath": {
+          "calls": 1,
+          "ms": 10.599999999627471
+        },
+        "refreshGainBudget": {
+          "calls": 0,
+          "ms": 0
+        },
+        "refreshRouteTools": {
+          "calls": 1,
+          "ms": 13.899999999441206
+        },
+        "renderCascade": {
+          "calls": 1,
+          "ms": 2.8999999994412065
+        },
+        "renderRoute": {
+          "calls": 0,
+          "ms": 0
+        },
+        "renderMeters": {
+          "calls": 0,
+          "ms": 0
+        },
+        "refreshResults": {
+          "calls": 1,
+          "ms": 40.90000000037253
+        },
+        "saveLocal": {
+          "calls": 1,
+          "ms": 1.2999999998137355
+        },
+        "HFC.run": {
+          "calls": 7,
+          "ms": 0.6999999992549419
+        }
+      },
+      "layout": {
+        "cascadeHeight": 150.109375,
+        "cascadeScrollHeight": 150,
+        "cascadeWidth": 332,
+        "cascadeScrollWidth": 27758,
+        "firstPointTop": 1558.078125,
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "domNodes": 27315
+      },
+      "errors": [],
+      "stateAndNumericsSha256": "279ba8349fca95fa43fbd40e6ebebd8d79ed8331a2fe1b193e3c7acea4a3a142"
+    },
+    {
+      "routeRows": 200,
+      "refreshMs": [
+        80.5,
+        88.1000000005588,
+        84.70000000018626,
+        79.30000000074506,
+        80
+      ],
+      "refreshMedianMs": 80.5,
+      "renderAllMs": 508.70000000018626,
+      "functions": {
+        "evaluate": {
+          "calls": 410,
+          "ms": 2
+        },
+        "drawChart": {
+          "calls": 1,
+          "ms": 0
+        },
+        "refreshRouteMath": {
+          "calls": 1,
+          "ms": 17
+        },
+        "refreshGainBudget": {
+          "calls": 0,
+          "ms": 0
+        },
+        "refreshRouteTools": {
+          "calls": 1,
+          "ms": 38.299999999813735
+        },
+        "renderCascade": {
+          "calls": 1,
+          "ms": 5.2000000001862645
+        },
+        "renderRoute": {
+          "calls": 0,
+          "ms": 0
+        },
+        "renderMeters": {
+          "calls": 0,
+          "ms": 0
+        },
+        "refreshResults": {
+          "calls": 1,
+          "ms": 81.6000000005588
+        },
+        "saveLocal": {
+          "calls": 1,
+          "ms": 0.900000000372529
+        },
+        "HFC.run": {
+          "calls": 7,
+          "ms": 1.2999999998137355
+        }
+      },
+      "layout": {
+        "cascadeHeight": 150.109375,
+        "cascadeScrollHeight": 150,
+        "cascadeWidth": 332,
+        "cascadeScrollWidth": 55427,
+        "firstPointTop": 1558.078125,
+        "documentWidth": 390,
+        "viewportWidth": 390,
+        "domNodes": 60765
+      },
+      "errors": [],
+      "stateAndNumericsSha256": "ba591b54f7cf866219cf429eb91e86685f96be78d5f755960cc879df9e109baf"
+    }
+  ],
+  "browser": "156.0.8078.79"
+}

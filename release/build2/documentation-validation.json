@@ -1,0 +1,74 @@
+{
+  "scope": "Separate technician documentation only; no app build or physical device installation performed.",
+  "documents": [
+    {
+      "name": "NightSweep_1.8_Alpha_Functions_README",
+      "checks": {
+        "headingCount": 31,
+        "ids": 33,
+        "uniqueIds": 33,
+        "fragmentLinks": 93,
+        "missingFragments": [],
+        "externalScripts": 0
+      },
+      "viewportWidths": [
+        390,
+        1280
+      ],
+      "pdfPages": 29,
+      "pdfTextCharacters": 60841,
+      "pdfTextWithinPage": true,
+      "runtimeErrors": [],
+      "files": {
+        ".md": {
+          "bytes": 66295,
+          "sha256": "ba79ac403418cffcd0b8f89ac47712214bf9bb83b9a3b99645a8bbeaeb0a451e"
+        },
+        ".html": {
+          "bytes": 90648,
+          "sha256": "6ddfb43e31470a3a5c0cfb95fe5280ee6d70802b337fcf559c45b27dd72bc13d"
+        },
+        ".pdf": {
+          "bytes": 664515,
+          "sha256": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2"
+        }
+      }
+    },
+    {
+      "name": "NightSweep_1.8_Alpha_Android_iOS_Installation",
+      "checks": {
+        "headingCount": 12,
+        "ids": 14,
+        "uniqueIds": 14,
+        "fragmentLinks": 12,
+        "missingFragments": [],
+        "externalScripts": 0
+      },
+      "viewportWidths": [
+        390,
+        1280
+      ],
+      "pdfPages": 7,
+      "pdfTextCharacters": 16316,
+      "pdfTextWithinPage": true,
+      "runtimeErrors": [],
+      "files": {
+        ".md": {
+          "bytes": 16943,
+          "sha256": "1a8da77dee28476bce95f87ea3a6cf20e6c3c372e628e872e780bd2a5e84a288"
+        },
+        ".html": {
+          "bytes": 26955,
+          "sha256": "e8a1079145361b618007983df350a357e7b9d3ca96d1295bb4a9a3203ddaf4a1"
+        },
+        ".pdf": {
+          "bytes": 192110,
+          "sha256": "53588cb8829267b0689f20356033356b1c9201163f6b097b41a72a47f6d3957d"
+        }
+      }
+    }
+  ],
+  "browser": "156.0.8078.79",
+  "frozenSourceInputsUnchanged": true,
+  "status": "PASS"
+}

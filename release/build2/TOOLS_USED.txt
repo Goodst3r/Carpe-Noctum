@@ -1,0 +1,49 @@
+NIGHTSWEEP 1.8 ALPHA BUILD 2 — TOOL RECORD
+
+All enabled tool families were reviewed for task relevance before implementation.
+The complete discovery/routing record is plugin-review.json. Reviewing a plugin
+does not mean invoking it. The project's automatic-plugin policy explicitly
+requires applicable tools, not ceremonial calls to unrelated services.
+
+ACTUALLY USED IN THIS BUILD 2 ITERATION
+- Cloud Environment: readiness inspection and local execution environment.
+- Context7: browser storage/localStorage and frontend/platform API references.
+  Evidence: Source/research/build2/context7-*-reference.json,
+  frontend-context7.json and native/review/context7-reference.txt.
+- Wolfram: fresh independent power arithmetic reference, compared with app
+  backtests. Evidence: Source/research/build2/power-wolfram.json and
+  POWER_BACKTEST.md. Earlier RF reference receipts remain historical evidence.
+- Superpowers and Data workflows: scoped debugging, data validation, analytical
+  expected values, independent code review and verification. Reading skills
+  guides work; it is not an external calculation or a test result.
+- Parallel development/review agents: focused math, performance, reliability,
+  documentation, native and independent release review, with local evidence.
+- Local file/shell/Python/Node tools: supplied-archive inspection, source edits,
+  app/PWA generation, 57-suite frozen QA, hashes and private master packaging.
+- Playwright/Chromium: rendered features and examples, real IndexedDB original
+  bytes, offline reopening/guides, mobile viewport layouts and screenshots.
+- Java and official Android SDK tools: actual compiler, aapt2, zipalign,
+  apksigner and keytool; original certificate verification and signed APK.
+- Official Google/Maven documentation and artifact endpoints: pinned/checksummed
+  compiler/SDK/emulator downloads and platform-reference checks.
+- Android emulator/adb: actual Build 22-to-24 compatible update and generic
+  private-fixture retention; runtime limitations recorded separately.
+- Chromium PDF output and PyMuPDF: separate functions/install PDFs, text bounds
+  and document verification. npm audit: locked QA dependencies, zero findings.
+
+REVIEWED, NOT USED WITHOUT AN APPLICABLE TASK
+Finance, investment, tax, weather, sports/betting, unrelated inbox/account,
+pet/model tools and plugin-store changes do not validate this app. No messages,
+email, account changes or private signing values were sent to connected services.
+No new Notion/Pages/Figma project or competing source repository was created.
+The bounded cascade fix reused the existing design; no fresh Figma result is
+claimed. No website, App Store or repository publication was performed.
+
+VERIFICATION AND LIMITS
+1,066 automated checks / 57 suites and 322 rendered Chromium checks passed.
+The final real signed APK passes independent signature/identity/content checks.
+The emulator accepted its compatible update, but both old and new builds hit
+the same stock WebView renderer crash. Native UI/save/share/print and actual
+saved-job/evidence retention remain unverified. No physical Android/iPhone,
+Safari, live plant or exhaustive internal branch coverage is claimed.
+See validation.json, VERIFICATION_SUMMARY.md and the detailed source reports.

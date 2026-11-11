@@ -1,0 +1,56 @@
+PASS 360px cascade keeps a bounded viewport
+PASS 360px scroll region has a label and keyboard focus
+PASS 360px r1 remains reachable in diagram
+PASS 360px r2 remains reachable in diagram
+PASS 360px r3 remains reachable in diagram
+PASS 360px r4 remains reachable in diagram
+PASS 360px r5 remains reachable in diagram
+PASS 360px r6 remains reachable in diagram
+PASS 360px r7 remains reachable in diagram
+PASS 360px r8 remains reachable in diagram
+PASS 360px r9 remains reachable in diagram
+PASS 360px diagram does not widen the page
+PASS 360px diagram scrolls with keyboard
+PASS 360px print removes diagram height constraint
+PASS 390px cascade keeps a bounded viewport
+PASS 390px scroll region has a label and keyboard focus
+PASS 390px r1 remains reachable in diagram
+PASS 390px r2 remains reachable in diagram
+PASS 390px r3 remains reachable in diagram
+PASS 390px r4 remains reachable in diagram
+PASS 390px r5 remains reachable in diagram
+PASS 390px r6 remains reachable in diagram
+PASS 390px r7 remains reachable in diagram
+PASS 390px r8 remains reachable in diagram
+PASS 390px r9 remains reachable in diagram
+PASS 390px diagram does not widen the page
+PASS 390px diagram scrolls with keyboard
+PASS 390px print removes diagram height constraint
+PASS 768px cascade keeps a bounded viewport
+PASS 768px scroll region has a label and keyboard focus
+PASS 768px r1 remains reachable in diagram
+PASS 768px r2 remains reachable in diagram
+PASS 768px r3 remains reachable in diagram
+PASS 768px r4 remains reachable in diagram
+PASS 768px r5 remains reachable in diagram
+PASS 768px r6 remains reachable in diagram
+PASS 768px r7 remains reachable in diagram
+PASS 768px r8 remains reachable in diagram
+PASS 768px r9 remains reachable in diagram
+PASS 768px diagram does not widen the page
+PASS 768px print removes diagram height constraint
+PASS 1280px cascade keeps a bounded viewport
+PASS 1280px scroll region has a label and keyboard focus
+PASS 1280px r1 remains reachable in diagram
+PASS 1280px r2 remains reachable in diagram
+PASS 1280px r3 remains reachable in diagram
+PASS 1280px r4 remains reachable in diagram
+PASS 1280px r5 remains reachable in diagram
+PASS 1280px r6 remains reachable in diagram
+PASS 1280px r7 remains reachable in diagram
+PASS 1280px r8 remains reachable in diagram
+PASS 1280px r9 remains reachable in diagram
+PASS 1280px diagram does not widen the page
+PASS 1280px print removes diagram height constraint
+PASS No uncaught application errors
+Build2 layout: 55 checks passed

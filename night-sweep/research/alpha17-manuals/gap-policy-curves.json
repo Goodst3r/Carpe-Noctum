@@ -1,0 +1,107 @@
+[
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-11",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-14",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-17",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-20",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-23",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-26",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-29",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-2-8",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-11",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-14",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-17",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-20",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-23",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-26",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-4-29",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-14",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-17",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-20",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-23",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-26",
+    "portId": "through",
+    "basis": "maximum"
+  },
+  {
+    "deviceId": "scientific-atlanta-multimedia-1ghz--sat-mm-8-29",
+    "portId": "through",
+    "basis": "maximum"
+  }
+]

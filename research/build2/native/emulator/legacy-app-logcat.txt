@@ -1,0 +1,18 @@
+--------- beginning of system
+11-11 02:48:58.397   571  1393 W ActivityManager: Slow operation: 146ms so far, now at finishAttachApplicationInner: after mServices.attachApplicationLocked
+11-11 02:48:58.479   571  1393 W ActivityManager: Slow operation: 229ms so far, now at finishAttachApplicationInner: after dispatching broadcasts
+11-11 02:48:58.511   571  1275 W ActivityManager: Scheduling restart of crashed service com.android.bluetooth/.btservice.AdapterService in 4000ms for connection
+11-11 02:48:58.886   571   612 W ActivityManager: Slow operation: 188ms so far, now at startProcess: done creating new process record
+11-11 02:48:58.887   571   612 W ActivityManager: Slow operation: 189ms so far, now at startProcess: stepping in to startProcess
+11-11 02:48:59.007   571   612 W ActivityManager: Slow operation: 309ms so far, now at startProcess: done starting proc!
+11-11 02:48:59.022   571   613 W ActivityManager: Slow operation: 135ms so far, now at startProcess: asking zygote to start proc
+11-11 02:48:59.117   571   613 W ActivityManager: Slow operation: 229ms so far, now at startProcess: returned from zygote!
+11-11 02:48:59.117   571   613 W ActivityManager: Slow operation: 230ms so far, now at startProcess: done updating battery stats
+11-11 02:48:59.118   571   613 W ActivityManager: Slow operation: 231ms so far, now at startProcess: building log message
+11-11 02:48:59.118   571   613 W ActivityManager: Slow operation: 231ms so far, now at startProcess: starting to update pids map
+11-11 02:48:59.119   571   613 W ActivityManager: Slow operation: 232ms so far, now at startProcess: done updating pids map
+11-11 02:49:01.130   571  1393 W ActivityManager: Slow operation: 205ms so far, now at attachApplicationLocked: before bindApplication
+11-11 02:49:01.286   571  1393 W ActivityManager: Slow operation: 361ms so far, now at attachApplicationLocked: immediately before bindApplication
+11-11 02:49:01.477   571  1393 W ActivityManager: Slow operation: 552ms so far, now at attachApplicationLocked: immediately after bindApplication
+11-11 02:49:01.477   571  1393 W ActivityManager: Slow operation: 552ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+11-11 02:49:01.684   571  1393 W ActivityManager: Slow operation: 759ms so far, now at attachApplicationLocked: after updateOomAdjLocked

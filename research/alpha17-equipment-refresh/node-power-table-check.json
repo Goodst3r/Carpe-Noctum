@@ -1,0 +1,343 @@
+{
+  "checked_at": "2026-11-10",
+  "extract_id": "extract_a8189d58945b6866fab40ba39868ba66",
+  "source_tables": [
+    {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/gs7000-node/7013906.pdf",
+      "sourceAcquired": "2026-09-24T00:00:00Z",
+      "sourcePublished": "2012-06-05",
+      "voltsDescending": [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45
+      ],
+      "currents": [
+        [
+          1.4,
+          1.4,
+          1.4,
+          1.5,
+          1.5,
+          1.6,
+          1.7,
+          1.8,
+          2,
+          2.2
+        ],
+        [
+          1.7,
+          1.7,
+          1.7,
+          1.8,
+          1.9,
+          2,
+          2.1,
+          2.3,
+          2.5,
+          2.8
+        ]
+      ],
+      "watts": [
+        [
+          96.4,
+          96.2,
+          95.9,
+          95.6,
+          95.4,
+          95.4,
+          95.3,
+          95.3,
+          95.5,
+          95.8
+        ],
+        [
+          121.5,
+          121.1,
+          120.8,
+          120.6,
+          120.6,
+          120.5,
+          120.5,
+          120.7,
+          120.9,
+          121
+        ]
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-740828.html",
+      "sourceAcquired": "2026-08-16T00:00:00Z",
+      "sourcePublished": "2019-01-09",
+      "voltsDescending": [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45
+      ],
+      "currents": [
+        [
+          2.16,
+          2.16,
+          2.28,
+          2.44,
+          2.61,
+          2.8,
+          3.05,
+          3.36,
+          3.75,
+          4.23
+        ]
+      ],
+      "watts": [
+        [
+          160.6,
+          160.1,
+          160,
+          159.9,
+          160,
+          160.1,
+          160.4,
+          160.9,
+          161.7,
+          162.1
+        ]
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-732306.html",
+      "sourceAcquired": "2026-09-28T00:00:00Z",
+      "sourcePublished": "2016-01-04",
+      "voltsDescending": [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45
+      ],
+      "currents": [
+        [
+          1.4,
+          1.4,
+          1.4,
+          1.5,
+          1.5,
+          1.6,
+          1.7,
+          1.8,
+          2,
+          2.2
+        ],
+        [
+          1.7,
+          1.7,
+          1.7,
+          1.8,
+          1.9,
+          2,
+          2.1,
+          2.3,
+          2.5,
+          2.8
+        ]
+      ],
+      "watts": [
+        [
+          96.4,
+          96.2,
+          95.9,
+          95.6,
+          95.4,
+          95.4,
+          95.3,
+          95.3,
+          95.5,
+          95.8
+        ],
+        [
+          121.5,
+          121.1,
+          120.8,
+          120.6,
+          120.6,
+          120.5,
+          120.5,
+          120.7,
+          120.9,
+          121
+        ]
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-737266.html",
+      "sourceAcquired": "2026-09-28T00:00:00Z",
+      "sourcePublished": "2017-07-17",
+      "voltsDescending": [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45
+      ],
+      "currents": [
+        [
+          1.7,
+          1.7,
+          1.7,
+          1.8,
+          1.8,
+          2,
+          2.1,
+          2.3,
+          2.5,
+          2.8
+        ]
+      ],
+      "watts": [
+        [
+          119.8,
+          119.45,
+          119.2,
+          119.1,
+          119,
+          119,
+          119.2,
+          119.3,
+          119.7,
+          120.2
+        ]
+      ]
+    },
+    {
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gs7000-node/datasheet-c78-736288.html",
+      "sourceAcquired": "2026-09-28T00:00:00Z",
+      "sourcePublished": "2016-02-24",
+      "voltsDescending": [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45
+      ],
+      "currents": [
+        [
+          1.5,
+          1.6,
+          1.5,
+          1.5,
+          1.6,
+          1.7,
+          1.8,
+          2,
+          2.2,
+          2.4
+        ],
+        [
+          1.8,
+          1.8,
+          1.8,
+          1.9,
+          2,
+          2.1,
+          2.3,
+          2.4,
+          2.8,
+          3
+        ]
+      ],
+      "watts": [
+        [
+          103,
+          102.7,
+          102.4,
+          102.2,
+          102.3,
+          102,
+          102,
+          102.1,
+          102.2,
+          102.8
+        ],
+        [
+          129.5,
+          129.2,
+          129,
+          128.8,
+          128.6,
+          128.8,
+          128.7,
+          128.9,
+          129.5,
+          130
+        ]
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "gs7000-1g-1rx-1tx",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    },
+    {
+      "id": "gs7000-1g-4rx-4tx",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    },
+    {
+      "id": "gs7000-12g-1rx-1tx",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    },
+    {
+      "id": "gs7000-12g-4rx-4tx",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    },
+    {
+      "id": "gs7000-12g-fiberdeep",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    },
+    {
+      "id": "gs7000-12g-intelligent",
+      "matching_current_cells": 10,
+      "matching_watts_cells": 10,
+      "differences": []
+    }
+  ],
+  "total_matching_numeric_cells": 120,
+  "scope": "Re-transcribed exact configuration current/watt arrays from manufacturer full text and compared all catalog curve cells; not an AC load field measurement."
+}

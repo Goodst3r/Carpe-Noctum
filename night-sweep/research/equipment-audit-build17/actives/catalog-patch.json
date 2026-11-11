@@ -1,0 +1,846 @@
+{
+  "checked_on": "2026-11-10",
+  "existing_device_replacements": [
+    {
+      "id": "active_aoi_hgd",
+      "family": "AOI Quantum18",
+      "model": "HGD 204/258",
+      "label": "AOI Quantum18 HGD \u00b7 1.8 GHz \u00b7 204/258",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "note": "Manufacturer Spanish datasheet is live; the former English PDF returns 404. Gain is a configuration-specific operational reference, not a flat curve or measured gain at route frequencies. Verify module, selected output and pad/EQ settings. Reverse 27 dB applies to the 204 MHz split. HGD auxiliary signal directors change selected-output gain.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": 27,
+        "conditions": "204/258 MHz split; minimum operational gain; 20\u00b0C reference; equivalent 0 dB input EQ and 1 dB input pad.",
+        "forwardBand": [
+          258,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          204
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+        "note": "Manufacturer Spanish datasheet is live; the former English PDF returns 404. Gain is a configuration-specific operational reference, not a flat curve or measured gain at route frequencies. Verify module, selected output and pad/EQ settings. Reverse 27 dB applies to the 204 MHz split. HGD auxiliary signal directors change selected-output gain.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_le",
+      "family": "AOI Quantum18",
+      "model": "LE 204/258",
+      "label": "AOI Quantum18 LE \u00b7 1.8 GHz \u00b7 204/258",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "note": "Manufacturer Spanish datasheet is live; the former English PDF returns 404. Gain is a configuration-specific operational reference, not a flat curve or measured gain at route frequencies. Verify module, selected output and pad/EQ settings. Reverse 27 dB applies to the 204 MHz split.",
+      "publishedGain": {
+        "forward": 46,
+        "reverse": 27,
+        "conditions": "204/258 MHz split; minimum operational gain; 20\u00b0C reference; equivalent 0 dB input EQ and 1 dB input pad.",
+        "forwardBand": [
+          258,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          204
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+        "note": "Manufacturer Spanish datasheet is live; the former English PDF returns 404. Gain is a configuration-specific operational reference, not a flat curve or measured gain at route frequencies. Verify module, selected output and pad/EQ settings. Reverse 27 dB applies to the 204 MHz split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    }
+  ],
+  "new_devices": [
+    {
+      "id": "active_aoi_hgbt",
+      "family": "AOI Quantum18",
+      "model": "HGBT 204/258",
+      "label": "AOI Quantum18 HGBT \u00b7 1.8 GHz \u00b7 204/258",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "note": "Three high-level outputs. Manufacturer Spanish datasheet verified live; English PDF currently unavailable. Enter operating gain for the selected output and installed settings. Reverse 27 dB is specified for the 204 MHz split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": 27,
+        "conditions": "204/258 MHz split; minimum operational gain; 20\u00b0C reference; equivalent 0 dB input EQ and 1 dB input pad.",
+        "forwardBand": [
+          258,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          204
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+        "note": "Three high-level outputs. Manufacturer Spanish datasheet verified live; English PDF currently unavailable. Enter operating gain for the selected output and installed settings. Reverse 27 dB is specified for the 204 MHz split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgd_85",
+      "family": "AOI Quantum18",
+      "model": "HGD 85/105",
+      "label": "AOI Quantum18 HGD \u00b7 1.8 GHz \u00b7 85/105",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "85/105 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          105,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          85
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgd_396",
+      "family": "AOI Quantum18",
+      "model": "HGD 396/492",
+      "label": "AOI Quantum18 HGD \u00b7 1.8 GHz \u00b7 396/492",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "396/492 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          492,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          396
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgd_492",
+      "family": "AOI Quantum18",
+      "model": "HGD 492/606",
+      "label": "AOI Quantum18 HGD \u00b7 1.8 GHz \u00b7 492/606",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "492/606 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          606,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          492
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgd_684",
+      "family": "AOI Quantum18",
+      "model": "HGD 684/834",
+      "label": "AOI Quantum18 HGD \u00b7 1.8 GHz \u00b7 684/834",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "684/834 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          834,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          684
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_le_85",
+      "family": "AOI Quantum18",
+      "model": "LE 85/105",
+      "label": "AOI Quantum18 LE \u00b7 1.8 GHz \u00b7 85/105",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 46,
+        "reverse": null,
+        "conditions": "85/105 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          105,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          85
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_le_396",
+      "family": "AOI Quantum18",
+      "model": "LE 396/492",
+      "label": "AOI Quantum18 LE \u00b7 1.8 GHz \u00b7 396/492",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 46,
+        "reverse": null,
+        "conditions": "396/492 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          492,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          396
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_le_492",
+      "family": "AOI Quantum18",
+      "model": "LE 492/606",
+      "label": "AOI Quantum18 LE \u00b7 1.8 GHz \u00b7 492/606",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 46,
+        "reverse": null,
+        "conditions": "492/606 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          606,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          492
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_le_684",
+      "family": "AOI Quantum18",
+      "model": "LE 684/834",
+      "label": "AOI Quantum18 LE \u00b7 1.8 GHz \u00b7 684/834",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 46,
+        "reverse": null,
+        "conditions": "684/834 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          834,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          684
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgbt_85",
+      "family": "AOI Quantum18",
+      "model": "HGBT 85/105",
+      "label": "AOI Quantum18 HGBT \u00b7 1.8 GHz \u00b7 85/105",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "85/105 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          105,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          85
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgbt_396",
+      "family": "AOI Quantum18",
+      "model": "HGBT 396/492",
+      "label": "AOI Quantum18 HGBT \u00b7 1.8 GHz \u00b7 396/492",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "396/492 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          492,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          396
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgbt_492",
+      "family": "AOI Quantum18",
+      "model": "HGBT 492/606",
+      "label": "AOI Quantum18 HGBT \u00b7 1.8 GHz \u00b7 492/606",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "492/606 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          606,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          492
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_aoi_hgbt_684",
+      "family": "AOI Quantum18",
+      "model": "HGBT 684/834",
+      "label": "AOI Quantum18 HGBT \u00b7 1.8 GHz \u00b7 684/834",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+      "publishedGain": {
+        "forward": 49,
+        "reverse": null,
+        "conditions": "684/834 MHz installed split. Published forward minimum; equivalent 0 dB input EQ and 1 dB input pad. Reverse gain has not been established for this split.",
+        "forwardBand": [
+          834,
+          1794
+        ],
+        "reverseBand": [
+          10,
+          684
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+        "note": "Select only when this diplex/module split is installed. Forward gain is a published operational reference, not a frequency-specific available-gain curve. The datasheet reverse 27 dB value is qualified for 204 MHz and is not copied to this split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ]
+    },
+    {
+      "id": "active_gm_hgbt",
+      "family": "GainMaker 1 GHz",
+      "model": "HGBT GaAs 42/54",
+      "label": "GainMaker HGBT GaAs \u00b7 1 GHz \u00b7 42/54",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+      "note": "Three high-level outputs. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+      "publishedGain": {
+        "forward": 41,
+        "reverse": 19.5,
+        "conditions": "Auto/thermal; 10.5 dB interstage EQ; 0 dB input EQ; 1 dB input pad; published minimum; 20\u00b0C reference.",
+        "forwardBand": [
+          54,
+          1002
+        ],
+        "reverseBand": [
+          5,
+          42
+        ],
+        "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+        "note": "Three high-level outputs. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    {
+      "id": "active_gm_ubt_main",
+      "family": "GainMaker 1 GHz",
+      "model": "UBT GaAs main output 42/54",
+      "label": "GainMaker UBT GaAs main output \u00b7 1 GHz \u00b7 42/54",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d356b.pdf",
+      "note": "Main-output reference only: 34 dB. Auxiliary outputs have a separate 43 dB reference; do not apply main gain to auxiliary ports. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+      "publishedGain": {
+        "forward": 34,
+        "reverse": 19.5,
+        "conditions": "Auto/thermal; 10.5 dB interstage EQ; 0 dB input EQ; 1 dB input pad; published minimum; 20\u00b0C reference.",
+        "forwardBand": [
+          54,
+          1002
+        ],
+        "reverseBand": [
+          5,
+          42
+        ],
+        "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d356b.pdf",
+        "note": "Main-output reference only: 34 dB. Auxiliary outputs have a separate 43 dB reference; do not apply main gain to auxiliary ports. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    {
+      "id": "active_gm_ubt_aux",
+      "family": "GainMaker 1 GHz",
+      "model": "UBT GaAs auxiliary output 42/54",
+      "label": "GainMaker UBT GaAs auxiliary output \u00b7 1 GHz \u00b7 42/54",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d356b.pdf",
+      "note": "Auxiliary-output reference only: 43 dB. Main output has a separate 34 dB reference; do not apply auxiliary gain to the main port. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+      "publishedGain": {
+        "forward": 43,
+        "reverse": 19.5,
+        "conditions": "Auto/thermal; 10.5 dB interstage EQ; 0 dB input EQ; 1 dB input pad; published minimum; 20\u00b0C reference.",
+        "forwardBand": [
+          54,
+          1002
+        ],
+        "reverseBand": [
+          5,
+          42
+        ],
+        "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d356b.pdf",
+        "note": "Auxiliary-output reference only: 43 dB. Main output has a separate 34 dB reference; do not apply auxiliary gain to the main port. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    {
+      "id": "active_gm_lgd_65",
+      "family": "GainMaker 1 GHz",
+      "model": "LGD GaAs 65/86",
+      "label": "GainMaker LGD GaAs \u00b7 1 GHz \u00b7 65/86",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+      "note": "65/86 split only. Do not substitute this for a different diplex split. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+      "publishedGain": {
+        "forward": 33.5,
+        "reverse": 19.5,
+        "conditions": "Auto/thermal; 10.5 dB interstage EQ; 0 dB input EQ; 1 dB input pad; published minimum; 20\u00b0C reference.",
+        "forwardBand": [
+          86,
+          1002
+        ],
+        "reverseBand": [
+          5,
+          65
+        ],
+        "source": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+        "note": "65/86 split only. Do not substitute this for a different diplex split. Published operational gain is a configuration reference, not a flat curve. Verify selected output and installed pad/EQ settings. Reverse gain is reduced 0.5 dB when reverse switch option is fitted.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": null,
+        "frequencyQualification": "The retrieved operational-gain row does not identify an exact test frequency. It is not a verified gain value at the route marker.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    {
+      "id": "active_aoi_ba",
+      "family": "AOI Quantum18",
+      "model": "BA 204/258",
+      "label": "AOI Quantum18 BA \u00b7 Booster \u00b7 204/258",
+      "active": true,
+      "ports": [
+        {
+          "id": "through",
+          "role": "through",
+          "label": "Selected RF output"
+        }
+      ],
+      "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "note": "Booster, not an HGD or LE. Manufacturer gives 15 dB minimum at 1.8 GHz with 0 dB pad, not a flat 15 dB across the band. Enter installed gain at each route marker. The \u22656 dB reverse reference is at 684 MHz and is not a 204 MHz value. Confirm installed diplex split.",
+      "publishedGain": {
+        "forward": 15,
+        "reverse": null,
+        "conditions": "0 dB pad installed; forward gain minimum quoted at 1.8 GHz. 204/258 installed split selected; reverse gain for this split unverified.",
+        "forwardBand": [
+          258,
+          1794
+        ],
+        "reverseBand": [
+          5,
+          204
+        ],
+        "source": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+        "note": "Booster, not an HGD or LE. Manufacturer gives 15 dB minimum at 1.8 GHz with 0 dB pad, not a flat 15 dB across the band. Enter installed gain at each route marker. The \u22656 dB reverse reference is at 684 MHz and is not a 204 MHz value. Confirm installed diplex split.",
+        "isMinimum": true,
+        "referenceFrequencyMHz": 1800,
+        "frequencyQualification": "Source says at 1.8 GHz; do not silently reinterpret as 1794, 1218, 1002 or 993 MHz.",
+        "sourceStatus": "live_manufacturer_pdf",
+        "verifiedAt": "2026-11-10",
+        "sourceLanguage": "Spanish"
+      },
+      "sourceLabel": "Manufacturer datasheet (Spanish)",
+      "additional_sources": [
+        "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+        "https://ao-inc.com/content-request-form/"
+      ],
+      "activeMinF": 258,
+      "activeMaxF": 1794
+    }
+  ],
+  "node_updates": [
+    {
+      "id": "vecima-en9000",
+      "source_url": "https://vecima.com/wp-content/uploads/2025/03/Vecima-EN9000-Product-Brief.pdf",
+      "source_revision": "February 2025; TP reference May 2024",
+      "additional_sources": [
+        "https://vecima.com/wp-content/uploads/2024/05/EN9000-Entra-Access-Node.pdf",
+        "https://vecima.com/broadband-access/en9000/"
+      ],
+      "notes": "RFAM diplexer and installed RPD determine capability. 2025 brief updates powering; 2024 brief supports -20 \u00b11 dB test ports. Maximum supply or thermal ratings are not measured AC load. Do not use 70 dBmV total composite power as a per-channel launch level."
+    }
+  ],
+  "integration_notes": [
+    "Apply existing_device_replacements by ID, preserving IDs for saved jobs. new_devices are app-ready catalog entries.",
+    "AOI additional split models intentionally have reverse:null outside204; UI must display unknown rather than null or zero.",
+    "BA referenceFrequencyMHz=1800 is literal manufacturer wording while band ends1794. Keep screening inconclusive; do not snap it to route frequency.",
+    "HGBT Spanish reference-output table is visibly misaligned/inconsistent with archived English version. This patch does not import those output values or use them as limits.",
+    "LGD 42/54 PDF has contradictory passband row52-1002/5-40 despite42/54title, so add verified65/86 variant instead.",
+    "For current GaN HGD, exact manufacturer PDF redirects homepage. Do not replace its link with different GaAs specs. Hide dead hyperlink, label archival reference and show unavailable exact PDF.",
+    "Optional GS7K nodes described separately in audit.md; iNode test-point coupling absent from its source, so null-safe UI needed before adding."
+  ]
+}

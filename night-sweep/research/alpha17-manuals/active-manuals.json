@@ -1,0 +1,537 @@
+{
+  "checkedAt": "2026-11-10",
+  "scope": {
+    "activeCatalogEntries": 25,
+    "allActiveIdsMapped": true,
+    "fullCellRecertification": false,
+    "note": "Current source specs/variants compared; no field measurements or physical-device verification. Manuals and datasheets have different scope."
+  },
+  "manuals": {
+    "aoi-sa": {
+      "title": "Quantum18 1.8GHz System Amplifier Installation and Operation Guide",
+      "manufacturer": "AOI",
+      "url": "https://ao-inc.com/assets/resources/QB18-SA-I-and-O-Guide.pdf",
+      "revision": "V02102025",
+      "kind": "installation_operation_manual",
+      "status": "manufacturer_pdf_indexed_matching_historical_manual_mirror_available",
+      "applicability": "Quantum18 GainMaker-form-factor HGD and HGBT; exact installed split and firmware must match. Does not establish LE or BA instructions.",
+      "sections": "Chapter 3, Balancing and Setup: printed p37 introduction; pp38\u201341 preparation/firmware/configuration; pp44\u201345 downstream auto/manual alignment. Upstream section exact pages require confirmation from the complete matching guide.",
+      "workflow": [
+        "Connect QuantumLink Local interface and verify firmware/device information.",
+        "Verify installed diplex configuration, device location and approved pilot/profile settings.",
+        "Store downstream profile, run DS auto alignment, and check the resulting levels.",
+        "Use manual adjustment only after auto alignment; apply changes and Save Configuration to retain them.",
+        "Follow matching upstream guide and local sweep reference; record saved configuration and measured results."
+      ],
+      "gaps": [
+        "Direct PDF fetch failed in native reader and local environment; manufacturer PDF contents were retrieved through its indexed text. Manufacturer page currently requests installation-guide access.",
+        "Do not infer arbitrary pilots or accepted field levels from this guide."
+      ],
+      "archiveUrl": "https://www.manualslib.com/manual/3696193/Aoi-Quantum18.html"
+    },
+    "gm-sa": {
+      "title": "1 GHz GainMaker Broadband Amplifier Platform System Amplifier Modules and Housings Installation and Operation Guide",
+      "manufacturer": "Cisco",
+      "revision": "OL-31156-01, February 2014",
+      "kind": "installation_operation_manual",
+      "url": null,
+      "archiveUrl": "https://manualzz.com/doc/59690642/cisco-870-mhz-gainmaker-amplifiers-guide",
+      "status": "manufacturer_authored_archived_copy_original_live_link_not_located",
+      "applicability": "Internal title and text identify 1GHz HGD, LGD, UBT, HGBT, HO and GaN; mirror page title misleadingly says 870MHz. Match actual module, split, output and control module.",
+      "sections": "Printed p3 types/splits; p9 RF test points; pp48\u201371 forward balancing; pp72\u201377 reverse balancing.",
+      "workflow": [
+        "Verify design print, correct module, signal director, control option and valid input.",
+        "Use the guide section matching thermal, manual or conventional single-pilot AGC.",
+        "Balance input/output tilt and levels at the designated points; account for uncorrected -20dB test-point coupling once.",
+        "For conventional AGC only, choose model-specific AGC pad and match AGC output to setup output after settling.",
+        "Balance reverse against an established receive reference and restore design pads; retain local sweep procedure."
+      ],
+      "gaps": [
+        "The archived copy is not a newly verified live manufacturer-hosted PDF.",
+        "ACI DSIM installation replaces the conventional AGC-specific steps; do not combine pad rules."
+      ]
+    },
+    "gm-le": {
+      "title": "1 GHz GainMaker Broadband Amplifier Platform Line Extender Modules and Housings Installation and Operation Guide",
+      "manufacturer": "Cisco",
+      "revision": "OL-31155-01, 2014; older manufacturer landing page identifies 4009927 Rev D",
+      "kind": "installation_operation_manual",
+      "url": null,
+      "manufacturerLanding": "https://www.cisco.com/en/US/docs/video/access_edge/RF_Electronics/4009927_D.pdf.html?referring_site=smartnavRD",
+      "archiveUrl": "https://studylib.net/doc/18909323/1-ghz-gainmaker-broadband-amplifier-platform-line",
+      "status": "manufacturer_authored_2014_manual_full_archived_text_verified",
+      "applicability": "1GHz GainMaker LE; manual, thermal and AGC variants need matching chapter.",
+      "sections": "Chapter 3: preparation pp42\u201346; AGC/manual setup pp47\u201355; AGC/thermal setup pp56\u201362; thermal compensation pp63\u201369; manual stations pp70\u201371; reverse pp74\u201379. Mirrors may retain inconsistent index page references.",
+      "workflow": [
+        "Match module,split,control option and design print; verify valid input and warm-up.",
+        "Choose the exact AGC/manual,AGC/thermal,thermal-only or manual-station procedure.",
+        "For conventional AGC/manual setup,use S1=2 and the documented temperature/frequency backoff chart.",
+        "Adjust input EQ and pad to design tilt and output. Conventional AGC pad=pilot output\u221229dB.",
+        "Record corrected pilot output,select S1=3 and match AGC output; verify no change between setup and AGC after settling.",
+        "Balance reverse against approved receive reference,restore design pads and record final sweep."
+      ],
+      "gaps": [
+        "Original manufacturer PDF is unavailable; historical manufacturer-authored copy is labeled. Detailed values must match the installed module/control.",
+        "Do not reuse these conventional AGC pad/backoff steps for ACI DSIM."
+      ]
+    },
+    "aoi-le-missing": {
+      "title": "Quantum18 LE installation guide \u2014 access required",
+      "manufacturer": "AOI",
+      "kind": "manual_request",
+      "url": "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+      "requestUrl": "https://ao-inc.com/content-request-form/",
+      "revision": null,
+      "status": "public_exact_manual_not_located",
+      "applicability": "Quantum18 GainMaker-form-factor LE only.",
+      "workflow": [],
+      "gaps": [
+        "Obtain the Quantum18 LE I&O guide for installed firmware/module. Do not substitute the public Quantum12 LE guide or Quantum18 HGD/HGBT guide."
+      ]
+    },
+    "aoi-ba-missing": {
+      "title": "Quantum18 BA installation guide \u2014 access required",
+      "manufacturer": "AOI",
+      "kind": "manual_request",
+      "url": "https://ao-inc.com/products/hfc-networking/hfc-amplifiers/",
+      "requestUrl": "https://ao-inc.com/content-request-form/",
+      "revision": null,
+      "status": "public_exact_manual_not_located",
+      "applicability": "Quantum18 Booster Amplifier.",
+      "workflow": [],
+      "gaps": [
+        "Public product page and datasheet exist, but exact BA I&O guide was not located. Do not present HGD/LE auto-alignment steps as BA instructions."
+      ]
+    }
+  },
+  "specifications": {
+    "gm-hgd": {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d35ae.pdf",
+      "revision": "7006586 Rev D, August 2005",
+      "pages": "3\u20135",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 43,
+        "reverseDb": 19.5,
+        "forwardBandMHz": [
+          54,
+          1002
+        ],
+        "reverseBandMHz": [
+          5,
+          42
+        ],
+        "testPointCouplingDb": 20,
+        "conventionalAgcSubtractDb": 34
+      },
+      "qualification": "Minimum operational gain; auto/thermal,10.5dB interstage EQ,20C,0dB input EQ/1dB pad. Reverse includes 1dB output pad; optional reverse switch costs0.5dB. Not a flat frequency curve."
+    },
+    "gm-le": {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3566.pdf",
+      "revision": "7006590 Rev D, August 2005",
+      "pages": "3\u20135",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDbByMode": {
+          "manual": 39.5,
+          "thermal": 34,
+          "agc": 33
+        },
+        "reverseDb": 19.5,
+        "forwardBandMHz": [
+          54,
+          1002
+        ],
+        "reverseBandMHz": [
+          5,
+          42
+        ],
+        "testPointCouplingDb": 20,
+        "conventionalAgcSubtractDb": 29
+      },
+      "qualification": "Operational gain not labeled minimum. Manual9dB ISEQ;thermal7.5dB ISEQ;AGC9dB ISEQ. Reference 20C,0dB input EQ/1dB pad. No arbitrary marker gain implied."
+    },
+    "gm-hgbt": {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d3574.pdf",
+      "revision": "7006942 Rev C, November 2005",
+      "pages": "3\u20135",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 41,
+        "reverseDb": 19.5,
+        "forwardBandMHz": [
+          54,
+          1002
+        ],
+        "reverseBandMHz": [
+          5,
+          42
+        ],
+        "testPointCouplingDb": 20,
+        "conventionalAgcSubtractDb": 34
+      },
+      "qualification": "Minimum operational gain for auto/thermal10.5dB ISEQ; selected output and settings matter."
+    },
+    "gm-ubt": {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/42-54-mhz-split/product_data_sheet0900aecd806d356b.pdf",
+      "revision": "7006943 Rev B, November 2006",
+      "pages": "3\u20135",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDbByOutput": {
+          "main": 34,
+          "aux": 43
+        },
+        "reverseDb": 19.5,
+        "forwardBandMHz": [
+          54,
+          1002
+        ],
+        "reverseBandMHz": [
+          5,
+          42
+        ],
+        "testPointCouplingDb": 20,
+        "conventionalAgcSubtractDb": 26
+      },
+      "qualification": "Main output is the lower-level trunk path; auxiliary outputs have separate gain. AGC calculation uses main-port pilot output."
+    },
+    "gm-lgd": {
+      "url": "https://www.cisco.com/c/dam/en/us/products/collateral/video/65-86-mhz-split/product_data_sheet0900aecd806d363a.pdf",
+      "revision": "7006949 Rev A, February 2006",
+      "pages": "3\u20135",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 33.5,
+        "reverseDb": 19.5,
+        "forwardBandMHz": [
+          86,
+          1002
+        ],
+        "reverseBandMHz": [
+          5,
+          65
+        ],
+        "testPointCouplingDb": 20,
+        "conventionalAgcSubtractDb": 34
+      },
+      "qualification": "65/86 split only; minimum operational gain at stated reference configuration."
+    },
+    "gm-gan": {
+      "url": "https://www.cisco.com/c/en/us/products/collateral/video/gainmaker-amplifiers/datasheet-c78-731589.pdf",
+      "revision": "Historical \u00a92014 reference",
+      "pages": "Historical pp3\u20134",
+      "status": "redirects_to_cisco_homepage",
+      "verified": null,
+      "qualification": "Existing44/19.5dB scalar values cannot be freshly confirmed from this live URL. Preserve historical/unverified label; do not promote to available marker gain."
+    },
+    "aoi-hgd": {
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf",
+      "revision": "v09052024, \u00a92025, preliminary",
+      "pages": "2\u20133",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 49,
+        "reverseDbAt204Split": 27,
+        "splitBandsMHz": [
+          [
+            85,
+            105,
+            1794
+          ],
+          [
+            204,
+            258,
+            1794
+          ],
+          [
+            396,
+            492,
+            1794
+          ],
+          [
+            492,
+            606,
+            1794
+          ],
+          [
+            684,
+            834,
+            1794
+          ]
+        ]
+      },
+      "qualification": "Minimum operational reference,0dB input EQ/1dB pad,20C. Reverse specification footnote4 is204MHz split only. Other split reverse gain remains unknown. HGD signal director affects output-specific gain."
+    },
+    "aoi-hgbt": {
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGBT-SA-Datasheet_ES.pdf",
+      "revision": "v08272024, \u00a92025, preliminary",
+      "pages": "2\u20133",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 49,
+        "reverseDbAt204Split": 27,
+        "testPointCouplingDb": 20,
+        "splitBandsMHz": [
+          [
+            85,
+            105,
+            1794
+          ],
+          [
+            204,
+            258,
+            1794
+          ],
+          [
+            396,
+            492,
+            1794
+          ],
+          [
+            492,
+            606,
+            1794
+          ],
+          [
+            684,
+            834,
+            1794
+          ]
+        ]
+      },
+      "qualification": "Minimum operational reference,0dB input EQ/1dB pad,20C. Reverse performance footnote4 is204MHz split only. Output reference table extraction has ambiguous formatting; do not turn it into fixed operating targets."
+    },
+    "aoi-le": {
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf",
+      "revision": "v09052024, \u00a92025",
+      "pages": "2\u20133",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDb": 46,
+        "reverseDbAt204Split": 27,
+        "testPointCouplingDb": 20,
+        "splitBandsMHz": [
+          [
+            85,
+            105,
+            1794
+          ],
+          [
+            204,
+            258,
+            1794
+          ],
+          [
+            396,
+            492,
+            1794
+          ],
+          [
+            492,
+            606,
+            1794
+          ],
+          [
+            684,
+            834,
+            1794
+          ]
+        ]
+      },
+      "qualification": "Minimum operational reference,0dB input EQ/1dB pad,20C. Reverse footnote4 is204MHz split only. Spanish table has some unit/label typos; do not apply an ambiguous cell as a universal spec."
+    },
+    "aoi-ba": {
+      "url": "https://ao-inc.com/assets/resources-element-files/Spanish/QB18-BA-Datasheet_ES.pdf",
+      "revision": "v08302024, \u00a92025, preliminary",
+      "pages": "2\u20133",
+      "status": "live_manufacturer_pdf",
+      "verified": {
+        "forwardDbAt1800MHz": 15,
+        "reverseDbAt684MHzMinimum": 6,
+        "outputTestPointCouplingDb": 20
+      },
+      "qualification": "0dB pad,15dB minimum at1.8GHz,not a flat band value. Source has1791/1794MHz endpoint differences and an unsigned20dB forward test-point row. Reverse6dB@684MHz is not verified gain at204MHz. Retain entered marker gains."
+    }
+  },
+  "models": [
+    {
+      "id": "active_gm_hgd",
+      "model": "HGD GaAs 42/54",
+      "manualId": "gm-sa",
+      "specId": "gm-hgd"
+    },
+    {
+      "id": "active_gm_gan_hgd",
+      "model": "HGD GaN 42/54",
+      "manualId": "gm-sa",
+      "specId": "gm-gan"
+    },
+    {
+      "id": "active_gm_le_manual",
+      "model": "LE manual 42/54",
+      "manualId": "gm-le",
+      "specId": "gm-le"
+    },
+    {
+      "id": "active_gm_le_thermal",
+      "model": "LE thermal 42/54",
+      "manualId": "gm-le",
+      "specId": "gm-le"
+    },
+    {
+      "id": "active_gm_le_agc",
+      "model": "LE AGC 42/54",
+      "manualId": "gm-le",
+      "specId": "gm-le"
+    },
+    {
+      "id": "active_aoi_hgd",
+      "model": "HGD 204/258",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgd"
+    },
+    {
+      "id": "active_aoi_le",
+      "model": "LE 204/258",
+      "manualId": "aoi-le-missing",
+      "specId": "aoi-le"
+    },
+    {
+      "id": "active_aoi_hgbt",
+      "model": "HGBT 204/258",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgbt"
+    },
+    {
+      "id": "active_aoi_hgd_85",
+      "model": "HGD 85/105",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgd"
+    },
+    {
+      "id": "active_aoi_hgd_396",
+      "model": "HGD 396/492",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgd"
+    },
+    {
+      "id": "active_aoi_hgd_492",
+      "model": "HGD 492/606",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgd"
+    },
+    {
+      "id": "active_aoi_hgd_684",
+      "model": "HGD 684/834",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgd"
+    },
+    {
+      "id": "active_aoi_le_85",
+      "model": "LE 85/105",
+      "manualId": "aoi-le-missing",
+      "specId": "aoi-le"
+    },
+    {
+      "id": "active_aoi_le_396",
+      "model": "LE 396/492",
+      "manualId": "aoi-le-missing",
+      "specId": "aoi-le"
+    },
+    {
+      "id": "active_aoi_le_492",
+      "model": "LE 492/606",
+      "manualId": "aoi-le-missing",
+      "specId": "aoi-le"
+    },
+    {
+      "id": "active_aoi_le_684",
+      "model": "LE 684/834",
+      "manualId": "aoi-le-missing",
+      "specId": "aoi-le"
+    },
+    {
+      "id": "active_aoi_hgbt_85",
+      "model": "HGBT 85/105",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgbt"
+    },
+    {
+      "id": "active_aoi_hgbt_396",
+      "model": "HGBT 396/492",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgbt"
+    },
+    {
+      "id": "active_aoi_hgbt_492",
+      "model": "HGBT 492/606",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgbt"
+    },
+    {
+      "id": "active_aoi_hgbt_684",
+      "model": "HGBT 684/834",
+      "manualId": "aoi-sa",
+      "specId": "aoi-hgbt"
+    },
+    {
+      "id": "active_gm_hgbt",
+      "model": "HGBT GaAs 42/54",
+      "manualId": "gm-sa",
+      "specId": "gm-hgbt"
+    },
+    {
+      "id": "active_gm_ubt_main",
+      "model": "UBT GaAs main output 42/54",
+      "manualId": "gm-sa",
+      "specId": "gm-ubt"
+    },
+    {
+      "id": "active_gm_ubt_aux",
+      "model": "UBT GaAs auxiliary output 42/54",
+      "manualId": "gm-sa",
+      "specId": "gm-ubt"
+    },
+    {
+      "id": "active_gm_lgd_65",
+      "model": "LGD GaAs 65/86",
+      "manualId": "gm-sa",
+      "specId": "gm-lgd"
+    },
+    {
+      "id": "active_aoi_ba",
+      "model": "BA 204/258",
+      "manualId": "aoi-ba-missing",
+      "specId": "aoi-ba"
+    }
+  ],
+  "corrections": [],
+  "requiredGaps": [
+    "Manufacturer-authored archived GainMaker SA/LE copies are available; preserve historical labels and match installed configuration.",
+    "Obtain Quantum18 LE and BA I&O manuals for installed firmware.",
+    "Do not substitute conventional Cisco AGC pad formulas for ACI DSIM.",
+    "Do not auto-fill local operating targets from manufacturer output reference tables."
+  ],
+  "retrievalLimits": [
+    "Octen required payment method; no purchase or request executed.",
+    "Firecrawl out of credits; extraction did not run.",
+    "AOI SA guide verified from indexed manufacturer text,not fresh PDF bytes.",
+    "Parallel search HTTP429 rate limit, retry_after_seconds2937; no search/request ID supplied. Octen search succeeded but found no exact public Quantum18 LE/BA I&O manual."
+  ],
+  "sourceRefs": {
+    "gmHgd": "turn34view0",
+    "gmLe": "turn34view1",
+    "gmHgbt": "turn34view2",
+    "gmUbt": "turn34view3",
+    "gmLgd": "turn35view3",
+    "aoiHgd": "turn35view5",
+    "aoiLe": "turn35view6",
+    "aoiHgbt": "turn35view7",
+    "aoiBa": "turn35view8",
+    "aoiSaGuide": "turn13search9",
+    "gmSaArchive": "turn38search1",
+    "gmLeManufacturerLanding": "turn13view1",
+    "gmLeArchive": "turn51view0"
+  }
+}

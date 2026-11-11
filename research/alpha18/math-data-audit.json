@@ -1,0 +1,96 @@
+{
+  "generatedAt": "2026-11-11T05:16:49.412Z",
+  "status": "PASS",
+  "scope": "Ten fresh synthetic Wolfram arithmetic comparisons plus current catalog structural/runtime checks. Does not independently retranscribe source manuals, establish field measurements, or certify physical equipment.",
+  "groupedChecks": 11,
+  "comparisons": [
+    {
+      "name": "forwardSquareRoot57MHz",
+      "actual": 31.109949077995683,
+      "expected": 31.1099490779957,
+      "tolerance": 1e-8,
+      "difference": -1.7763568394002505e-14
+    },
+    {
+      "name": "forwardSquareRoot753MHz",
+      "actual": 41.97080412287377,
+      "expected": 41.9708041228738,
+      "tolerance": 1e-8,
+      "difference": -2.842170943040401e-14
+    },
+    {
+      "name": "forwardLinear550MHz",
+      "actual": 38.38461538461539,
+      "expected": 38.3846153846154,
+      "tolerance": 1e-8,
+      "difference": -1.4210854715202004e-14
+    },
+    {
+      "name": "rfCableHotLossDb",
+      "actual": 7.7451360000000005,
+      "expected": 7.745136,
+      "tolerance": 1e-8,
+      "difference": 8.881784197001252e-16
+    },
+    {
+      "name": "dcCableHotLoopOhm",
+      "actual": 2.4948,
+      "expected": 2.4948,
+      "tolerance": 1e-8,
+      "difference": 0
+    },
+    {
+      "name": "tpCorrectedOutputDbmv",
+      "actual": 16,
+      "expected": 16,
+      "tolerance": 1e-8,
+      "difference": 0
+    },
+    {
+      "name": "injectionPhysicalOutputDbmv",
+      "actual": 31.5,
+      "expected": 31.5,
+      "tolerance": 1e-8,
+      "difference": 0
+    },
+    {
+      "name": "tdrCorrectedFeet",
+      "actual": 505.4878048780488,
+      "expected": 505.487804878049,
+      "tolerance": 1e-8,
+      "difference": -2.2737367544323206e-13
+    },
+    {
+      "name": "constantPowerStableVoltage",
+      "actual": 85.80441152910196,
+      "expected": 85.8044115262063,
+      "tolerance": 1e-7,
+      "difference": 2.895660600188421e-9
+    },
+    {
+      "name": "constantPowerStableCurrent",
+      "actual": 2.097794236826041,
+      "expected": 2.09779423689683,
+      "tolerance": 1e-8,
+      "difference": -7.078915231772953e-11
+    }
+  ],
+  "catalog": {
+    "devices": 516,
+    "cables": 17,
+    "powerEquipment": 25,
+    "curves": 1324,
+    "numericRows": 14126,
+    "printedPoints": 12219,
+    "bandEndpoints": 3814,
+    "gapMidpoints": 713,
+    "outsideDomains": 2648
+  },
+  "inputSha256": {
+    "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+    "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
+    "night-sweep/projects.js": "ed0e4389a15b84f5ba242e36110c3cee4c2502f374ab3d32bcde73238d946936",
+    "night-sweep/meter.js": "5b349228aceddac29007e7341a145434516084943e5fe0d2da36623340f5e27f",
+    "night-sweep/sweep-setup.js": "d3b7595506779d58761d81a7146721dce52b0ffcc697452df9ba194508180762"
+  }
+}

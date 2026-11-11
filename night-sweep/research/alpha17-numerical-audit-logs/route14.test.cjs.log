@@ -1,0 +1,36 @@
+PASS 132 + 118 feet cumulative source distances
+PASS forward 200 feet locates 68 feet into second span
+PASS reverse 200 feet locates 50 feet from source
+PASS origin at point a forward/reverse
+PASS exact boundaries report point and source explicitly
+PASS lead length removed after single velocity correction
+PASS no division by two of displayed distance
+PASS unusable distances, leads, factors, directions rejected
+PASS branches follow parent path without adding sibling cable
+PASS invalid parent port, future parent, duplicate IDs, blanks and negative slack rejected
+PASS invalid parent poisons downstream distance
+PASS slack counted once in distance, RF loss, DC resistance
+PASS zero length points are valid boundaries
+PASS active barrier blocks crossing but allows origin and arrival
+PASS active adds configured gain after cable loss and output pad
+PASS active gain interpolates only inside entered anchors and hardware
+PASS published gain alone never creates prediction
+PASS signed active table accepted without weakening passive validation
+PASS invalid active tables, anchors, modes and negative output loss reject output
+PASS explicit flat estimate needs finite gain and full entered supported band
+PASS RF cascade after active preserves cable and passive accounting
+PASS gain budget required and available at both anchors with exactly 3 dB reserve
+PASS one insufficient band controls gain result
+PASS nonnegative margin below requested reserve is marginal
+PASS gain budget output loss enters required gain once
+PASS blank configured gain cannot pass but exposes reference screening
+PASS target limits and entered-gain output limits checked separately
+PASS unknown one-sided output limit cannot certify full output capability
+PASS negative required gain remains signed and warns attenuation is needed
+PASS targets are separate from configured gain and fall back to saved fields
+PASS gain budget missing input or target cannot pass; invalid settings rejected
+PASS published reference outside hardware band never reports a numeric margin
+PASS published reference uses canonical frequency metadata without assuming a frequency
+PASS gain requirement uses corrected launch setup supplied by meter layer
+
+34 route/active/TDR checks passed.

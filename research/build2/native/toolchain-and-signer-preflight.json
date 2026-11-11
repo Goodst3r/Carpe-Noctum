@@ -1,0 +1,65 @@
+{
+  "artifacts": [
+    {
+      "file": "platform.zip",
+      "size_bytes": 64273788,
+      "official_sha1": "0bb560a90a7a2cbd0dd8348224d518b638fe7949",
+      "sha1_match": true,
+      "sha256": "0988cacad01b38a18a47bac14a0695f246bc76c1b06c0eeb8eb0dc825ab0c8e0"
+    },
+    {
+      "file": "build-tools.zip",
+      "size_bytes": 61958799,
+      "official_sha1": "2cfaa0bbb2336e9ec18ed3ecea84fa2e2af607bc",
+      "sha1_match": true,
+      "sha256": "bd3a4966912eb8b30ed0d00b0cda6b6543b949d5ffe00bea54c04c81e1561d88"
+    },
+    {
+      "file": "ecj.jar",
+      "size_bytes": 3312549,
+      "official_sha1": "5c26f6a20278196f8038a284d885c3796cd7d422",
+      "sha1_match": true,
+      "sha256": "05cc22a24e7982970f63a405fc6c820bc80b806f27f3c5a6236fc475f8f7152b"
+    }
+  ],
+  "versions": [
+    {
+      "command": [
+        "java",
+        "-version"
+      ],
+      "output": "openjdk version \"21.0.13\" 2026-10-20\nOpenJDK Runtime Environment (build 21.0.13+9-1-deb13u2-Debian)\nOpenJDK 64-Bit Server VM (build 21.0.13+9-1-deb13u2-Debian, mixed mode, sharing)"
+    },
+    {
+      "command": [
+        "android-build/toolchain/build-tools/android-15/aapt2",
+        "version"
+      ],
+      "output": "Android Asset Packaging Tool (aapt) 2.19-11948202"
+    },
+    {
+      "command": [
+        "java",
+        "-jar",
+        "android-build/toolchain/ecj.jar",
+        "-version"
+      ],
+      "output": "Eclipse Compiler for Java(TM) v20241112-0530, 3.40.0, Copyright IBM Corp 2000, 2020. All rights reserved."
+    },
+    {
+      "command": [
+        "java",
+        "-cp",
+        "android-build/toolchain/build-tools/android-15/lib/d8.jar",
+        "com.android.tools.r8.D8",
+        "--version"
+      ],
+      "output": "D8 8.6.2-dev (build abaab469b5ebd4dd2bb91ba0ed6f45277faae4ca from go/r8bot (luci-r8-custom-ci-archive-0-77gl))"
+    }
+  ],
+  "original_signer_present": true,
+  "expected_alias_present": true,
+  "public_certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+  "public_certificate_matches_pinned_original": true,
+  "credential_values_recorded": false
+}

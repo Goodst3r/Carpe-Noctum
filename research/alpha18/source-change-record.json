@@ -1,0 +1,866 @@
+{
+  "baseline_archive": "NightSweep_1.7_Alpha_Build22_Codex_Handoff.zip",
+  "baseline_archive_sha256": "7fc279d4ba9a604deac2ae5994142b7a401a31402259aad9b9eac6efd82e56fa",
+  "added": [
+    {
+      "path": "README.md",
+      "sha256": "356a566857e3347af6fb502b4784465c8903f6953252400dadcf6f7b65a69219"
+    },
+    {
+      "path": "dist/sw.9f1f3278a467e0bacc54.js",
+      "sha256": "88b6126e31d27a5b1b5448892bfd2ae66db766b311b3699c676ec10b83049307"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_README.html",
+      "sha256": "3b32a069df478a70b458ebd8fe80cf4ca8000e21a35d51711426a52eaec90dc0"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Alpha_README.md",
+      "sha256": "ef47bc127d6a6df00ec407e43c5a39bd8da9ddea4c2935a147618dca3c07e236"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Equipment_Coverage.html",
+      "sha256": "6cbc6196dc3d12d8bf5422459de24bec98a238cbb244ea0049dcf4ec62a51c80"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Equipment_Coverage.md",
+      "sha256": "85f17de2152673db8a65f0902fd9ade7ff18238d891257638e53016361d79b93"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Math_Audit.html",
+      "sha256": "e98af8c1490017bfe76723614a673319bde64e07e9dfbe6d305bcada9692d8ef"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Release_Notes.md",
+      "sha256": "6d3828ab2d7ba342c655621096ba911543a09bdfdd9478fa0bce69cce57a6a1f"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Setup_Guide.html",
+      "sha256": "b4f43f63558376c967a6ed94a601a5c536111dd4f83733b65e5d81c4919e1b64"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Training_Coverage.html",
+      "sha256": "e83bfb96209fcf60690c2473f8c72c63aee0ba148371d8b33d7b22de2f5dea91"
+    },
+    {
+      "path": "docs/NightSweep_1.8_Training_Coverage.md",
+      "sha256": "6cc49d5e47a0de6770b51ca9c9ee51bada9c947a7ea59ecba462ecc43bfd2a0e"
+    },
+    {
+      "path": "docs/history/Android_Build20_Readiness.json",
+      "sha256": "7c8d4f05110d4eb9889977fd149cd6a1a2ad83c7a08ded1b25c52c57c8706536"
+    },
+    {
+      "path": "docs/history/NightSweep_1.7_Build22_Status.md",
+      "sha256": "1a8fcdb7c7da0fe37dc6b524609e29755f4e50f783213a96906ce1a13521a448"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-11-alpha18-audit.md",
+      "sha256": "8cd0d1f09f2716208f9a5ca7e4eacfda9442c97aef2ba648564c30226038ba18"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-11-complete-workflow-correction.md",
+      "sha256": "b8d26af0506b5b5385323188e448dbe5cefb9a064bd57b99fba5bdb517e6d4d1"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-11-alpha18-audit-design.md",
+      "sha256": "826072f46156bbd805f6175f75d7754a207dc893a1870d9a58796a795b48764b"
+    },
+    {
+      "path": "qa/alpha011-integration-results.json",
+      "sha256": "f113102bb0dcfba68b71b1b5e397eaab2bea2350d665546250e35cd1c93c5a88"
+    },
+    {
+      "path": "qa/alpha012-results.json",
+      "sha256": "431b85307d7d6ed23e7d1e5d9dc504eb2194a7f1e2f3d1f785fac64a318b517c"
+    },
+    {
+      "path": "qa/alpha14-ui-results.json",
+      "sha256": "bfced878af13daec9ab7eb46afc21d289ce33ce6f337a92655de3b2ccc782fde"
+    },
+    {
+      "path": "qa/alpha15-ui-results.json",
+      "sha256": "3a7251658eb37da774682bba51e8a1b3ed2fa9dc5a0e130c47957b1517fc6f4e"
+    },
+    {
+      "path": "qa/alpha18-math.test.cjs",
+      "sha256": "ac523d6cbfca183e5ea739a510ab203a8444b72c09865fdcfe54ce85c0d056e2"
+    },
+    {
+      "path": "qa/alpha18-numeric.test.cjs",
+      "sha256": "4f1cbc389475a21d4dff761df9e1772f0251eb350309bdef35caf724f45b5f1b"
+    },
+    {
+      "path": "qa/alpha18-release.test.py",
+      "sha256": "b7a97e8ca5f0132d5e640c4d6c44c6be01251d3d4955e87231aee8d1c119d44c"
+    },
+    {
+      "path": "qa/android-preview.test.py",
+      "sha256": "b473c7b7d70b2e22fe943b2bb7425d220c25602641d781e1b2d246b7cff94535"
+    },
+    {
+      "path": "qa/browser-files-results.json",
+      "sha256": "ce4a1a692d105d9d586c6c368a1376c87976d816ea5dc0b630f4e55bfdc46536"
+    },
+    {
+      "path": "qa/browser-smoke.py",
+      "sha256": "ed3117dfde36c600fa0bae265e7f73173ec164e1fc73f525f9920be7f7b7ab9f"
+    },
+    {
+      "path": "qa/complete-workflow-math.test.cjs",
+      "sha256": "3d1066671c45c116942c30fffac95de3aaa44230cf7a10a17983ba623afc93c2"
+    },
+    {
+      "path": "qa/dom-results.json",
+      "sha256": "f7da1ee06093502f41503de337d705df1e48d30f7234beb8752225a4dde76175"
+    },
+    {
+      "path": "qa/evidence-ui-results.json",
+      "sha256": "650f4c5265a680aa84e7fa797e6275cb6634cd0ec668ad43e77168f6081d2364"
+    },
+    {
+      "path": "qa/fixtures/training-complete-alpha18-v1.json",
+      "sha256": "c9e17b113f64156756c39ccdfe2ac3b780cca7df681b95d249bf9d5f6a98f311"
+    },
+    {
+      "path": "qa/import-id-boundaries.test.cjs",
+      "sha256": "d33404ca3ad55f624cefded8c07de6cfdb3e799dfd00de8267ad6b2b2ae1c6ce"
+    },
+    {
+      "path": "qa/pwa-client-results.json",
+      "sha256": "75115a62256c881f71a36c33892ecc78ee418aa30619469a2182c8f5db65903e"
+    },
+    {
+      "path": "qa/pwa-test-results.json",
+      "sha256": "6699458d146af07555754bfcd170573a6470c3c94ef9f5f1fed2ee5b011bde3f"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha011-integration.cjs.txt",
+      "sha256": "d60bb92a8372404311d09becf091af15ea8d8ba93d8cc03dd4ad6a1c5f22874a"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha012.test.cjs.txt",
+      "sha256": "2be0f3a8089066b2945ee534a496f896be740f7adb3b41c43f72b49ea7a94eeb"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha14-ui.test.cjs.txt",
+      "sha256": "cb3f5b2df1a1a707025164535af6b0bbe58acc84e3f6a29892480a9934d7f31a"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha15-ui.test.cjs.txt",
+      "sha256": "d03550a3f435af0e5cb5366f6aa16dfa985505dcbbf79d370c810cc25c35fec8"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha17-engine.test.cjs.txt",
+      "sha256": "27329c291ab6d1757f3ceb83ff7c745121ca993d9ded3e8e660d0d1027e3d74f"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha17-fresh-reference-check.cjs.txt",
+      "sha256": "b8b7fa692f6fcdfe3e0fed2a46a64ec464d57e98a4050879fe2098c7226e3226"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha17-render.test.cjs.txt",
+      "sha256": "714c9a8339b0399af97d89815dec9cc4d2028df38ec6464f5f85cbf3eeff5a6c"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha17-report.test.cjs.txt",
+      "sha256": "8dd3aed3f2ac4d2386776081ed759e9f1e188742855b2d932467a0384bb2acab"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha18-math.test.cjs.txt",
+      "sha256": "e90cbea526b9e07da4dd1b4a41d96aff786e8dd375c4228178a9b463fa22b61a"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha18-numeric.test.cjs.txt",
+      "sha256": "da008e924da300d8604bc2e405e6a90f7171b58d6a7feb6e9fb0c6d9dea7e53c"
+    },
+    {
+      "path": "qa/pwa-testlogs/alpha18-release.test.py.txt",
+      "sha256": "e96c7aff4f44ec5e9d82ee60a1ba75486ca1f434851734717590fae1a6828ea6"
+    },
+    {
+      "path": "qa/pwa-testlogs/android-preview.test.py.txt",
+      "sha256": "95caddfb2af2fb993840529b9526a0daf5b4c9e00ca277263c209bbd7bc43382"
+    },
+    {
+      "path": "qa/pwa-testlogs/browser-files.test.cjs.txt",
+      "sha256": "f65f6223c5f427b2c148406930ed02756babbfa3bcdfe3833a73044240c74e90"
+    },
+    {
+      "path": "qa/pwa-testlogs/catalog-audit.cjs.txt",
+      "sha256": "20dd3d4e6e2a70b604d4600209f0b9f23720becdfef19337da71bc72da423633"
+    },
+    {
+      "path": "qa/pwa-testlogs/complete-workflow-math.test.cjs.txt",
+      "sha256": "305a4e7c17f95652c19379a66ff0e00f50164303230b57b5a26b7c02e910b421"
+    },
+    {
+      "path": "qa/pwa-testlogs/dom-tests.cjs.txt",
+      "sha256": "7f3733475546919625502e0a1c3afb7c0baff11c59f9af89951c00fc08397e9a"
+    },
+    {
+      "path": "qa/pwa-testlogs/dsim-pilot-codes.test.cjs.txt",
+      "sha256": "c98bd51bf58634341bc0cab09ba431732a9b12c839f73301bd32a0318d045b82"
+    },
+    {
+      "path": "qa/pwa-testlogs/engine.test.js.txt",
+      "sha256": "f5cce8c72c5f651227371894c996824e72823207130b5d346e6faf7656c6638a"
+    },
+    {
+      "path": "qa/pwa-testlogs/equipment-control.test.cjs.txt",
+      "sha256": "babf68a4e4166bda3eb8f4923d1f7be6d42ad6b7018d85bd4e7d2bf51fc8f9f4"
+    },
+    {
+      "path": "qa/pwa-testlogs/equipment-reference.test.cjs.txt",
+      "sha256": "f008fcd9c7124e0b49b39f19892bd8039e6a3ce62382c04406473c488693f73e"
+    },
+    {
+      "path": "qa/pwa-testlogs/equipment-setup.test.cjs.txt",
+      "sha256": "8a5593c642c5183746fcf5544418d95551c57c66921bb470ccd948405fa7f036"
+    },
+    {
+      "path": "qa/pwa-testlogs/evidence-context.test.cjs.txt",
+      "sha256": "f93336fa75d8d9bd779ccb193e6930dc741e4147109d10871b4d5600e05b91fc"
+    },
+    {
+      "path": "qa/pwa-testlogs/evidence-storage-failures.test.cjs.txt",
+      "sha256": "cece704cf15f0c6df124128a6ef53c440ca25da0dfdc1e8013e36efb9334ed12"
+    },
+    {
+      "path": "qa/pwa-testlogs/evidence-ui.test.cjs.txt",
+      "sha256": "27125ae0c6f6d065a65562570bab9afe4f8e3e762583150f4731272e112174c0"
+    },
+    {
+      "path": "qa/pwa-testlogs/evidence.test.cjs.txt",
+      "sha256": "f397ffed2b70cafe89c4cc8e027d94e51752e3948ec961d1a78fc0e7492f3cf9"
+    },
+    {
+      "path": "qa/pwa-testlogs/frequency-regression.cjs.txt",
+      "sha256": "6ac7fed93d6f83f1ec0bb6a9e9934cee685a5fb88dc3fa7853bbae2b4e971cd3"
+    },
+    {
+      "path": "qa/pwa-testlogs/import-id-boundaries.test.cjs.txt",
+      "sha256": "76fe80ed0ed344029bf494e4e0c76c2c521ec335205f1c960757cb19fbde9c08"
+    },
+    {
+      "path": "qa/pwa-testlogs/launch-source.test.cjs.txt",
+      "sha256": "a9fe4e2e92cafd22473f64a476475948b9af913b66e3aafc3a1077ea33a849b9"
+    },
+    {
+      "path": "qa/pwa-testlogs/local-operator-preset.test.cjs.txt",
+      "sha256": "32cbeba2988b0de9f8f3c3b6f0b814cfcc149a0615e9c78599a257575afe516e"
+    },
+    {
+      "path": "qa/pwa-testlogs/named-jobs-storage.test.cjs.txt",
+      "sha256": "f3149f02a3b3ba3790c42f57ca89dd88d0e288c0f5fd5e9db986207bda083e94"
+    },
+    {
+      "path": "qa/pwa-testlogs/node-setup-refresh.test.cjs.txt",
+      "sha256": "fef55b69da1d96382233dc6a7c521c61dec2bad928e184fe24cf8e5e30b75e18"
+    },
+    {
+      "path": "qa/pwa-testlogs/nodes.test.cjs.txt",
+      "sha256": "447b60e88c216c82d2bf2f085208b2ad5a610d0bcc34b5b76f14dd7c41e8a4b8"
+    },
+    {
+      "path": "qa/pwa-testlogs/projects.test.js.txt",
+      "sha256": "bd33266781b818871a86864b4810e3bd165d87a7e748f1913dd02f57b0b2536f"
+    },
+    {
+      "path": "qa/pwa-testlogs/pwa-client.test.cjs.txt",
+      "sha256": "2e2c46bb054aa21345663cecdc38ad8d696b094fdb66e450b0214b99fad64746"
+    },
+    {
+      "path": "qa/pwa-testlogs/pwa-worker.test.cjs.txt",
+      "sha256": "a6085fbb34daf8b74b197b63a8316dfa2081082919df7dd5a5b635a7c01d4636"
+    },
+    {
+      "path": "qa/pwa-testlogs/retired-equipment.test.cjs.txt",
+      "sha256": "cfca7e8418f5cf030792087cf65843699da83e2373267d0afc6112554aeababc"
+    },
+    {
+      "path": "qa/pwa-testlogs/route14.test.cjs.txt",
+      "sha256": "80ddca4968fdf331f9065099f50cc8347c2979335e3eeda82b00ac8721a06391"
+    },
+    {
+      "path": "qa/pwa-testlogs/selfcheck.js.txt",
+      "sha256": "c32229eced4ceb2be50d19dc4ca9bf4c4aec2426d62611e208b94dd6c9ba3061"
+    },
+    {
+      "path": "qa/pwa-testlogs/sweep-setup.test.cjs.txt",
+      "sha256": "92f43fd86e3a5b5409c28b8de0eae8203d33209f91d69fc497a82b1e962b3e69"
+    },
+    {
+      "path": "qa/pwa-testlogs/training-controls.test.cjs.txt",
+      "sha256": "790fbaeaa62a379474bd989b39d467e71a54f86f59aa8a65a1c613824701ee9d"
+    },
+    {
+      "path": "qa/pwa-testlogs/training-job.test.cjs.txt",
+      "sha256": "0ade6f4f21196684be4e3b05f9c4df7f73e2439897dadb7089eb784863dff770"
+    },
+    {
+      "path": "qa/pwa-testlogs/training-library.test.cjs.txt",
+      "sha256": "126df93c70ba69d94a1e9f9078506bea5ba3d8ad130e655e2d08bf774274d6bf"
+    },
+    {
+      "path": "qa/pwa-testlogs/upgrade01314.test.cjs.txt",
+      "sha256": "ca984f08622fcd4a6b5c465d50122c3bc58cf98747873260fc8bd0ef0504b803"
+    },
+    {
+      "path": "qa/pwa-testlogs/upgrade01415.test.cjs.txt",
+      "sha256": "a5bebb6f334479d3cc54f5dff64f0b956770901cd14a4960b6b42c869954ca1c"
+    },
+    {
+      "path": "qa/pwa-testlogs/upgrade01617.test.cjs.txt",
+      "sha256": "dc7c3d6adb78c2fdb0b72acb69c182d378869634210b5e8bcae3b14e0080a0a0"
+    },
+    {
+      "path": "qa/pwa-testlogs/wolfram-power.test.cjs.txt",
+      "sha256": "eb9f455ba0939becad91f2b1ba0bf78b576fd93e5a472231aca4b7602d617f8b"
+    },
+    {
+      "path": "qa/pwa-testlogs/wolfram-records.test.cjs.txt",
+      "sha256": "410ac46f6482b655f03c9cac6914ff5a0d7c2f23b4a900f60012fe58bb1aacad"
+    },
+    {
+      "path": "qa/pwa-testlogs/wolfram-rf.test.cjs.txt",
+      "sha256": "9f572100ddee9803e14fbd6ccdc4bd87680ecd0f1994419b4161ddfdac150d90"
+    },
+    {
+      "path": "qa/pwa-worker-results.json",
+      "sha256": "693c985095534ab2d3617ab66b7dd4df9401039469fdbce3b26aefc074ae786f"
+    },
+    {
+      "path": "qa/sweep-setup-results.json",
+      "sha256": "ef1240e565b56f2aa564f871c187c56ee48a64ac30f61dc66f837b8c013a64c7"
+    },
+    {
+      "path": "qa/training-job-results.json",
+      "sha256": "b583f13d13dfea53da43df3d7556826619c327931e0357283a9c8cc542695146"
+    },
+    {
+      "path": "qa/training-library.test.cjs",
+      "sha256": "ebe6bb56218b2e744acd1dc22d61de22bdb597d8bafa2c201eacf82be614b759"
+    },
+    {
+      "path": "qa/upgrade01314-results.json",
+      "sha256": "eab62e54b4f506e6669ace70e0653c19838f2b535412cb23322c773df4cb9bb6"
+    },
+    {
+      "path": "qa/upgrade01415-results.json",
+      "sha256": "44f80786aa329464174143422e64ae9c6a32a853e89923626f64008baa90e702"
+    },
+    {
+      "path": "release/NightSweep_1.8_Alpha_Training_Job.json",
+      "sha256": "79286d8bda9335a3a48fd2e7d4f2235bc66544ad6b30d0ece63099176272b6f0"
+    },
+    {
+      "path": "release/NightSweep_1.8_Custom_Curves_Practice.json",
+      "sha256": "d43ba7e5ecede08235b52af91aec59960992cd789913e5102888a8ddc35a3b8e"
+    },
+    {
+      "path": "release/NightSweep_1.8_GS7K_Practice.json",
+      "sha256": "c1fdda18cff3f6aee356cd3d2a7d0d8e2e2d98ea4856d9ec2b4dc60add318ab2"
+    },
+    {
+      "path": "release/NightSweep_1.8_GainMaker_DSIM_Practice.json",
+      "sha256": "f6486b4d0810d52c84d930901a425b8ad455f8cf55c53c6ff637d4b0da25def2"
+    },
+    {
+      "path": "release/NightSweep_1.8_GainMaker_Manual_Thermal_Practice.json",
+      "sha256": "46b1df67f332997af88511ee33dba80e19ad8ef800e976bdfbfcd26805097ec2"
+    },
+    {
+      "path": "release/NightSweep_1.8_GainMaker_OEM_AGC_Practice.json",
+      "sha256": "feae97077f7950245608421dd292a31435e909dd051c836796f4967a7b56cac2"
+    },
+    {
+      "path": "release/NightSweep_1.8_Six_Active_Practice.json",
+      "sha256": "fb54fc290b65fbe2278edbaf3f95a85e9cf809d1933271343d0f19cd244d7141"
+    },
+    {
+      "path": "release/alpha18/validation.json",
+      "sha256": "e44e4465c823dda87af22f5282365bacd1ec6a4a9c357bdd942adec301d40533"
+    },
+    {
+      "path": "release/package_alpha18.py",
+      "sha256": "a539acfec67aab0f22069b215290c3e1a9d1c1036185db5fa7a68a28b00683c0"
+    },
+    {
+      "path": "research/alpha18/AUDIT_SUMMARY.md",
+      "sha256": "2006910af527ce5446e0ece9b191ff1bb560bea4162f2e94c08e2ba371737544"
+    },
+    {
+      "path": "research/alpha18/MATH_AUDIT.md",
+      "sha256": "f77d4dbba88a61b3c5e6666b7a7c13d6036fe81aa2c8462733597853bf7051c6"
+    },
+    {
+      "path": "research/alpha18/TOOLS_AND_LIMITS.md",
+      "sha256": "fa7a9a53fc01c6a6aad980dd66b978c07b85c5aff687a42cbe10add0e97a938d"
+    },
+    {
+      "path": "research/alpha18/android-official-reference.json",
+      "sha256": "8f28f3fa5f7eae3e8dedc374ff0dd7e485cd71931fa4f0f3787d626606a38e7b"
+    },
+    {
+      "path": "research/alpha18/baseline-1.7-results.json",
+      "sha256": "7ab438be2a35fd5efeb6cd2e1f140ea33a92cf63f4310fe5128879d14aeea8a3"
+    },
+    {
+      "path": "research/alpha18/baseline-1.7.log",
+      "sha256": "dacde75132a2a93f0eb82c62f6e1dcbcca60ff3c44b39ec9917d65cedb40ed49"
+    },
+    {
+      "path": "research/alpha18/browser/complete-gs7k-gan-power-390.png",
+      "sha256": "a0849d32df27e6101854199ba02c10768bf371c8cfdde488069cf7675b111708"
+    },
+    {
+      "path": "research/alpha18/browser/complete-gs7k-gan-route-390.png",
+      "sha256": "8516274bbd6326357b9e6aa89882c5ea39f0487d7758fb7ebf091478aac09ea8"
+    },
+    {
+      "path": "research/alpha18/browser/home-1280.png",
+      "sha256": "5a684854caaae03cf9a3365104a48d50408f0347e81f738cbc73c8f80018dbd4"
+    },
+    {
+      "path": "research/alpha18/browser/home-360.png",
+      "sha256": "c855874e9a17c0c82655379819ed0724f8f04232916f63b1f294ddd17ee5591a"
+    },
+    {
+      "path": "research/alpha18/browser/home-390.png",
+      "sha256": "245bd2a196cdd1601a2d859e57c763c6fea02a673b14a34f39b658655a7b2d45"
+    },
+    {
+      "path": "research/alpha18/browser/home-768.png",
+      "sha256": "b6d042687710c373994f5ae18c11213827ad1adbb993de253aad26d88f880caf"
+    },
+    {
+      "path": "research/alpha18/browser/results.json",
+      "sha256": "62618a34839f8f470e81d219851feff94ffdf6bf740e589718cf6f91b4a1c692"
+    },
+    {
+      "path": "research/alpha18/browser/six-active-gain-390.png",
+      "sha256": "605382af5aa05a3b06e34f33d7bbca761cb88bbd99f2a22026875fd0b6169b98"
+    },
+    {
+      "path": "research/alpha18/code-reliability-audit.md",
+      "sha256": "f24570901934ef01a76e73167e72470ba83217fa890bd913263540ca25b24682"
+    },
+    {
+      "path": "research/alpha18/complete-correction-job-source.log",
+      "sha256": "0ade6f4f21196684be4e3b05f9c4df7f73e2439897dadb7089eb784863dff770"
+    },
+    {
+      "path": "research/alpha18/complete-correction-library-source.log",
+      "sha256": "8cee4530bcbb1c6c931a251aff5dc1818af2642b19d33fdb0fd66c886f1efe94"
+    },
+    {
+      "path": "research/alpha18/complete-correction-red.log",
+      "sha256": "145c4f350988b942270e5074c68d2ae3e84d1aeb9376a68df24ed8b85fef7e2f"
+    },
+    {
+      "path": "research/alpha18/complete-inactive-profile-red.log",
+      "sha256": "10a1b9d2cf8bd3fa67b3085b66a516c2fc5fbfb81210b1dd5d4ed3e71c15e226"
+    },
+    {
+      "path": "research/alpha18/complete-legacy-import-source.log",
+      "sha256": "3201ea983a1068e09f5e156b729080cdc7d98fd3341623a9b7c3fad85bc6ce51"
+    },
+    {
+      "path": "research/alpha18/complete-workflow-application.json",
+      "sha256": "8be9de151087e455eef383c0f5e855fa521409d19213f3430b1bb4c4c3408ae1"
+    },
+    {
+      "path": "research/alpha18/complete-workflow-audit.md",
+      "sha256": "d116581db228fc663df55f8a9ef282d5dc388c97366d201a8b8a7eb332966c01"
+    },
+    {
+      "path": "research/alpha18/complete-workflow-review-checks.log",
+      "sha256": "cfb16c954f508ad9e263ec5535c8ce3a3eb46fca51e7d1d8d52fe615db41171b"
+    },
+    {
+      "path": "research/alpha18/complete-workflow-review.md",
+      "sha256": "c05201680f3f1dcf9c28ed95a756517d0688a415f7065c080a876ceb00e26d75"
+    },
+    {
+      "path": "research/alpha18/complete-workflow-wolfram.json",
+      "sha256": "702d057106ec0f5f54b53ec5e84abc422cea090f9c615bf51e67cedbd15178ff"
+    },
+    {
+      "path": "research/alpha18/context7-browser-reference.json",
+      "sha256": "cce005f5ea095b3a9308114010efd91ae1a212440a0ede6813fa5ae816e5e66a"
+    },
+    {
+      "path": "research/alpha18/documentation-checks.json",
+      "sha256": "1bf415fe6e6d9c79bf92bc73d1f7677cd00aa57c8f9126f066eb0cdc9f364c0a"
+    },
+    {
+      "path": "research/alpha18/figma-review.json",
+      "sha256": "ac4f9bfe1928f0ad6e8ae974535e9f578b68224e87d7c9f26132d3016f8326de"
+    },
+    {
+      "path": "research/alpha18/final-browser.log",
+      "sha256": "f54dbec9796a407799b34f9c6ce8c6131852e4eadc50fc4f101bc4bcae230411"
+    },
+    {
+      "path": "research/alpha18/final-qa.log",
+      "sha256": "7a7d789f297cc65966fdb258750e77b202e215811061b16ba6b577b8a300ddf7"
+    },
+    {
+      "path": "research/alpha18/import-id-context7.json",
+      "sha256": "6ebe03d13ce5f52df9733248043a69327ae7b86221afe6bcd6d653c768cff277"
+    },
+    {
+      "path": "research/alpha18/import-id-green.log",
+      "sha256": "76fe80ed0ed344029bf494e4e0c76c2c521ec335205f1c960757cb19fbde9c08"
+    },
+    {
+      "path": "research/alpha18/import-id-red.log",
+      "sha256": "b177f7649f3fd0fc09ed6a44b60f1599f67ff9812a895b3890d7561420400f99"
+    },
+    {
+      "path": "research/alpha18/independent-review.md",
+      "sha256": "9ab4e74fd835a9ec30dfbaea416463347da72ea0b7fde2310dd10a91ae62a63c"
+    },
+    {
+      "path": "research/alpha18/math-data-audit.json",
+      "sha256": "32e18d2fd65be948886dcde3fb023fed3c138f3b3bb6065361b90486e5a7e0f2"
+    },
+    {
+      "path": "research/alpha18/math-wolfram.json",
+      "sha256": "2057274055214a0f3c295b229148b1cd804b5d39a2cfc7c87aca8b5026f65a68"
+    },
+    {
+      "path": "research/alpha18/native-audit/android-preview-green.log",
+      "sha256": "352c4ced688ff811cb526104a4f5888b464d318c5b4b9cfd59e0037ddef98c55"
+    },
+    {
+      "path": "research/alpha18/native-audit/android-preview-red.log",
+      "sha256": "3bc400408bb675c3f0d53a94a1382940181bc2ce3ea5e6c8e4b7868c2bcd697c"
+    },
+    {
+      "path": "research/alpha18/native-audit/build-failure-reproduction.json",
+      "sha256": "70d80da753bcad79b9fc193d67ee433642de0d119daaf4cdb95d676801d2234e"
+    },
+    {
+      "path": "research/alpha18/native-audit/publication-green.log",
+      "sha256": "7863344fad3f6ab7f3d1d568ad9508990c28a55269edb10ac20fb65d0bb788c9"
+    },
+    {
+      "path": "research/alpha18/native-audit/publication-red.log",
+      "sha256": "0e891f374c9018ac3fbf516ad157000e7fc667b989e9521f44458c1c275b4087"
+    },
+    {
+      "path": "research/alpha18/native-audit/verification.json",
+      "sha256": "6e17994583df1e16248b066ea04082986427839852069515299bb071ad931539"
+    },
+    {
+      "path": "research/alpha18/other-examples-preservation.json",
+      "sha256": "7fcd944279db10953af92f8a77e689fbe75091d84910f5c12470327afb4e0dd5"
+    },
+    {
+      "path": "research/alpha18/plugin-inventory.json",
+      "sha256": "f6a34b3b302e5213ec6ce18026aca6521cd6909931e9e5de2efd33ba2c10af8c"
+    },
+    {
+      "path": "research/alpha18/pre-correction-examples.json",
+      "sha256": "8111ce1d9cf2232eca68d3685b129c83e39a731ba0ac0775d55f746d39446d71"
+    },
+    {
+      "path": "research/alpha18/training-controls-source.log",
+      "sha256": "e42ba12e19f2af5a9efeaea3ae07fd6019954ee4c0d7c0824025c76f0de9c721"
+    },
+    {
+      "path": "research/alpha18/training-correction-source-validation.json",
+      "sha256": "d78a6b802b5bd584ac05ec9c5b590ab9860a318d9c199dc915ca3001d491cbeb"
+    },
+    {
+      "path": "research/alpha18/training-existing-source.log",
+      "sha256": "d9f12f6fee759fad3e49e7f92458a3271a691682ee8c8bf0a25173f357b30bf8"
+    },
+    {
+      "path": "research/alpha18/training-feature-matrix.json",
+      "sha256": "aaf5639f34021867bdaac41f0781c4aa6d1ce2df786a22e69d78e4679b7ea45f"
+    },
+    {
+      "path": "research/alpha18/training-inventory.md",
+      "sha256": "c7aef419f0f79320c11f81ed4aa73f6d1370a245e70e9ce1819dcc1cdb5f0902"
+    },
+    {
+      "path": "research/alpha18/training-library-red.log",
+      "sha256": "e0e3ee90d79ed6ffb407c1c7b22717a507a7a63724ffdff752ff48bcc2568e62"
+    },
+    {
+      "path": "research/alpha18/training-library-source-final.log",
+      "sha256": "e8d3e71a83f5dcd9378a6365ee0fe4456f3a16d5be4e5138e9ae20f0632b9297"
+    },
+    {
+      "path": "research/alpha18/training-validation-source.json",
+      "sha256": "020a4c9945ce0220e450bd8c7c1d1f31845b0f961149b52273d0dc2e61408165"
+    }
+  ],
+  "modified": [
+    {
+      "path": "AGENTS.md",
+      "before_sha256": "afe0448c24fd007901904f8005ab3e2b6de784f81b0ac106c6e4ba6f2adcaf78",
+      "sha256": "5b229859acdeb02104e93fbcbb31c758959586ebc829542931db9120d284378a"
+    },
+    {
+      "path": "NightSweep_Project_Status.md",
+      "before_sha256": "1a8fcdb7c7da0fe37dc6b524609e29755f4e50f783213a96906ce1a13521a448",
+      "sha256": "3c3c30153f17f473cba3122bc12a60cfda947fea2c428addd06177e3ea8cd790"
+    },
+    {
+      "path": "START_HERE_CODEX.md",
+      "before_sha256": "54d1a74d6934c24b5f39a60a4cd925c7bbeabd0536ef1eee7853d8a30033d6f4",
+      "sha256": "99f87f35cf9231a0d2ffdffccff0f3dc65733d2ca0d6192635a7705cbc49a4e0"
+    },
+    {
+      "path": "android-build/README.md",
+      "before_sha256": "e157ae77a94c1ca436197268a4f8a1662c02f1348eb524165de3590bbf3748b4",
+      "sha256": "bc1541784a0362d511d9fe563aa2df8d51cd79482090830d809a06152d3b647c"
+    },
+    {
+      "path": "android-build/app/src/main/AndroidManifest.xml",
+      "before_sha256": "ba6ead8d6e3f4dfe91634380a1400c4b186fd4a3ff18396d9cab6bed4b05bc00",
+      "sha256": "2c8537740e2b02a06b05f117258f0e7dec443109782cdeecd92c845047b19f33"
+    },
+    {
+      "path": "android-build/app/src/main/java/com/spencerwilliams/nightsweep/MainActivity.java",
+      "before_sha256": "296e2259037bb0560d7db50d1bed844f8132e2679a018f1df0c628dd73fda04f",
+      "sha256": "8fb6a19a6cd5b297122272f9748c58e9ee05c7deb66af26541212fb143836e8f"
+    },
+    {
+      "path": "android-build/build-readiness.json",
+      "before_sha256": "7c8d4f05110d4eb9889977fd149cd6a1a2ad83c7a08ded1b25c52c57c8706536",
+      "sha256": "d40660117c51e7823e2fc042c01e161d2a1588b7afb9b948c3adbf34e86525a4"
+    },
+    {
+      "path": "android-build/build.py",
+      "before_sha256": "70abaa254ba8697aafaf9baae996aa25e4da45bdad46f649f5a41c205d295aac",
+      "sha256": "5b3c90e6555a8c1d49c7cd17c476c0ae88516086d57364bf9f8ef081c599621a"
+    },
+    {
+      "path": "build-pwa.py",
+      "before_sha256": "899c88379dbd6d89cba8177dd37ab9628ac4f55d4bfe3592513a4873a7c5bad0",
+      "sha256": "396965c2dc3af84bd3f99b84fdb2917a5c052d6320ca13ea65196a78fabcbf83"
+    },
+    {
+      "path": "dist/android.html",
+      "before_sha256": "4f9bc27db616e99a96d089181fd2c93122deb771b350f825b7f62f7c0b9e3498",
+      "sha256": "d19c6d8cb814ec8739c06a126ba3bb7ca9c4905621f7a4490870c335e99d1c1d"
+    },
+    {
+      "path": "dist/equipment-coverage.html",
+      "before_sha256": "6574e5e963639a5cc9b8453f0701d63f13adac5c0fd7b3273f7c51d0a14f0b8a",
+      "sha256": "177b895d5aca9d5744df0b9a2a18f268649d10603ebc800cd6bf713742193169"
+    },
+    {
+      "path": "dist/guide.html",
+      "before_sha256": "bd74583ffdf964d1eb832d3b75e6846ed6a512a5af802447276803bd11bf6835",
+      "sha256": "cda578ff2acc3e6111733376ed3f0386ebf8a4c9c1fa23ad5e7cff97f53b562d"
+    },
+    {
+      "path": "dist/index.html",
+      "before_sha256": "9c168532a534a1a867ec218b54dc29a2fee68f757624479ceca2220d35b24d7b",
+      "sha256": "b1f408ece26a92e7fbd9684f386d86b38ea734ce9165a9ce1987aca291e0e5e0"
+    },
+    {
+      "path": "dist/install.html",
+      "before_sha256": "691a6df0937e4cd45b1b61bd78707a74428764f878fff60a6a35872f95f2af06",
+      "sha256": "c393942d55fd4b312ac14764c6d03f3c8e09554e9869b2b50c5a382e90f53242"
+    },
+    {
+      "path": "dist/iphone.html",
+      "before_sha256": "400d50db8067673fc52a71bcda87bc1e91121f06b24d79ae789448d6b9a10b7b",
+      "sha256": "63ea0076e3b37d40fa36efe00860a838d425c4cd60497f0605b20b818d7feebe"
+    },
+    {
+      "path": "dist/manifest.webmanifest",
+      "before_sha256": "a712a214e7749f98f35904c8638849205800107bd093f3bd750f10d1e20676fd",
+      "sha256": "6ef21559400e3b05318cde951d9eb3f34e65be532716e3777feb8ffabdc31b1c"
+    },
+    {
+      "path": "dist/math-audit.html",
+      "before_sha256": "0ebd398906d6dfd88caa31d1ed2fc610e9332f1f424c1eaa5a04b421a2d0dd76",
+      "sha256": "449b36d6b8ae901bc9eb34c76ccaf1a02ca9e1ef3570ed9f0f5815805fd6ae65"
+    },
+    {
+      "path": "dist/release.json",
+      "before_sha256": "d73c44739e79f81e6ac0e87b9d0474c1525c2bddb332d865401be6be9fc9ab97",
+      "sha256": "9ab4c965e90c544f62621bd0d974578d9765e6eea7229dc1a1426e7f4143b26c"
+    },
+    {
+      "path": "dist/setup-guide.html",
+      "before_sha256": "4d5431938cd2eac5606da2eebbad2b2067d56e2abacc02d9f1b1924bc9cd36df",
+      "sha256": "92e60c95fe15b886182b0bde22dc4b3ab27fc322e100ced178cfe8db42ae7c1b"
+    },
+    {
+      "path": "docs/Android_Install.html",
+      "before_sha256": "064f2a50227efd8c5a80971ae36535fc84b940209da263c95aee5be5c7e6b92a",
+      "sha256": "10661c072fb3b009fb44417d1e2139c924a44cc89d974b1b3f00696225ba5a43"
+    },
+    {
+      "path": "docs/DEVELOPER_BUILD.md",
+      "before_sha256": "9790648f291d808384ccfe16e50bc7692c9bf37aa6f9e47cb5b0612208b189a8",
+      "sha256": "4a1a6da553e04d80ceeb65ce898a1c188a2739859d7612ac044ff5e242e9d9a4"
+    },
+    {
+      "path": "docs/iPhone_Install.html",
+      "before_sha256": "b3337012f095292930f89786242cba9fc23a2ef3e8fe6192fbbac14fe90b556e",
+      "sha256": "0a63c8d496c222837483fb2beb4b040f47ac088f9d6ae70e46aeffa9f1d2ed4a"
+    },
+    {
+      "path": "docs/render_readme.cjs",
+      "before_sha256": "a56d77522a85d78714d7532e21668f83ef0cbe350fa133899c507cd9cf391b7d",
+      "sha256": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82"
+    },
+    {
+      "path": "night-sweep/README.md",
+      "before_sha256": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+      "sha256": "ef47bc127d6a6df00ec407e43c5a39bd8da9ddea4c2935a147618dca3c07e236"
+    },
+    {
+      "path": "night-sweep/app.js",
+      "before_sha256": "778496c81ad529d73b56550066bab76e6d6abd2d6016fb3c04fbf6cc9a1de9b0",
+      "sha256": "2fd8b626928c226ce00e8dd97eccfc2dad47c27725a0a928cfb97bdce50097ec"
+    },
+    {
+      "path": "night-sweep/build.py",
+      "before_sha256": "b631a475e034c26130bb57fbeed9d7de9d57f2d0896247d7626ae3e85f208fb2",
+      "sha256": "cf9df8942c19bc7622651ad62245c87f99d3c8458ad7fa023a100befb5408594"
+    },
+    {
+      "path": "night-sweep/evidence.js",
+      "before_sha256": "f102186082412de718adc083e51cf36cc7ec1ef5f04dc75ffde6d701e67fc8c3",
+      "sha256": "6f1797951988b406671cb6f405d362a061a5ad75ff29602477e582907b21e2bc"
+    },
+    {
+      "path": "night-sweep/field-report.js",
+      "before_sha256": "6dd39c56ced693eefbb6c21e224c92d4debe148a1d60cc7e3fdddbfe0cf98b19",
+      "sha256": "e93cf7ab0b4a0e58eaef43975f3a33d96ba30229939d6129ad2e992d9f5de080"
+    },
+    {
+      "path": "night-sweep/frequency.js",
+      "before_sha256": "933ed011e3a85accfe1af90aaf2a07c3d61995dcad567251a77295ca662a236d",
+      "sha256": "9abdcfd2f3a6bb4233df86817e6c0e523368d0791d87a58706710c0db98dae30"
+    },
+    {
+      "path": "night-sweep/projects.js",
+      "before_sha256": "fd3f4ea2f0fb6a4890fde01645c8121949c577126ff2b3b1a27d3aae34e65a46",
+      "sha256": "0e40ee165f2126f3f5705ccdd180c133cb4ecf6ca3ef947ca04986ca431fed4c"
+    },
+    {
+      "path": "night-sweep/shell.html",
+      "before_sha256": "7d5f3b59a7e8d8648128e3f9b906f5cc7d617ca5873d75be2a03df41c43ca1f3",
+      "sha256": "f74bf47299fe657e33c4b93419f01723257692729d91fe68af761c2dbf827992"
+    },
+    {
+      "path": "night-sweep/style.css",
+      "before_sha256": "fb7b35879d13e5a173126c2ca15b8996b096470390fcc62b5bb79b48ff2c500f",
+      "sha256": "75157ad6078b055fa43c06f7e4bb12b61d26970976cbbef2ed13a632a7d0f872"
+    },
+    {
+      "path": "night-sweep/sweep-setup.js",
+      "before_sha256": "252463bf2ecff3007b83afdcfc59bdffa8ab287808af0b8a8cb10e79a74e1fa3",
+      "sha256": "e852b64d8b9174288c1f8b89e069ba29bf9d9c31b2bfcbe482981c9d5a857305"
+    },
+    {
+      "path": "night-sweep/training.js",
+      "before_sha256": "0e37c577f22237564596d4b15825ed1c12fde3475b9f8cf2978b8d490f0ab937",
+      "sha256": "0e87d5cd71b2071c2cf148c229451b058738c8053b8547b6a602f79db5805638"
+    },
+    {
+      "path": "night-sweep/workflow.js",
+      "before_sha256": "1798cbc1432fbc7f51d42266bcb0121d6d0ac1ba43f0c364653be7253a16fa0e",
+      "sha256": "15ad1e30578b867cfc7010490f0603abeac014374a15589c8e98e661a03d726f"
+    },
+    {
+      "path": "outputs/Night_Sweep.html",
+      "before_sha256": "6c48254cb13d62ed0047621bdb4a96d88cabd5d350b6338a6ef544e82cf54899",
+      "sha256": "7d52800252e38f4e689b77ef84f4b38e8f0f1fdf1970ca54f2ac708e10e100e2"
+    },
+    {
+      "path": "pwa/install.html",
+      "before_sha256": "51fb69222ff2549e0d6137fdb138e02a389776a4abc1020ddb62707537ed09ca",
+      "sha256": "a52097d146beffc7f82c0b69e2375f59d299282d25bcfebb2d708601524755c8"
+    },
+    {
+      "path": "pwa/manifest.webmanifest",
+      "before_sha256": "a712a214e7749f98f35904c8638849205800107bd093f3bd750f10d1e20676fd",
+      "sha256": "6ef21559400e3b05318cde951d9eb3f34e65be532716e3777feb8ffabdc31b1c"
+    },
+    {
+      "path": "qa/alpha011-integration.cjs",
+      "before_sha256": "82d42b14badd060900bd5364ad960383c243b73693bb8073a4c3044296c4ea2a",
+      "sha256": "3f9be65cf3927616cfc037088ddbb024d90b140c5b454dcaf2d59b49fdef05f3"
+    },
+    {
+      "path": "qa/alpha012.test.cjs",
+      "before_sha256": "cf231d5f22e74c7e785b89868cd9a12da9994c994a83760f4ffc25d6a3b5c756",
+      "sha256": "78e55ae90616e7fa8de2dd5077d2501f9d3bd0ad60c583b2e9f5ca4ca721bf7a"
+    },
+    {
+      "path": "qa/alpha14-ui.test.cjs",
+      "before_sha256": "9af414eb49a80b55c3e3bcb836282cb315246d473904acb8ffff1347b6613ccb",
+      "sha256": "85c5f9b97f7bec3384f10f2a3913f4d32ffa43f4b068ad00875d903a49da5bf6"
+    },
+    {
+      "path": "qa/alpha15-ui.test.cjs",
+      "before_sha256": "1258ac16d56a4a2d43cf0169196348bc2408257271ad60697a65265b9ab5c2b8",
+      "sha256": "b24525b439a52e1a76a5d7d9e00f8270baf4f17de8dd8460c7e991d88112d0f3"
+    },
+    {
+      "path": "qa/browser-files.test.cjs",
+      "before_sha256": "e3f094214b08383c9934fa1b7761896735b424615ff336c61bb3de846f4625bd",
+      "sha256": "181573b1d20f5fe97cadc278c995ea549d9e3fb73b75599adf1d0a49ec9aa654"
+    },
+    {
+      "path": "qa/dom-tests.cjs",
+      "before_sha256": "1021a5401504d0c59ab4f496b8d273480005f2da43b6cf59e2c1d15cc4c3bbeb",
+      "sha256": "3d3b468cf75ce984027d4f8ce5d73bf500ca557d672e3c1949332448ccfbc2c7"
+    },
+    {
+      "path": "qa/run-pwa.py",
+      "before_sha256": "bc93c0fb33af6f521e4e35312d7b63e4c551232fd4331fe2012f71ba6cdf0bb3",
+      "sha256": "c1776b655f7a99a77dc6b11e3cfef9e7a92aecfb4c9ceed24d30d3aaa479edb8"
+    },
+    {
+      "path": "qa/sweep-setup.test.cjs",
+      "before_sha256": "7d0a3ff0775e53ee21422710a2b321d4732abcc62a875db1de025752932e607f",
+      "sha256": "c7c240b7909ed27dd946eb033c36deeb80c08657c63f921c466e6ff687d4185a"
+    },
+    {
+      "path": "qa/training-controls.test.cjs",
+      "before_sha256": "23775a75061c975433e75bee268cab940c8fd4f7e1026f140057c34e2ac16f7f",
+      "sha256": "bd874650a8d7d4d76f970072a695b497cc4e3ffde3b546d98cbf22a43bda0bcb"
+    },
+    {
+      "path": "qa/training-job.test.cjs",
+      "before_sha256": "977e8763ddc7f401fbb6995bcab83dfbc2ede7341abd1b256723c9987e301950",
+      "sha256": "3aad5ce1e0ec47fa5192df6b025171e4a2686e99893ab0be70ffff05176645d3"
+    },
+    {
+      "path": "qa/upgrade01314.test.cjs",
+      "before_sha256": "df47bba47a79b44b5390bc1a9e359191e84fedf2d351096e93b4bbac5b716d4d",
+      "sha256": "67a98eeba12d4f8e05978e16d4887b8e24df9020ff0256b37de7ca3a6a990fea"
+    },
+    {
+      "path": "qa/upgrade01415.test.cjs",
+      "before_sha256": "d870cc0c068bbb050bbaf23268630c2507b1ddf2369f3764991f1d2bf1a52b0c",
+      "sha256": "13ac13ee665386bb3370eaf96c220b5da7a7378e5d1b887d853b92094512d924"
+    },
+    {
+      "path": "qa/upgrade01617.test.cjs",
+      "before_sha256": "f46ca324501e90233c3ba969ef6ade378f3a4e07a6ea525f11005158519a768e",
+      "sha256": "472cfa5968d887063d364f66395213df0dcb4b1566cad2e180704540e39436ab"
+    }
+  ],
+  "removed": [
+    {
+      "path": "dist/sw.432d998a9dffd87f392e.js",
+      "before_sha256": "64632c4f74a918212213d1d2e96b55528c16c76f5b9bb572439f836e59506f9b"
+    }
+  ],
+  "scope": "File-content comparison including the GS7K/GainMaker GaN complete-workflow correction. Excludes installed dependencies, caches and this self-referential change record/checksum file. Historical binary/1.7 release artifacts retained unchanged."
+}

@@ -1,0 +1,18 @@
+✔ Duplicating an active job commits current edits and its copy in one storage write (1493.374634ms)
+✔ A quota failure cannot silently duplicate the older saved snapshot while discarding current edits (977.588968ms)
+✔ A copy that exceeds storage capacity cannot partially rewrite its original first (995.638624ms)
+✔ Unchanged named-job renders preserve keyboard focus and existing action controls (1027.392581ms)
+✔ Duplicate preserves an unsaved plant conversion separately from a retained sample (861.360971ms)
+✔ The exact 8 MiB file and 12 MiB project limits preserve original bytes through import, export and recovery (3718.994195ms)
+✔ Attachment count and per-file limits reject overflow before reading and accept all 30 zero-byte originals (865.161808ms)
+✔ Every evidence operation and named-job switch rejects during an in-flight read, then recovers (668.691599ms)
+✔ Malformed portable originals fail without mutating the working project, library or supplied candidate (1087.35554ms)
+✔ Actual 1.6 and retained 1.7/prior-1.8 projects preserve route inputs and original bytes on current-source recovery (2780.41756ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15046.966203

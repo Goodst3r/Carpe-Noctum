@@ -1,0 +1,10 @@
+.pwa-card{border:1px solid var(--line);border-radius:12px;padding:16px;margin:16px 0;background:var(--paper);min-width:0}
+.pwa-card h2{font-size:18px}.pwa-card p{max-width:80ch}.pwa-card a{color:var(--blue)}
+.pwa-card .toolbar{margin-top:12px}.pwa-card .toolbar a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:6px}
+.pwa-card button{min-height:44px}.pwa-card [hidden]{display:none!important}
+.pwa-state{font-weight:700;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pwa-state::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--warn);flex:none}
+.pwa-state[data-ready=true]::before{background:#55be9b}
+.pwa-small{font-size:13px;color:var(--muted)}
+@supports(padding:max(0px)){body>main{padding-top:max(14px,env(safe-area-inset-top));padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.bottom-nav{padding-left:max(0px,env(safe-area-inset-left));padding-right:max(0px,env(safe-area-inset-right))}}
+@media print{.pwa-card{display:none!important}}

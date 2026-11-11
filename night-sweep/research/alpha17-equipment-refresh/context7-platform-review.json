@@ -1,0 +1,34 @@
+{
+  "reviewedDate": "2026-11-10",
+  "context7Library": "/mdn/content",
+  "clipboard": {
+    "sources": [
+      "https://github.com/mdn/content/blob/main/files/en-us/web/api/clipboard_api/index.md"
+    ],
+    "findings": [
+      "Write from an actual user action; Safari/Firefox require transient activation.",
+      "Clipboard API may be restricted or unavailable, so preserve selectable readonly-code fallback.",
+      "No clipboard reading is required by NightSweep."
+    ]
+  },
+  "storage": {
+    "sources": [
+      "https://github.com/mdn/content/blob/main/files/en-us/web/api/storage/setitem/index.md",
+      "https://github.com/mdn/content/blob/main/files/en-us/web/api/web_storage_api/using_the_web_storage_api/index.md",
+      "https://github.com/mdn/content/blob/main/files/en-us/web/api/storage_api/storage_quotas_and_eviction_criteria/index.md"
+    ],
+    "findings": [
+      "setItem may throw QuotaExceededError; existence of localStorage alone is insufficient.",
+      "Browser storage is best-effort unless persistent status is granted; private mode may be temporary.",
+      "Keep saved-work/export fallback and explicit quota-failure status."
+    ]
+  },
+  "codeChecks": [
+    "EquipmentSetup.copyPilot uses user button event and writes exact literal code; catches denied/unavailable clipboard.",
+    "EquipmentSetup.persist handles save failure while preserving in-memory data and requests backup.",
+    "No new permissions, persistence prompts, accounts or online dependencies added."
+  ],
+  "limits": [
+    "Documentation review and synthetic browser tests do not establish physical Android WebView or iPhone Safari behavior."
+  ]
+}
