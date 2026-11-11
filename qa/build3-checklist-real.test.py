@@ -84,6 +84,20 @@ def time_checks(browser):
         check(f'{width}px real keyboard: no sideways scroll and no page errors', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1') and not errors)
         context.close()
 
+def guard_tag_checks(browser):
+    """The three software caps are tagged beside the controls they bound; the tags are real 44 px targets that fit the screen."""
+    for width in (320, 360, 390):
+        context, page = open_safety(browser, width)
+        page.locator('#safety-edit').click(); page.wait_for_timeout(100)
+        tags = page.locator('#safetyPanel h3 [data-threshold^="checklist."]')
+        check(f'{width}px guard tags: the three caps are tagged beside Notes for this job and Add an item', tags.count() == 3)
+        boxes = [tags.nth(i).bounding_box() for i in range(3)]
+        check(f'{width}px guard tags: each tag is a 44 px target inside the screen', all(b['width'] >= 44 and b['height'] >= 44 and b['x'] >= 0 and b['x'] + b['width'] <= width + 1 for b in boxes))
+        check(f'{width}px guard tags: none sits inside a label, and nothing scrolls sideways', page.evaluate("document.querySelectorAll('#safetyPanel label [data-threshold]').length===0&&document.documentElement.scrollWidth<=innerWidth+1"))
+        tags.nth(0).click(); page.wait_for_timeout(150)
+        check(f'{width}px guard tags: a tap opens the Unknown source sheet for the cap', page.evaluate("(()=>{const d=document.querySelector('dialog[open]');return !!d&&/Unknown/.test(d.textContent)&&/application guard/i.test(d.textContent)})()"))
+        context.close()
+
 def quota_checks(browser):
     big = 3145729
     seed = f"if(localStorage.getItem('{KEY}')===null&&!sessionStorage.getItem('seeded')){{sessionStorage.setItem('seeded','1');localStorage.setItem('{KEY}','{{'+'x'.repeat({big}));}}"
@@ -106,11 +120,13 @@ def quota_checks(browser):
 
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
-    which = sys.argv[1:] or ['time', 'quota']   # a name on the command line runs just that part, for a mutation check
+    which = sys.argv[1:] or ['time', 'quota', 'guards']   # a name on the command line runs just that part, for a mutation check
     if 'time' in which:
         time_checks(browser)
     if 'quota' in which:
         quota_checks(browser)
+    if 'guards' in which:
+        guard_tag_checks(browser)
     browser.close()
 server.shutdown()
 print(f'Build3 checklist real browser: {len(checks)} checks passed')
