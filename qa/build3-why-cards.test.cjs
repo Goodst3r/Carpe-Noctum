@@ -83,6 +83,6 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   });
 
   console.log(`Build3 why cards: ${cases.length} checks passed (${comparisons} comparisons with the catalog list)`);
-  fs.writeFileSync('qa/build3-why-cards-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App cards against the SCTE catalog list typed in research/build3/why-cards-reference.json, plus the rendered screen, the registry row and the saved-job format. No input, no storage.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-why-cards-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App cards against the SCTE catalog list typed into why-cards-reference.json (kept in research/build3), plus the rendered screen, the registry row and the saved-job format. No input, no storage.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });
