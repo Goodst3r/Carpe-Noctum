@@ -45,6 +45,7 @@ MODULES = [
     ('<!--FIBERTOOLS-->', 'fiber-tools.js'),
     ('<!--HIGHSPLIT-->', 'highsplit.js'),
     ('<!--WHYCARDS-->', 'why-cards.js'),
+    ('<!--POP-->', 'proof-of-performance.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
 ]

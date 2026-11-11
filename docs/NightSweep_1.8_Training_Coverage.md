@@ -14,7 +14,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
 | Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 14 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid and the why cards (added in 2.0 Alpha build 3); eighteen steps | Synthetic entered teaching tables and calculator inputs |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards and the FCC proof-of-performance card (added in 2.0 Alpha build 3); nineteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -42,6 +42,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → Fiber | Custom curves | Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored (2.0 Alpha build 3) |
 | Test → High split | Custom curves | The 204/258 high-split row and gap read from the band table, the side of 108 to 137 MHz on each plant, and the eight Remote PHY steps with their sources; nothing is typed, read from a node or stored (2.0 Alpha build 3) |
 | Test → Why cards | Custom curves | The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored (2.0 Alpha build 3) |
+| Test → Proof of performance | Custom curves | The 43 dB carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored (2.0 Alpha build 3) |
 | Job → Safety | Custom curves | Synthetic practice of the pre-work reminder list: ticks, a role and check-in time, and rewording, hiding and adding items; kept on this device and not in the job backup (2.0 Alpha build 3) |
 | Job → Outage | Custom curves | Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3) |
 | Power → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |

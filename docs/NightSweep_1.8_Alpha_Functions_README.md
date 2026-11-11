@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 31 task screens and 48 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 32 task screens and 49 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds eight Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split) and [Why cards](#why-cards), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains ten guide steps for them, and the feature index gains entries 38, 39 and 41 to 48. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds nine Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split), [Why cards](#why-cards) and [Proof of performance](#proof-of-performance), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains eleven guide steps for them, and the feature index gains entries 38, 39 and 41 to 49. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -33,18 +33,19 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 21. [Fiber](#fiber)
 22. [High split](#high-split)
 23. [Why cards](#why-cards)
-24. [Power-supply load](#power-supply-load)
-25. [Power what-if](#power-what-if)
-26. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-27. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-28. [Pre-work safety](#pre-work-safety)
-29. [Outage first response](#outage-first-response)
-30. [Project records and closeout](#project-records-and-closeout)
-31. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-32. [Offline use, updates and Help](#offline-use-updates-and-help)
-33. [Checked example answers](#checked-example-answers)
-34. [48-feature coverage index](#48-feature-coverage-index)
-35. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+24. [Proof of performance](#proof-of-performance)
+25. [Power-supply load](#power-supply-load)
+26. [Power what-if](#power-what-if)
+27. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+28. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+29. [Pre-work safety](#pre-work-safety)
+30. [Outage first response](#outage-first-response)
+31. [Project records and closeout](#project-records-and-closeout)
+32. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+33. [Offline use, updates and Help](#offline-use-updates-and-help)
+34. [Checked example answers](#checked-example-answers)
+35. [49-feature coverage index](#49-feature-coverage-index)
+36. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -54,7 +55,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -100,7 +101,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 18 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 19 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -507,6 +508,16 @@ Fourteen short cards on the basics behind the numbers in this app, one for each 
 
 The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Test → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-14 and 293-13 only the catalog description was read, so check the monograph itself.
 
+## Proof of performance
+
+**Where:** Test → Proof of performance. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the FCC proof-of-performance limits.
+
+A reference for the technical requirements of the FCC's cable rules (47 CFR Part 76) and how an operator's proof-of-performance tests are measured against them. **It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.** The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section and has a source tag, and the limits are registered in **Test → Limits**.
+
+Four cards. **How often, where and on what** (76.601): tests at least twice each calendar year at intervals of no more than seven months; six widely separated test points for a system of 1,000 to 12,500 subscribers and one more for each further 12,500 or fraction, with at least a third at the most distant terminals; five channels below 550 MHz of activated capacity and ten at 550 MHz or more (the visual level, its variation and the aural level on every analog channel); systems under 1,000 subscribers are outside the performance-test paragraphs but, if they use spectrum beyond over-the-air TV and FM, must still do the leakage tests and monitoring, with the log kept five years. **The analog-channel limits** (76.605(b)): visual level not less than 0 dBmV at the terminal and +3 dBmV at the end of a 100 ft drop; level variation of at most 8 dB over six months with the adjacent-carrier and any-other-channel limits; aural carrier 4.5 MHz ± 5 kHz above the visual and 10 to 17 dB below it; frequency response within ± 2 dB; carrier to noise not less than 43 dB; coherent disturbances not less than 51 dB (47 dB); terminal isolation not less than 18 dB; hum at most 3 percent; and, every third year at the headend, chroma delay, differential gain and differential phase. **Digital channels and leakage:** QAM video follows ANSI/SCTE 40 2016, which is not read or listed here, and leakage is measured by the half-wave-dipole method of 76.609(h) against the table in 76.605(c) (see **Test → Leakage**). **How it is measured and kept** (76.609 and 76.1704): the system-noise method over a 4 MHz band, the test conditions, what the report must include and the five-year record.
+
+These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, *FCC Proof-of-Performance Checklist for Analog and Digital Signals*, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and **not read**.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -759,7 +770,7 @@ The return worksheet keeps reference-point target plus applicable net insertion 
 
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
-## 48-feature coverage index
+## 49-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -813,6 +824,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 46 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
 | 47 | High split band plans, aeronautical band and Remote PHY order <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
 | 48 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
+| 49 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
