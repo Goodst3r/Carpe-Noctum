@@ -39,6 +39,8 @@ MODULES = [
     ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
+    ('<!--SWEEPDUE-->', 'sweep-due.js'),
+    ('<!--SWEEPDUESTYLE-->', 'sweep-due.css'),
 ]
 for token,name in MODULES:
     if token not in shell:raise ValueError(f'Missing build token {token}')

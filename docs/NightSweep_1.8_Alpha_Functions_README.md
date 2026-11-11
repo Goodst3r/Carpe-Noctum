@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 24 task screens and 41 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 25 task screens and 42 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 41. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 41. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Sweep due adds personal reminders and feature 42, with an interval that starts unknown.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -36,8 +36,10 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 24. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
 25. [Offline use, updates and Help](#offline-use-updates-and-help)
 26. [Checked example answers](#checked-example-answers)
-27. [41-feature coverage index](#41-feature-coverage-index)
-28. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+27. [Station worksheet](#station-worksheet)
+28. [Sweep due](#sweep-due)
+29. [42-feature coverage index](#42-feature-coverage-index)
+30. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -46,10 +48,10 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
-| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
+| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Acceptance; Run sheet; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -92,7 +94,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 11 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
@@ -613,9 +615,29 @@ Open **Route → Station**, choose the installed node or active and select **Bef
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
-Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **15 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
-## 41-feature coverage index
+## Sweep due
+
+Open **Job → Sweep due** for personal reminders from saved Station work dates across this device's jobs, including the current working job. It shows the installed launch node/active and route amplifiers, with separate sweep and balance dates, date validity and completed calendar-month ages. A missing worksheet stays visible as unknown. A uniquely matching saved job ID is overlaid with current unsaved dates; duplicates have independent job histories. Ambiguous IDs and unreadable sources produce visible diagnostics.
+
+| Control / result | Meaning |
+| --- | --- |
+| Sweep reminder interval (whole calendar months) | Starts unknown. Enter digits only, 1–1200 months; the range is an Unknown app input guard. Raw invalid text remains visible. |
+| Saved preference | Saved with the current working job; used for this view of all jobs. Loading a different job can change it. Autosave, named duplicate and full JSON backup preserve this optional preference. |
+| Refresh list | Read actual Station/library changes and today's local device date. Entering/resuming the visible tab also refreshes. No background monitoring. |
+| Before reminder window / Reminder window / Due / overdue | Green / yellow / red reminders, with words and icons; never RF acceptance. Practice/sample counts stay separate from work reminders. |
+| Chosen sweep due date | Original recorded sweep date plus entered calendar months, clamped to the target month's final day; no 30-day-month arithmetic. |
+| Last recorded balance | Independent technician event/date/age. It does not reset sweep age or receive a balance cadence. |
+| Previous / Next | Pages of at most 25 entries; the full source and station counts remain visible. |
+
+Yellow starts at `ceil(2 × interval / 3)` calendar months, tagged **Unknown** as an unverified application policy implementing the build-list 12-of-18-month example. Due / overdue wins when warning and due dates coincide. An older plan mentions 18 months; its Hranac attribution remains unverified. Confirm your company's interval. This is a personal reminder setting, not a company specification supplied by the app.
+
+Dates use exact Gregorian `YYYY-MM-DD`, years 0001–9999. Future, invalid or unavailable dates remain neutral. Only a currently bound, writable Station record with Swept recorded and a valid nonfuture sweep date supplies a current reminder. Unchecked-with-date, recorded-without-date, binding-unconfirmed historical and read-only UBT worksheets preserve their date text without current colors. Binding confirmation retains the original actual event date. Metadata, training progress, captured history and calculator results never supply work dates.
+
+Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
+
+## 42-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -662,6 +684,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
+| 42 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

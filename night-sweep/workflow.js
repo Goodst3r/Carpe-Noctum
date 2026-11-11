@@ -5,9 +5,10 @@ const WorkflowUI=(()=>{
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Acceptance'],['runsheet','Run sheet']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Acceptance'],['runsheet','Run sheet'],['sweepDue','Sweep due']]}
  };
  const screens={
+  sweepDue:['job','Review personal sweep reminders','Read saved Station sweep and balance dates across this device’s jobs. Enter your own reminder interval.'],
   station:['route','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
   home:['home','Choose your task','Start with a field task, or continue the working job below.'],
   setup:['route','Set the starting signal','Enter launch frequencies, levels and cable temperature before building your route.'],
@@ -44,7 +45,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -60,6 +61,7 @@ const WorkflowUI=(()=>{
   const aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help'};tab=aliases[tab]||tab;
   if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
   if(tab==='setup')renderSetup();
+  if(tab==='sweepDue'&&typeof SweepDue!=='undefined')SweepDue.render();
   if(tab==='station'&&typeof StationView!=='undefined')StationView.render();
   if(tab==='equipmentSetup'&&typeof EquipmentSetup!=='undefined')EquipmentSetup.render();
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();

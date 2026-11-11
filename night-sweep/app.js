@@ -298,6 +298,7 @@ function validateImport(s){
  for(const key of ['extendLaunch'])if(s.setup[key]!==undefined&&typeof s.setup[key]!=='boolean')throw Error('Invalid '+key+'.');
  if(s.setup.launchTable!==undefined)scalar(s.setup.launchTable,'launch table');
  if(typeof LaunchSource!=='undefined')LaunchSource.validate(s.setup);
+ if(s.sweepDue!==undefined){if(typeof SweepDue==='undefined')throw Error('Sweep-due tracker unavailable.');SweepDue.validate(s.sweepDue);}
  if(s.stationView!==undefined){if(typeof StationView==='undefined')throw Error('Station worksheet unavailable.');StationView.validate(s.stationView);}
  if(s.equipmentSetup!==undefined){if(typeof EquipmentSetup==='undefined')throw Error('Equipment setup module unavailable.');EquipmentSetup.validate(s.equipmentSetup);}
  for(const row of s.rows){if(!record(row))throw Error('Invalid route row.');for(const key of ['name','length','slack','cable','device','parent','customLoss','customCable','activeGainTable','activeGain','activeMinF','activeMaxF','targetLow','targetHigh','reserve','outputLimitLow','outputLimitHigh','gainLow','gainHigh','gainLowF','gainHighF','outputLoss','measureIn','measureOut','measureInTP','measureOutTP','measureF'])if(row[key]!==undefined)scalar(row[key],'route '+key);if(row.activeMode!==undefined&&!['anchors','table','flat'].includes(row.activeMode))throw Error('Invalid active gain mode.');if(row.terminal!==undefined&&typeof row.terminal!=='boolean')throw Error('Invalid terminal setting.');}
