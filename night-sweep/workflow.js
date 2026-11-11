@@ -25,7 +25,7 @@ const WorkflowUI=(()=>{
   power:['power','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
-  evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
+  evidence:['job','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
   runsheet:['job','Review and share the run sheet','Review predictions, measurements and field notes before printing or exporting.'],

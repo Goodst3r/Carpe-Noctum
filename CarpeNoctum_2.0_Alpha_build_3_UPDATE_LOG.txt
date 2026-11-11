@@ -135,3 +135,13 @@ NOT VERIFIED
 BACKUPS
 Export a full project backup before installing any new build. The registry
 and calculators do not change saved jobs.
+
+A4 — ATTACHED SWEEP GRADING AID (DRAFT INTEGRATION)
+Four separate blank company profiles; verified-original raw PTV/level/tilt checks;
+compact immutable historical snapshots; exact evidence-ID remap in full backups;
+inspected TestGroup/CDM2 JSON plus bounded gzip and single-JSON ZIP previews.
+Raw unreferenced PTV is not normalized ripple. No TPC/lead/reference correction,
+automatic swept/balanced state, meter date inference or official acceptance.
+Unsupported/ambiguous inputs retain unchanged originals and a reason.
+Adds a custom-curves practice step, feature link, source rows and guide section.
+Automated/rendered checks are separate from unperformed physical-device/field QA.

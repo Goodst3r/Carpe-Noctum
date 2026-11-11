@@ -9,7 +9,7 @@ const EvidenceUI = (() => {
   const mib = n => (n / 1048576).toFixed(2) + ' MiB';
   function compactState(source){
     const compact={...source};delete compact.evidenceFiles;
-    if(Array.isArray(source.evidence))compact.evidence=source.evidence.map(meta=>({...meta,parse:{status:'attachment',message:'Original preserved. Readable CSV previews are rebuilt from verified saved bytes.'}}));
+    if(Array.isArray(source.evidence))compact.evidence=source.evidence.map(meta=>({...meta,parse:{status:'attachment',message:'Original preserved. Readable measurement previews are rebuilt from verified saved bytes.'}}));
     return JSON.parse(JSON.stringify(compact));
   }
   function report(text, error=false) {
@@ -61,9 +61,10 @@ const EvidenceUI = (() => {
     });
   }
   function newId(){return 'ev_'+Array.from(crypto.getRandomValues(new Uint8Array(16)),b=>b.toString(16).padStart(2,'0')).join('');}
-  function safeParse(bytes,filename,kind){
+  async function safeParse(bytes,filename,kind){
+    if(typeof EvidenceArchive!=='undefined')return await EvidenceArchive.parseBytes(bytes,filename,kind);
     if(bytes.byteLength>EvidenceCore.limits.textBytes)return {status:'attachment',message:'Original file preserved. This file exceeds the 2 MiB text-reading limit.'};
-    if(!/\.csv$/i.test(filename))return {status:'attachment',message:'Original file preserved. Native ONX, JSON, ZIP, PDF, XML and image exports remain attachments; this alpha does not decode their test schemas.'};
+    if(!/\.csv$/i.test(filename))return {status:'attachment',message:'Original file preserved. No supported decoder is available for this file.'};
     try{return EvidenceCore.parseText(new TextDecoder('utf-8',{fatal:true}).decode(bytes),filename,kind);}
     catch(e){return {status:'attachment',message:'Original file preserved. CSV could not be read: '+String(e.message||e).slice(0,500)};}
   }
@@ -81,11 +82,11 @@ const EvidenceUI = (() => {
       if(total>EvidenceCore.limits.totalBytes)throw Error('These files exceed the 12 MiB total evidence limit for one project.');
       const metadata=[],records=[];
       for(const file of selected){
-        const bytes=new Uint8Array(await file.arrayBuffer());
+        const bytes=new Uint8Array(await file.arrayBuffer());ensureOwner(owner);
         if(bytes.byteLength!==file.size)throw Error('Could not read all of '+file.name+'.');
-        const id=newId(),sha256=await digest(bytes);
-        metadata.push({id,name:file.name,size:file.size,type:file.type||'',kind:chosen.kind,stage:chosen.stage,asset:chosen.asset||owner.project?.meta?.node||'',notes:chosen.notes||'',importedAt:new Date().toISOString(),sha256,parse:safeParse(bytes,file.name,chosen.kind)});
-        records.push({id,bytes:bytes.buffer});
+        const id=newId(),sha256=await digest(bytes);ensureOwner(owner);
+        metadata.push({id,name:file.name,size:file.size,type:file.type||'',kind:chosen.kind,stage:chosen.stage,asset:chosen.asset||owner.project?.meta?.node||'',notes:chosen.notes||'',importedAt:new Date().toISOString(),sha256,parse:await safeParse(bytes,file.name,chosen.kind)});
+        ensureOwner(owner);records.push({id,bytes:bytes.buffer});
       }
       EvidenceCore.validateEvidence([...original,...metadata]);ensureOwner(owner);
       await putFiles(records);ensureOwner(owner);
@@ -104,6 +105,18 @@ const EvidenceUI = (() => {
     if(bytes.byteLength!==meta.size || await digest(bytes)!==meta.sha256.toLowerCase())throw Error('Original file verification failed: '+meta.name+'. Reattach the file.');
     return bytes;
   }
+  async function verifiedParse(id){
+    if(busy)throw Error('Finish the current file operation first.');
+    const owner=current(),found=list(owner).find(m=>m.id===id);if(!found)throw Error('Evidence record was not found.');
+    const metadata=JSON.parse(JSON.stringify(found)),identity=JSON.stringify(metadata);
+    busy=true;render();
+    try{
+      const bytes=await bytesFor(metadata);ensureOwner(owner);
+      const parse=await safeParse(bytes,metadata.name,metadata.kind);ensureOwner(owner);
+      if(JSON.stringify(list(owner).find(m=>m.id===id))!==identity)throw Error('Evidence metadata changed during verification.');
+      return {parse,metadata};
+    }finally{busy=false;render();}
+  }
   async function exportProject(source){
     if(busy)throw Error('Finish the current file operation before saving the project.');
     busy=true;render();
@@ -121,14 +134,15 @@ const EvidenceUI = (() => {
   }
   async function prepareImport(candidate){
     if(busy)throw Error('Finish the current file operation before opening another project.');
-    busy=true;render();
+    const owner=current();busy=true;render();
     try{
       const clean=JSON.parse(JSON.stringify(candidate)),metadata=list(clean);
       if(clean.evidence!==undefined&&!Array.isArray(clean.evidence))throw Error('Invalid evidence list.');
       EvidenceCore.validateEvidence(metadata);
       const bundle=clean.evidenceFiles===undefined?[]:clean.evidenceFiles;
       if(!Array.isArray(bundle)||bundle.length!==metadata.length)throw Error('Project backup is missing original evidence files. Export it from the original device using Back up project.');
-      const records=[],ids=new Set();
+      const records=[],ids=new Set(),mapping=new Map();
+      if(clean.sweepGrading!==undefined){if(typeof SweepGradingUI==='undefined')throw Error('Sweep grading module unavailable.');SweepGradingUI.validate(clean.sweepGrading);}
       for(const item of bundle){
         if(!item||typeof item!=='object'||typeof item.id!=='string'||typeof item.base64!=='string'||ids.has(item.id))throw Error('Invalid or duplicate evidence file in this project.');
         ids.add(item.id);const meta=metadata.find(m=>m.id===item.id);
@@ -136,12 +150,13 @@ const EvidenceUI = (() => {
         const bytes=EvidenceCore.base64ToBytes(item.base64,EvidenceCore.limits.fileBytes);
         if(bytes.byteLength!==meta.size||await digest(bytes)!==meta.sha256.toLowerCase())throw Error('Evidence checksum does not match: '+meta.name+'.');
         // Rebuild derived previews from the original, not untrusted cached parser output.
-        meta.parse=safeParse(bytes,meta.name,meta.kind);
+        meta.parse=await safeParse(bytes,meta.name,meta.kind);ensureOwner(owner);
         // A foreign project must not overwrite originals still used by another local job.
-        meta.id=newId();
+        const oldId=meta.id;meta.id=newId();mapping.set(oldId,meta.id);
         records.push({id:meta.id,bytes:bytes.buffer});
       }
-      delete clean.evidenceFiles;await putFiles(records);return clean;
+      if(typeof SweepGradingUI!=='undefined')SweepGradingUI.remapEvidence(clean,mapping);
+      delete clean.evidenceFiles;ensureOwner(owner);await putFiles(records);ensureOwner(owner);return clean;
     }finally{busy=false;render();}
   }
   async function downloadOriginal(id){
@@ -162,16 +177,16 @@ const EvidenceUI = (() => {
   async function reloadPreviews(){
     if(busy)throw Error('Finish the current file operation first.');
     const owner=current(),metadata=list(owner);if(!metadata.length)return;
-    busy=true;render();report('Verifying saved originals and rebuilding CSV previews…');
+    busy=true;render();report('Verifying saved originals and rebuilding measurement previews…');
     let failed=0;
     try{
       for(const meta of metadata){
         let parsed;
-        try{parsed=safeParse(await bytesFor(meta),meta.name,meta.kind);}
+        try{parsed=await safeParse(await bytesFor(meta),meta.name,meta.kind);}
         catch(e){failed++;parsed={status:'attachment',message:String(e.message).slice(0,900)};}
         ensureOwner(owner);meta.parse=parsed;
       }
-      report(failed?failed+' original file'+(failed===1?' is':'s are')+' unavailable or failed verification. Reattach those files before exporting.':'Saved originals verified. Readable CSV previews are ready.',failed>0);
+      report(failed?failed+' original file'+(failed===1?' is':'s are')+' unavailable or failed verification. Reattach those files before exporting.':'Saved originals verified. Readable measurement previews are ready.',failed>0);
     }catch(e){report(e.message,true);throw e;}
     finally{busy=false;render();}
   }
@@ -203,7 +218,7 @@ const EvidenceUI = (() => {
     const path=points.map(([frequency,level],i)=>
       (discrete||!i?'M':'L')+x(frequency).toFixed(2)+','+y(level).toFixed(2)+(discrete?'h0.01':'')
     ).join(' ');
-    return `<svg viewBox="0 0 560 210" role="img" aria-label="${discrete?'Discrete CSV channel readings':'Uploaded CSV measurement trace'}" style="display:block;width:100%;max-height:320px;background:#10232c;border-radius:8px;margin-top:12px"><path d="M48 25V170H540" fill="none" stroke="#839da9"/><path d="${path}" fill="none" stroke="#85d9f6" stroke-width="${discrete?5:2}"${discrete?' stroke-linecap="round"':''}/><text x="48" y="195" fill="#adc0d0" font-size="12">${lowX.toFixed(2)} MHz</text><text x="540" y="195" text-anchor="end" fill="#adc0d0" font-size="12">${highX.toFixed(2)} MHz</text><text x="48" y="18" fill="#adc0d0" font-size="12">${esc(series.unit)} · measured CSV values</text><text x="42" y="38" text-anchor="end" fill="#adc0d0" font-size="11">${hi.toFixed(1)}</text><text x="42" y="170" text-anchor="end" fill="#adc0d0" font-size="11">${lo.toFixed(1)}</text></svg>`;
+    return `<svg viewBox="0 0 560 210" role="img" aria-label="${discrete?'Discrete CSV channel readings':'Uploaded measurement trace'}" style="display:block;width:100%;max-height:320px;background:#10232c;border-radius:8px;margin-top:12px"><path d="M48 25V170H540" fill="none" stroke="#839da9"/><path d="${path}" fill="none" stroke="#85d9f6" stroke-width="${discrete?5:2}"${discrete?' stroke-linecap="round"':''}/><text x="48" y="195" fill="#adc0d0" font-size="12">${lowX.toFixed(2)} MHz</text><text x="540" y="195" text-anchor="end" fill="#adc0d0" font-size="12">${highX.toFixed(2)} MHz</text><text x="48" y="18" fill="#adc0d0" font-size="12">${esc(series.unit)} · measured supplied values</text><text x="42" y="38" text-anchor="end" fill="#adc0d0" font-size="11">${hi.toFixed(1)}</text><text x="42" y="170" text-anchor="end" fill="#adc0d0" font-size="11">${lo.toFixed(1)}</text></svg>`;
   }
   function preview(meta){
     const p=meta.parse;if(p?.status!=='parsed')return '';
@@ -212,7 +227,7 @@ const EvidenceUI = (() => {
     if(records?.length)table=`<thead><tr><th>Channel</th><th>MHz</th><th>dBmV</th><th>MER dB</th></tr></thead><tbody>${records.slice(0,200).map(r=>`<tr><td>${esc(r.channel)}</td><td>${r.frequencyMHz}</td><td>${r.levelDbmv}</td><td>${r.merDb}</td></tr>`).join('')}</tbody>`;
     else if(series?.points?.length)table=`<thead><tr><th>MHz</th><th>${esc(series.unit)}</th></tr></thead><tbody>${series.points.slice(0,200).map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td></tr>`).join('')}</tbody>`;
     const count=records?.length||series?.points?.length||0;
-    return `<details><summary>View decoded CSV measurements (${count})</summary><p class="note">Values are preserved as supplied. No test-point correction, sweep reference adjustment or acceptance decision is applied.</p>${records?.length?'<p class="note">Each dot is one supplied channel reading. Gaps have no channel reading in this file.</p>':''}${series?chart(series,Boolean(records?.length)):''}<div class="tablewrap"><table>${table}</table></div>${count>200?'<p class="note">Table shows the first 200 rows. Save the original to inspect every row.</p>':''}</details>`;
+    return `<details><summary>View decoded measurements (${count})</summary><p class="note">Values are preserved as supplied. No test-point correction, sweep reference adjustment or acceptance decision is applied.</p>${records?.length?'<p class="note">Each dot is one supplied channel reading. Gaps have no channel reading in this file.</p>':''}${series?chart(series,Boolean(records?.length)):''}<div class="tablewrap"><table>${table}</table></div>${count>200?'<p class="note">Table shows the first 200 rows. Save the original to inspect every row.</p>':''}</details>`;
   }
   function render(){
     const parent=$e('projectPanel');if(!parent||!current())return;
@@ -224,14 +239,17 @@ const EvidenceUI = (() => {
       draftOwner=owner;
     }
     let el=$e('evidencePanel');
+    const gradingOpen=$e('sweepGradingPanel')?.open;
     const wasOpen=el?el.open:true,expanded=el?[...el.querySelectorAll('[data-evidence-card][open]')].map(n=>n.dataset.evidenceCard):[];
     if(!el){el=document.createElement('details');el.id='evidencePanel';el.dataset.projectSection='evidence';parent.appendChild(el);}
     el.open=wasOpen;
     const metadata=list(current()),total=metadata.reduce((n,m)=>n+m.size,0),disabled=busy?' disabled':'';
-    el.innerHTML=`<summary>ONX-630 evidence <span class="pill" style="margin-left:8px">${metadata.length} files</span></summary><p class="note">Attach meter exports or screen photos to this job. Back up project includes the original files. Supported CSVs also show a measurement preview.</p><div class="toolbar"><button type="button" id="evidenceOpenProject"${disabled}>Open project backup</button></div><p class="note">Use this for a Carpe Noctum project JSON. Use Add meter files or photos below to attach evidence to the current job.</p><div class="fields"><label>Test type<select id="evidenceKind"${disabled}>${['Sweep','Ingress','OneCheck'].map(v=>option(v,v,draft.kind)).join('')}</select></label><label>Stage<select id="evidenceStage"${disabled}>${['Before','After','Reference'].map(v=>option(v,v,draft.stage)).join('')}</select></label><label>Asset / station ID<input id="evidenceAsset" value="${esc(draft.asset)}" maxlength="200" placeholder="${esc(current().project?.meta?.node||'Node, amp or pole ID')}"${disabled}></label><label>Attachment notes<input id="evidenceNotes" value="${esc(draft.notes)}" maxlength="2000"${disabled}></label></div><div class="toolbar" style="margin-top:14px"><label class="filelabel" style="display:flex">Add meter files or photos<input id="evidenceFiles" type="file" multiple style="position:absolute;width:1px;height:1px;opacity:0;min-height:0;padding:0"${disabled}></label><button id="evidenceReload"${disabled}>Verify saved files</button><button id="evidenceCleanup"${disabled}>Clear unused stored files</button><span class="note">${mib(total)} / 12 MiB · 8 MiB per file · 30 files per job</span></div><div id="evidenceStatus" class="status${messageError?' error':''}" role="status" aria-live="polite">${esc(lastMessage||'Choose the test type and stage, then select files from your phone or connected storage.')}</div><details><summary>Readable CSV columns</summary><p class="note">Sweep or ingress: frequency_mhz,level_dbmv. Relative sweep: frequency_mhz,response_db. OneCheck table: channel,frequency_mhz,level_dbmv,mer_db. Explicit units are required. These are supported interchange columns, not a promise that every native ONX CSV uses this layout. Export JSON/ZIP/PDF/XML files can still be kept intact.</p></details><div>${metadata.map(m=>`<details class="rowcard" data-evidence-card="${esc(m.id)}"${expanded.includes(m.id)?' open':''}><summary style="overflow-wrap:anywhere">${esc(m.name)} · ${esc(m.kind)} · ${esc(m.stage)}</summary><p class="note">${esc(m.asset||'No asset ID')} · ${mib(m.size)} · added ${esc(m.importedAt)}${m.notes?' · '+esc(m.notes):''}</p><div class="status${m.parse?.status==='parsed'?'':' warning'}"><strong>${m.parse?.status==='parsed'?'CSV decoded':'Original attached'}</strong><p>${esc(m.parse?.message||'Original file preserved.')}</p></div>${preview(m)}<div class="toolbar"><button data-evidence-download="${esc(m.id)}"${disabled}>Save original</button><button class="danger" data-evidence-remove="${esc(m.id)}"${disabled}>Remove from job</button></div><p class="note" style="overflow-wrap:anywhere">SHA-256: ${esc(m.sha256)}</p></details>`).join('')||'<p class="note">No meter files attached yet.</p>'}</div><p class="note">An attached file does not mark a test passed. Keep the meter settings and measurement plane with the field record. Clearing app data or uninstalling removes local evidence; export the project first.</p>`;
+    el.innerHTML=`<summary>ONX-630 evidence <span class="pill" style="margin-left:8px">${metadata.length} files</span></summary><p class="note">Attach meter exports or screen photos to this job. Back up project includes the original files. Supported native JSON, gzip, single-JSON ZIP and interchange CSV files also show a measurement preview.</p><div class="toolbar"><button type="button" id="evidenceOpenProject"${disabled}>Open project backup</button></div><p class="note">Use this for a Carpe Noctum project JSON. Use Add meter files or photos below to attach evidence to the current job.</p><div class="fields"><label>Test type<select id="evidenceKind"${disabled}>${['Sweep','Ingress','OneCheck'].map(v=>option(v,v,draft.kind)).join('')}</select></label><label>Stage<select id="evidenceStage"${disabled}>${['Before','After','Reference'].map(v=>option(v,v,draft.stage)).join('')}</select></label><label>Asset / station ID<input id="evidenceAsset" value="${esc(draft.asset)}" maxlength="200" placeholder="${esc(current().project?.meta?.node||'Node, amp or pole ID')}"${disabled}></label><label>Attachment notes<input id="evidenceNotes" value="${esc(draft.notes)}" maxlength="2000"${disabled}></label></div><div class="toolbar" style="margin-top:14px"><label class="filelabel" style="display:flex">Add meter files or photos<input id="evidenceFiles" type="file" multiple style="position:absolute;width:1px;height:1px;opacity:0;min-height:0;padding:0"${disabled}></label><button id="evidenceReload"${disabled}>Verify saved files</button><button id="evidenceCleanup"${disabled}>Clear unused stored files</button><span class="note">${mib(total)} / 12 MiB · 8 MiB per file · 30 files per job</span></div><div id="evidenceStatus" class="status${messageError?' error':''}" role="status" aria-live="polite">${esc(lastMessage||'Choose the test type and stage, then select files from your phone or connected storage.')}</div><details><summary>Readable CSV columns</summary><p class="note">Sweep or ingress: frequency_mhz,level_dbmv. Relative sweep: frequency_mhz,response_db. OneCheck table: channel,frequency_mhz,level_dbmv,mer_db. Explicit units are required. These are supported interchange columns, not a promise that every native ONX CSV uses this layout. Supported VIAVI TestGroup and CDM2 JSON can be decoded directly or from gzip / a single-JSON ZIP. Unsupported, ambiguous or multi-trace files stay attached with a reason. PDF/XML/images are retained intact.</p></details><div>${metadata.map(m=>`<details class="rowcard" data-evidence-card="${esc(m.id)}"${expanded.includes(m.id)?' open':''}><summary style="overflow-wrap:anywhere">${esc(m.name)} · ${esc(m.kind)} · ${esc(m.stage)}</summary><p class="note">${esc(m.asset||'No asset ID')} · ${mib(m.size)} · added ${esc(m.importedAt)}${m.notes?' · '+esc(m.notes):''}</p><div class="status${m.parse?.status==='parsed'?'':' warning'}"><strong>${m.parse?.status==='parsed'?'Measurements decoded':'Original attached'}</strong><p>${esc(m.parse?.message||'Original file preserved.')}</p></div>${preview(m)}<div class="toolbar"><button data-evidence-download="${esc(m.id)}"${disabled}>Save original</button><button class="danger" data-evidence-remove="${esc(m.id)}"${disabled}>Remove from job</button></div><p class="note" style="overflow-wrap:anywhere">SHA-256: ${esc(m.sha256)}</p></details>`).join('')||'<p class="note">No meter files attached yet.</p>'}</div><p class="note">An attached file does not mark a test passed. Keep the meter settings and measurement plane with the field record. Clearing app data or uninstalling removes local evidence; export the project first.</p>`;
+    if(typeof SweepGradingUI!=='undefined'){SweepGradingUI.render();if(gradingOpen!==undefined)$e('sweepGradingPanel').open=gradingOpen;}
   }
   function init(){
     if(initialized){render();return;}initialized=true;
+    if(typeof SweepGradingUI!=='undefined')SweepGradingUI.init();
     document.addEventListener('input',e=>{const keys={evidenceKind:'kind',evidenceStage:'stage',evidenceAsset:'asset',evidenceNotes:'notes'},key=keys[e.target.id];if(key)draft[key]=e.target.value;});
     document.addEventListener('change',e=>{
       const keys={evidenceKind:'kind',evidenceStage:'stage'},key=keys[e.target.id];if(key)draft[key]=e.target.value;
@@ -251,7 +269,7 @@ const EvidenceUI = (() => {
       }
     });render();return reloadPreviews().catch(err=>report(err.message,true));
   }
-  return {init,render,importFiles,exportProject,prepareImport,downloadOriginal,reloadPreviews,compactState,cleanupUnused,isBusy:()=>busy};
+  return {init,render,verifiedParse,importFiles,exportProject,prepareImport,downloadOriginal,reloadPreviews,compactState,cleanupUnused,isBusy:()=>busy};
 })();
 function initEvidence(){return EvidenceUI.init();}
 function renderEvidence(){EvidenceUI.render();}

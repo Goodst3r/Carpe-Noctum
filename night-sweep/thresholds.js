@@ -35,7 +35,13 @@ const Thresholds=(()=>{
   source:'Entered by you in this job’s meter setup',revision:'Per job; saved with the job and its backups',locator:'Test → Meter setup → 42/54 MHz workflow',
   conditions:'Return transmitter output reference at the plane and frequencies you record in meter setup. Separate from sweep injection and receiver references. The 204/258 workflow has no TX reference; it uses XPERTrak return sweep.',
   date:'Not recorded when entered',scope:'42/54',verification:'entered',usedBy:'Test → Meter setup and its exported notes'});
+ const gradingRows=['42-forward','42-reverse','204-forward','204-reverse'].flatMap(profileKey=>[
+  ['lowFrequencyMHz','Low measured marker','MHz'],['highFrequencyMHz','High measured marker','MHz'],['ptvLimitDb','Peak-to-valley limit','dB'],['lowTargetDbmv','Low level target','dBmV'],['highTargetDbmv','High level target','dBmV'],['maxLevelErrorDb','Maximum level error','dB'],['tiltTargetDb','Signed tilt target','dB'],['maxTiltErrorDb','Maximum tilt error','dB']
+ ].map(([field,name,units])=>({id:'company.grading.'+profileKey+'.'+field,label:'company',name:name+' ('+profileKey+')',kind:'target',units,store:'grading',profileKey,field,source:'Explicit user entries in this job; no defaults or native-file limits',revision:'Per job grading snapshot',locator:'Job → ONX files → Grading aid',conditions:'Raw supplied sweep samples at the verified same measurement plane. Exact markers; no correction or acceptance.',date:'Not recorded when entered',scope:profileKey.startsWith('42-')?'42/54':'204/258',verification:'entered',usedBy:'Job → ONX files → Grading aid'})));
+ const archiveGuards=Object.entries(typeof EvidenceArchive!=='undefined'?EvidenceArchive.limits:{}).map(([field,value])=>({id:'app.evidence.'+field,label:'unknown',name:({inputBytes:'Maximum original evidence bytes',decodedBytes:'Maximum decoded preview bytes',entries:'Maximum ZIP entries'})[field],kind:'limit',value,units:field==='entries'?'entries':'bytes',source:'EvidenceArchive.limits; input and decoded caps reuse EvidenceCore.limits',revision:'Carpe Noctum build 3 bounded native adapter',locator:'night-sweep/evidence-archive.js: resource limits and streaming decoder',conditions:'Software application resource guard only. Not an OEM specification, supported RF band, measurement precision or company criterion.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files → native JSON/gzip/ZIP previews'}));
  const rows=Object.freeze([
+  ...archiveGuards,
+  ...gradingRows,
   {id:'const.speedOfLight',label:'spec',name:'Speed of light in a vacuum',kind:'constant',value:299792458/0.3048/1e6,units:'ft/µs',
    formula:'c = 299,792,458 m/s (exact) ÷ 0.3048 m/ft (exact) = 983.571 ft/µs',
    source:'SCTE 293-2, What is … Velocity of Propagation? (c₀ = 983,571,056.43 ft/s), from the exact SI value of c and the international foot',revision:'SCTE 293-2 2024',locator:'Section 4.1, Speed of Light',
@@ -115,7 +121,7 @@ const Thresholds=(()=>{
   if(!VERIFICATION[row.verification])problems.push('unsupported verification');
   if(row.date!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(row.date)&&!['Not recorded when entered',PRESET_DATE].includes(row.date))problems.push('date must be YYYY-MM-DD');
   if(row.label==='company'&&row.verification!=='entered')problems.push('company values are entered values');
-  if(row.store&&!['profile','sweep'].includes(row.store))problems.push('unsupported store');
+  if(row.store&&!['profile','sweep','grading'].includes(row.store))problems.push('unsupported store');
   return problems;
  }
  function selectedProfile(s=owner()){return s.project?.profiles?.find(p=>String(p.id)===String(s.project.selectedProfile))||null;}
@@ -123,6 +129,7 @@ const Thresholds=(()=>{
  function resolve(id,s=owner()){
   const row=get(id);if(!row)return null;
   if(row.store==='profile'){const p=selectedProfile(s);return {value:p?finite(p[row.field]):null,where:p?'Selected profile '+p.id:'No project profile selected'};}
+  if(row.store==='grading')return {value:finite(s.sweepGrading?.profiles?.[row.profileKey]?.[row.field]),where:'This job’s '+row.profileKey+' grading criteria'};
   if(row.store==='sweep'){const v=s.sweepSetup?.profiles?.[row.split]?.[row.field];return {value:finite(v),where:'This job’s '+row.split+' MHz meter setup'};}
   if(row.preset){const preset=typeof FieldReference!=='undefined'?FieldReference.localNonHighSplitPreset:null;return {value:preset?finite(preset[row.preset]):null,where:'Built-in local preset'};}
   return {value:typeof row.value==='number'&&Number.isFinite(row.value)?row.value:null,where:row.kind==='formula'?'Formula':'Built in'};
@@ -143,7 +150,7 @@ const Thresholds=(()=>{
  function sheetBody(row){
   const info=LABEL_INFO[row.label],r=resolve(row.id),value=display(row.id);
   const caution=['secondary','unverified'].includes(row.verification)?`<p class="status warning">${escape(VERIFICATION[row.verification])}</p>`:'';
-  const edit=row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:'';
+  const edit=row.store==='grading'?`<button type="button" data-task="evidence" data-grading-profile="${escape(row.profileKey)}" data-source-close>Edit in Job → ONX files → Grading aid</button>`:row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:'';
   return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail('Used by',row.usedBy)}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
  }
  let sheet=null,returnFocus=null;
@@ -158,7 +165,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')]];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')]];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
