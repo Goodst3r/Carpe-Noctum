@@ -1,9 +1,9 @@
 {
-  "tested_commit": "3d610f413ca88522048c8481482a93bdd4c1b5ce",
+  "tested_commit": "a9b64289e1d276416967da7a095fce20364165f1",
   "date": "2026-11-11",
   "automated_command": "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py",
   "automated": {
-    "release": "d4d27c5aa8c3274e9914",
+    "release": "c8e50431bc9d239c6379",
     "version": "2.0 Alpha build 3",
     "suites": [
       {
@@ -11,42 +11,49 @@
         "script": "build3-registry.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 5.1
+        "seconds": 4.5
       },
       {
         "name": "Build 3 field calculators against independent references",
         "script": "build3-field-calcs.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 3.1
+        "seconds": 2.6
       },
       {
         "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
         "script": "build3-alignment.test.cjs",
         "passed": true,
         "checks": 12,
-        "seconds": 3.0
+        "seconds": 2.4
       },
       {
         "name": "Build 3 station worksheet arithmetic and saved jobs",
         "script": "build3-station.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 31.1
+        "seconds": 27.6
       },
       {
         "name": "Build 3 rendered station phone layout",
         "script": "build3-station-layout.test.py",
         "passed": true,
-        "checks": 77,
-        "seconds": 9.2
+        "checks": 121,
+        "seconds": 10.5
+      },
+      {
+        "name": "Build 3 station field-review regressions",
+        "script": "build3-station-review.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 16.2
       },
       {
         "name": "2.0 Alpha design changes",
         "script": "v20-design.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 4.5
+        "seconds": 3.8
       },
       {
         "name": "Build 2 TDR active-boundary regressions",
@@ -67,7 +74,7 @@
         "script": "build2-example-math.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 1.6
+        "seconds": 1.3
       },
       {
         "name": "Build 2 power circuits and current-curve backtests",
@@ -81,42 +88,42 @@
         "script": "build2-dsim-dates.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 1.7
+        "seconds": 1.4
       },
       {
         "name": "Build 2 calculation reuse and import boundaries",
         "script": "build2-frontend.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 15.2
+        "seconds": 13.5
       },
       {
         "name": "Build 2 rendered cascade and lazy-chart layout",
         "script": "build2-layout.test.py",
         "passed": true,
         "checks": 55,
-        "seconds": 29.5
+        "seconds": 32.4
       },
       {
         "name": "Build 2 original-byte limits and atomic job operations",
         "script": "build2-reliability.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 19.8
+        "seconds": 18.2
       },
       {
         "name": "Build 2 native filename and print lifecycle",
         "script": "android-native-edge.test.py",
         "passed": true,
         "checks": 12,
-        "seconds": 1.4
+        "seconds": 0.8
       },
       {
         "name": "1.8 profile acceptance guards",
         "script": "alpha18-math.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "1.8 independent arithmetic and curve integrity",
@@ -130,7 +137,7 @@
         "script": "complete-workflow-math.test.cjs",
         "passed": true,
         "checks": 17,
-        "seconds": 2.5
+        "seconds": 2.2
       },
       {
         "name": "1.8 release identity and documentation",
@@ -151,56 +158,56 @@
         "script": "import-id-boundaries.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 2.3
+        "seconds": 1.5
       },
       {
         "name": "1.8 seven practice exercises and seeded feature coverage",
         "script": "training-library.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 63.6
+        "seconds": 55.7
       },
       {
         "name": "1.6 to current release migration and portable example",
         "script": "upgrade01617.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 9.1
+        "seconds": 8.7
       },
       {
         "name": "1.7 stable workflow rendering",
         "script": "alpha17-render.test.cjs",
         "passed": true,
         "checks": 3,
-        "seconds": 1.7
+        "seconds": 1.9
       },
       {
         "name": "1.7 source and equipment reports",
         "script": "alpha17-report.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 0.4
+        "seconds": 0.5
       },
       {
         "name": "1.7 launch source workflow",
         "script": "launch-source.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 2.8
+        "seconds": 2.7
       },
       {
         "name": "1.7 equipment setup and DSIM",
         "script": "equipment-setup.test.cjs",
         "passed": true,
         "checks": 39,
-        "seconds": 1.8
+        "seconds": 1.7
       },
       {
         "name": "1.7 local operator targets and available carriers",
         "script": "local-operator-preset.test.cjs",
         "passed": true,
         "checks": 19,
-        "seconds": 6.5
+        "seconds": 5.7
       },
       {
         "name": "1.7 DSIM historical pilot-code lookup",
@@ -214,7 +221,7 @@
         "script": "equipment-control.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.7
+        "seconds": 0.6
       },
       {
         "name": "1.7 current node setup references",
@@ -228,7 +235,7 @@
         "script": "retired-equipment.test.cjs",
         "passed": true,
         "checks": 7,
-        "seconds": 1.8
+        "seconds": 1.9
       },
       {
         "name": "1.7 fresh independent numerical references",
@@ -242,7 +249,7 @@
         "script": "alpha17-engine.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 evidence job context",
@@ -277,49 +284,49 @@
         "script": "sweep-setup.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 12.8
+        "seconds": 12.4
       },
       {
         "name": "Equipment reference catalog",
         "script": "equipment-reference.test.cjs",
         "passed": true,
         "checks": 18,
-        "seconds": 1.5
+        "seconds": 1.8
       },
       {
         "name": "PWA package and service worker",
         "script": "pwa-worker.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 0.3
+        "seconds": 0.5
       },
       {
         "name": "PWA install and update interface",
         "script": "pwa-client.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 1.9
+        "seconds": 1.7
       },
       {
         "name": "Browser file export and sharing",
         "script": "browser-files.test.cjs",
         "passed": true,
         "checks": 23,
-        "seconds": 1.9
+        "seconds": 2.0
       },
       {
         "name": "Guided training job and preserved work",
         "script": "training-job.test.cjs",
         "passed": true,
         "checks": 41,
-        "seconds": 29.4
+        "seconds": 29.0
       },
       {
         "name": "Production training buttons and fleet split",
         "script": "training-controls.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 25.3
+        "seconds": 25.0
       },
       {
         "name": "RF and power engine",
@@ -333,35 +340,35 @@
         "script": "route14.test.cjs",
         "passed": true,
         "checks": 34,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Project records and acceptance",
         "script": "projects.test.js",
         "passed": true,
         "checks": 39,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Frequency calculations",
         "script": "frequency-regression.cjs",
         "passed": true,
         "checks": 16,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Retained interface behavior",
         "script": "dom-tests.cjs",
         "passed": true,
         "checks": 38,
-        "seconds": 4.4
+        "seconds": 5.1
       },
       {
         "name": "Active and TDR interface calculations",
         "script": "alpha14-ui.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 7.7
+        "seconds": 9.9
       },
       {
         "name": "Technician task navigation and live controls",
@@ -375,7 +382,7 @@
         "script": "nodes.test.cjs",
         "passed": true,
         "checks": 29,
-        "seconds": 0.5
+        "seconds": 0.6
       },
       {
         "name": "Evidence parser and validation",
@@ -389,42 +396,42 @@
         "script": "evidence-ui.test.cjs",
         "passed": true,
         "checks": 28,
-        "seconds": 0.9
+        "seconds": 0.8
       },
       {
         "name": "IndexedDB failure and commit boundaries",
         "script": "evidence-storage-failures.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.6
+        "seconds": 0.7
       },
       {
         "name": "Named jobs corruption and capacity",
         "script": "named-jobs-storage.test.cjs",
         "passed": true,
         "checks": 5,
-        "seconds": 7.6
+        "seconds": 8.3
       },
       {
         "name": "Legacy upgrade and portable backup",
         "script": "alpha011-integration.cjs",
         "passed": true,
         "checks": 21,
-        "seconds": 8.5
+        "seconds": 9.0
       },
       {
         "name": "Retained field tools and named jobs",
         "script": "alpha012.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 12.3
+        "seconds": 13.0
       },
       {
         "name": "0.13 APK backup migration",
         "script": "upgrade01314.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 5.2
+        "seconds": 4.9
       },
       {
         "name": "1.4 backup and active/TDR migration",
@@ -438,7 +445,7 @@
         "script": "ui-names.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 12.8
+        "seconds": 14.1
       },
       {
         "name": "Built-in reference calculations",
@@ -462,20 +469,21 @@
         "seconds": 13.2
       }
     ],
-    "checks": 1221,
+    "checks": 1273,
     "suite_timeout_seconds": 3600,
-    "total_seconds": 379.5,
+    "total_seconds": 384.3,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "html_sha256": "598087c545e3b2ad094a59f69b78223ce8a9ccb8390abcc6ef9776a65a89be34",
-    "standalone_sha256": "8679c02aab1142890eb6fcc4eeab08cba5971983e3840d49e495717e69da69e5",
-    "worker_sha256": "50d81231cffda75be069168a2742e4f8829f47b80c3ac78cbc7b52e58c2203bf",
+    "html_sha256": "e91694c7ec8f32280c24b15a4f8edc75af774e8641c21f5daea1ddda7bbddc55",
+    "standalone_sha256": "e2316ef77cc7ec02062bc951e8e9c3ff8a4a05b427b73c155563cdb9bda51aef",
+    "worker_sha256": "5ef1e9c3b7a6cd3b274497466cab3e236314ff650a66c9f3cc236db23cd5872e",
     "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
   },
   "station_suites_included_in_automated": {
     "node_checks": 22,
-    "rendered_checks": 77,
+    "review_regression_checks": 8,
+    "rendered_checks": 121,
     "widths_px": [
       320,
       360,
@@ -496,7 +504,7 @@
     }
   ],
   "worktree": "B1 evidence redirection left the worktree unchanged and clean; no tracked evidence was restored or discarded.",
-  "independent_review": "Four Important findings addressed; three Minor limitations retained in handoff_docs/reviews/codex-station-view.md.",
+  "independent_review": "All seven Lane B blocking requests addressed in the scoped internal review at a9b6428; no new Critical/Important. Actual Lane B same-head re-review/merge still required. Nonblocking list retained in Known Gaps and review handoff.",
   "not_run": [
     "Android emulator",
     "native APK/WebView",
@@ -505,7 +513,7 @@
     "RF hardware",
     "field acceptance"
   ],
-  "note": "Rendered evidence is desktop Chromium at phone-sized viewports. No APK/signing/deployment. Subsequent receipt/status-only commit does not change app, tests, guides or generated artifacts.",
+  "note": "Rendered evidence is desktop Chromium at configured phone viewports, including field configuration/label activation; no actual iPhone keypad/device/APK/signing/deployment. Subsequent metadata-only handoff does not change app, tests, public guides or generated artifacts.",
   "previous_validation": {
     "tested_commit": "fadcdfcdd1ca67e4e75f50c096675014ed5afc3e",
     "checks": 1208,
@@ -516,5 +524,93 @@
     "integrated_build3": "79b0735c6face341d1a78a098a2303f4bdf6fc96",
     "source_commit": "3d610f413ca88522048c8481482a93bdd4c1b5ce",
     "note": "Existing A1 Station/Alignment code and Station tests unchanged. B1 gate and B4 wording plus generated rebuild integrated without rewriting published history."
+  },
+  "previous_base_refresh_validation": {
+    "tested_commit": "3d610f413ca88522048c8481482a93bdd4c1b5ce",
+    "checks": 1221,
+    "suites": 65,
+    "standalone_sha256": "8679c02aab1142890eb6fcc4eeab08cba5971983e3840d49e495717e69da69e5"
+  },
+  "source_binding": {
+    "source_commit": "a9b64289e1d276416967da7a095fce20364165f1",
+    "started_utc": "2026-11-11T16:37:25.595679+00:00",
+    "start_worktree_status": "",
+    "start_artifacts": {
+      "outputs/Night_Sweep.html": "e2316ef77cc7ec02062bc951e8e9c3ff8a4a05b427b73c155563cdb9bda51aef",
+      "dist/android.html": "d052ddb22d2fc2bd5ce92fb65d685cf135d8a19daa9e714e2d63150c12e73a16",
+      "dist/equipment-coverage.html": "21e44c36c185fce89f02b1819b4681897f2109442eba5cb8da1b98041862d66b",
+      "dist/functions-guide.html": "9d4188a567fc9fad2b5952da7fd1cb872d8d3933606061e27b3521e66a379529",
+      "dist/guide.html": "7905dfc2ec309b4255a0e17db81d1025011251e34520f343a335092ead4d104b",
+      "dist/icons/apple-touch-icon.png": "27009ef689427e5953667f189a00457b9f3f075796762177e6f015b3b819250f",
+      "dist/icons/icon-192.png": "5f76beb81c5cd4371c07a7d3e61efaeb7f39120e269ea27c289d9221c609fc2d",
+      "dist/icons/icon-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+      "dist/icons/icon-maskable-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+      "dist/icons/icon.svg": "c01a21b6e7dbb5e88dd4c64ccb2a082ae87c9e3f8f94e084cf8fe4a14d36f617",
+      "dist/index.html": "e91694c7ec8f32280c24b15a4f8edc75af774e8641c21f5daea1ddda7bbddc55",
+      "dist/install.html": "faa8c86c6ad0388482752a64c52feb50801ec8865452dca1eea8fe3a64fca394",
+      "dist/iphone.html": "171a0bcc042265de610f67bb2676918ca1e3905a656150e917a4c0dc803986e6",
+      "dist/manifest.webmanifest": "2a35e13223851d31f60234a81674a1151b94376c3bb2e773911bf670f03ec4da",
+      "dist/math-audit.html": "fb49083c3f2f18194a9aa3a040489ddd8ffc196a0d71c77f561b7f2c51c2e46d",
+      "dist/phone-installation.html": "07d65b51004005a87fad7d8d67a800c3b5987c0c2dd8e7e007e4266401203f0a",
+      "dist/pwa.css": "c611fd2db30de63ec4bc57cc1c479a33c745aed3d113044720eb64467d3ecc64",
+      "dist/pwa.js": "647f67eb1c6db49832d25bd059510cacf6e3314bc173853b1a40cf46c5dc7b00",
+      "dist/release.json": "ff36b32cf9825263b9c1c7b0676ebdb9251eec1875b467cf717d534ece0a5765",
+      "dist/robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
+      "dist/setup-guide.html": "9ffe5c2b3b6992190fcca4b4c7cbe71034d5319fe47b260785cf470c5b2ab64c",
+      "dist/sw.c8e50431bc9d239c6379.js": "5ef1e9c3b7a6cd3b274497466cab3e236314ff650a66c9f3cc236db23cd5872e",
+      "dist/training-coverage.html": "7452ac82457882a654e9c782a05e21270f739b2104f942719b06ac12c9addaf7"
+    },
+    "gate_command": "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py",
+    "independent_review_path": "/tmp/carpe-a1-laneb-fixes-review.md",
+    "completed_utc": "2026-11-11T16:44:16.461231+00:00",
+    "end_source_commit": "a9b64289e1d276416967da7a095fce20364165f1",
+    "source_tree_sha": "800db1ead38f92edf1b86c7b2a91f78f1e0229c3",
+    "end_worktree_status": "",
+    "end_artifacts": {
+      "outputs/Night_Sweep.html": "e2316ef77cc7ec02062bc951e8e9c3ff8a4a05b427b73c155563cdb9bda51aef",
+      "dist/android.html": "d052ddb22d2fc2bd5ce92fb65d685cf135d8a19daa9e714e2d63150c12e73a16",
+      "dist/equipment-coverage.html": "21e44c36c185fce89f02b1819b4681897f2109442eba5cb8da1b98041862d66b",
+      "dist/functions-guide.html": "9d4188a567fc9fad2b5952da7fd1cb872d8d3933606061e27b3521e66a379529",
+      "dist/guide.html": "7905dfc2ec309b4255a0e17db81d1025011251e34520f343a335092ead4d104b",
+      "dist/icons/apple-touch-icon.png": "27009ef689427e5953667f189a00457b9f3f075796762177e6f015b3b819250f",
+      "dist/icons/icon-192.png": "5f76beb81c5cd4371c07a7d3e61efaeb7f39120e269ea27c289d9221c609fc2d",
+      "dist/icons/icon-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+      "dist/icons/icon-maskable-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+      "dist/icons/icon.svg": "c01a21b6e7dbb5e88dd4c64ccb2a082ae87c9e3f8f94e084cf8fe4a14d36f617",
+      "dist/index.html": "e91694c7ec8f32280c24b15a4f8edc75af774e8641c21f5daea1ddda7bbddc55",
+      "dist/install.html": "faa8c86c6ad0388482752a64c52feb50801ec8865452dca1eea8fe3a64fca394",
+      "dist/iphone.html": "171a0bcc042265de610f67bb2676918ca1e3905a656150e917a4c0dc803986e6",
+      "dist/manifest.webmanifest": "2a35e13223851d31f60234a81674a1151b94376c3bb2e773911bf670f03ec4da",
+      "dist/math-audit.html": "fb49083c3f2f18194a9aa3a040489ddd8ffc196a0d71c77f561b7f2c51c2e46d",
+      "dist/phone-installation.html": "07d65b51004005a87fad7d8d67a800c3b5987c0c2dd8e7e007e4266401203f0a",
+      "dist/pwa.css": "c611fd2db30de63ec4bc57cc1c479a33c745aed3d113044720eb64467d3ecc64",
+      "dist/pwa.js": "647f67eb1c6db49832d25bd059510cacf6e3314bc173853b1a40cf46c5dc7b00",
+      "dist/release.json": "ff36b32cf9825263b9c1c7b0676ebdb9251eec1875b467cf717d534ece0a5765",
+      "dist/robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
+      "dist/setup-guide.html": "9ffe5c2b3b6992190fcca4b4c7cbe71034d5319fe47b260785cf470c5b2ab64c",
+      "dist/sw.c8e50431bc9d239c6379.js": "5ef1e9c3b7a6cd3b274497466cab3e236314ff650a66c9f3cc236db23cd5872e",
+      "dist/training-coverage.html": "7452ac82457882a654e9c782a05e21270f739b2104f942719b06ac12c9addaf7"
+    },
+    "artifacts_unchanged": true,
+    "readme_copies_identical": true,
+    "gate_receipt_path": "/tmp/carpe-a1-laneb-final-gate-results.json",
+    "gate_receipt_sha256": "a45b183a23fbe3dd0f7d7a91d05780ee4b13172385b3b771a5de9f8ce9291049",
+    "gate_suites": 66,
+    "gate_passed_suites": 66,
+    "gate_checks": 1273,
+    "suite_timeout_seconds": 3600,
+    "total_seconds": 384.3,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "worktree_unchanged_during_tests": true,
+    "standalone_sha256": "e2316ef77cc7ec02062bc951e8e9c3ff8a4a05b427b73c155563cdb9bda51aef",
+    "pwa_index_sha256": "e91694c7ec8f32280c24b15a4f8edc75af774e8641c21f5daea1ddda7bbddc55",
+    "worker_sha256": "5ef1e9c3b7a6cd3b274497466cab3e236314ff650a66c9f3cc236db23cd5872e",
+    "release": "c8e50431bc9d239c6379",
+    "independent_review_sha256": "79e8fee446c1d5fa27df030d755e416551258a1e380887da4327c498f49197ea"
+  },
+  "execution_attribution": {
+    "full_gate_and_separate_rendered": "Lane A Station implementation agent, actual final local execution at a9b6428; no author/other-head counts substituted",
+    "scoped_internal_review": "Independent Lane A reviewer: own exact-frozen8-test suite plus16 focused real Chromium checks. Separate from final gate and actual Lane B peer review."
   }
 }
