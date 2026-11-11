@@ -69,6 +69,7 @@ const WorkflowUI=(()=>{
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();
   if(tab==='limits'&&typeof Thresholds!=='undefined')Thresholds.renderLimits();
   if(tab==='docsisHealth'&&typeof DocsisHealthUI!=='undefined')DocsisHealthUI.refresh();
+  if(tab==='impairments'&&typeof ImpairmentsUI!=='undefined')ImpairmentsUI.updateRipple();
   if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
   renderNav();apply();
   document.querySelector('.filemenu').open=false;
