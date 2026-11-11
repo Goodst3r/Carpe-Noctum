@@ -66,6 +66,8 @@ let comparisons = 0;
       ['preEqDistance', [8, 8, 5.12, 0.87], /after the main tap/], ['preEqDistance', [3, 8, 5.12, 0.87], /after the main tap/], ['preEqDistance', [25, 8, 5.12, 0.87], /1 to 24/],
       ['preEqDistance', [9.5, 8, 5.12, 0.87], /whole number/], ['preEqDistance', [9, 0, 5.12, 0.87], /main tap/], ['preEqDistance', [9, 8, 0.64, 0.87], /symbol rate/], ['preEqDistance', [9, 8, 5.12, ''], /velocity/],
       ['ofdmPower', ['', 6, 192], /measured power/], ['ofdmPower', [42, 0, 192], /measured in/], ['ofdmPower', [42, 6, -1], /occupied bandwidth/], ['ofdmPower', [42, 6, 5000], /2,000 MHz/],
+      ['rippleDistance', ['1e-320', 0.87], /more than 100,000 ft/], ['rippleDistance', ['0.0001', 0.87], /more than 100,000 ft/],
+      ['ofdmPower', [42, 6, '5e-324'], /outside ±200 dBmV/], ['ofdmPower', [42, 6, '1e-300'], /outside ±200 dBmV/],
       ['echoDelay', [0, 0.87], /above 0/], ['echoDelay', [100, 1.2], /0\.50 to 1\.00/], ['echoDelay', ['abc', 0.87], /length/],
     ];
     for (const [fn, args, pattern] of bad) {
@@ -98,6 +100,10 @@ let comparisons = 0;
   await check('Typing values shows the same numbers the engine computes, with the arithmetic', () => {
     set('[data-calc="db"][data-field="value"]', '10');
     assert.match(result('db'), /dBmV 10\.00 dBm -38\.75 dBµV 70\.00 mV 3\.162 mW 0\.0001333/);
+    set('[data-calc="db"][data-field="value"]', '48.75');
+    assert.match(result('db'), /dBm 0\.00 /, 'no negative zero at the 48.75 dB identity');
+    assert(!/-0\.00/.test(result('db')));
+    set('[data-calc="db"][data-field="value"]', '10');
     set('[data-calc="db"][data-field="ohms"]', '50', 'change');
     assert.match(result('db'), /dBm -36\.99/);
     assert.match(result('db'), /At 50 Ω, dBm = dBmV − 46\.99 dB/);
@@ -107,7 +113,7 @@ let comparisons = 0;
     assert.match(result('ripple'), /Distance between mismatches 71\.3 ft/);
     assert.match(result('ripple'), /491\.8 × 0\.87 ÷ 6 MHz = 71\.3 ft/);
     set('[data-calc="preeq"][data-field="tap"]', '10'); set('[data-calc="preeq"][data-field="vp"]', '0.87');
-    assert.match(result('preeq'), /Echo distance 167\.1 ft Range \(±½ tap\) 125\.3–208\.9 ft Per tap 83\.6 ft/);
+    assert.match(result('preeq'), /Spacing between mismatches 167\.1 ft Range \(±½ tap\) 125\.3–208\.9 ft Per tap 83\.6 ft/);
     assert.match(result('preeq'), /2 taps after the main tap/);
     set('[data-calc="preeq"][data-field="rate"]', '2.56', 'change');
     assert.match(result('preeq'), /Per tap 167\.1 ft/);

@@ -17,9 +17,10 @@ SCTE and CableLabs documents are copyrighted. The registry and guides paraphrase
 | `const.speedOfLight` | Spec | SCTE 293-2 2024, *What is … Velocity of Propagation?*, section 4.1 (c₀ = 983,571,056.43 ft/s) | Primary, re-verified |
 | `calc.db.dbuv`, `calc.db.dbm` | Spec | SCTE 270 2021r1, *Mathematics of Cable* (revision and title confirmed; section not opened). Identities re-derived | Derived |
 | `calc.ofdm.bandwidth` | Spec | CableLabs CM-SP-PHYv3.1-I20-230419 sections 7.5.9 and 7.5.9.1 (p. 136); SCTE 258 2026 sections 5.2, 6.2.1 note 4 and 7.2 | Primary, re-verified |
-| `calc.preeq.tapDistance` | Spec | CableLabs CM-SP-PHYv3.0-I04-070518 section 6.2.16 (pp. 62–64) and 6.2.11.1; CM-GL-PNMP-V03-160725 section 5.5 Table 1 (p. 37) and 6.6.2 (p. 64) | Primary, re-verified |
+| `calc.preeq.tapDistance` | Expert | CM-GL-PNMP-V03-160725 section 5.5 Table 1 (p. 37), 6.6.2 (p. 64) and 6.8.1.1 item 2 (p. 84), on CableLabs CM-SP-PHYv3.0-I04-070518 section 6.2.16 (pp. 62–64; same text in I09) and 6.2.11.1 | Derived: no document states it as one formula |
 | `calc.ripple.distance` | Expert | Hranac, “Linear Distortions, Part 2,” *Communications Technology*, Aug. 2005; SCTE 280 2022 section 9.7 (p. 50) | Primary, re-verified |
-| `calc.microreflection.delay` | Expert | Hranac, “Broadband: What is a Micro-Reflection?,” *Communications Technology*, Nov. 2009; PNMP-V03 Appendix I.5; SCTE 293-2 2024 section 4.1 | Primary (PNMP copy is third-party hosted: secondary) |
+| `calc.microreflection.delay` | Expert | Hranac, “Broadband: What is a Micro-Reflection?,” *Communications Technology*, Nov. 2009; SCTE 293-2 2024 section 4.1 (PNMP-V03 Appendix I.5 corroborates from a third-party copy and is not cited) | Primary, re-verified |
+| `app.cable.temperatureCoefficient` | Unknown | CommScope MX0398 Rev U (2021) pocket guide, per `night-sweep/research/equipment-audit-build17/passives/README.md`; indexed copy only | Secondary |
 
 Corrections the research made to the build list's wording:
 
@@ -28,7 +29,8 @@ Corrections the research made to the build list's wording:
 - In PHYv3.1 the per-6 MHz rule is the CMTS power-configuration rule, and downstream occupied bandwidth is a whole number of 6 MHz channels, at least 24 MHz, including the taper.
 - The pre-EQ **main tap is set by the CMTS**. Tap 8 of 24 is typical practice (PNMP-V03), not a fixed requirement. DOCSIS 3.0 CMs must support 1.28, 2.56 and 5.12 Msym/s; the calculator offers only those three.
 - The 492 constant is half the free-space wavelength of 1 MHz in feet (Bell System Practice 402-400-100, 1963, cross-checked with SCTE 293-2). The app uses the exact 491.79.
-- The ripple result is the echo path length between two mismatches (CableLabs CM-GL-PNM-HFC-V02-260130), which may or may not start at the test point.
+- The ripple result is the echo path length between two mismatches (CableLabs CM-GL-PNM-HFC-V02-260130), which may or may not start at the test point. The pre-EQ result is likewise the spacing between two mismatches, not the distance from the modem or node (PNMP-V03 section 6.8.1.1, p. 84).
+- The pre-EQ distance formula combines the specification's symbol-spaced taps with the best-practice round-trip halving; no document states it as one formula, so the registry labels it Expert, verification Derived.
 
 ## Build list "Unconfirmed points" now checked
 

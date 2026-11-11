@@ -53,8 +53,10 @@ function assertResolves(tags) {
 
   await check('Labels follow the build list: spec, expert, company and unknown rows sit where expected', () => {
     const label = id => json(`Thresholds.get(${JSON.stringify(id)}).label`);
-    for (const id of ['calc.ofdm.bandwidth', 'calc.preeq.tapDistance', 'calc.db.dbm', 'calc.db.dbuv', 'const.speedOfLight']) assert.equal(label(id), 'spec', id);
-    for (const id of ['calc.ripple.distance', 'calc.microreflection.delay']) assert.equal(label(id), 'expert', id);
+    for (const id of ['calc.ofdm.bandwidth', 'calc.db.dbm', 'calc.db.dbuv', 'const.speedOfLight']) assert.equal(label(id), 'spec', id);
+    for (const id of ['calc.ripple.distance', 'calc.microreflection.delay', 'calc.preeq.tapDistance']) assert.equal(label(id), 'expert', id);
+    assert.equal(json("Thresholds.get('calc.preeq.tapDistance').verification"), 'derived', 'pre-EQ formula combines spec tap spacing with best-practice halving');
+    assert.match(json("Thresholds.get('calc.preeq.tapDistance').conditions"), /spacing between two impedance mismatches, not the distance from the modem or node/);
     for (const id of ['app.cable.temperatureCoefficient', 'app.power.resistanceAlpha']) assert.equal(label(id), 'unknown', id);
     assert(rows().filter(r => r.label === 'company').every(r => r.verification === 'entered'), 'company rows are entered values');
   });
@@ -67,6 +69,7 @@ function assertResolves(tags) {
     assert.equal(json("Thresholds.resolve('company.local.returnTx').value"), 38);
     for (const id of ['company.local.forward54', 'company.local.forward860', 'company.local.returnTx']) assert.equal(json(`Thresholds.get('${id}').scope`), '42/54', id + ' scope');
     assert.match(json("Thresholds.get('company.local.returnTx').conditions"), /Separate from sweep injection and receiver references/);
+    for (const id of ['company.local.forward54', 'company.local.forward860', 'company.local.returnTx']) { assert.doesNotMatch(json(`Thresholds.get('${id}').date`), /^\d{4}-/, id + ' is not shown as checked'); assert.match(json(`Thresholds.get('${id}').note`), /not approved plant criteria/); }
   });
 
   await check('Job-profile company targets start unknown, are never read as zero, and follow the selected profile', () => {
@@ -90,13 +93,15 @@ function assertResolves(tags) {
     assert.equal(json("Thresholds.resolve('company.profile.launchLow').value"), null, 'no selected profile is unknown');
   });
 
-  await check('Meter-setup TX references resolve per workflow and stay unknown until entered', () => {
+  await check('The meter-setup TX reference belongs to the 42/54 workflow only and stays unknown until entered', () => {
     ev("state.sweepSetup=SweepSetup.defaults()");
     assert.equal(json("Thresholds.resolve('company.sweep42.txReference').value"), null);
     ev("state.sweepSetup.profiles['42'].txReference='38'");
     assert.equal(json("Thresholds.resolve('company.sweep42.txReference').value"), 38);
-    assert.equal(json("Thresholds.resolve('company.sweep204.txReference').value"), null, '204 workflow stays separate');
-    assert.equal(json("Thresholds.get('company.sweep204.txReference').scope"), '204/258');
+    assert.equal(json("Thresholds.get('company.sweep42.txReference').scope"), '42/54');
+    assert.equal(ev("Thresholds.get('company.sweep204.txReference')"), null, 'no TX reference row for 204/258: SweepSetup forbids one');
+    assert(rows().filter(r => r.scope === '204/258').every(r => !/TX reference/.test(r.name)), 'no 204/258 TX target');
+    assert.throws(() => ev("SweepSetup.validate({...SweepSetup.defaults(),profiles:{...SweepSetup.defaults().profiles,'204':{...SweepSetup.profileDefaults('204'),txReference:'38'}}})"), /42 MHz workflow/);
   });
 
   await check('The Limits tab lists every registry row with a tag, and the label filter narrows the list', () => {
@@ -150,9 +155,12 @@ function assertResolves(tags) {
 
   await check('Escape closes the sheet, a second tag replaces the first, and unverified rows carry a caution', async () => {
     ev("WorkflowUI.go('limits')");
-    const unknownTag = d.querySelector('#limitsList [data-threshold="app.cable.temperatureCoefficient"]');
-    unknownTag.click(); await flush();
+    d.querySelector('#limitsList [data-threshold="app.power.resistanceAlpha"]').click(); await flush();
     assert.match(sheet().querySelector('.status.warning').textContent, /Not verified/);
+    ev('Thresholds.close()'); await flush();
+    d.querySelector('#limitsList [data-threshold="app.cable.temperatureCoefficient"]').click(); await flush();
+    assert.match(sheet().querySelector('.status.warning').textContent, /secondary source/, 'pocket-guide trace is secondary');
+    assert.match(sheet().textContent, /MX0398 Rev U \(2021\), read from an indexed copy/);
     assert(sheet().textContent.includes('0.1 % per °F'), 'value with units');
     ev("Thresholds.open('calc.ripple.distance')"); await flush();
     assert.equal(d.querySelectorAll('dialog.source-sheet').length, 1, 'one sheet at a time');
@@ -171,6 +179,22 @@ function assertResolves(tags) {
     edit.click(); await flush(); await flush();
     assert.equal(sheet(), null, 'sheet closes on navigation');
     assert.equal(ev('WorkflowUI.current()'), 'records', 'opens Job → Acceptance');
+  });
+
+  await check('The open Limits list follows a replaced job, and the sheet closes from the backdrop but not from its own padding', async () => {
+    ev("state.project=projectDefaults();__selected().fLevelTol='2';WorkflowUI.go('limits')");
+    const shown = () => d.querySelector('#limitsList [data-threshold="company.profile.fLevelTol"]').closest('li').querySelector('.limits-value').textContent;
+    assert.equal(shown(), '± 2 dB');
+    const next = json('state'); next.project = json('projectDefaults()'); next.project.profiles.find(p => p.id === next.project.selectedProfile).fLevelTol = '0.75';
+    ev('loadState(' + JSON.stringify(next) + ')'); await flush();
+    assert.equal(ev('WorkflowUI.current()'), 'limits');
+    assert.equal(shown(), '± 0.75 dB', 'Limits re-renders after the job is replaced');
+    ev("Thresholds.open('calc.ofdm.bandwidth')"); await flush();
+    const dlg = sheet(); dlg.getBoundingClientRect = () => ({ left: 10, top: 10, right: 300, bottom: 400, width: 290, height: 390 });
+    dlg.dispatchEvent(new w.MouseEvent('click', { bubbles: true, clientX: 20, clientY: 20 })); await flush();
+    assert(sheet(), 'a tap on the sheet padding keeps it open');
+    dlg.dispatchEvent(new w.MouseEvent('click', { bubbles: true, clientX: 330, clientY: 500 })); await flush();
+    assert.equal(sheet(), null, 'a tap on the backdrop closes it');
   });
 
   await check('Opening the registry and its sheets does not change the job or write storage', async () => {

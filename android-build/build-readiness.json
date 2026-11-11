@@ -54,6 +54,19 @@
       "release_candidate_failures_checked": true,
       "publication_copy_and_promotion_failures_checked": true
     },
-    "released_apk": "../apk/CarpeNoctum-2.0-build2-preview.apk"
+    "released_apk": "../apk/CarpeNoctum-2.0-build2-preview.apk",
+    "private_master_signing_backup_included": true,
+    "signing_material_scope": "signing_material_present/included describe this source tree and APK, not the separately authorized private master backup.",
+    "candidate_apk_built": true,
+    "standalone_frozen": true,
+    "final_apk_built": true,
+    "physical_device_tests": false,
+    "release_history": [
+      {
+        "version": "2.0 Alpha build 1",
+        "version_code": 25,
+        "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881"
+      }
+    ]
   }
 }

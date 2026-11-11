@@ -348,13 +348,13 @@ Each calculator shows its formula's source tag. Tap the tag for the source, revi
 
 | Calculator | Enter | Result and limit | Source tag |
 | --- | --- | --- | --- |
-| dB converter | A level, its unit (dBmV, dBm, dBµV, mV or mW) and 75 Ω or 50 Ω | All five units. dBm = dBmV − 48.75 dB at 75 Ω or − 46.99 dB at 50 Ω; dBµV = dBmV + 60. RMS voltage across a matched load | Spec · SCTE 270 2021r1 identities, re-derived |
+| dB converter | A level, its unit (dBmV, dBm, dBµV, mV or mW) and 75 Ω or 50 Ω | All five units. dBm = dBmV − 48.75 dB at 75 Ω or − 46.99 dB at 50 Ω; dBµV = dBmV + 60. RMS voltage across a matched load | Spec · decibel and SI unit definitions, re-derived |
 | Ripple to distance | Spacing between ripple peaks (MHz) and the cable's VP | Echo path length between two mismatches: 491.79 × VP ÷ spacing (the published 492 is rounded). One mismatch may be the device you test at | Expert · Hranac, *Communications Technology*, Aug. 2005; SCTE 280 2022 section 9.7 |
-| Pre-EQ tap to distance | Echo tap, main tap (8 is typical; the CMTS sets it), symbol rate 5.12, 2.56 or 1.28 Msym/s, and VP | Distance, the ±½-tap range and feet per tap. Taps after the main tap only. DOCSIS 2.0/3.0 single-carrier upstream; not DOCSIS 3.1 OFDMA | Spec · CableLabs PHYv3.0 section 6.2.16; PNM Best Practices V03 sections 5.5 and 6.6.2 |
+| Pre-EQ tap to distance | Echo tap, main tap (8 is typical; the CMTS sets it), symbol rate 5.12, 2.56 or 1.28 Msym/s, and VP | Spacing between two mismatches (not the distance from the modem or node), the ±½-tap range and feet per tap. Taps after the main tap only. DOCSIS 2.0/3.0 single-carrier upstream; not DOCSIS 3.1 OFDMA | Expert · CableLabs PNM Best Practices V03 sections 5.5, 6.6.2 and 6.8.1.1, on PHYv3.0 section 6.2.16 tap spacing |
 | OFDM power | Measured power, the bandwidth it was measured in (6, 24 or 1.6 MHz) and the occupied bandwidth | Total power and power per 6, 24 and 1.6 MHz. Assumes flat power; a tilted output needs the total composite power method in SCTE 270 section 30.14 | Spec · CableLabs PHYv3.1-I20 section 7.5.9.1; SCTE 258 2026 |
-| Echo delay | Cable length between two mismatches and VP | Round-trip delay in ns and µs, and in 5.12 Msym/s symbol periods | Expert · Hranac, *Communications Technology*, Nov. 2009; SCTE 293-2 2024 section 4.1 |
+| Echo delay | Cable length between two mismatches and VP | Round-trip delay in ns and µs, and in 5.12 Msym/s symbol periods | Expert · Hranac, *Communications Technology*, Nov. 2009; speed of light from SCTE 293-2 2024 section 4.1 |
 
-Checked worked numbers: ripple 6 MHz apart at VP 0.87 → **71.3 ft**; tap 9 with main tap 8 at 5.12 Msym/s and VP 0.87 → **83.6 ft** (41.8–125.3 ft), or **167.1 ft** at 2.56 Msym/s; 42 dBmV per 6 MHz over 192 MHz → **57.05 dBmV** total; 100 ft at VP 0.87 → **233.7 ns**.
+Checked worked numbers: ripple 6 MHz apart at VP 0.87 → **71.3 ft**; tap 9 with main tap 8 at 5.12 Msym/s and VP 0.87 → mismatches **83.6 ft** apart (41.8–125.3 ft), or **167.1 ft** at 2.56 Msym/s; 42 dBmV per 6 MHz over 192 MHz → **57.05 dBmV** total; 100 ft at VP 0.87 → **233.7 ns**.
 
 **VP:** pick a catalog cable that lists a nominal VP (MC2 .440, MC2 1.000, Series 6 and Series 11 drop), or type the VP from the cable's datasheet as a fraction from 0.50 to 1.00. Most hardline catalog entries do not list a VP yet. For DOCSIS 3.1 downstream, occupied bandwidth is a whole number of 6 MHz channels, at least 24 MHz, and includes the edge taper.
 
@@ -364,7 +364,7 @@ The calculators do not save their inputs, change the job or read a modem, CMTS o
 
 **Where:** Test → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check a limit and its source.
 
-One list of every limit, target and formula the field tools use. Each entry carries one of four labels:
+The limits, targets and formulas behind the field calculators and this job's criteria, with where each came from. Each entry carries one of four labels:
 
 | Label | Meaning |
 | --- | --- |
@@ -379,10 +379,10 @@ What the list holds:
 
 - The calculator formulas and the speed of light they use.
 - Your built-in local preset: **31 dBmV at 54 MHz**, **43 dBmV at 860 MHz** and the separate **38 dBmV return TX reference** (42/54 plant).
-- This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX references for the 42 and 204 MHz workflows. They show **Unknown — not entered** until entered; an entered 0 stays 0. A company sheet links to the screen where you edit the value.
-- Two built-in approximations labeled **Unknown** because no published source is recorded: the 0.1 % per °F cable-loss temperature correction and the 0.004 per °C default power-cable resistance coefficient.
+- This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX reference of the 42/54 workflow. The 204/258 workflow has no TX reference. Blank entries show **Unknown — not entered**; an entered 0 stays 0. New jobs start blank, except the 750 MHz example profile's labeled 32 / 43 dBmV launch levels. A company sheet links to the screen where you edit the value.
+- Two built-in approximations labeled **Unknown** because their sources are not verified: the 0.1 % per °F cable-loss temperature correction, traced only to an indexed copy of CommScope's MX0398 pocket guide, and the 0.004 per °C default power-cable resistance coefficient, which has no recorded source.
 
-The list describes values; it does not approve criteria or change the job. Older screens do not show tags yet; later build-list tools add them where their values appear.
+The list describes values; it does not approve criteria or change the job. Example targets on older screens, such as the workbook and sample targets in Test → References, are not listed yet, and older screens do not show tags; later build-list tools add them where their values appear.
 
 ## Power-supply load
 
