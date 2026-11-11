@@ -86,8 +86,8 @@ let comparisons = 0;
     assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Test');
     assert.equal(d.getElementById('calculatorPanel').hidden, false);
     const cards = [...d.querySelectorAll('[data-calc-card]')].map(c => c.dataset.calcCard);
-    assert.deepEqual(cards, ['db', 'ripple', 'preeq', 'ofdm', 'echo']);
-    const expected = { db: 'calc.db.dbm', ripple: 'calc.ripple.distance', preeq: 'calc.preeq.tapDistance', ofdm: 'calc.ofdm.bandwidth', echo: 'calc.microreflection.delay' };
+    assert.deepEqual(cards, ['db', 'ripple', 'preeq', 'ofdm', 'balance', 'echo']);
+    const expected = { db: 'calc.db.dbm', ripple: 'calc.ripple.distance', preeq: 'calc.preeq.tapDistance', ofdm: 'calc.ofdm.bandwidth', balance: 'calc.alignment.balance', echo: 'calc.microreflection.delay' };
     for (const [id, threshold] of Object.entries(expected)) {
       const tag = d.querySelector(`[data-calc-card="${id}"] .calc-card-head [data-threshold]`);
       assert.equal(tag.dataset.threshold, threshold, id + ' tag');

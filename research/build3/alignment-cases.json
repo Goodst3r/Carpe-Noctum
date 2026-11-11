@@ -1,0 +1,11 @@
+{
+ "note": "Synthetic hand-worked cases for build list item 2. Levels are practice values, not plant measurements. Pilots 54 / 860 MHz match the local 42/54 references; targets are illustrative station output levels.",
+ "cases": [
+  {"id": "sa-balanced", "kind": "balanced", "profile": "gainmaker-1g-system-amplifier", "model": "active_gm_hgd", "lowMHz": 54, "highMHz": 860, "measuredLow": 39.2, "measuredHigh": 49.1, "targetLow": 39.0, "targetHigh": 49.0, "pad": 6.0, "eq": 9.0},
+  {"id": "sa-high-tilt", "kind": "high tilt", "profile": "gainmaker-1g-system-amplifier", "model": "active_gm_hgd", "lowMHz": 54, "highMHz": 860, "measuredLow": 36.4, "measuredHigh": 49.6, "targetLow": 39.0, "targetHigh": 49.0, "pad": 6.0, "eq": 9.0},
+  {"id": "sa-low-level", "kind": "low level", "profile": "gainmaker-1g-system-amplifier", "model": "active_gm_hgd", "lowMHz": 54, "highMHz": 860, "measuredLow": 36.3, "measuredHigh": 46.4, "targetLow": 39.0, "targetHigh": 49.0, "pad": 6.0, "eq": 9.0},
+  {"id": "le-balanced", "kind": "balanced", "profile": "gainmaker-1g-line-extender", "model": "active_gm_le_manual", "lowMHz": 54, "highMHz": 860, "measuredLow": 36.1, "measuredHigh": 45.4, "targetLow": 36.0, "targetHigh": 45.5, "pad": 4.0, "eq": 7.5},
+  {"id": "le-high-tilt", "kind": "high tilt", "profile": "gainmaker-1g-line-extender", "model": "active_gm_le_manual", "lowMHz": 54, "highMHz": 860, "measuredLow": 33.2, "measuredHigh": 46.0, "targetLow": 36.0, "targetHigh": 45.5, "pad": 4.0, "eq": 7.5},
+  {"id": "le-low-level", "kind": "low level", "profile": "gainmaker-1g-line-extender", "model": "active_gm_le_manual", "lowMHz": 54, "highMHz": 860, "measuredLow": 33.0, "measuredHigh": 42.6, "targetLow": 36.0, "targetHigh": 45.5, "pad": 4.0, "eq": 7.5}
+ ]
+}

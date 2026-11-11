@@ -241,3 +241,5 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
 @media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel{display:none!important}}
+.calc-card .calc-wide{grid-column:1/-1}
+.calc-result h4{font-size:14px;margin:12px 0 6px}

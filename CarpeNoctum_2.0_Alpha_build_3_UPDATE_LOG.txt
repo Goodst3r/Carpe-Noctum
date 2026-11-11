@@ -18,7 +18,7 @@ SOURCE OF THE WORK
 The prioritized build list (docs/BUILD_LIST.md, GitHub pull request #2,
 branch claude/build-list) sets the order: 1 threshold and source registry,
 2 tilt/EQ/pad solver, 3 station view, 4 calculator bundle, and so on.
-Build 3 delivers items 1 and 4.
+Build 3 delivers items 1, 4 and 2.
 
 CHANGES
 1. Threshold and source registry (build list item 1)
@@ -51,11 +51,38 @@ CHANGES
    - VP from the four catalog cables that list one, or typed in (0.50-1.00).
    - Invalid or missing input shows a reason, never a number.
 
-3. Practice library
+3. Tilt / EQ / pad solver (build list item 2), Test -> Calculators ->
+   Pad / EQ balance
+   - Readings and targets at two pilots give the level error at each pilot
+     and the tilt error, with the direction to move the input EQ and pad.
+   - GainMaker 1 GHz (HGD, GaN HGD, HGBT, LGD 65/86, LE manual/thermal/AGC):
+     picks the input EQ for tilt, then the input pad for level at the high
+     pilot, from Cisco OL-31156-01 / OL-31155-01 and S-A 716336 Rev D values
+     (pads 0-20.5 dB in 0.5 dB steps; 1 GHz cable EQs 1.5-30 dB with their
+     52-1000 MHz loss chart). Predicts the levels after the change.
+   - Never offers a value outside the sourced list; no interpolation across
+     the chart's 86-550 MHz gap; the uncharted 0 dB jumper, inverse EQs and
+     870 MHz EQs are left out and listed on the card.
+   - Advice is worded from the pick (keep or change each part, with the
+     high-pilot level predicted after the EQ change) and says whether the
+     result lands inside the GainMaker procedure's +/-0.5 dB window.
+   - Pilots must sit inside the model's forward band (no 54 MHz pilot on a
+     65/86 amplifier). The chart's top column is headed 1000 MHz in the
+     guide and 1002 MHz in data sheet 716336; both are accepted.
+   - Quantum18 HGD and HGBT align electronically in AOI's QuantumLink Local
+     app (SA guide V02102025): they get that note, not part values. The LE
+     data sheet only describes electronic control and no public LE
+     procedure or pad/EQ list was found: it gets a note too. The BA uses
+     plug-in gain-adjust pads (0 dB fitted; 2, 4 and 6 dB in the lid, from a
+     preliminary data sheet) and gets pad direction in those steps.
+   - Checked against a LibreOffice-recalculated spreadsheet: three synthetic
+     cases per GainMaker family (balanced, high tilt, low level).
+
+4. Practice library
    - Custom-curves exercise: two new guide steps (ten in total).
    - Feature index: entries 38 (calculators) and 39 (limits).
 
-4. Version and QA
+5. Version and QA
    - 2.0 Alpha build 3 labels everywhere; Android code 27 source identity;
      build-readiness.json records that no build 3 APK exists.
    - qa/build2-layout.test.py honors NIGHTSWEEP_CHROMIUM.
@@ -86,14 +113,15 @@ from the app. Wolfram was not available in this session; this is the
 independent check used instead.
 
 VERIFICATION (THIS RUN)
-Automated suites (python3 qa/run-pwa.py): 1,097 checks across 60
+Automated suites (python3 qa/run-pwa.py): 1,109 checks across 61
   suites passed; generated build unchanged during tests.
   New suites: registry 13 checks; calculators 10 checks with 123
-  comparisons against the independent decimal references.
+  comparisons against the independent decimal references; solver 12
+  checks against the LibreOffice-recalculated spreadsheet.
 Rendered Chromium (qa/build3-layout.test.py): 141 checks passed at
   320-1280 px in both palettes and print media.
 Existing rendered smoke (qa/browser-smoke.py): 328 checks passed.
-Standalone SHA-256: 494cd587239250f0ee34e866290c7c7596c18d417c90e7b381894801d029762e
+Standalone SHA-256: 89b27de366cc25e3939cc163ac221bafec1a12f0ea24fee197d92892d4ae6aa5
 Baseline before changes: 1,013 checks across 55 passing suites; two
   suites could not run in this container until fixed (Python Playwright,
   Android receipt), and both now pass.
