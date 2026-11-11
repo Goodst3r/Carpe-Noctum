@@ -10,6 +10,15 @@ async function check(name,fn){await fn();assert.deepEqual(a.errors,[]);cases.pus
 function set(id,v){const e=d.getElementById(id);assert(e,id);e.value=v;e.dispatchEvent(new w.Event('input',{bubbles:true}));e.dispatchEvent(new w.Event('change',{bubbles:true}));}
 const api=()=>ev('SweepGradingUI');
 const csv='frequency_mhz,level_dbmv\n54,0\n100,2.5\n860,0';
+
+// Wait for actual digest entry, independent of scheduler speed or concurrent load.
+function holdDigest(subtle,call=1){
+ const original=subtle.digest;let entered,release,count=0;
+ const arrived=new Promise(resolve=>entered=resolve),gate=new Promise(resolve=>release=resolve);
+ subtle.digest=async function(...args){if(++count===call){entered();await gate;}return original.apply(this,args);};
+ return {release,wait:pending=>Promise.race([arrived,pending.then(()=>{throw Error('Grade settled before the held digest was reached.');})]),restore(){release();subtle.digest=original;}};
+}
+
 // Current binding-v2 fixture; actual-handler coverage below also creates its own.
 const stationFixture=JSON.parse(fs.readFileSync('qa/fixtures/synthetic-station-grading-context.json','utf8'));
 function installStationContext(){
@@ -65,7 +74,7 @@ await check('Optional PR8 stations are snapshotted without changing Before/After
 });
 await check('PR8 Before/After and done context restored during actual hashing still blocks the grade',async()=>{
  const fixture=installStationContext();try{for(const [target,key,value]of [[fixture.record.stages.before.forward,'measuredLow','37'],[fixture.record.stages.after.returns,'receiverReading','0'],[fixture.record,'stage','after'],[fixture.record.balanced,'done',true],[fixture.record.swept,'date','2026-11-11']]){
-  const subtle=w.crypto.subtle,originalDigest=subtle.digest,prior=target[key];let release;subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};const count=json('state.sweepGrading.records.length'),pending=api().grade();try{for(let i=0;i<100&&!release;i++)await new Promise(r=>setImmediate(r));assert(release);assert(ev('EvidenceUI.isBusy()'));target[key]=value;ev('saveLocal()');target[key]=prior;ev('saveLocal()');release();await assert.rejects(()=>pending,/changed/i,key);assert.equal(json('state.sweepGrading.records.length'),count);}finally{subtle.digest=originalDigest;}
+  const prior=target[key],held=holdDigest(w.crypto.subtle);const count=json('state.sweepGrading.records.length'),pending=api().grade();try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));target[key]=value;ev('saveLocal()');target[key]=prior;ev('saveLocal()');held.release();await assert.rejects(()=>pending,/changed/i,key);assert.equal(json('state.sweepGrading.records.length'),count);}finally{held.restore();await pending.catch(()=>{});}
  }}finally{fixture.restore();}
 });
 await check('Archived Station records do not expand context or invalidate an otherwise unchanged grade',async()=>{
@@ -84,21 +93,20 @@ await check('Real hardware and route-record edits restored during a busy WebCryp
  function pointName(value){const control=d.querySelector('#route [data-field="name"]');assert(control);control.value=value;control.dispatchEvent(new w.Event('input',{bubbles:true}));}
  choose('manual');
  for(const mutation of ['hardware','record']){
-  const subtle=w.crypto.subtle,originalDigest=subtle.digest;let release;
-  subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};
+  const held=holdDigest(w.crypto.subtle);
   const count=json('state.sweepGrading.records.length'),prior=ev('state.rows[0].name'),pending=api().grade();
-  try{for(let i=0;i<100&&!release;i++)await new Promise(r=>setImmediate(r));assert(release,'real digest reached');assert(ev('EvidenceUI.isBusy()'),'original-byte verification is busy');if(mutation==='hardware'){choose('active');choose('manual');}else{pointName('TEMPORARY PRACTICE');pointName(prior);}release();await assert.rejects(()=>pending,/changed/i,mutation);assert.equal(json('state.sweepGrading.records.length'),count,mutation);}finally{subtle.digest=originalDigest;}
+  try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'),'original-byte verification is busy');if(mutation==='hardware'){choose('active');choose('manual');}else{pointName('TEMPORARY PRACTICE');pointName(prior);}held.release();await assert.rejects(()=>pending,/changed/i,mutation);assert.equal(json('state.sweepGrading.records.length'),count,mutation);}finally{held.restore();await pending.catch(()=>{});}
  }
 });
 await check('Real Add/Remove point and Acceptance record buttons cannot evade the busy context epoch',async()=>{
  for(const action of ['route','record']){
-  const subtle=w.crypto.subtle,originalDigest=subtle.digest;let release;subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};
+  const held=holdDigest(w.crypto.subtle);
   const count=json('state.sweepGrading.records.length'),rows=json('state.rows.length'),forward=json('state.project.forward.length'),pending=api().grade();
-  try{for(let i=0;i<100&&!release;i++)await new Promise(r=>setImmediate(r));assert(release);assert(ev('EvidenceUI.isBusy()'));if(action==='route'){ev('WorkflowUI.go("route")');d.getElementById('add').click();const id=json('state.rows.at(-1).id');d.querySelector('[data-delete="'+id+'"]').click();}else{ev('WorkflowUI.go("records")');d.querySelector('[data-project-add="forward"]').click();const index=json('state.project.forward.length')-1;d.querySelector('[data-project-remove="forward"][data-project-index="'+index+'"]').click();}assert.equal(json('state.rows.length'),rows);assert.equal(json('state.project.forward.length'),forward);release();await assert.rejects(()=>pending,/changed/i,action);assert.equal(json('state.sweepGrading.records.length'),count,action);}finally{subtle.digest=originalDigest;}
+  try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));if(action==='route'){ev('WorkflowUI.go("route")');d.getElementById('add').click();const id=json('state.rows.at(-1).id');d.querySelector('[data-delete="'+id+'"]').click();}else{ev('WorkflowUI.go("records")');d.querySelector('[data-project-add="forward"]').click();const index=json('state.project.forward.length')-1;d.querySelector('[data-project-remove="forward"][data-project-index="'+index+'"]').click();}assert.equal(json('state.rows.length'),rows);assert.equal(json('state.project.forward.length'),forward);held.release();await assert.rejects(()=>pending,/changed/i,action);assert.equal(json('state.sweepGrading.records.length'),count,action);}finally{held.restore();await pending.catch(()=>{});}
  }
  ev('WorkflowUI.go("evidence")');
 });
-await check('Unchanged autosaves during actual original hashing do not cancel grading',async()=>{const subtle=w.crypto.subtle,originalDigest=subtle.digest;let release;subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};const count=json('state.sweepGrading.records.length'),pending=api().grade();try{for(let i=0;i<100&&!release;i++)await new Promise(r=>setImmediate(r));assert(release);assert(ev('EvidenceUI.isBusy()'));ev('saveLocal();saveLocal()');release();const record=await pending;assert.equal(record.result.overall,'pass');assert.equal(json('state.sweepGrading.records.length'),count+1);}finally{subtle.digest=originalDigest;}});
+await check('Unchanged autosaves during actual original hashing do not cancel grading',async()=>{const held=holdDigest(w.crypto.subtle);const count=json('state.sweepGrading.records.length'),pending=api().grade();try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));ev('saveLocal();saveLocal()');held.release();const record=await pending;assert.equal(record.result.overall,'pass');assert.equal(json('state.sweepGrading.records.length'),count+1);}finally{held.restore();await pending.catch(()=>{});}});
 await check('Direct in-memory alteration of a saved result clears its current calculation badge',async()=>{const r=await api().grade(),stored=ev('state.sweepGrading.records.at(-1)');stored.result.metrics.ptvDb=999;ev('SweepGradingUI.render()');assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));ev('state.sweepGrading.records').splice(-1,1,plain(r));});
 await check('Observed corrupt original reads invalidate current grades and cannot save a new grade',async()=>{await api().grade();assert.match(d.getElementById('sweepGradingPanel').textContent,/Current verified calculation/);const id=json('state.evidence[0].id'),count=json('state.sweepGrading.records.length'),priorHistory=json('state.sweepGrading.records');const request=w.indexedDB.open('nightsweep-evidence-v1',1);const db=await new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});const read=db.transaction('files','readonly').objectStore('files').get(id);const original=await new Promise(resolve=>read.onsuccess=()=>resolve(read.result));async function put(bytes){await new Promise((resolve,reject)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put({id,bytes});tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);});}await put(new TextEncoder().encode(csv.replace('2.5','9.9')).buffer);await ev('EvidenceUI').reloadPreviews();assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.match(d.getElementById('sweepGradingPanel').textContent,/unavailable|verification failed/i);assert.deepEqual(json('state.sweepGrading.records'),priorHistory);await assert.rejects(()=>api().grade(),/verification failed/i);assert.equal(json('state.sweepGrading.records.length'),count);await put(original.bytes);await ev('EvidenceUI').reloadPreviews();assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.match(d.getElementById('gradingStatus').textContent,/verified again.*unknown/i);db.close();});
 await check('Autosave boot and named-job duplication preserve grades as historical snapshots',async()=>{await api().grade();ev('JobsUI.saveNamed()');const id=ev('state.job.id');ev('JobsUI.duplicate('+JSON.stringify(id)+')');const library=JSON.parse(w.localStorage.getItem('hfc-named-jobs-v1'));assert.deepEqual(library.jobs.at(-1).snapshot.sweepGrading,library.jobs.find(j=>j.id===id).snapshot.sweepGrading);const snapshot=w.localStorage.getItem('hfc-route-v1'),store=w.indexedDB;const b=bootApp({beforeParse(next){next.indexedDB=store;next.localStorage.setItem('hfc-route-v1',snapshot);next.localStorage.setItem('hfc-named-jobs-v1',JSON.stringify(library));}});try{for(let i=0;i<100&&b.ev('EvidenceUI.isBusy()');i++)await new Promise(r=>setTimeout(r,5));assert(!b.ev('EvidenceUI.isBusy()'));assert.deepEqual(b.json('state.sweepGrading'),JSON.parse(snapshot).sweepGrading);assert(!b.d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.deepEqual(b.errors,[]);}finally{b.close();}});
@@ -151,10 +159,9 @@ try{
  });
  await check('Actual merged Station stage and dates changed away and back during original hashing reject pending grades',async()=>{
   for(const [scope,field,value,prior]of [['record','stage','before','after'],['balanced','date','2026-11-09','2026-11-10'],['swept','done',false,true]]){
-   const subtle=bw.crypto.subtle,originalDigest=subtle.digest;let release;
-   subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};
+   const held=holdDigest(bw.crypto.subtle);
    const count=bj('state.sweepGrading.records.length'),pending=grade();
-   try{for(let i=0;i<100&&!release;i++)await new Promise(r=>setImmediate(r));assert(release,'actual digest reached');assert(be('EvidenceUI.isBusy()'));go('station');station(scope,field,value);station(scope,field,prior);release();await assert.rejects(()=>pending,/changed/i);assert.equal(bj('state.sweepGrading.records.length'),count);}finally{subtle.digest=originalDigest;}
+   try{await held.wait(pending);assert(be('EvidenceUI.isBusy()'));go('station');station(scope,field,value);station(scope,field,prior);held.release();await assert.rejects(()=>pending,/changed/i);assert.equal(bj('state.sweepGrading.records.length'),count);}finally{held.restore();await pending.catch(()=>{});}
   }
  });
  await check('Fourteen current actual-handler worksheets and 900 archived bindings grade within the original compact history bound',async()=>{
@@ -169,11 +176,11 @@ try{
  await check('Actual launch asset, port and module handlers cancel pending grades even when restored, preserving original bindings',async()=>{
   go('station');edit('[data-station-target]','source','change');station('forward','measuredLow','31');const owner=be('state'),identity=owner.setup.stationIdentity,sourceRecord=plain(owner.stationView.stations[identity]);
   for(const field of ['asset','port','module']){
-   const prior=owner.node[field],subtle=bw.crypto.subtle,originalDigest=subtle.digest;let release;subtle.digest=async function(...args){if(!release)await new Promise(r=>release=r);return originalDigest.apply(this,args);};const history=bj('state.sweepGrading.records'),pending=grade();try{for(let i=0;i<200&&!release;i++)await new Promise(r=>setImmediate(r));assert(release);go('setup');edit('[data-launch-node="'+field+'"]','SYNTHETIC changed '+field);edit('[data-launch-node="'+field+'"]',prior);release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);assert.deepEqual(plain(owner.stationView.stations[identity]),sourceRecord);}finally{subtle.digest=originalDigest;}
+   const prior=owner.node[field],held=holdDigest(bw.crypto.subtle);const history=bj('state.sweepGrading.records'),pending=grade();try{await held.wait(pending);go('setup');edit('[data-launch-node="'+field+'"]','SYNTHETIC changed '+field);edit('[data-launch-node="'+field+'"]',prior);held.release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);assert.deepEqual(plain(owner.stationView.stations[identity]),sourceRecord);}finally{held.restore();await pending.catch(()=>{});}
   }
  });
  await check('A change restored during the additional context-digest await still cancels and preserves immutable history',async()=>{
-  const subtle=bw.crypto.subtle,originalDigest=subtle.digest;let release,calls=0;subtle.digest=async function(...args){if(++calls===2)await new Promise(r=>release=r);return originalDigest.apply(this,args);};const history=bj('state.sweepGrading.records'),pending=grade();try{for(let i=0;i<200&&!release;i++)await new Promise(r=>setImmediate(r));assert(release,'context digest await reached');go('station');const stage=current().stage;station('record','stage',stage==='before'?'after':'before');station('record','stage',stage);release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);}finally{subtle.digest=originalDigest;}
+  const held=holdDigest(bw.crypto.subtle,2);const history=bj('state.sweepGrading.records'),pending=grade();try{await held.wait(pending);go('station');const stage=current().stage;station('record','stage',stage==='before'?'after':'before');station('record','stage',stage);held.release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);}finally{held.restore();await pending.catch(()=>{});}
  });
  await check('Named job save, duplicate and reopen retain both actual Station and grading sections',async()=>{
   be('state.job.name="SYNTHETIC combined Station and grading";JobsUI.saveNamed()');
