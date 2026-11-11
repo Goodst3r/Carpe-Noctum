@@ -240,7 +240,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -303,3 +303,12 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
 .fiber-reference{margin:10px 0}
 .fiber-panel .calc-card button{min-height:44px}
+.hs-card{min-width:0}
+.hs-card h4{margin:16px 0 6px}
+.hs-table{border-collapse:collapse;width:100%;min-width:300px}
+.hs-table th,.hs-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px;overflow-wrap:anywhere}
+.hs-table thead th{font-weight:700;border-bottom:2px solid var(--line)}
+.hs-list,.hs-steps{margin:8px 0;padding-left:22px}
+.hs-list li,.hs-steps li{margin:8px 0;overflow-wrap:anywhere}
+.hs-source{display:block;margin-top:2px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.hs-panel .calc-card button{min-height:44px}

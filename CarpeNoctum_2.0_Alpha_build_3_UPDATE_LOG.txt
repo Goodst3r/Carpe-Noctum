@@ -264,6 +264,31 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (sixteen in total)
      and the feature index gains entry 45.
 
+12. High split and Remote PHY reference (build list item 17), Test -> High split
+   - A reading aid: the DOCSIS 4.0 frequency-division-duplex band edges
+     (sub-split, mid-split, high-split, ultra-high splits; CM-SP-PHYv4.0
+     I08, Table 29 and Table 31), the gap between the two directions (our
+     subtraction, labeled derived), what a DOCSIS 3.1 modem must support
+     (CM-SP-PHYv3.1 I20), and which direction the 108 to 137 MHz
+     aeronautical band is in on each plant (upstream on 204/258).
+   - The aeronautical band and leakage: the OUDP test-burst approach of two
+     SCTE papers, a maker's view and the CCAP interface heading are named as
+     pointers; 47 CFR 76.610, 76.611, 76.614 and 76.616 are stated in plain
+     words with their sections. The screen gives no detector setting, test
+     frequency or pilot code, and says no document read tells a technician
+     whether to inject a downstream tag on a 204 MHz node.
+   - Remote PHY bring-up: eight steps from the CableLabs R-PHY, R-DEPI,
+     R-DTI, R-OOB and R-OSSI specifications, each with who does it and its
+     document, issue and section. Vecima's guides are behind its customer
+     portal, so no Vecima procedure is described and no other maker's steps
+     or lights are borrowed (Cisco, Teleste and Harmonic public guides are
+     only listed). Not a checklist for a Vecima node: see the status file.
+   - Six registry rows (spec, expert and derived). Nothing is read from a
+     node or stored; no new storage key, no change to the job format
+     (tested). Sources and gaps: research/build3/HIGHSPLIT_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (seventeen in total)
+     and the feature index gains entry 47.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
