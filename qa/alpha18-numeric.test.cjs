@@ -39,5 +39,5 @@ for(const {name,curve:c}of curves){
 }
 checks++;console.log('PASS current catalog integrity and runtime table endpoints');
 const result={generatedAt:new Date().toISOString(),status:'PASS',scope:'Ten fresh synthetic Wolfram arithmetic comparisons plus current catalog structural/runtime checks. Does not independently retranscribe source manuals, establish field measurements, or certify physical equipment.',groupedChecks:checks,comparisons,catalog:{devices:catalog.devices.length,cables:catalog.cables.length,powerEquipment:catalog.powerEquipment.length,...counts},inputSha256:Object.fromEntries(['night-sweep/engine.js','night-sweep/catalog.json','night-sweep/projects.js','night-sweep/meter.js','night-sweep/sweep-setup.js'].map(p=>[p,crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')]))};
-fs.writeFileSync('research/alpha18/math-data-audit.json',JSON.stringify(result,null,2)+'\n');
+fs.writeFileSync(require('./evidence-path.cjs').evidencePath('research/alpha18/math-data-audit.json'),JSON.stringify(result,null,2)+'\n');
 console.log(`Alpha18 numeric audit: ${checks} checks passed`);
