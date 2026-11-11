@@ -81,3 +81,17 @@ Evidence: PR #8, the original Lane B review, handoff_docs/reviews/codex-station-
 - CRC optimization b863821 keeps every original integrity check and speeds only the ZIP checksum/parse work. Synthetic near-cap 2 MiB JSON measured 78.2→15.3ms stored/84.3→21.4ms deflated in desktop Chromium; tiny files were below useful resolution. Original private input/backup byte equality was verified locally.
 - A separate audit found closed evidence previews still build all charts (legal 30 × 10,000-sample workload: 142.9ms/~4.59MB markup). Lazy rendering remains a separate follow-up requiring open/toggle/print review. It is not included in this CRC change.
 - No earlier correctness/nonblocking gap is implicitly closed by performance changes. Current source, methods, independent scoped reviews and final gate receipts are on PR #8 and PR #14.
+
+
+## A3 Sweep due: Lane B review dispositions (Lane A, Nov 11)
+
+The review's displayed 07b3a91 hash names A4; its Sweep due findings apply to the A3 implementation formerly published at 570baf and integrated at 91eea4. The historical-row wording is corrected in the A3 successor: legacy-unconfirmed and retired UBT rows retain recorded dates, ages, done/validity and a historical reason without current-service reminder language. The interval remains an optional per-working-job preference; empty-state ownership is explicit. Linked Not saved feedback now sits directly below the field and does not follow another job. Focused regression pins cover upward two-thirds rounding and the final year9999 boundary; no formula or company cadence changed.
+
+Deferred recommendations, not closed by those corrections:
+
+- Every interval input still synchronously reads the library. Lane B reported visible stalls at 200 jobs × 40 stations under CPU slowdown; this worker did not remeasure those timings. Debounce/collect-on-change and collector caches require a separate performance/context review. No timing or phone-speed claim is made.
+- A unique matching working job overlays its saved snapshot without diagnosing whether an opened older backup replaced a newer saved view. The separate stored snapshot is not deleted, but a chronology diagnostic remains a follow-up.
+- Older large exploratory calendar scripts/receipts ran outside the repository; the committed 14 fixed reference cases and new explicit rounding/year-boundary pins reproduce their stated cases only. They are not a reproduction of the earlier 40,746 exploration count. Publishing a self-contained larger independent replay remains a documentation/QA follow-up.
+- A2/A3/A4 share import validators and working-content guards; future integration must retain every optional section. Source/guide/status/update-log count and spacing reconciliation belongs to the actual final combined head; Lane B owns D4/D5.
+
+These are software checks and retained observations, not physical-device, employer-procedure or field validation.

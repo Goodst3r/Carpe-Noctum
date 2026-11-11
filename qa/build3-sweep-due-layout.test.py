@@ -89,6 +89,37 @@ try:
                 if expected_page == 1:
                     check(f'{width}px first page disables Previous and permits Next', page.locator('[data-sweep-due-page="previous"]').is_disabled() and page.locator('[data-sweep-due-page="next"]').is_enabled())
             check(f'{width}px keyboard pagination preserves interval, work dates and stored jobs', page.evaluate('JSON.stringify([state,localStorage.getItem(JobsUI.storeKey),localStorage.getItem("hfc-route-v1")])') == before_navigation and page.locator('#sweepDueInterval').input_value() == '0018')
+            # Historical cards retain exact recorded work facts, without current-service wording.
+            for mode in ['legacy', 'ubt']:
+                for date, age in [('2024-01-01', 34), ('2025-11-11', 12), ('2026-08-01', 3)]:
+                    page.evaluate('''({mode,date}) => {
+                      const owner=TrainingJob.makePractice('aoi-six-active');owner.job.id='job_native_history';
+                      if(mode==='ubt')owner.rows[0].device='active_gm_ubt_main';
+                      const t=StationView.targets(owner).find(t=>t.key==='r1');t.holder.stationIdentity='native_historical';
+                      owner.sweepDue={intervalMonths:'18'};owner.stationView={selected:'r1',stations:{native_historical:{pointId:'r1',equipmentId:t.id,...(mode==='ubt'?{bindingVersion:2,equipmentContext:t.context}:{}),swept:{done:true,date},balanced:{done:true,date:'2026-01-01'}}}};
+                      loadState(owner);JobsUI.snapshots=()=>[];WorkflowUI.go('sweepDue');SweepDue.render('2026-11-11');
+                      window.__sweepHistoryBefore=JSON.stringify([state,localStorage.getItem('hfc-route-v1'),localStorage.getItem(JobsUI.storeKey)]);
+                    }''', {'mode': mode, 'date': date})
+                    historical = page.evaluate('''() => {
+                      const r=SweepDue.readView('2026-11-11').groups[0].rows.find(r=>r.pointId==='r1'),card=[...document.querySelectorAll('[data-sweep-due-row]')].find(e=>e.textContent.includes('Route point r1 ·'));
+                      return {row:r,text:card.textContent,noWrites:window.__sweepHistoryBefore===JSON.stringify([state,localStorage.getItem('hfc-route-v1'),localStorage.getItem(JobsUI.storeKey)])};
+                    }''')
+                    text, row = historical['text'], historical['row']
+                    check(f'{width}px {mode} {date} historical card has neutral facts without current reminder words', 'Reminder unavailable' in text and date in text and f'{age} completed calendar months old' in text and 'Sweep recorded' in text and not any(word.lower() in text.lower() for word in ['Due / overdue', 'Reminder window', 'Before reminder window']) and ('binding unconfirmed' if mode == 'legacy' else 'Read-only historical') in text)
+                    check(f'{width}px {mode} {date} retains done/date/validity/age with no job or stored-data write', historical['noWrites'] and row['sweep']['done'] and row['sweep']['date'] == date and row['sweep']['validity'] == 'Valid civil date' and row['sweep']['age'] == age and row['sweep']['status'] == 'neutral' and row['sweep']['warning'] is None and row['sweep']['due'] is None)
+            page.evaluate('''() => {loadState({version:1,setup:{...defaultSetup,sourceType:'manual'},rows:[]});WorkflowUI.go('sweepDue');}''')
+            check(f'{width}px empty state explains that interval belongs to open job without creating preference', 'interval belongs to the open job' in page.locator('#sweepDueList').inner_text().lower() and page.evaluate('state.sweepDue===undefined'))
+            before_quota = page.evaluate('localStorage.getItem("hfc-route-v1")')
+            page.evaluate('''() => {window.__sweepPeerStorage=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(key==='hfc-route-v1')throw Error('Synthetic autosave failure');return window.__sweepPeerStorage.call(this,key,value);};}''')
+            page.locator('#sweepDueInterval').fill('25')
+            page.locator('#sweepDueInterval').evaluate('(e)=>e.scrollIntoView({block:"center"})')
+            warning = page.locator('#sweepDueSaveStatus')
+            check(f'{width}px unsaved interval warning is named, linked and directly next to input', warning.evaluate('(e)=>{const input=document.getElementById("sweepDueInterval"),r=e.getBoundingClientRect();return input.nextElementSibling===e&&input.getAttribute("aria-describedby").split(/\s+/).includes(e.id)&&e.closest(".sweep-due-setting")===input.closest(".sweep-due-setting")&&e.classList.contains("warning")&&r.top>=0&&r.bottom<=innerHeight;}') and 'Not saved' in warning.inner_text() and 'Autosave failed' in warning.inner_text() and 'Export a project backup' in warning.inner_text())
+            check(f'{width}px failed autosave keeps raw interval in memory and prior stored bytes exact', page.evaluate('state.sweepDue.intervalMonths') == '25' and page.evaluate('localStorage.getItem("hfc-route-v1")') == before_quota)
+            page.locator('#sweepDueRefresh').click()
+            check(f'{width}px same-owner refresh retains unsaved warning', 'Not saved' in warning.inner_text())
+            page.evaluate('''() => {Storage.prototype.setItem=window.__sweepPeerStorage;loadState({version:1,setup:{...defaultSetup,sourceType:'manual'},rows:[],sweepDue:{intervalMonths:'25'}});WorkflowUI.go('sweepDue');}''')
+            check(f'{width}px a different job does not inherit old interval save feedback', warning.inner_text() == '')
             context.close()
         check('No browser page errors', not errors)
         browser.close()
