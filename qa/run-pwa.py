@@ -17,6 +17,8 @@ suites=[
  ('Build 3 station worksheet arithmetic and saved jobs','build3-station.test.cjs',r'Build3 station: (\d+) checks passed'),
  ('Build 3 rendered station phone layout','build3-station-layout.test.py',r'Build3 station layout: (\d+) checks passed'),
  ('Build 3 station field-review regressions','build3-station-review.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Build 3 night-log capture and handoff contracts','build3-night-log.test.cjs',r'Build3 night log: (\d+) checks passed'),
+ ('Build 3 rendered night-log phone layout','build3-night-log-layout.test.py',r'Build3 night log layout: (\d+) checks passed'),
  ('2.0 Alpha design changes','v20-design.test.cjs',r'2\.0 design: (\d+) checks passed'),
  ('Build 2 TDR active-boundary regressions','build2-tdr-boundaries.test.cjs',r'Build2 TDR boundaries: (\d+) checks passed'),
  ('Build 2 RF and records property backtests','build2-rf-properties.test.cjs',r'Build2 RF properties: (\d+) checks passed'),

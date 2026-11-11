@@ -94,4 +94,9 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**14 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **40 choices**, including Station, Calculators and Limits.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**15 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **41 choices**, including Station, Calculators and Limits.
+
+
+### Build 3 Night log handoff practice
+
+The six-active exercise adds **Five-station night handoff** under **Job → Night log**, for 15 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 41 choices.

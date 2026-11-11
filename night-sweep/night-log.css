@@ -1,0 +1,14 @@
+#nightLogPanel { min-width:0; overflow-wrap:anywhere; }
+#nightLogPanel .night-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:12px 0; }
+#nightLogPanel label { display:flex; flex-direction:column; gap:6px; min-width:0; margin:10px 0; }
+#nightLogPanel :is(input,select,textarea) { width:100%; max-width:100%; min-width:0; box-sizing:border-box; font:inherit; }
+#nightLogPanel :is(input,select,button,summary) { min-height:44px; }
+#nightLogPanel select { white-space:normal; }
+#nightLogPanel textarea { min-height:80px; resize:vertical; }
+/* Readonly report text can stay compact; editable phone inputs retain the app 16px rule. */
+#nightLogPanel #nightHandoffPreview { min-height:160px; font:14px/1.35 system-ui,sans-serif; font-size:14px!important; white-space:pre-wrap; overflow-wrap:anywhere; overflow-y:auto; }
+#nightLogPanel .night-actions { margin:14px 0; }
+#nightLogPanel .night-entries details { margin:10px 0; }
+#nightLogPanel summary { padding:10px 0; }
+@media(max-width:600px) { #nightLogPanel .night-fields { grid-template-columns:minmax(0,1fr); } #nightLogPanel .toolbar { flex-wrap:wrap; } }
+@media print { #nightLogPanel { display:none!important; } }

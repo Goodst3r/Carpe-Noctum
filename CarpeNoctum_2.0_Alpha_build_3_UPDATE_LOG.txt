@@ -173,3 +173,24 @@ A1 STATION WORKSHEET — NOVEMBER 11, 2026
   last-edit paragraph refresh timing; stored data/timestamps are correct.
   A further rare edge: heavily escaped maximum-length source labels can
   exceed the encoded context guard. See the review handoff; D1-D5 are open.
+
+A2 - NIGHT LOG AND SHIFT HANDOFF
+- Job -> Night log records personal ticket/window, node/amp actions,
+  ROC/dispatch, fuel with units, mileage with units, as-built and next shift.
+  Keep customer names, addresses and account numbers out of these notes.
+- Explicit Add captures both actual saved Station stages and frozen result
+  values/errors. Text remains editable; captures never silently refresh.
+  Changed/removed equipment, read-only and legacy bindings stay historical.
+  Balance and sweep remain separate recorded facts, never RF acceptance.
+- Generate a selectable plain-text handoff, prepare TXT or rectangular CSV
+  through the existing offline save/share path, and check the external file.
+  Raw inputs/planes/context and separate dates remain available. Levels use
+  two decimals, pilot MHz up to three, with no signed rounded zero. CSV uses
+  the existing formula-text safety prefix; JSON keeps original exact text.
+- The optional validated top-level log survives autosave, named-job switches,
+  duplication and full project backup with unchanged original evidence bytes.
+  No new storage key, schema/version/package identity, dependency or RF limit.
+- Six-active practice adds a manual five-station handoff step. Its defined
+  short-label 390x844 fixture keeps all five entries; arbitrary long notes
+  can scroll without truncation. Complete integration gate and independent
+  review remain separate from scoped author checks. No APK or device claim.
