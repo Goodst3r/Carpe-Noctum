@@ -1,8 +1,9 @@
 /* Build 3 pre-work safety card (build list item 9). A reminder list to tick before climbing, opening plant or
    working near a road. The wording was written for this app from general field-safety practice. It is not
    copied from NCTI or SCTE material and it is not any company's procedure: the card opens by saying so.
-   The list has no limits, numbers or targets, so it has no registry rows; a company policy reference and
-   the person who knows where you are are notes the technician types in. Kept on this device only. */
+   The list has no safety limits, numbers or targets; its only numbers are the engine's software caps (items you can add,
+   characters per item and per note box), registered as Unknown application guards. A company policy reference and the
+   person who knows where you are are notes the technician types in. Kept on this device only. */
 const Safety=(()=>{
  const ITEMS=[
   {id:'brief-job',group:'Before you leave',text:'Read the work order and know what you will open, climb or dig.'},
