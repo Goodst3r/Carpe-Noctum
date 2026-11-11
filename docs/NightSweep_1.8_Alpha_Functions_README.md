@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 24 screens and 41 entries.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 25 screens and 42 entries.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38 to 41.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage), and one Job screen, [Pre-work safety](#pre-work-safety). The custom-curves exercise gains five guide steps for them, and the feature index gains entries 38 to 42.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -33,12 +33,13 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 21. [Power what-if](#power-what-if)
 22. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
 23. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-24. [Project records and closeout](#project-records-and-closeout)
-25. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-26. [Offline use, updates and Help](#offline-use-updates-and-help)
-27. [Checked example answers](#checked-example-answers)
-28. [41-feature coverage index](#41-feature-coverage-index)
-29. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+24. [Pre-work safety](#pre-work-safety)
+25. [Project records and closeout](#project-records-and-closeout)
+26. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+27. [Offline use, updates and Help](#offline-use-updates-and-help)
+28. [Checked example answers](#checked-example-answers)
+29. [42-feature coverage index](#42-feature-coverage-index)
+30. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -50,7 +51,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Safety; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -94,7 +95,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 12 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage and pre-work safety | 13 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -525,6 +526,31 @@ An oversized/unsupported preview can remain an original attachment within the or
 
 Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm power, leakage field strength or proof of a measured level.
 
+## Pre-work safety
+
+**Where:** Job → Safety. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Tick off pre-work safety reminders.
+
+A reminder list to tick before you climb, open plant or work near a road. **It opens with "Follow company policy" and it is not your company's procedure.** The wording was written for this app from general field-safety practice. No NCTI or SCTE course text is copied; only course headings (NCTI Field Safety and Fiber-Optic Installation I: Safety, and the SCTE safety and construction domain) were consulted. A supervisor or safety officer has not reviewed it yet, so treat it as a prompt and keep to your company's rules, permits and training.
+
+| Section | What it reminds you about |
+| --- | --- |
+| Before you leave | The work order, the site's hazards, weather, telling someone where you are, a charged phone and your company's safety line |
+| Protective equipment | The equipment your company requires, checked before use |
+| Vehicle and traffic | Parking and warning devices, traffic control before working near traffic, the ground around the work area |
+| Ladders and climbing | Ladder and climbing-gear inspection, a stable set-up, the pole or strand, and overhead power lines |
+| Electrical | Treating plant as possibly energized, checking for stray voltage, your company's procedure for opening actives and power supplies, wet weather |
+| Digging and underground | Utility locates and the company's confined-space rules for vaults |
+| Fiber and laser | Never looking into a fiber end, scraps, approved inspection equipment, hygiene |
+| Before you leave the site | Tools and enclosures, telling your contact you are done, reporting hazards and near misses |
+
+**Your notes** (below the list): who knows where you are, written as a name or role, a check-in time on a 24-hour clock, and where your company keeps its safety policy or safety line. Enter no customer names, addresses or account numbers.
+
+**Change this list** opens an editor: reword any item, hide an original item (it moves to a hidden list with a Show again button), add your own item to any section, or Restore the original list. Start a new pass unticks everything and clears the notes for this job (it asks first); the note about where your company keeps its safety policy and your changes to the list stay. Save as text prepares a short note of the list and your notes to check before you share it. Clear everything on this device asks first and cannot be undone.
+
+**Where it is kept:** in this browser on this device only, for every job, under its own storage key. It is not in a job or its backups, and clearing browser data erases it. If this browser would not save a change, the screen says so and keeps it until the page closes. If the saved list cannot be read, a copy is kept and the original list is shown; if it was saved by a newer version of the app, this version will not overwrite it.
+
+What this screen leaves out on purpose: any numeric limit, rating or distance (those belong to your company's rules), regulatory requirements, and anything that would claim to be a complete safety procedure.
+
 ## Project records and closeout
 
 **Where:** Job → Acceptance. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
@@ -632,7 +658,7 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 41-feature coverage index
+## 42-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -679,6 +705,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 40 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 | 41 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
+| 42 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

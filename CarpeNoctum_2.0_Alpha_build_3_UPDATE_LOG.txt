@@ -157,6 +157,35 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (twelve in total)
      and the feature index gains entry 41.
 
+8. Pre-work safety card (build list item 9), Job -> Safety
+   - A reminder list to tick before climbing, opening plant or working near
+     a road: thirty-four items in eight sections (before you leave,
+     protective equipment, vehicle and traffic, ladders and climbing,
+     electrical, digging and underground, fiber and laser, before you leave
+     the site). It opens with "Follow company policy" and says it is not
+     any company's procedure. A supervisor or safety officer has not
+     reviewed it.
+   - The wording is original. No NCTI or SCTE course text is copied; only
+     course headings were consulted. The list holds no numbers, limits or
+     ratings, so it adds no registry row. Sources and open questions for a
+     supervisor: research/build3/SAFETY_SOURCES.md.
+   - The technician can tick items, reword or hide any original item, add
+     items, and type who knows where they are (a name or role), a check-in
+     time and where the company keeps its safety policy. Start a new pass
+     clears the ticks and the notes for the job. Save as text prepares a
+     short note to check before sharing.
+   - Kept on this device only under the new browser-storage key
+     nightsweep-safety-v1, outside jobs and their backups. Existing storage
+     keys and the job format are unchanged. A browser that will not store a
+     change keeps it for the page and writes it with the next change that
+     saves; unreadable data is copied aside (nightsweep-safety-v1-unreadable)
+     before it is replaced; data written by a newer version is never
+     overwritten.
+   - New shared engine night-sweep/checklist.js (also used by the outage
+     first-response card). New Job sub-tab: Safety.
+   - Practice: the custom-curves exercise gains a step (thirteen in total)
+     and the feature index gains entry 42.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
