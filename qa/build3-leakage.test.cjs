@@ -533,6 +533,6 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
   });
 
   console.log(`Build3 leakage: ${cases.length} checks passed (${comparisons} comparisons with the independent references)`);
-  fs.writeFileSync('qa/build3-leakage-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against research/build3/leakage-reference.json (Python decimal, 50 digits); JSDOM rendering, device-local notebook and job format. Synthetic readings only.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-leakage-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by leakage-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering, device-local notebook and job format. Synthetic readings only.' }, null, 2) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });
