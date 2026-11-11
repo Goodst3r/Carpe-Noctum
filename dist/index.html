@@ -243,7 +243,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -399,6 +399,7 @@ html[data-theme=sun] .sweep-split-switch button[aria-pressed=true]{background:#d
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
 <section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
+<section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
 <p class="note">90 V / 15 A are starting examples. Replace them with your supply’s operating voltage and nameplate current rating. This power circuit is separate from the RF route; choose the actual power feed to each point.</p>
@@ -3726,7 +3727,7 @@ const WorkflowUI=(()=>{
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['records','Acceptance'],['runsheet','Run sheet']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet']]}
  };
  const screens={
   station:['route','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
@@ -3750,6 +3751,7 @@ const WorkflowUI=(()=>{
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
+  outage:['job','Respond to an outage','First-response prompts: scope, power, node, actives in order, who to tell and the times. Not your company’s procedure; follow it first.'],
   safety:['job','Check safety before you work','Reminders to tick before you climb or open plant. They are not your company’s procedure; follow company policy.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
@@ -3767,7 +3769,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4017,6 +4019,7 @@ const TrainingJob=(()=>{
   ['docsis','Check modem levels against the spec','docsisHealth','','Open Test → DOCSIS health. Type 16 for the SC-QAM channel level: it is 1.0 dB above the −15 to +15 dBmV per 6 MHz range the modem must accept. Type 3.2 and it sits 11.8 dB inside. On the OFDM card set Measured over to 24 MHz and type −8: 1.0 dB inside the −9 to +21 range. Set the total-power card to a DOCSIS 3.1 modem and type 40 for total input power: it is at the limit, because the limit is strictly below 40 (33 for a 3.0-only modem, which you must choose first). For upstream, choose a 3.1 modem on a 3.1 CMTS and type 52 for total transmit power: the headroom to the 65 dBmV minimum Pmax is 13.0 dB. Each result says Unknown for your company window until you enter one; the spec range is what a modem must accept, not a target. All readings are synthetic.'],
   ['leakage','Check and log signal leakage','leakage','','Open Test → Leakage. In the limit check use 121.2625 MHz, an analog signal and 25 µV/m at 3 m: the limit that applies is 20 µV/m at 3 m, and the reading is 5 µV/m over it. In the CLI card type the leaks 100, 60, 50 with 0.8 of the plant examined: all three count, the sum of squares is 16,100, the index is 43.04 dB and it sits 21.0 dB at or below the printed value of 64. In the distance card 40 µV/m measured at 10 m is 133.3 µV/m at 3 m. Add one practice leak to the leak log by pole and date, type PRACTICE in the notes and use no customer names, mark it repaired, export the log, then use Delete on the practice entry so it never reaches a real export. The log, saved detector checks and company settings stay on this device and are not in the job backup. All readings are synthetic.'],
   ['safety','Tick off pre-work safety reminders','safety','','Open Job → Safety. The screen opens with “Follow company policy”: the list is a set of reminders written for this app, not your company’s procedure. Tick two or three reminders, then type who knows where you are as a role (for example crew lead), a check-in time on a 24-hour clock and where your company keeps its safety policy. Choose Change this list to reword an item, hide one or add your own, then choose the same button again to finish. Ticks, notes and changes stay on this device and are not in the job backup. All entries are practice values: do not type customer names or addresses.'],
+  ['outage','Walk through an outage first response','outage','','Open Job → Outage. The screen opens with “Follow your company’s outage procedure first”: the list is a set of prompts written for this app, not your company’s procedure. Tick the prompts for scope, power and the node, then type a plant place such as node leg 3 or amp 2, the time you arrived and what you found, all on a 24-hour clock. Fill in the optional damage or theft notes only if you suspect it, using roles and never names. Enter no customer names, addresses, phone numbers or account numbers. Choose Start a new call to clear the ticks and notes for the next one. Everything stays on this device and is not in the job backup. All entries are practice values.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4032,7 +4035,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'21 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'13 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'13 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'14 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4081,9 +4084,10 @@ const TrainingJob=(()=>{
   ['limits','Limits, labels and sources','Test','custom-curves','limits','limits','Synthetic profile criteria, the built-in local preset and unverified approximations, each with its label and source.'],
   ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream and upstream readings that land inside, outside and exactly on the spec range, with a company window that starts unknown.'],
   ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.'],
-  ['safety','Pre-work safety reminders','Job','custom-curves','safety','safety','A few reminders ticked, a role and a check-in time typed, and the list reworded, hidden and added to, all kept on this device and not in the job backup.']
+  ['safety','Pre-work safety reminders','Job','custom-curves','safety','safety','A few reminders ticked, a role and a check-in time typed, and the list reworded, hidden and added to, all kept on this device and not in the job backup.'],
+  ['outage','Outage first-response prompts','Job','custom-curves','outage','outage','Prompts ticked for scope, power and the node, a plant place and times typed, and a new call started, all kept on this device with no customer identifiers.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={station:'[data-station-target]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={station:'[data-station-target]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -6301,7 +6305,69 @@ const Safety=(()=>{
  return {ITEMS,FIELDS,list,OPTIONS,init};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"ae81c69e7f60486c2a40","worker":"sw.ae81c69e7f60486c2a40.js","appVersion":"2.0 Alpha build 3"}</script>
+<script>/* Build 3 outage first-response card (build list item 8). Prompts for the first steps of an outage call:
+   confirm the scope, check power, check the node, work through the actives in order, tell the right people,
+   write down the times. The wording is original and is not any company's outage procedure: the card says
+   so, and it needs a supervisor's review against the local procedure before coworkers use it.
+   It asks for plant places (node, leg, amp, pole) and roles, never customer names, addresses, phone numbers
+   or account numbers, and it has no limits or numbers, so it has no registry row. It does not hold photos
+   or locations. Kept on this device only. Built on the shared engine in checklist.js. */
+const Outage=(()=>{
+ const ITEMS=[
+  {id:'scope-what',group:'Confirm the scope',text:'Find out what is down: one tap or leg, an amplifier or node, or a wider area. Use plant names, not customer names.'},
+  {id:'scope-nearby',group:'Confirm the scope',text:'Check whether nearby nodes or services are also affected.'},
+  {id:'scope-planned',group:'Confirm the scope',text:'Check for planned work, a utility power outage or severe weather in the area.'},
+  {id:'scope-notes',group:'Confirm the scope',text:'Read the dispatch notes for the area. Do not copy customer names or addresses into this card.'},
+  {id:'safe-scene',group:'Safety on arrival',text:'Look over the site before you get out: traffic, downed lines, fire, flooding, people or animals. Leave and call it in if it is not safe.'},
+  {id:'safe-checklist',group:'Safety on arrival',text:'Complete your company’s pre-work safety steps. Job → Safety has reminders.'},
+  {id:'power-ac',group:'Power',text:'Check whether utility AC power is present at the power supply.'},
+  {id:'power-status',group:'Power',text:'Check the power supply’s status: on utility power or on battery, and any alarm lights. Note what you see.'},
+  {id:'power-report',group:'Power',text:'If the supply is on battery or off, tell your supervisor or the ROC and note how long it has been out, if you know.'},
+  {id:'node-lights',group:'Node and optics',text:'Check the node’s status lights and any alarm. Note them.'},
+  {id:'node-optics',group:'Node and optics',text:'Check the optical input and the return path indicator with your approved meter. Note the reading and the value your company expects.'},
+  {id:'node-nolight',group:'Node and optics',text:'If there is no light, follow your company’s fiber procedure and call it in. Never look into a fiber end.'},
+  {id:'act-order',group:'Actives, in order',text:'Work outward from the node, one active at a time, checking power and signal at each.'},
+  {id:'act-last',group:'Actives, in order',text:'Note the last active that works and the first one that does not.'},
+  {id:'act-between',group:'Actives, in order',text:'If the fault lies between two actives, check the passives and cable between them next.'},
+  {id:'tell-roc',group:'Tell the right people',text:'Tell the ROC or dispatch what you found, where and when. Use plant names and your company’s work reference.'},
+  {id:'tell-supervisor',group:'Tell the right people',text:'Tell your supervisor if the cause is unclear, you need help or the repair needs more people or equipment.'},
+  {id:'tell-damage',group:'Tell the right people',text:'If you suspect damage, theft or vandalism, tell your supervisor and follow your company’s procedure before you touch anything.'},
+  {id:'dmg-safe',group:'If damage or theft is suspected',text:'Make sure the area is safe first. Do not confront anyone.'},
+  {id:'dmg-leave',group:'If damage or theft is suspected',text:'Leave the scene as it is until your company’s procedure says it may be changed.'},
+  {id:'dmg-record',group:'If damage or theft is suspected',text:'Write down what you found, where and when, as your company’s procedure says. Leave customers out of it.'},
+  {id:'rec-times',group:'Record the times',text:'Write down when you arrived, found the cause, told the ROC and when service came back. Fill them in below.'},
+  {id:'rec-cause',group:'Record the times',text:'Write down what you found and what you did, in plant terms.'},
+  {id:'rec-restored',group:'Record the times',text:'Confirm with the ROC that service is back before you leave.'}
+ ];
+ const FIELDS=[
+  {id:'where',label:'Where on the plant (node, leg, amp or pole; no customer names or addresses)',type:'text',max:120,hint:'e.g. node leg 3, amp 2'},
+  {id:'arrived',label:'Time I arrived (24-hour)',type:'time'},
+  {id:'found',label:'Time I found the cause (24-hour)',type:'time'},
+  {id:'told',label:'Time I told the ROC or dispatch (24-hour)',type:'time'},
+  {id:'restored',label:'Time service was restored (24-hour)',type:'time'},
+  {id:'cause',label:'What I found and did (plant terms)',type:'text',max:120},
+  {id:'tellwho',label:'Who I told (a role, such as dispatch or supervisor)',type:'text',max:80},
+  {id:'damage',label:'If damage or theft is suspected: what was found',type:'text',max:120},
+  {id:'damagetold',label:'Damage or theft: who was told (a role)',type:'text',max:80},
+  {id:'damagetime',label:'Damage or theft: time it was reported (24-hour)',type:'time'}
+ ];
+ const list=Checklist.create({key:'nightsweep-outage-v1',items:ITEMS,fields:FIELDS});
+ const OPTIONS={panelId:'outagePanel',prefix:'outage',title:'Outage first response',
+  lead:'Prompts for the first steps of an outage call: scope, power, node, actives in order, who to tell and the times. Change the list to match your company’s own.',
+  policy:'Follow your company’s outage procedure first, and your supervisor’s direction. This list is a set of prompts written for this app. It is not your company’s procedure. Enter plant places and roles only: no customer names, addresses, phone numbers or account numbers.',
+  source:'Wording written for this app from general field practice; no NCTI or SCTE text is copied. The damage and theft prompts only point at SCTE’s 2026 Critical Infrastructure Protection Subcommittee, which is still writing its evidence-collection standard; this card does not implement it.',
+  reviewNote:'A supervisor has not yet reviewed it against your local outage procedure, and that review is needed before coworkers use it.',
+  startLabel:'Start a new call',exportName:'CarpeNoctum_2.0_Alpha_build_3_Outage_First_Response.txt',exportTitle:'Outage first-response notes (not a company procedure)'};
+ let ui=null;
+ function init(){
+  if(ui||typeof document==='undefined')return;
+  let st=null;try{st=window.localStorage;}catch(_){}
+  list.load(st);ui=ChecklistUI.mount(OPTIONS,list);
+ }
+ return {ITEMS,FIELDS,list,OPTIONS,init};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();initWorkflow();initTraining();</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"65bb457d1765c88372bf","worker":"sw.65bb457d1765c88372bf.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
