@@ -14,7 +14,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
 | Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 14 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, attached sweep grading and the DOCSIS health card (added in 2.0 Alpha build 3); twelve steps | Synthetic entered teaching tables and calculator inputs |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, attached sweep grading the DOCSIS health card and leakage tools (added in 2.0 Alpha build 3); thirteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -38,6 +38,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Job → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |
 | Test → Limits | Custom curves | Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3) |
 | Test → DOCSIS health | Custom curves | Synthetic downstream and upstream readings against the modem requirements, with a company window that starts unknown (2.0 Alpha build 3) |
+| Test → Leakage | Custom curves | Synthetic leaks against the FCC 3 m limits, the CLI worked example, the 3 m distance restatement and a leak log kept on this device (2.0 Alpha build 3) |
 | Power → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |
 | Power → What-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
 | Job → Details | Complete | Work order, named save/open, duplicate and new blank job |
@@ -96,4 +97,4 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**14 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **42 choices**, including Station, Calculators, Limits, the attached sweep grading aid and DOCSIS health. The custom-curves exercise has **12 steps**; its grading step uses invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**14 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **43 choices**, including Station, Calculators, Limits, the attached sweep grading aid, DOCSIS health and leakage. The custom-curves exercise has **13 steps**; its grading step uses invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
