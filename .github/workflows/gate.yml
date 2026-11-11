@@ -85,6 +85,11 @@ jobs:
 
       - name: Keep the run record
         if: always()
+        # Uploading the record is a convenience. It must not turn a gate whose test
+        # steps all passed red: on run 3 every step before this one passed and this
+        # one was marked failed after about ten minutes.
+        continue-on-error: true
+        timeout-minutes: 5
         uses: actions/upload-artifact@v4
         with:
           name: gate-results
