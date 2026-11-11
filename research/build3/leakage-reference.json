@@ -1,0 +1,1277 @@
+{
+ "generated_by": "research/build3/leakage-reference.py",
+ "precision_digits": 50,
+ "rules": {
+  "limits": {
+   "near_54_to_216_MHz": {
+    "analog": 20,
+    "digital": 17.4,
+    "distance_m": 3
+   },
+   "far": {
+    "analog": 15,
+    "digital": 13.1,
+    "distance_m": 30
+   }
+  },
+  "cli_limit": 64,
+  "cli_min_leak": 50,
+  "cli_sampling": 0.75
+ },
+ "cases": {
+  "rule": [
+   {
+    "input": {
+     "frequency": "5",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "5",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "30",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "30",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "54",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "54",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "54.0001",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "20",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "54.0001",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "17.4",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "55",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "20",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "55",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "17.4",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "20",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "17.4",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "216",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "20",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "216",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "17.4",
+     "distance": "3"
+    }
+   },
+   {
+    "input": {
+     "frequency": "216.0001",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "216.0001",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "300",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "300",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "1218",
+     "kind": "analog"
+    },
+    "expected": {
+     "limit": "15",
+     "distance": "30"
+    }
+   },
+   {
+    "input": {
+     "frequency": "1218",
+     "kind": "digital"
+    },
+    "expected": {
+     "limit": "13.1",
+     "distance": "30"
+    }
+   }
+  ],
+  "limit": [
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog",
+     "field": "20",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "20",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog",
+     "field": "20.01",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "20.01",
+     "status": "over",
+     "ratioDb": "0.0043418594446041656382576750213364676748886990367470",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "digital",
+     "field": "17.4",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "17.4",
+     "ruleDistance": "3",
+     "atRule": "17.4",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "digital",
+     "field": "17.41",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "17.4",
+     "ruleDistance": "3",
+     "atRule": "17.41",
+     "status": "over",
+     "ratioDb": "0.0049904566946296628421825992508074802058132550735632",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog",
+     "field": "10",
+     "distance": "6",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "20",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "6",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog",
+     "field": "40",
+     "distance": "10",
+     "unit": "ft"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "40.6400",
+     "status": "over",
+     "ratioDb": "6.1584740722376329020388600145051673129864553128166",
+     "metres": "3.0480",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "digital",
+     "field": "55",
+     "distance": "1",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "17.4",
+     "ruleDistance": "3",
+     "atRule": "18.333333333333333333333333333333333333333333333333",
+     "status": "over",
+     "ratioDb": "0.45384372983963376799639224629105157031540562547374",
+     "metres": "1",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "121.2625",
+     "kind": "analog",
+     "field": "3",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "30",
+     "status": "over",
+     "ratioDb": "3.5218251811136248416257801706124456486387796545718",
+     "metres": "30",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "analog",
+     "field": "15",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "15",
+     "ruleDistance": "30",
+     "atRule": "15",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "30",
+     "converted": false,
+     "countsForCli": true
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "digital",
+     "field": "13.2",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "13.1",
+     "ruleDistance": "30",
+     "atRule": "13.2",
+     "status": "over",
+     "ratioDb": "0.066052711001712153253027864987740193260954009194452",
+     "metres": "30",
+     "converted": false,
+     "countsForCli": true
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "digital",
+     "field": "13.1",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "13.1",
+     "ruleDistance": "30",
+     "atRule": "13.1",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "30",
+     "converted": false,
+     "countsForCli": true
+    }
+   },
+   {
+    "input": {
+     "frequency": "750",
+     "kind": "analog",
+     "field": "1.4",
+     "distance": "300",
+     "unit": "ft"
+    },
+    "expected": {
+     "limit": "15",
+     "ruleDistance": "30",
+     "atRule": "4.26720",
+     "status": "within",
+     "ratioDb": "-10.918965214197606579442036919152248281978299131462",
+     "metres": "91.4400",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "30",
+     "kind": "analog",
+     "field": "5",
+     "distance": "100",
+     "unit": "ft"
+    },
+    "expected": {
+     "limit": "15",
+     "ruleDistance": "30",
+     "atRule": "5.0800",
+     "status": "within",
+     "ratioDb": "-9.4045509354352397481364759450869994063799196002394",
+     "metres": "30.4800",
+     "converted": true,
+     "countsForCli": true
+    }
+   },
+   {
+    "input": {
+     "frequency": "216",
+     "kind": "digital",
+     "field": "17.4",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "17.4",
+     "ruleDistance": "3",
+     "atRule": "17.4",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "216.0001",
+     "kind": "digital",
+     "field": "17.4",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "13.1",
+     "ruleDistance": "30",
+     "atRule": "1.74",
+     "status": "within",
+     "ratioDb": "-17.534440947463290819368814194977505351150999071634",
+     "metres": "3",
+     "converted": true,
+     "countsForCli": false
+    }
+   },
+   {
+    "input": {
+     "frequency": "54",
+     "kind": "analog",
+     "field": "15",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "15",
+     "ruleDistance": "30",
+     "atRule": "15",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "30",
+     "converted": false,
+     "countsForCli": true
+    }
+   },
+   {
+    "input": {
+     "frequency": "54.0001",
+     "kind": "analog",
+     "field": "20",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "limit": "20",
+     "ruleDistance": "3",
+     "atRule": "20",
+     "status": "within",
+     "ratioDb": "0",
+     "metres": "3",
+     "converted": false,
+     "countsForCli": false
+    }
+   }
+  ],
+  "normalize": [
+   {
+    "input": {
+     "field": "40",
+     "distance": "10",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "133.33333333333333333333333333333333333333333333333",
+     "at30": "13.333333333333333333333333333333333333333333333333",
+     "metres": "10",
+     "feet": "32.808398950131233595800524934383202099737532808399"
+    }
+   },
+   {
+    "input": {
+     "field": "40",
+     "distance": "3",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "40",
+     "at30": "4",
+     "metres": "3",
+     "feet": "9.8425196850393700787401574803149606299212598425197"
+    }
+   },
+   {
+    "input": {
+     "field": "100",
+     "distance": "30",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "1000",
+     "at30": "100",
+     "metres": "30",
+     "feet": "98.425196850393700787401574803149606299212598425197"
+    }
+   },
+   {
+    "input": {
+     "field": "25",
+     "distance": "10",
+     "unit": "ft"
+    },
+    "expected": {
+     "at3": "25.4000",
+     "at30": "2.5400",
+     "metres": "3.0480",
+     "feet": "10"
+    }
+   },
+   {
+    "input": {
+     "field": "60",
+     "distance": "1",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "20",
+     "at30": "2",
+     "metres": "1",
+     "feet": "3.2808398950131233595800524934383202099737532808399"
+    }
+   },
+   {
+    "input": {
+     "field": "7.5",
+     "distance": "100",
+     "unit": "ft"
+    },
+    "expected": {
+     "at3": "76.20000",
+     "at30": "7.62000",
+     "metres": "30.4800",
+     "feet": "100"
+    }
+   },
+   {
+    "input": {
+     "field": "12",
+     "distance": "3.048",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "12.192",
+     "at30": "1.2192",
+     "metres": "3.048",
+     "feet": "1E+1"
+    }
+   },
+   {
+    "input": {
+     "field": "250",
+     "distance": "0.5",
+     "unit": "m"
+    },
+    "expected": {
+     "at3": "41.666666666666666666666666666666666666666666666667",
+     "at30": "4.1666666666666666666666666666666666666666666666667",
+     "metres": "0.5",
+     "feet": "1.6404199475065616797900262467191601049868766404199"
+    }
+   }
+  ],
+  "cli": [
+   {
+    "input": {
+     "leaks": "100 60 50",
+     "theta": "0.8"
+    },
+    "expected": {
+     "theta": "0.8",
+     "entered": 3,
+     "counted": 3,
+     "ignored": 0,
+     "sumSquares": "16100",
+     "index": "20125",
+     "cli": "43.037358890399061239387766866703466628765137862737",
+     "status": "at-or-below",
+     "margin": "20.962641109600938760612233133296533371234862137263",
+     "strongest": "40.969100130080564143587833158265209196954303556137"
+    }
+   },
+   {
+    "input": {
+     "leaks": "120 85 60 250 50",
+     "theta": "0.8"
+    },
+    "expected": {
+     "theta": "0.8",
+     "entered": 5,
+     "counted": 5,
+     "ignored": 0,
+     "sumSquares": "90225",
+     "index": "112781.25",
+     "cli": "50.522369037396012050660024810371909820782972844444",
+     "status": "at-or-below",
+     "margin": "13.477630962603987949339975189628090179217027155556",
+     "strongest": "48.927900303521316335038277369285488126226708297652"
+    }
+   },
+   {
+    "input": {
+     "leaks": "49.99 50 50.01",
+     "theta": "1"
+    },
+    "expected": {
+     "theta": "1",
+     "entered": 3,
+     "counted": 2,
+     "ignored": 1,
+     "sumSquares": "5001.0001",
+     "index": "5001.0001",
+     "cli": "36.990568632318204826945346643282522299206092844525",
+     "status": "at-or-below",
+     "margin": "27.009431367681795173054653356717477700793907155475",
+     "strongest": "33.981137090953355240303218068754357597218949010072"
+    }
+   },
+   {
+    "input": {
+     "leaks": "10 20 30 49",
+     "theta": "0.9"
+    },
+    "expected": {
+     "theta": "0.9",
+     "entered": 4,
+     "counted": 0,
+     "ignored": 4,
+     "sumSquares": "0",
+     "index": "0E+1",
+     "cli": null,
+     "status": "none-counted"
+    }
+   },
+   {
+    "input": {
+     "leaks": "50",
+     "theta": "1"
+    },
+    "expected": {
+     "theta": "1",
+     "entered": 1,
+     "counted": 1,
+     "ignored": 0,
+     "sumSquares": "2500",
+     "index": "2500",
+     "cli": "33.979400086720376095725222105510139464636202370758",
+     "status": "at-or-below",
+     "margin": "30.020599913279623904274777894489860535363797629242",
+     "strongest": "33.979400086720376095725222105510139464636202370758"
+    }
+   },
+   {
+    "input": {
+     "leaks": "1000",
+     "theta": "0.75"
+    },
+    "expected": {
+     "theta": "0.75",
+     "entered": 1,
+     "counted": 1,
+     "ignored": 0,
+     "sumSquares": "1000000",
+     "index": "1333333.3333333333333333333333333333333333333333333",
+     "cli": "61.249387366082999531324498861938707443362508987335",
+     "status": "at-or-below",
+     "margin": "2.750612633917000468675501138061292556637491012665",
+     "strongest": "61.249387366082999531324498861938707443362508987335"
+    }
+   },
+   {
+    "input": {
+     "leaks": "1000 1000 1000 1000 1000 1000",
+     "theta": "0.5"
+    },
+    "expected": {
+     "theta": "0.5",
+     "entered": 6,
+     "counted": 6,
+     "ignored": 0,
+     "sumSquares": "6000000",
+     "index": "1.200000E+7",
+     "cli": "70.791812460476248277225056927041013627365086271149",
+     "status": "above",
+     "margin": "6.791812460476248277225056927041013627365086271149",
+     "strongest": "63.010299956639811952137388947244930267681898814621"
+    }
+   },
+   {
+    "input": {
+     "leaks": "75 75 75 75",
+     "theta": "0.25"
+    },
+    "expected": {
+     "theta": "0.25",
+     "entered": 4,
+     "counted": 4,
+     "ignored": 0,
+     "sumSquares": "22500",
+     "index": "9.00E+4",
+     "cli": "49.542425094393248745900558065102306184002577283814",
+     "status": "at-or-below",
+     "margin": "14.457574905606751254099441934897693815997422716186",
+     "strongest": "43.521825181113624841625780170612445648638779654572"
+    }
+   },
+   {
+    "input": {
+     "leaks": "55.5 62.25 48 51",
+     "theta": "0.6"
+    },
+    "expected": {
+     "theta": "0.6",
+     "entered": 4,
+     "counted": 3,
+     "ignored": 1,
+     "sumSquares": "9556.3125",
+     "index": "15927.1875",
+     "cli": "42.021390927459480335572061373608231927321972551028",
+     "status": "at-or-below",
+     "margin": "21.978609072540519664427938626391768072678027448972",
+     "strongest": "38.101274611519042688918541336871726693624547730414"
+    }
+   },
+   {
+    "input": {
+     "leaks": "5000 4000 3000",
+     "theta": "1"
+    },
+    "expected": {
+     "theta": "1",
+     "entered": 3,
+     "counted": 3,
+     "ignored": 0,
+     "sumSquares": "50000000",
+     "index": "50000000",
+     "cli": "76.989700043360188047862611052755069732318101185379",
+     "status": "above",
+     "margin": "12.989700043360188047862611052755069732318101185379",
+     "strongest": "73.979400086720376095725222105510139464636202370758"
+    }
+   },
+   {
+    "input": {
+     "leaks": "120 85 60 250 50",
+     "tested": "160",
+     "total": "200"
+    },
+    "expected": {
+     "theta": "0.8",
+     "entered": 5,
+     "counted": 5,
+     "ignored": 0,
+     "sumSquares": "90225",
+     "index": "112781.25",
+     "cli": "50.522369037396012050660024810371909820782972844444",
+     "status": "at-or-below",
+     "margin": "13.477630962603987949339975189628090179217027155556",
+     "strongest": "48.927900303521316335038277369285488126226708297652"
+    }
+   },
+   {
+    "input": {
+     "leaks": "100 60 50",
+     "tested": "37.5",
+     "total": "50"
+    },
+    "expected": {
+     "theta": "0.75",
+     "entered": 3,
+     "counted": 3,
+     "ignored": 0,
+     "sumSquares": "16100",
+     "index": "21466.666666666666666666666666666666666666666666667",
+     "cli": "43.317646126401496627124432570376964875173343293936",
+     "status": "at-or-below",
+     "margin": "20.682353873598503372875567429623035124826656706064",
+     "strongest": "41.249387366082999531324498861938707443362508987335"
+    }
+   },
+   {
+    "input": {
+     "leaks": "200",
+     "tested": "10",
+     "total": "10"
+    },
+    "expected": {
+     "theta": "1",
+     "entered": 1,
+     "counted": 1,
+     "ignored": 0,
+     "sumSquares": "40000",
+     "index": "40000",
+     "cli": "46.020599913279623904274777894489860535363797629242",
+     "status": "at-or-below",
+     "margin": "17.979400086720376095725222105510139464636202370758",
+     "strongest": "46.020599913279623904274777894489860535363797629242"
+    }
+   }
+  ],
+  "detector": [
+   {
+    "input": {
+     "method": "direct",
+     "expected": "20",
+     "read": "20"
+    },
+    "expected": {
+     "diffDb": "0",
+     "percent": "0"
+    }
+   },
+   {
+    "input": {
+     "method": "direct",
+     "expected": "20",
+     "read": "22"
+    },
+    "expected": {
+     "diffDb": "0.82785370316450081500399942486048483413404380932906",
+     "percent": "10.0"
+    }
+   },
+   {
+    "input": {
+     "method": "direct",
+     "expected": "20",
+     "read": "18"
+    },
+    "expected": {
+     "diffDb": "-0.91514981121350250819888386979538763199484543237216",
+     "percent": "-10.0"
+    }
+   },
+   {
+    "input": {
+     "method": "direct",
+     "expected": "100",
+     "read": "50"
+    },
+    "expected": {
+     "diffDb": "-6.0205999132796239042747778944898605353637976292422",
+     "percent": "-50.0"
+    }
+   },
+   {
+    "input": {
+     "method": "direct",
+     "expected": "30",
+     "read": "60"
+    },
+    "expected": {
+     "diffDb": "6.0205999132796239042747778944898605353637976292422",
+     "percent": "100"
+    }
+   },
+   {
+    "input": {
+     "method": "direct",
+     "expected": "15",
+     "read": "15.5"
+    },
+    "expected": {
+     "diffDb": "0.28480878229220484743352393726600826207145388226950",
+     "percent": "3.3333333333333333333333333333333333333333333333333"
+    }
+   }
+  ],
+  "tolerance": [
+   {
+    "diffDb": "1.5",
+    "tolerance": "2",
+    "expected": {
+     "status": "within",
+     "margin": "0.5"
+    }
+   },
+   {
+    "diffDb": "-1.5",
+    "tolerance": "2",
+    "expected": {
+     "status": "within",
+     "margin": "0.5"
+    }
+   },
+   {
+    "diffDb": "2",
+    "tolerance": "2",
+    "expected": {
+     "status": "within",
+     "margin": "0"
+    }
+   },
+   {
+    "diffDb": "2.01",
+    "tolerance": "2",
+    "expected": {
+     "status": "outside",
+     "margin": "0.01"
+    }
+   },
+   {
+    "diffDb": "-2.5",
+    "tolerance": "2",
+    "expected": {
+     "status": "outside",
+     "margin": "0.5"
+    }
+   },
+   {
+    "diffDb": "0",
+    "tolerance": "0",
+    "expected": {
+     "status": "within",
+     "margin": "0"
+    }
+   },
+   {
+    "diffDb": "0.1",
+    "tolerance": "0",
+    "expected": {
+     "status": "outside",
+     "margin": "0.1"
+    }
+   },
+   {
+    "diffDb": "3",
+    "tolerance": null,
+    "expected": {
+     "status": "unknown",
+     "margin": null
+    }
+   },
+   {
+    "diffDb": "3",
+    "tolerance": "",
+    "expected": {
+     "status": "unknown",
+     "margin": null
+    }
+   }
+  ],
+  "errors": [
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "",
+     "kind": "analog",
+     "field": "10",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "121",
+     "kind": "",
+     "field": "10",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "121",
+     "kind": "analog",
+     "field": "0",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "121",
+     "kind": "analog",
+     "field": "10",
+     "distance": "3",
+     "unit": ""
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "121",
+     "kind": "analog",
+     "field": "10",
+     "distance": "-3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "121",
+     "kind": "analog",
+     "field": "0x10",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "checkLimit",
+    "input": {
+     "frequency": "5000",
+     "kind": "analog",
+     "field": "10",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "normalize",
+    "input": {
+     "field": "",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "normalize",
+    "input": {
+     "field": "10",
+     "distance": "0",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "normalize",
+    "input": {
+     "field": "10",
+     "distance": "5000",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "normalize",
+    "input": {
+     "field": "10",
+     "distance": "3"
+    }
+   },
+   {
+    "fn": "normalize",
+    "input": {
+     "field": "1e7",
+     "distance": "3",
+     "unit": "m"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "",
+     "theta": "0.8"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100, abc",
+     "theta": "0.8"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100, -5",
+     "theta": "0.8"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100 0",
+     "theta": "0.8"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "theta": ""
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "theta": "0"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "theta": "1.1"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "tested": "220",
+     "total": "200"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "tested": "50"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "100",
+     "tested": "0",
+     "total": "200"
+    }
+   },
+   {
+    "fn": "cli",
+    "input": {
+     "leaks": "0x64",
+     "theta": "0.8"
+    }
+   },
+   {
+    "fn": "detector",
+    "input": {
+     "method": "",
+     "expected": "20",
+     "read": "22"
+    }
+   },
+   {
+    "fn": "detector",
+    "input": {
+     "method": "direct",
+     "expected": "0",
+     "read": "22"
+    }
+   },
+   {
+    "fn": "detector",
+    "input": {
+     "method": "direct",
+     "expected": "20",
+     "read": ""
+    }
+   },
+   {
+    "fn": "detector",
+    "input": {
+     "method": "constructor",
+     "expected": "20",
+     "read": "22"
+    }
+   }
+  ]
+ }
+}

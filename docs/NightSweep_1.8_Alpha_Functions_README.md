@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 23 screens and 40 entries.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 24 screens and 41 entries.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 40.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38 to 41.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -28,16 +28,17 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 16. [Field calculators](#field-calculators)
 17. [Limits and sources](#limits-and-sources)
 18. [DOCSIS health card](#docsis-health-card)
-19. [Power-supply load](#power-supply-load)
-20. [Power what-if](#power-what-if)
-21. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-22. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-23. [Project records and closeout](#project-records-and-closeout)
-24. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-25. [Offline use, updates and Help](#offline-use-updates-and-help)
-26. [Checked example answers](#checked-example-answers)
-27. [40-feature coverage index](#40-feature-coverage-index)
-28. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+19. [Leakage](#leakage)
+20. [Power-supply load](#power-supply-load)
+21. [Power what-if](#power-what-if)
+22. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+23. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+24. [Project records and closeout](#project-records-and-closeout)
+25. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+26. [Offline use, updates and Help](#offline-use-updates-and-help)
+27. [Checked example answers](#checked-example-answers)
+28. [41-feature coverage index](#41-feature-coverage-index)
+29. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -47,7 +48,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -93,7 +94,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 11 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 12 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -413,6 +414,28 @@ Checked worked numbers: 16 dBmV on an SC-QAM channel is **1.0 dB above** the ran
 
 What this card leaves out on purpose: MER and SNR, per-channel upstream power, the limit on level differences between channels, DOCSIS 4.0, and the EuroDOCSIS 8 MHz ranges, which differ from the North American ones used here.
 
+## Leakage
+
+**Where:** Test → Leakage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check and log signal leakage.
+
+Five tools for signal leakage on one screen. **This is your own notebook and calculator, not the company's official leak record, and none of its results is a filing.** Nothing is sent anywhere, and the leak log, saved detector checks and company settings are kept in the browser on this device only. They are **not** part of a job or its full backup, so export a copy of the log before clearing browser data.
+
+| Tool | Enter | What it does | Source tag |
+| --- | --- | --- | --- |
+| FCC leakage limit check | Test frequency (MHz), analog or digital, the field strength (µV/m) and the distance from the leak | Picks the limit for the band and compares your reading with it at the rule's distance. The limits as the rule prints them: analog 15 µV/m and digital 13.1 µV/m at 30 m at 54 MHz and below and over 216 MHz; analog 20 µV/m and digital 17.4 µV/m at 3 m over 54 MHz up to and including 216 MHz. A reading exactly at the limit is within it | Spec · 47 CFR 76.605(c), Table 1 |
+| Distance to 3 m | Field strength and distance in metres or feet | Restates the reading at 3 m and at 30 m: E at 3 m ≈ E measured × distance ÷ 3 m. In the far field the field strength falls in proportion to distance; very close to the leak it does not, so the card warns inside 3 m. A restated reading is approximate | Expert · far-field relation; SCTE 293-12 for the definitions (secondary: summary and definitions read) |
+| Cumulative leakage index (CLI) | The field strength of each leak at 3 m, and the fraction of the plant examined (or strand miles tested and total) | 10·log10 of (1 ÷ fraction examined) × the sum of each leak's field strength squared, counting only leaks of 50 µV/m or more at 3 m, compared with the printed value of 64. If no leak counts the card says so instead of showing zero. Under 75% examined it warns, because the rule asks for at least 75% of the strand. Strengths must already be on the 108–137 MHz basis: the FCC's frequency correlation is not done here | Spec · 47 CFR 76.611(a)(1) |
+| Detector check | The check method (a directly connected source, or a calibrated leak with a half-wave dipole), the expected and read values (µV/m) and the date | The difference in dB and per cent, and whether it is within your company tolerance, which starts unknown. Checks can be saved on this device | Expert · SCTE 289 2024r1 (secondary: only the SCTE catalog summary was read) |
+| Leak log | Date found, where (pole, tap or cross street), probable cause, date repaired (blank while open), and optionally field strength, distance, frequency and notes | A list of leaks with open ones marked, the 3 m equivalent and whether it counts in the CLI, a Mark repaired action, a Delete action and an **Export log (CSV)**. The fields follow 47 CFR 76.1706 (date and location found, date repaired, probable cause; operators keep the log for two years) | Spec · 47 CFR 76.1706 |
+
+**Company settings** (a box at the bottom): your repair threshold in µV/m at 3 m, which flags open leaks in the log at or above it, and your detector tolerance in ± dB. Both start unknown; blank is never zero. They are one set for the whole device and appear in **Test → Limits** under their own heading. The FCC limits are ceilings, not repair targets: many operators repair sooner, and the threshold is yours to enter.
+
+**Keep the log free of customer information.** Describe a place by pole, tap or cross street. Do not enter customer names, addresses or account numbers. Clearing the log needs a confirmation and also clears the saved detector checks and company settings.
+
+Checked worked numbers: 25 µV/m analog at 3 m and 121.2625 MHz is **5 µV/m over** the 20 µV/m limit; leaks of 100, 60 and 50 µV/m with 0.8 of the plant examined give a sum of squares of **16,100**, an index of 16,100 ÷ 0.8 = 20,125, which is **43.04 dB**, 21.0 dB at or below 64; leaks of 120, 85, 60, 250 and 50 µV/m at 0.8 give **50.52 dB**; 40 µV/m at 10 m is **133.3 µV/m** at 3 m.
+
+What this screen leaves out on purpose: the airspace measurement alternative, the correction for a test frequency outside 108–137 MHz, the half-wave dipole voltage to field-strength conversion, per-job leak logs and live detector or GPS data.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -607,7 +630,7 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 40-feature coverage index
+## 41-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -653,6 +676,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 40 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
+| 41 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

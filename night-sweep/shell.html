@@ -31,6 +31,7 @@
 <section class="panel calculator-panel" data-screen="test" hidden="" id="calculatorPanel"></section>
 <section class="panel limits-panel" data-screen="test" hidden="" id="limitsPanel"></section>
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
+<section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
 <p class="note">90 V / 15 A are starting examples. Replace them with your supply’s operating voltage and nameplate current rating. This power circuit is separate from the RF route; choose the actual power feed to each point.</p>
@@ -84,5 +85,6 @@
 <script><!--ALIGNMENT--></script>
 <script><!--FIELDCALCS--></script>
 <script><!--DOCSISHEALTH--></script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();DocsisHealthUI.init();initWorkflow();initTraining();</script>
+<script><!--LEAKAGE--></script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();DocsisHealthUI.init();LeakageUI.init();initWorkflow();initTraining();</script>
 </body></html>

@@ -56,6 +56,18 @@ FILL_DOCSIS = '''() => {
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
   set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
 }'''
+FILL_LEAK = '''() => {
+  const set = (sel, v, type = 'input') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
+  set('[data-leak="limit"][data-field="frequency"]', '121.2625'); set('[data-leak="limit"][data-field="kind"]', 'analog', 'change');
+  set('[data-leak="limit"][data-field="field"]', '2500.125'); set('[data-leak="limit"][data-field="distance"]', '33'); set('[data-leak="limit"][data-field="unit"]', 'ft', 'change');
+  set('[data-leak="normalize"][data-field="field"]', '4000000'); set('[data-leak="normalize"][data-field="distance"]', '0.5'); set('[data-leak="normalize"][data-field="unit"]', 'm', 'change');
+  set('[data-leak="cli"][data-field="leaks"]', '120 85 60 250 50 1000000 49 12'); set('[data-leak="cli"][data-field="theta"]', '0.5');
+  set('[data-leak="detector"][data-field="method"]', 'dipole', 'change'); set('[data-leak="detector"][data-field="expected"]', '20'); set('[data-leak="detector"][data-field="read"]', '31.5');
+  set('[data-leak="log"][data-field="found"]', '2026-11-10'); set('[data-leak="log"][data-field="location"]', 'Pole 14 at the corner of Elm Street and Third Avenue near the substation');
+  set('[data-leak="log"][data-field="cause"]', 'Loose drop connector at the tap port'); set('[data-leak="log"][data-field="field"]', '80'); set('[data-leak="log"][data-field="distance"]', '10'); set('[data-leak="log"][data-field="frequency"]', '121.2625');
+  document.getElementById('leakAdd').click();
+  document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
+}'''
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
@@ -94,11 +106,27 @@ try:
                 check(f'{label} DOCSIS health tag text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
                 inputs = page.evaluate("[...document.querySelectorAll('#docsisHealthPanel input,#docsisHealthPanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
                 check(f'{label} DOCSIS health inputs keep field-sized controls', inputs and min(inputs) >= 40)
-                check(f'{label} DOCSIS health company-window headings are 44 px tap targets', page.evaluate("[...document.querySelectorAll('.health-window>summary')].every(s=>s.getBoundingClientRect().height>=44)"))
+                check(f'{label} DOCSIS health company-window headings are 44 px tap targets', page.evaluate("[...document.querySelectorAll('#docsisHealthPanel .health-window>summary')].every(s=>s.getBoundingClientRect().height>=44)"))
                 check(f'{label} DOCSIS health states each result in words, not color alone', page.evaluate("[...document.querySelectorAll('.health-status')].length>=4&&[...document.querySelectorAll('.health-status')].every(s=>/^(✓|⚠|•)/.test(s.textContent.trim()))"))
                 check(f'{label} DOCSIS health shows the derived OFDM range with its long text inside the card', page.evaluate("(()=>{const r=document.getElementById('health-ofdm-result');return /Derived range, over 96 MHz/.test(r.textContent)&&r.scrollWidth<=r.clientWidth+1})()"))
                 page.evaluate("document.querySelector('[data-health=\"ofdm\"][data-field=\"basis\"]').value='6';document.querySelector('[data-health=\"ofdm\"][data-field=\"basis\"]').dispatchEvent(new Event('change',{bubbles:true}))")
                 check(f'{label} the occupied-bandwidth field is really hidden unless another bandwidth is chosen', page.evaluate("getComputedStyle(document.querySelector('[data-health-other]')).display==='none'"))
+                page.evaluate("WorkflowUI.go('leakage')")
+                page.evaluate(FILL_LEAK)
+                check(f'{label} Leakage fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                cards = page.evaluate("[...document.querySelectorAll('.leak-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                check(f'{label} every Leakage card stays inside the viewport', len(cards) == 5 and all(l >= -1 and r <= width + 1 for l, r in cards))
+                check(f'{label} Leakage results and log entries wrap inside their cards', page.evaluate("[...document.querySelectorAll('.leak-card .health-row strong, .leak-card .health-status, .leak-item strong, .leak-item .note')].filter(e=>e.offsetParent).every(s=>s.scrollWidth<=s.clientWidth+1)"))
+                check(f'{label} the FCC limits table scrolls inside its own region, not the page', page.evaluate("(()=>{const r=document.querySelector('.leak-card .table-scroll');return !!r&&r.getAttribute('tabindex')==='0'&&r.getBoundingClientRect().right<=innerWidth+1})()"))
+                sizes = page.evaluate("[...document.querySelectorAll('#leakagePanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
+                check(f'{label} Leakage source tags are at least 24 px tap targets', len(sizes) >= 10 and all(w >= 24 and h >= 24 for w, h in sizes))
+                ratios = page.evaluate(CONTRAST)
+                check(f'{label} Leakage tag text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
+                inputs = page.evaluate("[...document.querySelectorAll('#leakagePanel input,#leakagePanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Leakage inputs keep field-sized controls', inputs and min(inputs) >= 40)
+                buttons = page.evaluate("[...document.querySelectorAll('#leakagePanel button:not(.source-tag)')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Leakage buttons are large controls', buttons and min(buttons) >= 40)
+                check(f'{label} Leakage marks an open leak and states results in words, not color alone', page.evaluate("document.querySelector('.leak-item.open')!==null&&[...document.querySelectorAll('#leakagePanel .health-status')].every(s=>/^(✓|⚠|•)/.test(s.textContent.trim()))"))
                 page.evaluate("WorkflowUI.go('limits')")
                 check(f'{label} limits list fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 ratios = page.evaluate(CONTRAST)
@@ -115,7 +143,7 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         check('No uncaught application errors', not errors)

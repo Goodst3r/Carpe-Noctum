@@ -240,7 +240,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -256,3 +256,15 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .health-window>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}
 .health-window .error{color:var(--warn)}
 .health-card [hidden]{display:none!important}
+/* Leakage tools (build list item 7) */
+.leak-card textarea{width:100%;min-height:76px;font:inherit}
+.leak-table{width:100%;border-collapse:collapse;margin:8px 0}
+.leak-table th,.leak-table td{padding:7px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
+.leak-table thead th{color:var(--muted);font-size:12px;font-weight:600}
+.leak-list{margin:8px 0 0}
+.leak-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.leak-item>div:first-child{display:grid;gap:3px;min-width:0;flex:1 1 220px}
+.leak-item .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.leak-item.open{border-left:3px solid var(--warn);padding-left:10px}
+.leak-repair{display:grid;gap:3px;font-size:13px}
+.leak-card [hidden]{display:none!important}

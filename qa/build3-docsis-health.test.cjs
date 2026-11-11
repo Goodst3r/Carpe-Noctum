@@ -124,7 +124,7 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     await goto(h, 'docsisHealth');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs.slice(-3), ['Calculators', 'Limits', 'DOCSIS health']);
+    assert.deepEqual(tabs.slice(-4, -1), ['Calculators', 'Limits', 'DOCSIS health']);
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, false);
     assert.equal(h.d.getElementById('calculatorPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check DOCSIS levels/);
