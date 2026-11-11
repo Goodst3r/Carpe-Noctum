@@ -1,0 +1,926 @@
+{
+  "tested_commit": "52fac6902d2f2872ec28ca42115589df814cf5a3",
+  "initial_build3": "bc69bb4767e71107cb8ae3f83e4134c2ffafe41e",
+  "integrated_build3": "5588a49b10292bed422b7597ec227bce38173a2d",
+  "actor": "Lane A independent final gate; author focused and independent review results separately attributed",
+  "raw_gate": {
+    "release": "7e4e4389e027a22e31a0",
+    "version": "2.0 Alpha build 3",
+    "suites": [
+      {
+        "name": "Build 3 threshold and source registry",
+        "script": "build3-registry.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 4.1
+      },
+      {
+        "name": "Build 3 field calculators against independent references",
+        "script": "build3-field-calcs.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 2.4
+      },
+      {
+        "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
+        "script": "build3-alignment.test.cjs",
+        "passed": true,
+        "checks": 12,
+        "seconds": 2.3
+      },
+      {
+        "name": "Build 3 DOCSIS health card against independent decimal references",
+        "script": "build3-docsis-health.test.cjs",
+        "passed": true,
+        "checks": 20,
+        "seconds": 16.9
+      },
+      {
+        "name": "Build 3 leakage tools against independent decimal references",
+        "script": "build3-leakage.test.cjs",
+        "passed": true,
+        "checks": 32,
+        "seconds": 19.0
+      },
+      {
+        "name": "Build 3 station worksheet arithmetic and saved jobs",
+        "script": "build3-station.test.cjs",
+        "passed": true,
+        "checks": 22,
+        "seconds": 30.9
+      },
+      {
+        "name": "Build 3 rendered station phone layout",
+        "script": "build3-station-layout.test.py",
+        "passed": true,
+        "checks": 121,
+        "seconds": 11.0
+      },
+      {
+        "name": "Build 3 station field-review regressions",
+        "script": "build3-station-review.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 23.6
+      },
+      {
+        "name": "Build 3 sweep-due calendar and saved-job reminders",
+        "script": "build3-sweep-due.test.cjs",
+        "passed": true,
+        "checks": 33,
+        "seconds": 14.5
+      },
+      {
+        "name": "Build 3 rendered sweep-due phone layout",
+        "script": "build3-sweep-due-layout.test.py",
+        "passed": true,
+        "checks": 121,
+        "seconds": 6.9
+      },
+      {
+        "name": "2.0 Alpha design changes",
+        "script": "v20-design.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 4.0
+      },
+      {
+        "name": "Build 2 TDR active-boundary regressions",
+        "script": "build2-tdr-boundaries.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.0
+      },
+      {
+        "name": "Build 2 RF and records property backtests",
+        "script": "build2-rf-properties.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.3
+      },
+      {
+        "name": "Build 2 all seven examples frequency replay",
+        "script": "build2-example-math.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 1.5
+      },
+      {
+        "name": "Build 2 power circuits and current-curve backtests",
+        "script": "build2-power.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 0.2
+      },
+      {
+        "name": "Build 2 imported DSIM calendar dates",
+        "script": "build2-dsim-dates.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 1.6
+      },
+      {
+        "name": "Build 2 calculation reuse and import boundaries",
+        "script": "build2-frontend.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 16.2
+      },
+      {
+        "name": "Build 2 rendered cascade and lazy-chart layout",
+        "script": "build2-layout.test.py",
+        "passed": true,
+        "checks": 55,
+        "seconds": 32.2
+      },
+      {
+        "name": "Build 2 original-byte limits and atomic job operations",
+        "script": "build2-reliability.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 19.6
+      },
+      {
+        "name": "Build 2 native filename and print lifecycle",
+        "script": "android-native-edge.test.py",
+        "passed": true,
+        "checks": 12,
+        "seconds": 0.7
+      },
+      {
+        "name": "1.8 profile acceptance guards",
+        "script": "alpha18-math.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.8 independent arithmetic and curve integrity",
+        "script": "alpha18-numeric.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 0.1
+      },
+      {
+        "name": "1.8 corrected GS7K GaN complete practice independent math",
+        "script": "complete-workflow-math.test.cjs",
+        "passed": true,
+        "checks": 17,
+        "seconds": 2.3
+      },
+      {
+        "name": "1.8 release identity and documentation",
+        "script": "alpha18-release.test.py",
+        "passed": true,
+        "checks": 6,
+        "seconds": 0.1
+      },
+      {
+        "name": "Android source identity and rejected artifact isolation",
+        "script": "android-preview.test.py",
+        "passed": true,
+        "checks": 18,
+        "seconds": 0.4
+      },
+      {
+        "name": "1.8 imported route and power ID boundaries",
+        "script": "import-id-boundaries.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 1.8
+      },
+      {
+        "name": "1.8 seven practice exercises and seeded feature coverage",
+        "script": "training-library.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 56.1
+      },
+      {
+        "name": "1.6 to current release migration and portable example",
+        "script": "upgrade01617.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 8.4
+      },
+      {
+        "name": "1.7 stable workflow rendering",
+        "script": "alpha17-render.test.cjs",
+        "passed": true,
+        "checks": 3,
+        "seconds": 1.9
+      },
+      {
+        "name": "1.7 source and equipment reports",
+        "script": "alpha17-report.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 0.5
+      },
+      {
+        "name": "1.7 launch source workflow",
+        "script": "launch-source.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 3.5
+      },
+      {
+        "name": "1.7 equipment setup and DSIM",
+        "script": "equipment-setup.test.cjs",
+        "passed": true,
+        "checks": 39,
+        "seconds": 1.7
+      },
+      {
+        "name": "1.7 local operator targets and available carriers",
+        "script": "local-operator-preset.test.cjs",
+        "passed": true,
+        "checks": 19,
+        "seconds": 5.6
+      },
+      {
+        "name": "1.7 DSIM historical pilot-code lookup",
+        "script": "dsim-pilot-codes.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.7 separate installed gain-control paths",
+        "script": "equipment-control.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.7
+      },
+      {
+        "name": "1.7 current node setup references",
+        "script": "node-setup-refresh.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 0.1
+      },
+      {
+        "name": "1.7 retired UBT compatibility",
+        "script": "retired-equipment.test.cjs",
+        "passed": true,
+        "checks": 7,
+        "seconds": 2.1
+      },
+      {
+        "name": "1.7 fresh independent numerical references",
+        "script": "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "passed": true,
+        "checks": 18,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.7 RF band and hidden view regressions",
+        "script": "alpha17-engine.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.1
+      },
+      {
+        "name": "1.7 evidence job context",
+        "script": "evidence-context.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.5
+      },
+      {
+        "name": "Wolfram record and measurement guards",
+        "script": "wolfram-records.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 0.0
+      },
+      {
+        "name": "Wolfram RF, distance and sweep references",
+        "script": "wolfram-rf.test.cjs",
+        "passed": true,
+        "checks": 25,
+        "seconds": 0.1
+      },
+      {
+        "name": "Wolfram power references and edge cases",
+        "script": "wolfram-power.test.cjs",
+        "passed": true,
+        "checks": 30,
+        "seconds": 0.1
+      },
+      {
+        "name": "Guided sweep setup and 1.5 migration",
+        "script": "sweep-setup.test.cjs",
+        "passed": true,
+        "checks": 32,
+        "seconds": 13.1
+      },
+      {
+        "name": "Equipment reference catalog",
+        "script": "equipment-reference.test.cjs",
+        "passed": true,
+        "checks": 18,
+        "seconds": 1.6
+      },
+      {
+        "name": "PWA package and service worker",
+        "script": "pwa-worker.test.cjs",
+        "passed": true,
+        "checks": 36,
+        "seconds": 0.3
+      },
+      {
+        "name": "PWA install and update interface",
+        "script": "pwa-client.test.cjs",
+        "passed": true,
+        "checks": 20,
+        "seconds": 2.0
+      },
+      {
+        "name": "Browser file export and sharing",
+        "script": "browser-files.test.cjs",
+        "passed": true,
+        "checks": 23,
+        "seconds": 1.9
+      },
+      {
+        "name": "Guided training job and preserved work",
+        "script": "training-job.test.cjs",
+        "passed": true,
+        "checks": 41,
+        "seconds": 28.9
+      },
+      {
+        "name": "Production training buttons and fleet split",
+        "script": "training-controls.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 41.3
+      },
+      {
+        "name": "RF and power engine",
+        "script": "engine.test.js",
+        "passed": true,
+        "checks": 41,
+        "seconds": 0.1
+      },
+      {
+        "name": "Route distances, TDR and gain budgets",
+        "script": "route14.test.cjs",
+        "passed": true,
+        "checks": 34,
+        "seconds": 0.0
+      },
+      {
+        "name": "Project records and acceptance",
+        "script": "projects.test.js",
+        "passed": true,
+        "checks": 39,
+        "seconds": 0.0
+      },
+      {
+        "name": "Frequency calculations",
+        "script": "frequency-regression.cjs",
+        "passed": true,
+        "checks": 16,
+        "seconds": 0.1
+      },
+      {
+        "name": "Retained interface behavior",
+        "script": "dom-tests.cjs",
+        "passed": true,
+        "checks": 38,
+        "seconds": 7.2
+      },
+      {
+        "name": "Active and TDR interface calculations",
+        "script": "alpha14-ui.test.cjs",
+        "passed": true,
+        "checks": 36,
+        "seconds": 11.5
+      },
+      {
+        "name": "Technician task navigation and live controls",
+        "script": "alpha15-ui.test.cjs",
+        "passed": true,
+        "checks": 22,
+        "seconds": 7.5
+      },
+      {
+        "name": "Node profiles and current curves",
+        "script": "nodes.test.cjs",
+        "passed": true,
+        "checks": 29,
+        "seconds": 0.5
+      },
+      {
+        "name": "Evidence parser and validation",
+        "script": "evidence.test.cjs",
+        "passed": true,
+        "checks": 52,
+        "seconds": 0.1
+      },
+      {
+        "name": "Evidence UI and storage",
+        "script": "evidence-ui.test.cjs",
+        "passed": true,
+        "checks": 28,
+        "seconds": 1.0
+      },
+      {
+        "name": "IndexedDB failure and commit boundaries",
+        "script": "evidence-storage-failures.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.6
+      },
+      {
+        "name": "Named jobs corruption and capacity",
+        "script": "named-jobs-storage.test.cjs",
+        "passed": true,
+        "checks": 5,
+        "seconds": 9.5
+      },
+      {
+        "name": "Legacy upgrade and portable backup",
+        "script": "alpha011-integration.cjs",
+        "passed": true,
+        "checks": 21,
+        "seconds": 9.8
+      },
+      {
+        "name": "Retained field tools and named jobs",
+        "script": "alpha012.test.cjs",
+        "passed": true,
+        "checks": 32,
+        "seconds": 13.9
+      },
+      {
+        "name": "0.13 APK backup migration",
+        "script": "upgrade01314.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 4.7
+      },
+      {
+        "name": "1.4 backup and active/TDR migration",
+        "script": "upgrade01415.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 4.8
+      },
+      {
+        "name": "Training, guide and app text names real screens and buttons",
+        "script": "ui-names.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 19.5
+      },
+      {
+        "name": "Built-in reference calculations",
+        "script": "../night-sweep/selfcheck.js",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.0
+      },
+      {
+        "name": "Catalog structure",
+        "script": "catalog-audit.cjs",
+        "passed": true,
+        "checks": 0,
+        "seconds": 0.0
+      },
+      {
+        "name": "Test gate: time limit, evidence redirect, receipts message",
+        "script": "gate-reliability.test.py",
+        "passed": true,
+        "checks": 7,
+        "seconds": 13.2
+      }
+    ],
+    "checks": 1482,
+    "suite_timeout_seconds": 3600,
+    "total_seconds": 487.7,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "worktree_unchanged_during_tests": true,
+    "html_sha256": "e3d33ce0530008b5b1385d84d4207e2e2cb1f6c1d6347129b9e449d0052edd77",
+    "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+    "worker_sha256": "6a08edcd84bc0485daaaea0b96d3e4ffd5a4a79ba50f739e5f17c3beb92dbfae",
+    "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
+  },
+  "commands": [
+    {
+      "stage": "standalone_build",
+      "command": [
+        "python3",
+        "night-sweep/build.py"
+      ],
+      "started_utc": "2026-11-11T20:05:17.781706+00:00",
+      "started_time_ns": 1794427517781732231,
+      "log": "/tmp/carpe-a3-final-standalone_build.log",
+      "exit_code": 0,
+      "finished_time_ns": 1794427518026716897,
+      "finished_utc": "2026-11-11T20:05:18.026721+00:00",
+      "seconds": 0.243,
+      "comparison_to_initial": {
+        "head_same": true,
+        "branch_same": true,
+        "head_tree_same": true,
+        "staged_entries_same": true,
+        "staged_entries_digest_same": true,
+        "tracked_hashes_same": true,
+        "source_hashes_same": true,
+        "generated_hashes_same": true,
+        "readme_hashes_same": true,
+        "technician_readmes_identical": true,
+        "lock_hash_same": true,
+        "lock_matches_head": true,
+        "clean": true,
+        "changed_tracked_files": [],
+        "changed_generated_files": []
+      },
+      "passed": true
+    },
+    {
+      "stage": "pwa_build",
+      "command": [
+        "python3",
+        "build-pwa.py"
+      ],
+      "started_utc": "2026-11-11T20:05:18.109360+00:00",
+      "started_time_ns": 1794427518109368594,
+      "log": "/tmp/carpe-a3-final-pwa_build.log",
+      "exit_code": 0,
+      "finished_time_ns": 1794427518215502123,
+      "finished_utc": "2026-11-11T20:05:18.215506+00:00",
+      "seconds": 0.102,
+      "comparison_to_initial": {
+        "head_same": true,
+        "branch_same": true,
+        "head_tree_same": true,
+        "staged_entries_same": true,
+        "staged_entries_digest_same": true,
+        "tracked_hashes_same": true,
+        "source_hashes_same": true,
+        "generated_hashes_same": true,
+        "readme_hashes_same": true,
+        "technician_readmes_identical": true,
+        "lock_hash_same": true,
+        "lock_matches_head": true,
+        "clean": true,
+        "changed_tracked_files": [],
+        "changed_generated_files": []
+      },
+      "passed": true
+    },
+    {
+      "stage": "gate",
+      "command": [
+        "python3",
+        "qa/run-pwa.py"
+      ],
+      "started_utc": "2026-11-11T20:05:18.326611+00:00",
+      "started_time_ns": 1794427518326621119,
+      "log": "/tmp/carpe-a3-final-gate.log",
+      "exit_code": 0,
+      "finished_time_ns": 1794428006333339961,
+      "finished_utc": "2026-11-11T20:13:26.333344+00:00",
+      "seconds": 488.003,
+      "comparison_to_initial": {
+        "head_same": true,
+        "branch_same": true,
+        "head_tree_same": true,
+        "staged_entries_same": true,
+        "staged_entries_digest_same": true,
+        "tracked_hashes_same": true,
+        "source_hashes_same": true,
+        "generated_hashes_same": true,
+        "readme_hashes_same": true,
+        "technician_readmes_identical": true,
+        "lock_hash_same": true,
+        "lock_matches_head": true,
+        "clean": true,
+        "changed_tracked_files": [],
+        "changed_generated_files": []
+      },
+      "report": {
+        "source_report": "qa/pwa-test-results.json",
+        "raw_report": "/tmp/carpe-a3-final-gate.json",
+        "source_exists": true,
+        "exit_zero": true,
+        "current_log_has_completion": true,
+        "source_report_mtime_ns": 1794428006325855525,
+        "source_report_mtime_utc": "2026-11-11T20:13:26.325855+00:00",
+        "mtime_within_stage": true,
+        "verified_fresh": true,
+        "raw_equals_source": true,
+        "report_sha256": "46b0e8e80386b0229f42ee26b395dae3df76082abe5c3b773f54ec00a22fecc1",
+        "checks": 1482,
+        "suites": 70,
+        "report_all_passed": true,
+        "failed_suites": [],
+        "count_matches_suite_sum": true,
+        "build_unchanged": true,
+        "worktree_unchanged": true,
+        "version": "2.0 Alpha build 3",
+        "release": "7e4e4389e027a22e31a0",
+        "suite_seconds": 487.7,
+        "suite_timeout_seconds": 3600,
+        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+        "html_sha256": "e3d33ce0530008b5b1385d84d4207e2e2cb1f6c1d6347129b9e449d0052edd77",
+        "worker_sha256": "6a08edcd84bc0485daaaea0b96d3e4ffd5a4a79ba50f739e5f17c3beb92dbfae",
+        "passed": true,
+        "standalone_matches_pinned_build": true
+      },
+      "passed": true
+    },
+    {
+      "stage": "layout",
+      "command": [
+        "python3",
+        "qa/build3-layout.test.py"
+      ],
+      "started_utc": "2026-11-11T20:13:26.455588+00:00",
+      "started_time_ns": 1794428006455595253,
+      "log": "/tmp/carpe-a3-final-layout.log",
+      "exit_code": 0,
+      "finished_time_ns": 1794428017558456628,
+      "finished_utc": "2026-11-11T20:13:37.558460+00:00",
+      "seconds": 11.099,
+      "comparison_to_initial": {
+        "head_same": true,
+        "branch_same": true,
+        "head_tree_same": true,
+        "staged_entries_same": true,
+        "staged_entries_digest_same": true,
+        "tracked_hashes_same": true,
+        "source_hashes_same": true,
+        "generated_hashes_same": true,
+        "readme_hashes_same": true,
+        "technician_readmes_identical": true,
+        "lock_hash_same": true,
+        "lock_matches_head": true,
+        "clean": true,
+        "changed_tracked_files": [],
+        "changed_generated_files": []
+      },
+      "report": {
+        "source_report": "qa/build3-layout-results.json",
+        "raw_report": "/tmp/carpe-a3-final-layout.json",
+        "source_exists": true,
+        "exit_zero": true,
+        "current_log_has_completion": true,
+        "source_report_mtime_ns": 1794428017245163282,
+        "source_report_mtime_utc": "2026-11-11T20:13:37.245163+00:00",
+        "mtime_within_stage": true,
+        "verified_fresh": true,
+        "raw_equals_source": true,
+        "report_sha256": "90259eac6293952a58577e4b67299234fe9e43aafc20999d397ea3f058dd8038",
+        "checks": 374,
+        "report_passed": true,
+        "count_matches_log": true,
+        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+        "passed": true,
+        "standalone_matches_pinned_build": true
+      },
+      "passed": true
+    },
+    {
+      "stage": "smoke",
+      "command": [
+        "python3",
+        "qa/browser-smoke.py"
+      ],
+      "started_utc": "2026-11-11T20:13:37.639515+00:00",
+      "started_time_ns": 1794428017639526539,
+      "log": "/tmp/carpe-a3-final-smoke.log",
+      "exit_code": 0,
+      "finished_time_ns": 1794428032851862923,
+      "finished_utc": "2026-11-11T20:13:52.851867+00:00",
+      "seconds": 15.204,
+      "comparison_to_initial": {
+        "head_same": true,
+        "branch_same": true,
+        "head_tree_same": true,
+        "staged_entries_same": true,
+        "staged_entries_digest_same": true,
+        "tracked_hashes_same": true,
+        "source_hashes_same": true,
+        "generated_hashes_same": true,
+        "readme_hashes_same": true,
+        "technician_readmes_identical": true,
+        "lock_hash_same": true,
+        "lock_matches_head": true,
+        "clean": true,
+        "changed_tracked_files": [],
+        "changed_generated_files": []
+      },
+      "report": {
+        "source_report": "qa/evidence-out/research/build2/browser/results.json",
+        "raw_report": "/tmp/carpe-a3-final-smoke.json",
+        "source_exists": true,
+        "exit_zero": true,
+        "current_log_has_completion": true,
+        "source_report_mtime_ns": 1794428032657975502,
+        "source_report_mtime_utc": "2026-11-11T20:13:52.657975+00:00",
+        "mtime_within_stage": true,
+        "verified_fresh": true,
+        "raw_equals_source": true,
+        "report_sha256": "5ca2d668ff43760aae55dd8705a027aacf7d8053e0b24c3622e3217337c3dc44",
+        "checks": 340,
+        "report_passed": true,
+        "count_matches_log": true,
+        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+        "page_errors": [],
+        "passed": true,
+        "standalone_matches_pinned_build": true
+      },
+      "passed": true
+    }
+  ],
+  "source_proof_sha256": "d73df7b256d10ab43a9d4672efb6b3dd18d30334dd911d6a7ad031a520271e58",
+  "final_comparison": {
+    "head_same": true,
+    "branch_same": true,
+    "head_tree_same": true,
+    "staged_entries_same": true,
+    "staged_entries_digest_same": true,
+    "tracked_hashes_same": true,
+    "source_hashes_same": true,
+    "generated_hashes_same": true,
+    "readme_hashes_same": true,
+    "technician_readmes_identical": true,
+    "lock_hash_same": true,
+    "lock_matches_head": true,
+    "clean": true,
+    "changed_tracked_files": [],
+    "changed_generated_files": []
+  },
+  "raw_index_diagnostics": {
+    "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
+    "raw_index_bytes_changed": true,
+    "distinct_raw_sha256": [
+      "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
+      "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+      "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
+      "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b"
+    ],
+    "semantic_and_source_guards_matched": true,
+    "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion.",
+    "samples": [
+      {
+        "snapshot": "before",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:05:17.376862+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
+        "size_bytes": 62368,
+        "mtime_ns": 1794426904074566748,
+        "ctime_ns": 1794426904075126109
+      },
+      {
+        "snapshot": "before",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:05:17.555455+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
+        "size_bytes": 62368,
+        "mtime_ns": 1794426904074566748,
+        "ctime_ns": 1794426904075126109
+      },
+      {
+        "snapshot": "after_standalone_build",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:05:18.028761+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
+        "size_bytes": 62368,
+        "mtime_ns": 1794426904074566748,
+        "ctime_ns": 1794426904075126109
+      },
+      {
+        "snapshot": "after_standalone_build",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:05:18.106222+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b",
+        "size_bytes": 62368,
+        "mtime_ns": 1794427518097780991,
+        "ctime_ns": 1794427518101003076
+      },
+      {
+        "snapshot": "after_pwa_build",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:05:18.217927+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b",
+        "size_bytes": 62368,
+        "mtime_ns": 1794427518097780991,
+        "ctime_ns": 1794427518101003076
+      },
+      {
+        "snapshot": "after_pwa_build",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:05:18.321547+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
+        "size_bytes": 62368,
+        "mtime_ns": 1794427518309784860,
+        "ctime_ns": 1794427518314198128
+      },
+      {
+        "snapshot": "after_gate",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:13:26.335475+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
+        "size_bytes": 62368,
+        "mtime_ns": 1794427518309784860,
+        "ctime_ns": 1794427518314198128
+      },
+      {
+        "snapshot": "after_gate",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:13:26.449766+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_layout",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:13:37.560458+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_layout",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:13:37.629054+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_smoke",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:13:52.855455+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_smoke",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:13:52.919452+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_all",
+        "moment": "before_snapshot",
+        "at_utc": "2026-11-11T20:13:52.935289+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      },
+      {
+        "snapshot": "after_all",
+        "moment": "after_snapshot",
+        "at_utc": "2026-11-11T20:13:52.996291+00:00",
+        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
+        "size_bytes": 62368,
+        "mtime_ns": 1794428006442733847,
+        "ctime_ns": 1794428006444960335
+      }
+    ]
+  },
+  "dependencies_unchanged": true,
+  "scope": "Synthetic automated and rendered desktop Chromium only. No private attachments, APK/signing, emulator, physical devices, Safari/WebView, meter or field checks.",
+  "counts": {
+    "tracked": 553,
+    "source": 530,
+    "generated": 23,
+    "suites": 70,
+    "checks": 1482,
+    "layout": 374,
+    "smoke": 340
+  },
+  "no_restore_commands_used": true
+}

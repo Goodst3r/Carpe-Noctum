@@ -293,3 +293,18 @@ or console errors. Frozen HTML SHA-256:
 d0fd54c6869ab86ea11fa5048898b0156e2b6db0990d5a9febee7ff793b4966e
 Full gate and whole-app layout/smoke await coordinator execution at final head.
 No APK, emulator, physical phone, Safari/WebView, hardware or field test claimed.
+
+A3 FINAL GATE — exact52fac690, reviewed base5588a49
+70 suites /1,482 checks in487.7s; separate layout374/smoke340, all exit0.
+Both builders reproduce bytes; all553 tracked hashes, source/generated,
+semantic staged entries/tree, README and locks unchanged; clean without
+restoration. Raw index stat-cache refresh is disclosed diagnostically.
+Source/frozen33 and focused rendered121 pass; independent40,746 calendar
+classifications/14 behavior groups retain their1020 helper attribution.
+Actual Enter/Tab focus fix at52 is independently closed. Company cadence
+starts unknown; calendar/two-thirds app policy and older18-month guidance
+remain Unknown/unverified. Current26screens/43features/AOI15/custom12.
+Receipt and reports: handoff_docs/lanes/codex-a3-validation.json and
+handoff_docs/reviews/codex-sweep-due*.md. Draft needs Lane B review/merge;
+no emulator, physical phone, Safari/WebView, hardware, field, APK/signing
+or deployment claim. D2-D5 remain open.

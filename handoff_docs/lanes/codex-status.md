@@ -1,65 +1,52 @@
 # Lane A status (ChatGPT)
 
-Updated November 11, 2026. Only Lane A edits this file. Push access works. D1–D5 remain open; Lane A never merges its own PRs.
+Updated November 11, 2026. Push access works. D1 is complete on build3 `5588a49`; D2–D5 remain open. Lane A never merges its own pull request.
 
-| Item | Branch / PR | Starting and tested commits | Current state | Own verification |
-| --- | --- | --- | --- | --- |
-| Baseline | codex/station-view; included in #8 | source 53b839e; receipt 3cdf5a6 | Reproduced | 61 suites / 1,109 checks; layout 141; smoke 328 |
-| A1 item 3 Station | codex/station-view; [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) draft | start 53b839e; integrated 79b0735; seven-fix source a9b6428; tested optimization 6030607 | **Ready for Lane B re-review**; seven requests preserved; local lookup optimization approved internally | **66 suites / 1,276 checks**, 361.7 s; separate layout 141 / smoke 331; Station 22 / review 11 / rendered 121 included; unchanged source/build, clean worktree, identical READMEs |
-| A2 item 6 night log | pending | depends on A1 merge | Queued | Not run |
-| A3 item 10 sweep due | pending | depends on A1 merge | Queued; interval unknown | Not run |
-| A4 item 13 imported sweep grading | codex/sweep-grading; [#14](https://github.com/Goodst3r/Carpe-Noctum/pull/14) draft | preparation 4350abc..8d1a0ed; integrated 79b0735; context fix 04bb5ae; tested CRC optimization b863821 | **Ready for Lane B peer review**; full integrity checks retained | **67 suites / 1,366 checks**, 331.1 s; separate layout 141 / smoke 331; native 69 / grading 35 / rendered 47 included; source/build/worktree unchanged and clean; private actual-input proof refreshed at b863821 |
-| A5 item 14 power PM | pending | depends on A1 | Queued after required items | Not run |
-| A6 item 16 connector checklist | pending | depends on A1 | Queued after required items | Not run |
-| A7 item 12 return toolkit | pending | depends on A1; primary-source math required | Queued after required items | Not run |
+| Item | Branch / PR | Starting → ending tested commit | State / own results |
+| --- | --- | --- | --- |
+| Baseline | codex/station-view, included in #8 | 53b839e → receipt3cdf5a6 | Historical61/1109 +141/328. Fresh merged21ed baseline66/1276 +141/331, unchanged/clean. |
+| A1 Station | [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) | 53b839e → code6030607/handoffe83f516 | Merged by Lane B at21ed711. Seven peer requests fixed; legacy/read-only flags remain important to consumers. |
+| A2 night log | [#17](https://github.com/Goodst3r/Carpe-Noctum/pull/17), codex/night-log | 21ed711 → b0d1643, includes reviewed5588 | Ready for Lane B review. Fresh70/1410,509.1s +layout374/smoke340;559 tracked hashes/staged content unchanged and clean. |
+| A3 sweep due | codex/sweep-due, local | bc69bb4 →52fac690, includes5588 | Ready for Lane B review; draft opening. Fresh70/1482,487.7s +374/340;553 tracked hashes/staged content unchanged and clean. Keyboard P3 closed. |
+| A4 imported grading | [#14](https://github.com/Goodst3r/Carpe-Noctum/pull/14), codex/sweep-grading | publisheda1bedfd →533a862, includes5588 | All six Lane B requests corrected and independently reviewed. Startup successor9cad649 is scoped-reviewed; full retry running. Failed533 gate is retained, not labeled passing. |
+| A5 power PM | pending | A1 | Stretch after required done. Not run. |
+| A6 connector checklist | pending | A1 | Stretch after required done. Not run. |
+| A7 return toolkit | pending | A1 | Stretch; primary-source formula check required. Not run. |
 
-## A1 record
+## A2 current handoff
 
-Route → Station preserves separate Before/After forward/return worksheets and balanced/swept dates. Company values start unknown; plant methods stay separate; UBT remains read-only. All seven Lane B requests at 895503b remain corrected: signed field configuration, clean labels/44px tags, complete solver qualifications, stable saved binding, separate reference provenance, plant/model reminders and 22/14 guide counts. Legacy-unconfirmed/readOnly status must be honored by A2/A3.
+Job → Night log captures both real Add-time Station stages into immutable optional history, with independent balance/sweep facts, unknown values and historical/read-only warnings. TXT/safe86-column CSV exclude legacy customer fields and attachments. Typed local times and units avoid invented conversions/defaults. Full JSON/named jobs retain originals. The defined five-station mobile preview fits. The existing200-entry bound is now an Unknown application guard with44px source button outside labels; cap and persistence are unchanged. Published Leakage42 is retained, Night log appends43; actual26screens/43features/AOI15/custom12.
 
-The user-requested performance pass at 6030607 changes only local catalog lookup. Each targets() call builds a first-wins index from the current catalog, with no persistent cache. Complete saved data, context, bindings and calculation outputs matched the previous build in 22 independent Chromium comparisons. Independent source/frozen 11-test runs and Station 22 also passed. The final implementation-agent run passed 66/1276 in 361.7 s plus separate 141/331, all exits 0; source/build manifests, worktree/index and main README copies were unchanged/clean.
+Exact commands at b0d1643: both Python builders; `GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py`; then separate `qa/build3-layout.test.py` and `qa/browser-smoke.py` with the same Chromium. Actual70/1410,509.1s +374/340, all exit0; all559 tracked hashes, generated bytes, staged entries/tree, guides and locks unchanged, clean without restoration. Raw Git index stat-cache refresh is disclosed. [Receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/lanes/codex-a2-validation.json) · [Gate report](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-night-log-rebased-gate.md) · [Scoped follow-up](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-night-log-guard-followup.md) · [Independent delta review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-night-log-guard-review.md).
 
-Paired synthetic 200-active-row desktop Chromium inputs improved 36–43%; the nine-row run added 0–0.2ms median cost. Catalog ID reads at 100/200 rows fell from 48,379 / 96,279 to 1,133 / 1,233. These work counts are distinct from timing percentages. No universal or physical-phone gain is claimed.
+Standalone SHA256 `348ea3647bbdb9497b7dc5e1827eb054c4f460319321af2c7040f54cade509d1`. Earlier d6 69/1377 and focused source/frozen18/rendered63 are historical, separately attributed. The full original feature review and subsequent guide omission/correction are retained in the implementation/review handoffs. No real owner export used in A2.
 
-Current exact receipt, independent scoped reports, source qualifications and performance methods are linked from [PR #8](https://github.com/Goodst3r/Carpe-Noctum/pull/8). On that branch: codex-a1-validation.json, codex-station-view.md, codex-a1-optimization.md, codex-station-optimization-review.md and its implementation report. The earlier a9b6428 seven-fix report remains historical; the final code/source is 6030607 and the PR head adds only handoff metadata.
+## A3 and A4 active work
 
-## A4 record
+A3 uses actual saved/current Station dates, strict user interval initially unknown, independent balance/sweep facts, neutral historical/invalid/future states, civil-month clamping and an Unknown two-thirds app reminder policy. Source/frozen33 and focused rendered121 passed at52fac690. Independent40,746 calendar classifications and14 behavior groups remain attributed to unchanged1020 helpers; actual Enter/Tab narrow re-review closes pagination P3 at52. Final70/1482 in487.7s plus separate374/340, all exit0;553 tracked hashes and semantic staged/tree content unchanged/clean. [Receipt](codex-a3-validation.json), [implementation](../reviews/codex-sweep-due.md), [review](../reviews/codex-sweep-due-review.md), [gate](../reviews/codex-sweep-due-gate.md).
 
-Job → ONX files → Sweep grading aid supports the two inspected typed JSON layouts, including gzip and single-JSON ZIP. Four independent plant/direction company profiles start blank. Raw unreferenced samples stay raw; unsupported/ambiguous content stays attached with a reason; every explicit grade verifies original bytes again. Immutable history and actual optional Station snapshots preserve stale/current safety.
+A4's six peer requests are corrected at533a862: compact SHA256 of actual bound raw Station context supports long jobs/orphans while preserving both async invalidation windows and old history; adjacent human range errors, consistent rerender flags, proper labels/44px tags, Unknown software guards and complete guide TOC/counts. Independent final UI51/context8/retention5/naming6 and actual MCP27 passed with exact source attribution. Root privately reran both supplied originals on this app: every sample and compressed byte exact through remapped portable restore; no automatic grade or external page requests. No identifiers/readings/original checksums published. The533 broad gate failed one Station reload suite (71/72,1566 counted; separate374/340 passed). Pure metadata-only Station binding API9cad649 removes its eager RF dependency; warm500/Station22/grading52/actual Chrome and private-original checks pass. Full retry is running at9cad; no passing retry total claimed. Old2043 counts remain historical. Remaining nonblocking parser/memory/history/polish gaps stay recorded; A1/performance notes are preserved.
 
-At b863821, a private lazy 1 KiB CRC32 table replaces repeated bit arithmetic. Every ZIP member still receives full size/decode/CRC validation; original SHA verification, caps, units, direction, raw samples, grading math and data format are unchanged. Fresh reviewer checks passed native 69, 3,270 exact Python-reference CRC comparisons, 99 valid ZIP parses and 214 corrupt-member rejections, distinct from the author's characterization.
+## Peer reviews and merges
 
-Final own implementation-agent full gate passed 67/1366 in 331.1 s plus separate 141/331, all exits 0; 120 pre/post hashes matched, worktree unchanged/clean, README copies identical. Coordinator separately reran both actual private originals at b863821: all sample pairs match independent decoding; exact compressed bytes survive identity-remapped portable export/restore/re-export; no automatic grade; 390 px; all non-loopback page requests blocked. No private file, reading, original checksum or operational identifier is published; fixtures are invented.
+- B0/B3/B1/B4 #3/#5/#4/#6 reviewed and merged81ccfb4/faafba5/c97a090/79b0735; historical own receipts remain.
+- #7 exact1f239b6 approved/mergedbc69bb4: own67/1296 +255/334, both P2 fixes verified.
+- #9 exact418e086 approved/merged5588a49: own68/1328,428.9s +374/337;547 tracked hashes/staged/tree unchanged, clean. Native numeric/date fixes closed. [Review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-leakage-review.md).
+- #10 c856404/#12 782e26c still inherit unreadable-copy quota data loss and native partial-time clearing. Source unchanged from rejected engine; author asked to prioritize required D2 fixes.
+- #11 CI632b130 still needs current-base integration before final gate; workflow unchanged from reviewedce55. No hosted run claimed.
+- #13 ded6084 still has stale candidate, native width/default and CPD guidance Important findings; no closure claimed for metadata-only merges.
+- #15 2cb1c48 still has native optional-number false-green budget defect; tube20 wording Minor. Prior independent math passed; no broad gate.
+- #16 a1ad026 inherits strict RPHY order versus parallel PTP Important finding; selected exactI22 source verified. [Review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-highsplit-review.md).
+- #18 7abaefd has no new Important technical finding; Minor32px source tags and one guide qualification. Own Why6/22 and rendered63/67 (four target-height failures), no console error; broad gate held with inherited blockers. [Review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-why-cards-review.md).
 
-Final frozen synthetic 2 MiB ZIP parsing in desktop Chromium measured 78.2→15.3ms stored and 84.3→21.4ms deflated. No ordinary-small-file, total-import/UI or phone acceleration is claimed. Exact commands, hashes, receipt and review reports are linked from [PR #14](https://github.com/Goodst3r/Carpe-Noctum/pull/14): codex-a4-validation.json, codex-sweep-grading.md, codex-a4-optimization.md and CRC scoped/implementation reports.
-
-## Scope and remaining checks
-
-Internal reviews approve these scoped optimizations; actual Lane B review is still required at each updated head. Existing nonblocking gaps remain explicit. No new runtime dependency, persistent result cache, RF formula, company default, version, storage key, package or saved-data contract change. No emulator, actual Android/iPhone, Safari/WebView, meter/reference-plane or field check; no APK/signing/deployment. Tools actually used: GitHub read/write for authorized source/PR handoff, Superpowers guidance, local Git/Node/Python and Playwright/Chromium; Python zlib and executed differential checks provide independent CRC/data evidence.
-
-## Lane B reviews and merges
-
-- #3 B0: reviewed 320854c, own 61/1109 +141/328; merged 81ccfb4.
-- #5 B3: reviewed 5544651, own 61/1109 +141/328; merged faafba5.
-- #4 B1: fixed 8b71edd, own 62/1116 +141/328, no-Git/archive negative probes; merged c97a090.
-- #6 B4: fixed 5a370c1, own 62/1115 +141/328; combined build3 at 79b0735 passed 63/1122 +141/328, unchanged and clean; merged 79b0735.
-- #7 B5: changes required. Fresh Chromium at 4d35286 still reproduces malformed numeric clearing/defaulting and company-window carryover between plants. Original head 7f6a56f had own 63/1132 +241/331 and independent 154 cases/746 checks. Those older broad counts are not reused for 4d35286.
-- #9 B6: changes required at e7ed9d6. Malformed numeric edits erase saved company settings; blank check/repair dates silently become today. Own independent 72 cases/396 comparisons and committed 30 checks/391 comparisons passed; primary FCC check found no material numeric/formula mismatch. Broad gate held.
-- #10 B7: changes required at 8381b00. Real quota failure copying unreadable data still destroys the original, and partial native time edits erase saved time. Own checklist 26 and focused rendered 12 passed; reminder count 33 versus 34 is Minor. Broad gate held; supervisor release review open.
-- #11 B2: no workflow-source defect at ce55e69. Actionlint passed, 12 structure checks and 7 shell syntax checks passed. Author must integrate current build3 before final same-head gate. No hosted Actions run claimed.
-- #12 B8: scoped review at ff6ab70 found no extra outage-specific Important issue; own 34 Chromium checks passed. Inherits shared-engine and earlier stack blockers. Broad gate held; supervisor review before coworker use required.
-- #13 B10: changes required at 68d5617. Route candidates stay stale, malformed search width uses a silent default, and CPD guidance incorrectly excludes broadband ingress. Own independent 84 cases/864 comparisons and committed 13 checks/1,940 comparisons passed. Broad gate held.
-
-Exact commands, source citations, findings and execution limits are COMMENT reviews on each PR. Both lanes share the owner account; COMMENT records independent technical verdicts instead of prohibited self-APPROVE/REQUEST_CHANGES events. No author count is presented as Lane A execution. No peer PR with an open Important finding was merged.
+COMMENT records technical verdicts under the shared owner account; no prohibited self-APPROVE or author self-merge. No peer with open Important findings was merged.
 
 ## Next
 
-Obtain Lane B re-review/merge of PR #8 and peer review of PR #14. Then take A2 and A3 from latest build3, followed by the remaining queue. Re-review peer fixes when published.
+Obtain Lane B review/merge of updated17; finish A4 correction gate and publish for re-review. A3 focus is closed and its full gate passed; publish draft/handoff for Lane B review. Re-review real peer fixes when published. Final combined branch still needs both lanes' fresh gate, D4 reconciliation and Lane B FINAL_HANDOFF.
 
-## Blocked
+## Blocked / questions / untested
 
-A2, A3 and the stretch items depend on A1 integration. A1 and A4 are published for peer review; Lane A may not self-merge them. A4 needs Lane B peer approval/merge; final combined integration verification stays explicit. Peer feature drafts need their recorded fixes; CI needs base integration and final execution. D1–D5 are incomplete. Push access works.
+No question blocks active work. A4/A2/A3 require Lane B merge; safety/outage author fixes still block required D2. Company values/cadence remain unknown. Supervisor review of leak/safety/outage before coworker release remains required. Supabase has no defined role in the explicit offline plan; no backend/accounts added.
 
-## Questions for Spencer
-
-None needed to finish this implementation. Company values and measurement plane/reference stay unknown until supplied. Safety/outage supervisor review remains a release condition. Physical device, emulator, hardware and field checks remain separate.
+No emulator, physical Android/iPhone, Safari/WebView, actual provider-save dialog, meter/reference-plane, RF hardware or field verification; no APK/signing/deployment. Tools used: authorized GitHub source/review/PR writes, local Git/Node/Python, Playwright/Chromium, actual Chrome DevTools MCP and Superpowers guidance. Software/desktop results are separate from device/field work.

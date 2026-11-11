@@ -131,3 +131,18 @@ SYNTHETIC TRAINING and SAMPLE labels and separate reminder counts survive the ex
 Own focused verification after that integration: **33 source and 33 frozen A3 contract groups**, **73 new rendered Chromium checks** at 320/360/390/430 px, and **14 independent Python reference cases**; retained registry 13, UI names 6, Station 22, Station review 11, Leakage 32 (391 reference comparisons), practice library 11, named-job storage 5 and design 8 all passed. Actual Chrome DevTools MCP 1.13.0 inspected the final frozen synthetic screen at 390 px, including 21 rows / 7 of each reminder color, separate dates, clean label/focus, invalid-text neutrality, no horizontal overflow or console errors. Standalone SHA-256: `d0fd54c6869ab86ea11fa5048898b0156e2b6db0990d5a9febee7ff793b4966e`.
 
 The full gate and separate whole-app layout/smoke are intentionally held for coordinator verification at the final source head. No new dependency, storage key, schema/version, package, cloud service or APK. No physical Android/iPhone, emulator, Safari/WebView, hardware or field claim. The calendar/reminder policy is an app choice, not externally verified maintenance guidance. Both lanes' unrelated status and D4 prose are retained.
+
+A3 FINAL GATE — exact52fac690, reviewed base5588a49
+70 suites /1,482 checks in487.7s; separate layout374/smoke340, all exit0.
+Both builders reproduce bytes; all553 tracked hashes, source/generated,
+semantic staged entries/tree, README and locks unchanged; clean without
+restoration. Raw index stat-cache refresh is disclosed diagnostically.
+Source/frozen33 and focused rendered121 pass; independent40,746 calendar
+classifications/14 behavior groups retain their1020 helper attribution.
+Actual Enter/Tab focus fix at52 is independently closed. Company cadence
+starts unknown; calendar/two-thirds app policy and older18-month guidance
+remain Unknown/unverified. Current26screens/43features/AOI15/custom12.
+Receipt and reports: handoff_docs/lanes/codex-a3-validation.json and
+handoff_docs/reviews/codex-sweep-due*.md. Draft needs Lane B review/merge;
+no emulator, physical phone, Safari/WebView, hardware, field, APK/signing
+or deployment claim. D2-D5 remain open.
