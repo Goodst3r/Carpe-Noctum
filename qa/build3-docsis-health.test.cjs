@@ -181,9 +181,9 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
 
   await check('Window writes keep what another tab saved, and a failed clear is reported', async () => {
     const t = boot(); await flush(); await goto(t, 'docsisHealth');
-    t.w.localStorage.setItem(KEY, JSON.stringify({ version: 1, windows: { scqam: { min: null, max: null }, ofdm: { min: -11, max: 11 }, total: { min: null, max: null }, upstream: { min: null, max: null } } }));
+    t.w.localStorage.setItem(KEY, JSON.stringify({ version: 1, plants: { '42': { scqam: { min: null, max: null }, ofdm: { min: -11, max: 11 }, total: { min: null, max: null }, upstream: { min: null, max: null } } } }));
     set(t, '[data-health-window="scqam"][data-field="max"]', '8', 'change');
-    const stored = JSON.parse(t.w.localStorage.getItem(KEY)).windows;
+    const stored = JSON.parse(t.w.localStorage.getItem(KEY)).plants['42'];
     assert.deepEqual(stored.ofdm, { min: -11, max: 11 }, 'the other window written meanwhile survives'); assert.deepEqual(stored.scqam, { min: null, max: 8 });
     const real = t.w.Storage.prototype.removeItem;
     t.w.Storage.prototype.removeItem = function () { throw new t.w.DOMException('blocked', 'SecurityError'); };
@@ -208,7 +208,7 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     set(h, '[data-health="ofdm"][data-field="basis"]', '6', 'change');
   });
 
-  await check('Registry rows: spec rows are primary-checked, company rows start unknown and are entered values, nothing is plant-specific', () => {
+  await check('Registry rows: spec rows are primary-checked, company rows start unknown and are entered values, shown once for each plant', () => {
     const rows = h.json('Thresholds.rows');
     const mine = rows.filter(r => /^(docsis\.|company\.docsis\.)/.test(r.id));
     assert.equal(mine.length, 10);
@@ -218,12 +218,13 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(mine.find(r => r.id === 'docsis.ds.ofdm.scaling').verification, 'derived');
     for (const r of mine.filter(r => r.label === 'company')) { assert.equal(r.verification, 'entered'); assert.equal(r.store, 'docsis'); assert.equal(r.value, undefined, 'no built-in company value'); }
     assert(mine.every(r => !/31 dBmV|43 dBmV|38 dBmV/.test(JSON.stringify(r))), 'the 31/43/38 company values are not used here');
-    assert(h.json('Thresholds.resolve("company.docsis.total")').text === 'Unknown — not entered' || h.ev('Thresholds.display("company.docsis.total")') === 'Unknown — not entered');
+    assert.equal(h.ev('Thresholds.display("company.docsis.total")'), '42/54 MHz plant: Unknown — not entered · 204/258 MHz plant: Unknown — not entered', 'each plant is shown on its own, never as one value');
   });
 
   await check('Company windows save on this device, show in the result and in Limits, and clear again', async () => {
     set(h, '[data-health-window="scqam"][data-field="min"]', '-7'); set(h, '[data-health-window="scqam"][data-field="max"]', '7', 'change');
-    assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).windows.scqam, { min: -7, max: 7 });
+    assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).plants['42'].scqam, { min: -7, max: 7 });
+    assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).plants['204'].scqam, { min: null, max: null }, 'the other plant stays unknown');
     assert.match(h.d.getElementById('health-scqam-window-note').textContent, /Saved on this device/);
     set(h, '[data-health="scqam"][data-field="level"]', '3.2');
     assert.match(result(h, 'scqam'), /−7 to \+7 dBmV.*Inside your window, 3\.8 dB from the nearest edge/);
@@ -234,13 +235,13 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.match(result(h, 'ofdm'), /at least −10 dBmV per 6 MHz.*2\.0 dB below your window/);
     set(h, '[data-health-window="total"][data-field="min"]', '9', 'change'); set(h, '[data-health-window="total"][data-field="max"]', '3', 'change');
     assert.match(h.d.getElementById('health-total-window-note').textContent, /Not saved\. .*lowest level is above the highest.*Still using at least \+9 dBmV/);
-    assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).windows.total, { min: 9, max: null }, 'a rejected window leaves the last saved one');
+    assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).plants['42'].total, { min: 9, max: null }, 'a rejected window leaves the last saved one');
     await goto(h, 'limits');
     const list = words(h.d.getElementById('limitsList'));
-    assert.match(list, /Your window, downstream SC-QAM level −7 to \+7 dBmV/);
-    assert.match(list, /Your window, total downstream input power at least \+9 dBmV/);
-    assert.match(list, /Your window, total upstream transmit power Unknown — not entered/);
-    assert.match(list, /Your window, downstream OFDM level at least −10 dBmV per 6 MHz/, 'the OFDM window shows its unit');
+    assert.match(list, /Your window, downstream SC-QAM level 42\/54 MHz plant: −7 to \+7 dBmV · 204\/258 MHz plant: Unknown — not entered/);
+    assert.match(list, /Your window, total downstream input power 42\/54 MHz plant: at least \+9 dBmV · 204\/258 MHz plant: Unknown — not entered/);
+    assert.match(list, /Your window, total upstream transmit power 42\/54 MHz plant: Unknown — not entered · 204\/258 MHz plant: Unknown — not entered/);
+    assert.match(list, /Your window, downstream OFDM level 42\/54 MHz plant: at least −10 dBmV per 6 MHz/, 'the OFDM window shows its unit');
     assert.match(list, /Maximum total transmit power \(Pmax\) a DOCSIS 3.1 modem must support at least 65 dBmV/);
     assert.equal(h.d.querySelectorAll('#limitsList [data-threshold]').length, h.json('Thresholds.rows.length'), 'one tag per registry row in Limits');
     await goto(h, 'docsisHealth');
@@ -265,20 +266,79 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
   });
 
   await check('Stored windows are read back, and corrupt or out-of-range stored data is ignored without an error', async () => {
-    const good = boot({ seed: JSON.stringify({ version: 1, windows: { scqam: { min: -6, max: 6 }, ofdm: { min: null, max: 4 }, total: { min: 1, max: 99 }, upstream: { min: 'x', max: 50 }, bogus: { min: 1, max: 2 } } }) });
+    const good = boot({ seed: JSON.stringify({ version: 1, plants: { '42': { scqam: { min: -6, max: 6 }, ofdm: { min: null, max: 4 }, total: { min: 1, max: 99 }, upstream: { min: 'x', max: 50 }, bogus: { min: 1, max: 2 } }, '204': { scqam: { min: -3, max: 3 } }, '999': { scqam: { min: 1, max: 2 } } } }) });
     await flush();
-    assert.deepEqual(good.json('DocsisHealth.getWindow("scqam")'), { min: -6, max: 6 });
-    assert.deepEqual(good.json('DocsisHealth.getWindow("ofdm")'), { min: null, max: 4 });
-    assert.deepEqual(good.json('DocsisHealth.getWindow("total")'), { min: 1, max: 99 }, 'in range, kept');
-    assert.deepEqual(good.json('DocsisHealth.getWindow("upstream")'), { min: null, max: null }, 'a non-number entry is dropped');
+    assert.deepEqual(good.json('DocsisHealth.getWindow("scqam","42")'), { min: -6, max: 6 });
+    assert.deepEqual(good.json('DocsisHealth.getWindow("ofdm","42")'), { min: null, max: 4 });
+    assert.deepEqual(good.json('DocsisHealth.getWindow("total","42")'), { min: 1, max: 99 }, 'in range, kept');
+    assert.deepEqual(good.json('DocsisHealth.getWindow("upstream","42")'), { min: null, max: null }, 'a non-number entry is dropped');
+    assert.deepEqual(good.json('DocsisHealth.getWindow("scqam","204")'), { min: -3, max: 3 }, 'the other plant has its own window');
+    assert.deepEqual(good.json('DocsisHealth.getWindow("ofdm","204")'), { min: null, max: null });
+    for (const plant of ['999', '', 'undefined', 'constructor', '__proto__']) assert.deepEqual(good.json(`DocsisHealth.getWindow("scqam",${JSON.stringify(plant)})`), { min: null, max: null }, 'no window for plant ' + plant);
+    assert.deepEqual(good.json('DocsisHealth.getWindow("scqam")'), { min: null, max: null }, 'no plant given means unknown');
     assert.deepEqual(good.errors, []); good.close();
-    for (const seed of ['{not json', JSON.stringify({ version: 2, windows: {} }), JSON.stringify({ version: 1, windows: null }), JSON.stringify([1, 2]), '""']) {
+    for (const seed of ['{not json', JSON.stringify({ version: 2, plants: {} }), JSON.stringify({ version: 1, plants: null }), JSON.stringify({ version: 1, windows: { scqam: { min: -6, max: 6 } } }), JSON.stringify({ version: 1, plants: { '42': 5, '204': [] } }), JSON.stringify([1, 2]), '""']) {
       const bad = boot({ seed }); await flush();
-      assert.deepEqual(bad.json('DocsisHealth.getWindow("scqam")'), { min: null, max: null }, seed);
+      assert.deepEqual(bad.json('DocsisHealth.getWindow("scqam","42")'), { min: null, max: null }, seed);
+      assert.deepEqual(bad.json('DocsisHealth.getWindow("scqam","204")'), { min: null, max: null }, seed);
       await goto(bad, 'docsisHealth');
       assert.match(words(bad.d.getElementById('health-scqam-result')), /Enter a reading/, 'card still renders');
       assert.deepEqual(bad.errors, [], 'no script error for ' + seed); bad.close();
     }
+  });
+
+  await check('Company windows are kept apart for the two plants: a window typed for 42/54 is not applied to 204/258, and an untouched plant stays unknown', async () => {
+    const t = boot(); await flush();
+    const plant = p => t.ev(`(()=>{const d=SweepSetup.draft();d.selected=${JSON.stringify(p)};state.sweepSetup=d;})()`);
+    plant('42'); await goto(t, 'docsisHealth');
+    assert.match(t.d.querySelector('[data-health-plant]').textContent, /42\/54 MHz plant/);
+    set(t, '[data-health-window="scqam"][data-field="max"]', '7', 'change');
+    set(t, '[data-health="scqam"][data-field="level"]', '9');
+    assert.match(result(t, 'scqam'), /2\.0 dB above your window/);
+    plant('204'); await goto(t, 'projects'); await goto(t, 'docsisHealth');
+    assert.match(t.d.querySelector('[data-health-plant]').textContent, /204\/258 MHz plant/);
+    assert.equal(t.d.querySelector('[data-health-window="scqam"][data-field="max"]').value, '', 'the 204/258 box is empty');
+    assert.match(result(t, 'scqam'), /Unknown — not entered for the 204\/258 MHz plant/, 'and the reading is not compared with the other plant\'s window');
+    assert.doesNotMatch(result(t, 'scqam'), /above your window/);
+    set(t, '[data-health-window="scqam"][data-field="min"]', '-2', 'change');
+    const stored = JSON.parse(t.w.localStorage.getItem(KEY)).plants;
+    assert.deepEqual(stored['42'].scqam, { min: null, max: 7 }, 'the 42/54 window is untouched'); assert.deepEqual(stored['204'].scqam, { min: -2, max: null });
+    plant('42'); await goto(t, 'projects'); await goto(t, 'docsisHealth');
+    assert.equal(t.d.querySelector('[data-health-window="scqam"][data-field="max"]').value, '7'); assert.equal(t.d.querySelector('[data-health-window="scqam"][data-field="min"]').value, '');
+    // The job's plant changes while the screen stays open: the next change is not written to the wrong plant.
+    plant('204');
+    set(t, '[data-health-window="scqam"][data-field="max"]', '5', 'change');
+    assert.match(t.d.getElementById('health-scqam-window-note').textContent, /The plant changed, so the windows were reloaded for the 204\/258 MHz plant/);
+    assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).plants['204'].scqam, { min: -2, max: null }, 'nothing was written to either plant');
+    assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).plants['42'].scqam, { min: null, max: 7 });
+    // No plant chosen: boxes are locked and nothing can be stored.
+    t.ev('state.sweepSetup={version:1,selected:"x",profiles:{},history:[]}');
+    assert.equal(t.json('DocsisHealth.setWindow("scqam","1","2",localStorage,null)').ok, false);
+    assert.equal(t.json('DocsisHealth.setWindow("scqam","1","2",localStorage,"constructor")').ok, false);
+    assert.deepEqual(t.errors, []); t.close();
+  });
+
+  await check('A number box that holds text which is not a number is refused, never read as a blank: a saved window stays and an empty Pmax is not the default', async () => {
+    const t = boot(); await flush(); await goto(t, 'docsisHealth');
+    // jsdom cannot type into a number box, so the browser state a lone minus sign produces (empty value, badInput) is stated directly; qa/build3-layout.test.py types it in real Chromium.
+    const bad = sel => { const el = t.d.querySelector(sel); Object.defineProperty(el, 'validity', { value: { badInput: true }, configurable: true }); el.value = ''; return el; };
+    set(t, '[data-health-window="scqam"][data-field="max"]', '7', 'change');
+    const el = bad('[data-health-window="scqam"][data-field="max"]'); el.dispatchEvent(new t.w.Event('change', { bubbles: true }));
+    assert.match(t.d.getElementById('health-scqam-window-note').textContent, /Not saved\. Enter the highest allowed level as a number or leave it blank\. Still using at most \+7 dBmV/);
+    assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).plants['42'].scqam, { min: null, max: 7 }, 'the saved window is kept');
+    assert.equal(el.value, '7', 'the box shows the window still in use again');
+    Object.defineProperty(el, 'validity', { value: { badInput: false }, configurable: true });
+    el.value = ''; el.dispatchEvent(new t.w.Event('change', { bubbles: true }));
+    assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).plants['42'].scqam, { min: null, max: null }, 'a genuinely empty box still clears the window');
+    set(t, '[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set(t, '[data-health="upstream"][data-field="total"]', '52');
+    assert.match(result(t, 'upstream'), /13\.0 dB of headroom/, 'a blank Pmax on a 3.1 modem uses the 65 dBmV minimum');
+    const pm = bad('[data-health="upstream"][data-field="pmax"]'); pm.dispatchEvent(new t.w.Event('input', { bubbles: true }));
+    assert.match(result(t, 'upstream'), /Enter the modem’s maximum total power in dBmV as a number/);
+    assert.doesNotMatch(result(t, 'upstream'), /headroom/, 'no headroom is shown for a malformed Pmax');
+    set(t, '[data-health="scqam"][data-field="level"]', '3');
+    const lv = bad('[data-health="scqam"][data-field="level"]'); lv.dispatchEvent(new t.w.Event('input', { bubbles: true }));
+    assert.match(result(t, 'scqam'), /Enter the channel level in dBmV as a number|as a number/, 'a malformed reading is not read as blank either');
+    assert.deepEqual(t.errors, []); t.close();
   });
 
   await check('When the browser will not store the windows the card says so and keeps them for the session', async () => {
