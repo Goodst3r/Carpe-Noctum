@@ -186,6 +186,32 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (thirteen in total)
      and the feature index gains entry 42.
 
+9. Outage first-response card (build list item 8), Job -> Outage
+   - Prompts for the first steps of an outage call: twenty-four items in
+     eight sections (confirm the scope, safety on arrival, power, node and
+     optics, actives in order, tell the right people, if damage or theft is
+     suspected, record the times). It opens with "Follow your company's
+     outage procedure first" and says it is not any company's procedure. A
+     supervisor has not reviewed it against the local outage procedure, and
+     that review is needed before coworkers use it (research/build3/
+     OUTAGE_SOURCES.md lists the questions).
+   - The wording is original; no NCTI or SCTE text is copied. The list has
+     no numbers, limits or levels, so it adds no registry row. It points at
+     SCTE's 2026 Critical Infrastructure Protection Subcommittee only to say
+     its evidence-collection standard (still being written) is not
+     implemented here.
+   - No customer identifiers: the notes are a plant place (node leg, amp or
+     pole), four times, what was found and done, who was told as a role,
+     and three optional damage or theft notes. No field for a name,
+     address, phone number or account number, and no photos or locations. A
+     test fails if a field label asks for an identity.
+   - Same engine, controls and storage rules as the safety card, under its
+     own browser-storage key nightsweep-outage-v1, outside jobs and
+     backups. Start a new call clears the ticks and every note; Save as text
+     prepares a short note to check before sharing. New Job sub-tab: Outage.
+   - Practice: the custom-curves exercise gains a step (fourteen in total)
+     and the feature index gains entry 43.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
