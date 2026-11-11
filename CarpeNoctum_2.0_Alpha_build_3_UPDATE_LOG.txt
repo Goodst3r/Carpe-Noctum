@@ -120,6 +120,61 @@ CHANGES
    - Layout: the Test sub-tab row now wraps when its tabs do not fit (a
      ninth tab overflowed the page at 768 px).
 
+7. Leakage tools (build list item 7), Test -> Leakage
+   - FCC leakage limit check against 47 CFR 76.605(c) Table 1 (analog 15 and
+     digital 13.1 uV/m at 30 m at 54 MHz and below and over 216 MHz; analog
+     20 and digital 17.4 uV/m at 3 m over 54 up to 216 MHz), restating a
+     reading at another distance by the inverse-distance relation (Expert,
+     approximate).
+   - Distance to 3 m, a CLI estimator (47 CFR 76.611(a)(1): 10 log10 of
+     (1/theta) x sum of E^2 over leaks of 50 uV/m or more, compared with
+     64; no frequency correlation), a detector check (directly connected
+     source or calibrated leak; company tolerance starts unknown) and a
+     personal leak log with the 76.1706 fields and a CSV export.
+   - A notebook and calculator, not the company's official leak record and
+     not a filing. The log, saved detector checks and the two company
+     settings (repair threshold, detector tolerance) are kept on this
+     device only under the new browser-storage key nightsweep-leakage-v1,
+     outside jobs and their backups. Existing storage keys and the job
+     format are unchanged. The screen asks for a pole, tap or cross street,
+     never customer names, addresses or account numbers.
+   - A number box holding text that is not a number (a lone minus sign) is
+     refused with its reason: it never clears a saved company setting and
+     is never read as "not given". A blank detector-check date or a cleared
+     repair date is refused and the record is left alone; the date boxes
+     start as today and what was chosen is what is kept.
+   - Twelve registry rows (seven spec, one spec secondary for 47 CFR 76.614,
+     two expert flagged secondary, two company). Sources and what was read:
+     research/build3/LEAKAGE_SOURCES.md.
+   - A leak counts in the CLI only when it is at least 50 uV/m measured 3 m
+     from the leak with the test frequency in 108-137 MHz (76.611(a)(1),
+     (b)(1)); any other frequency, or none, is shown as needing correlation
+     or a frequency. The card does no correlation.
+   - Leaks in the CLI card are separated by spaces, new lines or semicolons;
+     a comma with no space (1,500 or 120,5) is refused. The fraction
+     examined is 0.001 to 1, not both fraction and strand miles.
+   - A restated reading gets a neutral mark, not a green check; an estimate
+     from under 75% of the plant gets none either. The near-field edge
+     (wavelength / 2 pi) is warned about at the entered frequency.
+   - If this browser will not store a change it is kept and written with the
+     next change that saves; unreadable stored data is copied to
+     nightsweep-leakage-v1-unreadable before it is replaced; data from a
+     newer version is never overwritten. A saved detector check keeps the
+     tolerance in force when it was saved. Editing one company setting never
+     changes the other. Mark repaired can be undone with Reopen.
+   - Practice: the custom-curves exercise gains a step (twelve in total)
+     and the feature index gains entry 41.
+
+INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
+Three reviewers (sources, math and storage, UI and product rules), each
+finding checked by a skeptic, confirmed 35 findings in the first draft; all
+are fixed. Among them: the far-field statement credited to SCTE 293-12 was
+read in SCTE 221; 30 m was credited to 47 CFR 76.609(h); 47 CFR 76.614 was
+missing and "many operators repair sooner" had no source; "counts in the
+CLI" ignored the test frequency; a failed write lost later entries; unreadable
+or newer stored data was overwritten; comma-separated numbers could be read as
+two leaks; and several test names claimed more than they checked.
+
 INDEPENDENT REVIEW
 Four reviewers (math, provenance, UI, regressions), each checked by a
 skeptic, confirmed five defects in the first commit; all are fixed: a
@@ -206,3 +261,35 @@ A1 STATION WORKSHEET — NOVEMBER 11, 2026
   last-edit paragraph refresh timing; stored data/timestamps are correct.
   A further rare edge: heavily escaped maximum-length source labels can
   exceed the encoded context guard. See the review handoff; D1-D5 are open.
+
+A3 — PERSONAL SWEEP REMINDERS (November 11, 2026)
+Job -> Sweep due reads current-context saved Station work dates from this device's
+named jobs and working copy. Balance and sweep remain independent; unknown,
+unchecked, future/invalid, historical and read-only records never become green.
+Only a unique matching job ID is overlaid; copies and ambiguous sources remain
+separate. Practice/sample badges and counts remain explicit. Lists show complete
+counts with pages of 25 entries, refreshed on entry, visible-tab resume and request.
+
+The entered whole-calendar-month interval starts unknown, is saved optionally
+with the working job and uses the existing autosave/named/JSON paths. Original-date
+clamped anniversaries avoid 30-day approximations and month-end drift. Yellow at
+ceil(2 * N / 3) is tagged Unknown: an unverified app policy implementing the
+12-of-18-month example. The older Hranac attribution for 18 months is unverified;
+it supplies no default, company cadence or RF acceptance. The 1–1200 month guard
+and civil-date policy are also Unknown registry choices.
+
+Current merged-base practice/docs: 26 screens, 43 feature choices; Leakage remains
+42, Sweep due follows as 43; six-active 15 steps, complete 22, custom curves 12.
+Main README copies match. The focused fixture saves three named synthetic jobs
+for 0/12/19-month examples at explicitly injected 2026-11-11 and entered 18.
+
+Own focused checks after integrating reviewed build3 5588a49: A3 source 32 and
+frozen 32; new rendered Chromium 73; independent Python calendar 14 cases;
+retained registry 13, UI names 6, Station 22, Station review 11, Leakage 32 / 391
+reference comparisons, practice library 11, named-job storage 5, design 8 passed.
+Actual Chrome DevTools MCP 1.13.0 inspected the frozen synthetic 390 px view,
+including invalid-input focus/error, separate dates, clear labels and no overflow
+or console errors. Frozen HTML SHA-256:
+717e26a9f87391d4f2750ddd3e2f645d78e5fe3b44f987383605eb6a3059ccae
+Full gate and whole-app layout/smoke await coordinator execution at final head.
+No APK, emulator, physical phone, Safari/WebView, hardware or field test claimed.
