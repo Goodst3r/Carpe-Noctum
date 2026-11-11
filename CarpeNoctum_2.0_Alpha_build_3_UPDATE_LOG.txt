@@ -313,3 +313,27 @@ reload of that saved synthetic worksheet passed before this correction.
 The regression explicitly checks zero pre-Alignment math, a populated v2
 worksheet/result round-trip, no quarantine or automatic grade, and completed
 original verification. No module-order, schema, key, parser or RF-math change.
+
+
+A4 — VERIFIED FINAL PEER-CORRECTION GATE, NOVEMBER 11, 2026
+Source9cad649 includes reviewed5588. The six requested context/storage/UI/
+registry/guide corrections are complete; a pure bound/raw Station projection
+also removes early grading-context RF evaluation without changing RF results,
+canonical payload, old history, original verification or either async guard.
+Current runtime25screens/43features/custom13/complete22/six14.
+Both builders and final gate:72/72 suites,1,589 checks,485.5s; separate rendered
+layout374 and smoke340, all exit0/fresh.591 tracked/568source/23generated
+hashes, semantic staged entries/tree, README/lock/40 locked dependencies
+unchanged; clean without restoration. Raw index cache bytes are diagnostic.
+The failed533 Station reload run remains71/72 with1,566 counted, not relabeled
+as passing. Warm-jsdom reproduction is documented; exact VM mechanism is
+unproven and Chrome cold reload had already passed. The final startup and
+original-byte/context regressions pass independently at9cad.
+Root's two private original exports preserved raw samples/containers exactly
+through identity-remapped portable restore; no automatic grade/external page
+request. No real identifiers/readings/checksums are published. Remaining
+parser/memory/history/UI and existing A1/performance gaps remain recorded.
+Commands/receipts/reviews:handoff_docs/lanes/codex-a4-validation.json and
+handoff_docs/reviews/codex-sweep-grading-{peer-fixes,peer-review,startup-gate}.md.
+Lane B same-head re-review/gate/merge still required; no own PR merge, APK,
+signing, emulator/physical device/Safari/WebView, RF hardware or field claim.
