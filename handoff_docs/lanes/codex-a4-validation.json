@@ -4,19 +4,19 @@
   "item": "A4 / item 13 imported sweep grading",
   "preparation_base": "4350abcf5a33dce911361a357df891abe6a386ad",
   "published_integration_base": "79b0735c6face341d1a78a098a2303f4bdf6fc96",
-  "tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
+  "tested_source_head": "b86382186c3179bd1037cf20a63a722e777711dc",
   "execution_attribution": {
     "full_gate_and_separate_existing_rendered_checks": "Lane A implementation agent; actual local execution at the tested source head",
     "private_file_browser_proof": "Lane A coordinator; distinct local execution at the same tested source head",
-    "independent_review": "Historical whole-branch review at 1663462: five synthetic focused checks. Follow-up scoped Station fix review at 04bb5ae: fresh35-check suite and independent real PR8 persistence old/fixed comparison. Neither claims a second full gate."
+    "independent_review": "Historical whole-feature and Station-context reviews remain distinct. Fresh CRC-only reviewer at b863821 ran native69,3270 CRC comparisons,99 valid ZIP parses and214 corrupt-member rejects; none is substituted for the implementation-agent final full gate."
   },
   "commands": [
     "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py",
-    "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py",
-    "NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py"
+    "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py",
+    "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py"
   ],
   "gate": {
-    "release": "13066065a93d606e9fbd",
+    "release": "fd19303e68711e838a76",
     "version": "2.0 Alpha build 3",
     "suites": [
       {
@@ -24,27 +24,27 @@
         "script": "build3-registry.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 7.0
+        "seconds": 3.6
       },
       {
         "name": "Build 3 field calculators against independent references",
         "script": "build3-field-calcs.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 3.4
+        "seconds": 2.2
       },
       {
         "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
         "script": "build3-alignment.test.cjs",
         "passed": true,
         "checks": 12,
-        "seconds": 3.4
+        "seconds": 2.2
       },
       {
         "name": "Build 3 native JSON and archive evidence",
         "script": "build3-native-evidence.test.cjs",
         "passed": true,
-        "checks": 67,
+        "checks": 69,
         "seconds": 0.1
       },
       {
@@ -59,7 +59,7 @@
         "script": "sweep-grading-ui.test.cjs",
         "passed": true,
         "checks": 35,
-        "seconds": 17.4
+        "seconds": 16.9
       },
       {
         "name": "Build 3 rendered grading controls",
@@ -73,7 +73,7 @@
         "script": "v20-design.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 3.8
+        "seconds": 3.7
       },
       {
         "name": "Build 2 TDR active-boundary regressions",
@@ -87,14 +87,14 @@
         "script": "build2-rf-properties.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.4
+        "seconds": 0.3
       },
       {
         "name": "Build 2 all seven examples frequency replay",
         "script": "build2-example-math.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 1.6
+        "seconds": 1.5
       },
       {
         "name": "Build 2 power circuits and current-curve backtests",
@@ -115,21 +115,21 @@
         "script": "build2-frontend.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 15.5
+        "seconds": 14.3
       },
       {
         "name": "Build 2 rendered cascade and lazy-chart layout",
         "script": "build2-layout.test.py",
         "passed": true,
         "checks": 55,
-        "seconds": 32.6
+        "seconds": 32.1
       },
       {
         "name": "Build 2 original-byte limits and atomic job operations",
         "script": "build2-reliability.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 18.3
+        "seconds": 19.0
       },
       {
         "name": "Build 2 native filename and print lifecycle",
@@ -157,7 +157,7 @@
         "script": "complete-workflow-math.test.cjs",
         "passed": true,
         "checks": 17,
-        "seconds": 2.0
+        "seconds": 2.6
       },
       {
         "name": "1.8 release identity and documentation",
@@ -171,7 +171,7 @@
         "script": "android-preview.test.py",
         "passed": true,
         "checks": 18,
-        "seconds": 0.5
+        "seconds": 0.3
       },
       {
         "name": "1.8 imported route and power ID boundaries",
@@ -185,14 +185,14 @@
         "script": "training-library.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 53.0
+        "seconds": 47.0
       },
       {
         "name": "1.6 to current release migration and portable example",
         "script": "upgrade01617.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 8.4
+        "seconds": 6.9
       },
       {
         "name": "1.7 stable workflow rendering",
@@ -206,56 +206,56 @@
         "script": "alpha17-report.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 0.4
+        "seconds": 0.5
       },
       {
         "name": "1.7 launch source workflow",
         "script": "launch-source.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 2.6
+        "seconds": 3.1
       },
       {
         "name": "1.7 equipment setup and DSIM",
         "script": "equipment-setup.test.cjs",
         "passed": true,
         "checks": 39,
-        "seconds": 1.6
+        "seconds": 1.4
       },
       {
         "name": "1.7 local operator targets and available carriers",
         "script": "local-operator-preset.test.cjs",
         "passed": true,
         "checks": 19,
-        "seconds": 5.3
+        "seconds": 5.4
       },
       {
         "name": "1.7 DSIM historical pilot-code lookup",
         "script": "dsim-pilot-codes.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "1.7 separate installed gain-control paths",
         "script": "equipment-control.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.5
+        "seconds": 0.6
       },
       {
         "name": "1.7 current node setup references",
         "script": "node-setup-refresh.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "1.7 retired UBT compatibility",
         "script": "retired-equipment.test.cjs",
         "passed": true,
         "checks": 7,
-        "seconds": 1.9
+        "seconds": 2.2
       },
       {
         "name": "1.7 fresh independent numerical references",
@@ -269,7 +269,7 @@
         "script": "alpha17-engine.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 evidence job context",
@@ -304,14 +304,14 @@
         "script": "sweep-setup.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 11.8
+        "seconds": 11.2
       },
       {
         "name": "Equipment reference catalog",
         "script": "equipment-reference.test.cjs",
         "passed": true,
         "checks": 18,
-        "seconds": 1.5
+        "seconds": 1.6
       },
       {
         "name": "PWA package and service worker",
@@ -325,7 +325,7 @@
         "script": "pwa-client.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 2.1
+        "seconds": 1.6
       },
       {
         "name": "Browser file export and sharing",
@@ -339,14 +339,14 @@
         "script": "training-job.test.cjs",
         "passed": true,
         "checks": 41,
-        "seconds": 29.5
+        "seconds": 24.8
       },
       {
         "name": "Production training buttons and fleet split",
         "script": "training-controls.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 23.0
+        "seconds": 21.7
       },
       {
         "name": "RF and power engine",
@@ -381,28 +381,28 @@
         "script": "dom-tests.cjs",
         "passed": true,
         "checks": 38,
-        "seconds": 4.8
+        "seconds": 4.7
       },
       {
         "name": "Active and TDR interface calculations",
         "script": "alpha14-ui.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 8.5
+        "seconds": 7.9
       },
       {
         "name": "Technician task navigation and live controls",
         "script": "alpha15-ui.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 7.0
+        "seconds": 7.8
       },
       {
         "name": "Node profiles and current curves",
         "script": "nodes.test.cjs",
         "passed": true,
         "checks": 29,
-        "seconds": 0.7
+        "seconds": 0.5
       },
       {
         "name": "Evidence parser and validation",
@@ -416,7 +416,7 @@
         "script": "evidence-ui.test.cjs",
         "passed": true,
         "checks": 28,
-        "seconds": 0.8
+        "seconds": 0.9
       },
       {
         "name": "IndexedDB failure and commit boundaries",
@@ -430,21 +430,21 @@
         "script": "named-jobs-storage.test.cjs",
         "passed": true,
         "checks": 5,
-        "seconds": 8.6
+        "seconds": 8.8
       },
       {
         "name": "Legacy upgrade and portable backup",
         "script": "alpha011-integration.cjs",
         "passed": true,
         "checks": 21,
-        "seconds": 9.0
+        "seconds": 9.5
       },
       {
         "name": "Retained field tools and named jobs",
         "script": "alpha012.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 12.6
+        "seconds": 12.7
       },
       {
         "name": "0.13 APK backup migration",
@@ -458,14 +458,14 @@
         "script": "upgrade01415.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 4.4
+        "seconds": 4.7
       },
       {
         "name": "Training, guide and app text names real screens and buttons",
         "script": "ui-names.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 12.9
+        "seconds": 13.3
       },
       {
         "name": "Built-in reference calculations",
@@ -486,34 +486,340 @@
         "script": "gate-reliability.test.py",
         "passed": true,
         "checks": 7,
-        "seconds": 13.3
+        "seconds": 13.2
       }
     ],
-    "checks": 1364,
+    "checks": 1366,
     "suite_timeout_seconds": 3600,
-    "total_seconds": 350.2,
+    "total_seconds": 331.1,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "html_sha256": "ab224b0827497ab0d0cb36719ec9b4eac54ec30f7606a377529d1030232c79e2",
-    "standalone_sha256": "b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a",
-    "worker_sha256": "f1c5cc6e670da6147cf7467971d3ac72b9d61a70cb9d2e36eee051cd2ce923c9",
+    "html_sha256": "3bfbdc2ebbffb50e0481c81c35c6ba761ed969bc308795d688d3178b16e49bc4",
+    "standalone_sha256": "b2350678a22cbb3843fb515d26a4871f22893923fe9baf08d0962fab0677b393",
+    "worker_sha256": "0dd2026d5c92e6321ed4cb691cc7b8c56494b5861b715721f60743c6ffd38985",
     "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
   },
   "source_binding": {
-    "source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
+    "source_head": "b86382186c3179bd1037cf20a63a722e777711dc",
+    "standalone_sha256": "b2350678a22cbb3843fb515d26a4871f22893923fe9baf08d0962fab0677b393",
+    "receipt_sha256": "c692c14ac9f20428177545e22174d2c797bbe3892cd0d3f6be1faa1bd85e6509",
     "clean": true,
-    "readme_copies_equal": true,
-    "suites": 67,
-    "checks": 1364,
-    "seconds": 350.2,
-    "all_passed": true,
-    "build_unchanged_during_tests": true,
-    "worktree_unchanged_during_tests": true,
-    "receipt_sha256": "19d826039ddf6566060649ce373d97f6ee4f85f6e84354b9bfb5b78db6930c01",
-    "standalone_sha256": "b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a",
-    "html_sha256": "ab224b0827497ab0d0cb36719ec9b4eac54ec30f7606a377529d1030232c79e2",
-    "worker_sha256": "f1c5cc6e670da6147cf7467971d3ac72b9d61a70cb9d2e36eee051cd2ce923c9"
+    "build_and_source_unchanged": true,
+    "execution_proof": {
+      "expected_source_head": "b86382186c3179bd1037cf20a63a722e777711dc",
+      "scope": "Own exact-head full QA gate and separately executed rendered layout/smoke; no private-file proof attributed.",
+      "started_utc": "2026-11-11T17:13:45.422273+00:00",
+      "pre": {
+        "head": "b86382186c3179bd1037cf20a63a722e777711dc",
+        "tree": "fb80f505e015f1da67843e0422294da0f7f304bd",
+        "branch": "codex/sweep-grading",
+        "git_status": "",
+        "files": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "dist/android.html": "d052ddb22d2fc2bd5ce92fb65d685cf135d8a19daa9e714e2d63150c12e73a16",
+          "dist/equipment-coverage.html": "21e44c36c185fce89f02b1819b4681897f2109442eba5cb8da1b98041862d66b",
+          "dist/functions-guide.html": "2ac083595572690cf08e46284c09c3a707f1658d9a7d24608136380c5402db31",
+          "dist/guide.html": "4a5b02a8cb564351b4956c05fac5ac6be1a6e27fb01921cdf1408bf0c12f41c5",
+          "dist/icons/apple-touch-icon.png": "27009ef689427e5953667f189a00457b9f3f075796762177e6f015b3b819250f",
+          "dist/icons/icon-192.png": "5f76beb81c5cd4371c07a7d3e61efaeb7f39120e269ea27c289d9221c609fc2d",
+          "dist/icons/icon-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+          "dist/icons/icon-maskable-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+          "dist/icons/icon.svg": "c01a21b6e7dbb5e88dd4c64ccb2a082ae87c9e3f8f94e084cf8fe4a14d36f617",
+          "dist/index.html": "3bfbdc2ebbffb50e0481c81c35c6ba761ed969bc308795d688d3178b16e49bc4",
+          "dist/install.html": "faa8c86c6ad0388482752a64c52feb50801ec8865452dca1eea8fe3a64fca394",
+          "dist/iphone.html": "171a0bcc042265de610f67bb2676918ca1e3905a656150e917a4c0dc803986e6",
+          "dist/manifest.webmanifest": "2a35e13223851d31f60234a81674a1151b94376c3bb2e773911bf670f03ec4da",
+          "dist/math-audit.html": "fb49083c3f2f18194a9aa3a040489ddd8ffc196a0d71c77f561b7f2c51c2e46d",
+          "dist/phone-installation.html": "07d65b51004005a87fad7d8d67a800c3b5987c0c2dd8e7e007e4266401203f0a",
+          "dist/pwa.css": "c611fd2db30de63ec4bc57cc1c479a33c745aed3d113044720eb64467d3ecc64",
+          "dist/pwa.js": "647f67eb1c6db49832d25bd059510cacf6e3314bc173853b1a40cf46c5dc7b00",
+          "dist/release.json": "760690ba62dcfec572b6add32e713c10bb5922511ed5f026d8e86aa6f5b3db13",
+          "dist/robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
+          "dist/setup-guide.html": "9ffe5c2b3b6992190fcca4b4c7cbe71034d5319fe47b260785cf470c5b2ab64c",
+          "dist/sw.fd19303e68711e838a76.js": "0dd2026d5c92e6321ed4cb691cc7b8c56494b5861b715721f60743c6ffd38985",
+          "dist/training-coverage.html": "d21f92a4c3d47d0d8542a7c1a661ad42921bc7e1c2321689ff1cad4779456ab0",
+          "docs/NightSweep_1.8_Alpha_README.md": "329126442511407f52bab8529ea8ed6b27464f99b29569cc0aecc23f44461353",
+          "night-sweep/README.md": "329126442511407f52bab8529ea8ed6b27464f99b29569cc0aecc23f44461353",
+          "night-sweep/alignment.js": "771ece09f116839920c9e31cca4d0c58bb506769cc5972adff227fe4ce68614b",
+          "night-sweep/app.js": "b2df5df46d6bb8118d600db514a5f64222d52cba3802dedc8fd9e03077d24f73",
+          "night-sweep/browser-files.js": "c83a5ae69898dc004e47fdbc4eaacf734a5d91fb758365bb349df0dac07a73da",
+          "night-sweep/build.py": "cc9333e0823fa2fcf755137b05bd07fec78b563153d8cfa693b6f0a558a22a2f",
+          "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
+          "night-sweep/dsim-pilot-codes.js": "016f7a121e3c3ad9a57d11678709106c26625623c3bc3460bb9801e10ba48038",
+          "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+          "night-sweep/equipment-setup.js": "b10e7fdf60c9f38aa45f0f48b66ae2a5a1b806c0e644546d4881bf538732bc3a",
+          "night-sweep/evidence-archive.js": "8e08b058f3443f977b4a1c58025f020608775ff8d7f9058ba0a4c6f514a1dd2a",
+          "night-sweep/evidence-ui.js": "180135e0ffd278a7e2cd18b5fb332de8c4ea66261147a300139be2c4f540dcdd",
+          "night-sweep/evidence.js": "55a9d6aca395ee94cc7236596bd7736b3053c3d02249b66a36fa8ace9e761012",
+          "night-sweep/field-calcs.js": "56917cfbfbe51850549edcddf4d9453e443211249cf58fdc060a5ef3c1f04c21",
+          "night-sweep/field-reference.js": "27cba69b9d868a40dce1d6080a9840fe3fd53eef286b9936bc048c71def612a3",
+          "night-sweep/field-report.js": "63161fc9a5bbe5148d12ab6e31700efea17b1fac7476b202be27174cb8a41471",
+          "night-sweep/field-work.js": "ed3b72809d1b5446c73c0a49028410982c0c6cc90d3abaa9e09fe8809fc918e3",
+          "night-sweep/frequency.js": "588535762c380d670d2f8671d2e2bf3052094c1ed28961bf16ab89820a9dd8ae",
+          "night-sweep/jobs.js": "a480e5b505178977e2978c48a761dc8980c77304e0c8514c2b6776149c83710e",
+          "night-sweep/launch-source.js": "1bd394c8b8da85a190fa28f6b7b087588236a6e8de6f90e8c65bf4f5f2b1d413",
+          "night-sweep/meter.js": "eb77c3eb884eac4d55a4456103bdb7af92c35396048d1f8fa90057498b297893",
+          "night-sweep/nodes.js": "7f62acfb3868481cd946b6020a4255a747afa60f208c05acef7289d4e837df07",
+          "night-sweep/projects.js": "2f71ddb9fe44e5ae54cef0f6b6e9febf381386b1b74b52c6edd868f3bdcc4ff3",
+          "night-sweep/research/active-gain-evidence.json": "dd925979ab9b4649d53d1d7f10a04637f8971b2331a19c337f5d2bbd815c3dd1",
+          "night-sweep/research/active-gain-sources.md": "403774a1dc41e9dbe2a01ac4111d161c5917472f05e98cf20766dbba67d8eb09",
+          "night-sweep/research/alpha17-equipment-refresh/active-manuals.json": "156eefa0a29ae0c51e9737417f2dc66a6c2a95bc81e4c9519a948a59e1203e17",
+          "night-sweep/research/alpha17-equipment-refresh/active-manuals.md": "6f75484719c4e342a61ab1ab457282201c7b30449fc8c3c83109fc81c9eecb4c",
+          "night-sweep/research/alpha17-equipment-refresh/active-preparation-source-checks.json": "911945d67110b1d97c5f7a6df884c25fd5ae3cd8f774122c897ea4b7d855ae3b",
+          "night-sweep/research/alpha17-equipment-refresh/active-source-checks.json": "12cd3c4359e0f5bc5fbe353d7950ff9abbc09297eebdb615490218d7d70b4ee2",
+          "night-sweep/research/alpha17-equipment-refresh/audit_catalog.py": "fd0ce7ec4a6d6dc5619ef7727c6e43e45bbb727542aa1ecb82610c09133f1304",
+          "night-sweep/research/alpha17-equipment-refresh/catalog-documentation-inventory.json": "4ab5fc25efa8f54887502853412d38cf10d7a35d0af3c13523d7bea5ebfed7f2",
+          "night-sweep/research/alpha17-equipment-refresh/catalog-documentation-inventory.md": "5adec8edea2696a7a9f6fa9594fa316b3afee417f1d967ab66d41baaa764b76d",
+          "night-sweep/research/alpha17-equipment-refresh/context7-platform-review.json": "80ba76adf9df8c505eea4231f359e5ff47f0874ca2d792f2262e588ac80caccf",
+          "night-sweep/research/alpha17-equipment-refresh/documentation-validation.json": "fad628cf8f2e1f92f1a1a9ad5827a10c7888ee3674e85c0138949ad193dc844c",
+          "night-sweep/research/alpha17-equipment-refresh/dsim-latest.json": "60487ce36fd50e6bca709f00f2fd0a24583f15d23f2439b7a13806faf21b42c5",
+          "night-sweep/research/alpha17-equipment-refresh/figma-hf-review.md": "621fe5120daa86fbc27558061cb12902e235fa254fb14f8cbed89c2a4f422f4e",
+          "night-sweep/research/alpha17-equipment-refresh/final-platform-interface-audit.json": "d69d1c70e84ad8e97969cfb22ba162ca429d1816fa7b9ce48fd971f70e04d88e",
+          "night-sweep/research/alpha17-equipment-refresh/final-platform-interface-audit.md": "e9b0d942e55f75ce98fd9cbc75287373a17ea3263b6096c553d86e567fefa04f",
+          "night-sweep/research/alpha17-equipment-refresh/runtime-curve-check.cjs": "1ec15c3a06427147f1cc11af35ca0d26e012b116fe7b3aebdd7113b2c7558d0f",
+          "night-sweep/research/alpha17-equipment-refresh/runtime-curve-check.json": "7e891d545b7dc4c6dca17e62eace72519aeb8012da9ddff627e3b57bc56f2f08",
+          "night-sweep/research/alpha17-fresh-reference-check.cjs": "1f1b1b2212fe7398cb69a6385aa2b3bd41d966540a6b830c4b856fbf39673b3e",
+          "night-sweep/research/alpha17-fresh-reference-results.json": "1c13aba8edbed34317fa10f94b8766b2fc799d432ac5d36ceec87da1696994b4",
+          "night-sweep/research/alpha17-manuals/active-manuals.json": "0fea9933204add32d9169f9ab26be5e2ecc8f8e7a5bdfccc46a2de1699df723f",
+          "night-sweep/research/alpha17-manuals/catalog-audit.json": "74852b3553e50c5d8d17f7df7fc2efc21ce22775c9938a804c1a4fe967a51a96",
+          "night-sweep/research/alpha17-manuals/catalog-audit.md": "af0bfad611bafa3adc2bdbea136eb68700213c96a23a7ea643f8585c4dcc78f9",
+          "night-sweep/research/alpha17-manuals/dsim-pilot-guide-review.md": "7448034db4d8d2b04341925b301f35bf45c617c1e53280d7cdcaab0c65d8f66c",
+          "night-sweep/research/alpha17-manuals/dsim_research.md": "a7cd71359726e0d95c38773f24c4678fe1cdfa1ca2f3ec7a85265b0f13b0a518",
+          "night-sweep/research/alpha17-manuals/gap-policy-curves.json": "e81e77b4c217a40db7360962a89b093ee7e3c66a838e504bb6f4eb6b3507d3dd",
+          "night-sweep/research/alpha17-manuals/node-manuals.json": "c7a5050ce3066c389dbb928484ffb7fc5aa11a55bd9c8f487e99f2c208b7837e",
+          "night-sweep/research/alpha17-manuals/registry-validation.json": "3314e8df23663247aff2e4a04c6f9c7918ce4ed0418dc1df65d139a5579aec17",
+          "night-sweep/research/alpha17-manuals/source-review.md": "92ae40ae93ffd1778b1f043ba4b2f9ee8d0e9df4d22d6ce7fe8b9b45deb8e4eb",
+          "night-sweep/research/alpha17-math-audit-fresh-wolfram.json": "204504df262c898ad69c96351fc2c52cab82565635cf1ba8f412c9b49786b571",
+          "night-sweep/research/alpha17-numerical-audit-logs/engine.test.js.log": "f5cce8c72c5f651227371894c996824e72823207130b5d346e6faf7656c6638a",
+          "night-sweep/research/alpha17-numerical-audit-logs/frequency-regression.cjs.log": "6ac7fed93d6f83f1ec0bb6a9e9934cee685a5fb88dc3fa7853bbae2b4e971cd3",
+          "night-sweep/research/alpha17-numerical-audit-logs/projects.test.js.log": "bd33266781b818871a86864b4810e3bd165d87a7e748f1913dd02f57b0b2536f",
+          "night-sweep/research/alpha17-numerical-audit-logs/route14.test.cjs.log": "80ddca4968fdf331f9065099f50cc8347c2979335e3eeda82b00ac8721a06391",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-power.test.cjs.log": "eb9f455ba0939becad91f2b1ba0bf78b576fd93e5a472231aca4b7602d617f8b",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-records.test.cjs.log": "410ac46f6482b655f03c9cac6914ff5a0d7c2f23b4a900f60012fe58bb1aacad",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-rf.test.cjs.log": "9f572100ddee9803e14fbd6ccdc4bd87680ecd0f1994419b4161ddfdac150d90",
+          "night-sweep/research/alpha17-numerical-audit.md": "2691a1cfd6e19ae582d3d0dba3412e2522ac6d002f75f8ed9454599db7806481",
+          "night-sweep/research/alpha17-setup-frequency-wolfram.json": "ca5efa598f349b1cd606a9e00bfe4c9ea35047c3679a4adb597338f6058ee834",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/actives/catalog-patch.json": "56a3932ffa72e8677804a39062d2703bdaff2d6c5a66d22a42c34fd3c33443be",
+          "night-sweep/research/equipment-audit-build17/actives/live-link-checks.json": "0ac16ec3c311c0894725794ef5cfc2e0c4543eca0ca06c517903c5e7b57e49d8",
+          "night-sweep/research/equipment-audit-build17/actives/power-patch.json": "5bd553243b7bb3e0e2ca17971bedbc3c14dcc22ad1a914c9f2a5d18c4962b27b",
+          "night-sweep/research/equipment-audit-build17/link-replacements.json": "2857849c0fbf57ba8fdd7a30d16d496ba9f4a1e3de50320a01d195cda4621ac0",
+          "night-sweep/research/equipment-audit-build17/links.json": "001e5b3054ea82c6dec8bfe8a4872c407d9513907ead6007e26e91626103e035",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "night-sweep/research/equipment-audit-build17/passives/catalog-additions.json": "d4919ecf4df0a12c48b848af1891caf88b2a99b11d74d804978a66da56c6cc91",
+          "night-sweep/research/equipment-audit-build17/passives/link-replacements.json": "b79be5c832bc26df77371026c3258b4443ccdc1e82dd92819804775d50fc587e",
+          "night-sweep/research/equipment-audit-build17/passives/structural-audit.json": "bf4a9bf582ae9ec5d270883075e3f5c63b1010ebb9621e5f197c41f30b4539df",
+          "night-sweep/research/wolfram-distance-check.md": "c855677aa5dc17fd4eefe90db580193161d4a7c766741b44d2d4a1ea64ed84d1",
+          "night-sweep/research/wolfram-power-1.6.json": "7b54d0d0478f27613f59739a0d36680a7835fc667e705b293834b0cca5f8af2e",
+          "night-sweep/research/wolfram-power-1.6.md": "97d1c4f3f976ea8ca6ac5fe4df2a7a54785419e5be619d66ba3a1faac9990624",
+          "night-sweep/research/wolfram-records-1.6.json": "f9db217f53f7c06e0fc20ea9e791d399e96f5e82e59bd1c08ed9c32c5d2ef916",
+          "night-sweep/research/wolfram-rf-1.6.json": "16e48b40b34574a61b4ee48aeeadee853b8956c192c5c34f94eab93a921f6199",
+          "night-sweep/research/wolfram-rf-1.6.md": "37e23b82568bc836d1548128ecfe9f1d46fe4edc6418b728da8708f174360300",
+          "night-sweep/research/wolfram-rf-extra-1.6.json": "47b56876737c21a1348ff345f15a50b15c3bc5c289e9582100e2cf5caa1fb003",
+          "night-sweep/research/wolfram-rf-main-response-1.6.json": "88c356a7f1d6f982ab641611a6caa1a9d9cb9de9ff61b03e97b1408a6fed0ef0",
+          "night-sweep/route-tools.js": "e22d4b9671f4e50a23c067928d6a5a9166c37ba9621899a7e07ce1a86783848b",
+          "night-sweep/selfcheck.js": "b2e5005a833a8477d7a46ce4466a44e524035e407438ec00a0000cdc807902c6",
+          "night-sweep/setup-manuals.json": "8db52cfdc0f18b52a4411eea89c370f53a27abaa8a6981056381598b7c4a3169",
+          "night-sweep/shell.html": "30c28d8709823a8c7190b8cd2773073eed5730669e9337adac9b391bf0f5912a",
+          "night-sweep/style.css": "965741242042f63a7385202879a6e341ee5d183458cdba6918c394ea4fc669ed",
+          "night-sweep/sweep-grading-ui.js": "8a3191754a0ccb6835e4fd8ea30125342798d6dca122a4c03dc7c5ec148fe615",
+          "night-sweep/sweep-grading.js": "c72a91403001812dceaa6d4c81ed32f05fc59d67a838382c153d9fa7832e3617",
+          "night-sweep/sweep-guide.js": "78c3ce9d7f7c0843cc4c60facc74f215981a6b427e87642d75b5352664a2bcd2",
+          "night-sweep/sweep-setup.css": "851d924df83efd0e24a2d1fc3de5a6c6fe3009fb874d07f86add797bd7cff6cb",
+          "night-sweep/sweep-setup.js": "d4b24fc218ae666075c3a36023b418b51d22f3a1c57315f1a368df85662b804c",
+          "night-sweep/thresholds.js": "ead141289d6f692e76be2d54650c1fb024633a6a6f0876e2f08dcf0ddcae0d03",
+          "night-sweep/training.js": "21ed8f557692e7e6be395e3957c7febd8ec83e383c152a6b217baa9d9c0279de",
+          "night-sweep/workflow.js": "f20e8a8ec4668d3674ec096b02a2dce395987eb69895d17e47c227e597d4281e",
+          "outputs/Night_Sweep.html": "b2350678a22cbb3843fb515d26a4871f22893923fe9baf08d0962fab0677b393",
+          "qa/build3-native-evidence.test.cjs": "4717aab1497d22ba80a8589f166fa7ca4557afa2ca3ee4184007adbb6f48bec9",
+          "qa/fixtures/viavi-synthetic/forward-all-bytes.zip": "ed770a472806fb42ef9983dd5bbcc1d43256a7eb1ac33f88349aca88038dbe71",
+          "qa/fixtures/viavi-synthetic/generate.py": "fb3d67c096242443fca68548d3e372a2f6037088f12f7b66e7c964adf7925321",
+          "qa/run-pwa.py": "65abb8d50ce298514b5a6f78f0c5cce76237ee0aa9a32c444678ad8cd1a2c060"
+        },
+        "readme_equal": true
+      },
+      "commands": [
+        {
+          "command": "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py",
+          "exit_code": 0,
+          "wall_seconds": 331.62,
+          "log": "/tmp/carpe-a4-optimization-final-gate.log"
+        },
+        {
+          "command": "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py",
+          "exit_code": 0,
+          "wall_seconds": 8.676,
+          "log": "/tmp/carpe-a4-optimization-final-layout.log"
+        },
+        {
+          "command": "NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py",
+          "exit_code": 0,
+          "wall_seconds": 15.152,
+          "log": "/tmp/carpe-a4-optimization-final-smoke.log"
+        }
+      ],
+      "ended_utc": "2026-11-11T17:19:40.894197+00:00",
+      "wall_seconds": 355.471,
+      "post": {
+        "head": "b86382186c3179bd1037cf20a63a722e777711dc",
+        "tree": "fb80f505e015f1da67843e0422294da0f7f304bd",
+        "branch": "codex/sweep-grading",
+        "git_status": "",
+        "files": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "dist/android.html": "d052ddb22d2fc2bd5ce92fb65d685cf135d8a19daa9e714e2d63150c12e73a16",
+          "dist/equipment-coverage.html": "21e44c36c185fce89f02b1819b4681897f2109442eba5cb8da1b98041862d66b",
+          "dist/functions-guide.html": "2ac083595572690cf08e46284c09c3a707f1658d9a7d24608136380c5402db31",
+          "dist/guide.html": "4a5b02a8cb564351b4956c05fac5ac6be1a6e27fb01921cdf1408bf0c12f41c5",
+          "dist/icons/apple-touch-icon.png": "27009ef689427e5953667f189a00457b9f3f075796762177e6f015b3b819250f",
+          "dist/icons/icon-192.png": "5f76beb81c5cd4371c07a7d3e61efaeb7f39120e269ea27c289d9221c609fc2d",
+          "dist/icons/icon-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+          "dist/icons/icon-maskable-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+          "dist/icons/icon.svg": "c01a21b6e7dbb5e88dd4c64ccb2a082ae87c9e3f8f94e084cf8fe4a14d36f617",
+          "dist/index.html": "3bfbdc2ebbffb50e0481c81c35c6ba761ed969bc308795d688d3178b16e49bc4",
+          "dist/install.html": "faa8c86c6ad0388482752a64c52feb50801ec8865452dca1eea8fe3a64fca394",
+          "dist/iphone.html": "171a0bcc042265de610f67bb2676918ca1e3905a656150e917a4c0dc803986e6",
+          "dist/manifest.webmanifest": "2a35e13223851d31f60234a81674a1151b94376c3bb2e773911bf670f03ec4da",
+          "dist/math-audit.html": "fb49083c3f2f18194a9aa3a040489ddd8ffc196a0d71c77f561b7f2c51c2e46d",
+          "dist/phone-installation.html": "07d65b51004005a87fad7d8d67a800c3b5987c0c2dd8e7e007e4266401203f0a",
+          "dist/pwa.css": "c611fd2db30de63ec4bc57cc1c479a33c745aed3d113044720eb64467d3ecc64",
+          "dist/pwa.js": "647f67eb1c6db49832d25bd059510cacf6e3314bc173853b1a40cf46c5dc7b00",
+          "dist/release.json": "760690ba62dcfec572b6add32e713c10bb5922511ed5f026d8e86aa6f5b3db13",
+          "dist/robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
+          "dist/setup-guide.html": "9ffe5c2b3b6992190fcca4b4c7cbe71034d5319fe47b260785cf470c5b2ab64c",
+          "dist/sw.fd19303e68711e838a76.js": "0dd2026d5c92e6321ed4cb691cc7b8c56494b5861b715721f60743c6ffd38985",
+          "dist/training-coverage.html": "d21f92a4c3d47d0d8542a7c1a661ad42921bc7e1c2321689ff1cad4779456ab0",
+          "docs/NightSweep_1.8_Alpha_README.md": "329126442511407f52bab8529ea8ed6b27464f99b29569cc0aecc23f44461353",
+          "night-sweep/README.md": "329126442511407f52bab8529ea8ed6b27464f99b29569cc0aecc23f44461353",
+          "night-sweep/alignment.js": "771ece09f116839920c9e31cca4d0c58bb506769cc5972adff227fe4ce68614b",
+          "night-sweep/app.js": "b2df5df46d6bb8118d600db514a5f64222d52cba3802dedc8fd9e03077d24f73",
+          "night-sweep/browser-files.js": "c83a5ae69898dc004e47fdbc4eaacf734a5d91fb758365bb349df0dac07a73da",
+          "night-sweep/build.py": "cc9333e0823fa2fcf755137b05bd07fec78b563153d8cfa693b6f0a558a22a2f",
+          "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
+          "night-sweep/dsim-pilot-codes.js": "016f7a121e3c3ad9a57d11678709106c26625623c3bc3460bb9801e10ba48038",
+          "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
+          "night-sweep/equipment-setup.js": "b10e7fdf60c9f38aa45f0f48b66ae2a5a1b806c0e644546d4881bf538732bc3a",
+          "night-sweep/evidence-archive.js": "8e08b058f3443f977b4a1c58025f020608775ff8d7f9058ba0a4c6f514a1dd2a",
+          "night-sweep/evidence-ui.js": "180135e0ffd278a7e2cd18b5fb332de8c4ea66261147a300139be2c4f540dcdd",
+          "night-sweep/evidence.js": "55a9d6aca395ee94cc7236596bd7736b3053c3d02249b66a36fa8ace9e761012",
+          "night-sweep/field-calcs.js": "56917cfbfbe51850549edcddf4d9453e443211249cf58fdc060a5ef3c1f04c21",
+          "night-sweep/field-reference.js": "27cba69b9d868a40dce1d6080a9840fe3fd53eef286b9936bc048c71def612a3",
+          "night-sweep/field-report.js": "63161fc9a5bbe5148d12ab6e31700efea17b1fac7476b202be27174cb8a41471",
+          "night-sweep/field-work.js": "ed3b72809d1b5446c73c0a49028410982c0c6cc90d3abaa9e09fe8809fc918e3",
+          "night-sweep/frequency.js": "588535762c380d670d2f8671d2e2bf3052094c1ed28961bf16ab89820a9dd8ae",
+          "night-sweep/jobs.js": "a480e5b505178977e2978c48a761dc8980c77304e0c8514c2b6776149c83710e",
+          "night-sweep/launch-source.js": "1bd394c8b8da85a190fa28f6b7b087588236a6e8de6f90e8c65bf4f5f2b1d413",
+          "night-sweep/meter.js": "eb77c3eb884eac4d55a4456103bdb7af92c35396048d1f8fa90057498b297893",
+          "night-sweep/nodes.js": "7f62acfb3868481cd946b6020a4255a747afa60f208c05acef7289d4e837df07",
+          "night-sweep/projects.js": "2f71ddb9fe44e5ae54cef0f6b6e9febf381386b1b74b52c6edd868f3bdcc4ff3",
+          "night-sweep/research/active-gain-evidence.json": "dd925979ab9b4649d53d1d7f10a04637f8971b2331a19c337f5d2bbd815c3dd1",
+          "night-sweep/research/active-gain-sources.md": "403774a1dc41e9dbe2a01ac4111d161c5917472f05e98cf20766dbba67d8eb09",
+          "night-sweep/research/alpha17-equipment-refresh/active-manuals.json": "156eefa0a29ae0c51e9737417f2dc66a6c2a95bc81e4c9519a948a59e1203e17",
+          "night-sweep/research/alpha17-equipment-refresh/active-manuals.md": "6f75484719c4e342a61ab1ab457282201c7b30449fc8c3c83109fc81c9eecb4c",
+          "night-sweep/research/alpha17-equipment-refresh/active-preparation-source-checks.json": "911945d67110b1d97c5f7a6df884c25fd5ae3cd8f774122c897ea4b7d855ae3b",
+          "night-sweep/research/alpha17-equipment-refresh/active-source-checks.json": "12cd3c4359e0f5bc5fbe353d7950ff9abbc09297eebdb615490218d7d70b4ee2",
+          "night-sweep/research/alpha17-equipment-refresh/audit_catalog.py": "fd0ce7ec4a6d6dc5619ef7727c6e43e45bbb727542aa1ecb82610c09133f1304",
+          "night-sweep/research/alpha17-equipment-refresh/catalog-documentation-inventory.json": "4ab5fc25efa8f54887502853412d38cf10d7a35d0af3c13523d7bea5ebfed7f2",
+          "night-sweep/research/alpha17-equipment-refresh/catalog-documentation-inventory.md": "5adec8edea2696a7a9f6fa9594fa316b3afee417f1d967ab66d41baaa764b76d",
+          "night-sweep/research/alpha17-equipment-refresh/context7-platform-review.json": "80ba76adf9df8c505eea4231f359e5ff47f0874ca2d792f2262e588ac80caccf",
+          "night-sweep/research/alpha17-equipment-refresh/documentation-validation.json": "fad628cf8f2e1f92f1a1a9ad5827a10c7888ee3674e85c0138949ad193dc844c",
+          "night-sweep/research/alpha17-equipment-refresh/dsim-latest.json": "60487ce36fd50e6bca709f00f2fd0a24583f15d23f2439b7a13806faf21b42c5",
+          "night-sweep/research/alpha17-equipment-refresh/figma-hf-review.md": "621fe5120daa86fbc27558061cb12902e235fa254fb14f8cbed89c2a4f422f4e",
+          "night-sweep/research/alpha17-equipment-refresh/final-platform-interface-audit.json": "d69d1c70e84ad8e97969cfb22ba162ca429d1816fa7b9ce48fd971f70e04d88e",
+          "night-sweep/research/alpha17-equipment-refresh/final-platform-interface-audit.md": "e9b0d942e55f75ce98fd9cbc75287373a17ea3263b6096c553d86e567fefa04f",
+          "night-sweep/research/alpha17-equipment-refresh/runtime-curve-check.cjs": "1ec15c3a06427147f1cc11af35ca0d26e012b116fe7b3aebdd7113b2c7558d0f",
+          "night-sweep/research/alpha17-equipment-refresh/runtime-curve-check.json": "7e891d545b7dc4c6dca17e62eace72519aeb8012da9ddff627e3b57bc56f2f08",
+          "night-sweep/research/alpha17-fresh-reference-check.cjs": "1f1b1b2212fe7398cb69a6385aa2b3bd41d966540a6b830c4b856fbf39673b3e",
+          "night-sweep/research/alpha17-fresh-reference-results.json": "1c13aba8edbed34317fa10f94b8766b2fc799d432ac5d36ceec87da1696994b4",
+          "night-sweep/research/alpha17-manuals/active-manuals.json": "0fea9933204add32d9169f9ab26be5e2ecc8f8e7a5bdfccc46a2de1699df723f",
+          "night-sweep/research/alpha17-manuals/catalog-audit.json": "74852b3553e50c5d8d17f7df7fc2efc21ce22775c9938a804c1a4fe967a51a96",
+          "night-sweep/research/alpha17-manuals/catalog-audit.md": "af0bfad611bafa3adc2bdbea136eb68700213c96a23a7ea643f8585c4dcc78f9",
+          "night-sweep/research/alpha17-manuals/dsim-pilot-guide-review.md": "7448034db4d8d2b04341925b301f35bf45c617c1e53280d7cdcaab0c65d8f66c",
+          "night-sweep/research/alpha17-manuals/dsim_research.md": "a7cd71359726e0d95c38773f24c4678fe1cdfa1ca2f3ec7a85265b0f13b0a518",
+          "night-sweep/research/alpha17-manuals/gap-policy-curves.json": "e81e77b4c217a40db7360962a89b093ee7e3c66a838e504bb6f4eb6b3507d3dd",
+          "night-sweep/research/alpha17-manuals/node-manuals.json": "c7a5050ce3066c389dbb928484ffb7fc5aa11a55bd9c8f487e99f2c208b7837e",
+          "night-sweep/research/alpha17-manuals/registry-validation.json": "3314e8df23663247aff2e4a04c6f9c7918ce4ed0418dc1df65d139a5579aec17",
+          "night-sweep/research/alpha17-manuals/source-review.md": "92ae40ae93ffd1778b1f043ba4b2f9ee8d0e9df4d22d6ce7fe8b9b45deb8e4eb",
+          "night-sweep/research/alpha17-math-audit-fresh-wolfram.json": "204504df262c898ad69c96351fc2c52cab82565635cf1ba8f412c9b49786b571",
+          "night-sweep/research/alpha17-numerical-audit-logs/engine.test.js.log": "f5cce8c72c5f651227371894c996824e72823207130b5d346e6faf7656c6638a",
+          "night-sweep/research/alpha17-numerical-audit-logs/frequency-regression.cjs.log": "6ac7fed93d6f83f1ec0bb6a9e9934cee685a5fb88dc3fa7853bbae2b4e971cd3",
+          "night-sweep/research/alpha17-numerical-audit-logs/projects.test.js.log": "bd33266781b818871a86864b4810e3bd165d87a7e748f1913dd02f57b0b2536f",
+          "night-sweep/research/alpha17-numerical-audit-logs/route14.test.cjs.log": "80ddca4968fdf331f9065099f50cc8347c2979335e3eeda82b00ac8721a06391",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-power.test.cjs.log": "eb9f455ba0939becad91f2b1ba0bf78b576fd93e5a472231aca4b7602d617f8b",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-records.test.cjs.log": "410ac46f6482b655f03c9cac6914ff5a0d7c2f23b4a900f60012fe58bb1aacad",
+          "night-sweep/research/alpha17-numerical-audit-logs/wolfram-rf.test.cjs.log": "9f572100ddee9803e14fbd6ccdc4bd87680ecd0f1994419b4161ddfdac150d90",
+          "night-sweep/research/alpha17-numerical-audit.md": "2691a1cfd6e19ae582d3d0dba3412e2522ac6d002f75f8ed9454599db7806481",
+          "night-sweep/research/alpha17-setup-frequency-wolfram.json": "ca5efa598f349b1cd606a9e00bfe4c9ea35047c3679a4adb597338f6058ee834",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/actives/catalog-patch.json": "56a3932ffa72e8677804a39062d2703bdaff2d6c5a66d22a42c34fd3c33443be",
+          "night-sweep/research/equipment-audit-build17/actives/live-link-checks.json": "0ac16ec3c311c0894725794ef5cfc2e0c4543eca0ca06c517903c5e7b57e49d8",
+          "night-sweep/research/equipment-audit-build17/actives/power-patch.json": "5bd553243b7bb3e0e2ca17971bedbc3c14dcc22ad1a914c9f2a5d18c4962b27b",
+          "night-sweep/research/equipment-audit-build17/link-replacements.json": "2857849c0fbf57ba8fdd7a30d16d496ba9f4a1e3de50320a01d195cda4621ac0",
+          "night-sweep/research/equipment-audit-build17/links.json": "001e5b3054ea82c6dec8bfe8a4872c407d9513907ead6007e26e91626103e035",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "night-sweep/research/equipment-audit-build17/passives/catalog-additions.json": "d4919ecf4df0a12c48b848af1891caf88b2a99b11d74d804978a66da56c6cc91",
+          "night-sweep/research/equipment-audit-build17/passives/link-replacements.json": "b79be5c832bc26df77371026c3258b4443ccdc1e82dd92819804775d50fc587e",
+          "night-sweep/research/equipment-audit-build17/passives/structural-audit.json": "bf4a9bf582ae9ec5d270883075e3f5c63b1010ebb9621e5f197c41f30b4539df",
+          "night-sweep/research/wolfram-distance-check.md": "c855677aa5dc17fd4eefe90db580193161d4a7c766741b44d2d4a1ea64ed84d1",
+          "night-sweep/research/wolfram-power-1.6.json": "7b54d0d0478f27613f59739a0d36680a7835fc667e705b293834b0cca5f8af2e",
+          "night-sweep/research/wolfram-power-1.6.md": "97d1c4f3f976ea8ca6ac5fe4df2a7a54785419e5be619d66ba3a1faac9990624",
+          "night-sweep/research/wolfram-records-1.6.json": "f9db217f53f7c06e0fc20ea9e791d399e96f5e82e59bd1c08ed9c32c5d2ef916",
+          "night-sweep/research/wolfram-rf-1.6.json": "16e48b40b34574a61b4ee48aeeadee853b8956c192c5c34f94eab93a921f6199",
+          "night-sweep/research/wolfram-rf-1.6.md": "37e23b82568bc836d1548128ecfe9f1d46fe4edc6418b728da8708f174360300",
+          "night-sweep/research/wolfram-rf-extra-1.6.json": "47b56876737c21a1348ff345f15a50b15c3bc5c289e9582100e2cf5caa1fb003",
+          "night-sweep/research/wolfram-rf-main-response-1.6.json": "88c356a7f1d6f982ab641611a6caa1a9d9cb9de9ff61b03e97b1408a6fed0ef0",
+          "night-sweep/route-tools.js": "e22d4b9671f4e50a23c067928d6a5a9166c37ba9621899a7e07ce1a86783848b",
+          "night-sweep/selfcheck.js": "b2e5005a833a8477d7a46ce4466a44e524035e407438ec00a0000cdc807902c6",
+          "night-sweep/setup-manuals.json": "8db52cfdc0f18b52a4411eea89c370f53a27abaa8a6981056381598b7c4a3169",
+          "night-sweep/shell.html": "30c28d8709823a8c7190b8cd2773073eed5730669e9337adac9b391bf0f5912a",
+          "night-sweep/style.css": "965741242042f63a7385202879a6e341ee5d183458cdba6918c394ea4fc669ed",
+          "night-sweep/sweep-grading-ui.js": "8a3191754a0ccb6835e4fd8ea30125342798d6dca122a4c03dc7c5ec148fe615",
+          "night-sweep/sweep-grading.js": "c72a91403001812dceaa6d4c81ed32f05fc59d67a838382c153d9fa7832e3617",
+          "night-sweep/sweep-guide.js": "78c3ce9d7f7c0843cc4c60facc74f215981a6b427e87642d75b5352664a2bcd2",
+          "night-sweep/sweep-setup.css": "851d924df83efd0e24a2d1fc3de5a6c6fe3009fb874d07f86add797bd7cff6cb",
+          "night-sweep/sweep-setup.js": "d4b24fc218ae666075c3a36023b418b51d22f3a1c57315f1a368df85662b804c",
+          "night-sweep/thresholds.js": "ead141289d6f692e76be2d54650c1fb024633a6a6f0876e2f08dcf0ddcae0d03",
+          "night-sweep/training.js": "21ed8f557692e7e6be395e3957c7febd8ec83e383c152a6b217baa9d9c0279de",
+          "night-sweep/workflow.js": "f20e8a8ec4668d3674ec096b02a2dce395987eb69895d17e47c227e597d4281e",
+          "outputs/Night_Sweep.html": "b2350678a22cbb3843fb515d26a4871f22893923fe9baf08d0962fab0677b393",
+          "qa/build3-native-evidence.test.cjs": "4717aab1497d22ba80a8589f166fa7ca4557afa2ca3ee4184007adbb6f48bec9",
+          "qa/fixtures/viavi-synthetic/forward-all-bytes.zip": "ed770a472806fb42ef9983dd5bbcc1d43256a7eb1ac33f88349aca88038dbe71",
+          "qa/fixtures/viavi-synthetic/generate.py": "fb3d67c096242443fca68548d3e372a2f6037088f12f7b66e7c964adf7925321",
+          "qa/run-pwa.py": "65abb8d50ce298514b5a6f78f0c5cce76237ee0aa9a32c444678ad8cd1a2c060"
+        },
+        "readme_equal": true
+      },
+      "exact_head_unchanged": true,
+      "source_and_build_hashes_unchanged": true,
+      "clean_before_and_after": true,
+      "readme_equal_before_and_after": true,
+      "verification": {
+        "automated": {
+          "suites": 67,
+          "checks": 1366,
+          "total_seconds": 331.1,
+          "all_passed": true,
+          "build_unchanged_during_tests": true,
+          "worktree_unchanged_during_tests": true
+        },
+        "separate_rendered": {
+          "layout_checks": 141,
+          "layout_wall_seconds": 8.676,
+          "smoke_checks": 331,
+          "smoke_wall_seconds": 15.152
+        },
+        "raw_receipt": "/tmp/carpe-a4-optimization-final-gate-results.json",
+        "raw_receipt_sha256": "c692c14ac9f20428177545e22174d2c797bbe3892cd0d3f6be1faa1bd85e6509",
+        "raw_receipt_byte_exact_copy_of_qa_output": true,
+        "receipt_artifact_hashes_match_post_snapshot": {
+          "standalone": true,
+          "pwa": true,
+          "worker": true
+        },
+        "no_private_file_proof_attribution": true
+      }
+    }
   },
   "separate_rendered_checks": {
     "build3_layout": {
@@ -536,7 +842,7 @@
     "phone_width_390": true,
     "portable_roundtrip": true,
     "raw_samples_equal": true,
-    "tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
+    "tested_source_head": "b86382186c3179bd1037cf20a63a722e777711dc",
     "scope": "Two owner-supplied original containers were used only locally in an incognito Chromium session with all non-loopback page requests blocked. Every raw pair was compared against an independently decoded local source; actual file-picker import, portable export, identity-remapped restore and re-export preserved original compressed bytes. No private filename, source value, identifier or original checksum is recorded here."
   },
   "not_run": [
@@ -553,5 +859,34 @@
     "Two nonblocking native-parser compatibility/warning limitations remain in ../reviews/codex-sweep-grading.md. The optional Station saved-shape finding is addressed with a scoped review and new full gate.",
     "Metadata-only handoff commits after tested_source_head do not change app, tests, generated files or public guides."
   ],
-  "supersedes_tested_source_head": "16634625836a7d4f9f4e908df323d2c9b5a239f7"
+  "supersedes_tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
+  "earlier_validations": [
+    {
+      "tested_source_head": "04bb5ae6ef3568990076bd2e1789e8351ad92337",
+      "suites": 67,
+      "checks": 1364,
+      "standalone_sha256": "b19547787e277e6abf5f5c06a80baf85b91f8ef0636349e60ce5bdd4bb4f057a",
+      "immutable_record": "https://github.com/Goodst3r/Carpe-Noctum/blob/edacc52e19aa0e57b3232b56f3a10312a02999fb/handoff_docs/lanes/codex-a4-validation.json"
+    }
+  ],
+  "optimization": {
+    "comparison_base": "edacc52e19aa0e57b3232b56f3a10312a02999fb",
+    "source_commit": "b86382186c3179bd1037cf20a63a722e777711dc",
+    "scope": "Private lazy CRC32 lookup only; all original ZIP-member checks and original SHA verification retained. No native schema, raw sample, caps, UI, math, storage or version change.",
+    "author_benchmark": {
+      "browser": "Desktop Chromium 156, default viewport, 21 alternating paired warm measurements",
+      "synthetic_workload": "10000-sample JSON padded to the unchanged2MiB decoded cap; complete parseBytes path",
+      "stored_zip_ms": {
+        "before": 78.2,
+        "after": 15.3
+      },
+      "deflated_zip_ms": {
+        "before": 84.3,
+        "after": 21.4
+      },
+      "claim_limits": "No ordinary-small-file, physical-device or entire-import/UI speed claim. Plain JSON is an unchanged control."
+    },
+    "characterization": "Old/new both passed69 native cases; no functional RED or timing-gated assertion claimed for this behavior-preserving optimization.",
+    "scoped_review": "../reviews/codex-crc-optimization-review.md"
+  }
 }

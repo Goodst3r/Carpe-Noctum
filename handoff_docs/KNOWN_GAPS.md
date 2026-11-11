@@ -73,3 +73,11 @@ The seven blocking requests from Lane B review 5861415148 were corrected and ind
 Legacy confirmation is an explicit new binding choice, not RF acceptance or new balance/sweep work. Opening/restoring alone does not migrate the original. The confirmed copy uses a new identity and the original record stays byte-for-byte in the map. No local procedure, company target, manufacturer revision, physical phone/emulator or field test is implied by technical review.
 
 Evidence: PR #8, the original Lane B review, handoff_docs/reviews/codex-station-laneb-fixes-review.md, handoff_docs/reviews/codex-station-view.md and handoff_docs/lanes/codex-a1-validation.json on that branch.
+
+
+## Performance scope (Lane A, Nov 11)
+
+- Station lookup optimization 6030607 reduces catalog work at long routes while keeping first-match/fresh-owner/catalog semantics. Its nine-row desktop benchmark had 0–0.2ms extra median input cost; its 200-active-row input improvement was 36–43%. No general or phone gain is claimed.
+- CRC optimization b863821 keeps every original integrity check and speeds only the ZIP checksum/parse work. Synthetic near-cap 2 MiB JSON measured 78.2→15.3ms stored/84.3→21.4ms deflated in desktop Chromium; tiny files were below useful resolution. Original private input/backup byte equality was verified locally.
+- A separate audit found closed evidence previews still build all charts (legal 30 × 10,000-sample workload: 142.9ms/~4.59MB markup). Lazy rendering remains a separate follow-up requiring open/toggle/print review. It is not included in this CRC change.
+- No earlier correctness/nonblocking gap is implicitly closed by performance changes. Current source, methods, independent scoped reviews and final gate receipts are on PR #8 and PR #14.
