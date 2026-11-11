@@ -11,14 +11,14 @@
   section.className = 'pwa-card';
   section.id = 'pwaCard';
   section.setAttribute('aria-labelledby', 'pwaHeading');
-  section.innerHTML = '<h2 id="pwaHeading">NightSweep on this device</h2>' +
+  section.innerHTML = '<h2 id="pwaHeading">Carpe Noctum on this device</h2>' +
     '<p id="pwaStatus" class="pwa-state" role="status" aria-live="polite" data-ready="false">Preparing offline use…</p>' +
     '<p id="pwaStatusDetail" class="pwa-small">Keep this page open and online until its offline copy is ready.</p>' +
     '<div class="toolbar"><button id="pwaInstall" type="button" hidden>Install app</button><button id="pwaCheckUpdates" type="button">Check for updates</button><button id="pwaApplyUpdate" type="button" hidden>Install update</button><button id="pwaReload" type="button" hidden>Reload app</button><button id="pwaRetry" type="button" hidden>Retry offline setup</button></div>' +
     '<p id="pwaUpdateStatus" class="pwa-small" role="status" aria-live="polite">Updates wait for your action. Export your current job before updating.</p>' +
     '<details><summary>Install on a phone</summary><p class="pwa-small">Use this website directly on Android or iPhone. Installing a Home Screen icon is optional; no APK is needed for the web version.</p><div class="toolbar"><a href="android.html">Android / no APK</a><a href="iphone.html">iPhone install</a><a href="install.html">Install help</a></div></details>' +
     '<details><summary>Offline guides</summary><p><a href="functions-guide.html">All functions reference</a></p><p><a href="phone-installation.html">Android and iOS installation</a></p><p><a href="training-coverage.html">Training examples and feature coverage</a></p></details>' +
-    '<details><summary>Keep your work safe</summary><p>Jobs and ONX files stay on this device. Use <b>Files → Back up project</b> to export a backup for every job you need. Keep the file in Files or another location outside this app.</p><p>The Android APK and web app use separate job storage. Export from the app containing your work, then import that backup in the browser or icon you will use. Before adding NightSweep to an iPhone Home Screen, export any browser jobs. Open the installed icon and import the backup if the job is not there. Use one NightSweep window at a time to avoid overwriting another window’s edits.</p><p id="pwaStorageStatus" class="pwa-small" role="status"></p><button id="pwaPersist" type="button" hidden>Protect local storage</button><p class="pwa-small">Storage protection is optional and browser dependent. Clearing website data or removing the app can still remove work. An exported backup is the safest copy.</p><p><a href="guide.html">Read the full technician guide</a></p></details>';
+    '<details><summary>Keep your work safe</summary><p>Jobs and ONX files stay on this device. Use <b>Files → Back up project</b> to export a backup for every job you need. Keep the file in Files or another location outside this app.</p><p>The Android APK and web app use separate job storage. Export from the app containing your work, then import that backup in the browser or icon you will use. Before adding Carpe Noctum to an iPhone Home Screen, export any browser jobs. Open the installed icon and import the backup if the job is not there. Use one Carpe Noctum window at a time to avoid overwriting another window’s edits.</p><p id="pwaStorageStatus" class="pwa-small" role="status"></p><button id="pwaPersist" type="button" hidden>Protect local storage</button><p class="pwa-small">Storage protection is optional and browser dependent. Clearing website data or removing the app can still remove work. An exported backup is the safest copy.</p><p><a href="guide.html">Read the full technician guide</a></p></details>';
   const current = home.querySelector('.home-current');
   // 2.0: device and update status sits at the end of Home, after the field tasks.
   if (current) home.append(section); else home.prepend(section);
@@ -70,10 +70,10 @@
     offlineReady = !!controller && result?.ready === true;
     if (result?.version) activeVersion = result.version;
     if (offlineReady) {
-      status('Ready for offline use', navigator.onLine === false ? 'You are offline. This app and its guides are available on this device.' : 'The app and its guides are saved on this device. Try opening NightSweep in airplane mode before going into the field.', true);
+      status('Ready for offline use', navigator.onLine === false ? 'You are offline. This app and its guides are available on this device.' : 'The app and its guides are saved on this device. Try opening Carpe Noctum in airplane mode before going into the field.', true);
       $('pwaRetry').hidden = true;
     } else {
-      status(navigator.onLine === false ? 'Offline copy is not ready' : 'Preparing offline use…', 'Keep NightSweep open and online. Offline readiness requires a complete saved copy controlled by this browser.');
+      status(navigator.onLine === false ? 'Offline copy is not ready' : 'Preparing offline use…', 'Keep Carpe Noctum open and online. Offline readiness requires a complete saved copy controlled by this browser.');
       $('pwaRetry').hidden = false;
     }
   }
@@ -158,7 +158,7 @@
     $('pwaApplyUpdate').disabled = true;
     try {
       if (candidate) {
-        update('Downloading the update. Keep NightSweep open and online.');
+        update('Downloading the update. Keep Carpe Noctum open and online.');
         attach(await navigator.serviceWorker.register(new URL(candidate.worker, base).href, {scope:base.href,updateViaCache:'none'}));
       }
       if (registration?.waiting) registration.waiting.postMessage({type:'ACTIVATE_UPDATE'});
@@ -179,13 +179,13 @@
     }
   });
   $('pwaReload').addEventListener('click', () => {
-    if (window.confirm('Have you exported the current job? Reload NightSweep now to open the saved release?')) location.reload();
+    if (window.confirm('Have you exported the current job? Reload Carpe Noctum now to open the saved release?')) location.reload();
   });
   $('pwaRetry').addEventListener('click', async () => {
     $('pwaRetry').disabled = true;
     try {
       if (navigator.serviceWorker.controller) {
-        status('Repairing offline copy…', 'Keep NightSweep online while its public app files are checked. Your jobs are unchanged.');
+        status('Repairing offline copy…', 'Keep Carpe Noctum online while its public app files are checked. Your jobs are unchanged.');
         const result = await workerStatus(navigator.serviceWorker.controller, 'REPAIR_OFFLINE');
         await refreshStatus();
         if (!result?.ready) update('The saved release could not be repaired. Connect and use Check for updates to install the current release. Export your job first.');
@@ -205,7 +205,7 @@
     try {
       await event.prompt();
       const choice = await event.userChoice;
-      update(choice?.outcome === 'accepted' ? 'Home Screen installation requested. Open the new icon online and check Ready for offline use.' : 'You can keep using NightSweep in this browser. Use the browser menu to install later.');
+      update(choice?.outcome === 'accepted' ? 'Home Screen installation requested. Open the new icon online and check Ready for offline use.' : 'You can keep using Carpe Noctum in this browser. Use the browser menu to install later.');
     } catch (_) {
       update('The install prompt could not open. You can keep using the site, or use Chrome’s menu → Install and create shortcut / Add to Home screen.');
     } finally {
@@ -228,13 +228,13 @@
     try {
       const granted = await navigator.storage.persist();
       await storageStatus();
-      if (!granted) $('pwaStorageStatus').textContent = 'Storage protection was not granted. You can still use NightSweep; export backups regularly.';
+      if (!granted) $('pwaStorageStatus').textContent = 'Storage protection was not granted. You can still use Carpe Noctum; export backups regularly.';
     } catch (_) {$('pwaStorageStatus').textContent = 'Storage protection is unavailable. Export backups regularly.';}
     finally {$('pwaPersist').disabled = false;}
   });
   storageStatus();
   if (!secure || !('serviceWorker' in navigator)) {
-    status('Offline setup is unavailable here', 'Open the HTTPS NightSweep site in a supported browser. This file or preview cannot prepare the installed offline app.');
+    status('Offline setup is unavailable here', 'Open the HTTPS Carpe Noctum site in a supported browser. This file or preview cannot prepare the installed offline app.');
     $('pwaCheckUpdates').hidden = true;
     return;
   }

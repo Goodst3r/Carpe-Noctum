@@ -1,9 +1,9 @@
 {
-  "version": "2.0 Alpha build 1",
-  "version_code": 25,
-  "launcher_label": "NightSweep 2.0 Preview build 1",
+  "version": "2.0 Alpha build 2",
+  "version_code": 26,
+  "launcher_label": "Carpe Noctum 2.0 Preview build 2",
   "package": "com.spencerwilliams.nightsweep.preview",
-  "status": "2.0 Alpha build 1 Preview APK compiled and signed with the original compatible-update certificate; package, v2/v3 signatures, alignment and embedded HTML verified with official tools",
+  "status": "Carpe Noctum 2.0 Alpha build 2 Preview APK compiled and signed with the original compatible-update certificate; package, v2/v3 signatures, alignment and embedded HTML verified with official tools",
   "standalone_frozen": true,
   "final_apk_built": true,
   "candidate_apk_built": true,
@@ -33,9 +33,9 @@
   },
   "preflight_record": "../research/build2/native/toolchain-and-signer-preflight.json",
   "preliminary_build_record": "../research/build2/native/preliminary-real-build.json",
-  "standalone_sha256": "c5ed828ac15aa5899da51a9fecfc1f09f2f93f0300698052070bdbef2ecc6204",
-  "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881",
-  "apk_file": "dist/preview/NightSweep-2.0-build1-preview.apk",
+  "standalone_sha256": "b72d4b8930ee746f8433796c736174dadce230ac06b3d5153f2101c2c251af9d",
+  "apk_sha256": "2fd242112647c9b8f78006845b984bb1c11344eef81e2fcb7d779abca4a22f41",
+  "apk_file": "dist/preview/CarpeNoctum-2.0-build2-preview.apk",
   "final_build_record": "../research/build2/native/final-real-build.json",
   "emulator_validation": {
     "record": "../research/build2/native/emulator-validation.json",
@@ -49,8 +49,9 @@
   "signing_material_scope": "signing_material_present/included describe this source tree and APK, not the separately authorized private master backup.",
   "private_master_signing_backup_included": true,
   "previous_release": {
-    "version": "1.8 Alpha build 2",
-    "version_code": 24,
-    "apk_sha256": "55660a8992ba7d498daaddb2db63f0664469823eecd080226a66d9cc697a6237"
-  }
+    "version": "2.0 Alpha build 1",
+    "version_code": 25,
+    "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881"
+  },
+  "app_name": "Carpe Noctum (formerly NightSweep)"
 }

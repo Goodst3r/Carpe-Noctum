@@ -78,7 +78,7 @@ test('asynchronous storage-open error preserves the job and permits a successful
 test('blocked open rejects, closes a late successful connection, and can be retried',async t=>{
   const h=harness(t),owner=h.w.state,blocker=await seed(h.factory,1);h.openVersion=2;
   try{
-    await assert.rejects(()=>h.api.importFiles([file('blocked.csv')],fields),/Close other NightSweep windows/);
+    await assert.rejects(()=>h.api.importFiles([file('blocked.csv')],fields),/Close other Carpe Noctum windows/);
     assertUnattached(h,owner,null);
     const late=requestResult(h.requests[0]);blocker.close();const abandoned=await late;
     assert.throws(()=>abandoned.transaction('files'),{name:'InvalidStateError'},'A rejected open must not leave a live connection behind');

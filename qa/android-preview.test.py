@@ -53,11 +53,11 @@ class BuildHarness:
         for name in ['aapt2', 'zipalign', 'apksigner', 'd8']:
             (self.bt / name).write_text('synthetic tool placeholder')
         self.asset = root / 'input.html'
-        self.asset.write_text('NightSweep ' + self.module.VERSION_NAME +
+        self.asset.write_text('Carpe Noctum ' + self.module.VERSION_NAME +
                              " const TrainingJob= const marker='guided-1.5' initTraining(); const SweepSetup=")
         self.out = root / 'dist/preview'
         self.out.mkdir(parents=True)
-        self.apk_name = 'NightSweep-2.0-build1-preview.apk'
+        self.apk_name = 'CarpeNoctum-2.0-build2-preview.apk'
         if prior:
             (self.out / self.apk_name).write_bytes(b'previous validated APK placeholder')
             (self.out / 'build-info.json').write_text('{"priorValidatedBuild":true}')
@@ -86,7 +86,7 @@ class BuildHarness:
                                    '\nVerified using v2 scheme (APK Signature Scheme v2): ' + v2 +
                                    '\nVerified using v3 scheme (APK Signature Scheme v3): true\n')
         elif 'badging' in argv:
-            label = 'NightSweep ' + self.module.VERSION_NAME.replace(' Alpha', ' Preview')
+            label = 'Carpe Noctum ' + self.module.VERSION_NAME.replace(' Alpha', ' Preview')
             badging = ("package: name='" + self.module.PREVIEW_PACKAGE + "' versionCode='" + str(self.module.VERSION_CODE) +
                        "' versionName='" + self.module.VERSION_NAME + "'\napplication-label:'" + label + "'")
             return SimpleNamespace(stdout='wrong manifest' if self.scenario == 'manifest' else badging)
@@ -106,8 +106,8 @@ class AndroidPreviewTests(unittest.TestCase):
     def test_release_identity_and_offline_permissions(self):
         module = load_builder(ANDROID / 'build.py')
         manifest = ET.parse(ANDROID / 'app/src/main/AndroidManifest.xml').getroot()
-        self.assertEqual(module.VERSION_NAME, '2.0 Alpha build 1')
-        self.assertEqual(module.VERSION_CODE, 25)
+        self.assertEqual(module.VERSION_NAME, '2.0 Alpha build 2')
+        self.assertEqual(module.VERSION_CODE, 26)
         self.assertEqual(manifest.get(NS + 'versionName'), module.VERSION_NAME)
         self.assertEqual(manifest.get(NS + 'versionCode'), str(module.VERSION_CODE))
         self.assertFalse(manifest.findall('uses-permission'), 'Offline wrapper must not gain network or other permissions')
@@ -210,8 +210,8 @@ class AndroidPreviewTests(unittest.TestCase):
             apk = harness.out / receipt['file']
             self.assertEqual(receipt['sha256'], hashlib.sha256(apk.read_bytes()).hexdigest())
             self.assertEqual(receipt['html_sha256'], hashlib.sha256(harness.asset.read_bytes()).hexdigest())
-            self.assertEqual(receipt['version'], '2.0 Alpha build 1')
-            self.assertEqual(receipt['version_code'], 25)
+            self.assertEqual(receipt['version'], '2.0 Alpha build 2')
+            self.assertEqual(receipt['version_code'], 26)
             self.assertTrue(receipt['embedded_html_matches_input'])
             self.assertFalse(receipt['tested_on_device'])
             with zipfile.ZipFile(apk) as archive:

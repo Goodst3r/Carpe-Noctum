@@ -10,7 +10,7 @@ function standaloneHtml(){
  if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')return html;
  // Bounded source integration while the release owner freezes/builds the final
  // standalone. Default QA always tests the generated release HTML unchanged.
- for(const [file,startMarker,endMarker] of [['training.js','/* Offline synthetic practice job.','function initTraining(){TrainingJob.init();}'],['sweep-setup.js','/* 2.0 Alpha build 1 guided field setup.',"if(typeof module!=='undefined'&&module.exports)module.exports=SweepSetup;"]]){
+ for(const [file,startMarker,endMarker] of [['training.js','/* Offline synthetic practice job.','function initTraining(){TrainingJob.init();}'],['sweep-setup.js','/* 2.0 Alpha build 2 guided field setup.',"if(typeof module!=='undefined'&&module.exports)module.exports=SweepSetup;"]]){
   const start=html.indexOf(startMarker),end=html.indexOf(endMarker,start);
   assert(start>=0&&end>start,'Could not isolate '+file+' for source-only integration.');
   html=html.slice(0,start)+fs.readFileSync(path.join(root,'night-sweep',file),'utf8')+html.slice(end+endMarker.length);

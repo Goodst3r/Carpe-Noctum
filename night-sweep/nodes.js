@@ -1,4 +1,4 @@
-/* NightSweep node records: manufacturer capability is separate from installed operation. */
+/* Carpe Noctum node records: manufacturer capability is separate from installed operation. */
 const NodeTools=(()=>{
  const defaults=()=>({model:'',band:'',asset:'',port:'',module:'',operatingUpper:'',notes:''});
  const number=x=>!['string','number'].includes(typeof x)||String(x).trim()===''?null:Number.isFinite(Number(x))?Number(x):null;

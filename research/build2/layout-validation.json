@@ -58,7 +58,7 @@
     "1280px print removes diagram height constraint",
     "No uncaught application errors"
   ],
-  "standalone_sha256": "c5ed828ac15aa5899da51a9fecfc1f09f2f93f0300698052070bdbef2ecc6204",
+  "standalone_sha256": "b72d4b8930ee746f8433796c736174dadce230ac06b3d5153f2101c2c251af9d",
   "release_mode": true,
   "scope": "Frozen standalone in desktop Chromium at360/390/768/1280px. Touch/mobile emulation; no physicalphone/Safari/WebView claim."
 }

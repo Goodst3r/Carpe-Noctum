@@ -1,4 +1,6 @@
-# NightSweep developer instructions
+# Carpe Noctum developer instructions
+
+The app is named **Carpe Noctum** (formerly NightSweep). Keep the Android package `com.spencerwilliams.nightsweep(.preview)`, the storage keys (`hfc-route-v1`, `hfc-named-jobs-v1`, `nightsweep-*`) and the `NightSweep`/`NightSweepAndroid` code identifiers unchanged: renaming them would break updates or strand saved jobs. Current version: 2.0 Alpha build 2, Android version code 26.
 
 Read these project files before each NightSweep development iteration:
 

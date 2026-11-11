@@ -35,7 +35,7 @@ const calc=`({low:evaluate(261).results.map(r=>r.outputs.map(p=>p.level)),high:e
  });
  const upgraded=boot('outputs/Night_Sweep.html',{db:old.db,storage:stored});await settle(upgraded);
  await check('A1.5 autosave reopens in1.6 with named jobs, theme and existing engineering fields unchanged',()=>{
-  assert.equal(upgraded.d.title,'NightSweep 2.0 Alpha build 1');assertPreserved(upgraded,bundle);
+  assert.equal(upgraded.d.title,'Carpe Noctum 2.0 Alpha build 2');assertPreserved(upgraded,bundle);
   assert.equal(upgraded.d.documentElement.dataset.theme,'sun');assert(upgraded.json('JobsUI.snapshots()').some(x=>x.job.id===savedId));assert.deepEqual(upgraded.json(calc),numbers);
  });
  await check('Original attachment bytes remain intact after the1.5-to1.6 in-place restart',async()=>{
@@ -133,7 +133,7 @@ const calc=`({low:evaluate(261).results.map(r=>r.outputs.map(p=>p.level)),high:e
  });
  let portable;
  await check('Project export and fresh import preserve both setups, progress and original evidence bytes',async()=>{
-  await app.d.getElementById('save').onclick();const out=app.downloads.at(-1);assert.equal(out.name,'NightSweep_2.0_Alpha_build_1_Project.json');portable=JSON.parse(out.text);assert.equal(portable.sweepSetup.profiles['42'].station,'LEGACY-A1');assert.equal(portable.sweepSetup.profiles['204'].station,'HIGH-A2');assert.equal(portable.sweepSetup.history.length,3);
+  await app.d.getElementById('save').onclick();const out=app.downloads.at(-1);assert.equal(out.name,'CarpeNoctum_2.0_Alpha_build_2_Project.json');portable=JSON.parse(out.text);assert.equal(portable.sweepSetup.profiles['42'].station,'LEGACY-A1');assert.equal(portable.sweepSetup.profiles['204'].station,'HIGH-A2');assert.equal(portable.sweepSetup.history.length,3);
   const fresh=boot();await settle(fresh);await fresh.w.NightSweep.openProject(JSON.stringify(portable));await settle(fresh);assert.deepEqual(fresh.json('state.sweepSetup'),portable.sweepSetup);const again=await fresh.w.evidenceExportProject(fresh.ev('state'));assert.equal(again.evidenceFiles.length,1);assert.deepEqual([...fresh.w.EvidenceCore.base64ToBytes(again.evidenceFiles[0].base64)],[...bytes]);
  });
  await check('An in-place1.6 restart restores the selected setup profile from autosave',async()=>{
@@ -152,8 +152,8 @@ const calc=`({low:evaluate(261).results.map(r=>r.outputs.map(p=>p.level)),high:e
   for(const sweepSetup of malformed){const input={...original,sweepSetup};assert.throws(()=>app.ev('loadState('+JSON.stringify(input)+')'),/sweep|Sweep|42 MHz|AOI/);assert.equal(app.ev('JSON.stringify(state)'),before);}
  });
  await check('Setup export names the selected method, marks progress only and preserves both versions of guide coverage',async()=>{
-  app.ev('WorkflowUI.go("sweepSetup")');click(app,'[data-sweep-split="42"]');await app.ev('SweepSetup.exportNotes()');let out=app.downloads.at(-1);assert.equal(out.name,'NightSweep_2.0_Alpha_build_1_42MHz_Setup.txt');assert.match(out.text,/Return sweepless sweep/);assert.match(out.text,/Checked steps are not RF acceptance/);assert.match(out.text,/LEGACY-A1/);assert.match(out.text,/HIGH-A2/);assert.match(out.text,/Station snapshot/);
-  click(app,'[data-sweep-split="204"]');await app.ev('SweepSetup.exportNotes()');out=app.downloads.at(-1);assert.equal(out.name,'NightSweep_2.0_Alpha_build_1_204MHz_Setup.txt');assert.match(out.text,/Return sweep with XPERTrak/);assert.match(out.text,/Physical generator-output budget:/);assert.match(out.text,/HIGH-A2/);
+  app.ev('WorkflowUI.go("sweepSetup")');click(app,'[data-sweep-split="42"]');await app.ev('SweepSetup.exportNotes()');let out=app.downloads.at(-1);assert.equal(out.name,'CarpeNoctum_2.0_Alpha_build_2_42MHz_Setup.txt');assert.match(out.text,/Return sweepless sweep/);assert.match(out.text,/Checked steps are not RF acceptance/);assert.match(out.text,/LEGACY-A1/);assert.match(out.text,/HIGH-A2/);assert.match(out.text,/Station snapshot/);
+  click(app,'[data-sweep-split="204"]');await app.ev('SweepSetup.exportNotes()');out=app.downloads.at(-1);assert.equal(out.name,'CarpeNoctum_2.0_Alpha_build_2_204MHz_Setup.txt');assert.match(out.text,/Return sweep with XPERTrak/);assert.match(out.text,/Physical generator-output budget:/);assert.match(out.text,/HIGH-A2/);
  });
  await check('A guided training setup export stays explicitly synthetic after job names are changed',()=>{
   const training={...app.json('state'),job:{name:'Renamed practice',training:'guided-1.5'}};const text=app.ev('SweepSetup').exportText(training,'42');assert.match(text,/SYNTHETIC TRAINING JOB/);assert.match(text,/not field measurements|not field data/i);
@@ -167,6 +167,6 @@ const calc=`({low:evaluate(261).results.map(r=>r.outputs.map(p=>p.level)),high:e
  await check('Repeated setup rendering leaves unique DOM identifiers and no runtime errors',()=>{
   for(let i=0;i<3;i++)app.ev('renderAll();WorkflowUI.go("sweepSetup")');for(const h of instances){const ids=[...h.dom.window.document.querySelectorAll('[id]')].map(el=>el.id);assert.equal(new Set(ids).size,ids.length);}assert.deepEqual(app.errors,[]);
  });
- fs.writeFileSync('qa/sweep-setup-results.json',JSON.stringify({version:'2.0 Alpha build 1',count:cases.length,cases,legacySourceSha256:require('node:crypto').createHash('sha256').update(fs.readFileSync('qa/fixtures/alpha015.html')).digest('hex'),scope:'Synthetic1.5 source migration with preserved original bytes, guided setup DOM flows, validation and arithmetic; no live meter/XPERTrak or physical Android claim.'},null,2)+'\n');
+ fs.writeFileSync('qa/sweep-setup-results.json',JSON.stringify({version:'2.0 Alpha build 2',count:cases.length,cases,legacySourceSha256:require('node:crypto').createHash('sha256').update(fs.readFileSync('qa/fixtures/alpha015.html')).digest('hex'),scope:'Synthetic1.5 source migration with preserved original bytes, guided setup DOM flows, validation and arithmetic; no live meter/XPERTrak or physical Android claim.'},null,2)+'\n');
  console.log('Sweep setup 1.6: '+cases.length+' checks passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{for(const h of instances){if(h.dom.window.document){const end=Date.now()+5000;while(h.dom.window.evidenceIsBusy?.()&&Date.now()<end)await flush();h.dom.window.close();}}});

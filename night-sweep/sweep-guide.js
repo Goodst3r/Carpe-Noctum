@@ -34,7 +34,7 @@ const SweepSetupGuide = (() => {
     },
     '204': {
       title:'204/258 MHz · Forward sweepless and XPERTrak return sweep',
-      summary:'High-split workflow using forward Sweepless Sweep and active return sweep through the operator’s XPERTrak-supported deployment. NightSweep records and guides the work; it does not configure the ONX, RPD or XPERTrak.',
+      summary:'High-split workflow using forward Sweepless Sweep and active return sweep through the operator’s XPERTrak-supported deployment. Carpe Noctum records and guides the work; it does not configure the ONX, RPD or XPERTrak.',
       steps:[
         {id:'identify',title:'Identify the high-split path',body:'<p>Record node/RPD identity, upstream port or segment, station/leg, exact amplifier and installed <strong>204/258 MHz</strong> configuration. Confirm meter hardware, options and firmware support the required band and test mode.</p><p>Enter the actual test limits and reference plane. A 204 MHz split does not define the sweep-plan endpoints, occupied channels or receiver target. Verify the route and return port paths independently of forward losses.</p>'},
         ...forward,

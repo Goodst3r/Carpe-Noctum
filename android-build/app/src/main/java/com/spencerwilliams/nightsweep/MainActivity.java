@@ -58,7 +58,7 @@ public final class MainActivity extends Activity {
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         if(state!=null && state.getBoolean("documentOperationPending",false)) {
-            Toast.makeText(this,"Android restarted NightSweep while a document picker was open. Please repeat that import or export.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Android restarted Carpe Noctum while a document picker was open. Please repeat that import or export.",Toast.LENGTH_LONG).show();
         }
         // Import URIs only point at our private byte copies, never the original provider.
         PickerFiles.prune(this);
@@ -100,10 +100,10 @@ public final class MainActivity extends Activity {
         });
         web.setWebChromeClient(new WebChromeClient() {
             @Override public boolean onJsAlert(WebView view,String url,String message,JsResult result) {
-                new AlertDialog.Builder(MainActivity.this).setTitle("NightSweep 2.0 Alpha build 1").setMessage(message).setPositiveButton("OK",(d,w)->result.confirm()).setOnCancelListener(d->result.cancel()).show(); return true;
+                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 2").setMessage(message).setPositiveButton("OK",(d,w)->result.confirm()).setOnCancelListener(d->result.cancel()).show(); return true;
             }
             @Override public boolean onJsConfirm(WebView view,String url,String message,JsResult result) {
-                new AlertDialog.Builder(MainActivity.this).setTitle("NightSweep 2.0 Alpha build 1").setMessage(message).setPositiveButton("Continue",(d,w)->result.confirm()).setNegativeButton("Cancel",(d,w)->result.cancel()).setOnCancelListener(d->result.cancel()).show(); return true;
+                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 2").setMessage(message).setPositiveButton("Continue",(d,w)->result.confirm()).setNegativeButton("Cancel",(d,w)->result.cancel()).setOnCancelListener(d->result.cancel()).show(); return true;
             }
             @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback,FileChooserParams params) {
                 if (fileCallback!=null || pendingExport!=null) {
@@ -127,7 +127,7 @@ public final class MainActivity extends Activity {
             while((n=input.read(buffer))!=-1) output.write(buffer,0,n);
             web.loadDataWithBaseURL(ORIGIN,output.toString("UTF-8"),"text/html",null,ORIGIN);
         } catch(Exception e) {
-            new AlertDialog.Builder(this).setTitle("Unable to open NightSweep").setMessage("The offline app content could not be loaded. Reinstall the APK.").setPositiveButton("Close",(d,w)->finish()).show();
+            new AlertDialog.Builder(this).setTitle("Unable to open Carpe Noctum").setMessage("The offline app content could not be loaded. Reinstall the APK.").setPositiveButton("Close",(d,w)->finish()).show();
         }
     }
 
@@ -209,17 +209,17 @@ public final class MainActivity extends Activity {
             final byte[] bytes=text.getBytes(StandardCharsets.UTF_8);
             if(bytes.length>MAX_EXPORT){status("Export exceeds the 20 MB limit.");return;}
             final String safeMime="text/csv".equals(mime)?"text/csv":"text/plain".equals(mime)?"text/plain":"application/json";
-            startExport(exportName(name,"NightSweep-export.json"),bytes,safeMime);
+            startExport(exportName(name,"CarpeNoctum-export.json"),bytes,safeMime);
         }
         @JavascriptInterface public void saveBinary(String name,String base64,String mime) {
             final byte[] bytes;
             try{bytes=decodeEvidence(base64);}
             catch(IllegalArgumentException e){status(e.getMessage());return;}
-            startExport(exportName(name,"NightSweep-evidence.bin"),bytes,binaryMime(mime));
+            startExport(exportName(name,"CarpeNoctum-evidence.bin"),bytes,binaryMime(mime));
         }
         @JavascriptInterface public void shareText(String title,String text) {
             if(text==null || text.length()>1024*1024){status("The run sheet is empty or too large to share.");return;}
-            final String subject=title==null?"NightSweep 2.0 Alpha build 1 run sheet":title.substring(0,Math.min(title.length(),200));
+            final String subject=title==null?"Carpe Noctum 2.0 Alpha build 2 run sheet":title.substring(0,Math.min(title.length(),200));
             runOnUiThread(()-> {
                 Intent intent=new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_SUBJECT,subject).putExtra(Intent.EXTRA_TEXT,text);
                 try{startActivity(Intent.createChooser(intent,"Share run sheet"));}
@@ -234,7 +234,7 @@ public final class MainActivity extends Activity {
                     if(web!=view || isFinishing() || isDestroyed())return;
                     if (!"true".equals(result)) {restorePrint();status("The print report could not be prepared.");return;}
                     try {
-                        final PrintDocumentAdapter delegate=view.createPrintDocumentAdapter("NightSweep 2.0 Alpha build 1 field report");
+                        final PrintDocumentAdapter delegate=view.createPrintDocumentAdapter("Carpe Noctum 2.0 Alpha build 2 field report");
                         PrintDocumentAdapter adapter=new PrintDocumentAdapter() {
                             @Override public void onStart(){delegate.onStart();}
                             @Override public void onLayout(PrintAttributes oldAttributes,PrintAttributes newAttributes,CancellationSignal signal,LayoutResultCallback callback,Bundle extras){delegate.onLayout(oldAttributes,newAttributes,signal,callback,extras);}
@@ -242,7 +242,7 @@ public final class MainActivity extends Activity {
                             @Override public void onFinish(){delegate.onFinish();restorePrint();}
                         };
                         PrintManager manager=(PrintManager)getSystemService(PRINT_SERVICE);
-                        manager.print("NightSweep 2.0 Alpha build 1 field report",adapter,null);
+                        manager.print("Carpe Noctum 2.0 Alpha build 2 field report",adapter,null);
                     } catch(Exception e) {restorePrint();status("Printing is not available on this device.");}
                 });
             });
@@ -345,7 +345,7 @@ public final class MainActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
-        new AlertDialog.Builder(this).setTitle("Close NightSweep?").setMessage("Saved projects stay on this device.").setPositiveButton("Close",(d,w)->finish()).setNegativeButton("Stay",null).show();
+        new AlertDialog.Builder(this).setTitle("Close Carpe Noctum?").setMessage("Saved projects stay on this device.").setPositiveButton("Close",(d,w)->finish()).setNegativeButton("Stay",null).show();
     }
     @Override protected void onSaveInstanceState(Bundle state) {
         state.putBoolean("documentOperationPending",pendingExport!=null || fileCallback!=null);

@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "NightSweep",
-  "short_name": "NightSweep",
-  "description": "NightSweep 2.0 Alpha build 1 — field calculations, route planning and local job records.",
+  "name": "Carpe Noctum",
+  "short_name": "Carpe Noctum",
+  "description": "Carpe Noctum 2.0 Alpha build 2 — field calculations, route planning and local job records.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",

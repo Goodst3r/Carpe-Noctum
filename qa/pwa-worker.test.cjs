@@ -43,7 +43,7 @@ function htmlResponse(r){assert(r,'worker must respond');assert.equal(r.status,2
  const app=boot(),html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
  await check('Published manifest and icons describe a standalone app and local install assets',()=>{
   const manifestHref=html.match(/<link[^>]+rel=["']manifest["'][^>]+href=["']([^"']+)["']/i)?.[1]||html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']manifest["']/i)?.[1];assert(manifestHref,'manifest link');
-  const manifest=JSON.parse(fs.readFileSync(path.join(dist,manifestHref),'utf8'));assert.equal(manifest.display,'standalone');assert.match(manifest.name,/NightSweep/);assert(manifest.start_url);assert(manifest.scope);
+  const manifest=JSON.parse(fs.readFileSync(path.join(dist,manifestHref),'utf8'));assert.equal(manifest.display,'standalone');assert.match(manifest.name,/Carpe Noctum/);assert(manifest.start_url);assert(manifest.scope);
   assert(manifest.icons.some(x=>x.sizes==='192x192'));assert(manifest.icons.some(x=>x.sizes==='512x512'));for(const icon of manifest.icons)assert(fs.existsSync(path.join(dist,icon.src)),icon.src);
   assert.match(html,/apple-touch-icon/);assert.match(html,/name=["']viewport["']/);assert(!/<script\b[^>]+src=["']https?:/i.test(html),'no network script dependency');
  });

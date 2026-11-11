@@ -1,4 +1,6 @@
-# NightSweep 1.8 Alpha build 2
+# Carpe Noctum 2.0 Alpha build 2 (formerly NightSweep)
+
+> The app was renamed from NightSweep to Carpe Noctum in 2.0 Alpha build 2. The Android package ID, storage names and job file format keep their NightSweep-era identifiers so saved jobs and updates carry over. Sections below describe the 1.8 baseline unless they say otherwise.
 
 Offline HFC field calculations, exact-model setup references, synthetic training and local job/evidence records for maintenance technicians, team leaders and supervisors.
 

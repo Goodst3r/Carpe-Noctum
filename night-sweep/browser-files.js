@@ -33,7 +33,7 @@
  }
  function activeGesture(){return navigator.userActivation?.isActive===true;}
  function makeFile(name,data,mime){
-  const safeName=String(name||'NightSweep_export').replace(/[\u0000-\u001f\u007f/\\]/g,'_').slice(0,240)||'NightSweep_export';
+  const safeName=String(name||'CarpeNoctum_export').replace(/[\u0000-\u001f\u007f/\\]/g,'_').slice(0,240)||'CarpeNoctum_export';
   const blob=new Blob([data],{type:mime||'application/octet-stream'});
   if(blob.size>MAX_BYTES)throw Error('File export exceeds 20 MiB. Split the evidence into separate projects.');
   let file=null;if(typeof File==='function')file=new File([blob],safeName,{type:blob.type});
@@ -71,7 +71,7 @@
   try{
    url=URL.createObjectURL(pending.blob);anchor=document.createElement('a');anchor.href=url;anchor.download=pending.name;anchor.hidden=true;document.body.appendChild(anchor);anchor.click();anchor.remove();
    const keep=url;setTimeout(()=>URL.revokeObjectURL(keep),60000);
-   message('Download requested. Check your browser downloads or Files; NightSweep cannot confirm the save.');
+   message('Download requested. Check your browser downloads or Files; Carpe Noctum cannot confirm the save.');
    return {status:'download',name:pending.name};
   }catch(error){
    anchor?.remove();if(url)URL.revokeObjectURL(url);

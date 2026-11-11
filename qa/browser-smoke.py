@@ -65,7 +65,7 @@ try:
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.goto(base + '/', wait_until='load')
             ready(page)
-            checked(f'{width}px loads current app', page.title() == 'NightSweep 2.0 Alpha build 1')
+            checked(f'{width}px loads current app', page.title() == 'Carpe Noctum 2.0 Alpha build 2')
             page.screenshot(path=str(OUT / f'home-{width}.png'), full_page=True)
             no_overflow(page, f'{width}px Home')
             page.evaluate('TrainingJob.open("complete")')

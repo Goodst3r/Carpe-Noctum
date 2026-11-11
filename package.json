@@ -1,7 +1,7 @@
 {
-  "name": "nightsweep-field",
+  "name": "carpe-noctum",
   "private": true,
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "scripts": {
     "dev": "python3 release/preview.py",
     "build": "python3 night-sweep/build.py && python3 build-pwa.py"
