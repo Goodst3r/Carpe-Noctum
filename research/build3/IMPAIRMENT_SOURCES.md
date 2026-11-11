@@ -36,3 +36,9 @@ Exa web fetch and search for the SCTE 280 PDF, the PNM blog and the SCTE catalog
 The independent arithmetic is `impairments-reference.py` (Python `decimal`, 50 digits): it reproduces the app's ripple distance
 and its candidate search on the complete practice route with five length variants, fourteen distances and five widths
 (350 candidate cases, 1,940 comparisons in the suite). Wolfram was not available.
+
+## Corrections after Lane A's review of PR #13 (Nov 11, 2026)
+
+- **Broadband ingress.** The CPD card used to say that ingress is at fixed frequencies rather than a smooth floor. Lane A read the body of SCTE 280 (2022), section 9.4 and the sections after it, and found that it distinguishes narrow-band from wide-band ingress and that a raised floor alone cannot exclude ingress or identify CPD. The CPD and ingress cards now keep wide-band interference among the look-alikes. I have **not** read that body myself; the earlier attribution of these cards to SCTE 280 rests on the section headings, as stated above, and this correction rests on Lane A's reading.
+- **Very long cable** is no longer listed as a cause of flat loss: extra cable is frequency-dependent loss (tilt), and the flat-loss card now says so. Lane A cites SCTE 280 section 9.9 for the cable-loss versus flat-loss distinction; I have not read it.
+- **Route search.** The candidate places are recomputed from the current route each time the screen is opened, and a native number box holding only a minus sign is refused with a reason instead of falling back to the 10 % default width (a deliberately empty width box still uses the stated default).

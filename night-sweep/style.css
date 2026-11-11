@@ -302,6 +302,8 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-flow{padding-left:22px}
 .imp-flow li{margin:8px 0}
 .imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
+.imp-tool input[aria-invalid=true]{border:3px solid var(--bad)}
+.imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
 .fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
 .fiber-reference{margin:10px 0}
