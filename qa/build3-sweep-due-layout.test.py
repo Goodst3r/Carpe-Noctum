@@ -72,6 +72,23 @@ try:
             check(f'{width}px full counts with bounded first page', page.locator('[data-sweep-due-row]').count() == 25 and '63 stations' in page.locator('#sweepDueSummary').inner_text() and 'Page 1 of 3' in page.locator('#sweepDuePagination').inner_text())
             page.locator('[data-sweep-due-page="next"]').click()
             check(f'{width}px next page navigates bounded cards without overflow', page.locator('[data-sweep-due-row]').count() == 25 and 'Page 2 of 3' in page.locator('#sweepDuePagination').inner_text() and page.evaluate('document.documentElement.scrollWidth <= innerWidth+1'))
+            # Use browser-generated Enter events: replacing the focused navigation button
+            # used to leave focus on BODY and subsequent Tab traversal at the page bottom.
+            page.locator('#sweepDueInterval').fill('0018')
+            check(f'{width}px interval editing retains its focus with multiple pages', page.locator('#sweepDueInterval').evaluate('(e)=>document.activeElement===e') and page.evaluate('state.sweepDue.intervalMonths') == '0018')
+            page.evaluate('SweepDue.render("2026-11-11")')
+            before_navigation = page.evaluate('JSON.stringify([state,localStorage.getItem(JobsUI.storeKey),localStorage.getItem("hfc-route-v1")])')
+            for direction, expected_page, expected_rows in [('next', 2, 25), ('next', 3, 13), ('previous', 2, 25), ('previous', 1, 25)]:
+                page.locator(f'[data-sweep-due-page="{direction}"]').focus()
+                page.keyboard.press('Enter')
+                active = page.evaluate('document.activeElement.id || document.activeElement.tagName')
+                check(f'{width}px keyboard {direction} to page {expected_page} focuses page context (actual {active})', active == 'sweepDuePageSummary')
+                check(f'{width}px keyboard page {expected_page} starts with visible summary and bounded records', page.locator('#sweepDuePageSummary').inner_text().startswith(f'Page {expected_page} of 3') and page.locator('#sweepDuePageSummary').evaluate('(e)=>{const r=e.getBoundingClientRect();return r.top>=0 && r.bottom<innerHeight;}') and page.locator('[data-sweep-due-row]').count() == expected_rows)
+                if expected_page == 3:
+                    check(f'{width}px last page disables Next and permits Previous', page.locator('[data-sweep-due-page="next"]').is_disabled() and page.locator('[data-sweep-due-page="previous"]').is_enabled())
+                if expected_page == 1:
+                    check(f'{width}px first page disables Previous and permits Next', page.locator('[data-sweep-due-page="previous"]').is_disabled() and page.locator('[data-sweep-due-page="next"]').is_enabled())
+            check(f'{width}px keyboard pagination preserves interval, work dates and stored jobs', page.evaluate('JSON.stringify([state,localStorage.getItem(JobsUI.storeKey),localStorage.getItem("hfc-route-v1")])') == before_navigation and page.locator('#sweepDueInterval').input_value() == '0018')
             context.close()
         check('No browser page errors', not errors)
         browser.close()
