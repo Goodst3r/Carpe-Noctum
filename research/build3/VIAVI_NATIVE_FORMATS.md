@@ -40,6 +40,11 @@ The JSON root declares `cdmVersion = 2.0` and `tests[]`; a sweep test declares
   axis bounds never reconstruct missing samples or extend trace coverage.
 - A chart label containing `Sweep` and exactly one of `Forward` / `Reverse`
   establishes direction. Missing or conflicting words give `unknown`.
+- An enclosing test label is used only to detect an explicit opposite
+  `Forward Sweep` / `Reverse Sweep` conflict with the chart. Such a conflict
+  preserves raw samples but makes direction `unknown` with a static warning.
+  Unrelated or unknown enclosing labels do not invalidate chart direction, and
+  an enclosing label never supplies direction when the chart is unknown.
 - The typed Unreferenced trace establishes raw absolute-level samples. A
   recognized reference-name/date table conflicting with the `NONE` / `---`
   sentinels makes reference state `unknown` with a warning. It does not change
@@ -56,7 +61,9 @@ normalized by this implementation; downstream markers use the explicit samples.
 `EvidenceCore.parseText(text, filename, kind)` retains existing CSV support and
 recognizes `.json` for the layouts above only when `kind = Sweep`. Unrecognized
 JSON, including application-backup JSON, is an inert attachment; no state-loading
-function is called. One explicit point can preview; the grading core separately
+function is called. Mixed test-group/CDM root envelope markers attach as ambiguous
+before either branch is selected, including malformed secondary branches. One
+explicit point can preview; the grading core separately
 requires sufficient point coverage.
 
 The normalized series is unchanged: `{unit, label, points}`. Only sorted copies

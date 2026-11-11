@@ -63,6 +63,8 @@
   let native;
   try{
    const doc=JSON.parse(text.replace(/^\uFEFF/,'')),traces=[],warnings=[];
+   // A malformed secondary envelope must not be silently discarded either.
+   if(plain(doc)&&owns(doc,'testGroup')&&(owns(doc,'cdmVersion')||owns(doc,'tests')))throw Error('Multiple native envelopes are ambiguous; no trace was selected.');
    const warn=s=>{if(!warnings.includes(s)&&warnings.length<8)warnings.push(s);};
    const vector=(values,label)=>{if(!Array.isArray(values))throw Error('Invalid '+label+' sample array.');if(values.length>limits.samples)throw Error('Native trace exceeds '+limits.samples+' samples.');return values;};
    const samples=(pairs)=>{
@@ -119,7 +121,11 @@
       if(chart.type!=='line')throw Error('Unsupported CDM chart type.');
       if(chart.xAxisLabel!=='MHz'||!['dBmV','dB'].includes(chart.yAxisLabel))throw Error('Unsupported chart axis units.');
       const label=typeof chart.label==='string'?chart.label:'',sweep=/\bsweep\b/i.test(label),forward=/\bforward\b/i.test(label),reverse=/\breverse\b/i.test(label);
-      const direction=sweep&&forward!==reverse?(forward?'forward':'reverse'):'unknown';
+      let direction=sweep&&forward!==reverse?(forward?'forward':'reverse'):'unknown';
+      const testLabel=typeof test.label==='string'?test.label:'',testSweep=/\bsweep\b/i.test(testLabel);
+      if(testSweep&&((direction==='forward'&&/\breverse\b/i.test(testLabel))||(direction==='reverse'&&/\bforward\b/i.test(testLabel)))){
+       direction='unknown';warn('Sweep direction metadata conflicts between the test and chart; direction is unknown.');
+      }
       for(const child of Object.values(chart)){
        if(!plain(child)||child.eType!=='series')continue;
        if(child.name!=='Unreferenced'||child.dimensions!==2)throw Error('Unsupported CDM trace name or dimensions.');
