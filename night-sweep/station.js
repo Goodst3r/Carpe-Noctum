@@ -55,14 +55,16 @@ const StationView=(()=>{
  }
  function targets(owner=own()){
   const c=cat(),devices=c.devices||[],list=[],type=owner.setup?.sourceType;
+  // Keep the catalog's first match; rebuild locally so edits/imports cannot stale it.
+  const byId=new Map();for(const d of devices)if(!byId.has(d.id))byId.set(d.id,d);
   if(type==='node'){
    const n=(c.nodeProfiles||[]).find(x=>x.id===owner.node?.model),bandIndex=String(owner.node?.band??'').trim()===''?null:Number(owner.node?.band),b=bandIndex!==null&&Number.isInteger(bandIndex)?n?.bands?.[bandIndex]:null;
    if(n)list.push({key:'source',id:n.id,label:'Launch node · '+n.label,forwardBand:b?[b.forwardFloor,b.equipmentUpper]:null,returnCeiling:b?.returnCeiling,readOnly:!!n.retired,holder:owner.setup});
   }else if(type==='active'){
-   const d=devices.find(x=>x.id===owner.setup?.sourceModel);if(d?.active)list.push({key:'source',id:d.id,label:'Launch active · '+d.label,forwardBand:d.publishedGain?.forwardBand,returnCeiling:d.publishedGain?.reverseBand?.[1],readOnly:!!d.retired,holder:owner.setup});
+   const d=byId.get(owner.setup?.sourceModel);if(d?.active)list.push({key:'source',id:d.id,label:'Launch active · '+d.label,forwardBand:d.publishedGain?.forwardBand,returnCeiling:d.publishedGain?.reverseBand?.[1],readOnly:!!d.retired,holder:owner.setup});
   }
   for(const [i,row] of (owner.rows||[]).entries()){
-   const d=devices.find(x=>x.id===row.device);if(d?.active)list.push({key:row.id,id:d.id,label:(row.name||'Point '+(i+1))+' · '+d.label,forwardBand:d.publishedGain?.forwardBand,returnCeiling:d.publishedGain?.reverseBand?.[1],readOnly:!!d.retired,holder:row});
+   const d=byId.get(row.device);if(d?.active)list.push({key:row.id,id:d.id,label:(row.name||'Point '+(i+1))+' · '+d.label,forwardBand:d.publishedGain?.forwardBand,returnCeiling:d.publishedGain?.reverseBand?.[1],readOnly:!!d.retired,holder:row});
   }
   return list.map(t=>{
    // Identity uses only saved job choices. Corrected catalog bands may change the

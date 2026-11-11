@@ -52,3 +52,58 @@ test('Return reminders show only the applicable plant and exact equipment recomm
  h.ev('state.rows[0].device="active_aoi_hgd";StationView.render()');text=words(h,region);assert.match(text,/204\/258/);assert.match(text,/9 dBmV.*6\.4 MHz/);assert(!/38 dBmV|return TX reference/i.test(text));assert.equal(h.d.querySelector('#stationPanel [data-threshold="company.sweep42.txReference"]'),null);
  h.ev('state.rows[0].device="active_aoi_le";StationView.render()');assert(!/9 dBmV/.test(words(h,region)),'HGD recommendation does not become an LE target');
 }));
+
+test('Station target catalog work stays bounded for 100 and 200 valid route rows',withApp(h=>{
+ const measurements=h.json(`(()=>{
+  const original=catalog.devices,owners=[100,200].map(count=>loadState({version:1,setup:{...defaultSetup,sourceType:'active',sourceModel:'active_gm_gan_hgd'},rows:Array.from({length:count},(_,i)=>({id:'r'+(i+1),name:'SYNTH '+(i+1),parent:'source',device:'active_gm_gan_hgd'}))},false,true));
+  let reads=0;
+  try{
+   catalog.devices=original.map(d=>({...d,get id(){reads++;return d.id;}}));
+   return owners.map(owner=>{reads=0;const targets=StationView.targets(owner);return {rows:owner.rows.length,catalogSize:original.length,reads,keys:targets.map(t=>t.key),ids:targets.map(t=>t.id)};});
+  }finally{catalog.devices=original;}
+ })()`);
+ for(const m of measurements)console.log(`Station catalog work: ${m.rows} rows, ${m.reads} ID reads, budget ${4*(m.catalogSize+m.rows+1)}`);
+ for(const m of measurements){
+  assert.deepEqual(m.keys,['source',...Array.from({length:m.rows},(_,i)=>'r'+(i+1))]);
+  assert(m.ids.every(id=>id==='active_gm_gan_hgd'),'every source and route target keeps its model');
+  const budget=4*(m.catalogSize+m.rows+1);
+  assert(m.reads<=budget,`${m.rows} rows read ${m.reads} catalog IDs; budget ${budget} bounds work by catalog plus route size`);
+ }
+}));
+
+test('Station targets retain first catalog matches, unknown-model omission and exact source/route context',withApp(h=>{
+ const actual=h.json(`(()=>{
+  const original=catalog.devices,owner={setup:{sourceType:'active',sourceModel:'active_gm_gan_hgd',sourceAsset:'SYNTH SOURCE',sourcePort:'main'},rows:[{id:'r1',name:'SYNTH ACTIVE',device:'active_gm_gan_hgd'},{id:'r2',device:'synth_passive'},{id:'r3',device:'synth_absent'},{id:'r4',device:'synth_retired'}]};
+  try{
+   catalog.devices=[{id:'active_gm_gan_hgd',label:'SYNTH FIRST',active:true,publishedGain:{forwardBand:[54,1002],reverseBand:[5,42]}},{id:'active_gm_gan_hgd',label:'SYNTH LATER',active:true,retired:true,publishedGain:{forwardBand:[258,1794],reverseBand:[5,204]}},{id:'synth_passive',label:'SYNTH PASSIVE',active:false},{id:'synth_retired',label:'SYNTH RETIRED',active:true,retired:true,publishedGain:{forwardBand:[258,1794],reverseBand:[5,204]}}];
+   const summarize=()=>StationView.targets(owner).map(({holder,...t})=>({...t,holderMatches:holder===(t.key==='source'?owner.setup:owner.rows.find(r=>r.id===t.key))}));
+   const first=summarize();catalog.devices[0].active=false;const inactiveFirst=summarize();catalog.devices[0].active=true;catalog.devices[0].retired=true;const retiredFirst=summarize();
+   owner.setup.sourceModel='synth_absent';const absentSource=summarize();return {first,inactiveFirst,retiredFirst,absentSource};
+  }finally{catalog.devices=original;}
+ })()`);
+ const source={key:'source',id:'active_gm_gan_hgd',label:'Launch active · SYNTH FIRST',forwardBand:[54,1002],returnCeiling:42,readOnly:false,split:'42',context:'["active_gm_gan_hgd","active","SYNTH SOURCE","main"]',holderMatches:true};
+ const route={key:'r1',id:'active_gm_gan_hgd',label:'SYNTH ACTIVE · SYNTH FIRST',forwardBand:[54,1002],returnCeiling:42,readOnly:false,split:'42',context:'["active_gm_gan_hgd","route"]',holderMatches:true};
+ const retired={key:'r4',id:'synth_retired',label:'Point 4 · SYNTH RETIRED',forwardBand:[258,1794],returnCeiling:204,readOnly:true,split:'204',context:'["synth_retired","route"]',holderMatches:true};
+ assert.deepEqual(actual.first,[source,route,retired]);
+ assert.deepEqual(actual.inactiveFirst,[retired],'a later active duplicate cannot replace an inactive first match');
+ assert.deepEqual(actual.retiredFirst,[{...source,readOnly:true},{...route,readOnly:true},retired]);
+ assert.deepEqual(actual.absentSource,[{...route,readOnly:true},retired]);
+}));
+
+test('Station target lookup reads current catalog objects and owners without changing saved results',withApp(h=>{
+ open(h);forward(h,{measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',pad:'6'});returns(h);
+ const original=h.json('({record:StationView.currentRecord(),results:StationView.results(),records:StationView.records(state)})');
+ h.ev(`(()=>{const d=device('active_gm_gan_hgd');catalog.devices=[...catalog.devices,{...d,label:'SYNTH LATER DUPLICATE',retired:true,publishedGain:{...d.publishedGain,forwardBand:[258,1794],reverseBand:[5,204]}}];})()`);
+ assert.deepEqual(h.json('({record:StationView.currentRecord(),results:StationView.results(),records:StationView.records(state)})'),original,'a later duplicate leaves saved outputs and binding unchanged');
+ assert.equal(original.results.forward.catalog.eq.to,4.5);assert.equal(original.results.forward.catalog.pad.to,7);assert.equal(original.results.returns.requiredInjection.value,39);
+ h.ev(`device('active_gm_gan_hgd').label='SYNTH IN-PLACE';device('active_gm_gan_hgd').publishedGain.forwardBand=[55,999]`);
+ let target=h.json('StationView.targets().find(t=>t.key==="r1")');assert.match(target.label,/SYNTH IN-PLACE/);assert.deepEqual(target.forwardBand,[55,999]);
+ h.ev(`catalog.devices=catalog.devices.map(d=>d.id==='active_gm_gan_hgd'?{...d,label:'SYNTH REPLACEMENT',publishedGain:{...d.publishedGain,forwardBand:[54,1002]}}:d)`);
+ target=h.json('StationView.targets().find(t=>t.key==="r1")');assert.match(target.label,/SYNTH REPLACEMENT/);assert.deepEqual(target.forwardBand,[54,1002]);
+ assert.deepEqual(h.json('StationView.results()'),original.results,'replacement catalog values restore identical math');
+ const other=h.json(`(()=>{const owner=loadState({version:1,setup:{...defaultSetup,sourceType:'active',sourceModel:'active_aoi_hgd',sourceAsset:'SYNTH OTHER'},rows:[{id:'r1',name:'SYNTH OTHER ROUTE',parent:'source',device:'active_aoi_le'}]},false,true);return {targets:StationView.targets(owner).map(({holder,...t})=>t),record:StationView.currentRecord(owner)};})()`);
+ assert.deepEqual(other.targets.map(t=>[t.key,t.id,t.split]),[['source','active_aoi_hgd','204'],['r1','active_aoi_le','204']]);
+ assert.equal(other.targets[0].context,'["active_aoi_hgd","active","SYNTH OTHER",""]');assert.match(other.targets[1].label,/SYNTH OTHER ROUTE/);
+ assert.equal(other.record.stages.before.forward.targetLow,'');assert.equal(other.record.stages.before.returns.referencePointTarget,'');
+ assert.deepEqual(h.json('StationView.currentRecord()'),original.record,'reading another owner leaves current saved worksheet unchanged');
+}));
