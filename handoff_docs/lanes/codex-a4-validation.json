@@ -1572,5 +1572,23 @@
     "Provider save/share dialogs",
     "RF meter/reference-plane and hardware",
     "Field acceptance"
-  ]
+  ],
+  "ci_only_integration": {
+    "reviewed_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
+    "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
+    "starting_published_head": "45eef1ccb304832576053cb385e88f710dc0def5",
+    "ci_merge_head": "8b28cb6f74acccbe1e9cc62362946b155b8bc8d5",
+    "changed_paths": [
+      ".github/workflows/gate.yml",
+      "qa/ci_layout_diagnose.py"
+    ],
+    "preexisting_tracked_files": 596,
+    "exact_preexisting_file_hashes_at_ci_merge": true,
+    "exact_preexisting_staged_entries_at_ci_merge": true,
+    "ci_files_match_reviewed_base": true,
+    "proof_sha256": "336d5dbfe3a5b58fe8fd4011abae9b7c5b67711f84be22db24a7c49f81017d4d",
+    "report": "../reviews/codex-a4-ci-only-integration.md",
+    "no_new_full_gate": true,
+    "gate_attribution": "All existing feature gate counts/commands still belong to tested_commit, not this CI-only merge or subsequent metadata head. Lane B must freshly gate the final published head before merging."
+  }
 }
