@@ -19,7 +19,7 @@ Updated November 11, 2026 by Lane B (task B3). Everything here is something that
 | Quantum18 HGD, HGBT and LE pad and EQ values are not public (AOI's English data sheets are behind a request form), so the solver offers none. The BA's 0/2/4/6 dB pad list comes from a preliminary data sheet. | `research/build3/PAD_EQ_SOURCES.md` |
 | Two existing app approximations are labeled Unknown in the registry: the 0.1 %/°F cable-loss temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). | `night-sweep/thresholds.js`, `research/build3/SOURCE_VERIFICATION.md` |
 | Older screens' example targets are not in the registry: Test → References workbook 32/43 dBmV and sample 34/46 dBmV targets, anchor pairs, plant-picker starting levels. | `NightSweep_Project_Status.md` |
-| Exact GaN, Quantum18 LE/BA, EN9000-RFAM-RPD and DSIM-A commissioning procedures remain documentation gaps. Native ONX proprietary decoding and OCR are not added. | `NightSweep_Project_Status.md` |
+| Exact GaN, Quantum18 LE/BA, EN9000-RFAM-RPD and DSIM-A commissioning procedures remain documentation gaps. Other proprietary ONX decoding and OCR are not added; A4 only supports the two inspected typed JSON layouts described below. | `NightSweep_Project_Status.md` |
 | Cisco GainMaker line extender, data sheet and reverse EQ items in the station-view research are marked "not re-verified" because research credits ran out. The reverse pad values and EQ loss charts were confirmed earlier. | `research/build3/STATION_VIEW_SOURCES.md`, `station-view-research.json` |
 | SCTE 297 2025r1: the PDF release history lists no r1 row, while CableLabs and the catalog label it 2025r1. Its section 6 procedure was not read. | `research/build3/station-view-research.json` |
 
@@ -46,3 +46,38 @@ Every company target and tolerance starts **unknown** and must never be filled i
 | Until task B1 lands, a full gate run rewrites tracked evidence files under `release/` and `research/` (run `git checkout -- release research` before committing), the per-suite limit is a fixed 150 s, and `qa/alpha18-release.test.py` fails with a traceback instead of a clear message when `build-readiness.json` says an APK was built but its receipts are not in the checkout. | `handoff_docs/PARALLEL_TASKS.md` |
 | `docs/ROADMAP.md` and `docs/BUILD_LIST.md` are also open as pull requests #1 and #2 against `main`. They merge cleanly with the copies on `build3`, but the owner has not decided them. | `handoff_docs/PARALLEL_TASKS.md` |
 | Release-time packaging scripts (`release/package_build2.py` and relatives) still describe build 2. Build 3 has no delivery package. | `docs/DEVELOPER_BUILD.md` |
+
+
+## A4 native import and grading scope (Lane A, Nov 11)
+
+- Only the two inspected typed JSON structures are supported, including bounded gzip/single-JSON ZIP. Other versions/layouts, multiple nonempty candidate traces or unavailable browser decompression remain attachment-only with a reason. Raw unreferenced sampled PTV is not normalized continuous-band ripple or official acceptance; measurement plane/reference and all company criteria remain explicit/unknown.
+- A valid unsigned ZIP descriptor whose CRC equals optional signature 0x08074b50 is safely rejected. The original still attaches and survives portable export/restore exactly; no grade is produced. Nonblocking compatibility follow-up.
+- A skipped empty opposing chart can contribute misleading unknown-direction warning wording despite the selected nonempty chart's correct direction. Samples and opposite-direction grading guard remain correct. Nonblocking wording follow-up.
+- The optional Station saved-slot mismatch was corrected at 04bb5ae, with real-handler scoped review and a new full gate. Original private files remain excluded; committed fixtures are invented. Physical meter/reference-plane and device verification remain unperformed.
+
+Evidence: handoff_docs/reviews/codex-sweep-grading.md, its historical whole-feature/scoped-review reports and handoff_docs/lanes/codex-a4-validation.json on PR #14. This section does not close the unrelated older B9 reconciliation rows above.
+
+## A1 Station nonblocking review follow-ups (Lane A, Nov 11)
+
+The seven blocking requests from Lane B review 5861415148 were corrected and independently re-reviewed. The following nonblocking observations from that review remain deferred unless a later change explicitly closes them. Their original context is published source 895503b; incidental layout changes are not claimed as full closure.
+
+- Format tiny floating-point deltas without signed zero; distinguish absolute-level formatting from signed errors. The read API can expose binary precision tails that future night-log formatting must handle.
+- The worksheet permits nonnegative insertion loss only, although the cited net-loss relation is signed. Explain the restriction or add explicitly checked negative net-loss support.
+- Threshold resolution outside Station's strict input parser still uses lenient Number conversion for station strings.
+- Archived context history lacks a dedicated browser. A second edited equipment context can replace the active identity pointer while retaining the older map record. Load example replaces the working Station section; import validation of row stationIdentity and rejected-edit error feedback also need follow-up.
+- Phone polish: stage labels near fields, focus retention across panel rebuilds, native EQ/pad select text, dark placeholder contrast, result placement, sign explanations, timestamp presentation and empty-state button spacing. Source labels/44px buttons were fixed; no physical iPhone keypad or Safari/WebView behavior was verified.
+- Reconcile old status/update-log spacing, unrelated guide counts and the navigation End-key test's dynamic last-tab oracle during D4.
+- A legacy-unconfirmed worksheet preserves both stages and done dates in the read API/backup, but the read-only panel cannot switch to the other stage before confirmation. Passive legacy browsing is a follow-up. A2/A3 must honor bindingStatus=legacy-unconfirmed/readOnly and must not treat its historical dates as confirmed current-equipment work.
+- Earlier internal Minor observations remain recorded: source-tag location can follow the saved picker rather than a transient picker; edit-time text can refresh late; extreme escaped context strings can exceed the encoded-context guard.
+
+Legacy confirmation is an explicit new binding choice, not RF acceptance or new balance/sweep work. Opening/restoring alone does not migrate the original. The confirmed copy uses a new identity and the original record stays byte-for-byte in the map. No local procedure, company target, manufacturer revision, physical phone/emulator or field test is implied by technical review.
+
+Evidence: PR #8, the original Lane B review, handoff_docs/reviews/codex-station-laneb-fixes-review.md, handoff_docs/reviews/codex-station-view.md and handoff_docs/lanes/codex-a1-validation.json on that branch.
+
+
+## Performance scope (Lane A, Nov 11)
+
+- Station lookup optimization 6030607 reduces catalog work at long routes while keeping first-match/fresh-owner/catalog semantics. Its nine-row desktop benchmark had 0–0.2ms extra median input cost; its 200-active-row input improvement was 36–43%. No general or phone gain is claimed.
+- CRC optimization b863821 keeps every original integrity check and speeds only the ZIP checksum/parse work. Synthetic near-cap 2 MiB JSON measured 78.2→15.3ms stored/84.3→21.4ms deflated in desktop Chromium; tiny files were below useful resolution. Original private input/backup byte equality was verified locally.
+- A separate audit found closed evidence previews still build all charts (legal 30 × 10,000-sample workload: 142.9ms/~4.59MB markup). Lazy rendering remains a separate follow-up requiring open/toggle/print review. It is not included in this CRC change.
+- No earlier correctness/nonblocking gap is implicitly closed by performance changes. Current source, methods, independent scoped reviews and final gate receipts are on PR #8 and PR #14.
