@@ -243,7 +243,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -259,6 +259,21 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .health-window>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}
 .health-window .error{color:var(--warn)}
 .health-card [hidden]{display:none!important}
+/* Leakage tools (build list item 7) */
+.leak-card textarea{width:100%;min-height:76px;font:inherit}
+.leak-card .table-scroll{overflow-x:auto;max-width:100%}
+.leak-table{width:100%;min-width:440px;border-collapse:collapse;margin:8px 0}
+.leak-table th,.leak-table td{padding:7px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
+.leak-table thead th{color:var(--muted);font-size:12px;font-weight:600}
+.leak-list{margin:8px 0 0}
+.leak-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.leak-item>div:first-child{display:grid;gap:3px;min-width:0;flex:1 1 220px}
+.leak-item strong,.leak-item .note,.leak-item .health-status{overflow-wrap:anywhere;min-width:0}
+.leak-card button.danger{border-color:var(--bad);color:var(--bad)}
+.leak-item .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.leak-item.open{border-left:3px solid var(--warn);padding-left:10px}
+.leak-repair{display:grid;gap:3px;font-size:13px}
+.leak-card [hidden]{display:none!important}
 
 /* Guided 42 MHz / 204 MHz field setup. Inherits the established night / sun palette. */
 .sweep-setup-panel{max-width:1050px;margin-left:auto;margin-right:auto}
@@ -367,6 +382,7 @@ html[data-theme=sun] .sweep-split-switch button[aria-pressed=true]{background:#d
 <section class="panel calculator-panel" data-screen="test" hidden="" id="calculatorPanel"></section>
 <section class="panel limits-panel" data-screen="test" hidden="" id="limitsPanel"></section>
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
+<section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
 <p class="note">90 V / 15 A are starting examples. Replace them with your supply’s operating voltage and nameplate current rating. This power circuit is separate from the RF route; choose the actual power feed to each point.</p>
@@ -3776,7 +3792,7 @@ const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[]},
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
-  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health']]},
+  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
   job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log']]}
  };
@@ -3796,6 +3812,7 @@ const WorkflowUI=(()=>{
   readings:['test','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['test','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
+  leakage:['test','Check and log signal leakage','FCC limits, distance and CLI math, a detector check and your own leak log. A personal notebook, not the company record.'],
   docsisHealth:['test','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
   limits:['test','Check a limit or its source','Limits, targets and formulas behind the field tools and job criteria, labeled spec, expert, company or unknown.'],
   power:['power','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
@@ -3818,7 +3835,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4068,6 +4085,7 @@ const TrainingJob=(()=>{
   ['calculators','Quick calculations with source tags','calculators','','Open Test → Calculators and type these synthetic inputs. Ripple peaks 6 MHz apart on 0.87 VP cable put the two mismatches about 71.3 ft apart. With the main tap at 8, tap 9 at 5.12 Msym/s and VP 0.87 puts two mismatches about 83.6 ft apart (41.8–125.3 ft); that is a spacing, not the distance from the modem. 42 dBmV per 6 MHz over a 192 MHz occupied OFDM band is 57.05 dBmV total. In Pad / EQ balance, choose GainMaker HGD GaAs, pilots 54 / 860 MHz, readings 36.4 / 49.6 dBmV, targets 39 / 49 dBmV, installed pad 6 dB and EQ 9 dB: the card suggests EQ 4.5 dB and pad 7 dB, from the published Cisco EQ loss chart. Tap each Spec or Expert tag to see the source and its limits. Calculator inputs are not saved with the job.'],
   ['limits','Check a limit and its source','limits','','Open Test → Limits and filter by Company. This practice job’s profile 1200 holds synthetic criteria, so they show values. In a new blank job the same entries show Unknown until someone enters them, and an entered 0 stays 0. Your built-in 31 dBmV at 54 MHz / 43 dBmV at 860 MHz and separate 38 dBmV TX reference are listed on their own. Filter by Unknown to see the two built-in approximations whose sources are not verified. Nothing here approves criteria.'],
   ['docsis','Check modem levels against the spec','docsisHealth','','Open Test → DOCSIS health. Type 16 for the SC-QAM channel level: it is 1.0 dB above the −15 to +15 dBmV per 6 MHz range the modem must accept. Type 3.2 and it sits 11.8 dB inside. On the OFDM card set Measured over to 24 MHz and type −8: 1.0 dB inside the −9 to +21 range. Set the total-power card to a DOCSIS 3.1 modem and type 40 for total input power: it is at the limit, because the limit is strictly below 40 (33 for a 3.0-only modem, which you must choose first). For upstream, choose a 3.1 modem on a 3.1 CMTS and type 52 for total transmit power: the headroom to the 65 dBmV minimum Pmax is 13.0 dB. Each result says Unknown for your company window until you enter one; the spec range is what a modem must accept, not a target. All readings are synthetic.'],
+  ['leakage','Check and log signal leakage','leakage','','Open Test → Leakage. In the limit check use 121.2625 MHz, an analog signal and 25 µV/m at 3 m: the limit that applies is 20 µV/m at 3 m, and the reading is 5 µV/m over it. In the CLI card type the leaks 100, 60, 50 with 0.8 of the plant examined: all three count, the sum of squares is 16,100, the index is 43.04 dB and it sits 21.0 dB at or below the printed value of 64. In the distance card 40 µV/m measured at 10 m is 133.3 µV/m at 3 m. Add one practice leak to the leak log by pole and date, type PRACTICE in the notes and use no customer names, mark it repaired, export the log, then use Delete on the practice entry so it never reaches a real export. The log, saved detector checks and company settings stay on this device and are not in the job backup. All readings are synthetic.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4083,7 +4101,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'21 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'15 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'11 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'12 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4131,9 +4149,10 @@ const TrainingJob=(()=>{
   ['backup-roundtrip','Portable backup and recovery','Start and finish','complete','backup','home','Project export includes all six originals, practice provenance and reviewed steps.'],
   ['calculators','Field calculators and source tags','Test','custom-curves','calculators','calculators','The guide step lists synthetic ripple, pre-EQ, OFDM and echo inputs to type; each formula shows its source tag.'],
   ['limits','Limits, labels and sources','Test','custom-curves','limits','limits','Synthetic profile criteria, the built-in local preset and unverified approximations, each with its label and source.'],
-  ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream and upstream readings that land inside, outside and exactly on the spec range, with a company window that starts unknown.']
+  ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream and upstream readings that land inside, outside and exactly on the spec range, with a company window that starts unknown.'],
+  ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -4389,8 +4408,8 @@ function initTraining(){TrainingJob.init();}
    not registered yet. Every row
    carries one label (spec, expert, company or unknown), its source, revision, page or
    table, units, conditions and the date it was checked. Company values stay where the
-   technician entered them (the job profile, sweep setup, or the DOCSIS health card, whose
-   windows are kept on this device only); blank stays unknown and is
+   technician entered them (the job profile, sweep setup, or the DOCSIS health card and Leakage
+   screen, whose values are kept on this device only); blank stays unknown and is
    never read as zero. Explanations are in our own words; SCTE and CableLabs text is
    cited by document number only. */
 const Thresholds=(()=>{
@@ -4497,6 +4516,42 @@ const Thresholds=(()=>{
   {id:'company.docsis.upstream',label:'company',name:'Your window, total upstream transmit power',kind:'target',units:'dBmV',store:'docsis',field:'upstream',
    source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only, separately for each plant; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
    conditions:'Your own limits for the modem’s total transmit power. Starts blank (unknown) for each plant, 42/54 and 204/258 MHz, which are kept separately. Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+  {id:'leak.fcc.analog.far',label:'spec',name:'Analog signal leakage limit, 54 MHz and below, and over 216 MHz',kind:'limit',units:'µV/m at 30 m',rangeText:'15 µV/m at 30 m',
+   source:'47 CFR 76.605(c), Table 1 to paragraph (c), Technical standards (Federal Communications Commission)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7627 (February 22, 2018)',locator:'§ 76.605(c), Table 1: row “Analog signals less than and including 54 MHz, and over 216 MHz”',
+   conditions:'Leakage is measured by the procedures in § 76.609(h) and limited as the table shows, whatever signals the system carries. The table limits the field strength a cable system may produce. Separately, § 76.614 expects an operator carrying signals in the aeronautical bands to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m there (see the aeronautical-band row). Your company’s own repair threshold is its own addition and starts unknown.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage'},
+  {id:'leak.fcc.digital.far',label:'spec',name:'Digital signal leakage limit, 54 MHz and below, and over 216 MHz',kind:'limit',units:'µV/m at 30 m',rangeText:'13.1 µV/m at 30 m',
+   source:'47 CFR 76.605(c), Table 1 to paragraph (c), Technical standards (Federal Communications Commission)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7627 (February 22, 2018)',locator:'§ 76.605(c), Table 1: row “Digital signals less than and including 54 MHz, and over 216 MHz”',
+   conditions:'Leakage is measured by the procedures in § 76.609(h) and limited as the table shows, whatever signals the system carries. The table limits the field strength a cable system may produce. Separately, § 76.614 expects an operator carrying signals in the aeronautical bands to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m there (see the aeronautical-band row). Your company’s own repair threshold is its own addition and starts unknown.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage'},
+  {id:'leak.fcc.analog.near',label:'spec',name:'Analog signal leakage limit, over 54 up to 216 MHz',kind:'limit',units:'µV/m at 3 m',rangeText:'20 µV/m at 3 m',
+   source:'47 CFR 76.605(c), Table 1 to paragraph (c), Technical standards (Federal Communications Commission)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7627 (February 22, 2018)',locator:'§ 76.605(c), Table 1: row “Analog signals over 54 MHz up to and including 216 MHz”',
+   conditions:'Leakage is measured by the procedures in § 76.609(h) and limited as the table shows, whatever signals the system carries. The table limits the field strength a cable system may produce. Separately, § 76.614 expects an operator carrying signals in the aeronautical bands to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m there (see the aeronautical-band row). Your company’s own repair threshold is its own addition and starts unknown.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage'},
+  {id:'leak.fcc.digital.near',label:'spec',name:'Digital signal leakage limit, over 54 up to 216 MHz',kind:'limit',units:'µV/m at 3 m',rangeText:'17.4 µV/m at 3 m',
+   source:'47 CFR 76.605(c), Table 1 to paragraph (c), Technical standards (Federal Communications Commission)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7627 (February 22, 2018)',locator:'§ 76.605(c), Table 1: row “Digital signals over 54 MHz up to and including 216 MHz”',
+   conditions:'Leakage is measured by the procedures in § 76.609(h) and limited as the table shows, whatever signals the system carries. The table limits the field strength a cable system may produce. Separately, § 76.614 expects an operator carrying signals in the aeronautical bands to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m there (see the aeronautical-band row). Your company’s own repair threshold is its own addition and starts unknown.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage'},
+  {id:'leak.fcc.aero.repair',label:'spec',name:'Aeronautical-band leak: note it and repair it',kind:'limit',units:'µV/m at 3 m',rangeText:'20 µV/m or more at 3 m in the aeronautical bands: note it and repair it within a reasonable period',
+   source:'47 CFR 76.614, Cable television system regular monitoring; scope in § 76.610 (Federal Communications Commission)',revision:'Text read November 11, 2026 on the Cornell LII copy of the eCFR; § 76.614 added 65 FR 53616 (September 5, 2000); § 76.610 amended 83 FR 7629 (February 22, 2018)',locator:'§ 76.614, its first, third and fourth sentences; § 76.610',
+   conditions:'Applies to an operator transmitting carriers in the 108–137 and 225–400 MHz bands (§ 76.610 sets the power level at which a system counts as transmitting them). It asks for regular monitoring that covers the plant every three months with equipment able to detect 20 µV/m at 3 m, and for any such leak in the aeronautical bands to be noted and repaired within a reasonable period. This card shows the figure and does nothing with it: it does not track coverage dates and does not decide whether a system is subject to the rule.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Leakage'},
+  {id:'leak.cli.formula',label:'spec',name:'Cumulative leakage index (CLI), I∞',kind:'formula',units:'µV²/m²',formula:'I∞ = (1 ÷ θ) × ΣEi², over leaks of 50 µV/m or more; index = 10·log10(I∞)',
+   source:'47 CFR 76.611(a)(1), Cable television basic signal leakage performance criteria',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7629 (February 22, 2018)',locator:'§ 76.611(a)(1). The eCFR prints the equation as an image; the form above is the equation as set out in the text of the same section on the Cornell LII copy',
+   conditions:'θ is the fraction of the system’s cable length actually examined (strand length tested ÷ total strand length). Ei is the field strength of leak i in µV/m measured 3 m from it under § 76.609(h). Only leaks of 50 µV/m or more are counted. The rule asks for the index at least once each calendar year, no more than 12 months apart, from a sample of at least 75% of the strand. The test signal should be in the 108–137 MHz band; strengths measured elsewhere must be correlated to that band, which the card does not do.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage: CLI estimate'},
+  {id:'leak.cli.limit',label:'spec',name:'Cumulative leakage index limit',kind:'limit',units:'dB',rangeText:'10·log10(I∞) equal to or less than 64',
+   source:'47 CFR 76.611(a)(1)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7629 (February 22, 2018)',locator:'§ 76.611(a)(1): “10 log I ∞ is equal to or less than 64”',
+   conditions:'One of two ways the rule offers to show compliance before and during carriage in the aeronautical bands (108–137 and 225–400 MHz); the other is an airspace measurement. The card compares your own estimate with the printed value and says nothing about whether a system complies.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage: CLI estimate'},
+  {id:'leak.log.fields',label:'spec',name:'Signal leakage log: what to record and how long to keep it',kind:'limit',units:'years',rangeText:'date and location found, date repaired, probable cause; keep 2 years (5 years for some small systems)',
+   source:'47 CFR 76.1706, Signal leakage logs and repair records',revision:'eCFR text read November 11, 2026',locator:'§ 76.1706; § 76.601(d) for the five-year case',
+   conditions:'The rule is on the cable operator. It names the date and location of each leakage source identified under § 76.614, the date it was repaired and its probable cause, and a two-year retention. Under § 76.601(d), a system with fewer than 1,000 subscribers that uses spectrum beyond over-the-air television and FM broadcast bands may meet its leakage-testing duty with the monitoring and log of § 76.614, and then keeps the log for five years. This app’s leak log is a personal notebook that follows those fields; it is not the operator’s log.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage: leak log'},
+  {id:'leak.normalize.distance',label:'expert',name:'Leakage field strength restated at another distance',kind:'formula',units:'µV/m',formula:'E at 3 m ≈ E measured × d ÷ 3 (d in metres); likewise E at 30 m = E × d ÷ 30',
+   source:'Far-field relation: power density falls with the square of distance, so field strength falls in proportion to distance. SCTE 221 2020 (R2026), Field Strength Tutorial & Calculation of LTE User Equipment Field Strength, defines the far field and says leakage field-strength measurements are made there',revision:'SCTE 221 2020 (R2026): title page, number and year confirmed on the CableLabs library copy; its definitions and field-strength sections were read by an independent review agent, not re-read here. SCTE 293-12 2025, the series monograph on signal leakage field strength, was identified from its catalog summary only and its body was not read. Relation derived',locator:'SCTE 221 § 5.2 (definitions, far field) and § 6 (field strength), as read by the review agent; the one-line relation is derived, not quoted',
+   conditions:'Valid in the far field. Close to the leak it does not hold, and how close depends on the frequency (a common rule of thumb puts the edge of the near field at the wavelength ÷ 2π: about 0.4 m at 121 MHz and 4.8 m at 10 MHz), so measure at the rule distance when you can. A reading restated this way is approximate. Table 1 states its limits at 3 m or at 30 m by band, and § 76.609(h) sets the 3 m dipole placement for the measurement procedure; restating a reading from one distance to the other is this app’s own approximation.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Leakage: distance, limit check and leak log'},
+  {id:'leak.detector.methods',label:'expert',name:'Leakage detector calibration checks',kind:'limit',units:'—',rangeText:'two methods: directly connected source; calibrated leak',
+   source:'SCTE 289, Operational Practice for Building and Using Calibrated Leaks',revision:'SCTE 289 2024r1; only the SCTE catalog summary was read, not the practice itself',locator:'Catalog summary (calibration is mandatory on a regular basis; two techniques)',
+   conditions:'The summary names a directly connected RF signal source, which sets general measurement accuracy, and a calibrated field strength (a calibrated leak), which shows the detector measuring a known field outdoors. How often, and how close the reading must be, are your company’s choices and start unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Leakage: detector check'},
+  {id:'company.leak.repair',label:'company',name:'Your leak repair threshold',kind:'target',units:'µV/m at 3 m',store:'leakage',field:'repair',
+   source:'Entered by you on the Leakage screen',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → Leakage → Company settings',
+   conditions:'Open leaks in your log at or above this field strength, restated at 3 m, are flagged. Starts blank (unknown). It is your own threshold, separate from the FCC limits and from § 76.614.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → Leakage: leak log'},
+  {id:'company.leak.tolerance',label:'company',name:'Your detector check tolerance',kind:'target',units:'± dB',store:'leakage',field:'tolerance',
+   source:'Entered by you on the Leakage screen',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → Leakage → Company settings',
+   conditions:'How far a detector reading may differ from its calibrated source before you treat the check as failed. Starts blank (unknown).',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → Leakage: detector check'},
   {id:'app.cable.temperatureCoefficient',label:'unknown',name:'Cable loss temperature correction',kind:'constant',value:0.1,units:'% per °F',formula:'loss × (1 + 0.001 × (T − 68 °F))',
    source:'CommScope Cable Technician Pocket Guide, document MX0398 (the repository’s cable audit records that this value matches it)',revision:'MX0398 Rev U (2021), read from an indexed copy; the live document was not reachable',locator:'Not recorded; see night-sweep/research/equipment-audit-build17/passives/README.md',
    conditions:'Applied to every catalog cable from −40 to 185 °F, referenced to 68 °F.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Route predictions, Predicted levels and Frequency',
@@ -4548,7 +4603,7 @@ const Thresholds=(()=>{
   if(!VERIFICATION[row.verification])problems.push('unsupported verification');
   if(row.date!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(row.date)&&!['Not recorded when entered',PRESET_DATE].includes(row.date))problems.push('date must be YYYY-MM-DD');
   if(row.label==='company'&&row.verification!=='entered')problems.push('company values are entered values');
-  if(row.store&&!['profile','sweep','station','docsis'].includes(row.store))problems.push('unsupported store');
+  if(row.store&&!['profile','sweep','station','docsis','leakage'].includes(row.store))problems.push('unsupported store');
   return problems;
  }
  function selectedProfile(s=owner()){return s.project?.profiles?.find(p=>String(p.id)===String(s.project.selectedProfile))||null;}
@@ -4558,6 +4613,7 @@ const Thresholds=(()=>{
   if(row.store==='station'){const stage=typeof StationView!=='undefined'?StationView.currentStage(s):null;return {value:finite(stage?.[row.stageScope]?.[row.field]),where:'Selected station · '+(s.stationView?.selected||'first installed station')+' · '+(typeof StationView!=='undefined'?StationView.currentRecord(s).stage||'before':'before')};}
   if(row.store==='profile'){const p=selectedProfile(s);return {value:p?finite(p[row.field]):null,where:p?'Selected profile '+p.id:'No project profile selected'};}
   if(row.store==='sweep'){const v=s.sweepSetup?.profiles?.[row.split]?.[row.field];return {value:finite(v),where:'This job’s '+row.split+' MHz meter setup'};}
+  if(row.store==='leakage')return typeof Leakage!=='undefined'?Leakage.registryValue(row.field):{value:null,text:'Unknown — not entered',where:'Saved on this device only'};
   if(row.store==='docsis')return typeof DocsisHealth!=='undefined'?DocsisHealth.registryValue(row.field):{value:null,text:'Unknown — not entered',where:'Saved on this device only'};
   if(row.preset){const preset=typeof FieldReference!=='undefined'?FieldReference.localNonHighSplitPreset:null;return {value:preset?finite(preset[row.preset]):null,where:'Built-in local preset'};}
   return {value:typeof row.value==='number'&&Number.isFinite(row.value)?row.value:null,where:row.kind==='formula'?'Formula':'Built in'};
@@ -4580,7 +4636,7 @@ const Thresholds=(()=>{
  function sheetBody(row){
   const info=LABEL_INFO[row.label],r=resolve(row.id),value=display(row.id);
   const caution=['secondary','unverified'].includes(row.verification)?`<p class="status warning">${escape(VERIFICATION[row.verification])}</p>`:'';
-  const edit=row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Test → DOCSIS health</button>`:'';
+  const edit=row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Test → DOCSIS health</button>`:row.store==='leakage'?`<button type="button" data-task="leakage" data-source-close>Edit in Test → Leakage</button>`:'';
   return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail('Used by',row.usedBy)}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
  }
  let sheet=null,returnFocus=null;
@@ -4595,7 +4651,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
@@ -4608,7 +4664,7 @@ const Thresholds=(()=>{
  function init(){
   if(initialized||typeof document==='undefined')return;initialized=true;
   const panel=document.getElementById('limitsPanel');
-  if(panel)panel.innerHTML=`<div class="sectionhead"><div><h2>Limits &amp; sources</h2><p class="note tight">Tap a tag for its source, revision, page, units, conditions and the date it was checked.</p></div></div><div class="limits-filters" role="group" aria-label="Show entries by label"><button type="button" data-limits-filter="all" aria-pressed="true">All</button>${LABELS.map(l=>`<button type="button" data-limits-filter="${l}" aria-pressed="false">${LABEL_INFO[l].text}</button>`).join('')}</div><p id="limitsCount" class="note" aria-live="polite"></p><dl class="limits-legend">${LABELS.map(l=>`<div><dt><span class="source-tag source-${l} static">${LABEL_INFO[l].text}</span></dt><dd>${escape(LABEL_INFO[l].help)}</dd></div>`).join('')}</dl><div id="limitsList"></div><p class="note">Company values come from this job’s project profile and meter setup, from your built-in local preset, or from the company windows on the DOCSIS health card, which are kept on this device for every job. A blank value is unknown, not zero. No value here is approved plant criteria. Example targets on older screens, such as Test → References, are not listed yet.</p>`;
+  if(panel)panel.innerHTML=`<div class="sectionhead"><div><h2>Limits &amp; sources</h2><p class="note tight">Tap a tag for its source, revision, page, units, conditions and the date it was checked.</p></div></div><div class="limits-filters" role="group" aria-label="Show entries by label"><button type="button" data-limits-filter="all" aria-pressed="true">All</button>${LABELS.map(l=>`<button type="button" data-limits-filter="${l}" aria-pressed="false">${LABEL_INFO[l].text}</button>`).join('')}</div><p id="limitsCount" class="note" aria-live="polite"></p><dl class="limits-legend">${LABELS.map(l=>`<div><dt><span class="source-tag source-${l} static">${LABEL_INFO[l].text}</span></dt><dd>${escape(LABEL_INFO[l].help)}</dd></div>`).join('')}</dl><div id="limitsList"></div><p class="note">Company values come from this job’s project profile and meter setup, from your built-in local preset, or from the company windows on the DOCSIS health card and the repair threshold and detector tolerance on the Leakage screen, which are kept on this device for every job. A blank value is unknown, not zero. No value here is approved plant criteria. Example targets on older screens, such as Test → References, are not listed yet.</p>`;
   document.addEventListener('click',event=>{
    const tagButton=event.target.closest('[data-threshold]');
    if(tagButton&&tagButton.tagName==='BUTTON'&&!tagButton.closest('dialog.source-sheet')){event.preventDefault();open(tagButton.dataset.threshold,tagButton);return;}
@@ -5321,5 +5377,595 @@ const DocsisHealthUI=(()=>{
  return {init,markup,update,refresh,CARDS};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();DocsisHealthUI.init();initWorkflow();initTraining();</script>
+<script>/* Leakage tools (build list item 7, 2.0 Alpha build 3): the FCC leakage limits, a distance
+   normalizer, a cumulative leakage index (CLI) estimator, a detector check and a personal leak
+   log. Offline and deterministic. This is a personal notebook and calculator, not the company's
+   official leak record and not a filing: nothing here is sent anywhere, and the log is kept on
+   this device only, outside jobs and their backups.
+
+   FCC rules (47 CFR 76.605(c), 76.611, 76.1706) are cited by section; the one-line paraphrases
+   are our own. Missing or invalid input gives no result and a reason; it is never shown as zero. */
+const Leakage=(()=>{
+ const STORAGE_KEY='nightsweep-leakage-v1';
+ const FT_PER_M=1/0.3048;                // exact: 1 ft = 0.3048 m
+ const CLI_LIMIT=64;                      // 10·log10(I∞) must be equal to or less than 64
+ const CLI_MIN_LEAK=50;                   // µV/m at 3 m; only leaks at or above this are counted
+ const CLI_SAMPLING=0.75;                 // share of the strand the rule asks to be examined
+ const CLI_BAND=Object.freeze({low:108,high:137}); // MHz: the VHF aeronautical band the CLI test signal belongs in, 47 CFR 76.611(b)(1)
+ const MIN_THETA=0.001;                   // smallest fraction of the plant the estimator accepts
+ const REFERENCE_M=3;
+ const MAX_LEAKS=2000,MAX_LEAK_TEXT=20000,MAX_TOKEN=25,MAX_LOG=500,MAX_CHECKS=200,MAX_REPAIR=1e6,MIN_REPAIR=0.01;
+ const WAVELENGTH_M_MHZ=299.792458;       // c in metres × MHz, so wavelength (m) = 299.792458 ÷ f (MHz)
+ /* 47 CFR 76.605(c), Table 1. */
+ const LIMITS=Object.freeze({
+  'analog-near':Object.freeze({id:'leak.fcc.analog.near',limit:20,distance:3,kind:'analog',band:'over 54 MHz up to and including 216 MHz'}),
+  'digital-near':Object.freeze({id:'leak.fcc.digital.near',limit:17.4,distance:3,kind:'digital',band:'over 54 MHz up to and including 216 MHz'}),
+  'analog-far':Object.freeze({id:'leak.fcc.analog.far',limit:15,distance:30,kind:'analog',band:'54 MHz and below, and over 216 MHz'}),
+  'digital-far':Object.freeze({id:'leak.fcc.digital.far',limit:13.1,distance:30,kind:'digital',band:'54 MHz and below, and over 216 MHz'})
+ });
+ /* \d+(?:\.\d*)? has one way to match each string, so a long run of digits is read in linear time. */
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+ const fail=error=>({ok:false,error});
+ const num=x=>{
+  if(typeof x==='number')return Number.isFinite(x)?x:null;
+  if(typeof x!=='string'||x.length>MAX_TOKEN*2||!DECIMAL.test(x.trim()))return null;
+  const n=Number(x.trim());return Number.isFinite(n)?n:null;
+ };
+ const log10=Math.log10;
+ /* Field strength in µV/m, above 0. */
+ function field(value,label){
+  const v=num(value);
+  if(v===null)return fail('Enter '+label+' in µV/m as a number.');
+  if(!(v>0))return fail('Enter '+label+' above 0 µV/m.');
+  if(v>1e6)return fail('Enter '+label+' of 1,000,000 µV/m or less.');
+  return {ok:true,value:v};
+ }
+ /* Distance in metres, from metres or feet. */
+ function distance(value,unit){
+  if(unit!=='m'&&unit!=='ft')return fail('Choose metres or feet for the distance.');
+  const v=num(value);
+  if(v===null)return fail('Enter the distance from the leak as a number.');
+  if(!(v>0))return fail('Enter a distance above 0.');
+  const m=unit==='ft'?v*0.3048:v;
+  if(m>1000)return fail('Enter a distance of 1,000 m (3,280 ft) or less.');
+  return {ok:true,metres:m};
+ }
+ /* Inverse-distance restatement: far from the source the field strength falls in proportion to distance. */
+ function restate(eMicrovoltsPerMetre,fromM,toM){return eMicrovoltsPerMetre*fromM/toM;}
+ /* Which row of Table 1 applies: signal kind and frequency. */
+ function rule(frequency,kind){
+  const f=num(frequency);
+  if(f===null||!(f>0)||f>3000)return fail('Enter the test frequency in MHz, above 0 and up to 3,000.');
+  if(kind!=='analog'&&kind!=='digital')return fail('Choose whether the leaking signal is analog or digital.');
+  const near=f>54&&f<=216;
+  return {ok:true,key:kind+(near?'-near':'-far'),...LIMITS[kind+(near?'-near':'-far')],frequency:f};
+ }
+ /* Radius of the reactive near field, wavelength ÷ 2π, a common rule of thumb (Expert). Inside it the
+    inverse-distance relation does not hold. */
+ const nearFieldMetres=frequencyMhz=>WAVELENGTH_M_MHZ/frequencyMhz/(2*Math.PI);
+ /* Would a reading count in the CLI? Only a strength measured 3 m from the leak counts (76.611(a)(1)), and the
+    test signal has to be in the 108–137 MHz band or a frequency the results can be correlated to (76.611(b)(1));
+    this app does no correlation. Returns one of: below (under 50 µV/m at 3 m or no distance), counts,
+    would-count (restated from another distance, in band), correlate (out of band), unknown-frequency. */
+ function cliStatus({frequency,field:e,distance:metres}){
+  if(e===null||e===undefined||metres===null||metres===undefined)return 'below';
+  const at3=restate(e,metres,REFERENCE_M);
+  if(!(at3>=CLI_MIN_LEAK))return 'below';
+  if(frequency===null||frequency===undefined)return 'unknown-frequency';
+  const inBand=frequency>=CLI_BAND.low&&frequency<=CLI_BAND.high;
+  if(!inBand)return 'correlate';
+  return Math.abs(metres-REFERENCE_M)<=1e-9?'counts':'would-count';
+ }
+ /* Check one reading against the FCC limit for its frequency band. A reading taken at another
+    distance is restated to the rule's distance by the inverse-distance relation, which is
+    approximate (Expert), and the result says so. */
+ function checkLimit(input){
+  const r=rule(input?.frequency,input?.kind);if(!r.ok)return r;
+  const e=field(input?.field,'the field strength');if(!e.ok)return e;
+  const d=distance(input?.distance,input?.unit);if(!d.ok)return d;
+  const atRule=restate(e.value,d.metres,r.distance);
+  const converted=Math.abs(d.metres-r.distance)>1e-9;
+  const ratioDb=20*log10(atRule/r.limit);
+  const nearM=nearFieldMetres(r.frequency);
+  return {ok:true,rule:r,measured:e.value,metres:d.metres,atRule,converted,closer:d.metres<REFERENCE_M,nearFieldM:nearM,inNearField:d.metres<nearM,limit:r.limit,ruleDistance:r.distance,
+   status:atRule<=r.limit*(1+1e-12)?'within':'over',ratioDb,margin:Math.abs(atRule-r.limit),at3:restate(e.value,d.metres,REFERENCE_M),
+   cliStatus:cliStatus({frequency:r.frequency,field:e.value,distance:d.metres})};
+ }
+ /* Restate a reading at the 3 m reference (and at 30 m). */
+ function normalize(input){
+  const e=field(input?.field,'the field strength');if(!e.ok)return e;
+  const d=distance(input?.distance,input?.unit);if(!d.ok)return d;
+  return {ok:true,measured:e.value,metres:d.metres,feet:d.metres*FT_PER_M,at3:restate(e.value,d.metres,3),at30:restate(e.value,d.metres,30),closer:d.metres<REFERENCE_M,factor:d.metres/3};
+ }
+ /* Cumulative leakage index, 47 CFR 76.611(a)(1): 10·log10((1/θ)·ΣEi²) over leaks of 50 µV/m
+    or more, Ei in µV/m at 3 m, θ the fraction of the plant examined.
+    Leaks are separated by spaces, new lines or semicolons. A comma is a separator only when a space or the end
+    follows it, so a decimal comma ("120,5") or a thousands separator ("1,500") is refused, never read as two leaks. */
+ function parseLeaks(text){
+  if(Array.isArray(text))text=text.join(' ');
+  const source=String(text??'');
+  if(source.length>MAX_LEAK_TEXT)return fail('That list is too long. Enter '+MAX_LEAKS+' leaks or fewer.');
+  const raw=source.split(/[\s;]+/).map(t=>t.replace(/,+$/,'')).filter(Boolean);
+  if(!raw.length)return fail('Enter the field strength of each leak, in µV/m at 3 m, separated by spaces, new lines or commas followed by a space.');
+  if(raw.length>MAX_LEAKS)return fail('Enter '+MAX_LEAKS+' leaks or fewer.');
+  const values=[];
+  for(const token of raw){
+   if(token.includes(','))return fail('“'+token.slice(0,20)+'” has a comma with no space after it. Separate leaks with a space, a new line or a semicolon, so a decimal comma or a thousands separator is not read as two leaks.');
+   const v=token.length>MAX_TOKEN?null:num(token);
+   if(v===null||!(v>0)||v>1e6)return fail('“'+token.slice(0,20)+'” is not a field strength. Use numbers above 0 µV/m, separated by spaces or commas followed by a space.');
+   values.push(v);
+  }
+  return {ok:true,values};
+ }
+ function fraction(input){
+  const theta=String(input?.theta??'').trim();
+  const tested=String(input?.tested??'').trim(),total=String(input?.total??'').trim();
+  const miles=tested!==''||total!=='';
+  if(theta!==''&&miles)return fail('Enter the fraction examined, or the strand miles, not both, so it is clear which one is used.');
+  if(theta!==''){
+   const t=num(theta);
+   if(t===null||!(t>=MIN_THETA)||t>1)return fail('Enter the fraction of the plant examined from '+MIN_THETA+' up to 1, for example 0.8.');
+   return {ok:true,theta:t};
+  }
+  if(!miles)return fail('Enter the fraction of the plant examined, or the strand miles tested and the total strand miles.');
+  const a=num(tested),b=num(total);
+  if(a===null||b===null||!(a>0)||!(b>0))return fail('Enter the strand miles tested and the total strand miles as numbers above 0.');
+  if(a>b)return fail('The strand miles tested cannot be more than the total strand miles.');
+  if(!(a/b>=MIN_THETA))return fail('The strand miles tested are less than '+MIN_THETA*100+'% of the total, too little for an estimate. Check the two numbers.');
+  return {ok:true,theta:a/b};
+ }
+ function cli(input){
+  const leaks=parseLeaks(input?.leaks);if(!leaks.ok)return leaks;
+  const t=fraction(input);if(!t.ok)return t;
+  const counted=leaks.values.filter(v=>v>=CLI_MIN_LEAK);
+  const sumSquares=counted.reduce((s,v)=>s+v*v,0);
+  const index=sumSquares/t.theta;
+  const out={ok:true,theta:t.theta,entered:leaks.values.length,counted:counted.length,ignored:leaks.values.length-counted.length,sumSquares,index,samplingOk:t.theta>=CLI_SAMPLING-1e-12,limit:CLI_LIMIT};
+  if(!counted.length)return {...out,cli:null,status:'none-counted',margin:null,strongest:null};
+  const cliDb=10*log10(index);
+  return {...out,cli:cliDb,status:cliDb<=CLI_LIMIT+1e-12?'at-or-below':'above',margin:Math.abs(CLI_LIMIT-cliDb),strongest:10*log10(Math.max(...counted)**2/t.theta)};
+ }
+ /* Detector check: what the detector read against what the calibrated source should give. */
+ function detector(input){
+  const method=String(input?.method??'');
+  if(method!=='direct'&&method!=='dipole')return fail('Choose the check method: a directly connected source or a calibrated leak with a half-wave dipole.');
+  const expected=field(input?.expected,'the expected reading');if(!expected.ok)return expected;
+  const read=field(input?.read,'the reading');if(!read.ok)return read;
+  const diffDb=20*log10(read.value/expected.value);
+  return {ok:true,method,expected:expected.value,read:read.value,diffDb,percent:(read.value-expected.value)/expected.value*100};
+ }
+ function toleranceCheck(diffDb,tolerance){
+  if(tolerance===null||tolerance===undefined||String(tolerance).trim()==='')return {status:'unknown'};
+  const t=num(tolerance);
+  if(t===null||!(t>=0)||t>40)return {status:'invalid',error:'Enter the tolerance in dB from 0 to 40, or leave it blank.'};
+  const a=Math.abs(diffDb);
+  return a<=t+1e-12?{status:'within',margin:t-a}:{status:'outside',margin:a-t};
+ }
+
+ /* ---- Personal notebook: device-local storage, one versioned key. ----
+    Every change is applied to what is stored now, so a second tab's work is not erased. A change this browser
+    could not store stays in memory and is written again with the next change that saves. Stored data that cannot
+    be read is copied to a side key before it is replaced, and data written by a later version is never overwritten. */
+ const SIDE_KEY=STORAGE_KEY+'-unreadable';
+ const NEWER='A newer version of the app saved the leak notebook on this device, so this version will not overwrite it. Update the app, or clear the notebook to start again.';
+ const emptyStore=()=>({version:1,leaks:[],checks:[],company:{repair:null,tolerance:null}});
+ function validDate(s){
+  if(typeof s!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(s))return false;
+  const [y,m,d]=s.split('-').map(Number);
+  const t=new Date(Date.UTC(y,m-1,d));
+  return t.getUTCFullYear()===y&&t.getUTCMonth()===m-1&&t.getUTCDate()===d&&y>=2000&&y<=2100;
+ }
+ /* Text from a person: control, zero-width and direction-override characters become spaces, runs of space collapse,
+    and the result is cut by whole characters. */
+ const clean=(s,max)=>Array.from(String(s??'').replace(/[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u180e\u200b-\u200f\u2028-\u202e\u2060-\u206f\ufeff]/g,' ').replace(/\s+/g,' ').trim()).slice(0,max).join('');
+ const ID=/^[a-z0-9][a-z0-9_-]{0,39}$/i;
+ const optionalNumber=(x,label,lo,hi)=>{
+  if(x===null||x===undefined||String(x).trim()==='')return {ok:true,value:null};
+  const v=num(x);
+  if(v===null||v<lo||v>hi)return fail('Enter '+label+' as a number from '+lo+' to '+hi+', or leave it blank.');
+  return {ok:true,value:v};
+ };
+ function validateLeak(input){
+  const found=String(input?.found??'').trim();
+  if(!validDate(found))return fail('Enter the date the leak was found.');
+  const location=clean(input?.location,120);
+  if(!location)return fail('Enter where the leak is: a pole, tap or cross street. Do not enter customer names, addresses or account numbers.');
+  const repaired=String(input?.repaired??'').trim();
+  if(repaired!==''&&!validDate(repaired))return fail('Enter the repair date, or leave it blank while the leak is open.');
+  if(repaired!==''&&repaired<found)return fail('The repair date is before the date found.');
+  const cause=clean(input?.cause,120);
+  const strength=optionalNumber(input?.field,'the field strength',0.001,1e6);if(!strength.ok)return strength;
+  const dist=optionalNumber(input?.distance,'the distance in metres',0.1,1000);if(!dist.ok)return dist;
+  const freq=optionalNumber(input?.frequency,'the test frequency in MHz',0.1,3000);if(!freq.ok)return freq;
+  const notes=clean(input?.notes,300);
+  return {ok:true,record:{found,location,cause,repaired,field:strength.value,distance:dist.value,frequency:freq.value,notes}};
+ }
+ const tolerance=x=>{const t=num(x);return t!==null&&t>=0&&t<=40?t:null;};
+ /* What a stored value may hold, whatever is in it. Returns {status,store}: 'ok', 'newer' (written by a later
+    version) or 'unreadable'. Entries are checked one by one until the limit of valid ones is reached. */
+ function sanitizeStore(saved){
+  const out=emptyStore();
+  if(!saved||typeof saved!=='object'||Array.isArray(saved))return {status:'unreadable',store:out};
+  if(typeof saved.version==='number'&&saved.version>1)return {status:'newer',store:out};
+  if(saved.version!==1)return {status:'unreadable',store:out};
+  const seen=new Set();
+  const idOf=item=>{const id=item?.id;return typeof id==='string'&&ID.test(id)&&!seen.has(id)?id:null;};
+  for(const item of Array.isArray(saved.leaks)?saved.leaks:[]){
+   if(out.leaks.length>=MAX_LOG)break;
+   const v=validateLeak(item),id=idOf(item);
+   if(v.ok&&id){seen.add(id);out.leaks.push({id,...v.record});}
+  }
+  for(const item of Array.isArray(saved.checks)?saved.checks:[]){
+   if(out.checks.length>=MAX_CHECKS)break;
+   const id=idOf(item),r=detector({method:item?.method,expected:item?.expected,read:item?.read});
+   if(id&&r.ok&&validDate(String(item?.date??''))){seen.add(id);out.checks.push({id,date:item.date,method:r.method,expected:r.expected,read:r.read,tolerance:item?.tolerance===null||item?.tolerance===undefined?null:tolerance(item.tolerance)});}
+  }
+  const rep=num(saved.company?.repair),tol=num(saved.company?.tolerance);
+  out.company.repair=rep!==null&&rep>=MIN_REPAIR&&rep<=MAX_REPAIR?rep:null;
+  out.company.tolerance=tol!==null&&tol>=0&&tol<=40?tol:null;
+  return {status:'ok',store:out};
+ }
+ function readStored(storage){
+  let raw;
+  try{raw=storage?.getItem(STORAGE_KEY);}catch(_){return {status:'blocked',store:null};}
+  if(raw===null||raw===undefined)return {status:storage?'none':'blocked',store:storage?emptyStore():null};
+  try{return {...sanitizeStore(JSON.parse(raw)),raw};}catch(_){return {status:'unreadable',store:emptyStore(),raw};}
+ }
+ let store=emptyStore(),loaded=false,loadStatus='none';
+ const pending=[];   /* changes this browser could not store; applied again on top of every later write */
+ function load(storage){
+  const r=readStored(storage);
+  loaded=true;loadStatus=r.status;store=r.store||emptyStore();pending.length=0;
+  return loadStatus;
+ }
+ function ensureLoaded(){if(loaded)return;try{load(typeof localStorage!=='undefined'?localStorage:null);}catch(_){loaded=true;}}
+ const status=()=>{ensureLoaded();return loadStatus;};
+ function snapshot(){ensureLoaded();return JSON.parse(JSON.stringify(store));}
+ let counter=0;
+ const newId=prefix=>prefix+Date.now().toString(36)+(counter++).toString(36)+Math.floor(Math.random()*1e6).toString(36);
+ function keepUnreadable(storage,raw){
+  try{if(storage&&raw!==undefined&&storage.getItem(SIDE_KEY)===null)storage.setItem(SIDE_KEY,raw);return true;}catch(_){return false;}
+ }
+ /* Returns {ok,saved,...}: saved false means this browser would not store it. */
+ function mutate(storage,change){
+  ensureLoaded();
+  const r=readStored(storage);
+  if(r.status==='newer'){loadStatus='newer';return fail(NEWER);}
+  let kept;
+  if(r.status==='unreadable')kept=keepUnreadable(storage,r.raw);
+  const next=JSON.parse(JSON.stringify(r.status==='blocked'?store:r.store));
+  for(const earlier of pending)earlier(next);
+  const outcome=change(next);
+  if(outcome&&outcome.ok===false)return outcome;
+  store=next;loadStatus='ok';
+  let saved=true;
+  try{if(!storage)throw new Error('no storage');storage.setItem(STORAGE_KEY,JSON.stringify(store));}catch(_){saved=false;}
+  if(saved)pending.length=0;else pending.push(change);
+  return {ok:true,saved,unreadableKept:kept,...(outcome||{})};
+ }
+ function addLeak(input,storage){
+  const v=validateLeak(input);if(!v.ok)return v;
+  const id=newId('lk');
+  return mutate(storage,s=>{
+   if(s.leaks.some(l=>l.id===id))return;
+   if(s.leaks.length>=MAX_LOG)return fail('The log holds '+MAX_LOG+' leaks. Export it, then delete the oldest repaired ones.');
+   s.leaks.push({id,...v.record});return {id};
+  });
+ }
+ function markRepaired(id,date,storage){
+  if(!validDate(String(date??'')))return fail('Enter the repair date.');
+  return mutate(storage,s=>{
+   const item=s.leaks.find(l=>l.id===id);if(!item)return fail('That leak is no longer in the log.');
+   if(date<item.found)return fail('The repair date is before the date found.');
+   item.repaired=date;
+  });
+ }
+ function reopenLeak(id,storage){
+  return mutate(storage,s=>{const item=s.leaks.find(l=>l.id===id);if(!item)return fail('That leak is no longer in the log.');item.repaired='';});
+ }
+ function removeLeak(id,storage){
+  return mutate(storage,s=>{const i=s.leaks.findIndex(l=>l.id===id);if(i<0)return fail('That leak is no longer in the log.');s.leaks.splice(i,1);});
+ }
+ /* A saved check keeps the tolerance that was set when it was saved (null when none was), so changing the
+    tolerance later does not change what an old record says. */
+ function addCheck(input,storage){
+  if(!validDate(String(input?.date??'')))return fail('Enter the date of the detector check.');
+  const r=detector(input);if(!r.ok)return r;
+  const id=newId('dc');
+  return mutate(storage,s=>{
+   if(s.checks.some(c=>c.id===id))return;
+   if(s.checks.length>=MAX_CHECKS)return fail('The check list holds '+MAX_CHECKS+' entries. Export or delete older ones.');
+   s.checks.push({id,date:input.date,method:r.method,expected:r.expected,read:r.read,tolerance:s.company.tolerance});
+  });
+ }
+ function removeCheck(id,storage){
+  return mutate(storage,s=>{const i=s.checks.findIndex(c=>c.id===id);if(i<0)return fail('That check is no longer listed.');s.checks.splice(i,1);});
+ }
+ /* Company settings: the repair threshold (µV/m at 3 m) and the detector tolerance (dB). Blank is unknown.
+    An argument left undefined is not touched, so editing one box never changes the other. */
+ function setCompany(repair,tolerance,storage){
+  const blank=x=>x===null||String(x).trim()==='';
+  let r,t;
+  if(repair!==undefined){
+   r=blank(repair)?null:num(repair);
+   if(!blank(repair)&&(r===null||!(r>=MIN_REPAIR)||r>MAX_REPAIR))return fail('Enter the repair threshold in µV/m from '+MIN_REPAIR+' up to 1,000,000, or leave it blank.');
+  }
+  if(tolerance!==undefined){
+   t=blank(tolerance)?null:num(tolerance);
+   if(!blank(tolerance)&&(t===null||!(t>=0)||t>40))return fail('Enter the detector tolerance in dB from 0 to 40, or leave it blank.');
+  }
+  return mutate(storage,s=>{
+   if(repair!==undefined)s.company.repair=r;
+   if(tolerance!==undefined)s.company.tolerance=t;
+  });
+ }
+ /* Remove the whole notebook from this device. Memory changes only when the browser really removed it. */
+ function clearAll(storage){
+  ensureLoaded();
+  try{if(!storage)throw new Error('no storage');storage.removeItem(STORAGE_KEY);}catch(_){return false;}
+  try{storage.removeItem(SIDE_KEY);}catch(_){}
+  store=emptyStore();pending.length=0;loadStatus='none';
+  return true;
+ }
+ const shortNumber=v=>String(Number(v.toPrecision(4)));
+ function registryValue(field){
+  ensureLoaded();
+  const v=store.company[field];
+  if(v===null||v===undefined)return {value:null,text:'Unknown — not entered',where:'Saved on this device only'};
+  return {value:v,text:shortNumber(v)+(field==='tolerance'?' dB':' µV/m at 3 m'),where:'Saved on this device only'};
+ }
+ /* CSV for the leak log: the fields 47 CFR 76.1706 asks for, plus what was measured. Cells that a
+    spreadsheet would read as a formula are prefixed with an apostrophe; cells with a comma, quote or
+    line break are quoted. */
+ function csvCell(value){
+  let s=value===null||value===undefined?'':String(value);
+  if(/^[=+\-@\t\r]/.test(s))s="'"+s;
+  return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;
+ }
+ function leaksCsv(list){
+  const rows=[['Date found','Location','Probable cause','Date repaired','Field strength (uV/m)','Distance (m)','Frequency (MHz)','At 3 m (uV/m)','Notes']];
+  for(const l of list){
+   const at3=l.field!==null&&l.distance!==null?restate(l.field,l.distance,3):null;
+   rows.push([l.found,l.location,l.cause,l.repaired,l.field,l.distance,l.frequency,at3===null?'':Number(at3.toPrecision(5)),l.notes]);
+  }
+  return rows.map(r=>r.map(csvCell).join(',')).join('\r\n')+'\r\n';
+ }
+ return {STORAGE_KEY,SIDE_KEY,NEWER,LIMITS,CLI_LIMIT,CLI_MIN_LEAK,CLI_SAMPLING,CLI_BAND,MIN_THETA,MIN_REPAIR,MAX_LOG,MAX_CHECKS,FT_PER_M,rule,checkLimit,normalize,restate,nearFieldMetres,cliStatus,parseLeaks,cli,detector,toleranceCheck,
+  validateLeak,validDate,load,status,snapshot,addLeak,markRepaired,reopenLeak,removeLeak,addCheck,removeCheck,setCompany,clearAll,registryValue,leaksCsv,csvCell,sanitizeStore};
+})();
+
+const LeakageUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const trim=(v,d=2)=>{const s=Number(v.toFixed(d)).toString();return s==='-0'?'0':s;};
+ const grouped=v=>Number.isFinite(v)?Number(v.toPrecision(4)).toLocaleString('en-US',{maximumSignificantDigits:4}):'—';
+ const dB=v=>{const m=Math.abs(v);if(m<0.005)return 'less than 0.01 dB';return (m<0.1?m.toFixed(2):m.toFixed(1))+' dB';};
+ const fracText=v=>String(Number(v.toPrecision(5)));
+ const signed=(v,digits)=>Math.abs(v)<0.005?'less than 0.01':(v>0?'+':'−')+trim(Math.abs(v),digits);
+ const CLI_BASIS='the 108–137 MHz basis';
+ const CLI_NOTES={
+  counts:'This leak is 50 µV/m or more at 3 m on '+CLI_BASIS+', so it counts in the CLI.',
+  'would-count':'Restated to 3 m this is 50 µV/m or more. It would count in the CLI if it were measured 3 m from the leak on '+CLI_BASIS+'.',
+  correlate:'At 3 m this is 50 µV/m or more, but the CLI uses readings in the 108–137 MHz band, or corrected to it. This card does not correct a reading from another frequency, so do not add it to the CLI card as it is.',
+  'unknown-frequency':'At 3 m this is 50 µV/m or more. It counts in the CLI only if it was measured in the 108–137 MHz band.'
+ };
+ const field=(card,name,label,hint,extra='')=>`<label>${label}<input type="number" step="any" data-leak="${card}" data-field="${name}" placeholder="${hint}"${extra}></label>`;
+ const unitSelect=card=>`<label>Unit<select data-leak="${card}" data-field="unit"><option value="">Choose</option><option value="m">metres</option><option value="ft">feet</option></select></label>`;
+ function limitsTable(){
+  const L=Leakage.LIMITS;
+  const row=key=>`<tr><th scope="row">${L[key].kind==='analog'?'Analog':'Digital'}</th><td>${L[key].band}</td><td>${L[key].limit} µV/m</td><td>${L[key].distance} m</td><td>${tag(L[key].id,(L[key].kind==='analog'?'Analog':'Digital')+' leakage limit')}</td></tr>`;
+  return `<div class="table-scroll" tabindex="0" role="region" aria-label="FCC leakage limits"><table class="leak-table"><thead><tr><th scope="col">Signals</th><th scope="col">Frequencies</th><th scope="col">Limit</th><th scope="col">At</th><th scope="col">Source</th></tr></thead><tbody>${['analog-far','digital-far','analog-near','digital-near'].map(row).join('')}</tbody></table></div>`;
+ }
+ const CARDS=Object.freeze({
+  limit:{title:'FCC leakage limit check',ref:'leak.fcc.analog.near',context:'FCC leakage limits',
+   lead:'Check one leak reading against the limit for its frequency band. The table lists the limits as the rule prints them.',
+   fields:()=>field('limit','frequency','Test frequency (MHz)','e.g. 121.2625')+`<label>Leaking signal<select data-leak="limit" data-field="kind"><option value="">Choose</option><option value="analog">Analog</option><option value="digital">Digital</option></select></label>`+field('limit','field','Field strength (µV/m)','e.g. 25')+field('limit','distance','Distance from the leak','e.g. 3')+unitSelect('limit'),
+   conditions:'A reading at another distance is restated to the rule distance by the inverse-distance relation, which is approximate and labeled Expert. The rule measures with the procedure in 47 CFR 76.609(h). Inside about a wavelength ÷ 2π of the leak the relation does not hold, and the card says so. This is your own check, not a compliance finding.'},
+  normalize:{title:'Distance to 3 m',ref:'leak.normalize.distance',context:'distance normalizer',
+   lead:'Restate a reading taken at another distance as if it were taken 3 m from the leak.',
+   fields:()=>field('normalize','field','Field strength (µV/m)','e.g. 40')+field('normalize','distance','Distance from the leak','e.g. 10')+unitSelect('normalize'),
+   conditions:'Field strength falls in proportion to distance in the far field, so E at 3 m ≈ E measured × distance ÷ 3 m. Close to the leak the relation does not hold; measure at 3 m when you can.'},
+  cli:{title:'Cumulative leakage index (CLI)',ref:'leak.cli.formula',context:'cumulative leakage index',
+   lead:'Your own estimate of the index from the leaks you found. It is not a filing.',
+   fields:()=>`<label class="calc-wide">Leak field strengths at 3 m (µV/m), separated by spaces or new lines (a comma and a space also works)<textarea data-leak="cli" data-field="leaks" rows="3" placeholder="e.g. 120, 85, 60, 250, 50"></textarea></label>`+field('cli','theta','Fraction of the plant examined','e.g. 0.8')+field('cli','tested','Or strand miles tested (not both)','e.g. 160')+field('cli','total','Total strand miles','e.g. 200'),
+   conditions:'10·log10 of (1 ÷ fraction examined) × the sum of each leak’s field strength squared, counting only leaks of 50 µV/m or more at 3 m. The rule asks for at least 75% of the strand and a test every calendar year. Strengths must already be on the 108–137 MHz basis: this card does not do the FCC’s frequency correlation.'},
+  detector:{title:'Detector check',ref:'leak.detector.methods',context:'detector check methods',
+   lead:'Record what your leakage detector read against what a calibrated source should give.',
+   fields:()=>`<label>Check method<select data-leak="detector" data-field="method"><option value="">Choose</option><option value="direct">Directly connected RF source</option><option value="dipole">Calibrated leak with a half-wave dipole</option></select></label>`+field('detector','expected','Expected reading (µV/m)','e.g. 20')+field('detector','read','Detector read (µV/m)','e.g. 22')+`<label>Date of the check<input type="date" data-leak="detector" data-field="date"></label>`,
+   conditions:'The two methods are the ones SCTE 289 describes: a directly connected source sets general accuracy, and a calibrated leak shows the detector measuring a known field outdoors. Your company’s tolerance starts unknown. Detector checks are kept on this device only.'}
+ });
+ function companyBox(){
+  return `<details class="health-window" id="leakCompany"><summary>Company settings (your targets)</summary><p class="note tight">Leave a box blank if your company has not set one: blank is unknown, not zero. Kept on this device for every job, not in job backups. ${tag('company.leak.repair','repair threshold')} ${tag('company.leak.tolerance','detector tolerance')}</p><div class="calc-fields"><label>Repair when at or above (µV/m at 3 m)<input type="number" step="any" data-leak-company="repair"></label><label>Detector tolerance (± dB)<input type="number" step="any" min="0" data-leak-company="tolerance"></label></div><p class="note" id="leak-company-note" role="status" aria-live="polite"></p></details>`;
+ }
+ function card(id){
+  const c=CARDS[id];
+  const extra=id==='limit'?limitsTable():'';
+  const button=id==='detector'?`<div class="toolbar"><button type="button" id="leakCheckSave">Save this check</button></div><p class="note" id="leak-detector-note" role="status" aria-live="polite"></p>`:'';
+  return `<section class="calc-card leak-card" data-leak-card="${id}" aria-labelledby="leak-${id}-title"><div class="calc-card-head"><h3 id="leak-${id}-title">${c.title}</h3>${tag(c.ref,c.context)}</div><p class="note tight">${c.lead}</p>${extra}<div class="calc-fields">${c.fields()}</div><div class="calc-result" id="leak-${id}-result" role="status" aria-live="polite"></div>${button}${id==='detector'?'<div id="leakChecks"></div>':''}<p class="note calc-conditions">${c.conditions}</p></section>`;
+ }
+ function logCard(){
+  return `<section class="calc-card leak-card leak-log" data-leak-card="log" aria-labelledby="leak-log-title"><div class="calc-card-head"><h3 id="leak-log-title">Leak log</h3>${tag('leak.log.fields','leak log fields')}</div><p class="note tight">Your own notebook of leaks: where, when found, probable cause and when repaired, the fields 47 CFR 76.1706 asks an operator to keep. It is not the company’s official record. Describe the place by pole, tap or cross street; do not enter customer names, addresses or account numbers.</p><div class="calc-fields"><label>Date found<input type="date" data-leak="log" data-field="found"></label><label>Where (pole, tap or cross street; no customer details)<input type="text" maxlength="120" data-leak="log" data-field="location"></label><label>Probable cause<input type="text" maxlength="120" data-leak="log" data-field="cause" placeholder="e.g. loose drop connector"></label><label>Date repaired (blank while open)<input type="date" data-leak="log" data-field="repaired"></label>${field('log','field','Field strength (µV/m)','optional')}${field('log','distance','Distance (m)','optional')}${field('log','frequency','Test frequency (MHz)','optional')}<label class="calc-wide">Notes (no customer names, addresses or account numbers)<input type="text" maxlength="300" data-leak="log" data-field="notes"></label></div><div class="toolbar"><button type="button" id="leakAdd" class="primary">Add to log</button><button type="button" id="leakExport">Export log (CSV)</button><button type="button" id="leakClear" class="danger">Clear everything on this device</button></div><p class="status warning" id="leak-store-note" role="status" hidden></p><p class="note" id="leak-log-note" role="status" aria-live="polite"></p><div id="leakList"></div><p class="note calc-conditions">Kept in this browser on this device only, not in a job or its backups. Only the log can be exported (CSV); the saved checks and company settings cannot. The rule asks operators to keep their log for two years, longer for some small systems; clearing browser data erases this one.</p></section>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
+ }
+ /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but is
+    marked badInput. It must not read as a blank: a blank can mean "not given" or "clear the setting".
+    Such a box is passed on as text that is not a number, so the entry is refused with its reason. */
+ const NOT_A_NUMBER='not a number';
+ const typed=el=>el.validity&&el.validity.badInput?NOT_A_NUMBER:el.value;
+ function read(id){const v={};document.querySelectorAll(`[data-leak="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});return v;}
+ const blank=(v,keys)=>keys.every(k=>String(v[k]??'').trim()==='');
+ function out(id,r,html){
+  const el=document.getElementById('leak-'+id+'-result');if(!el)return;
+  el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
+  el.innerHTML=r?.ok?html:`<p class="note">${escape(r?.error??'Enter values to compare.')}</p>`;
+ }
+ const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
+ function updateLimit(){
+  const v=read('limit');
+  if(blank(v,['frequency','field','distance']))return out('limit',{ok:false,error:null});
+  const r=Leakage.checkLimit({...v});
+  if(!r.ok)return out('limit',r);
+  const under=20*Math.log10(r.limit/r.atRule);
+  const verdict=r.status==='within'
+   ?(r.converted
+     ?`<p class="health-status neutral">• At or below the limit after restating by distance (approximate): ${under<0.005?'at the limit, not over it':dB(under)+' under'}.</p>`
+     :`<p class="health-status ok">✓ At or below the limit${under<0.005?': at the limit, not over it':' ('+dB(under)+' under)'}.</p>`)
+   :`<p class="health-status warn">⚠ Over the limit by ${grouped(r.atRule-r.limit)} µV/m (${dB(r.ratioDb)} above).</p>`;
+  const cautions=[];
+  if(r.converted)cautions.push(`Restated from ${trim(r.metres,2)} m by distance: approximate.`);
+  if(r.inNearField)cautions.push(`At ${trim(r.rule.frequency,4)} MHz the near field reaches about ${trim(r.nearFieldM,1)} m from the leak (wavelength ÷ 2π, a rule of thumb). Inside it the restatement does not hold: measure farther out.`);
+  else if(r.closer)cautions.push('Closer than 3 m, where the relation may not hold: measure at 3 m if you can.');
+  out('limit',r,`${row('Limit that applies '+tag(r.rule.id,r.rule.kind+' leakage limit'),r.limit+' <small>µV/m at '+r.ruleDistance+' m</small>')}${row('Your reading at '+r.ruleDistance+' m'+(r.converted?' '+tag('leak.normalize.distance','distance restatement'):''),grouped(r.atRule)+' <small>µV/m</small>')}${verdict}`+
+   (cautions.length?`<p class="note tight">${cautions.join(' ')}</p>`:'')+
+   (CLI_NOTES[r.cliStatus]?`<p class="note tight">${CLI_NOTES[r.cliStatus]}</p>`:''));
+ }
+ function updateNormalize(){
+  const v=read('normalize');
+  if(blank(v,['field','distance']))return out('normalize',{ok:false,error:null});
+  const r=Leakage.normalize({...v});
+  if(!r.ok)return out('normalize',r);
+  out('normalize',r,`${row('At 3 m',grouped(r.at3)+' <small>µV/m</small>')}${row('At 30 m',grouped(r.at30)+' <small>µV/m</small>')}${row('Distance used',trim(r.metres,2)+' <small>m ('+trim(r.feet,1)+' ft)</small>')}`+(r.closer?'<p class="note tight">Closer than 3 m: the inverse-distance relation may not hold this near the leak, and how near depends on the frequency. Measure at 3 m if you can.</p>':'<p class="note tight">Approximate: the relation holds in the far field, and where that starts depends on the frequency.</p>')+(r.at3>=Leakage.CLI_MIN_LEAK?`<p class="note tight">At 3 m this is 50 µV/m or more. It counts in the CLI only if it was measured in the 108–137 MHz band, or corrected to it; this card has no frequency and does not correct.</p>`:''));
+ }
+ function updateCli(){
+  const v=read('cli');
+  if(blank(v,['leaks','theta','tested','total']))return out('cli',{ok:false,error:null});
+  const r=Leakage.cli({...v});
+  if(!r.ok)return out('cli',r);
+  const rows=row('Leaks counted (50 µV/m or more)',r.counted+' <small>of '+r.entered+' entered</small>')+row('Sum of squares',grouped(r.sumSquares)+' <small>µV²/m²</small>')+row('Fraction examined '+tag('leak.cli.formula','CLI formula'),fracText(r.theta));
+  const ignored=r.ignored?`<p class="note tight">${r.ignored} below 50 µV/m ${r.ignored===1?'was':'were'} not counted.</p>`:'';
+  if(r.status==='none-counted')return out('cli',r,`${rows}<p class="health-status neutral">• No leak is at 50 µV/m or more, so nothing is counted and there is no index to compute.</p>${ignored}${r.samplingOk?'':'<p class="note tight">Less than 75% of the plant examined.</p>'}`);
+  const line=r.status==='at-or-below'
+   ?(r.margin<0.005?'At the printed value of '+r.limit+' (less than 0.01 dB from it).':dB(r.margin)+' at or below the printed value of '+r.limit+'.')
+   :dB(r.margin)+' above the printed value of '+r.limit+'.';
+  const estimate='Estimate only: less than 75% of the plant examined, and the rule asks for at least 75% of the strand.';
+  const head=!r.samplingOk
+   ?(r.status==='at-or-below'?`<p class="health-status neutral">• ${estimate} ${line}</p>`:`<p class="health-status warn">⚠ ${line} ${estimate}</p>`)
+   :(r.status==='at-or-below'?`<p class="health-status ok">✓ ${line}</p>`:`<p class="health-status warn">⚠ ${line}</p>`);
+  out('cli',r,`${rows}${row('Index, 10·log10(I) '+tag('leak.cli.limit','CLI limit'),trim(r.cli,2)+' <small>dB</small>')}${head}${ignored}`);
+ }
+ function currentCompany(){return Leakage.snapshot().company;}
+ const shortValue=v=>String(Number(v.toPrecision(4)));
+ const toleranceWords=(t,label)=>t.status==='unknown'?' · no tolerance was set then':t.status==='within'?' · within '+label:' · outside '+label;
+ function updateDetector(){
+  const v=read('detector');
+  const r=Leakage.detector({method:v.method,expected:v.expected,read:v.read});
+  if(blank(v,['method','expected','read']))return out('detector',{ok:false,error:null});
+  if(!r.ok)return out('detector',r);
+  const tol=Leakage.toleranceCheck(r.diffDb,currentCompany().tolerance);
+  const comp=tol.status==='unknown'?`${row('Company tolerance '+tag('company.leak.tolerance','detector tolerance'),'Unknown — not entered')}`:`${row('Company tolerance '+tag('company.leak.tolerance','detector tolerance'),'± '+trim(currentCompany().tolerance,2)+' <small>dB</small>')}<p class="health-status ${tol.status==='within'?'ok':'warn'}">${tol.status==='within'?'✓':'⚠'} ${tol.status==='within'?'Within':dB(tol.margin)+' outside'} your tolerance.</p>`;
+  out('detector',r,`${row('Difference',(Math.abs(r.diffDb)<0.005?'No difference':signed(r.diffDb,2))+' <small>dB'+(Math.abs(r.diffDb)<0.005?' (less than 0.01 dB)':' ('+signed(r.percent,1)+'%)')+'</small>')}${comp}`);
+ }
+ function dateText(s){return s?escape(s):'—';}
+ const leakCliText=l=>({counts:' · counts in the CLI','would-count':' · restated to 3 m it is 50 µV/m or more; it would count in the CLI on '+CLI_BASIS,correlate:' · 50 µV/m or more at 3 m, but not on '+CLI_BASIS+', so correct it before using it in the CLI','unknown-frequency':' · 50 µV/m or more at 3 m; counts in the CLI only if measured in the 108–137 MHz band'})[Leakage.cliStatus({frequency:l.frequency,field:l.field,distance:l.distance})]||'';
+ function storeNotice(){
+  const el=document.getElementById('leak-store-note');if(!el)return;
+  const s=Leakage.status();
+  const text=s==='newer'?Leakage.NEWER:s==='unreadable'?'The saved leak notebook on this device could not be read, so it starts empty. A copy of the unreadable data is kept on this device, and your next change replaces the notebook.':'';
+  el.hidden=!text;el.textContent=text;
+ }
+ function renderLists(){
+  const snap=Leakage.snapshot(),rep=snap.company.repair;
+  const list=document.getElementById('leakList');
+  if(list){
+   const rows=[...snap.leaks].sort((a,b)=>b.found.localeCompare(a.found)).map(l=>{
+    const at3=l.field!==null&&l.distance!==null?Leakage.restate(l.field,l.distance,3):null;
+    const open=l.repaired==='';
+    const high=open&&rep!==null&&at3!==null&&at3>=rep;
+    const noDistance=l.field!==null&&l.distance===null;
+    const id=escape(l.id),where=escape(l.location);
+    const actions=(open?`<label class="leak-repair">Repaired on<input type="date" value="${today()}" data-leak-repair="${id}" aria-label="Date repaired for the leak at ${where}"></label><button type="button" data-leak-mark="${id}" aria-label="Mark repaired: the leak at ${where}">Mark repaired</button>`:`<button type="button" data-leak-reopen="${id}" aria-label="Reopen the leak at ${where}">Reopen</button>`)+`<button type="button" class="danger" data-leak-delete="${id}" aria-label="Delete the leak at ${where}">Delete</button>`;
+    return `<li class="leak-item${open?' open':''}"><div><strong>${where}</strong><span class="note">Found ${dateText(l.found)} · ${open?'<b>Open</b>':'Repaired '+dateText(l.repaired)}${l.cause?' · '+escape(l.cause):''}</span>${l.field!==null?`<span class="note">${grouped(l.field)} µV/m${l.distance!==null?' at '+trim(l.distance,2)+' m → '+grouped(at3)+' µV/m at 3 m':''}${l.frequency!==null?' · '+trim(l.frequency,4)+' MHz':''}${leakCliText(l)}</span>`:''}${noDistance?'<span class="health-status neutral">• No distance was entered, so this is not restated to 3 m, compared with your repair threshold or checked for the CLI.</span>':''}${high?'<span class="health-status warn">⚠ At or above your repair threshold and still open.</span>':''}${l.notes?`<span class="note">${escape(l.notes)}</span>`:''}</div><div class="toolbar">${actions}</div></li>`;
+   });
+   list.innerHTML=snap.leaks.length?`<h4>${snap.leaks.length} in the log · ${snap.leaks.filter(l=>l.repaired==='').length} open</h4><ul class="limits-list leak-list">${rows.join('')}</ul>`:'<p class="note">No leaks logged on this device yet.</p>';
+  }
+  const checks=document.getElementById('leakChecks');
+  if(checks){
+   const items=[...snap.checks].sort((a,b)=>b.date.localeCompare(a.date)).map(c=>{
+    const d=20*Math.log10(c.read/c.expected),t=Leakage.toleranceCheck(d,c.tolerance);
+    return `<li class="leak-item"><div><strong>${escape(c.date)} · ${c.method==='direct'?'Directly connected source':'Calibrated leak, half-wave dipole'}</strong><span class="note">Expected ${grouped(c.expected)}, read ${grouped(c.read)} µV/m: ${Math.abs(d)<0.005?'less than 0.01 dB':signed(d,2)+' dB'}${toleranceWords(t,'the ± '+(c.tolerance===null?'':trim(c.tolerance,2))+' dB tolerance you had set then')}</span></div><div class="toolbar"><button type="button" class="danger" data-leak-delete-check="${escape(c.id)}" aria-label="Delete the detector check from ${escape(c.date)}">Delete</button></div></li>`;
+   });
+   checks.innerHTML=snap.checks.length?`<h4>Saved checks</h4><ul class="limits-list leak-list">${items.join('')}</ul>`:'';
+  }
+  storeNotice();
+ }
+ function syncCompanyFields(){
+  const c=currentCompany();
+  document.querySelectorAll('[data-leak-company]').forEach(el=>{const v=c[el.dataset.leakCompany];el.value=v===null||v===undefined?'':String(v);});
+ }
+ function note(id,text,error){const el=document.getElementById(id);if(el){el.textContent=text;el.classList.toggle('error',!!error);}}
+ function storage(){try{return window.localStorage;}catch(_){return null;}}
+ const savedText=res=>res.saved?'Saved on this device. It is not part of a job backup.':'This browser would not save it, so it lasts until you close the page.';
+ function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+ function refreshAll(){updateLimit();updateNormalize();updateCli();updateDetector();renderLists();}
+ let initialized=false;
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('leakagePanel');if(!panel)return;
+  Leakage.load(storage());
+  panel.innerHTML=markup();syncCompanyFields();
+  const foundField=panel.querySelector('[data-leak="log"][data-field="found"]');if(foundField)foundField.value=today();
+  const checkDate=panel.querySelector('[data-leak="detector"][data-field="date"]');if(checkDate)checkDate.value=today();
+  const upd={limit:updateLimit,normalize:updateNormalize,cli:updateCli,detector:updateDetector};
+  const onEdit=event=>{
+   const t=event.target;if(!panel.contains(t))return;
+   if(t.dataset.leak&&upd[t.dataset.leak])upd[t.dataset.leak]();
+   else if(t.dataset.leakCompany&&event.type==='change'){
+    const r=t.dataset.leakCompany==='repair'?Leakage.setCompany(typed(t),undefined,storage()):Leakage.setCompany(undefined,typed(t),storage());
+    if(!r.ok){const c=currentCompany();note('leak-company-note','Not saved. '+r.error+' Still using repair threshold '+(c.repair===null?'unknown':shortValue(c.repair)+' µV/m')+' and tolerance '+(c.tolerance===null?'unknown':shortValue(c.tolerance)+' dB')+'.',true);syncCompanyFields();return;}
+    note('leak-company-note',savedText(r),!r.saved);updateDetector();renderLists();
+   }
+  };
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button');if(!b||!panel.contains(b))return;
+   if(b.id==='leakAdd'){
+    const v=read('log');
+    const r=Leakage.addLeak({found:v.found,location:v.location,cause:v.cause,repaired:v.repaired,field:v.field,distance:v.distance,frequency:v.frequency,notes:v.notes},storage());
+    if(!r.ok){note('leak-log-note',r.error,true);return;}
+    note('leak-log-note','Added. '+savedText(r),!r.saved);
+    panel.querySelectorAll('[data-leak="log"]').forEach(el=>{if(el.dataset.field!=='found')el.value='';});renderLists();
+  }else if(b.id==='leakExport'){
+    const snap=Leakage.snapshot();
+    if(!snap.leaks.length){note('leak-log-note','The log is empty, so there is nothing to export.',true);return;}
+    const csv=Leakage.leaksCsv([...snap.leaks].sort((a,b)=>a.found.localeCompare(b.found)));
+    if(typeof download==='function')download('CarpeNoctum_2.0_Alpha_build_3_Leak_Log.csv',csv,'text/csv');
+    note('leak-log-note','Leak log CSV prepared. It includes the place and notes text you entered. Finish the save or share step on your device.',false);
+   }else if(b.id==='leakClear'){
+    if(typeof confirm==='function'&&!confirm('Clear the whole leak log, the saved detector checks and the company settings from this device? Only the leak log can be exported first (CSV); the checks and settings cannot.'))return;
+    const ok=Leakage.clearAll(storage());syncCompanyFields();renderLists();refreshAll();
+    note('leak-log-note',ok?'Cleared on this device.':'This browser would not remove the saved data, so it may return when the page reloads.',!ok);
+   }else if(b.id==='leakCheckSave'){
+    const v=read('detector');
+    const r=Leakage.addCheck({date:v.date,method:v.method,expected:v.expected,read:v.read},storage());   /* the date box starts as today; a blank or invalid date is refused, never replaced */
+    if(!r.ok){out('detector',r);return;}
+    const dateBox=panel.querySelector('[data-leak="detector"][data-field="date"]');if(dateBox)dateBox.value=today();
+    renderLists();updateDetector();note('leak-detector-note','Check saved. '+savedText(r),!r.saved);
+   }else if(b.dataset.leakMark){
+    const input=[...panel.querySelectorAll('[data-leak-repair]')].find(el=>el.dataset.leakRepair===b.dataset.leakMark);
+    const r=Leakage.markRepaired(b.dataset.leakMark,input?input.value:'',storage());   /* the box starts as today; a blank or invalid date is refused, never replaced */
+    if(!r.ok){note('leak-log-note',r.error,true);return;}
+    note('leak-log-note','Marked repaired. '+savedText(r),!r.saved);renderLists();
+   }else if(b.dataset.leakReopen){
+    const r=Leakage.reopenLeak(b.dataset.leakReopen,storage());
+    if(!r.ok){note('leak-log-note',r.error,true);return;}
+    note('leak-log-note','Reopened. '+savedText(r),!r.saved);renderLists();
+   }else if(b.dataset.leakDelete){
+    if(typeof confirm==='function'&&!confirm('Delete this leak from the log?'))return;
+    const r=Leakage.removeLeak(b.dataset.leakDelete,storage());
+    note('leak-log-note',r.ok?'Deleted. '+savedText(r):r.error,!r.ok||!r.saved);renderLists();
+   }else if(b.dataset.leakDeleteCheck){
+    if(typeof confirm==='function'&&!confirm('Delete this saved detector check?'))return;
+    const r=Leakage.removeCheck(b.dataset.leakDeleteCheck,storage());
+    if(!r.ok){out('detector',r);renderLists();return;}
+    renderLists();note('leak-detector-note','Check deleted. '+savedText(r),!r.saved);
+   }
+  });
+  refreshAll();
+ }
+ return {init,markup,refreshAll,renderLists,CARDS};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();DocsisHealthUI.init();LeakageUI.init();initWorkflow();initTraining();</script>
 </body></html>
