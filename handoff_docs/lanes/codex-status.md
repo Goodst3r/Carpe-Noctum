@@ -7,7 +7,7 @@ Updated November 11, 2026. Push access works. D1 is complete on build3 `5588a49`
 | Baseline | codex/station-view, included in #8 | 53b839e → receipt3cdf5a6 | Historical61/1109 +141/328. Fresh merged21ed baseline66/1276 +141/331, unchanged/clean. |
 | A1 Station | [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) | 53b839e → code6030607/handoffe83f516 | Merged by Lane B at21ed711. Seven peer requests fixed; legacy/read-only flags remain important to consumers. |
 | A2 night log | [#17](https://github.com/Goodst3r/Carpe-Noctum/pull/17), codex/night-log | 21ed711 → b0d1643, includes reviewed5588 | Ready for Lane B review. Fresh70/1410,509.1s +layout374/smoke340;559 tracked hashes/staged content unchanged and clean. |
-| A3 sweep due | codex/sweep-due, local | bc69bb4 →52fac690, includes5588 | Ready for Lane B review; draft opening. Fresh70/1482,487.7s +374/340;553 tracked hashes/staged content unchanged and clean. Keyboard P3 closed. |
+| A3 sweep due | [#21](https://github.com/Goodst3r/Carpe-Noctum/pull/21), codex/sweep-due | bc69bb4 →52fac690, includes5588; publication1485fe5 | Draft open, ready for independent Lane B review. Fresh70/1482,487.7s +374/340;553 tracked hashes/staged content unchanged and clean. Keyboard P3 closed. |
 | A4 imported grading | [#14](https://github.com/Goodst3r/Carpe-Noctum/pull/14), codex/sweep-grading | publisheda1bedfd →533a862, includes5588 | All six Lane B requests corrected and independently reviewed. Startup successor9cad649 is scoped-reviewed; full retry running. Failed533 gate is retained, not labeled passing. |
 | A5 power PM | pending | A1 | Stretch after required done. Not run. |
 | A6 connector checklist | pending | A1 | Stretch after required done. Not run. |
@@ -39,11 +39,14 @@ A4's six peer requests are corrected at533a862: compact SHA256 of actual bound r
 - #16 a1ad026 inherits strict RPHY order versus parallel PTP Important finding; selected exactI22 source verified. [Review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-highsplit-review.md).
 - #18 7abaefd has no new Important technical finding; Minor32px source tags and one guide qualification. Own Why6/22 and rendered63/67 (four target-height failures), no console error; broad gate held with inherited blockers. [Review](https://github.com/Goodst3r/Carpe-Noctum/blob/de5459d3f55da16e64405fc24f12769b4d5f0cfb/handoff_docs/reviews/codex-why-cards-review.md).
 
+- #19 exact6a0ab037 has three own Important findings: the single-reading noise exception omits constant noise across the bandwidth, the isolation waiver omits representative samples of at least500 maker/50 operator-lab taps, and phone rule text is squeezed into a77px table column. Minor32px Spec tags and every-row-tag claim are recorded. Own POP5/129 and naming6 passed; actual Chrome DevTools MCP confirmed source-sheet omissions, phone layout and otherwise functional offline/read-only navigation. No new formula; broad gate held. Root independently adjudicated and posted COMMENT review5864940279 on the exact head. [Full scoped report](../reviews/codex-pop-review.md).
+- #20 exact7f2b393, own-item parent6a0ab037, has one own Important finding: OFDM per6MHz lesson omits flat-PSD/occupied-bandwidth assumptions; Minor stated-tolerance text is not displayed. Own Study7/296 and naming6 passed; independent1,200 numeric cases across10 generators passed; actual Chrome DevTools MCP163/163 targeted checks passed and separately confirmed the missing qualification. Broad gate held; inherited Important findings, including PR19, remain open. Root independently adjudicated and posted COMMENT review5864940402 on the exact head. [Full scoped report](../reviews/codex-study-review.md).
+
 COMMENT records technical verdicts under the shared owner account; no prohibited self-APPROVE or author self-merge. No peer with open Important findings was merged.
 
 ## Next
 
-Obtain Lane B review/merge of updated17; finish A4 correction gate and publish for re-review. A3 focus is closed and its full gate passed; publish draft/handoff for Lane B review. Re-review real peer fixes when published. Final combined branch still needs both lanes' fresh gate, D4 reconciliation and Lane B FINAL_HANDOFF.
+Obtain Lane B review/merge of updated17; finish A4 correction gate and publish for re-review. A3 focus is closed and its full gate passed; draft21 now awaits Lane B same-head review/gate/merge. Its publication1485fe5 and this metadata-only successor leave all tested source/QA/guides/build bytes unchanged from52fac690. Re-review real peer fixes when published. Final combined branch still needs both lanes' fresh gate, D4 reconciliation and Lane B FINAL_HANDOFF.
 
 ## Blocked / questions / untested
 
