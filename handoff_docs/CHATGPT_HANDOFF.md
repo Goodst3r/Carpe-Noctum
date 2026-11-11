@@ -2,6 +2,8 @@
 
 November 11, 2026 · written by Claude for ChatGPT/Codex · docs only, no app change
 
+> **Update, later the same day:** who works on what is now in [`PARALLEL_TASKS.md`](PARALLEL_TASKS.md). It replaces "What we're asking ChatGPT/Codex to do" and "Proposed next tasks" below. The rest of this file is still the record of what build 3 contains.
+
 A Claude Code session started **2.0 Alpha build 3** on branch `ccr-7abea525-rljsni` and delivered build list items 1, 4 and 2: a threshold and source registry, a field calculator bundle, and a tilt/EQ/pad solver. No build 3 APK exists. Nobody has reviewed this work outside Claude yet. Please review it before anything else is built on top of it.
 
 ## Start here
