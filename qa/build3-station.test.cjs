@@ -93,5 +93,15 @@ const current=()=>json('StationView.currentRecord()');
   set('forward','levelTolerance','0');assert.equal(json('Thresholds.resolve("station.forward.levelTolerance",state)').value,0);set('forward','levelTolerance','');assert.equal(json('Thresholds.resolve("station.forward.levelTolerance",state)').value,null);
   for(const id of ['station.forward.targetLow','station.forward.targetHigh','station.return.referencePointTarget','station.return.receiverReference','station.return.tolerance'])assert.equal(json(`Thresholds.get(${JSON.stringify(id)})`).label,'company');
  });
+ await check('A browser reload restores a worksheet autosave instead of quarantining it as unreadable',async()=>{
+  ev('saveLocal()');const saved=w.localStorage.getItem('hfc-route-v1'),before=json('StationView.results()');
+  const reloaded=bootApp({beforeParse(browser){browser.localStorage.setItem('hfc-route-v1',saved);}});await flush();
+  assert.equal(reloaded.w.localStorage.getItem('hfc-route-v1-unreadable'),null);assert.deepEqual(reloaded.json('StationView.results()'),before);assert.deepEqual(reloaded.errors,[]);reloaded.close();
+ });
+ await check('A source-only station worksheet is retained when opening another project',()=>{
+  ev('loadState({version:1,setup:{...defaultSetup,sourceType:"active",sourceModel:"active_gm_hgd"},rows:[]});WorkflowUI.go("station")');set('returns','referencePointTarget','19');
+  const identity=ev('state.setup.stationIdentity');ev('JobsUI.beforeProjectOpen({confirmed:true})');
+  assert(json('JobsUI.snapshots()').some(s=>s.setup.stationIdentity===identity&&s.stationView),'source-only worksheet retained in named jobs');
+ });
  console.log('Build3 station: '+checks+' checks passed');app.close();
 })().catch(e=>{console.error(e);app.close();process.exitCode=1;});

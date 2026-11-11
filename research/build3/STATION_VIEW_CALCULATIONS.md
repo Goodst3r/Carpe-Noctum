@@ -1,0 +1,17 @@
+# Station worksheet: arithmetic and record assumptions
+
+Synthetic-only verification for build list item 3, November 11, 2026.
+
+`station-reference.py` uses Python Decimal on literal decimal strings, imports no application code, and writes `station-cases.json`. The application test compares the real worksheet outputs with those stored literal results.
+
+* Required physical injection is the wanted reference-point level plus net insertion loss. SCTE 180 2025 §13.2.2.2 defines that net loss as test-point loss + loss from test point to gain block − loss from reference point to gain block. All quantities refer to one identified plane and power convention. Example: 19 + 20 = 39 dBmV; signed example −2.5 + 20 = 17.5 dBmV; entered zero + zero = zero.
+* Injection delta is actual physical injection minus required physical injection. At 17 dBmV actual versus 17.5 required, delta = −0.5 dB. No ONX control or compensation rule is inferred.
+* Receiver delta is measured receiver level minus the saved receiver reference at the same plane. −1.25 − (−3.5) = +2.25 dB; −5 − (−2) = −3 dB. Referenced dB response alone is not absolute receiver dBmV.
+* Root separately queried WolframAlpha, which returned {39, 17.5, 0, 2.25} for {19+20, −2.5+20, 0+0, −1.25−(−3.5)}. The query URL is stored in the JSON. This checks arithmetic only.
+* Forward errors and sourced part picks use `alignment.js` directly. The worksheet regression uses the existing independently recalculated GainMaker reference: pilots 54/860 MHz, readings 36.4/49.6, targets 39/49 dBmV, installed input pad 6/EQ 9 dB → EQ 4.5 and pad 7 dB. It also compares the actual worksheet result with the existing solver output, so there is no second forward solver.
+
+Source qualifications and manufacturer gaps remain in `STATION_VIEW_SOURCES.md`. There is no universal return tolerance, no presumed receiver reference, no automatic RF acceptance and no unverified 53 dBmV injection-budget rule. Numeric bounds of ±200 dBmV for levels and 0–200 dB for losses/tolerances are application guards, explicitly registered as unknown; they are not equipment capabilities. Company values remain unknown until entered. The source reminder's 38, 0 and 9 dBmV values never populate station targets.
+
+Each first worksheet edit gives the launch setup or route row an additive `stationIdentity`. Records also bind point ID, exact equipment ID and supported band context. A removed point's reused route ID, duplicated row identity or changed equipment/band cannot receive old observations. Removed records remain in `stationView.stations`; `StationView.records(owner)` returns currently bound records with split, before/after stages, edit times, balance/sweep dates and both computed results, including when owner is a saved named-job snapshot. Opening the worksheet and choosing a station without editing does not mutate an older job.
+
+No storage key, version, package ID or schema-one job version changes. No native, physical-device, RF hardware or field verification is claimed by these synthetic cases or desktop Chromium checks.
