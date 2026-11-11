@@ -41,12 +41,12 @@ Standalone `outputs/Night_Sweep.html` SHA-256 `89b27de366cc25e3939cc163ac221bafe
 The marathon ends when all five are true. Then both lanes stop.
 
 - **D1. Tier 1 complete on `build3`:** items 1 to 5 (1, 2 and 4 are already there; 3 is Lane A's; 5 is Lane B's).
-- **D2. Tier 2 complete on `build3`:** items 6 to 10.
+- **D2. Tier 2 complete on `build3`, plus imported sweep grading:** items 6 to 10 and item 13. Spencer confirmed on Nov 11 that importing meter files he exported himself is acceptable, so item 13 is no longer blocked and counts toward done.
 - **D3. Gate green on `build3`'s final head:** `python3 qa/run-pwa.py` passes every suite, `build3-layout.test.py` and `browser-smoke.py` pass, the build output is unchanged during tests, `git status` is clean after a full run, and each lane has rerun it on its own machine (counts from that run only).
 - **D4. Paperwork matches the code:** guides and practice training use the 2.0 screen names and cover every new screen; `NightSweep_Project_Status.md` and the build 3 update log describe what's actually on the branch; `AGENTS.md`, `START_HERE_CODEX.md`, `CLAUDE.md`, `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md` exist and are current.
 - **D5. Final handoff written:** Lane B writes `handoff_docs/FINAL_HANDOFF.md` from both status files: final `build3` hash, standalone HTML hash, what each item does, every item's verification, everything untested, every open question for Spencer's supervisor, and exactly what Spencer must do next.
 
-**After done: stretch queue.** If D1 to D5 are met and Spencer hasn't said stop, each lane continues with its Tier 3 and later items, in order, using the same loop. Stop when its stretch queue is empty or Spencer says stop. Each stretch item merges on its own, so `build3` stays releasable after every merge. Item 13 is blocked (see below).
+**After done: stretch queue.** If D1 to D5 are met and Spencer hasn't said stop, each lane continues with its Tier 3 and later items, in order, using the same loop. Stop when its stretch queue is empty or Spencer says stop. Each stretch item merges on its own, so `build3` stays releasable after every merge. Item 13 is not in the stretch queue: it is part of done.
 
 ## Rules for both lanes
 
@@ -58,6 +58,7 @@ The marathon ends when all five are true. Then both lanes stop.
 6. **Review and merge.** Every pull request into `build3` is a draft until the other lane has reviewed the same head commit. The reviewer, not the author, merges: after the review approves, the gate is green at that head, and the branch is rebased on `build3`, the reviewer merges with a merge commit (no squash, so history is kept) and notes it in its status file. You may not merge your own pull request. If a review sits unanswered for more than one full cycle of your own work, say so in your status file and keep going on your next item; don't merge it yourself.
 7. **No version or release changes.** The version stays 2.0 Alpha build 3, Android code 27. Nobody builds or signs an APK, touches the signing key, publishes, deploys or changes storage keys, the package ID or the job file format. Saved-job changes are additive only: old jobs and backups open unchanged and round-trip.
 8. **Product rules** (from `AGENTS.md` and the build list; they apply to every item):
+   - Meter files: only synthetic CSVs go in the repo. Real exports can carry employer, customer or plant identifiers and are never committed or pasted into reports.
    - Offline only. No live modem, CMTS or amp polling, no XPERTrak or StrataSync sync, no map editing, no accounts, cloud, telemetry or AI. No OCR. No customer names, addresses or account numbers.
    - Every limit and target carries one label (spec, expert, company, unknown) and is registered in `night-sweep/thresholds.js` with source, revision, page or section, units and conditions. Company values start unknown; blank never means zero.
    - 42/54 MHz (GS7K, GainMaker) and 204/258 MHz (Vecima, AOI) stay separate. 31 dBmV @ 54 MHz, 43 dBmV @ 860 MHz and the 38 dBmV return TX are company values and stay editable. OEM AGC, ACI DSIM and manual/thermal procedures stay separate. No invented pilot codes or borrowed procedures. UBT stays out of new selections.
@@ -112,9 +113,10 @@ The marathon ends when all five are true. Then both lanes stop.
 | A1 | **Item 3: station view and unity-gain worksheet** (branch `codex/station-view`, already started) | build 3 solver (merged) | Spec in the next section. First, push your step 1 receipt as `handoff_docs/lanes/codex-base-check.md` and rebase onto `build3`. |
 | A2 | **Item 6: night log and shift handoff** | A1 | Pulls before and after levels from the station view. Plain-text handoff note and CSV export. No customer identifiers. |
 | A3 | **Item 10: sweep-due tracker** | A1 | Reads last sweep and balance dates from saved jobs. Interval is user-set, default unknown. |
-| A4 | **Stretch, item 14: power supply PM record, battery trends and span voltage drop** | A1 | Uses the cable loop resistance in the catalog and minimum input voltage from each active's manual. |
-| A5 | **Stretch, item 16: construction and connector checklist in the done check** | A1 | Torque and pin length only from the manufacturer manual in the catalog. |
-| A6 | **Stretch, item 12: return path and high-split toolkit** | A1 | Band overlay, ingress log, injection worksheet, noise-funneling calculator. Verify the funneling math against a primary source first. |
+| A4 | **Item 13: imported sweep grading** (part of done, approved by Spencer Nov 11) | existing evidence parser; A1 for job context | Grade an ONX CSV sweep already attached to a job against an editable profile: peak-to-valley, low and high level against target, tilt. Native ONX exports only; no OCR, nothing read from screenshots. The old n/10 + x peak-to-valley rule appears only as labeled historical guidance; the limits are company values and start unknown. Acceptance: synthetic CSVs with 1.0, 2.5 and 4.0 dB peak-to-valley grade correctly at a 3 dB limit. The original file bytes stay untouched. Details below. |
+| A5 | **Stretch, item 14: power supply PM record, battery trends and span voltage drop** | A1 | Uses the cable loop resistance in the catalog and minimum input voltage from each active's manual. |
+| A6 | **Stretch, item 16: construction and connector checklist in the done check** | A1 | Torque and pin length only from the manufacturer manual in the catalog. |
+| A7 | **Stretch, item 12: return path and high-split toolkit** | A1 | Band overlay, ingress log, injection worksheet, noise-funneling calculator. Verify the funneling math against a primary source first. |
 
 ### A1 detail: station view
 
@@ -127,6 +129,14 @@ One screen per active on the route:
 - Quantum18 aligns electronically: show the note, no part picks.
 - Acceptance: a practice job gives identical station results before and after a backup and restore; legacy UBT jobs open read-only.
 - Tests: hand-worked cases checked against independent arithmetic, a legacy job and backup round-trip, a rendered layout check at 320 to 430 px.
+
+### A4 detail: imported sweep grading (item 13)
+
+- Spencer's go-ahead covers files he exported himself from his own meter. It does not cover pulling data from company systems, and nothing here may log into or sync with one.
+- **Real meter files are never committed.** They can carry employer, customer or plant identifiers. Tests and fixtures use synthetic CSVs only, in the ONX export layout, with invented labels.
+- Parse with the existing evidence code (`night-sweep/evidence.js`); keep the original bytes and checksum exactly as attached. Values that can't be read with certainty stay unknown. A file that doesn't parse produces a reason, never a grade.
+- The grading profile (peak-to-valley limit, level targets, tilt limit) is user-entered and registered in `night-sweep/thresholds.js` as company values that start unknown. Don't ship defaults. Separate 42/54 and 204/258 profiles.
+- Output is a record on the job (additive job format) next to the attached file, labeled as the tech's own grading aid, not an official acceptance.
 
 ## Lane B queue (Claude, Sonnet 5.5 Ultracode)
 
@@ -143,12 +153,12 @@ Phase 0 comes first, in this order, and must not change app behavior: the rebuil
 | B6 | **Item 7: leak log, FCC limits card, distance normalizer, CLI estimator, detector check.** | 47 CFR 76.605(c), 76.611 and 76.1706 may be quoted. The app is a personal notebook, not the official record. Worked CLI example in the build list. |
 | B7 | **Item 9: pre-work safety card.** | Opens with "follow company policy". Never claims to be the company procedure. |
 | B8 | **Item 8: outage first-response card.** | No customer identifiers. Needs a supervisor's review against the local outage procedure before release; record that as an open question. |
-| B9 | **D4/D5 close-out:** rewrite the status file and update log for build 3, then write `handoff_docs/FINAL_HANDOFF.md`. | Only after Lane A has merged A1 to A3 and both gates are green. |
-| B10 | **Stretch, in order:** item 11 impairment decision tree; item 15 fiber tools (TIA-598 color code and simple budget first); item 17 high-split / 1.8 GHz guide and R-PHY checklist (every step cites an OEM revision); item 18 "why" cards; item 19 study mode; item 20 FCC proof-of-performance reference card. | Item 13 (imported sweep grading) is blocked: it needs a supervisor's OK. |
+| B9 | **D4/D5 close-out:** rewrite the status file and update log for build 3, then write `handoff_docs/FINAL_HANDOFF.md`. | Only after Lane A has merged A1 to A4 and both gates are green. |
+| B10 | **Stretch, in order:** item 11 impairment decision tree; item 15 fiber tools (TIA-598 color code and simple budget first); item 17 high-split / 1.8 GHz guide and R-PHY checklist (every step cites an OEM revision); item 18 "why" cards; item 19 study mode; item 20 FCC proof-of-performance reference card. | Same loop, one item per pull request. |
 
 ## Blocked or needing a person
 
-- **Item 13 (imported sweep grading):** needs Spencer's supervisor to agree that importing meter files you exported yourself is acceptable. Don't build it until Spencer says so.
+- **Item 13 (imported sweep grading) is approved** (Spencer, Nov 11) for files he exported himself. Anything beyond that, such as company systems or other people's files, is still off limits. Real meter files are never committed.
 - **Company targets and tolerances** (forward levels, return injection and receiver, tilt, sweep peak-to-valley, leak repair threshold, sweep interval) start unknown everywhere. Never fill them in. The open questions for the supervisor are at the end of `docs/BUILD_LIST.md`.
 - **Items 8, 9, 7:** the safety, outage and leak cards are for a supervisor to review before coworkers use them. Mark each "review needed" in the final handoff.
 - **APK, emulator, phone and field tests:** only Spencer can do these. They aren't part of done.
