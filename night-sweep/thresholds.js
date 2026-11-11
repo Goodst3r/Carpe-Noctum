@@ -48,7 +48,7 @@ const Thresholds=(()=>{
   ['minSamples','Minimum complete supplied sample count',1,'samples','A series needs at least one sample; grading additionally needs two distinct exact band markers.'],
   ['maxSamples','Maximum supplied sample count',10000,'samples','Complete supplied samples per normalized series, before selecting the grading band.'],
   ['maxHistory','Maximum saved grading history',100,'records','Per job; each explicit re-grade adds a record. Back up and start a new job when full.']
- ].map(([field,name,value,units,condition])=>({id:'app.grading.'+field,label:'unknown',name,kind:'limit',value,units,source:'Application guard in SweepGrading / SweepGradingUI; existing EvidenceCore numeric envelope',revision:'Carpe Noctum build 3 grading aid',locator:'night-sweep/sweep-grading.js: evaluateSeries / criterion; sweep-grading-ui.js: profile / grade / validate',conditions:'Software application guard only, not an OEM specification, equipment capability or company criterion. '+condition,date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files → Grading aid'}));
+ ].map(([field,name,value,units,condition])=>({id:'app.grading.'+field,label:'unknown',name,kind:'limit',value,units,source:'Application guard in SweepGrading / SweepGradingUI; existing EvidenceCore numeric envelope',revision:'Carpe Noctum build 3 grading aid',locator:'night-sweep/sweep-grading.js: evaluateSeries / criterion; sweep-grading-ui.js: profile / grade / validate',conditions:'Software application guard only, not an OEM specification, equipment capability or company criterion. '+condition,date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files: Grading aid'}));
  const rows=Object.freeze([
   ...archiveGuards,
   ...gradingGuards,
