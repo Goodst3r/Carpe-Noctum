@@ -163,6 +163,26 @@ Phase 0 comes first, in this order, and must not change app behavior: the rebuil
 - **Items 8, 9, 7:** the safety, outage and leak cards are for a supervisor to review before coworkers use them. Mark each "review needed" in the final handoff.
 - **APK, emulator, phone and field tests:** only Spencer can do these. They aren't part of done.
 
+## No-push mode (when a session can't write to GitHub)
+
+Some sessions can clone and read the repo but get HTTP 403 on push. That means the credential signs in as Goodst3r but has no write permission. It is a setup problem for Spencer, not a reason for an assistant to stop. Reading (clone, fetch, the public pull requests and branches) still works.
+
+While push is denied, the lane:
+
+1. **Keeps working exactly as the loop says**, on local branches from the latest `build3` it could fetch, with the same tests and the same rules.
+2. **At each checkpoint** (an item finished, or about every two hours of work) writes, into a folder named `handoff-out/` (never committed):
+   - `<lane>-<item>-<shortsha>.patch`, from `git format-patch --stdout origin/build3..HEAD`
+   - `<lane>-<item>-<shortsha>.bundle`, from `git bundle create <file> origin/build3..HEAD`
+   - the full text of its status file and the pull request report (rule 10), as `<lane>-status.md` and `<lane>-<item>-report.md`
+   and gives Spencer those files in its reply.
+3. **Reviews the other lane through read access**: fetch its branches, review the head commit with the checklist, and write the review as `handoff-out/<lane>-review-<branch>.md`.
+4. **Marks "no-push mode" at the top of its status file** and retries `git push --dry-run` at the start of every cycle.
+5. **Does not merge anything.** Merges happen on GitHub once somebody with write access has pushed the branch.
+
+Spencer, or the Claude session (Lane B) when he hands it the files, applies the patch with `git am`, pushes it as `codex/<item>` and opens the draft pull request. A bundle is there so the exact commits can be checked.
+
+**Fixing it:** the credential behind the assistant's GitHub connection needs write access to `Goodst3r/Carpe-Noctum`. For a fine-grained token that normally means repository permissions Contents (read and write) and Pull requests (read and write), plus Workflows if CI files are to be pushed, limited to this one repository. For a GitHub app connection it means granting that app write access to the repository. `git push --dry-run origin HEAD:refs/heads/<branch>` is the quick test.
+
 ## Status files
 
 Each lane creates and edits only its own file in `handoff_docs/lanes/`:
@@ -173,6 +193,7 @@ Each lane creates and edits only its own file in `handoff_docs/lanes/`:
 
 ## Spencer's part
 
+- If either assistant reports a denied push, give its GitHub connection write access to `Goodst3r/Carpe-Noctum` (see "No-push mode"). Until then it works locally and hands you patch files.
 - Skim the two status files whenever you like. Nothing needs you to act until the final handoff, unless a lane lists a question for you.
 - When D1 to D5 are met: read `handoff_docs/FINAL_HANDOFF.md`, decide pull requests #1 and #2, build and sign the code 27 APK off-repo with the original key, try it on your own phone with a full backup taken first, then merge `build3` into `main`.
 - To stop the marathon early, tell either assistant to stop, or edit this file's "Definition of done".
