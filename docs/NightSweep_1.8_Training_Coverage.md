@@ -8,13 +8,13 @@ All example values and findings remain synthetic. Opening/resetting an example f
 
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
-| Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 21 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
+| Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
 | GainMaker OEM AGC | Separate 42/54 OEM detector/pilot and exact-manual path; eight steps | None |
 | GainMaker / DSIM | Separate 42/54 ACI DSIM lookup/manual/record path; nine steps | None |
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
-| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 13 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators and limit sources (added in 2.0 Alpha build 3); ten steps | Synthetic entered teaching tables and calculator inputs |
+| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 14 steps | Synthetic entered teaching data |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources and attached sweep grading (added in 2.0 Alpha build 3); eleven steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -35,6 +35,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → Readings | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
 | Test → References | Complete, OEM AGC, DSIM | Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates |
 | Test → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, OFDM power and echo delay, each with its source tag (2.0 Alpha build 3) |
+| Job → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |
 | Test → Limits | Custom curves | Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3) |
 | Power → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |
 | Power → What-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
@@ -90,3 +91,8 @@ The 1.8 example exports use these filenames. Open them with **Files → Open pro
 The seven examples and 37 feature mappings remain. Build 2 checks the complete point/branch structure, co-located TDR barriers, forward/reverse distance behavior, preserved originals, latest-state duplication, common project-import limits and same-refresh numerical consistency. The current source replay also probes all seven example states over frequency frames and checks unavailable results explicitly. Read final build 2 receipts for actual commands, counts and hashes.
 
 All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Alpha build 2.zip** delivery. Android/Web and iOS/Web use the same frozen shared application. The separate Android Preview installer has its own build/signature receipts; no physical-device or plant acceptance is inferred from these checks.
+
+
+## Build 3 station practice
+
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**14 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **41 choices**, including Station, Calculators, Limits and the attached sweep grading aid. The custom-curves exercise has **11 steps**; its grading step uses invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
