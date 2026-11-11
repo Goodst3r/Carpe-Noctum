@@ -173,14 +173,39 @@ const StationView=(()=>{
   if(locked)panel.querySelectorAll('.station-editor input,.station-editor select,.station-editor textarea').forEach(el=>{el.disabled=true;});
   refreshResults();
  }
+ /* A native number or date box that is only partly filled in (a lone minus sign, a date with one part cleared) reads as "" but is
+    not blank: validity.badInput is true. That is refused here instead of being stored as blank, so the saved reading or date is
+    not erased, and the reason is shown right under the box. Clearing the whole box is a deliberate blank and is saved. */
+ const nativeBox=el=>!!el&&(el.type==='number'||el.type==='date')&&el.dataset&&el.dataset.stationScope!==undefined;
+ function clearProblem(el){
+  el.removeAttribute('aria-invalid');el.removeAttribute('aria-describedby');
+  const next=el.nextElementSibling;if(next&&next.classList.contains('station-field-error'))next.remove();
+ }
+ function savedValue(scope,field){
+  const r=currentRecord();
+  if(['balanced','swept'].includes(scope))return String(r?.[scope]?.[field]??'');
+  return String(currentStage()?.[scope]?.[field]??'');
+ }
+ function showProblem(el,scope,field){
+  clearProblem(el);const date=el.type==='date',saved=savedValue(scope,field);
+  const e=document.createElement('p');e.className='status error station-field-error';e.setAttribute('role','alert');e.id=(el.id||'station-field')+'-problem';
+  e.textContent='Not saved. '+(date?'The date is incomplete. Fill in the day, month and year, or clear every part to leave it blank.':'This box holds an unfinished entry, such as a lone minus sign. Finish the number, or clear the box to leave it blank.')+(saved?' The saved '+(date?'date':'value')+' is still '+saved+'.':' Nothing is saved for it yet.');
+  el.insertAdjacentElement('afterend',e);el.setAttribute('aria-invalid','true');el.setAttribute('aria-describedby',e.id);
+ }
  function edit(event){const el=event.target;if(!el?.closest?.('#stationPanel'))return;
   if(el.hasAttribute('data-station-target')){if(event.type!=='change'||!targets().some(t=>t.key===el.value))return;selections.set(own(),el.value);lastSignature='';render();return;}
   const scope=el.dataset.stationScope,field=el.dataset.stationField;if(!scope||!field||readOnly()||el.disabled)return;
   if((el.tagName==='SELECT'||el.type==='checkbox'||el.type==='date')&&event.type!=='change')return;
+  if(nativeBox(el)){if(el.validity&&el.validity.badInput===true){showProblem(el,scope,field);return;}clearProblem(el);}
   if(!persist(scope,field,el.type==='checkbox'?el.checked:el.value))return;
   if(scope==='record'){lastSignature='';render();}else{lastSignature=renderSignature(own(),target(),normalized(currentRecord(),target()));refreshResults();}
  }
- function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
+ function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('focusout',event=>{const el=event.target;
+   /* leaving a half-filled box from empty sends no change event, and clearing every part of a half-filled date sends none either */
+   if(!el?.closest?.('#stationPanel')||!nativeBox(el)||readOnly()||el.disabled)return;
+   const scope=el.dataset.stationScope,field=el.dataset.stationField;
+   if((el.validity&&el.validity.badInput===true)||el.value!==savedValue(scope,field))edit({target:el,type:'change'});
+  });document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
  return {init,render,validate,targets,currentRecord,currentStage,results,records};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports={StationMath,StationView};
