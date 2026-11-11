@@ -98,12 +98,16 @@ const EvidenceUI = (() => {
     }catch(e){report('Upload failed: '+e.message,true);throw e;}
     finally{busy=false;render();}
   }
+  function observeOriginal(id,available,reason){if(typeof SweepGradingUI!=='undefined')SweepGradingUI.observeOriginal(id,available,reason);}
+  function observeParse(id,parsed){if(typeof SweepGradingUI!=='undefined')SweepGradingUI.observeParse(id,parsed);}
   async function bytesFor(meta){
-    const saved=await getFile(meta.id);
-    if(!saved?.bytes)throw Error('Original file missing: '+meta.name+'. Reattach it before exporting this project.');
-    const bytes=new Uint8Array(saved.bytes);
-    if(bytes.byteLength!==meta.size || await digest(bytes)!==meta.sha256.toLowerCase())throw Error('Original file verification failed: '+meta.name+'. Reattach the file.');
-    return bytes;
+    try{
+      const saved=await getFile(meta.id);
+      if(!saved?.bytes)throw Error('Original file missing: '+meta.name+'. Reattach it before exporting this project.');
+      const bytes=new Uint8Array(saved.bytes);
+      if(bytes.byteLength!==meta.size || await digest(bytes)!==meta.sha256.toLowerCase())throw Error('Original file verification failed: '+meta.name+'. Reattach the file.');
+      observeOriginal(meta.id,true);return bytes;
+    }catch(error){observeOriginal(meta.id,false,error.message);throw error;}
   }
   async function verifiedParse(id){
     if(busy)throw Error('Finish the current file operation first.');
@@ -114,7 +118,7 @@ const EvidenceUI = (() => {
       const bytes=await bytesFor(metadata);ensureOwner(owner);
       const parse=await safeParse(bytes,metadata.name,metadata.kind);ensureOwner(owner);
       if(JSON.stringify(list(owner).find(m=>m.id===id))!==identity)throw Error('Evidence metadata changed during verification.');
-      return {parse,metadata};
+      observeParse(id,parse);return {parse,metadata};
     }finally{busy=false;render();}
   }
   async function exportProject(source){
@@ -184,7 +188,7 @@ const EvidenceUI = (() => {
         let parsed;
         try{parsed=await safeParse(await bytesFor(meta),meta.name,meta.kind);}
         catch(e){failed++;parsed={status:'attachment',message:String(e.message).slice(0,900)};}
-        ensureOwner(owner);meta.parse=parsed;
+        ensureOwner(owner);meta.parse=parsed;if(meta.kind==='Sweep')observeParse(meta.id,parsed);
       }
       report(failed?failed+' original file'+(failed===1?' is':'s are')+' unavailable or failed verification. Reattach those files before exporting.':'Saved originals verified. Readable measurement previews are ready.',failed>0);
     }catch(e){report(e.message,true);throw e;}
