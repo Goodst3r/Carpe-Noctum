@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 30 task screens and 47 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 31 task screens and 48 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds seven Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber) and [High split](#high-split), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains nine guide steps for them, and the feature index gains entries 38, 39 and 41 to 47. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds eight Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split) and [Why cards](#why-cards), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains ten guide steps for them, and the feature index gains entries 38, 39 and 41 to 48. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -32,18 +32,19 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 20. [Impairments](#impairments)
 21. [Fiber](#fiber)
 22. [High split](#high-split)
-23. [Power-supply load](#power-supply-load)
-24. [Power what-if](#power-what-if)
-25. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-26. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-27. [Pre-work safety](#pre-work-safety)
-28. [Outage first response](#outage-first-response)
-29. [Project records and closeout](#project-records-and-closeout)
-30. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-31. [Offline use, updates and Help](#offline-use-updates-and-help)
-32. [Checked example answers](#checked-example-answers)
-33. [47-feature coverage index](#47-feature-coverage-index)
-34. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+23. [Why cards](#why-cards)
+24. [Power-supply load](#power-supply-load)
+25. [Power what-if](#power-what-if)
+26. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+27. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+28. [Pre-work safety](#pre-work-safety)
+29. [Outage first response](#outage-first-response)
+30. [Project records and closeout](#project-records-and-closeout)
+31. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+32. [Offline use, updates and Help](#offline-use-updates-and-help)
+33. [Checked example answers](#checked-example-answers)
+34. [48-feature coverage index](#48-feature-coverage-index)
+35. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -53,7 +54,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -99,7 +100,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 17 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, fiber and high-split reading | 18 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -498,6 +499,14 @@ A reading aid for the 204/258 MHz plant and for what is public about Remote PHY 
 
 What this screen leaves out on purpose: a Vecima commissioning checklist (no public document), optical receive levels and timing-lock indicators (no public figure or display found), leakage detector and OUDP settings, pilot patterns, timers and event numbers, and a procedure for converting a node to high split.
 
+## Why cards
+
+**Where:** Test → Why cards. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read a why card and follow its link.
+
+Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Route → Station**, **Test → Calculators**, **Test → TDR**, **Test → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
+
+The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Test → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-14 and 293-13 only the catalog description was read, so check the monograph itself.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -750,7 +759,7 @@ The return worksheet keeps reference-point target plus applicable net insertion 
 
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
-## 47-feature coverage index
+## 48-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -803,6 +812,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 45 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
 | 46 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
 | 47 | High split band plans, aeronautical band and Remote PHY order <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
+| 48 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

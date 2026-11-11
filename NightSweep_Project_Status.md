@@ -19,7 +19,8 @@ Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on G
 | 11. Impairment decision tree and signature cards | **Done** (Lane B stretch). Test → Impairments: ten cards from what the meter shows, five steps each, and a standing-wave search that lists candidate place pairs on the saved route. Sources: `research/build3/IMPAIRMENT_SOURCES.md`; tilt and flat loss carry a "body not read" warning |
 | 15. Fiber tools (first part) | **Done** (Lane B stretch): Test → Fiber: the TIA-598 color finder and a simple link loss budget. The TIA allowances are secondary-sourced; the standards were not read. Sources: `research/build3/FIBER_SOURCES.md`. Not built: OTDR, multimode and PON budgets, polarity and MPO maps |
 | 17. High-split / 1.8 GHz guide and R-PHY order | **Partly done** (Lane B stretch): Test → High split: band plans, the aeronautical band by plant and the rules, and the eight Remote PHY steps, each cited to a CableLabs issue. **No Vecima checklist:** Vecima's guides are portal-only. Sources: `research/build3/HIGHSPLIT_SOURCES.md` |
-| 6, 10, 12–14, 16, 18–20 | Not started (items 6, 10 and 13 are Lane A's; see `handoff_docs/PARALLEL_TASKS.md`). The source check for item 7 is in `research/build3/SOURCE_VERIFICATION.md` |
+| 18. "Why" cards (SCTE 293 series) | **Done** (Lane B stretch): Test → Why cards: fourteen short cards in our own words, each citing "SCTE 293-n year" and linking to the screen that uses it. Cards 7, 13 and 14 rest on description pages. Sources: `research/build3/WHY_CARDS_SOURCES.md` |
+| 6, 10, 12–14, 16, 19–20 | Not started (items 6, 10 and 13 are Lane A's; see `handoff_docs/PARALLEL_TASKS.md`). The source check for item 7 is in `research/build3/SOURCE_VERIFICATION.md` |
 
 ### What changed
 
@@ -43,6 +44,8 @@ Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on G
 - **Fiber tools (`night-sweep/fiber-tools.js`, Test → Fiber):** the TIA-598 color finder (fibers 1 to 288 at 12 per tube) and a simple link loss budget with an optional optics budget. No silent defaults: the TIA-568.3-D allowances (0.75 dB per pair, 0.3 dB per splice, 0.5 or 1.0 dB/km) are shown with source tags and copied into the fields only on request; a blank is never zero. Six registry rows, Spec or Expert, flagged secondary (read in vendor summaries; TIA-568.3-E not checked). Nothing is read from a meter or stored.
 
 - **High split and Remote PHY reference (`night-sweep/highsplit.js`, Test → High split):** band plans from CM-SP-PHYv4.0 I08 (Table 29 and 31), a derived gap table, the DOCSIS 3.1 modem edges (I20), which direction 108–137 MHz is in on each plant, the aeronautical-band rules in plain words (76.610, 76.611, 76.614, 76.616) and eight Remote PHY bring-up steps from the CableLabs R-PHY, R-DEPI, R-DTI, R-OOB and R-OSSI documents. Six registry rows (spec, expert, derived). No Vecima procedure is described because none is public; no detector setting, pilot code or timer is given. Nothing is read from a node or stored.
+
+- **Why cards (`night-sweep/why-cards.js`, Test → Why cards):** fourteen cards for SCTE 293-1 to 293-14 (titles and years from the SCTE catalog), each with what, why it matters in the field, links to the app screens that use the topic and its citation; no figure except definitions and registered rows (one new row: 75 Ω nominal impedance, secondary). A summary, not a copy; nothing typed, stored or read from a meter.
 
 ### Independent review
 

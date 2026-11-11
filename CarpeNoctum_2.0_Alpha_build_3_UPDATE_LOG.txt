@@ -289,6 +289,21 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (seventeen in total)
      and the feature index gains entry 47.
 
+13. Why cards (build list item 18), Test -> Why cards
+   - Fourteen short cards, one for each "What is ...?" monograph in SCTE's
+     293 series (293-1 2024 the decibel to 293-14 2026 impedance), each in
+     our own words: what the topic is, why it matters in the field, and a
+     button to the screen of this app that uses it. A summary, not a copy;
+     each card names the monograph to read in full.
+   - Titles and years come from the SCTE Standards Catalog. Cards 7, 13 and
+     14 rest on a description page, not the document, and the guide says so.
+   - No figure on a card except definitions and registered ones; one new
+     registry row (75 ohm nominal impedance, spec, secondary). Nothing is
+     typed, stored or read from a meter; no new storage key, no change to
+     the job format (tested). Sources: research/build3/WHY_CARDS_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (eighteen in total)
+     and the feature index gains entry 48.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
