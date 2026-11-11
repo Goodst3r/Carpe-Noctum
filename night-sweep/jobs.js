@@ -65,7 +65,7 @@ const JobsUI=(()=>{
   if(saving||changing||!library||libraryError)return;
   const item=library.jobs.find(j=>j.id===library.activeId);
   if(!item||state.job?.id!==item.id)return;
-  if(item.sample&&!sample(state)){status('Sample changes are kept in the working autosave. Save named job confirms replacing the sample.');return;}
+  if(item.sample&&!sample(state)){status('Sample changes are kept in the working autosave. Save now confirms replacing the sample.');return;}
   saving=true;
   try{const next={...library,jobs:library.jobs.map(j=>j.id===item.id?record(state,j.id):j)};writeLibrary(next);}
   catch(e){status('Named job autosave failed. Use Files → Back up project now. '+e.message,true);}
@@ -87,7 +87,7 @@ const JobsUI=(()=>{
   return confirm(action+' The current working job will be kept in this browser.'+(files?' Its '+files+' evidence attachment'+(files===1?' stays':'s stay')+' with that job.':'')+' Export a project file for a separate backup.');
  }
  function hasWorkingContent(){
-  return !!(state.sweepSetup||state.fieldWork||state.fieldReferences||state.rows?.length||state.evidence?.length||state.node?.model||state.job?.id||state.job?.name||workOrderFields.some(([key])=>String(state.job?.[key]??'').trim())||state.project?.meta?.job||state.project?.meta?.node||['forward','returns','punch','dsim'].some(k=>state.project?.[k]?.length)||state.power?.rows?.some(r=>HFC.number(r.load)!==null||HFC.number(r.length)>0));
+  return !!(state.stationView||state.sweepSetup||state.fieldWork||state.fieldReferences||state.rows?.length||state.evidence?.length||state.node?.model||state.job?.id||state.job?.name||workOrderFields.some(([key])=>String(state.job?.[key]??'').trim())||state.project?.meta?.job||state.project?.meta?.node||['forward','returns','punch','dsim'].some(k=>state.project?.[k]?.length)||state.power?.rows?.some(r=>HFC.number(r.load)!==null||HFC.number(r.length)>0));
  }
  function beforeProjectOpen({confirmed=false}={}){
   requireIdle();getLibrary();

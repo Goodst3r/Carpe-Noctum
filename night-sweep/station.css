@@ -1,0 +1,19 @@
+/* Uses the existing field calculator cards and phone control sizing. */
+.station-editor{border:0;padding:0;margin:16px 0;min-width:0}
+.station-editor legend{font-weight:700;overflow-wrap:anywhere;margin-bottom:12px;max-width:100%}
+.station-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin:16px 0}
+#stationPanel .calc-card{min-width:0;overflow-wrap:anywhere}
+#stationPanel label{min-width:0}
+#stationPanel input,#stationPanel select{max-width:100%;min-width:0}
+#stationPanel .calc-stats dd{margin:0}
+#stationPanel .check{display:flex;align-items:center;gap:8px;min-height:44px}
+#stationPanel input[type=checkbox]{width:24px;height:24px;flex:0 0 24px}
+#stationPanel .calc-stats{margin-top:16px}
+#stationPanel .station-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+#stationPanel .station-field-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px}
+#stationPanel .station-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
+#stationPanel .source-tag{min-width:44px;min-height:44px;width:auto;flex:none;align-self:center}
+#stationPanel .station-field>input{width:100%}
+@media(max-width:600px){#stationPanel .calc-fields{grid-template-columns:minmax(0,1fr)}}
+@media(min-width:1000px){.station-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{#stationPanel{display:none!important}}

@@ -3,3 +3,4 @@ __pycache__/
 qa/*results.json
 qa/*testlogs/
 .openai/*.local.*
+qa/evidence-out/

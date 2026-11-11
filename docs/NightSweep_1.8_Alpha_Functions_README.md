@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 23 task screens and 40 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds two Test screens, [Field calculators](#field-calculators) and [Limits and sources](#limits-and-sources). The custom-curves exercise gains two guide steps for them, and the feature index gains entries 38 and 39.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds two Test screens, [Field calculators](#field-calculators) and [Limits and sources](#limits-and-sources). The custom-curves exercise gains two guide steps for them, and the feature index gains entries 38 and 39. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -35,7 +35,7 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 23. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
 24. [Offline use, updates and Help](#offline-use-updates-and-help)
 25. [Checked example answers](#checked-example-answers)
-26. [37-feature coverage index](#37-feature-coverage-index)
+26. [40-feature coverage index](#40-feature-coverage-index)
 27. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
@@ -45,10 +45,10 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
-| Route | Setup; Cable route; Amp gain; Equipment setup; Equipment | Starting signal, RF topology, active gain and exact-model references |
-| Test | Sweep setup; TDR; Sweep; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Records; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -69,12 +69,12 @@ Keep these distinctions while using every tool:
 | Function | Enter or do | Result and limit |
 | --- | --- | --- |
 | Main and task tabs | Choose a work area, then its task | Opens the relevant controls while preserving the current job |
-| Files → Save project | Export the working project and finish the device's save action | Portable JSON with supported job data and original evidence; verify the file outside the app |
+| Files → Back up project | Export the working project and finish the device's save action | Portable JSON with supported job data and original evidence; verify the file outside the app |
 | Files → Open project | Choose a NightSweep project JSON | Validates the incoming project before loading; export important current work before replacement |
 | Files → Export RF levels | Export the current route table | Predictions and context in CSV; unavailable results remain blank |
 | Files → Print report | Open the native or browser print dialog | Printing/PDF depends on the device and print service; use Run sheet for a focused field summary |
 | Help & methods | Open help from the header or Home | Task guidance, calculation definitions and limits |
-| Sun / Night | Select the display palette | Changes presentation, without changing inputs or calculations |
+| Palette button (header: Switch to Sun palette or Switch to Night palette) | Select the display palette | Changes presentation, without changing inputs or calculations |
 | Working-job card | Read the job name, asset and sample/training warning | Helps prevent entering real readings into a sample job |
 | Task shortcuts | Choose route, TDR, gain, readings, power, sweep setup or run sheet | Opens that live task using the current job |
 | Home statistics | Review farthest route distance and active count | Summarizes the entered RF topology; an active count alone does not prove a serial cascade |
@@ -90,8 +90,8 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
-| **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
+| **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 10 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
@@ -117,7 +117,7 @@ The complete workflow uses GS7K/GainMaker GaN, not the AOI six-active path. Its 
 | Linked metadata | Edit work-order number, node or lead in Details or Records | Keeps those shared identity fields consistent; other record fields remain their own entries |
 | Node details | Identify model, installed band, asset, RF port/leg, modules, operating upper and notes | Describes source identity; model selection does not supply measured launch levels |
 | + New blank job | Start a clean field job after protecting current work | Removes sample inputs from the new working job; check its name before field entry |
-| Save named job | Save the desired working version to the device's job library | Local named copy; save/export important revisions deliberately |
+| Save now | Save the desired working version to the device's job library | Local named copy; save/export important revisions deliberately |
 | Open | Select a stored job | Restores that job's data and attachment references; storage failure blocks unsafe switching |
 | Duplicate | Make a separately named copy | Uses the latest working state when duplicating the active named job; updated original and new copy are written together. A failed write leaves the library unchanged; training stays synthetic |
 | Delete | Remove the intended named entry after exporting anything needed | Not a recovery workflow; check the job identity before confirming |
@@ -193,7 +193,7 @@ Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/3
 
 ## Installed equipment, manuals and control paths
 
-**Where:** Route → Equipment setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
+**Where:** Route → Amp / node setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -230,7 +230,7 @@ The historical Rev A table contains 86 literal rows: channels 52–94 and 100–
 
 ## Equipment catalog
 
-**Where:** Route → Equipment. **Practice:** Complete → Equipment references.
+**Where:** Route → Catalog. **Practice:** Complete → Equipment references.
 
 Choose category/family and search the exact model. The list includes RF equipment, cables, node profiles and power models. Search can widen beyond a family when that filter has no matching entry; read the displayed count/filter message and narrow a long list.
 
@@ -258,7 +258,7 @@ Custom curves: reverse from the 200 ft endpoint; **100 × 0.88/0.80 − 25 = 85 
 
 ## Forward and return sweep setup
 
-**Where:** Test → Sweep setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
+**Where:** Test → Meter setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -279,7 +279,7 @@ For physical-output budgeting, full physical losses remain losses even if instru
 
 ## Predicted sweep and output table
 
-**Where:** Test → Sweep. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
+**Where:** Test → Predicted levels. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -476,7 +476,7 @@ Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm 
 
 ## Project records and closeout
 
-**Where:** Job → Records. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
+**Where:** Job → Acceptance. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
 
 ### Identity, profiles and acceptance criteria
 
@@ -527,10 +527,10 @@ Run sheet combines job/work-order context, selected frequency, source/model/spli
 | Export RF levels | Files | Route predictions at listed frequencies; unavailable results blank |
 | Export frequency results | Test → Frequency | Single-path inputs, frequencies, units, flags and results |
 | Export power load | Power → Load | Power topology, loads, per-section results and qualifications |
-| Record CSVs | Job → Records | The selected section's entered rows and computed review fields |
-| Export setup notes | Test → Sweep setup | Setup drafts, guide/context and saved station snapshots |
+| Record CSVs | Job → Acceptance | The selected section's entered rows and computed review fields |
+| Export setup notes | Test → Meter setup | Setup drafts, guide/context and saved station snapshots |
 | Save original | Job → ONX files | Exact original attachment bytes |
-| Save project / Home backup | Files or Home | Full supported route, power, job, records, field/setup drafts, training state and original evidence |
+| Back up project | Files or Home | Full supported route, power, job, records, field/setup drafts, training state and original evidence |
 | Open project / recover backup | Files, Home or ONX project shortcut | Validates and restores the entire supported project; verify route and originals after opening |
 
 **Your file is ready** means bytes are prepared. Choose **Save/share file** or **Download file** when offered, complete the phone's final save action, then confirm the result in Files/Downloads or the chosen destination. Cancellation is not a completed export. A PDF, screenshot, CSV, named job or prepared-file message is not a full external backup.
@@ -581,7 +581,15 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 37-feature coverage index
+## Station worksheet
+
+Open **Route → Station**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
+
+The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
+
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+
+## 40-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -626,6 +634,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 37 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
 | 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
+| 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
