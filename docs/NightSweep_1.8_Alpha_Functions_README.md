@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 24 task screens and 41 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 25 task screens and 42 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 41. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 14 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 41. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 42, and a five-station handoff practice step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -34,10 +34,11 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 22. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
 23. [Project records and closeout](#project-records-and-closeout)
 24. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-25. [Offline use, updates and Help](#offline-use-updates-and-help)
-26. [Checked example answers](#checked-example-answers)
-27. [41-feature coverage index](#41-feature-coverage-index)
-28. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+25. [Night log and shift handoff](#night-log-and-shift-handoff)
+26. [Offline use, updates and Help](#offline-use-updates-and-help)
+27. [Checked example answers](#checked-example-answers)
+28. [42-feature coverage index](#42-feature-coverage-index)
+29. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -49,7 +50,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Acceptance; Run sheet; Night log | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -92,7 +93,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 14 steps; no supplied meter captures |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 11 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
@@ -613,9 +614,21 @@ Open **Route → Station**, choose the installed node or active and select **Bef
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
-Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **14 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **15 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
-## 41-feature coverage index
+## Night log and shift handoff
+
+**Where:** Job → Night log. **Practice:** Six active devices in series → Five-station night handoff.
+
+Keep personal ticket/change, node/amp label, actions, ROC/dispatch updates, gas/fuel, mileage, as-built discrepancies and next-shift/open-issues notes with this job. Keep customer names, addresses and account numbers out. Window start/end are optional typed `YYYY-MM-DDTHH:mm` device-local wall times; the zone is not recorded and blanks stay unknown. **Added** is the device timestamp when you press **Add entry**, not when the field work necessarily occurred. Enter fuel and mileage as text with your own amount, reading/distance and units; no conversion, total or reimbursement rule is assumed.
+
+The selector starts at **General update / no Station snapshot**. To capture readings, first save the worksheet under **Route → Station**, then explicitly select it in Night log and press **Add entry**. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit entry notes; later Station edits never refresh the capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
+
+**Generate handoff** creates a selectable full-text preview above the entry editors. **Export TXT** and **Export CSV** prepare files through the existing offline save/share path; finish the dialog and check the external file. CSV has one rectangular header, separate Before/After rows per captured entry and a blank-stage row for a general update. It retains raw values/planes/context and independent work dates alongside formatted values. Levels and derived deltas show two decimals, pilot MHz up to three; rounded zero has no sign. Formula-like text receives the existing spreadsheet-safe apostrophe prefix in CSV. Text exports exclude legacy address/lead/project-note fields and attachments.
+
+**Files → Back up project** remains the full-fidelity portable backup: exact saved text, unrounded captured results and original attachments. Restore the JSON to recover the log and both stages. For practice, manually record invented A1–A5 Station worksheets in the six-active exercise, capture each explicitly, generate the handoff and reopen TXT/CSV. The short five-station example fits the defined phone preview; longer notes can scroll without truncation. Practice exports keep the synthetic warning.
+
+## 42-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -662,6 +675,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
+| 42 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
