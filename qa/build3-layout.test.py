@@ -362,7 +362,7 @@ try:
                 heights = page.evaluate("[...document.querySelectorAll('#whyPanel summary, #whyPanel .why-go')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
                 check(f'{label} Why card headings and link buttons are 44 px controls', len(heights) == 14 + page.evaluate('WhyCards.TOPICS.reduce((a,t)=>a+t.tools.length,0)') and min(heights) >= 44)
                 sizes = page.evaluate("[...document.querySelectorAll('#whyPanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
-                check(f'{label} Why card source tags are at least 24 px tap targets', len(sizes) >= 8 and all(w >= 24 and h >= 24 for w, h in sizes))
+                check(f'{label} Why card source tags are at least 44 px tap targets', len(sizes) >= 8 and all(w >= 44 and h >= 44 for w, h in sizes))
                 ratios = page.evaluate(CHECK_CONTRAST, '#whyPanel .note, #whyPanel .why-cite, #whyPanel p, #whyPanel summary')
                 check(f'{label} Why card text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
                 check(f'{label} each Why card names its SCTE 293 monograph and year', page.evaluate("(()=>{const s=[...document.querySelectorAll('#whyPanel summary')];return s.length===14&&s.every((x,i)=>x.textContent.includes('SCTE 293-'+(i+1)+' 20'))})()"))
