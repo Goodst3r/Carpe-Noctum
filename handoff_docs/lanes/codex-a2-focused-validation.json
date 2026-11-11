@@ -1,0 +1,245 @@
+{
+  "head": "57bea9d4a7dba92e3a73b673effe6ea649004aed",
+  "standalone_sha256": "531e9aeb442585c5594a297ab131e249f875dc8af2eb05730fca591059357be1",
+  "results": [
+    {
+      "name": "night-log-source",
+      "cmd": [
+        "node",
+        "qa/build3-night-log.test.cjs"
+      ],
+      "frozen": false,
+      "exit": 0,
+      "seconds": 28.35,
+      "log": "/tmp/carpe-a2-final-night-log-source.log",
+      "tail": [
+        "PASS Legacy and UBT snapshots preserve old work dates with explicit historical warnings",
+        "PASS Malformed source text and dates remain explicit unknowns, never zero; snapshots discard injected properties",
+        "PASS Snapshot validation rejects extra keys, wrong booleans and nonfinite frozen results atomically",
+        "PASS Notes-only work is archived before another project opens, and autosave reload preserves it",
+        "PASS Portable backup/reopen/re-export preserves every synthetic original byte beside the optional log",
+        "PASS Partial native, browser preparation cancellation/error and Blob fallback keep existing file messaging",
+        "PASS Healthy forward results and unrounded return deltas exactly project the actual API",
+        "PASS Exact storage bounds permit 200 entries and reject the next without mutating the owner",
+        "Build3 night log: 18 checks passed"
+      ]
+    },
+    {
+      "name": "night-log-frozen",
+      "cmd": [
+        "node",
+        "qa/build3-night-log.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 33.72,
+      "log": "/tmp/carpe-a2-final-night-log-frozen.log",
+      "tail": [
+        "PASS Legacy and UBT snapshots preserve old work dates with explicit historical warnings",
+        "PASS Malformed source text and dates remain explicit unknowns, never zero; snapshots discard injected properties",
+        "PASS Snapshot validation rejects extra keys, wrong booleans and nonfinite frozen results atomically",
+        "PASS Notes-only work is archived before another project opens, and autosave reload preserves it",
+        "PASS Portable backup/reopen/re-export preserves every synthetic original byte beside the optional log",
+        "PASS Partial native, browser preparation cancellation/error and Blob fallback keep existing file messaging",
+        "PASS Healthy forward results and unrounded return deltas exactly project the actual API",
+        "PASS Exact storage bounds permit 200 entries and reject the next without mutating the owner",
+        "Build3 night log: 18 checks passed"
+      ]
+    },
+    {
+      "name": "night-log-layout",
+      "cmd": [
+        "python3",
+        "qa/build3-night-log-layout.test.py"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 6.4,
+      "log": "/tmp/carpe-a2-final-night-log-layout.log",
+      "tail": [
+        "PASS 430px windowEnd partial keyboard edit preserves saved time",
+        "PASS 430px windowEnd intentional complete clear stays unknown",
+        "PASS 430px enlarged controls have no horizontal overflow",
+        "PASS 430px typing retains focus",
+        "PASS 430px long notes/labels wrap",
+        "PASS 430px entry text edit persists",
+        "PASS 430px ordinary print hides log editor",
+        "PASS no application runtime errors",
+        "Build3 night log layout: 63 checks passed"
+      ]
+    },
+    {
+      "name": "station",
+      "cmd": [
+        "node",
+        "qa/build3-station.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 22.05,
+      "log": "/tmp/carpe-a2-final-station.log",
+      "tail": [
+        "PASS Job library switching and JSON backup restore preserve identical station outputs and independent dates",
+        "PASS Malformed station data is rejected before replacing the working job; invalid dates stay visible",
+        "PASS Company tags resolve the selected job station values, including entered zero",
+        "PASS A browser reload restores a worksheet autosave instead of quarantining it as unreadable",
+        "PASS A source-only station worksheet is retained when opening another project",
+        "PASS Changing a launch node asset, port or module archives its readings and done records",
+        "PASS Changing an active launch asset or output port cannot inherit a same-model worksheet",
+        "PASS Imported operands hidden by number inputs never calculate; accepted decimal selects stay visible",
+        "Build3 station: 22 checks passed"
+      ]
+    },
+    {
+      "name": "training-library",
+      "cmd": [
+        "node",
+        "qa/training-library.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 65.37,
+      "log": "/tmp/carpe-a2-final-training-library.log",
+      "tail": [
+        "\u2714 New guides reveal their configured route, gain, TDR and reference fields without altering practice data (5260.506881ms)",
+        "\u2139 tests 11",
+        "\u2139 suites 0",
+        "\u2139 pass 11",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 64976.846605"
+      ]
+    },
+    {
+      "name": "training-controls",
+      "cmd": [
+        "node",
+        "qa/training-controls.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 25.68,
+      "log": "/tmp/carpe-a2-final-training-controls.log",
+      "tail": [
+        "\u2714 A failed complete-training button reports its error next to the buttons and permits retry (1824.948748ms)",
+        "\u2139 tests 10",
+        "\u2139 suites 0",
+        "\u2139 pass 10",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 25255.081455"
+      ]
+    },
+    {
+      "name": "browser-files",
+      "cmd": [
+        "node",
+        "qa/browser-files.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 1.99,
+      "log": "/tmp/carpe-a2-final-browser-files.log",
+      "tail": [
+        "PASS Full app browser project export dispatches JSON through the helper",
+        "PASS Async evidence-bearing project export requires a fresh click and embeds exact originals",
+        "PASS Save original verifies bytes then offers an inert file rather than opening content",
+        "PASS Run-sheet text and CSV use real browser file exports",
+        "PASS Cancelled real project sharing does not get overwritten by a prepared/saved success message",
+        "PASS Android bridge paths remain direct and bypass browser sharing",
+        "PASS Older partial Android bridge uses saveFile when shareText is unavailable",
+        "PASS JSON import picker remains compatible with Files JSON selections",
+        "Browser files: 23 checks passed"
+      ]
+    },
+    {
+      "name": "named-jobs",
+      "cmd": [
+        "node",
+        "qa/named-jobs-storage.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 8.64,
+      "log": "/tmp/carpe-a2-final-named-jobs.log",
+      "tail": [
+        "PASS Unreadable JSON, duplicate IDs and oversized lists stay intact and block named-job changes",
+        "PASS Invalid nested snapshots cannot replace current work or rewrite the stored list",
+        "PASS Corrupt saved-job evidence stops cleanup before any original bytes are deleted",
+        "PASS The 1,000th job is accepted and existing named jobs can still update and open at capacity",
+        "PASS Full lists reject additions and switches needing an archive slot without replacing working or saved jobs",
+        "Named jobs storage: 5 checks passed"
+      ]
+    },
+    {
+      "name": "navigation",
+      "cmd": [
+        "node",
+        "qa/alpha15-ui.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 6.89,
+      "log": "/tmp/carpe-a2-final-navigation.log",
+      "tail": [
+        "PASS Power Load and What-if isolate controls and keep the trial noncommittal",
+        "PASS Exports and full rerenders preserve the selected task and no IDs duplicate",
+        "PASS Removing the last active produces an actionable empty Gain task without stale values",
+        "PASS Clicked task tabs retain focus and Frequency opens its actual checker",
+        "PASS Tap reference shortcut selects and expands the intended existing route point",
+        "PASS General report print exposes hidden task sections and restores the same working view",
+        "PASS Run-sheet-only printing does not expand unrelated project and power sections",
+        "PASS Help and Sun/Night remain accessible without changing calculations",
+        "Alpha 1.5 workflow UI: 22 checks passed."
+      ]
+    },
+    {
+      "name": "ui-names",
+      "cmd": [
+        "node",
+        "qa/ui-names.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 14.24,
+      "log": "/tmp/carpe-a2-final-ui-names.log",
+      "tail": [
+        "PASS The app exposes the five main tabs and their sub-tabs the check relies on",
+        "PASS The check recognizes a wrong tab, a wrong button and a retired name",
+        "PASS Practice-job text names only tabs and buttons that exist",
+        "PASS Messages and help text inside the app name only tabs and buttons that exist",
+        "PASS Technician guides name only tabs and buttons that exist",
+        "PASS Rendered guide pages carry no retired name",
+        "UI names: 6 checks passed"
+      ]
+    },
+    {
+      "name": "docsis-health",
+      "cmd": [
+        "node",
+        "qa/build3-docsis-health.test.cjs"
+      ],
+      "frozen": true,
+      "exit": 0,
+      "seconds": 18.16,
+      "log": "/tmp/carpe-a2-final-docsis-health.log",
+      "tail": [
+        "PASS Company windows save on this device, show in the result and in Limits, and clear again",
+        "PASS The card never touches the saved job: the exported project and the other storage keys are unchanged",
+        "PASS Stored windows are read back, and corrupt or out-of-range stored data is ignored without an error",
+        "PASS Company windows are kept apart for the two plants: a window typed for 42/54 is not applied to 204/258, and an untouched plant stays unknown",
+        "PASS A number box that holds text which is not a number is refused, never read as a blank: a saved window stays and an empty Pmax is not the default",
+        "PASS When the browser will not store the windows the card says so and keeps them for the session",
+        "PASS A very long run of digits is refused quickly instead of being scanned many times (the number pattern reads each string one way)",
+        "PASS The module is bundled once, loads without script errors, and the built-in self-check still passes",
+        "Build3 DOCSIS health: 20 checks passed (517 comparisons with the independent references)"
+      ]
+    }
+  ],
+  "standalone_after_sha256": "531e9aeb442585c5594a297ab131e249f875dc8af2eb05730fca591059357be1",
+  "git_status": ""
+}
