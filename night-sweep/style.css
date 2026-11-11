@@ -258,12 +258,15 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .health-card [hidden]{display:none!important}
 /* Leakage tools (build list item 7) */
 .leak-card textarea{width:100%;min-height:76px;font:inherit}
-.leak-table{width:100%;border-collapse:collapse;margin:8px 0}
+.leak-card .table-scroll{overflow-x:auto;max-width:100%}
+.leak-table{width:100%;min-width:440px;border-collapse:collapse;margin:8px 0}
 .leak-table th,.leak-table td{padding:7px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
 .leak-table thead th{color:var(--muted);font-size:12px;font-weight:600}
 .leak-list{margin:8px 0 0}
 .leak-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .leak-item>div:first-child{display:grid;gap:3px;min-width:0;flex:1 1 220px}
+.leak-item strong,.leak-item .note,.leak-item .health-status{overflow-wrap:anywhere;min-width:0}
+.leak-card button.danger{border-color:var(--bad);color:var(--bad)}
 .leak-item .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
 .leak-item.open{border-left:3px solid var(--warn);padding-left:10px}
 .leak-repair{display:grid;gap:3px;font-size:13px}

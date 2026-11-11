@@ -135,10 +135,37 @@ CHANGES
      outside jobs and their backups. Existing storage keys and the job
      format are unchanged. The screen asks for a pole, tap or cross street,
      never customer names, addresses or account numbers.
-   - Eleven registry rows (seven spec, two expert flagged secondary, two
-     company). Sources and what was read: research/build3/LEAKAGE_SOURCES.md.
+   - Twelve registry rows (seven spec, one spec secondary for 47 CFR 76.614,
+     two expert flagged secondary, two company). Sources and what was read:
+     research/build3/LEAKAGE_SOURCES.md.
+   - A leak counts in the CLI only when it is at least 50 uV/m measured 3 m
+     from the leak with the test frequency in 108-137 MHz (76.611(a)(1),
+     (b)(1)); any other frequency, or none, is shown as needing correlation
+     or a frequency. The card does no correlation.
+   - Leaks in the CLI card are separated by spaces, new lines or semicolons;
+     a comma with no space (1,500 or 120,5) is refused. The fraction
+     examined is 0.001 to 1, not both fraction and strand miles.
+   - A restated reading gets a neutral mark, not a green check; an estimate
+     from under 75% of the plant gets none either. The near-field edge
+     (wavelength / 2 pi) is warned about at the entered frequency.
+   - If this browser will not store a change it is kept and written with the
+     next change that saves; unreadable stored data is copied to
+     nightsweep-leakage-v1-unreadable before it is replaced; data from a
+     newer version is never overwritten. A saved detector check keeps the
+     tolerance in force when it was saved. Editing one company setting never
+     changes the other. Mark repaired can be undone with Reopen.
    - Practice: the custom-curves exercise gains a step (twelve in total)
      and the feature index gains entry 41.
+
+INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
+Three reviewers (sources, math and storage, UI and product rules), each
+finding checked by a skeptic, confirmed 35 findings in the first draft; all
+are fixed. Among them: the far-field statement credited to SCTE 293-12 was
+read in SCTE 221; 30 m was credited to 47 CFR 76.609(h); 47 CFR 76.614 was
+missing and "many operators repair sooner" had no source; "counts in the
+CLI" ignored the test frequency; a failed write lost later entries; unreadable
+or newer stored data was overwritten; comma-separated numbers could be read as
+two leaks; and several test names claimed more than they checked.
 
 INDEPENDENT REVIEW
 Four reviewers (math, provenance, UI, regressions), each checked by a

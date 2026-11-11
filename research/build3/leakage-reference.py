@@ -12,6 +12,9 @@ Rules used:
   CLI (47 CFR 76.611(a)(1)):  I = (1 / theta) * sum(Ei^2) over leaks Ei >= 50 uV/m at 3 m;
       index = 10 * log10(I);  must be equal to or less than 64
   Restating a reading at another distance (expert, far field):  E at D = E at d * d / D
+  Near-field edge (expert rule of thumb):  wavelength / (2 pi), wavelength = 299.792458 / f(MHz) metres
+  Counting a leak in the CLI (47 CFR 76.611(a)(1) and (b)(1)): the strength must be measured 3 m from the leak and be at
+      least 50 uV/m, with the test signal in the 108-137 MHz band (or correlated to it, which the app does not do)
   Detector check:  difference = 20 * log10(read / expected)
 """
 from decimal import Decimal as D, getcontext
@@ -21,6 +24,8 @@ import json
 getcontext().prec = 50
 TEN, TWENTY = D(10), D(20)
 FT = D('0.3048')
+PI = D('3.14159265358979323846264338327950288419716939937510')
+C_M_MHZ = D('299.792458')
 
 
 def log10(x):
@@ -39,13 +44,32 @@ def limit_rule(freq, kind):
     return D(str(limit)), D(dist)
 
 
+def near_field(freq):
+    return C_M_MHZ / D(str(freq)) / (2 * PI)
+
+
+def cli_status(freq, field, d_metres):
+    """below | counts | would-count | correlate | unknown-frequency"""
+    if field is None or d_metres is None:
+        return 'below'
+    at3 = D(str(field)) * d_metres / 3
+    if at3 < 50:
+        return 'below'
+    if freq is None:
+        return 'unknown-frequency'
+    if not (D(108) <= D(str(freq)) <= D(137)):
+        return 'correlate'
+    return 'counts' if d_metres == 3 else 'would-count'
+
+
 def check_limit(freq, kind, field, dist, unit):
     limit, rule_d = limit_rule(freq, kind)
     d = metres(dist, unit)
     at_rule = D(str(field)) * d / rule_d
     return {'limit': limit, 'ruleDistance': rule_d, 'atRule': at_rule, 'status': 'within' if at_rule <= limit else 'over',
             'ratioDb': TWENTY * log10(at_rule / limit), 'metres': d, 'converted': d != rule_d,
-            'countsForCli': (D(str(field)) * d / D(3)) >= 50}
+            'at3': D(str(field)) * d / 3, 'nearFieldM': near_field(freq), 'inNearField': d < near_field(freq),
+            'cliStatus': cli_status(freq, field, d)}
 
 
 def normalize(field, dist, unit):
@@ -79,7 +103,7 @@ def ser(obj):
 
 
 def build():
-    cases = {'rule': [], 'limit': [], 'normalize': [], 'cli': [], 'detector': [], 'tolerance': [], 'errors': []}
+    cases = {'rule': [], 'limit': [], 'normalize': [], 'cli': [], 'detector': [], 'tolerance': [], 'errors': [], 'cliStatus': []}
     for freq in ['5', '30', '54', '54.0001', '55', '121.2625', '216', '216.0001', '300', '750', '1218']:
         for kind in ('analog', 'digital'):
             limit, dist = limit_rule(freq, kind)
@@ -89,8 +113,14 @@ def build():
         ('121.2625', 'analog', '10', '6', 'm'), ('121.2625', 'analog', '40', '10', 'ft'), ('121.2625', 'digital', '55', '1', 'm'), ('121.2625', 'analog', '3', '30', 'm'),
         ('750', 'analog', '15', '30', 'm'), ('750', 'digital', '13.2', '30', 'm'), ('750', 'digital', '13.1', '30', 'm'), ('750', 'analog', '1.4', '300', 'ft'),
         ('30', 'analog', '5', '100', 'ft'), ('216', 'digital', '17.4', '3', 'm'), ('216.0001', 'digital', '17.4', '3', 'm'), ('54', 'analog', '15', '30', 'm'), ('54.0001', 'analog', '20', '3', 'm'),
+        # the CLI status: in band at 3 m, in band restated, out of band, exactly 50, just under 50; the near field edge
+        ('121.2625', 'analog', '80', '3', 'm'), ('121.2625', 'analog', '80', '10', 'm'), ('108', 'analog', '50', '3', 'm'), ('137', 'analog', '49.999', '3', 'm'), ('137.0001', 'analog', '60', '3', 'm'), ('107.9999', 'analog', '60', '3', 'm'),
+        ('750', 'digital', '60', '3', 'm'), ('700', 'digital', '13.2', '30', 'm'), ('10', 'digital', '100', '3', 'm'), ('10', 'digital', '100', '4.7', 'm'), ('10', 'digital', '100', '4.8', 'm'), ('121.2625', 'analog', '30', '0.39', 'm'), ('121.2625', 'analog', '30', '0.4', 'm'),
     ]:
         cases['limit'].append({'input': {'frequency': freq, 'kind': kind, 'field': field, 'distance': dist, 'unit': unit}, 'expected': ser(check_limit(freq, kind, field, dist, unit))})
+    for freq, field, dist in [(None, '60', '3'), (None, '40', '10'), ('121.2625', '60', '3'), ('121.2625', '60', '10'), ('121.2625', '4', '3'), ('121.2625', None, '3'), ('121.2625', '60', None), ('750', '200', '3'), ('137', '50', '3'), ('137.5', '50', '3'), ('108', '15', '10')]:
+        d = None if dist is None else D(dist)
+        cases['cliStatus'].append({'input': {'frequency': freq, 'field': field, 'distance': dist}, 'expected': cli_status(freq, field, d)})
     for field, dist, unit in [('40', '10', 'm'), ('40', '3', 'm'), ('100', '30', 'm'), ('25', '10', 'ft'), ('60', '1', 'm'), ('7.5', '100', 'ft'), ('12', '3.048', 'm'), ('250', '0.5', 'm')]:
         cases['normalize'].append({'input': {'field': field, 'distance': dist, 'unit': unit}, 'expected': ser(normalize(field, dist, unit))})
     for leaks, theta in [
@@ -120,11 +150,16 @@ def build():
         {'fn': 'checkLimit', 'input': {'frequency': '5000', 'kind': 'analog', 'field': '10', 'distance': '3', 'unit': 'm'}},
         {'fn': 'normalize', 'input': {'field': '', 'distance': '3', 'unit': 'm'}}, {'fn': 'normalize', 'input': {'field': '10', 'distance': '0', 'unit': 'm'}},
         {'fn': 'normalize', 'input': {'field': '10', 'distance': '5000', 'unit': 'm'}}, {'fn': 'normalize', 'input': {'field': '10', 'distance': '3'}},
+        {'fn': 'normalize', 'input': {'field': '10', 'distance': '3281', 'unit': 'ft'}}, {'fn': 'normalize', 'input': {'field': '10', 'distance': '1000.01', 'unit': 'm'}},
         {'fn': 'normalize', 'input': {'field': '1e7', 'distance': '3', 'unit': 'm'}},
         {'fn': 'cli', 'input': {'leaks': '', 'theta': '0.8'}}, {'fn': 'cli', 'input': {'leaks': '100, abc', 'theta': '0.8'}}, {'fn': 'cli', 'input': {'leaks': '100, -5', 'theta': '0.8'}},
         {'fn': 'cli', 'input': {'leaks': '100 0', 'theta': '0.8'}}, {'fn': 'cli', 'input': {'leaks': '100', 'theta': ''}}, {'fn': 'cli', 'input': {'leaks': '100', 'theta': '0'}},
         {'fn': 'cli', 'input': {'leaks': '100', 'theta': '1.1'}}, {'fn': 'cli', 'input': {'leaks': '100', 'tested': '220', 'total': '200'}}, {'fn': 'cli', 'input': {'leaks': '100', 'tested': '50'}},
         {'fn': 'cli', 'input': {'leaks': '100', 'tested': '0', 'total': '200'}}, {'fn': 'cli', 'input': {'leaks': '0x64', 'theta': '0.8'}},
+        {'fn': 'cli', 'input': {'leaks': '100,60,50', 'theta': '0.8'}}, {'fn': 'cli', 'input': {'leaks': '1,500', 'theta': '1'}}, {'fn': 'cli', 'input': {'leaks': '120,5', 'theta': '1'}},
+        {'fn': 'cli', 'input': {'leaks': '100', 'theta': '0.0009'}}, {'fn': 'cli', 'input': {'leaks': '100', 'theta': '1e-320'}}, {'fn': 'cli', 'input': {'leaks': '100', 'tested': '0.1', 'total': '200'}},
+        {'fn': 'cli', 'input': {'leaks': '100', 'theta': '0.5', 'tested': '9', 'total': '10'}}, {'fn': 'cli', 'input': {'leaks': '100', 'theta': '0.5', 'total': '10'}},
+        {'fn': 'cli', 'input': {'leaks': '1' * 26, 'theta': '1'}}, {'fn': 'cli', 'input': {'leaks': ' '.join(['100'] * 6000), 'theta': '1'}},
         {'fn': 'detector', 'input': {'method': '', 'expected': '20', 'read': '22'}}, {'fn': 'detector', 'input': {'method': 'direct', 'expected': '0', 'read': '22'}},
         {'fn': 'detector', 'input': {'method': 'direct', 'expected': '20', 'read': ''}}, {'fn': 'detector', 'input': {'method': 'constructor', 'expected': '20', 'read': '22'}},
     ]

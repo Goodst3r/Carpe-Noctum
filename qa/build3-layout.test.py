@@ -66,7 +66,17 @@ FILL_LEAK = '''() => {
   set('[data-leak="log"][data-field="found"]', '2026-11-10'); set('[data-leak="log"][data-field="location"]', 'Pole 14 at the corner of Elm Street and Third Avenue near the substation');
   set('[data-leak="log"][data-field="cause"]', 'Loose drop connector at the tap port'); set('[data-leak="log"][data-field="field"]', '80'); set('[data-leak="log"][data-field="distance"]', '10'); set('[data-leak="log"][data-field="frequency"]', '121.2625');
   document.getElementById('leakAdd').click();
+  // the worst cases for a narrow screen: a place and notes with no break to wrap at, a repaired leak, a leak with no distance, a flagged open leak, a saved check
+  set('[data-leak="log"][data-field="found"]', '2026-11-11'); set('[data-leak="log"][data-field="location"]', 'P'.repeat(120)); set('[data-leak="log"][data-field="cause"]', 'C'.repeat(120));
+  set('[data-leak="log"][data-field="field"]', '900'); set('[data-leak="log"][data-field="distance"]', ''); set('[data-leak="log"][data-field="frequency"]', ''); set('[data-leak="log"][data-field="notes"]', 'N'.repeat(300));
+  document.getElementById('leakAdd').click();
+  set('[data-leak="log"][data-field="found"]', '2026-11-09'); set('[data-leak="log"][data-field="location"]', 'Tap 9-' + 'A'.repeat(50)); set('[data-leak="log"][data-field="cause"]', ''); set('[data-leak="log"][data-field="field"]', '200'); set('[data-leak="log"][data-field="distance"]', '3'); set('[data-leak="log"][data-field="frequency"]', '750'); set('[data-leak="log"][data-field="notes"]', '');
+  document.getElementById('leakAdd').click();
+  document.querySelector('[data-leak-mark]').click();
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
+  set('[data-leak-company="repair"]', '25', 'change'); set('[data-leak-company="tolerance"]', '1', 'change');
+  set('[data-leak="detector"][data-field="date"]', '2026-11-11'); document.getElementById('leakCheckSave').click();
+  set('[data-leak="limit"][data-field="frequency"]', '10'); set('[data-leak="limit"][data-field="kind"]', 'digital', 'change'); set('[data-leak="limit"][data-field="field"]', '5'); set('[data-leak="limit"][data-field="distance"]', '3'); set('[data-leak="limit"][data-field="unit"]', 'm', 'change');
 }'''
 try:
     with sync_playwright() as p:
@@ -117,7 +127,9 @@ try:
                 cards = page.evaluate("[...document.querySelectorAll('.leak-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
                 check(f'{label} every Leakage card stays inside the viewport', len(cards) == 5 and all(l >= -1 and r <= width + 1 for l, r in cards))
                 check(f'{label} Leakage results and log entries wrap inside their cards', page.evaluate("[...document.querySelectorAll('.leak-card .health-row strong, .leak-card .health-status, .leak-item strong, .leak-item .note')].filter(e=>e.offsetParent).every(s=>s.scrollWidth<=s.clientWidth+1)"))
-                check(f'{label} the FCC limits table scrolls inside its own region, not the page', page.evaluate("(()=>{const r=document.querySelector('.leak-card .table-scroll');return !!r&&r.getAttribute('tabindex')==='0'&&r.getBoundingClientRect().right<=innerWidth+1})()"))
+                check(f'{label} the FCC limits table scrolls inside its own region, not the page', page.evaluate("(()=>{const r=document.querySelector('.leak-card .table-scroll'),tb=r&&r.querySelector('table');return !!r&&r.getAttribute('tabindex')==='0'&&getComputedStyle(r).overflowX==='auto'&&r.getBoundingClientRect().right<=innerWidth+1&&tb.scrollWidth>=440&&(r.scrollWidth<=r.clientWidth+1||r.scrollWidth>r.clientWidth)&&document.documentElement.scrollWidth<=innerWidth+1})()"))
+                check(f'{label} a long place, cause and notes with no break wrap inside the log entry instead of widening the card', page.evaluate("(()=>{const items=[...document.querySelectorAll('.leak-item')];const wide=items.filter(i=>/P{100}/.test(i.textContent));return wide.length===1&&items.every(i=>{const r=i.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&[...i.querySelectorAll('strong,.note,.health-status')].every(s=>s.scrollWidth<=s.clientWidth+1)})})()"))
+                check(f'{label} the log shows a repaired leak, a flagged open leak, a leak with no distance and a saved check in words', page.evaluate("(()=>{const t=document.getElementById('leakagePanel').textContent;return /Reopen/.test(t)&&/still open/.test(t)&&/No distance was entered/.test(t)&&/you had set then/.test(t)&&document.querySelectorAll('[data-leak-reopen]').length===1&&/near field reaches about 4\\.8 m/.test(document.getElementById('leak-limit-result').textContent)})()"))
                 sizes = page.evaluate("[...document.querySelectorAll('#leakagePanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
                 check(f'{label} Leakage source tags are at least 24 px tap targets', len(sizes) >= 10 and all(w >= 24 and h >= 24 for w, h in sizes))
                 ratios = page.evaluate(CONTRAST)
