@@ -63,6 +63,22 @@ test('Archive module accepts plain JSON and CSV bytes',async()=>{assert.equal((a
 test('Platform gzip decode handles json-1.gz without filename direction',async()=>{const p=await archive('reverse.json-1.gz');assert.equal(p.status,'parsed');assert.equal(p.native.direction,'reverse');assert.equal(p.series.points.length,4);});
 test('Python standard-library stored ZIP CRC and declared sizes validate',async()=>assert.deepEqual((await archive('forward-stored.zip')).series.points,parse(f()).series.points));
 test('ZIP ancillary payload CRC uses the independent standard check vector',async()=>{const b=Buffer.from(fixture('forward-ancillary.zip'));const check=b.indexOf(Buffer.from('123456789'));assert.ok(check>0);assert.equal((await A().parseBytes(bytes(b),'a.zip','Sweep')).status,'parsed');b[check]^=1;attachment(await A().parseBytes(bytes(b),'a.zip','Sweep'),/CRC/);});
+test('ZIP CRC checks all byte values and empty members through offset byte views',async()=>{
+ const b=fixture('forward-all-bytes.zip'),expected=parse(f());
+ for(const offset of [0,1,17]){
+  const storage=new Uint8Array(offset+b.length+13).fill(255);storage.set(b,offset);const before=Uint8Array.from(storage);
+  const p=await A().parseBytes(storage.subarray(offset,offset+b.length),'invented.zip','Sweep');
+  assert.deepEqual(p,expected);assert.deepEqual(storage,before);
+ }
+});
+test('Every byte in an ancillary all-byte payload is protected by ZIP CRC',async()=>{
+ const original=fixture('forward-all-bytes.zip'),payload=original.indexOf(Buffer.from(Array.from({length:256},(_,i)=>i)));
+ assert.ok(payload>0);
+ for(let i=0;i<256;i++){
+  const changed=Uint8Array.from(original);changed[payload+i]^=1;
+  attachment(await A().parseBytes(changed,'invented.zip','Sweep'),/CRC/);
+ }
+});
 test('Platform deflate-raw decodes Python standard-library deflated ZIP',async()=>assert.deepEqual((await archive('forward-deflated.zip')).series.points,parse(f()).series.points));
 test('ZIP data descriptors use central sizes and validate descriptor',async()=>{assert.equal((await archive('forward-descriptor.zip')).status,'parsed');const b=Buffer.from(fixture('forward-descriptor.zip'));const d=b.indexOf(Buffer.from([0x50,0x4b,0x07,0x08]));b[d+4]^=1;attachment(await A().parseBytes(bytes(b),'a.zip','Sweep'),/CRC|descriptor/i);});
 test('Unsigned ZIP data descriptor uses central-directory sizes',async()=>{const signed=Buffer.from(fixture('forward-descriptor.zip')),d=signed.indexOf(Buffer.from([0x50,0x4b,0x07,0x08]));const unsigned=Buffer.concat([signed.subarray(0,d),signed.subarray(d+4)]);const e=eocd(unsigned);unsigned.writeUInt32LE(unsigned.readUInt32LE(e+16)-4,e+16);assert.equal((await A().parseBytes(bytes(unsigned),'a.zip','Sweep')).status,'parsed');});

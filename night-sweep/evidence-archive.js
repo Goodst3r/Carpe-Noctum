@@ -36,9 +36,18 @@
   for(const chunk of chunks){result.set(chunk,position);position+=chunk.byteLength;}
   return result;
  }
+ let crcTable;
  function crc32(bytes){
+  if(!crcTable){
+   const table=new Uint32Array(256);
+   for(let byte=0;byte<256;byte++){
+    let value=byte;for(let i=0;i<8;i++)value=(value>>>1)^((value&1)?0xedb88320:0);
+    table[byte]=value>>>0;
+   }
+   crcTable=table;
+  }
   let crc=0xffffffff;
-  for(const byte of bytes){crc^=byte;for(let i=0;i<8;i++)crc=(crc>>>1)^((crc&1)?0xedb88320:0);}
+  for(let i=0;i<bytes.length;i++)crc=(crc>>>8)^crcTable[(crc^bytes[i])&255];
   return (crc^0xffffffff)>>>0;
  }
  async function unzip(bytes,limit){
