@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 27 screens and 44 entries.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 28 screens and 45 entries.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds five Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage) and [Impairments](#impairments), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains seven guide steps for them, and the feature index gains entries 38 to 44.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds six Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Impairments](#impairments) and [Fiber](#fiber), and two Job screens, [Pre-work safety](#pre-work-safety) and [Outage first response](#outage-first-response). The custom-curves exercise gains eight guide steps for them, and the feature index gains entries 38 to 45.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -30,18 +30,19 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 18. [DOCSIS health card](#docsis-health-card)
 19. [Leakage](#leakage)
 20. [Impairments](#impairments)
-21. [Power-supply load](#power-supply-load)
-22. [Power what-if](#power-what-if)
-23. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-24. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-25. [Pre-work safety](#pre-work-safety)
-26. [Outage first response](#outage-first-response)
-27. [Project records and closeout](#project-records-and-closeout)
-28. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-29. [Offline use, updates and Help](#offline-use-updates-and-help)
-30. [Checked example answers](#checked-example-answers)
-31. [44-feature coverage index](#44-feature-coverage-index)
-32. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+21. [Fiber](#fiber)
+22. [Power-supply load](#power-supply-load)
+23. [Power what-if](#power-what-if)
+24. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+25. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+26. [Pre-work safety](#pre-work-safety)
+27. [Outage first response](#outage-first-response)
+28. [Project records and closeout](#project-records-and-closeout)
+29. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+30. [Offline use, updates and Help](#offline-use-updates-and-help)
+31. [Checked example answers](#checked-example-answers)
+32. [45-feature coverage index](#45-feature-coverage-index)
+33. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -51,7 +52,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -97,7 +98,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response and impairment cards | 15 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response and impairment cards | 16 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -466,6 +467,22 @@ Checked worked numbers: a 1.7 MHz ripple on 0.87 VP cable is **251.7 ft** and, o
 
 What this screen leaves out on purpose: reading peaks off a sweep, any live capture, amplitude or depth limits (those are your company's), PNM data from modems, impairments of the node or headend, and the cards for amplifier distortion noise, HPNA, OBI, filters and missing channels, pullout and adjacent-channel alignment (named in the SCTE series but not built here).
 
+## Fiber
+
+**Where:** Test → Fiber. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find a fiber and estimate a link loss.
+
+Two small fiber tools. Offline; nothing is read from a meter and nothing is saved. A blank entry is never read as zero.
+
+**Fiber color finder.** Counting from 1 across the cable with 12 fibers in each tube, enter a fiber number (1 to 288), or a tube (1 to 24) and a position inside it (1 to 12). It shows the fiber's color and position and the tube's color, using the TIA-598 order for both fibers and tubes: blue, orange, green, brown, slate, white, red, black, yellow, violet, rose, aqua. Past tube 12 the colors repeat with a stripe or dashes and makers differ (tube 20 is black, so it takes a yellow stripe in the usual scheme), so the cable print legend and the construction sheet decide. Cables with 24 fibers in a tube, ribbons and other color schemes are not covered. The source is a secondary summary of ANSI/TIA-598: the standard itself was not read.
+
+**Link loss budget.** Estimated loss = length × attenuation + mated connector pairs × loss per pair + splices × loss per splice + other loss (a splitter or WDM, from its data sheet). A count of 0 needs no loss; a blank count, or a blank loss for a counted item, gives a reason and no number. Add the safety margin to get the budget the link must fit in. With the transmitter output power and the receiver sensitivity (the weakest signal it accepts, both in dBm) it also shows the optics budget (transmit power minus sensitivity) and how many dB are left, or the shortfall. Without them it says it is the loss to expect, not a pass or fail. It does not include measurement uncertainty and does not judge a link against your company's pass limit, which the app does not know.
+
+**The standard's allowances are shown, never filled in silently.** A table lists TIA-568.3-D's worst-case design values: 0.75 dB per mated connector pair, 0.3 dB per splice, and for single-mode cable 0.5 dB/km outside plant or 1.0 dB/km inside plant at both 1310 and 1550 nm. Each has a source tag; they are labeled Spec and flagged secondary, because they were read in vendor and association summaries and not in the standard, and TIA-568.3-E (2022) replaced the -D edition and was not checked. Real glass and connectors measure better (about 0.35 dB/km at 1310 nm, 0.2 to 0.5 dB per pair), and your cable maker's datasheet is the better number. **Copy the outside-plant allowances into the fields** and **Copy the inside-plant allowances into the fields** put the standard's values in the boxes when you ask; nothing starts with a default.
+
+Checked worked numbers: fiber 30 is white (position 6) in tube 3, which is green; fiber 240 is aqua in tube 20 (black, with the marking noted); a 12.4 km link at 0.35 dB/km with 4 connector pairs at 0.3 dB, 6 splices at 0.1 dB and 3.5 dB of other loss is **9.64 dB**, **12.64 dB** with a 3 dB margin, and with a 3 dBm transmitter and a −24 dBm receiver the optics budget is **27 dB** with **14.36 dB** left.
+
+What this screen leaves out on purpose: OTDR events, multimode budgets by wavelength, a bandwidth or dispersion budget, PON split budgets, polarity and MPO fiber maps, fiber-count conventions with more than 12 per tube, and any company pass limit.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -710,7 +727,7 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 44-feature coverage index
+## 45-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -760,6 +777,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 42 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
 | 43 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
 | 44 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
+| 45 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

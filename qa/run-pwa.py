@@ -18,6 +18,7 @@ suites=[
  ('Build 3 leakage tools against independent decimal references','build3-leakage.test.cjs',r'Build3 leakage: (\d+) checks passed'),
  ('Build 3 shared checklist engine, pre-work safety card and outage first-response card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
  ('Build 3 impairment cards and standing-wave candidate search against an independent reference','build3-impairments.test.cjs',r'Build3 impairments: (\d+) checks passed'),
+ ('Build 3 fiber color code and link loss budget against an independent reference','build3-fiber.test.cjs',r'Build3 fiber: (\d+) checks passed'),
  ('2.0 Alpha design changes','v20-design.test.cjs',r'2\.0 design: (\d+) checks passed'),
  ('Build 2 TDR active-boundary regressions','build2-tdr-boundaries.test.cjs',r'Build2 TDR boundaries: (\d+) checks passed'),
  ('Build 2 RF and records property backtests','build2-rf-properties.test.cjs',r'Build2 RF properties: (\d+) checks passed'),

@@ -235,6 +235,27 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (fifteen in total)
      and the feature index gains entry 44.
 
+11. Fiber tools (build list item 15, first part), Test -> Fiber
+   - A TIA-598 color finder: a fiber number (1 to 288, 12 fibers per tube)
+     or a tube and position gives the fiber's color and position and the
+     tube's color; the stripe or dash marking past tube 12 differs between
+     makers, so the screen sends the technician to the cable print legend.
+   - A simple link loss budget: length x attenuation + connector pairs x
+     loss + splices x loss + other loss, a safety margin and, with the
+     transmitter power and receiver sensitivity, the optics budget and the
+     headroom. No pass or fail without optics numbers and never against a
+     company limit. A blank is never zero; a count of 0 needs no loss.
+   - TIA-568.3-D allowances (0.75 dB per pair, 0.3 dB per splice, 0.5 or
+     1.0 dB/km single-mode outside or inside plant) are shown with source
+     tags and copied into the fields only when asked. Six registry rows,
+     all Spec or Expert and flagged secondary: they were read in vendor and
+     association summaries, not in the standards, and TIA-568.3-E was not
+     checked. Sources and gaps: research/build3/FIBER_SOURCES.md.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (sixteen in total)
+     and the feature index gains entry 45.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all

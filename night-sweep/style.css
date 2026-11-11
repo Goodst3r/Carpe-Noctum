@@ -240,7 +240,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -299,3 +299,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-flow{padding-left:22px}
 .imp-flow li{margin:8px 0}
 .imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
+.fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
+.fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
+.fiber-reference{margin:10px 0}
+.fiber-panel .calc-card button{min-height:44px}
