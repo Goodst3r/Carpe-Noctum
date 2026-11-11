@@ -294,3 +294,13 @@ are current, independently checked. Full receipt: codex-a2-validation.json;
 review/gate reports in handoff_docs/reviews. Lane B review/merge required.
 No emulator, physical Android/iPhone, Safari/WebView, provider-save dialog,
 meter/field, APK/signing or deployment claim. Next A3; D2-D5 remain open.
+
+A2 LATEST BASE / GUARD GATE — exactb0d1643, reviewed base5588a49
+Existing200-entry bound now has Unknown application provenance/source tag;
+no cap or saved-data change. Leakage42 retained; Night log43 appended.
+Actual26screens/43features/AOI15/custom12. Fresh70suites/1,410checks,509.1s;
+separate layout374/smoke340, all exit0. All559 tracked hashes, generated
+bytes, semantic staged entries/tree and locks unchanged/clean; raw index
+cache refresh disclosed. Prior d6 totals are historical. Receipt and review
+links are in handoff_docs/lanes/codex-status.md. Lane B review/merge required;
+no device, emulator, provider-dialog, field, APK/signing or deployment claim.
