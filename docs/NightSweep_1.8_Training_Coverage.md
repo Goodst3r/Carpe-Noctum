@@ -14,7 +14,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
 | Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 14 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools and the pre-work safety reminders (added in 2.0 Alpha build 3); thirteen steps | Synthetic entered teaching tables and calculator inputs |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders and the outage first-response prompts (added in 2.0 Alpha build 3); fourteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -39,6 +39,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → DOCSIS health | Custom curves | Synthetic downstream and upstream readings against the modem requirements, with a company window that starts unknown (2.0 Alpha build 3) |
 | Test → Leakage | Custom curves | Synthetic leaks against the FCC 3 m limits, the CLI worked example, the 3 m distance restatement and a leak log kept on this device (2.0 Alpha build 3) |
 | Job → Safety | Custom curves | Synthetic practice of the pre-work reminder list: ticks, a role and check-in time, and rewording, hiding and adding items; kept on this device and not in the job backup (2.0 Alpha build 3) |
+| Job → Outage | Custom curves | Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3) |
 | Power → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |
 | Power → What-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
 | Job → Details | Complete | Work order, named save/open, duplicate and new blank job |
