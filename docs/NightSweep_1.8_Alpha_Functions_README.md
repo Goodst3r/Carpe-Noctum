@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 27 task screens and 44 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 28 task screens and 45 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 44, and a five-station handoff practice step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -34,14 +34,15 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 22. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
 23. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
 24. [Pre-work safety](#pre-work-safety)
-25. [Project records and closeout](#project-records-and-closeout)
-26. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-27. [Offline use, updates and Help](#offline-use-updates-and-help)
-28. [Checked example answers](#checked-example-answers)
-29. [Station worksheet](#station-worksheet)
-30. [Night log and shift handoff](#night-log-and-shift-handoff)
-31. [44-feature coverage index](#44-feature-coverage-index)
-32. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+25. [Outage first response](#outage-first-response)
+26. [Project records and closeout](#project-records-and-closeout)
+27. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+28. [Offline use, updates and Help](#offline-use-updates-and-help)
+29. [Checked example answers](#checked-example-answers)
+30. [Station worksheet](#station-worksheet)
+31. [Night log and shift handoff](#night-log-and-shift-handoff)
+32. [45-feature coverage index](#45-feature-coverage-index)
+33. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -53,7 +54,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Safety; Acceptance; Run sheet; Night log | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -97,7 +98,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage and pre-work safety | 13 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety and outage first response | 14 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -555,6 +556,31 @@ A reminder list to tick before you climb, open plant or work near a road. **It o
 
 What this screen leaves out on purpose: any numeric limit, rating or distance (those belong to your company's rules), regulatory requirements, and anything that would claim to be a complete safety procedure.
 
+## Outage first response
+
+**Where:** Job → Outage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Walk through an outage first response.
+
+Prompts for the first steps of an outage call. **It opens with "Follow your company's outage procedure first" and it is not your company's procedure.** The wording was written for this app from general field practice, with no NCTI or SCTE text copied. It has **not** been reviewed by a supervisor against the local outage procedure, and that review is needed before coworkers use it.
+
+| Section | What it prompts |
+| --- | --- |
+| Confirm the scope | What is down (a tap or leg, an amplifier or node, a wider area), nearby nodes, planned work, utility power or weather, and the dispatch notes, with no customer names or addresses copied in |
+| Safety on arrival | Looking the site over before you get out, then your company's pre-work safety steps (Job → Safety has reminders) |
+| Power | Utility AC at the power supply, its status on utility power or battery and alarm lights, and telling your supervisor or the ROC when it is on battery or off |
+| Node and optics | The node's status lights and alarm, the optical input and return path indicator against the value your company expects, and what to do when there is no light |
+| Actives, in order | Working outward from the node one active at a time, noting the last that works and the first that does not, then the passives and cable between them |
+| Tell the right people | The ROC or dispatch (what, where, when), your supervisor, and a damage, theft or vandalism report before you touch anything |
+| If damage or theft is suspected | Safety first, leaving the scene as it is until your procedure says otherwise, and writing down what you found, where and when, leaving customers out |
+| Record the times | When you arrived, found the cause, told the ROC and when service came back, what you found and did, and confirming restoration with the ROC |
+
+**Your notes** (below the list): a plant place such as node leg 3 or amp 2, four times on a 24-hour clock (arrived, found the cause, told the ROC or dispatch, service restored), what you found and did, who you told as a role, and three optional damage or theft notes (what was found, who was told as a role, and the time it was reported). **Enter plant places and roles only: no customer names, addresses, phone numbers or account numbers.** The card has no field for them and holds no photos or locations. SCTE's 2026 Critical Infrastructure Protection Subcommittee is still writing an evidence-collection standard for damage and theft; this card does not implement it and only reminds you to follow your company's procedure.
+
+**Change this list** lets you reword, hide, add and restore items, as on the safety card. **Start a new call** unticks everything and clears all the notes (it asks first); your changes to the list stay. **Save as text** prepares a short note of the ticks and your notes to check before you share it. **Clear everything on this device** asks first and cannot be undone.
+
+**Where it is kept:** in this browser on this device only, under its own storage key, apart from the safety card and outside every job and backup. A change this browser would not store stays on the screen until the page closes and is written with the next change that saves; unreadable data is copied aside before it is replaced, and data saved by a newer version is never overwritten.
+
+What this screen leaves out on purpose: numbers, limits and levels (those are your company's), outage procedures, ticket or customer lookups, photos and locations, and any live read of a node, modem or amplifier.
+
 ## Project records and closeout
 
 **Where:** Job → Acceptance. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
@@ -686,7 +712,7 @@ The selector starts at **General update / no Station snapshot**. To capture read
 
 **Files → Back up project** remains the full-fidelity portable backup: exact saved text, unrounded captured results and original attachments. Restore the JSON to recover the log and both stages. For practice, manually record invented A1–A5 Station worksheets in the six-active exercise, capture each explicitly, generate the handoff and reopen TXT/CSV. The short five-station example fits the defined phone preview; longer notes can scroll without truncation. Practice exports keep the synthetic warning.
 
-## 44-feature coverage index
+## 45-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -735,7 +761,8 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 | 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
 | 43 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
-| 44 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
+| 44 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
+| 45 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

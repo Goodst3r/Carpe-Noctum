@@ -40,6 +40,7 @@ MODULES = [
     ('<!--LEAKAGE-->', 'leakage.js'),
     ('<!--CHECKLIST-->', 'checklist.js'),
     ('<!--SAFETY-->', 'safety.js'),
+    ('<!--OUTAGE-->', 'outage.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
     ('<!--NIGHTLOG-->', 'night-log.js'),

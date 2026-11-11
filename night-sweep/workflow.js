@@ -5,7 +5,7 @@ const WorkflowUI=(()=>{
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log']]}
  };
  const screens={
   nightLog:['job','Night log and shift handoff','Keep personal window notes and explicitly capture both saved Station stages for the next shift.'],
@@ -30,6 +30,7 @@ const WorkflowUI=(()=>{
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
+  outage:['job','Respond to an outage','First-response prompts: scope, power, node, actives in order, who to tell and the times. Not your company’s procedure; follow it first.'],
   safety:['job','Check safety before you work','Reminders to tick before you climb or open plant. They are not your company’s procedure; follow company policy.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
@@ -47,7 +48,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}

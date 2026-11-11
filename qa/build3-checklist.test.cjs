@@ -1,4 +1,4 @@
-/* Build 3 shared checklist engine and the pre-work safety card (build list item 9).
+/* Build 3 shared checklist engine, the pre-work safety card (build list item 9) and the outage first-response card (item 8).
    Engine rules (ticks, wording changes, hiding, adding, notes, merging with another tab, a browser that
    will not store, unreadable or newer stored data, hostile stored data), then the rendered card, the
    device-local key and the saved-job format. No calculations are involved, so there is no numeric
@@ -7,7 +7,7 @@
 const fs = require('node:fs'), assert = require('node:assert/strict'), { webcrypto } = require('node:crypto');
 const { JSDOM, VirtualConsole } = require('./runtime/node_modules/jsdom'), FDB = require('./runtime/node_modules/fake-indexeddb');
 const html = process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST === '1' ? require('./build2-source-harness.cjs').assembleHtml() : fs.readFileSync('outputs/Night_Sweep.html', 'utf8');
-const KEY = 'nightsweep-safety-v1', SIDE = KEY + '-unreadable';
+const KEY = 'nightsweep-safety-v1', SIDE = KEY + '-unreadable', OUTAGE_KEY = 'nightsweep-outage-v1';
 const cases = [];
 let downloads = [], confirmAnswer = true;
 
@@ -275,15 +275,15 @@ function fakeStorage(initial = {}) {
     const fields = h.json('Safety.FIELDS').map(f => f.id); assert.deepEqual(fields, ['who', 'checkin', 'policy']);
     assert.equal(h.json('Safety.ITEMS').length, new Set(h.json('Safety.ITEMS').map(i => i.id)).size);
     assert(h.json('Safety.ITEMS').every(i => i.text.length <= 160 && !/\d{2,}/.test(i.text)), 'no numbers or limits in the wording');
-    assert.equal(h.d.querySelectorAll('[data-check]').length, h.json('Safety.ITEMS').length);
-    assert.equal(h.d.querySelector('.check-progress').textContent.trim(), `0 of ${h.json('Safety.ITEMS').length} ticked`);
+    assert.equal(h.d.querySelectorAll('#safetyPanel [data-check]').length, h.json('Safety.ITEMS').length);
+    assert.equal(h.d.querySelector('#safetyPanel .check-progress').textContent.trim(), `0 of ${h.json('Safety.ITEMS').length} ticked`);
   });
 
   await check('Ticking saves under the one device-local key and updates the count; the saved job and every other storage key are unchanged', async () => {
     const before = JSON.stringify(h.json('evidenceExportProject(state)')), keysBefore = Object.keys(h.w.localStorage).filter(k => k !== KEY).sort();
     tick(h, 'ppe-hivis'); tick(h, 'lad-inspect'); await flush();
     assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).checked.sort(), ['lad-inspect', 'ppe-hivis']);
-    assert.match(h.d.querySelector('.check-progress').textContent, /^2 of /);
+    assert.match(h.d.querySelector('#safetyPanel .check-progress').textContent, /^2 of /);
     change(h, '[data-check-field="who"]', 'Crew lead'); change(h, '[data-check-field="checkin"]', '14:30'); change(h, '[data-check-field="policy"]', 'Safety handbook'); await flush();
     assert.deepEqual(JSON.parse(h.w.localStorage.getItem(KEY)).fields, { who: 'Crew lead', checkin: '14:30', policy: 'Safety handbook' });
     assert.equal(JSON.stringify(h.json('evidenceExportProject(state)')), before, 'job export identical');
@@ -460,9 +460,9 @@ function fakeStorage(initial = {}) {
     assert.match(downloads[0].text, /Who knows where I am \(a name or role\): Crew lead/);
     assert.match(h.d.getElementById('safety-note').textContent, /check it before you send it/);
     confirmAnswer = false; click(h, '#safety-untick'); await flush(); confirmAnswer = true;
-    assert.match(h.d.querySelector('.check-progress').textContent, /^[1-9]\d* of /, 'cancelling keeps the ticks');
+    assert.match(h.d.querySelector('#safetyPanel .check-progress').textContent, /^[1-9]\d* of /, 'cancelling keeps the ticks');
     assert.equal(h.d.querySelector('[data-check-field="who"]').value, 'Crew lead', 'and the notes');
-    click(h, '#safety-untick'); await flush(); assert.match(h.d.querySelector('.check-progress').textContent, /^0 of /);
+    click(h, '#safety-untick'); await flush(); assert.match(h.d.querySelector('#safetyPanel .check-progress').textContent, /^0 of /);
     assert.deepEqual(['who', 'checkin', 'policy'].map(f => h.d.querySelector(`[data-check-field="${f}"]`).value), ['', '', 'Safety handbook'], 'the notes for this job clear; the standing policy note stays');
     tick(h, 'brief-job'); await flush();
     confirmAnswer = false; click(h, '#safety-clear'); await flush(); confirmAnswer = true;
@@ -477,6 +477,100 @@ function fakeStorage(initial = {}) {
     assert.deepEqual(h.json('Thresholds.rows.filter(r=>/safety|outage|checklist/i.test(r.id)).map(r=>r.id).sort()'), ['checklist.itemText.max', 'checklist.items.max', 'checklist.note.max'], 'the cards add exactly their three software caps to the registry, and nothing else');
     assert.equal((html.match(/const Checklist=\(\(\)=>/g) || []).length, 1); assert.equal((html.match(/const Safety=\(\(\)=>/g) || []).length, 1);
     assert.equal(h.json('NightSweep.selfCheck.ok'), true);
+    assert.deepEqual(h.errors, []);
+  });
+
+
+  /* ---- The outage first-response card ---- */
+  await goto(h, 'outage');
+
+  await check('Job has an Outage tab; the screen opens with the company-procedure line, says it is not the procedure, and that a supervisor review is still needed', () => {
+    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim());
+    assert.deepEqual(tabs, ['Details', 'ONX files', 'Checklists', 'Safety', 'Outage', 'Acceptance', 'Run sheet', 'Night log']);
+    const panel = h.d.getElementById('outagePanel');
+    assert.equal(panel.hidden, false); assert.equal(h.d.getElementById('safetyPanel').hidden, true);
+    const policy = panel.querySelector('.check-policy');
+    assert(policy.compareDocumentPosition(panel.querySelector('.check-section')) & 4);
+    assert.match(policy.textContent, /^Follow your company’s outage procedure first/); assert.match(policy.textContent, /not your company’s procedure/);
+    assert.match(words(panel), /has not yet reviewed it against your local outage procedure, and that review is needed before coworkers use it/);
+    assert.match(words(panel), /still writing its evidence-collection standard; this card does not implement it/);
+    assert.deepEqual(h.json('Outage.list.groups'), ['Confirm the scope', 'Safety on arrival', 'Power', 'Node and optics', 'Actives, in order', 'Tell the right people', 'If damage or theft is suspected', 'Record the times']);
+    assert.equal(h.d.querySelectorAll('#outagePanel [data-check]').length, h.json('Outage.ITEMS').length);
+    assert.equal(h.d.querySelector('#taskTabs [aria-selected="true"]')?.textContent.trim(), 'Outage');
+  });
+
+  await check('No customer identifiers: the only entries are plant places, roles, times and what was found; no field asks for a name, address, phone or account', () => {
+    const fields = h.json('Outage.FIELDS');
+    assert.deepEqual(fields.map(f => f.id), ['where', 'arrived', 'found', 'told', 'restored', 'cause', 'tellwho', 'damage', 'damagetold', 'damagetime']);
+    for (const f of fields) {
+      assert(['text', 'time'].includes(f.type)); assert(f.type === 'time' || f.max <= 120, f.id);
+      assert(!/\b(account|phone|address|email|customer)\b/i.test(f.label) || /no customer|a role/i.test(f.label), 'label asks for identity: ' + f.label);
+    }
+    assert.match(fields[0].label, /no customer names or addresses/); assert.match(fields[6].label, /a role/);
+    const items = h.json('Outage.ITEMS').map(i => i.text).join(' ');
+    assert.match(items, /Do not copy customer names or addresses into this card/); assert.doesNotMatch(items, /photo|picture|GPS|latitude|street address/i, 'no photos or locations');
+    assert(h.json('Outage.ITEMS').every(i => i.text.length <= 160 && !/\d{2,}/.test(i.text)), 'no numbers or limits in the wording');
+    assert.equal(h.json('Outage.ITEMS').length, new Set(h.json('Outage.ITEMS').map(i => i.id)).size);
+    assert(!h.json('Outage.FIELDS').some(f => f.keep), 'every note belongs to one call');
+    assert.match(h.d.querySelector('[data-check-field="where"]').getAttribute('placeholder'), /node leg 3/);
+    assert.equal(h.d.querySelectorAll('#outagePanel input[type=time]').length, 5);
+  });
+
+  await check('Ticks and notes save under the outage key only; the safety key, the saved job and every other key are untouched', async () => {
+    const before = JSON.stringify(h.json('evidenceExportProject(state)')), safetyBefore = h.w.localStorage.getItem(KEY);
+    const keys = Object.keys(h.w.localStorage).filter(k => k !== OUTAGE_KEY).sort();
+    tick(h, 'power-ac'); tick(h, 'node-lights'); tick(h, 'act-order');
+    change(h, '[data-check-field="where"]', 'Node leg 3, amp 2'); change(h, '[data-check-field="arrived"]', '08:15'); change(h, '[data-check-field="cause"]', 'Blown fuse at the supply'); change(h, '[data-check-field="tellwho"]', 'dispatch'); await flush();
+    const s = JSON.parse(h.w.localStorage.getItem(OUTAGE_KEY));
+    assert.deepEqual(s.checked.sort(), ['act-order', 'node-lights', 'power-ac']);
+    assert.deepEqual([s.fields.where, s.fields.arrived, s.fields.cause, s.fields.tellwho, s.fields.damage, s.fields.damagetime], ['Node leg 3, amp 2', '08:15', 'Blown fuse at the supply', 'dispatch', '', '']);
+    assert.equal(h.w.localStorage.getItem(KEY), safetyBefore, 'the safety checklist is not touched');
+    assert.deepEqual(Object.keys(h.w.localStorage).filter(k => k !== OUTAGE_KEY).sort(), keys, 'no other key changed');
+    assert.equal(JSON.stringify(h.json('evidenceExportProject(state)')), before, 'job export identical'); assert(!('outage' in h.json('state')));
+    assert.match(h.d.querySelector('#outagePanel .check-progress').textContent, /^3 of 24 ticked$/);
+    // A time box cannot hold an invalid time in a browser; a bad string that still arrives is refused and the old time stays.
+    assert.equal(h.json('Outage.list.setField("arrived","25:70",localStorage)').ok, false);
+    assert.equal(JSON.parse(h.w.localStorage.getItem(OUTAGE_KEY)).fields.arrived, '08:15');
+  });
+
+  await check('Save as text carries the ticks, plant place, times and what was found, leaves blank notes out, and names the file for the outage call', async () => {
+    change(h, '[data-check-field="damage"]', 'Cut strand and missing tap plate'); change(h, '[data-check-field="damagetold"]', 'supervisor'); change(h, '[data-check-field="damagetime"]', '09:40'); await flush();
+    downloads = []; click(h, '#outage-export'); await flush();
+    assert.equal(downloads.length, 1); assert.equal(downloads[0].name, 'CarpeNoctum_2.0_Alpha_build_3_Outage_First_Response.txt');
+    const text = downloads[0].text;
+    assert.match(text, /^Outage first-response notes \(not a company procedure\)\r\nPrepared \d{4}-\d{2}-\d{2} \d{2}:\d{2}\r\n/);
+    assert.match(text, /\[x\] Check whether utility AC power is present at the power supply\./); assert.match(text, /\[ \] Check the node’s status lights|\[x\] Check the node’s status lights/);
+    assert.match(text, /Where on the plant \(node, leg, amp or pole; no customer names or addresses\): Node leg 3, amp 2/);
+    assert.match(text, /Time I arrived \(24-hour\): 08:15/); assert.match(text, /Damage or theft: time it was reported \(24-hour\): 09:40/);
+    assert.doesNotMatch(text, /Time I found the cause|Time service was restored/, 'blank notes are left out');
+    assert.match(text, /3 of 24 ticked/);
+  });
+
+  await check('Start a new call clears ticks and every note (after a confirmation that can be cancelled) but keeps the technician\'s changes to the list', async () => {
+    click(h, '#outage-edit'); await flush();
+    change(h, '[data-check-text="power-ac"]', 'Check for utility AC at the supply'); click(h, '[data-check-hide="act-between"]'); await flush();
+    click(h, '#outage-edit'); await flush();
+    confirmAnswer = false; click(h, '#outage-untick'); await flush(); confirmAnswer = true;
+    assert.match(h.d.querySelector('#outagePanel .check-progress').textContent, /^3 of /); assert.equal(h.d.querySelector('[data-check-field="where"]').value, 'Node leg 3, amp 2');
+    click(h, '#outage-untick'); await flush();
+    const s = JSON.parse(h.w.localStorage.getItem(OUTAGE_KEY));
+    assert.deepEqual(s.checked, []); assert(Object.values(s.fields).every(v => v === ''), 'every note cleared');
+    assert.equal(s.edits.length, 1); assert.deepEqual(s.hidden, ['act-between']);
+    assert.equal(h.d.getElementById('outage-untick').textContent, 'Start a new call');
+    assert.equal(h.d.getElementById('safety-untick').textContent, 'Start a new pass');
+  });
+
+  await check('The two cards share one engine but not their data: clearing one leaves the other, and a failed write on one does not affect the other', async () => {
+    tick(h, 'power-ac'); await flush();
+    await goto(h, 'safety'); tick(h, 'brief-job'); await flush();
+    assert(h.w.localStorage.getItem(KEY) && h.w.localStorage.getItem(OUTAGE_KEY));
+    confirmAnswer = true; click(h, '#outage-clear'); await flush();
+    assert.equal(h.w.localStorage.getItem(OUTAGE_KEY), null); assert(h.w.localStorage.getItem(KEY), 'safety kept');
+    assert.match(h.d.querySelector('#safetyPanel .check-progress').textContent, /^1 of /);
+    assert.equal(h.ev('Safety.list.key'), KEY); assert.equal(h.ev('Outage.list.key'), OUTAGE_KEY); assert.notEqual(h.ev('Safety.list'), h.ev('Outage.list'));
+    assert.equal((html.match(/const Outage=\(\(\)=>/g) || []).length, 1);
+    const x = boot({ seed: '{bad' }); await flush(); await goto(x, 'outage');
+    assert.match(words(x.d.getElementById('safetyPanel')), /could not be read/); assert.doesNotMatch(words(x.d.getElementById('outagePanel')), /could not be read/); x.close();
     assert.deepEqual(h.errors, []);
   });
 
