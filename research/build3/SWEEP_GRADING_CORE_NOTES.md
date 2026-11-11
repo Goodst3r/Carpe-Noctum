@@ -78,8 +78,12 @@ meter precision, company limits, or evidence of supported operating bands:
 | 5–1800 MHz inclusive | Existing `EvidenceCore.parseText` and `validateParse` envelope |
 | At most 10,000 samples | Existing `EvidenceCore.limits.samples`; two exact band markers are additionally required for grading |
 | Input absolute magnitude ≤1,000,000 | Existing `EvidenceCore` scalar envelope, conservatively reused for entered numeric criteria; derived differences may be larger |
+| Magnitude criteria ≥0 dB | PTV, maximum level error and maximum tilt error reject negative limits; signed targets remain allowed |
+| At most 100 saved grades per job | `SweepGradingUI.grade` and history import validator; no discard control is provided |
 | Optional label ≤200 characters, no control characters | Existing normalized series label validation |
 | Inclusive comparison allowance | `4 * Number.EPSILON * max(1, operand scale, abs(error or PTV), abs(limit))`; a representation guard only |
+
+The displayed frequency, scalar, magnitude, sample-count and history bounds are registered as `app.grading.*` Unknown application guards in Test → Limits, separately from company criteria and OEM capabilities.
 
 Numeric results retain JavaScript binary precision without display rounding.
 The comparison allowance handles subtraction such as `0.4 - 0.3` and cancellation
@@ -104,3 +108,7 @@ record, source freshness binding, portable backup remapping, or native fixtures
 are included. Those depend on the confirmed JSON structure and A1 context. No
 app build/gate or rendered/device/field test was run for this isolated module;
 unchanged existing app and generated files are checked by Git diff only.
+
+## Compact source context (Lane B review corrections)
+
+New history stores an explicitly identified `bound-context-sha256-v1` digest inside the existing `recordSnapshot` string. The exact canonical context remains transiently available to the synchronous revision guard: source/physical bindings, route/acceptance readings and the actual bound Station identities/raw records (both stages, timestamps and independent done/dates). Archived map entries are excluded. WebCrypto hashes that context after actual original-byte verification, and the owner/selection/context signature is checked again after this additional await. Observed changes away and back cancel either await. A digest never replaces the original-file SHA check. Old raw strings are accepted and retained without migration; their histories are conservatively stale. Only the last verified exact context is cached for historical comparison, so reopening or returning to an uncached context requires another explicit grade. This adds no schema version, storage key or acceptance state.

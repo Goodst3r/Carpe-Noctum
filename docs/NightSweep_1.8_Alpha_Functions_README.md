@@ -37,7 +37,8 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 25. [Offline use, updates and Help](#offline-use-updates-and-help)
 26. [Checked example answers](#checked-example-answers)
 27. [42-feature coverage index](#42-feature-coverage-index)
-28. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+28. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
+29. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -664,14 +665,6 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 41 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
 | 42 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 
-## Known limits and unresolved information
-
-Exact installed **GainMaker GaN control/commissioning**, **Quantum18 LE/BA I&O**, **EN9000/RFAM/RPD commissioning**, and some **DSIM-A/module-specific** procedures remain documentation gaps. Preserve them as unresolved; another model's manual is not a substitute. Original manuals, actual firmware/options, approved pilots, physical measurement planes, actual available carriers and operator criteria require job-specific confirmation.
-
-NightSweep does not connect to, program or configure ONX, nodes, amplifiers, DSIM or XPERTrak. Unsupported meter formats remain originals; no OCR or automatic reading extraction is added. No source table, synthetic file, checklist, software status or reference calculation establishes installed RF acceptance.
-
-Automated checks, independent arithmetic and desktop mobile-viewport testing do not establish physical Android/iPhone installation, WebView/Safari retention, native save/share/print behavior, touch/rotation, storage eviction or actual quota exhaustion. Preserve external backups and separately verify the phone and plant used for field work.
-
 ## Build 3 attached sweep grading aid
 
 In **Job → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
@@ -682,6 +675,14 @@ Supported native previews cover the inspected VIAVI **TestGroup** and **CDM2** s
 
 No TPC/test-point addback, lead correction, reference subtraction, normalization or detrending is applied. Verify that the selected targets and original share the same measurement plane. Application entry/decoding bounds are software resource guards, not OEM specifications. A grading result is your technician aid, never official acceptance; it does not set balanced/swept status or a sweep date.
 
-Each compact historical snapshot saves its criteria, plant/direction, original evidence identity and SHA, job/source/record context and calculation time. Optional Station context includes the actual saved station map, binding version, both Before/After worksheets and separate balance/sweep records; legacy-unconfirmed worksheets remain unconfirmed. Measurement time stays unknown unless you enter a verified time; calculation time is not the meter's measurement time. Changes make the current display stale/unknown. Old snapshots keep their original labels and values. Removing an attachment preserves its grading history with an unavailable-original message. A full **Back up project** includes the unchanged compressed/archive original and grading snapshots; restore remaps each evidence identity, including duplicate-byte attachments. Browser autosave and named-job duplication also preserve history. Keep external backups before clearing app data.
+Each compact historical snapshot saves its criteria, plant/direction, original evidence identity and SHA, job/source/record context and calculation time. New snapshots retain a SHA-256 digest of the relevant bound Station identities and saved records, including binding version, both Before/After worksheets and separate balance/sweep records. Archived bindings stay in the job backup and do not enlarge grading history. Legacy-unconfirmed worksheets remain unconfirmed. Earlier raw-context grading snapshots open and round-trip unchanged; they remain historical and require a new grade for the current context. Measurement time stays unknown unless you enter a verified time; calculation time is not the meter's measurement time. Changes make the current display stale/unknown. Old snapshots keep their original labels and values. Removing an attachment preserves its grading history with an unavailable-original message. A full **Back up project** includes the unchanged compressed/archive original and grading snapshots; restore remaps each evidence identity, including duplicate-byte attachments. Browser autosave and named-job duplication also preserve history. Keep external backups before clearing app data.
 
 The **Custom curves and reverse TDR** exercise adds an explicit grading step and a feature-index link. It supplies instructions for a three-point invented interchange CSV (270/390/510 MHz, 0/2.5/0 dBmV). Enter the illustrative 3 dB PTV limit yourself: PTV is 2.5 dB and the other blank criteria stay unknown. These practice values are not shipped company defaults.
+
+## Known limits and unresolved information
+
+Exact installed **GainMaker GaN control/commissioning**, **Quantum18 LE/BA I&O**, **EN9000/RFAM/RPD commissioning**, and some **DSIM-A/module-specific** procedures remain documentation gaps. Preserve them as unresolved; another model's manual is not a substitute. Original manuals, actual firmware/options, approved pilots, physical measurement planes, actual available carriers and operator criteria require job-specific confirmation.
+
+NightSweep does not connect to, program or configure ONX, nodes, amplifiers, DSIM or XPERTrak. Unsupported meter formats remain originals; no OCR or automatic reading extraction is added. No source table, synthetic file, checklist, software status or reference calculation establishes installed RF acceptance.
+
+Automated checks, independent arithmetic and desktop mobile-viewport testing do not establish physical Android/iPhone installation, WebView/Safari retention, native save/share/print behavior, touch/rotation, storage eviction or actual quota exhaustion. Preserve external backups and separately verify the phone and plant used for field work.

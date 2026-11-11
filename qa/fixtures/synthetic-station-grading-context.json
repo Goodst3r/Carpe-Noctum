@@ -4,7 +4,7 @@
     "station_synthetic_grading": {
       "pointId": "r1",
       "equipmentId": "active_gm_hgd",
-      "equipmentContext": "[\"active_gm_hgd\",42,[54,1002]]",
+      "equipmentContext": "[\"active_gm_hgd\",\"route\"]",
       "stage": "before",
       "stages": {
         "before": {
@@ -73,7 +73,8 @@
       "swept": {
         "done": false,
         "date": ""
-      }
+      },
+      "bindingVersion": 2
     }
   }
 }

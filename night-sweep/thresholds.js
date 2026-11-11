@@ -40,8 +40,18 @@ const Thresholds=(()=>{
   ['lowFrequencyMHz','Low measured marker','MHz'],['highFrequencyMHz','High measured marker','MHz'],['ptvLimitDb','Peak-to-valley limit','dB'],['lowTargetDbmv','Low level target','dBmV'],['highTargetDbmv','High level target','dBmV'],['maxLevelErrorDb','Maximum level error','dB'],['tiltTargetDb','Signed tilt target','dB'],['maxTiltErrorDb','Maximum tilt error','dB']
  ].map(([field,name,units])=>({id:'company.grading.'+profileKey+'.'+field,label:'company',name:name+' ('+profileKey+')',kind:'target',units,store:'grading',profileKey,field,source:'Explicit user entries in this job; no defaults or native-file limits',revision:'Per job grading snapshot',locator:'Job → ONX files: Grading aid',conditions:'Raw supplied sweep samples at the verified same measurement plane. Exact markers; no correction or acceptance.',date:'Not recorded when entered',scope:profileKey.startsWith('42-')?'42/54':'204/258',verification:'entered',usedBy:'Job → ONX files: Grading aid'})));
  const archiveGuards=Object.entries(typeof EvidenceArchive!=='undefined'?EvidenceArchive.limits:{}).map(([field,value])=>({id:'app.evidence.'+field,label:'unknown',name:({inputBytes:'Maximum original evidence bytes',decodedBytes:'Maximum decoded preview bytes',entries:'Maximum ZIP entries'})[field],kind:'limit',value,units:field==='entries'?'entries':'bytes',source:'EvidenceArchive.limits; input and decoded caps reuse EvidenceCore.limits',revision:'Carpe Noctum build 3 bounded native adapter',locator:'night-sweep/evidence-archive.js: resource limits and streaming decoder',conditions:'Software application resource guard only. Not an OEM specification, supported RF band, measurement precision or company criterion.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files → native JSON/gzip/ZIP previews'}));
+ const gradingGuards=[
+  ['minMHz','Minimum grading marker / sample frequency',5,'MHz','Inclusive lower frequency bound.'],
+  ['maxMHz','Maximum grading marker / sample frequency',1800,'MHz','Inclusive upper frequency bound.'],
+  ['maxScalar','Maximum absolute entered level / difference',1000000,'dB / dBmV','Absolute bound on supplied sample values and entered criteria; signed targets are permitted. Derived differences may be larger.'],
+  ['minMagnitude','Minimum entered magnitude limit',0,'dB','PTV, maximum level error and maximum tilt error limits must be nonnegative.'],
+  ['minSamples','Minimum complete supplied sample count',1,'samples','A series needs at least one sample; grading additionally needs two distinct exact band markers.'],
+  ['maxSamples','Maximum supplied sample count',10000,'samples','Complete supplied samples per normalized series, before selecting the grading band.'],
+  ['maxHistory','Maximum saved grading history',100,'records','Per job; each explicit re-grade adds a record. Back up and start a new job when full.']
+ ].map(([field,name,value,units,condition])=>({id:'app.grading.'+field,label:'unknown',name,kind:'limit',value,units,source:'Application guard in SweepGrading / SweepGradingUI; existing EvidenceCore numeric envelope',revision:'Carpe Noctum build 3 grading aid',locator:'night-sweep/sweep-grading.js: evaluateSeries / criterion; sweep-grading-ui.js: profile / grade / validate',conditions:'Software application guard only, not an OEM specification, equipment capability or company criterion. '+condition,date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files → Grading aid'}));
  const rows=Object.freeze([
   ...archiveGuards,
+  ...gradingGuards,
   ...gradingRows,
   // Station worksheet: company criteria start blank on every new station and stage.
   ...[
