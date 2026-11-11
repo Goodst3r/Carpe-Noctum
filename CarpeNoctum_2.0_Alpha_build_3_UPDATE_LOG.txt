@@ -302,3 +302,14 @@ attached grading is appended as43. Practice card counts now match actual
 remain. Generated guides, standalone and PWA are rebuilt, not hand-merged.
 Focused combined checks are recorded in the correction handoff; a final
 combined full gate and peer review remain root-owned work.
+
+A4 — SAVED WORKSHEET STARTUP CONTEXT
+Grading now reads a pure bound/raw Station projection during autosave startup,
+without evaluating RF before calculator modules initialize. Existing ownership,
+legacy/read-only checks and the exact canonical digest payload remain; computed
+Station results and original SHA verification are unchanged. A warm two-window
+jsdom saved-job reload reproduced a dependency failure; actual Chrome cold
+reload of that saved synthetic worksheet passed before this correction.
+The regression explicitly checks zero pre-Alignment math, a populated v2
+worksheet/result round-trip, no quarantine or automatic grade, and completed
+original verification. No module-order, schema, key, parser or RF-math change.

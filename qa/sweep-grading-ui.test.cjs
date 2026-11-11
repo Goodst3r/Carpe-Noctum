@@ -144,6 +144,13 @@ try{
   for(const [k,v]of Object.entries({lowFrequencyMHz:270,highFrequencyMHz:510,ptvLimitDb:3}))edit('#grading-'+k,String(v));
   assert.equal(bj('state.sweepGrading.records.length'),0);assert.deepEqual(combined.errors,[]);
  });
+ await check('A warm saved worksheet reload captures bound raw context before calculators initialize without evaluating RF',async()=>{
+  const saved=bw.localStorage.getItem('hfc-route-v1'),before=bj('state.stationView'),results=bj('StationView.results()');for(let i=0;i<500;i++)be('StationView.results()');
+  const original=process.env.NIGHTSWEEP_RELEASE_TEST==='1'?fs.readFileSync('outputs/Night_Sweep.html','utf8'):require('./build2-source-harness.cjs').assembleHtml();
+  const marker='<script>const catalog=',probe='<script>window.__gradingEarlyMath=0;window.__stationMathResults=StationMath.results;StationMath.results=function(...args){if(typeof Alignment==="undefined")window.__gradingEarlyMath++;return window.__stationMathResults(...args);};window.__gradingEvidenceInit=EvidenceUI.init;EvidenceUI.init=function(...args){const pending=window.__gradingEvidenceInit.apply(this,args);window.__gradingEvidenceReady=Promise.resolve(pending);return pending;};</script>';
+  assert(original.includes(marker));const cold=bootApp({html:original.replace(marker,probe+marker),beforeParse(w){w.indexedDB=bw.indexedDB;w.localStorage.setItem('hfc-route-v1',saved);}});
+  try{assert.equal(cold.ev('typeof window.__gradingEvidenceReady?.then'),'function');await cold.ev('window.__gradingEvidenceReady');assert.equal(cold.ev('window.__gradingEarlyMath'),0,'grading context must not invoke RF before Alignment exists');assert.equal(cold.ev('typeof Alignment'),'object');assert.deepEqual(cold.json('StationView.results()'),results);assert.deepEqual(cold.json('state.stationView'),before);assert.equal(cold.w.localStorage.getItem('hfc-route-v1-unreadable'),null);const bound=cold.json('StationView.boundRecords()');assert.equal(bound.length,1);assert.deepEqual(bound[0].record,Object.values(before.stations)[0]);assert.equal(cold.ev('state.evidence[0].parse.status'),'parsed');assert.deepEqual(cold.json('state.stationView'),before);assert.equal(cold.ev('state.sweepGrading.records.length'),0);assert.deepEqual(cold.errors,[]);}finally{await Promise.resolve(cold.ev('window.__gradingEvidenceReady')).catch(()=>{});cold.close();}
+ });
  await check('Merged grading snapshots contain exact binding v2 Before/After and independent done records',async()=>{
   const before=bj('state.stationView'),acceptance=bj('({forward:state.project.forward,returns:state.project.returns})'),r=await grade();
   digestContext(r);assert.equal(Object.values(before.stations)[0].bindingVersion,2);

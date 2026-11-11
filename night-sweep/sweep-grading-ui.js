@@ -36,7 +36,7 @@ const SweepGradingUI=(()=>{
  // Only the saved history is compacted; originals still pass EvidenceUI's own SHA check.
  const canonical=value=>JSON.stringify(value,(_,v)=>object(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);
  function context(){
-  const s=state,bound=typeof StationView!=='undefined'?StationView.records(s).map(r=>({identity:r.identity,bindingStatus:r.bindingStatus,readOnly:r.readOnly,record:s.stationView.stations[r.identity]})):[];
+  const s=state,bound=typeof StationView!=='undefined'?StationView.boundRecords(s):[];
   const recordSnapshot=canonical({source:{type:s.setup?.sourceType,model:s.setup?.sourceModel,asset:s.setup?.sourceAsset,port:s.setup?.sourcePort,stationIdentity:s.setup?.stationIdentity},node:s.node||null,rows:(s.rows||[]).map(r=>({id:r.id,device:r.device,parent:r.parent,name:r.name,meters:r.meters||null,stationIdentity:r.stationIdentity})),forward:s.project?.forward||[],returns:s.project?.returns||[],stationRecords:bound});
   return {jobId:String(s.job?.id||''),jobName:String(s.job?.name||s.project?.meta?.job||''),nodeAsset:String(s.job?.node||s.node?.asset||s.project?.meta?.node||''),hardware:String(s.node?.model||s.setup?.sourceModel||s.setup?.sourceType||''),recordSnapshot};
  }
