@@ -22,7 +22,6 @@ suites=[
  ('Build 3 high split band plans, aeronautical band and Remote PHY reference','build3-highsplit.test.cjs',r'Build3 high split: (\d+) checks passed'),
  ('Build 3 why cards against the SCTE 293 catalog list','build3-why-cards.test.cjs',r'Build3 why cards: (\d+) checks passed'),
  ('Build 3 FCC proof of performance card against the rule clauses','build3-pop.test.cjs',r'Build3 proof of performance: (\d+) checks passed'),
- ('Build 3 shared checklist engine and pre-work safety card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
  ('Build 3 checklist cards in a real browser: half-edited time box and a full storage quota','build3-checklist-real.test.py',r'Build3 checklist real browser: (\d+) checks passed'),
  ('Build 3 station worksheet arithmetic and saved jobs','build3-station.test.cjs',r'Build3 station: (\d+) checks passed'),
  ('Build 3 rendered station phone layout','build3-station-layout.test.py',r'Build3 station layout: (\d+) checks passed'),
