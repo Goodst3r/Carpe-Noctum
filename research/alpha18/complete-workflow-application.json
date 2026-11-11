@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T03:30:57.713Z",
+  "generatedAt": "2026-11-11T04:47:59.817Z",
   "status": "PASS",
   "scope": "Generated standalone final complete-practice factory and actual calculation functions.",
   "groupedChecks": 17,
@@ -633,9 +633,9 @@
     ]
   },
   "inputSha256": {
-    "night-sweep/training.js": "960b9fc67fec71dbd4eb6213e7d1edb6b8976fb004806527387cb0cb3bf7da9e",
+    "night-sweep/training.js": "3ceabc9664c6557573c6927051a7a02384d12e211422454bbe8e4569b44e5443",
     "night-sweep/engine.js": "1e1d32d89015bcf85dcfdf3bb172edd1724b3cce75ba218991c4a9d5808bc459",
     "night-sweep/catalog.json": "5e270910088b623043ca91b4edacd2cc062f077075ee20050ebf33b14a4cde70",
-    "outputs/Night_Sweep.html": "4ac7d91c9061a1787298191422d34a8470aac26b1dc6a84f5ef14e6230fdf758"
+    "outputs/Night_Sweep.html": "c5ed828ac15aa5899da51a9fecfc1f09f2f93f0300698052070bdbef2ecc6204"
   }
 }

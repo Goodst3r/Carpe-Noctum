@@ -1,4 +1,4 @@
-/* 1.8 Alpha build 2 guided field setup. Measurements remain separate from calculations.
+/* 2.0 Alpha build 1 guided field setup. Measurements remain separate from calculations.
  * The 42 MHz method uses return sweepless sweep; it has no injected-return setup.
  * XPERTrak is operated separately. This module never connects to or controls plant. */
 const SweepSetup=(()=>{
@@ -184,7 +184,7 @@ const SweepSetup=(()=>{
  }
  function exportText(source=ownState(),split){
   const data=normalized(source.sweepSetup),id=splits.includes(split)?split:data.selected,p=data.profiles[id],g=guide(id);
-  return ['NightSweep 1.8 Alpha build 2 · Sweep setup',...(source.job?.training==='guided-1.5'?['SYNTHETIC TRAINING JOB: all readings and findings are practice data, not field measurements or acceptance.']:[]),definitions[id].label,definitions[id].forward+' / '+definitions[id].reverse,'Technician-entered setup record. Checked steps are not RF acceptance.','',reportText(source),'','Selected procedure:',methodNote(p,id),'',...((g.steps||[]).flatMap((step,i)=>[(i+1)+'. '+step.title,plain(step.body),''])),'Sources:',...(g.sources||[]).map(s=>s.label+' — '+s.url),'','No ONX or XPERTrak connection is made by NightSweep. Preserve original meter files with the job.'].join('\n');
+  return ['NightSweep 2.0 Alpha build 1 · Sweep setup',...(source.job?.training==='guided-1.5'?['SYNTHETIC TRAINING JOB: all readings and findings are practice data, not field measurements or acceptance.']:[]),definitions[id].label,definitions[id].forward+' / '+definitions[id].reverse,'Technician-entered setup record. Checked steps are not RF acceptance.','',reportText(source),'','Selected procedure:',methodNote(p,id),'',...((g.steps||[]).flatMap((step,i)=>[(i+1)+'. '+step.title,plain(step.body),''])),'Sources:',...(g.sources||[]).map(s=>s.label+' — '+s.url),'','No ONX or XPERTrak connection is made by NightSweep. Preserve original meter files with the job.'].join('\n');
  }
  function saveSnapshot(){
   const data=draft(),p=data.profiles[data.selected];
@@ -194,7 +194,7 @@ const SweepSetup=(()=>{
   const status=document.getElementById('sweepExportStatus');if(status)status.textContent=exportStatus;return false;
  }
  async function exportNotes(){
-  const data=draft(),filename='NightSweep_1.8_Alpha_build_2_'+data.selected+'MHz_Setup.txt',body=exportText();
+  const data=draft(),filename='NightSweep_2.0_Alpha_build_1_'+data.selected+'MHz_Setup.txt',body=exportText();
   try{if(!window.NightSweepAndroid?.saveFile&&window.BrowserFiles)await window.BrowserFiles.prepare(filename,body,'text/plain');else download(filename,body,'text/plain');exportStatus='Setup notes prepared. Complete the save / download action.';}catch(e){exportStatus='Could not prepare setup notes: '+e.message;}
   const status=document.getElementById('sweepExportStatus');if(status)status.textContent=exportStatus;
  }

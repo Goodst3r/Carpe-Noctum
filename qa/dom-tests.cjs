@@ -9,7 +9,7 @@ const w=dom.window,d=w.document,ev=s=>w.eval(s);
 function set(selector,value,event='input'){const e=d.querySelector(selector);assert(e,selector);e.value=value;e.dispatchEvent(new w.Event(event,{bubbles:true}));}
 function click(selector){const e=d.querySelector(selector);assert(e,selector);e.click();}
 check('Start without JS errors',()=>assert.deepEqual(errors,[]));
-check('NightSweep title',()=>assert.equal(d.title,'NightSweep 1.8 Alpha build 2'));
+check('NightSweep title',()=>assert.equal(d.title,'NightSweep 2.0 Alpha build 1'));
 check('Default 3-point example',()=>assert.equal(d.querySelectorAll('[data-row]').length,3));
 const primaryPanels={route:['routePanel'],sweep:['sweepPanel','levelsPanel'],power:['powerPanel'],parts:['catalogPanel'],projects:['jobsPanel','projectPanel']};
 for(const id of ['route','sweep','power','parts','projects','help'])check('Legacy navigation alias '+id,()=>{ev(`showTab('${id}')`);const expected=id==='help'?[...d.querySelectorAll('[data-screen=help]')]:primaryPanels[id].map(x=>d.getElementById(x));assert(expected.length&&expected.every(e=>e&&!e.hidden));assert([...d.querySelectorAll('[data-screen]')].filter(e=>!expected.includes(e)).every(e=>e.hidden));});
@@ -33,7 +33,7 @@ check('Duplicate RF row rejected',()=>{assert.throws(()=>ev('loadState({...state
 check('Orphaned RF route stays missing',()=>{const keep=ev('JSON.stringify(state)');ev('state.rows.splice(0,1);renderAll()');assert.equal(ev('evaluate(993).results[0].input.level'),null);ev(`loadState(JSON.parse(${JSON.stringify(keep)}))`)});
 check('Unsafe row labels are escaped',()=>{set('[data-field="name"]','<img src=x onerror=alert(1)>');ev('renderAll()');assert.equal(d.querySelectorAll('#route img').length,0)});
 check('Autosave stores complete current state',()=>assert.equal(w.localStorage.getItem('hfc-route-v1'),ev('JSON.stringify(state)')));
-check('Alpha version visible',()=>assert(d.body.textContent.includes('1.8 Alpha build 2')));
+check('Alpha version visible',()=>assert(d.body.textContent.includes('2.0 Alpha build 1')));
 check('Project job and generator input events',()=>{set('[data-project-scope="meta"][data-project-field="job"]','TEST-WO');for(const [k,v]of [['desired','31'],['coupling','20'],['lead','1']])set('[data-project-scope="generator"][data-project-field="'+k+'"]',v);assert(d.querySelector('#project-generator-result').textContent.includes('52.00'));assert.equal(ev('state.project.meta.job'),'TEST-WO')});
 check('Forward log creation and safe filename',()=>{click('[data-project-add="forward"]');assert.equal(ev('state.project.forward.length'),1);set('[data-project-scope="forward"][data-project-field="station"]','A1');click('[data-project-filename="forward"]');const r=ev('state.project.forward[0]');assert.match(r.trace,/TEST-WO_A1_FWD_Before_/);assert.equal(r.traceSaved,'No');assert(!ev("ProjectMath.evaluate(state.project.forward[0],projectProfile('1200')).within"))});
 check('Return log and punch creation',()=>{click('[data-project-add="returns"]');click('[data-project-add="punch"]');click('[data-project-add="dsim"]');assert.equal(ev('state.project.returns.length'),1);assert.equal(ev('state.project.punch.length'),1);assert.equal(ev('state.project.dsim.length'),1)});

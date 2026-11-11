@@ -14,14 +14,24 @@
   section.innerHTML = '<h2 id="pwaHeading">NightSweep on this device</h2>' +
     '<p id="pwaStatus" class="pwa-state" role="status" aria-live="polite" data-ready="false">Preparing offline use…</p>' +
     '<p id="pwaStatusDetail" class="pwa-small">Keep this page open and online until its offline copy is ready.</p>' +
-    '<div class="toolbar"><button id="pwaInstall" type="button" hidden>Install app</button><a href="android.html">Android / no APK</a><a href="iphone.html">iPhone install</a><a href="install.html">Install help</a><button id="pwaCheckUpdates" type="button">Check for updates</button><button id="pwaApplyUpdate" type="button" hidden>Install update</button><button id="pwaReload" type="button" hidden>Reload app</button><button id="pwaRetry" type="button" hidden>Retry offline setup</button></div>' +
+    '<div class="toolbar"><button id="pwaInstall" type="button" hidden>Install app</button><button id="pwaCheckUpdates" type="button">Check for updates</button><button id="pwaApplyUpdate" type="button" hidden>Install update</button><button id="pwaReload" type="button" hidden>Reload app</button><button id="pwaRetry" type="button" hidden>Retry offline setup</button></div>' +
     '<p id="pwaUpdateStatus" class="pwa-small" role="status" aria-live="polite">Updates wait for your action. Export your current job before updating.</p>' +
-    '<p class="pwa-small">Use this website directly on Android or iPhone. Installing a Home Screen icon is optional; no APK is needed for the web version.</p>' +
+    '<details><summary>Install on a phone</summary><p class="pwa-small">Use this website directly on Android or iPhone. Installing a Home Screen icon is optional; no APK is needed for the web version.</p><div class="toolbar"><a href="android.html">Android / no APK</a><a href="iphone.html">iPhone install</a><a href="install.html">Install help</a></div></details>' +
     '<details><summary>Offline guides</summary><p><a href="functions-guide.html">All functions reference</a></p><p><a href="phone-installation.html">Android and iOS installation</a></p><p><a href="training-coverage.html">Training examples and feature coverage</a></p></details>' +
-    '<details><summary>Keep your work safe</summary><p>Jobs and ONX files stay on this device. Use <b>Files → Save project</b> to export a backup for every job you need. Keep the file in Files or another location outside this app.</p><p>The Android APK and web app use separate job storage. Export from the app containing your work, then import that backup in the browser or icon you will use. Before adding NightSweep to an iPhone Home Screen, export any browser jobs. Open the installed icon and import the backup if the job is not there. Use one NightSweep window at a time to avoid overwriting another window’s edits.</p><p id="pwaStorageStatus" class="pwa-small" role="status"></p><button id="pwaPersist" type="button" hidden>Protect local storage</button><p class="pwa-small">Storage protection is optional and browser dependent. Clearing website data or removing the app can still remove work. An exported backup is the safest copy.</p><p><a href="guide.html">Read the full technician guide</a></p></details>';
+    '<details><summary>Keep your work safe</summary><p>Jobs and ONX files stay on this device. Use <b>Files → Back up project</b> to export a backup for every job you need. Keep the file in Files or another location outside this app.</p><p>The Android APK and web app use separate job storage. Export from the app containing your work, then import that backup in the browser or icon you will use. Before adding NightSweep to an iPhone Home Screen, export any browser jobs. Open the installed icon and import the backup if the job is not there. Use one NightSweep window at a time to avoid overwriting another window’s edits.</p><p id="pwaStorageStatus" class="pwa-small" role="status"></p><button id="pwaPersist" type="button" hidden>Protect local storage</button><p class="pwa-small">Storage protection is optional and browser dependent. Clearing website data or removing the app can still remove work. An exported backup is the safest copy.</p><p><a href="guide.html">Read the full technician guide</a></p></details>';
   const current = home.querySelector('.home-current');
-  if (current) current.after(section); else home.prepend(section);
+  // 2.0: device and update status sits at the end of Home, after the field tasks.
+  if (current) home.append(section); else home.prepend(section);
   const $ = id => document.getElementById(id);
+  // The panel sits at the end of Home; a short notice near the top points to a waiting update.
+  if (current && typeof MutationObserver !== 'undefined') {
+    const notice = document.createElement('p');
+    notice.id = 'pwaUpdateNotice'; notice.className = 'status'; notice.hidden = true;
+    notice.innerHTML = 'An app update is ready. <a href="#pwaCard">Install it at the bottom of Home</a> after backing up your job.';
+    current.append(notice);
+    const sync = () => {notice.hidden = $('pwaApplyUpdate').hidden;};
+    new MutationObserver(sync).observe($('pwaApplyUpdate'), {attributes: true, attributeFilter: ['hidden']});
+  }
   const status = (label, detail, ready = false) => {
     $('pwaStatus').textContent = label;
     $('pwaStatus').dataset.ready = String(ready);
@@ -74,7 +84,8 @@
         if (updateAuthorized && registration?.waiting) {
           update('Update downloaded. Activating the saved copy; your open job remains on screen.');
           registration.waiting.postMessage({type:'ACTIVATE_UPDATE'});
-        } else if (registration?.waiting) {
+        } else if (registration?.waiting && registration.active) {
+          // A first install has no active worker yet; only a worker queued behind an active one is an update.
           $('pwaApplyUpdate').hidden = false;
           update('A downloaded update is waiting. Export your current job, then choose Install update.');
         }
@@ -94,7 +105,7 @@
     registration = reg;
     reg.addEventListener('updatefound', () => watch(reg.installing));
     watch(reg.installing);
-    if (reg.waiting) {
+    if (reg.waiting && reg.active) {
       $('pwaApplyUpdate').hidden = false;
       update('A downloaded update is waiting. Export your current job, then choose Install update.');
     }
@@ -142,7 +153,7 @@
     finally {$('pwaCheckUpdates').disabled = false;}
   });
   $('pwaApplyUpdate').addEventListener('click', async () => {
-    if (!window.confirm('Export the current job first using Files → Save project. Install the update now? The page will stay open until you choose Reload app.')) return;
+    if (!window.confirm('Export the current job first using Files → Back up project. Install the update now? The page will stay open until you choose Reload app.')) return;
     updateAuthorized = true;
     $('pwaApplyUpdate').disabled = true;
     try {

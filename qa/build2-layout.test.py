@@ -32,7 +32,7 @@ def check(name,value):
  checks.append(name);print('PASS '+name,flush=True)
 try:
  with sync_playwright() as p:
-  browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
+  browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
   for width in [360,390,768,1280]:
    context=browser.new_context(viewport={'width':width,'height':844},is_mobile=width<600,has_touch=width<600)
    page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.on('dialog',lambda d:d.accept())

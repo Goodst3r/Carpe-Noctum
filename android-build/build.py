@@ -11,8 +11,8 @@ ORIGINAL_CERTIFICATE_SHA256 = 'a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d5
 SUPPLIED_013_CERTIFICATE_SHA256 = '7998433ff49dc46b1157f69c917fb9b7e93936a5845140f054f9488ad7519e5b'
 STANDARD_PACKAGE = 'com.spencerwilliams.nightsweep'
 PREVIEW_PACKAGE = STANDARD_PACKAGE + '.preview'
-VERSION_NAME = '1.8 Alpha build 2'
-VERSION_CODE = 24
+VERSION_NAME = '2.0 Alpha build 1'
+VERSION_CODE = 25
 
 
 def publish_release(candidate, destination):
@@ -101,12 +101,12 @@ def main():
             raise SystemExit('Standalone HTML differs from the frozen SHA-256; no APK was compiled or signed.')
     training_job_included = all(marker in asset.read_text() for marker in ['const TrainingJob=', "const marker='guided-1.5'", 'initTraining();'])
     if not training_job_included:
-        raise SystemExit('The 1.8 build 24 HTML must include the guided synthetic training job.')
+        raise SystemExit('The 2.0 build 25 HTML must include the guided synthetic training job.')
     sweep_setup_included = 'const SweepSetup=' in asset.read_text() or 'const SweepSetup =' in asset.read_text()
     if not sweep_setup_included:
-        raise SystemExit('The 1.8 HTML must include the guided sweep setup module.')
+        raise SystemExit('The 2.0 HTML must include the guided sweep setup module.')
     if 'NightSweep ' + VERSION_NAME not in asset.read_text():
-        raise SystemExit('Standalone HTML does not identify the intended 1.8 Alpha release.')
+        raise SystemExit('Standalone HTML does not identify the intended 2.0 Alpha release.')
     # Failed compilation or validation must not publish an APK or partial receipts,
     # and must leave the previous validated release available for rollback.
     with TemporaryDirectory(prefix='release-candidate-', dir=build) as candidate:
@@ -118,7 +118,7 @@ def main():
         def run(command, **kwargs):
             subprocess.run([str(value) for value in command], check=True, **kwargs)
         compiled = build / 'resources.zip'; unsigned = build / 'unsigned.apk'; aligned = build / 'aligned.apk'
-        apk = out / ('NightSweep-1.8-build2-' + ('preview' if args.preview else 'alpha') + ('-unsigned' if args.unsigned else '') + '.apk')
+        apk = out / ('NightSweep-2.0-build1-' + ('preview' if args.preview else 'alpha') + ('-unsigned' if args.unsigned else '') + '.apk')
         for path in [compiled, unsigned, aligned, apk]:
             path.unlink(missing_ok=True)
         classes = build / 'classes'; dex = build / 'dex'

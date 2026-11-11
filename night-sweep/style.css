@@ -145,3 +145,47 @@ html[data-theme=sun] .measured-gain{color:#255c31}
 .cascade-strip:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
 @media(max-width:600px){.cascade-strip{max-height:320px}}
 @media print{.cascade-strip{max-height:none;overflow:visible}}
+/* 2.0 Alpha design pass: compact Home tasks, icon theme toggle, info panels, point summary, plant picker. */
+.theme-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;margin:auto}
+.task-grid>button{min-height:0}
+.task-grid .task-number{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.04em}
+@media(max-width:600px){.task-grid>button{min-height:0;padding:12px;gap:4px}.task-grid>button strong{font-size:15px}.task-grid>button>span:last-child{font-size:12px;line-height:1.35}}
+.info-panel{margin:10px 0;border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.info-panel>summary{cursor:pointer;padding:10px 0;font-weight:600;color:var(--muted);list-style:none}
+.info-panel>summary::-webkit-details-marker{display:none}
+.info-panel>summary::before{content:"i";display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;border:1.5px solid currentColor;font:700 12px/1 Georgia,serif;font-style:italic}
+.info-panel[open]>summary{color:var(--ink)}
+.info-panel p{margin:0 0 10px}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;vertical-align:middle}
+.badge.predicted{background:rgba(214,163,72,.18);color:#d6a348;border:1px solid rgba(214,163,72,.45)}
+.badge.measured{background:rgba(82,190,140,.16);color:#52be8c;border:1px solid rgba(82,190,140,.45)}
+[data-theme="sun"] .badge.predicted{color:#7a5410;background:#fbefd6;border-color:#e2c27f}
+[data-theme="sun"] .badge.measured{color:#1d6b46;background:#e3f4ea;border-color:#9fd3b6}
+.point-summary{margin:12px 0;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.point-summary .ps-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.point-summary .ps-head span.note{margin:0}
+.point-summary table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.point-summary th,.point-summary td{padding:6px 4px;text-align:right;border-top:1px solid var(--line)}
+.point-summary thead th{border-top:0;font-size:12px;color:var(--muted);font-weight:600}
+.point-summary th[scope=row]{text-align:left;font-weight:500;color:var(--muted)}
+.point-summary td.key{font-size:17px;font-weight:700;color:var(--ink)}
+.point-summary .tilt{display:flex;justify-content:space-between;margin-top:8px;font-weight:600}
+.plant-picker{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--paper);color:var(--ink);max-width:420px;width:calc(100% - 32px)}
+.plant-picker::backdrop{background:rgba(0,0,0,.55)}
+.plant-picker h2{margin:0 0 6px;font-size:20px}
+.plant-picker .plant-choices{display:grid;gap:10px;margin:14px 0}
+.plant-picker .plant-choices button{text-align:left;padding:14px;min-height:64px;white-space:normal;line-height:1.35}
+.plant-picker .plant-choices button strong{display:block;font-size:17px}
+.plant-picker .plant-choices button span{font-size:13px;color:var(--muted)}
+.catalog-search{margin:10px 0 14px}
+.catalog-search input{width:100%}
+body[data-task="home"] #screenTitle p{display:none}
+body[data-task="home"] #screenTitle h2{font-size:26px;margin-bottom:4px}
+@media(max-width:600px){.home-current{padding:13px}.home-current h2{font-size:20px;margin:4px 0 2px}.home-current .status{margin:10px 0;padding:10px 12px}}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.route-math .point-summary{border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0;padding:12px 14px 10px}
+.point-summary th,.point-summary td,.point-summary thead th{background:transparent!important}
+.point-summary table{margin:0}
+.chart-settings{margin:10px 0;border:1px solid var(--line);border-radius:10px;padding:0 12px}.chart-settings>summary{cursor:pointer;padding:10px 0;font-weight:600}.chart-settings .chartcontrols{margin-bottom:12px}
+.status-common th:last-child,.status-common td:last-child{display:none}
+.catalogfilter .catalog-search-first{grid-column:1/-1}

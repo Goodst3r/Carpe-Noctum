@@ -41,7 +41,7 @@ const file=(name,contents,type='text/csv')=>{const bytes=typeof contents==='stri
  });
  const app=boot(fs.readFileSync('outputs/Night_Sweep.html','utf8'),'new15'),{w,d,ev,json,set}=app;
  await check('1.4 boots with all recovered 0.13 panels and golden self-check',()=>{
-  assert.deepEqual(app.errors,[]);assert.match(d.title,/1\.8/);
+  assert.deepEqual(app.errors,[]);assert.match(d.title,/2\.0/);
   for(const id of ['fieldWorkPanel','fieldReferencePanel','jobsPanel','evidencePanel','launchTestPoint','runSheetPanel'])assert(d.getElementById(id),id);
   assert.equal(w.NightSweep.selfCheck.ok,true);
  });
@@ -80,7 +80,7 @@ const file=(name,contents,type='text/csv')=>{const bytes=typeof contents==='stri
   assert.match(d.getElementById('runSheetFieldWork').textContent,/Rodent damage/);
  });
  await check('RF, power and run-sheet CSVs retain 0.13 work-order and field-work context',()=>{
-  for(const id of ['csv','powerCSV','runSheetCsv']){d.getElementById(id).click();const out=app.downloads.at(-1);assert.match(out.name,/1\.8/);assert.match(out.text,/WO-013-14/);assert.match(out.text,/Rodent damage/);}
+  for(const id of ['csv','powerCSV','runSheetCsv']){d.getElementById(id).click();const out=app.downloads.at(-1);assert.match(out.name,/2\.0/);assert.match(out.text,/WO-013-14/);assert.match(out.text,/Rodent damage/);}
  });
  let savedId,duplicateId;
  await check('Named-job duplicate/new/open retains recovered 0.13 records and original evidence',async()=>{
@@ -106,6 +106,6 @@ const file=(name,contents,type='text/csv')=>{const bytes=typeof contents==='stri
   d.getElementById('runSheetCsv').click();assert.match(app.downloads.at(-1).text,/"'=HYPERLINK\(1\)/);
  });
  await check('Both original and rebuilt apps complete integration without DOM runtime errors',()=>{assert.deepEqual(old.errors,[]);assert.deepEqual(app.errors,[]);});
- fs.writeFileSync('qa/upgrade01314-results.json',JSON.stringify({version:'1.8 Alpha build 2',source:'Supplied 0.13 APK assets/index.html generated the test backup at runtime',count:cases.length,cases,errors:app.errors,scope:'Synthetic DOM/IndexedDB migration tests; no physical Android or browser layout claim'},null,2)+'\n');
+ fs.writeFileSync('qa/upgrade01314-results.json',JSON.stringify({version:'2.0 Alpha build 1',source:'Supplied 0.13 APK assets/index.html generated the test backup at runtime',count:cases.length,cases,errors:app.errors,scope:'Synthetic DOM/IndexedDB migration tests; no physical Android or browser layout claim'},null,2)+'\n');
  console.log('0.13 to 1.5 upgrade: '+cases.length+' checks passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>instances.forEach(x=>x.window.close()));

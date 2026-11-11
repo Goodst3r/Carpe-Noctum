@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the offline 1.8 Alpha build 2 app with technician task navigation."""
+"""Build the offline 2.0 Alpha build 1 app with technician task navigation."""
 from pathlib import Path
 import subprocess
 root=Path(__file__).resolve().parent

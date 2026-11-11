@@ -2,10 +2,10 @@
 const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[]},
-  route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Equipment setup'],['parts','Equipment']]},
-  test:{label:'Test',tabs:[['sweepSetup','Sweep setup'],['tdr','TDR'],['sweep','Sweep'],['frequency','Frequency'],['readings','Readings'],['references','References']]},
+  route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog']]},
+  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Records'],['runsheet','Run sheet']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['records','Acceptance'],['runsheet','Run sheet']]}
  };
  const screens={
   home:['home','Choose your task','Start with a field task, or continue the working job below.'],
@@ -13,16 +13,16 @@ const WorkflowUI=(()=>{
   route:['route','Build the cable route','Work on one point at a time. Each point includes the cable leading to its equipment.'],
   gain:['route','Check amplifier gain','Choose an active on your route, enter its gain, then review both frequency margins.'],
   equipmentSetup:['route','Set up the installed equipment','Choose the launch or a route active, review its exact manual and save setup notes.'],
-  parts:['route','Look up equipment','Find the installed model and review its published gain or loss data.'],
+  parts:['route','Equipment catalog','Search by model or part number, then review its published gain or loss data.'],
   tdr:['test','Locate a TDR distance','Use the route you built to place a one-way meter distance on the correct span.'],
-  sweepSetup:['test','Set up forward and return','Follow your 42/54 or 204/258 MHz procedure, save settings and record each step.'],
-  sweep:['test','View the predicted sweep','Compare expected levels along the route. This graph is a calculation, not a meter trace.'],
+  sweepSetup:['test','Set up the meter','Follow your 42/54 or 204/258 MHz procedure, save settings and record each step.'],
+  sweep:['test','View predicted levels','Expected levels along the route. Calculated from your inputs, not a meter trace.'],
   frequency:['test','Check one cable / passive path','Calculate a separate path at a chosen frequency. This does not add points to the RF route.'],
   readings:['test','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   power:['power','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
-  projects:['job','Manage this job','Name the job, record its node and save a named copy on this device.'],
+  projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep Sweep, Ingress and OneCheck originals with this job.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
@@ -49,7 +49,7 @@ const WorkflowUI=(()=>{
   hidden(host,!groups[group].tabs.length||current==='help');
   host.innerHTML=groups[group].tabs.map(([id,label])=>`<button type="button" role="tab" id="task-tab-${id}" data-task="${id}" aria-selected="${id===current}" tabindex="${id===current?'0':'-1'}" aria-controls="${(visibleIds[id]||[]).join(' ')||'helpPanel'}">${label}</button>`).join('');
   all('[data-main-tab]').forEach(b=>{const active=b.dataset.mainTab===group;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
-  $('screenTitle').innerHTML=`<span class="eyebrow">${groups[group].label} · 1.8 ALPHA BUILD 2</span><h2 tabindex="-1">${screens[current][1]}</h2><p>${screens[current][2]}</p>`;
+  $('screenTitle').innerHTML=`<span class="eyebrow">${groups[group].label}</span><h2 tabindex="-1">${screens[current][1]}</h2><p>${screens[current][2]}</p>`;
   document.body.dataset.task=current;
  }
  function go(tab,options={}){

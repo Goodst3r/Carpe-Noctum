@@ -54,7 +54,7 @@ Thread(target=server.serve_forever, daemon=True).start()
 base = f'http://127.0.0.1:{server.server_port}'
 try:
     with sync_playwright() as p:
-        browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM', '/usr/bin/chromium'),
+        browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None,
                                     headless=True, args=['--no-sandbox'])
         version = browser.version
         for width, height in [(360, 800), (390, 844), (768, 1024), (1280, 900)]:
@@ -65,7 +65,7 @@ try:
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.goto(base + '/', wait_until='load')
             ready(page)
-            checked(f'{width}px loads current app', page.title() == 'NightSweep 1.8 Alpha build 2')
+            checked(f'{width}px loads current app', page.title() == 'NightSweep 2.0 Alpha build 1')
             page.screenshot(path=str(OUT / f'home-{width}.png'), full_page=True)
             no_overflow(page, f'{width}px Home')
             page.evaluate('TrainingJob.open("complete")')

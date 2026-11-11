@@ -1,7 +1,7 @@
 {
   "name": "nightsweep-field",
   "private": true,
-  "version": "1.7.0-alpha",
+  "version": "2.0.0-alpha.1",
   "scripts": {
     "dev": "python3 release/preview.py",
     "build": "python3 night-sweep/build.py && python3 build-pwa.py"

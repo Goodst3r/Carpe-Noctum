@@ -11,6 +11,7 @@ def snapshot():
 tested_build=snapshot()
 logs=root/'qa/pwa-testlogs';logs.mkdir(exist_ok=True)
 suites=[
+ ('2.0 Alpha design changes','v20-design.test.cjs',r'2\.0 design: (\d+) checks passed'),
  ('Build 2 TDR active-boundary regressions','build2-tdr-boundaries.test.cjs',r'Build2 TDR boundaries: (\d+) checks passed'),
  ('Build 2 RF and records property backtests','build2-rf-properties.test.cjs',r'Build2 RF properties: (\d+) checks passed'),
  ('Build 2 all seven examples frequency replay','build2-example-math.test.cjs',r'Build2 example math: (\d+) checks passed'),
