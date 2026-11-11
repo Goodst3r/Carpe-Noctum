@@ -3549,6 +3549,7 @@ const WorkflowUI=(()=>{
   if(tab==='equipmentSetup'&&typeof EquipmentSetup!=='undefined')EquipmentSetup.render();
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();
   if(tab==='limits'&&typeof Thresholds!=='undefined')Thresholds.renderLimits();
+  if(tab==='docsisHealth'&&typeof DocsisHealthUI!=='undefined')DocsisHealthUI.refresh();
   if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
   renderNav();apply();
   document.querySelector('.filemenu').open=false;
@@ -4177,17 +4178,17 @@ const Thresholds=(()=>{
    source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification, Transmit Power Requirements',revision:'PHYv3.1 I20 (April 19, 2023); the same 65 dBmV statement appears in issue I08',locator:'Section 7.4.12.2 Transmit Power Requirements (p. 72) and 7.4.12.2.1 (p. 74, the 65 dBmV default when the CMTS returns no Pmax capability); section 7.4.12.3.1 (definition of Pmax, p. 76); item 1 under Table 5 (section 6.2.24, p. 41) and Table 16 (section 7.4.13, p. 85)',
    conditions:'A DOCSIS 3.1 modem working with a DOCSIS 3.1 CMTS. A minimum capability, not a limit on what the modem sends and not a target. A modem may support a higher Pmax and reports it in a capability message; the specification applies the 65 dBmV default when the CMTS does not return a Pmax capability. It applies to the total across the transmit channel set. A DOCSIS 3.0 modem, or a 3.1 modem on a 3.0 CMTS, follows the 3.0 per-channel limits (PHYv3.0 C01 section 6.2.24), which depend on channel type and count and are not used here. In 3.1 operation the specification reports per-channel power normalized to 1.6 MHz, so a 6.4 MHz SC-QAM channel’s actual power is about 6 dB above its reported value (I20 section 7.4.12.2.1); a modem page or meter may use a different convention.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
   {id:'company.docsis.scqam',label:'company',name:'Your window, downstream SC-QAM level',kind:'target',units:'dBmV',store:'docsis',field:'scqam',
-   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
-   conditions:'Your own limits for one 6 MHz SC-QAM channel at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only, separately for each plant; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for one 6 MHz SC-QAM channel at the modem input. Starts blank (unknown) for each plant, 42/54 and 204/258 MHz, which are kept separately. Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
   {id:'company.docsis.ofdm',label:'company',name:'Your window, downstream OFDM level',kind:'target',units:'dBmV per 6 MHz',store:'docsis',field:'ofdm',
-   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
-   conditions:'Your own limits for OFDM power restated per 6 MHz at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only, separately for each plant; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for OFDM power restated per 6 MHz at the modem input. Starts blank (unknown) for each plant, 42/54 and 204/258 MHz, which are kept separately. Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
   {id:'company.docsis.total',label:'company',name:'Your window, total downstream input power',kind:'target',units:'dBmV',store:'docsis',field:'total',
-   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
-   conditions:'Your own limits for total power at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only, separately for each plant; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for total power at the modem input. Starts blank (unknown) for each plant, 42/54 and 204/258 MHz, which are kept separately. Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
   {id:'company.docsis.upstream',label:'company',name:'Your window, total upstream transmit power',kind:'target',units:'dBmV',store:'docsis',field:'upstream',
-   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
-   conditions:'Your own limits for the modem’s total transmit power. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only, separately for each plant; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for the modem’s total transmit power. Starts blank (unknown) for each plant, 42/54 and 204/258 MHz, which are kept separately. Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
   {id:'leak.fcc.analog.far',label:'spec',name:'Analog signal leakage limit, 54 MHz and below, and over 216 MHz',kind:'limit',units:'µV/m at 30 m',rangeText:'15 µV/m at 30 m',
    source:'47 CFR 76.605(c), Table 1 to paragraph (c), Technical standards (Federal Communications Commission)',revision:'eCFR text read November 11, 2026; section last amended 83 FR 7627 (February 22, 2018)',locator:'§ 76.605(c), Table 1: row “Analog signals less than and including 54 MHz, and over 216 MHz”',
    conditions:'Leakage is measured by the procedures in § 76.609(h) and limited as the table shows, whatever signals the system carries. The table limits the field strength a cable system may produce. Separately, § 76.614 expects an operator carrying signals in the aeronautical bands to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m there (see the aeronautical-band row). Your company’s own repair threshold is its own addition and starts unknown.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Leakage'},
@@ -4709,6 +4710,10 @@ const DocsisHealth=(()=>{
  const PMAX_MIN=65;                                       // lowest allowed maximum total transmit power
  const READING_BOUNDS=Object.freeze({min:-100,max:150});
  const MEASUREMENTS=Object.freeze(['scqam','ofdm','total','upstream']);
+ /* Company windows are kept apart for the two plants: a window entered for the 42/54 MHz plant is
+    never applied to the 204/258 MHz plant, and an untouched plant stays unknown. */
+ const PLANTS=Object.freeze(['42','204']);
+ const PLANT_NAMES=Object.freeze({'42':'42/54 MHz','204':'204/258 MHz'});
  const fail=error=>({ok:false,error});
  const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
  const num=x=>{
@@ -4817,8 +4822,11 @@ const DocsisHealth=(()=>{
   const toLo=lo===null?Infinity:Math.max(0,reading-lo),toHi=hi===null?Infinity:Math.max(0,hi-reading);
   return {status:'inside',margin:Math.min(toLo,toHi),min:lo,max:hi};
  }
- /* Windows are kept on this device only, in one versioned key, and never in a job or backup. */
- const emptyWindows=()=>Object.fromEntries(MEASUREMENTS.map(id=>[id,{min:null,max:null}]));
+ /* Windows are kept on this device only, in one versioned key, and never in a job or backup.
+    Shape: {version:1,plants:{'42':{scqam:{min,max},…},'204':{…}}}. (Only development builds ever stored
+    a single set for both plants; that shape is not read.) */
+ const emptyPlant=()=>Object.fromEntries(MEASUREMENTS.map(id=>[id,{min:null,max:null}]));
+ const emptyWindows=()=>Object.fromEntries(PLANTS.map(plant=>[plant,emptyPlant()]));
  let windows=emptyWindows(),loaded=false;
  /* Windows load from this device the first time they are needed. */
  function ensureLoaded(){
@@ -4830,32 +4838,38 @@ const DocsisHealth=(()=>{
   try{
    const raw=storage?.getItem(STORAGE_KEY);if(!raw)return fresh;
    const saved=JSON.parse(raw);
-   if(!saved||saved.version!==1||typeof saved.windows!=='object'||saved.windows===null)return fresh;
-   for(const id of MEASUREMENTS){
-    const w=saved.windows[id];if(!w||typeof w!=='object')continue;
-    const parsed=parseWindow(w.min,w.max);
-    if(parsed.ok)fresh[id]={min:parsed.min,max:parsed.max};
+   if(!saved||saved.version!==1||typeof saved.plants!=='object'||saved.plants===null)return fresh;
+   for(const plant of PLANTS){
+    const set=has(saved.plants,plant)?saved.plants[plant]:null;if(!set||typeof set!=='object')continue;
+    for(const id of MEASUREMENTS){
+     const w=has(set,id)?set[id]:null;if(!w||typeof w!=='object')continue;
+     const parsed=parseWindow(w.min,w.max);
+     if(parsed.ok)fresh[plant][id]={min:parsed.min,max:parsed.max};
+    }
    }
   }catch(_){return emptyWindows();}
   return fresh;
  }
  function loadWindows(storage){loaded=true;windows=readStored(storage);return windows;}
- function getWindow(id){ensureLoaded();return typeof id==='string'&&has(windows,id)?windows[id]:{min:null,max:null};}
+ /* The plant is the job's plant: '42' (42/54 MHz) or '204' (204/258 MHz). Anything else, or no plant,
+    has no window (unknown). */
+ function getWindow(id,plant){ensureLoaded();return PLANTS.includes(plant)&&MEASUREMENTS.includes(id)?windows[plant][id]:{min:null,max:null};}
  /* Returns {ok,saved}: ok false means the entry was rejected; saved false means this
     browser would not store it, so it lasts until the page closes. */
- function setWindow(id,min,max,storage){
+ function setWindow(id,min,max,storage,plant){
   if(!MEASUREMENTS.includes(id))return fail('Unknown measurement.');
+  if(!PLANTS.includes(plant))return fail('Choose the plant (42/54 MHz or 204/258 MHz) in Test → Meter setup first. Company windows are kept separately for each plant.');
   const parsed=parseWindow(min,max);if(!parsed.ok)return parsed;
   ensureLoaded();
   let base=windows;
   try{if(storage&&storage.getItem(STORAGE_KEY)!==null)base=readStored(storage);}catch(_){}
-  windows={...base,[id]:{min:parsed.min,max:parsed.max}};
+  windows={...base,[plant]:{...base[plant],[id]:{min:parsed.min,max:parsed.max}}};
   let saved=true;
   try{
    if(!storage)throw new Error('no storage');
-   storage.setItem(STORAGE_KEY,JSON.stringify({version:1,windows}));
+   storage.setItem(STORAGE_KEY,JSON.stringify({version:1,plants:windows}));
   }catch(_){saved=false;}
-  return {ok:true,saved,window:windows[id]};
+  return {ok:true,saved,window:windows[plant][id]};
  }
  function clearWindows(storage){
   loaded=true;windows=emptyWindows();
@@ -4863,15 +4877,18 @@ const DocsisHealth=(()=>{
   return true;
  }
  /* Value text for the registry's company rows. */
- function registryValue(id){
-  const w=getWindow(id);
-  if(w.min===null&&w.max===null)return {value:null,text:'Unknown — not entered',where:'Saved on this device only'};
+ function windowText(id,plant){
+  const w=getWindow(id,plant);
+  if(w.min===null&&w.max===null)return 'Unknown — not entered';
   const bit=v=>{const n=Number(Math.abs(v).toFixed(2));return (v>0?'+':v<0&&n!==0?'−':'')+n;};
   const unit=id==='ofdm'?' dBmV per 6 MHz':' dBmV';
-  const text=w.min!==null&&w.max!==null?bit(w.min)+' to '+bit(w.max)+unit:w.min!==null?'at least '+bit(w.min)+unit:'at most '+bit(w.max)+unit;
-  return {value:w.min??w.max,text,where:'Saved on this device only'};
+  return w.min!==null&&w.max!==null?bit(w.min)+' to '+bit(w.max)+unit:w.min!==null?'at least '+bit(w.min)+unit:'at most '+bit(w.max)+unit;
  }
- return {STORAGE_KEY,MEASUREMENTS,SCQAM_RANGE,OFDM_PER6,OFDM_PER24,TOTAL_LIMIT,PMAX_MIN,evaluate,scqam,ofdm,total,upstream,parseWindow,againstWindow,loadWindows,getWindow,setWindow,clearWindows,registryValue};
+ /* One entry for each plant, so the two are never shown as one value. */
+ function registryValue(id){
+  return {value:null,text:PLANTS.map(plant=>PLANT_NAMES[plant]+' plant: '+windowText(id,plant)).join(' · '),where:'Saved on this device only, separately for each plant'};
+ }
+ return {STORAGE_KEY,MEASUREMENTS,PLANTS,PLANT_NAMES,windowText,SCQAM_RANGE,OFDM_PER6,OFDM_PER24,TOTAL_LIMIT,PMAX_MIN,evaluate,scqam,ofdm,total,upstream,parseWindow,againstWindow,loadWindows,getWindow,setWindow,clearWindows,registryValue};
 })();
 
 const DocsisHealthUI=(()=>{
@@ -4902,7 +4919,7 @@ const DocsisHealthUI=(()=>{
  function windowBox(id){
   const c=CARDS[id];
   const unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
-  return `<details class="health-window" data-health-window-box="${id}"><summary>Company window (your target)</summary><p class="note tight">Your own limits for this reading, in ${unit}. Leave a box blank if you have no limit on that side; blank is unknown, not zero. Kept on this device for every job and both plants, and not in job backups. ${tag(c.company,c.title+' company window')}</p><div class="calc-fields"><label>Lowest (${unit})<input type="number" step="any" data-health-window="${id}" data-field="min"></label><label>Highest (${unit})<input type="number" step="any" data-health-window="${id}" data-field="max"></label></div><p class="note" id="health-${id}-window-note" role="status" aria-live="polite"></p></details>`;
+  return `<details class="health-window" data-health-window-box="${id}"><summary>Company window (your target) <span class="health-plant" data-health-plant></span></summary><p class="note tight">Your own limits for this reading, in ${unit}. Leave a box blank if you have no limit on that side; blank is unknown, not zero. Kept on this device for the plant shown above (each plant has its own), and not in job backups. ${tag(c.company,c.title+' company window')}</p><div class="calc-fields"><label>Lowest (${unit})<input type="number" step="any" data-health-window="${id}" data-field="min"></label><label>Highest (${unit})<input type="number" step="any" data-health-window="${id}" data-field="max"></label></div><p class="note" id="health-${id}-window-note" role="status" aria-live="polite"></p></details>`;
  }
  function card(id){
   const c=CARDS[id];
@@ -4912,7 +4929,18 @@ const DocsisHealthUI=(()=>{
   return `<div class="sectionhead"><div><h2>DOCSIS health</h2><p class="note tight">Check a reading you already have against the DOCSIS modem requirements and your own window. Nothing is read from a modem or meter. The spec range is what a modem must accept, not a target: inside it does not mean the link is healthy, because error rate and MER are separate.</p></div><button type="button" id="healthClear">Clear company windows</button></div><p class="note" id="healthNote" role="status" aria-live="polite"></p><div class="calc-grid">${MEASUREMENTS_ORDER.map(card).join('')}</div>`;
  }
  const MEASUREMENTS_ORDER=['scqam','ofdm','total','upstream'];
- function read(id){const v={};document.querySelectorAll(`[data-health="${id}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but
+    is marked badInput. It must not read as a blank: a blank can mean "use the default" or "clear
+    the setting". Such a box is passed on as text that is not a number, so the entry is refused with
+    its reason and nothing saved is touched. */
+ const NOT_A_NUMBER='not a number';
+ const typed=el=>el.validity&&el.validity.badInput?NOT_A_NUMBER:el.value;
+ function read(id){const v={};document.querySelectorAll(`[data-health="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});return v;}
+ /* The plant comes from the job: Test → Meter setup keeps one choice, 42/54 or 204/258 MHz. */
+ function plantNow(){
+  try{const p=typeof SweepSetup!=='undefined'?SweepSetup.draft().selected:null;return DocsisHealth.PLANTS.includes(p)?p:null;}catch(_){return null;}
+ }
+ let shownPlant=null;
  function specRows(id,r){
   const c=CARDS[id];
   if(id==='scqam')return `<div class="health-row"><span>Spec range ${tag(c.spec,'SC-QAM spec range')}</span><strong>${level(r.low)} to ${level(r.high)} <small>dBmV per 6 MHz</small></strong></div>`;
@@ -4940,10 +4968,10 @@ const DocsisHealthUI=(()=>{
   return `<p class="health-status warn">⚠ ${dB(r.margin)} ${r.status} the ${range}.</p>`;
  }
  function companyRows(id,r){
-  const c=CARDS[id],w=DocsisHealth.getWindow(id),res=DocsisHealth.againstWindow(r.compare,w);
+  const c=CARDS[id],w=DocsisHealth.getWindow(id,plantNow()),res=DocsisHealth.againstWindow(r.compare,w);
   const unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
   const head=`<span>Company window ${tag(c.company,c.title+' company window')}</span>`;
-  if(res.status==='unknown')return `<div class="health-row">${head}<strong>Unknown — not entered</strong></div><p class="note tight">Enter your target in the company window box below to compare.</p>`;
+  if(res.status==='unknown')return `<div class="health-row">${head}<strong>Unknown — not entered${plantNow()?' for the '+DocsisHealth.PLANT_NAMES[plantNow()]+' plant':''}</strong></div><p class="note tight">${plantNow()?'Enter your target in the company window box below to compare.':'Choose the plant in Test → Meter setup, then enter your target in the company window box below.'}</p>`;
   const range=res.min!==null&&res.max!==null?`${level(res.min)} to ${level(res.max)}`:res.min!==null?`at least ${level(res.min)}`:`at most ${level(res.max)}`;
   const line=res.status==='inside'?`<p class="health-status ok">✓ Inside your window${Number.isFinite(res.margin)?`, ${dB(res.margin)} from the nearest edge`:''}.</p>`:`<p class="health-status warn">⚠ ${dB(res.margin)} ${res.status} your window.</p>`;
   const extra=id==='ofdm'?` (reading restated: ${level(r.compare)} dBmV per 6 MHz)`:'';
@@ -4966,19 +4994,31 @@ const DocsisHealthUI=(()=>{
  }
  function storage(){try{return window.localStorage;}catch(_){return null;}}
  function syncWindowFields(){
+  shownPlant=plantNow();
   for(const id of DocsisHealth.MEASUREMENTS){
-   const w=DocsisHealth.getWindow(id);
-   document.querySelectorAll(`[data-health-window="${id}"]`).forEach(el=>{el.value=w[el.dataset.field]===null?'':String(w[el.dataset.field]);});
+   const w=DocsisHealth.getWindow(id,shownPlant);
+   document.querySelectorAll(`[data-health-window="${id}"]`).forEach(el=>{el.value=w[el.dataset.field]===null?'':String(w[el.dataset.field]);el.disabled=shownPlant===null;});
   }
+  document.querySelectorAll('[data-health-plant]').forEach(el=>{el.textContent=shownPlant?'· '+DocsisHealth.PLANT_NAMES[shownPlant]+' plant':'· choose the plant first';});
+ }
+ /* The job's plant can change while this screen is closed (Test → Meter setup, a new or opened job). */
+ function refresh(){
+  if(!document.getElementById('docsisHealthPanel')?.firstChild)return;
+  syncWindowFields();DocsisHealth.MEASUREMENTS.forEach(id=>{note(id,'',false);update(id);});
  }
  function note(id,text,error){const el=document.getElementById('health-'+id+'-window-note');if(el){el.textContent=text;el.classList.toggle('error',!!error);}}
  function commitWindow(id){
-  const min=document.querySelector(`[data-health-window="${id}"][data-field="min"]`)?.value??'',max=document.querySelector(`[data-health-window="${id}"][data-field="max"]`)?.value??'';
-  const res=DocsisHealth.setWindow(id,min,max,storage());
+  const plant=plantNow();
+  if(plant!==shownPlant){refresh();note(id,'The plant changed, so the windows were reloaded for the '+(plant?DocsisHealth.PLANT_NAMES[plant]+' plant':'job’s plant')+'. Enter it again.',true);return;}
+  const box=field=>{const el=document.querySelector(`[data-health-window="${id}"][data-field="${field}"]`);return el?typed(el):'';};
+  const res=DocsisHealth.setWindow(id,box('min'),box('max'),storage(),plant);
   if(!res.ok){
-   const w=DocsisHealth.getWindow(id),unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
+   const w=DocsisHealth.getWindow(id,plant),unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
    const inUse=w.min===null&&w.max===null?'no window':(w.min!==null&&w.max!==null?`${level(w.min)} to ${level(w.max)}`:w.min!==null?`at least ${level(w.min)}`:`at most ${level(w.max)}`)+' '+unit;
-   note(id,'Not saved. '+res.error+' Still using '+inUse+'.',true);return;
+   note(id,'Not saved. '+res.error+' Still using '+inUse+'.',true);
+   /* A box holding text that is not a number looks empty. Put the saved value back, so what the box shows is what is in use. */
+   for(const field of ['min','max']){const el=document.querySelector(`[data-health-window="${id}"][data-field="${field}"]`);if(el&&typed(el)===NOT_A_NUMBER)el.value=w[field]===null?'':String(w[field]);}
+   return;
   }
   note(id,res.saved?'Saved on this device. It is not part of a job backup.':'This browser would not save it, so it lasts until you close the page.',!res.saved);
   update(id);
@@ -4991,13 +5031,14 @@ const DocsisHealthUI=(()=>{
   panel.innerHTML=markup();syncWindowFields();
   const onEdit=event=>{
    const t=event.target;if(!panel.contains(t))return;
+   if(plantNow()!==shownPlant&&t.dataset.health)syncWindowFields();
    if(t.dataset.health)update(t.dataset.health);
    else if(t.dataset.healthWindow&&event.type==='change')commitWindow(t.dataset.healthWindow);
   };
   panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
   panel.addEventListener('click',event=>{
    if(event.target.id!=='healthClear')return;
-   if(typeof confirm==='function'&&!confirm('Clear all four company windows on this device?'))return;
+   if(typeof confirm==='function'&&!confirm('Clear all company windows, for both plants, on this device?'))return;
    const cleared=DocsisHealth.clearWindows(storage());syncWindowFields();
    DocsisHealth.MEASUREMENTS.forEach(id=>{note(id,'',false);update(id);});
    const status=document.getElementById('healthNote');
@@ -5005,7 +5046,7 @@ const DocsisHealthUI=(()=>{
   });
   DocsisHealth.MEASUREMENTS.forEach(update);
  }
- return {init,markup,update,CARDS};
+ return {init,markup,update,refresh,CARDS};
 })();
 </script>
 <script>/* Leakage tools (build list item 7, 2.0 Alpha build 3): the FCC leakage limits, a distance
@@ -5420,7 +5461,12 @@ const LeakageUI=(()=>{
  function markup(){
   return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
  }
- function read(id){const v={};document.querySelectorAll(`[data-leak="${id}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but is
+    marked badInput. It must not read as a blank: a blank can mean "not given" or "clear the setting".
+    Such a box is passed on as text that is not a number, so the entry is refused with its reason. */
+ const NOT_A_NUMBER='not a number';
+ const typed=el=>el.validity&&el.validity.badInput?NOT_A_NUMBER:el.value;
+ function read(id){const v={};document.querySelectorAll(`[data-leak="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});return v;}
  const blank=(v,keys)=>keys.every(k=>String(v[k]??'').trim()==='');
  function out(id,r,html){
   const el=document.getElementById('leak-'+id+'-result');if(!el)return;
@@ -5532,12 +5578,13 @@ const LeakageUI=(()=>{
   Leakage.load(storage());
   panel.innerHTML=markup();syncCompanyFields();
   const foundField=panel.querySelector('[data-leak="log"][data-field="found"]');if(foundField)foundField.value=today();
+  const checkDate=panel.querySelector('[data-leak="detector"][data-field="date"]');if(checkDate)checkDate.value=today();
   const upd={limit:updateLimit,normalize:updateNormalize,cli:updateCli,detector:updateDetector};
   const onEdit=event=>{
    const t=event.target;if(!panel.contains(t))return;
    if(t.dataset.leak&&upd[t.dataset.leak])upd[t.dataset.leak]();
    else if(t.dataset.leakCompany&&event.type==='change'){
-    const r=t.dataset.leakCompany==='repair'?Leakage.setCompany(t.value,undefined,storage()):Leakage.setCompany(undefined,t.value,storage());
+    const r=t.dataset.leakCompany==='repair'?Leakage.setCompany(typed(t),undefined,storage()):Leakage.setCompany(undefined,typed(t),storage());
     if(!r.ok){const c=currentCompany();note('leak-company-note','Not saved. '+r.error+' Still using repair threshold '+(c.repair===null?'unknown':shortValue(c.repair)+' µV/m')+' and tolerance '+(c.tolerance===null?'unknown':shortValue(c.tolerance)+' dB')+'.',true);syncCompanyFields();return;}
     note('leak-company-note',savedText(r),!r.saved);updateDetector();renderLists();
    }
@@ -5563,12 +5610,13 @@ const LeakageUI=(()=>{
     note('leak-log-note',ok?'Cleared on this device.':'This browser would not remove the saved data, so it may return when the page reloads.',!ok);
    }else if(b.id==='leakCheckSave'){
     const v=read('detector');
-    const r=Leakage.addCheck({date:v.date||today(),method:v.method,expected:v.expected,read:v.read},storage());
+    const r=Leakage.addCheck({date:v.date,method:v.method,expected:v.expected,read:v.read},storage());   /* the date box starts as today; a blank or invalid date is refused, never replaced */
     if(!r.ok){out('detector',r);return;}
+    const dateBox=panel.querySelector('[data-leak="detector"][data-field="date"]');if(dateBox)dateBox.value=today();
     renderLists();updateDetector();note('leak-detector-note','Check saved. '+savedText(r),!r.saved);
    }else if(b.dataset.leakMark){
     const input=[...panel.querySelectorAll('[data-leak-repair]')].find(el=>el.dataset.leakRepair===b.dataset.leakMark);
-    const r=Leakage.markRepaired(b.dataset.leakMark,input?.value||today(),storage());
+    const r=Leakage.markRepaired(b.dataset.leakMark,input?input.value:'',storage());   /* the box starts as today; a blank or invalid date is refused, never replaced */
     if(!r.ok){note('leak-log-note',r.error,true);return;}
     note('leak-log-note','Marked repaired. '+savedText(r),!r.saved);renderLists();
    }else if(b.dataset.leakReopen){
@@ -6005,6 +6053,6 @@ const Outage=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"b211822c647d680b8b24","worker":"sw.b211822c647d680b8b24.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"b1304bfe334d98cb8a71","worker":"sw.b1304bfe334d98cb8a71.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

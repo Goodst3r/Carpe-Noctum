@@ -525,6 +525,57 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     assert.deepEqual(x.errors, []); x.close();
   });
 
+  await check('A blank or invalid date is refused and the record is left as it was: no check or repair date is made up, the date boxes start as today', async () => {
+    const t = boot(); await flush(); await goto(t, 'leakage');
+    const today = t.ev('(()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})()');
+    assert.equal(t.d.querySelector('[data-leak="detector"][data-field="date"]').value, today, 'the check date is visibly prefilled');
+    set(t, '[data-leak="detector"][data-field="method"]', 'direct', 'change'); set(t, '[data-leak="detector"][data-field="expected"]', '20'); set(t, '[data-leak="detector"][data-field="read"]', '22');
+    set(t, '[data-leak="detector"][data-field="date"]', '');
+    click(t, '#leakCheckSave');
+    assert.match(words(t.d.getElementById('leak-detector-result')), /Enter the date of the detector check/, 'a blank check date is refused with its reason');
+    assert.equal(t.json('Leakage.snapshot().checks.length'), 0, 'no check was appended');
+    assert.equal(t.w.localStorage.getItem(KEY), null, 'nothing was stored');
+    set(t, '[data-leak="detector"][data-field="date"]', '2026-11-09'); click(t, '#leakCheckSave');
+    assert.notEqual(today, '2026-11-09', 'the chosen date differs from today, so a fallback to today would show');
+    assert.equal(t.json('Leakage.snapshot().checks[0].date'), '2026-11-09', 'the date that was chosen is the date kept');
+    assert.equal(t.d.querySelector('[data-leak="detector"][data-field="date"]').value, today, 'after saving, the date box is prefilled again');
+    // Mark repaired with the prefilled date cleared
+    set(t, '[data-leak="log"][data-field="found"]', '2026-11-10'); set(t, '[data-leak="log"][data-field="location"]', 'Pole 14 at Elm and 3rd'); click(t, '#leakAdd');
+    const id = JSON.parse(t.w.localStorage.getItem(KEY)).leaks[0].id;
+    set(t, `[data-leak-repair="${id}"]`, ''); click(t, `[data-leak-mark="${id}"]`);
+    assert.match(t.d.getElementById('leak-log-note').textContent, /Enter the repair date/);
+    assert.equal(JSON.parse(t.w.localStorage.getItem(KEY)).leaks[0].repaired, '', 'the leak stays open');
+    assert.match(words(t.d.getElementById('leakList')), /1 in the log · 1 open/);
+    assert.deepEqual(t.errors, []); t.close();
+  });
+
+  await check('A number box that holds text which is not a number is refused, never read as a blank: a saved company setting stays, and an optional log field is not read as not given', async () => {
+    const t = boot(); await flush(); await goto(t, 'leakage');
+    // jsdom cannot type into a number box, so the state a lone minus sign produces (empty value, badInput) is stated directly; qa/build3-layout.test.py types it in real Chromium.
+    const bad = sel => { const el = t.d.querySelector(sel); Object.defineProperty(el, 'validity', { value: { badInput: true }, configurable: true }); el.value = ''; return el; };
+    set(t, '[data-leak-company="repair"]', '25', 'change'); set(t, '[data-leak-company="tolerance"]', '1', 'change');
+    const box = bad('[data-leak-company="repair"]'); box.dispatchEvent(new t.w.Event('change', { bubbles: true }));
+    assert.match(t.d.getElementById('leak-company-note').textContent, /Not saved\. .*Still using repair threshold 25 µV\/m and tolerance 1 dB/);
+    assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).company, { repair: 25, tolerance: 1 }, 'the saved settings are kept');
+    assert.equal(box.value, '25', 'the box shows the value still in use');
+    const tol = bad('[data-leak-company="tolerance"]'); tol.dispatchEvent(new t.w.Event('change', { bubbles: true }));
+    assert.equal(JSON.parse(t.w.localStorage.getItem(KEY)).company.tolerance, 1, 'the tolerance is kept as well');
+    Object.defineProperty(tol, 'validity', { value: { badInput: false }, configurable: true });
+    tol.value = ''; tol.dispatchEvent(new t.w.Event('change', { bubbles: true }));
+    assert.equal(JSON.parse(t.w.localStorage.getItem(KEY)).company.tolerance, null, 'a genuinely empty box still clears one setting');
+    assert.equal(JSON.parse(t.w.localStorage.getItem(KEY)).company.repair, 25, 'and leaves the other alone');
+    // an optional log field: a malformed distance is not "no distance"
+    set(t, '[data-leak="log"][data-field="found"]', '2026-11-10'); set(t, '[data-leak="log"][data-field="location"]', 'Tap 9'); set(t, '[data-leak="log"][data-field="field"]', '40');
+    bad('[data-leak="log"][data-field="distance"]'); click(t, '#leakAdd');
+    assert.match(t.d.getElementById('leak-log-note').textContent, /distance/i, 'the malformed distance is refused with a reason');
+    assert.equal(t.json('Leakage.snapshot().leaks.length'), 0, 'nothing was added');
+    // the limit card: a malformed frequency is not "frequency not given"
+    set(t, '[data-leak="limit"][data-field="field"]', '10'); set(t, '[data-leak="limit"][data-field="distance"]', '30');
+    bad('[data-leak="limit"][data-field="frequency"]').dispatchEvent(new t.w.Event('input', { bubbles: true }));
+    assert.doesNotMatch(result(t, 'limit'), /within|over/, 'no verdict from a malformed frequency');
+    assert.deepEqual(t.errors, []); t.close();
+  });
+
   await check('The module is bundled once, loads without script errors and the built-in self-check still passes', () => {
     assert.equal(h.ev('typeof Leakage'), 'object'); assert.equal(h.ev('typeof LeakageUI'), 'object');
     assert.equal((html.match(/const Leakage=\(\(\)=>/g) || []).length, 1);
