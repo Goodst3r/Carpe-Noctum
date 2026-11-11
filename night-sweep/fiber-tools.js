@@ -19,7 +19,7 @@ const FiberTools=(()=>{
  /* ---- TIA-598 color code: twelve colors for fibers and for buffer tubes, in this order ---- */
  function tubeMarking(tube){
   if(tube<=PER_TUBE)return {marked:false,text:'plain color'};
-  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is black, so it takes a yellow stripe':'the color sequence repeats with a stripe or dashes'};
+  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is the black position, and makers mark the repeat differently (a white tracer in one maker\'s note, a yellow stripe in another\'s)':'the color sequence repeats with a stripe or dashes'};
  }
  /* Where is fiber n, counting from 1 across the whole cable with 12 fibers in each tube? */
  function locate(fiber){
@@ -86,17 +86,30 @@ const FiberToolsUI=(()=>{
  const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
  const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
  const field=(card,name,label,hint,extra='')=>`<label>${label}<input type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}></label>`;
- function read(card){const v={};document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
+    dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
+ function boxName(el){const label=el.closest('label'),text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function read(card){
+  const v={},bad=[];
+  document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
+   v[el.dataset.field]=el.value;
+   if(el.validity&&el.validity.badInput===true){bad.push(boxName(el));el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+  });
+  Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
+  return v;
+ }
+ const unfinished=bad=>({ok:false,error:'Not calculated. The '+bad.join(' and the ')+' box'+(bad.length>1?'es hold':' holds')+' an unfinished entry (for example just a minus sign). Finish the number, or clear the box.'});
  function out(id,r,html){
   const el=document.getElementById('fiber-'+id+'-result');if(!el)return;
   el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
-  el.innerHTML=r?.ok?html:`<p class="note">${escape(r?.error??'Enter values to see the result.')}</p>`;
+  el.innerHTML=r?.ok?html:`<p class="note"${r&&!r.ok&&r.error&&/^Not calculated/.test(r.error)?' role="alert"':''}>${escape(r?.error??'Enter values to see the result.')}</p>`;
  }
  function colorTable(){
   return `<div class="table-scroll" tabindex="0" role="region" aria-label="TIA-598 colors"><table class="leak-table"><thead><tr><th scope="col">Position</th><th scope="col">Color</th><th scope="col">Position</th><th scope="col">Color</th></tr></thead><tbody>${[0,1,2,3,4,5].map(i=>`<tr><td>${i+1}</td><td>${swatch(FiberTools.COLORS[i])}${FiberTools.COLORS[i]}</td><td>${i+7}</td><td>${swatch(FiberTools.COLORS[i+6])}${FiberTools.COLORS[i+6]}</td></tr>`).join('')}</tbody></table></div>`;
  }
  function updateFinder(){
   const v=read('finder');
+  if(v.__bad.length)return out('finder',unfinished(v.__bad));
   if(String(v.fiber??'').trim()===''&&String(v.tube??'').trim()===''&&String(v.position??'').trim()==='')return out('finder',{ok:false,error:null});
   const byTube=String(v.fiber??'').trim()==='';
   const r=byTube?FiberTools.fromTube(v.tube,v.position):FiberTools.locate(v.fiber);
@@ -106,6 +119,7 @@ const FiberToolsUI=(()=>{
  const STANDARD=Object.freeze({connector:'fiber.tia.connector',splice:'fiber.tia.splice',osp:'fiber.tia.sm.osp',isp:'fiber.tia.sm.isp'});
  function updateBudget(){
   const v=read('budget');
+  if(v.__bad.length)return out('budget',unfinished(v.__bad));
   if(Object.values(v).every(x=>String(x??'').trim()===''))return out('budget',{ok:false,error:null});
   const r=FiberTools.budget(v);
   if(!r.ok)return out('budget',r);
@@ -128,7 +142,7 @@ const FiberToolsUI=(()=>{
   panel.innerHTML=markup();
   const upd={finder:updateFinder,budget:updateBudget};
   const onEdit=event=>{const t=event.target;if(panel.contains(t)&&t.dataset.fiber&&upd[t.dataset.fiber])upd[t.dataset.fiber]();};
-  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);panel.addEventListener('focusout',onEdit);   /* leaving a half-filled box from empty sends no change */
   panel.addEventListener('click',event=>{
    const b=event.target.closest('button[data-fiber-fill]');if(!b||!panel.contains(b))return;
    const value=id=>typeof Thresholds!=='undefined'?Thresholds.get(id)?.value:undefined;

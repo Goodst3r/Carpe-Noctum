@@ -74,6 +74,16 @@ function numbersIn(text) {
     assert.equal(h.d.querySelectorAll('#popPanel input,#popPanel textarea,#popPanel select').length, 0, 'no input to type into');
   });
 
+  await check('The two shortcuts the rule allows keep their conditions on the screen and in the registry: one noise reading needs constant noise (76.609(e)), and the isolation waiver needs the sample sizes and the exhibit (76.609(g))', () => {
+    assert.match(reference.noise.clause, /If it is established that the noise level is constant within this bandwidth/); assert.match(reference.isolation.clause, /no less than 500/); assert.match(reference.isolation.clause, /no less than 50 subscriber taps/);
+    const noise = byId.noise, iso = byId.isolation, regNoise = h.json("Thresholds.get('fcc.pop.noise')"), regIso = h.json("Thresholds.get('fcc.pop.isolation')");
+    assert.match(noise.limit, /may be used only if it has been established that the noise level is constant within that band/); assert.match(regNoise.conditions, /allowed only if it has been established that the noise level is constant within that band/);
+    assert.doesNotMatch(noise.limit, /, or in one reading/, 'the old unconditional alternative is gone');
+    for (const x of [iso.limit, regIso.conditions]) { assert.match(x, /500 (subscriber )?taps/); assert.match(x, /50 (subscriber )?taps/); assert.match(x, /each proof-of-performance record|exhibit to each proof-of-performance record/); assert.match(x, /76\.609\(g\)/); }
+    assert.doesNotMatch(iso.limit, /a manufacturer’s specification can stand in for periodic testing/, 'the unspecified waiver is gone');
+    comparisons += 12;
+  });
+
   await check('Every tag is one registry row and Limits shows one tag for every row; opening the screen writes nothing and leaves the saved job alone', async () => {
     await goto(h, 'pop');
     const ids = new Set();

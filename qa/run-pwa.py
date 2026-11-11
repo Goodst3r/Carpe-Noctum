@@ -23,6 +23,8 @@ suites=[
  ('Build 3 why cards against the SCTE 293 catalog list','build3-why-cards.test.cjs',r'Build3 why cards: (\d+) checks passed'),
  ('Build 3 FCC proof of performance card against the rule clauses','build3-pop.test.cjs',r'Build3 proof of performance: (\d+) checks passed'),
  ('Build 3 study mode against an independent decimal reference','build3-study.test.cjs',r'Build3 study: (\d+) checks passed'),
+ ('Build 3 fiber tools in a real browser: unfinished number boxes','build3-fiber-real.test.py',r'Build3 fiber real browser: (\d+) checks passed'),
+ ('Build 3 impairment route search in a real browser: stale candidates and unfinished number boxes','build3-impairments-real.test.py',r'Build3 impairments real browser: (\d+) checks passed'),
  ('Build 3 checklist cards in a real browser: half-edited time box and a full storage quota','build3-checklist-real.test.py',r'Build3 checklist real browser: (\d+) checks passed'),
  ('Build 3 station worksheet arithmetic and saved jobs','build3-station.test.cjs',r'Build3 station: (\d+) checks passed'),
  ('Build 3 rendered station phone layout','build3-station-layout.test.py',r'Build3 station layout: (\d+) checks passed'),

@@ -21,15 +21,16 @@ CLAUSES = {
     'response': ('76.605(b)(6)', 'The amplitude characteristic shall be within a range of ±2 decibels from 0.75 MHz to 5.0 MHz above the lower boundary frequency'),
     'cnr': ('76.605(b)(7)', 'The ratio of RF visual signal level to system noise shall not be less than 43 decibels'),
     'coherent': ('76.605(b)(8)', 'shall not be less than 51 decibels for noncoherent channel cable television systems; frequency-coincident with the visual carrier shall not be less than 47 decibels for coherent channel cable systems'),
-    'isolation': ('76.605(b)(9)', 'Shall not be less than 18 decibels'),
+    'isolation': ('76.605(b)(9) and 76.609(g)', 'Shall not be less than 18 decibels. Measurements of terminal isolation are not required when either the manufacturer\'s specifications for subscriber tap isolation based on a representative sample of no less than 500 subscribers taps or laboratory tests performed by or for the operator of a cable television system on a representative sample of no less than 50 subscriber taps, indicates that the terminal isolation standard of § 76.605(a)(9) is met. To demonstrate compliance, the operator shall attach either such manufacturer\'s specifications or laboratory measurements as an exhibit to each proof-of-performance record.'),
     'hum': ('76.605(b)(10)', 'shall not exceed 3 percent of the visual signal level'),
     'headend': ('76.605(b)(11)', 'shall be within 170 nanoseconds; shall not exceed ±20%; shall not exceed ±10 degrees'),
-    'noise': ('76.609(e)', 'over a 4 MHz band centered within the cable television channel'),
+    'noise': ('76.609(e)', 'summing the power indications to obtain the total noise power present over a 4 MHz band centered within the cable television channel. If it is established that the noise level is constant within this bandwidth, a single measurement may be taken which is corrected by an appropriate factor representing the ratio of 4 MHz to the noise bandwidth of the frequency-selective voltmeter.'),
     'retention': ('76.1704(a)', 'maintained on file at the operator\'s local business office for at least five years'),
 }
 
 def numbers(text):
     out = []
+    text = re.sub(r'§?\s*76\.\d+(?:\([a-z0-9]+\))*', ' ', text)   # rule-section numbers are references, not limits
     for m in re.finditer(r'\d[\d,]*(?:\.\d+)?|\b(?:' + '|'.join(WORDS) + r')\b', text):
         tok = m.group(0)
         if tok in WORDS:

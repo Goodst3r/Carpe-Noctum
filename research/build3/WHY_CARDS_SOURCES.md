@@ -23,7 +23,7 @@ The SCTE Standards Catalog (account.scte.org/standards/library/catalog/) lists t
 | 13 Carrier-to-noise ratio | SCTE 293-13 2026 | the SCTE Standards Updates description only; the CNR definition in 293-1 |
 | 14 Impedance | SCTE 293-14 2026 | the SCTE Standards Updates description only |
 
-**Cards 7, 13 and 14 rest on a description page, not the document.** They are marked in the guide, and the 75 ohm nominal-impedance row is labeled secondary.
+**Cards 7, 13 and 14 rest on a description page, not the document.** The guide names all three (Lane A's review found it named only 13 and 14), and the 75 ohm nominal-impedance row is labeled secondary.
 
 ## Choices
 

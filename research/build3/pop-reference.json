@@ -88,11 +88,13 @@
   "clause": "shall not be less than 51 decibels for noncoherent channel cable television systems; frequency-coincident with the visual carrier shall not be less than 47 decibels for coherent channel cable systems"
  },
  "isolation": {
-  "rule": "76.605(b)(9)",
+  "rule": "76.605(b)(9) and 76.609(g)",
   "numbers": [
-   18
+   18,
+   50,
+   500
   ],
-  "clause": "Shall not be less than 18 decibels"
+  "clause": "Shall not be less than 18 decibels. Measurements of terminal isolation are not required when either the manufacturer's specifications for subscriber tap isolation based on a representative sample of no less than 500 subscribers taps or laboratory tests performed by or for the operator of a cable television system on a representative sample of no less than 50 subscriber taps, indicates that the terminal isolation standard of § 76.605(a)(9) is met. To demonstrate compliance, the operator shall attach either such manufacturer's specifications or laboratory measurements as an exhibit to each proof-of-performance record."
  },
  "hum": {
   "rule": "76.605(b)(10)",
@@ -115,7 +117,7 @@
   "numbers": [
    4
   ],
-  "clause": "over a 4 MHz band centered within the cable television channel"
+  "clause": "summing the power indications to obtain the total noise power present over a 4 MHz band centered within the cable television channel. If it is established that the noise level is constant within this bandwidth, a single measurement may be taken which is corrected by an appropriate factor representing the ratio of 4 MHz to the noise bandwidth of the frequency-selective voltmeter."
  },
  "retention": {
   "rule": "76.1704(a)",
