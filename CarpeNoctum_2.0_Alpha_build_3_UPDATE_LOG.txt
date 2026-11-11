@@ -212,6 +212,29 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (fourteen in total)
      and the feature index gains entry 43.
 
+10. Impairment decision tree and signature cards (build list item 11), Test -> Impairments
+   - Pick what the meter or spectrum shows (ten pictures) and read the
+     matching card: what it looks like, what usually causes it, what it is
+     easily mistaken for, and five steps (analyze, localize, prioritize,
+     repair, validate). Cards: standing wave, suckout, resonant peaking,
+     roll-off, tilt, excessive flat loss, ingress, cellular (LTE) ingress,
+     common path distortion, impulse and burst noise.
+   - Looks and causes follow SCTE 280 2022 (paraphrased, cited by section);
+     the five-step order is the workflow of SCTE's April 2026 PNM series;
+     the steps under each card are general practice labeled Expert. The
+     tilt and flat-loss cards say the source text was not read. It is the
+     technician's own aid, not a company procedure. Sources and what was
+     read: research/build3/IMPAIRMENT_SOURCES.md.
+   - The standing-wave card gives the distance between two mismatches
+     (492 x VP / ripple spacing, the Calculators formula) and lists the
+     pairs of points on the saved route that far apart, within a search
+     width (10 percent, changeable for one search, a registered Expert
+     value). A candidate is a place to look first, not a finding.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (fifteen in total)
+     and the feature index gains entry 44.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
