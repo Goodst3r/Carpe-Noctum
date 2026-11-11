@@ -56,3 +56,20 @@ Every company target and tolerance starts **unknown** and must never be filled i
 - The optional Station saved-slot mismatch was corrected at 04bb5ae, with real-handler scoped review and a new full gate. Original private files remain excluded; committed fixtures are invented. Physical meter/reference-plane and device verification remain unperformed.
 
 Evidence: handoff_docs/reviews/codex-sweep-grading.md, its historical whole-feature/scoped-review reports and handoff_docs/lanes/codex-a4-validation.json on PR #14. This section does not close the unrelated older B9 reconciliation rows above.
+
+## A1 Station nonblocking review follow-ups (Lane A, Nov 11)
+
+The seven blocking requests from Lane B review 5861415148 were corrected and independently re-reviewed. The following nonblocking observations from that review remain deferred unless a later change explicitly closes them. Their original context is published source 895503b; incidental layout changes are not claimed as full closure.
+
+- Format tiny floating-point deltas without signed zero; distinguish absolute-level formatting from signed errors. The read API can expose binary precision tails that future night-log formatting must handle.
+- The worksheet permits nonnegative insertion loss only, although the cited net-loss relation is signed. Explain the restriction or add explicitly checked negative net-loss support.
+- Threshold resolution outside Station's strict input parser still uses lenient Number conversion for station strings.
+- Archived context history lacks a dedicated browser. A second edited equipment context can replace the active identity pointer while retaining the older map record. Load example replaces the working Station section; import validation of row stationIdentity and rejected-edit error feedback also need follow-up.
+- Phone polish: stage labels near fields, focus retention across panel rebuilds, native EQ/pad select text, dark placeholder contrast, result placement, sign explanations, timestamp presentation and empty-state button spacing. Source labels/44px buttons were fixed; no physical iPhone keypad or Safari/WebView behavior was verified.
+- Reconcile old status/update-log spacing, unrelated guide counts and the navigation End-key test's dynamic last-tab oracle during D4.
+- A legacy-unconfirmed worksheet preserves both stages and done dates in the read API/backup, but the read-only panel cannot switch to the other stage before confirmation. Passive legacy browsing is a follow-up. A2/A3 must honor bindingStatus=legacy-unconfirmed/readOnly and must not treat its historical dates as confirmed current-equipment work.
+- Earlier internal Minor observations remain recorded: source-tag location can follow the saved picker rather than a transient picker; edit-time text can refresh late; extreme escaped context strings can exceed the encoded-context guard.
+
+Legacy confirmation is an explicit new binding choice, not RF acceptance or new balance/sweep work. Opening/restoring alone does not migrate the original. The confirmed copy uses a new identity and the original record stays byte-for-byte in the map. No local procedure, company target, manufacturer revision, physical phone/emulator or field test is implied by technical review.
+
+Evidence: PR #8, the original Lane B review, handoff_docs/reviews/codex-station-laneb-fixes-review.md, handoff_docs/reviews/codex-station-view.md and handoff_docs/lanes/codex-a1-validation.json on that branch.

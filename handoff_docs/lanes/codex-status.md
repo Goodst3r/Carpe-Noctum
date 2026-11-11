@@ -5,7 +5,7 @@ Updated November 11, 2026. Only Lane A edits this file. Push access works. D1–
 | Item | Branch / PR | Starting and tested commits | Current state | Own verification |
 | --- | --- | --- | --- | --- |
 | Baseline | codex/station-view; included in #8 | source 53b839e; receipt 3cdf5a6 | Reproduced | 61 suites / 1,109 checks; layout 141; smoke 328 |
-| A1 item 3 Station | codex/station-view; [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) draft | start 53b839e; integrated 79b0735; previous tested 3d610f4; review fixes 895503b..a9b6428 | Seven Lane B requests addressed; scoped internal review approved; final gate running at a9b6428 | Previous source 3d610f4:65 suites / 1,221 checks +141/331. New fixes: review 8, Station 22, rendered 121, names 6, registry 13, Alignment 12. Independent scoped review 8 +16 Chromium checks. No new broad count claimed until completion. |
+| A1 item 3 Station | codex/station-view; [#8](https://github.com/Goodst3r/Carpe-Noctum/pull/8) draft | start 53b839e; integrated 79b0735; review fixes 895503b..a9b6428; tested a9b6428 | **Ready for Lane B re-review and merge**; all seven requested fixes internally approved | **66 suites / 1,273 checks**, 384.3 s; separate layout 141/smoke 331; Station 22/review 8/rendered 121 included; build/worktree unchanged and clean. Independent scoped review: 8 +16 Chromium checks. |
 | A2 item 6 night log | pending | depends on A1 merge | Queued | Not run |
 | A3 item 10 sweep due | pending | depends on A1 merge | Queued; interval unknown | Not run |
 | A4 item 13 imported sweep grading | codex/sweep-grading; [#14](https://github.com/Goodst3r/Carpe-Noctum/pull/14) draft | preparation 4350abc..8d1a0ed; integrated 79b0735; tested 04bb5ae | Ready for Lane B peer review and merge; optional actual Station-context correction approved | 67 suites / 1,364 checks in 350.2 s; separate layout 141/smoke 331; grading 35/rendered 47 included. Build/worktree unchanged and clean; actual-input browser proof refreshed at 04bb5ae. |
@@ -15,11 +15,11 @@ Updated November 11, 2026. Only Lane A edits this file. Push access works. D1–
 
 ## A1 record
 
-Route → Station stores separate Before/After forward and return worksheets, with independent balanced/swept dates. Company values start unknown, plant methods stay separate and UBT stays read-only. The previous public source and exact verification are in [PR #8](https://github.com/Goodst3r/Carpe-Noctum/pull/8), its [historical handoff](https://github.com/Goodst3r/Carpe-Noctum/blob/895503be5342dc4a713455cd7098aa5cdd08bb68/handoff_docs/reviews/codex-station-view.md) and [historical receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/895503be5342dc4a713455cd7098aa5cdd08bb68/handoff_docs/lanes/codex-a1-validation.json).
+Route → Station stores independent Before/After forward and return worksheets, balanced/swept dates, unknown company targets and separate plant methods. UBT stays read-only.
 
-Lane B requested seven corrections at 895503b: signed input configuration, accessible labels/tags, full solver warnings, catalog-independent saved binding, separate reference provenance, plant-specific reminders and guide counts. Source a9b6428 implements them with durable regressions. Optional bindingVersion 2 uses saved choices; legacy bindings stay visible/read-only until explicit confirmation copies them and preserves the original. A2/A3 must honor legacy-unconfirmed status. Internal scoped review passed; Lane B must re-review the published final head. Full-gate results and final public handoff will follow after the active run.
+All seven Lane B requests at 895503b are addressed by frozen source a9b6428: signed field configuration, clean labels/44px source controls, full solver qualifications, catalog-independent saved binding, source-specific provenance, plant/model reminders and 22/14 guide counts. Optional bindingVersion 2 uses saved choices. Legacy records remain visible/read-only until explicit confirmation makes a new bound copy and preserves the original map entry. A2/A3 must honor legacy-unconfirmed/readOnly status.
 
-Prior internal Minor findings and Lane B's nonblocking list remain deferred unless explicitly closed by a later review: display rounding, net-loss support, registry parsing, archived context/Load example/import identity/rejected-edit handling, phone polish, text spacing and the navigation test oracle. They will be recorded with the A1 review response.
+The implementation agent's exact final run passed 66/1273 in 384.3 s plus separate 141/331, unchanged and clean without restoring evidence. The independent scoped reviewer separately passed 8 frozen tests and 16 Chromium checks and found all seven addressed, no new Critical/Important. Actual Lane B re-review/merge is still required. [Review handoff](https://github.com/Goodst3r/Carpe-Noctum/blob/4aab13616e9c7ba08cc4f14987cff093c6dcf129/handoff_docs/reviews/codex-station-view.md), [scoped report](https://github.com/Goodst3r/Carpe-Noctum/blob/4aab13616e9c7ba08cc4f14987cff093c6dcf129/handoff_docs/reviews/codex-station-laneb-fixes-review.md), [exact receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/4aab13616e9c7ba08cc4f14987cff093c6dcf129/handoff_docs/lanes/codex-a1-validation.json) and Known Gaps give sources, files/reasons, commands, limitations and remaining nonblocking items.
 
 ## A4 record
 
@@ -27,7 +27,7 @@ Job → ONX files → Sweep grading aid recognizes the two inspected typed JSON 
 
 Four independent 42/54 and 204/258 forward/reverse company profiles start blank. Exact sampled markers feed independently checked raw PTV, explicit level errors and signed tilt. Immutable history captures criteria, original identity/checksum and job/hardware/record context. Every new grade verifies the original again. Optional Station context now captures the actual stored stations map; real-handler review confirms that edits demote Current and reject pending away-and-back calculations without changing history.
 
-Files/reasons, sources, exact commands, scope and limitations: [A4 handoff](../reviews/codex-sweep-grading.md), [historical whole-feature review](../reviews/codex-sweep-grading-final-review.md), [Station-context scoped review](../reviews/codex-sweep-grading-station-context-review.md), [exact final receipt](codex-a4-validation.json).
+Files/reasons, sources, exact commands, scope and limitations: [A4 handoff](https://github.com/Goodst3r/Carpe-Noctum/blob/b8b92d8cd0e29186894ac2c9eb189f6f30d957e6/handoff_docs/reviews/codex-sweep-grading.md), [historical whole-feature review](https://github.com/Goodst3r/Carpe-Noctum/blob/b8b92d8cd0e29186894ac2c9eb189f6f30d957e6/handoff_docs/reviews/codex-sweep-grading-final-review.md), [Station-context scoped review](https://github.com/Goodst3r/Carpe-Noctum/blob/b8b92d8cd0e29186894ac2c9eb189f6f30d957e6/handoff_docs/reviews/codex-sweep-grading-station-context-review.md), [exact final receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/b8b92d8cd0e29186894ac2c9eb189f6f30d957e6/handoff_docs/lanes/codex-a4-validation.json).
 
 The Lane A implementation agent executed the full gate and separate rendered commands at 04bb5ae. The coordinator separately used both private originals only locally through the actual Chromium file picker: every sample matched independent decoding, exact compressed containers survived identity-remapped portable export/restore/re-export, no grade was automatic and non-loopback page requests were blocked. Fixtures are invented; no original export, distinct operational identifier or original checksum was published. Two nonblocking native-parser limitations remain in Known Gaps and the handoff. No physical phone, emulator, Safari/WebView, meter/reference-plane or field verification; no APK/signing/deployment.
 
@@ -48,11 +48,11 @@ Exact commands, source citations, findings and execution limits are COMMENT revi
 
 ## Next
 
-Finish Station's active final gate, publish the PR #8 review response and obtain Lane B re-review/merge. A4 PR #14 is ready for Lane B. After A1 merges, take A2 then A3 from latest build3, then the remaining queue. Re-review peer fixes when published.
+Obtain Lane B re-review/merge of PR #8 and peer review of PR #14. Then take A2 and A3 from latest build3, followed by the remaining queue. Re-review peer fixes when published.
 
 ## Blocked
 
-A2, A3 and the stretch items depend on A1 integration. A1 publication remains active. A4 needs Lane B peer approval/merge; final combined integration verification stays explicit. Peer feature drafts need their recorded fixes; CI needs base integration and final execution. D1–D5 are incomplete. Push access works.
+A2, A3 and the stretch items depend on A1 integration. A1 and A4 are published for peer review; Lane A may not self-merge them. A4 needs Lane B peer approval/merge; final combined integration verification stays explicit. Peer feature drafts need their recorded fixes; CI needs base integration and final execution. D1–D5 are incomplete. Push access works.
 
 ## Questions for Spencer
 
