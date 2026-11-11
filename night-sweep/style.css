@@ -287,6 +287,8 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-notes,.check-add,.check-hidden{margin:14px 0}
 .check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
 .check-panel button.danger{border-color:var(--bad);color:var(--bad)}
+.check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
 .imp-picker{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
 .imp-picker legend{padding:0 6px;font-weight:700}
 .imp-shape{display:flex;align-items:flex-start;gap:12px;min-height:48px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}

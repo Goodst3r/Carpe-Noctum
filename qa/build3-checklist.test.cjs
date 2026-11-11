@@ -355,6 +355,77 @@ function fakeStorage(initial = {}) {
     assert.equal(n.w.localStorage.getItem(KEY), raw); assert.match(n.d.getElementById('safety-note').textContent, /will not overwrite it/); n.close();
   });
 
+  await check('Unreadable stored data is never replaced while no copy of it can be kept: the change waits in memory, the original stays byte for byte, and everything is written once the copy succeeds', () => {
+    const KEY2 = 'nightsweep-test-v1', SIDE2 = KEY2 + '-unreadable', original = '{"version":1,"checked":[' + 'x'.repeat(2000);   // truncated JSON: unreadable
+    const st = fakeStorage({ [KEY2]: original }), L = make();
+    let sideFails = true; const real = st.setItem.bind(st); st.setItem = (k, v) => { if (k === SIDE2 && sideFails) throw new Error('quota'); real(k, v); };
+    L.load(st); assert.equal(L.status(), 'unreadable');
+    const r1 = plain(L.toggle('a-one', true, st));
+    assert.deepEqual([r1.ok, r1.saved, r1.unreadableKept], [true, false, false]);
+    assert.equal(st.getItem(KEY2), original, 'the unreadable original is untouched');
+    assert.equal(st.getItem(SIDE2), null, 'no copy exists, so none is claimed');
+    assert.equal(L.view().done, 1, 'the tick is held in memory'); assert.equal(L.view().unreadableCopy, false); assert.equal(L.status(), 'unreadable');
+    const r2 = plain(L.setField('who', 'Sam', st));
+    assert.deepEqual([r2.saved, r2.unreadableKept], [false, false]); assert.equal(st.getItem(KEY2), original);
+    assert.equal(L.view().done, 1); assert.equal(L.view().fields[0].value, 'Sam', 'earlier held changes are still shown');
+    sideFails = false;
+    const r3 = plain(L.toggle('b-one', true, st));
+    assert.deepEqual([r3.saved, r3.unreadableKept], [true, true]);
+    assert.equal(st.getItem(SIDE2), original, 'the copy is exactly the original');
+    const s = stored(st); assert.deepEqual(s.checked.sort(), ['a-one', 'b-one'], 'the held tick is written with the next change'); assert.equal(s.fields.who, 'Sam');
+    assert.equal(L.status(), 'ok');
+  });
+
+  await check('An earlier, different unreadable copy also blocks replacement; the same copy allows it; an explicit clear removes both', () => {
+    const KEY2 = 'nightsweep-test-v1', SIDE2 = KEY2 + '-unreadable';
+    const st = fakeStorage({ [KEY2]: '{newer broken', [SIDE2]: '{older broken' }), L = make();
+    L.load(st);
+    const r1 = plain(L.toggle('a-one', true, st));
+    assert.deepEqual([r1.saved, r1.unreadableKept], [false, false]); assert.equal(st.getItem(KEY2), '{newer broken'); assert.equal(st.getItem(SIDE2), '{older broken');
+    assert.equal(L.view().done, 1);
+    const same = fakeStorage({ [KEY2]: '{same broken', [SIDE2]: '{same broken' }), M = make(); M.load(same);
+    const r2 = plain(M.toggle('a-one', true, same)); assert.deepEqual([r2.saved, r2.unreadableKept], [true, true]); assert.equal(stored(same).checked[0], 'a-one');
+    assert.equal(L.clearAll(st).ok, true); assert.equal(st.getItem(KEY2), null); assert.equal(st.getItem(SIDE2), null);
+    assert.equal(plain(L.toggle('a-one', true, st)).saved, true, 'after the explicit clear the list saves again');
+  });
+
+  await check('On screen: when the unreadable data cannot be copied the card says Not saved, keeps the tick and the original, and the next change that can copy it saves everything', async () => {
+    const x = boot({ seed: '{broken' }); await flush(); await goto(x, 'safety');
+    const real = x.w.Storage.prototype.setItem; let fail = true;
+    x.w.Storage.prototype.setItem = function (k, v) { if (k === SIDE && fail) throw new x.w.DOMException('quota', 'QuotaExceededError'); return real.call(this, k, v); };
+    tick(x, 'brief-job'); await flush();
+    assert.equal(x.w.localStorage.getItem(KEY), '{broken', 'the unreadable original is still there'); assert.equal(x.w.localStorage.getItem(SIDE), null);
+    const note = x.d.getElementById('safety-note'); assert.match(note.textContent, /^Not saved\./); assert.match(note.textContent, /left exactly as it was/); assert(note.classList.contains('error'));
+    assert.equal(x.d.querySelector('[data-check="brief-job"]').checked, true, 'the tick stays on screen');
+    assert.match(words(x.d.getElementById('safetyPanel')), /a copy of it could not be set aside, so it has been left as it was/);
+    assert(x.d.querySelector('#safetyPanel [role="alert"]'), 'the warning is an alert');
+    fail = false; tick(x, 'brief-hazards'); await flush();
+    assert.equal(x.w.localStorage.getItem(SIDE), '{broken'); assert.deepEqual(JSON.parse(x.w.localStorage.getItem(KEY)).checked.sort(), ['brief-hazards', 'brief-job']);
+    assert.match(x.d.getElementById('safety-note').textContent, /copy of the unreadable older data is kept/);
+    x.close();
+  });
+
+  await check('A time box with only part filled in is refused, not saved as blank: the saved time stays, the box is marked and the reason is right under it; clearing every part is a deliberate blank', async () => {
+    const x = boot(); await flush(); await goto(x, 'safety');
+    const box = () => x.d.querySelector('[data-check-field="checkin"]'), saved = () => JSON.parse(x.w.localStorage.getItem(KEY)).fields.checkin;
+    let el = box(); assert.equal(el.type, 'time'); el.value = '14:30'; el.dispatchEvent(new x.w.Event('change', { bubbles: true })); await flush();
+    assert.equal(saved(), '14:30');
+    el = box();   // the card redraws after a saved change
+    Object.defineProperty(el, 'validity', { value: { badInput: true }, configurable: true }); el.value = '';
+    for (const type of ['input', 'change']) { el.dispatchEvent(new x.w.Event(type, { bubbles: true })); await flush(); assert.equal(saved(), '14:30', 'a partial edit does not erase the saved time (' + type + ')'); assert.equal(box(), el, 'the box is not redrawn, so what was typed stays'); }
+    assert.equal(el.getAttribute('aria-invalid'), 'true');
+    const problem = el.closest('label').nextElementSibling; assert(problem && problem.classList.contains('check-field-error'), 'the reason sits right under the box'); assert.equal(problem.getAttribute('role'), 'alert');
+    assert.match(problem.textContent, /^Not saved\. The time is incomplete/); assert.match(problem.textContent, /The saved time is still 14:30/); assert.equal(el.getAttribute('aria-describedby'), problem.id);
+    assert.equal(x.d.querySelectorAll('.check-field-error').length, 1, 'repeated events do not stack messages');
+    el.dispatchEvent(new x.w.Event('focusout', { bubbles: true })); await flush(); assert.equal(saved(), '14:30');
+    Object.defineProperty(el, 'validity', { value: { badInput: false }, configurable: true }); el.value = '';   // every part cleared
+    el.dispatchEvent(new x.w.Event('input', { bubbles: true })); await flush();
+    assert.equal(saved(), '', 'a box with every part cleared is saved as blank'); assert(!el.hasAttribute('aria-invalid')); assert.equal(x.d.querySelectorAll('.check-field-error').length, 0);
+    el.type = 'text'; el.value = '25:99'; el.dispatchEvent(new x.w.Event('change', { bubbles: true })); await flush();   // a browser without a time box (plain text)
+    assert.equal(saved(), '', 'an impossible time is refused'); assert.match(x.d.querySelector('.check-field-error').textContent, /24-hour clock/);
+    x.close();
+  });
+
   await check('Untick, save as text and clear: the export carries items and notes and says to check it; clear asks first and can be cancelled', async () => {
     downloads = [];
     click(h, '#safety-export'); await flush();

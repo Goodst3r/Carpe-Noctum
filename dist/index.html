@@ -290,6 +290,8 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-notes,.check-add,.check-hidden{margin:14px 0}
 .check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
 .check-panel button.danger{border-color:var(--bad);color:var(--bad)}
+.check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
 .imp-picker{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
 .imp-picker legend{padding:0 6px;font-weight:700}
 .imp-shape{display:flex;align-items:flex-start;gap:12px;min-height:48px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}
@@ -5996,25 +5998,39 @@ const Checklist=(()=>{
   }
   function ensureLoaded(){if(loaded)return;try{load(typeof localStorage!=='undefined'?localStorage:null);}catch(_){loaded=true;}}
   const status=()=>{ensureLoaded();return loadStatus;};
+  /* The unreadable value is set aside before anything replaces it. True only when a copy of exactly this value is on the
+     device now: written just now, or already there from an earlier attempt. If the copy cannot be made (storage full or
+     blocked) or a different earlier copy is already there, the original is not safe to replace and the caller must not. */
+  let keptCopy=null;   /* null: not tried; true: a copy is on this device; false: the copy could not be made */
   function keepUnreadable(storage,raw){
-   try{if(storage&&raw!==undefined&&storage.getItem(SIDE_KEY)===null)storage.setItem(SIDE_KEY,raw);return true;}catch(_){return false;}
+   try{
+    if(!storage||typeof raw!=='string')return false;
+    const have=storage.getItem(SIDE_KEY);
+    if(have===null){storage.setItem(SIDE_KEY,raw);return storage.getItem(SIDE_KEY)===raw;}
+    return have===raw;
+   }catch(_){return false;}
   }
   /* Apply one change to what is stored now (so a second tab's work is not erased) and write it.
-     Returns {ok,saved,...}. saved:false means this browser would not store it: the change stays in
-     memory and is written with the next change that does save. */
+     Returns {ok,saved,...}. saved:false means this browser would not store it (or, when the stored value is
+     unreadable, would not keep a copy of it first): the change stays in memory, the stored value is left as
+     it was, and the change is written with the next change that does save. */
   function commit(op,storage){
    ensureLoaded();
    const r=readStored(storage);
    if(r.status==='newer'){loadStatus='newer';return fail(NEWER);}
    let kept=true;
-   if(r.status==='unreadable')kept=keepUnreadable(storage,r.raw);
+   if(r.status==='unreadable'){kept=keepUnreadable(storage,r.raw);keptCopy=kept;}
    const next=clone(r.status==='blocked'?state:r.state);
    for(const earlier of pending)earlier(next);
    const outcome=op(next);
    if(outcome&&outcome.ok===false)return outcome;
-   state=next;loadStatus='ok';
-   let saved=true;
-   try{if(!storage)throw new Error('no storage');storage.setItem(key,JSON.stringify(state));}catch(_){saved=false;}
+   state=next;
+   /* Never replace the stored value while it is unreadable and no copy of it is safe: the change stays in memory (and is
+      applied again with the next write) and the original is left exactly as it was. */
+   const hold=r.status==='unreadable'&&!kept;
+   loadStatus=hold?'unreadable':'ok';
+   let saved=!hold;
+   if(!hold)try{if(!storage)throw new Error('no storage');storage.setItem(key,JSON.stringify(state));}catch(_){saved=false;}
    if(saved)pending.length=0;else pending.push(op);
    return {ok:true,saved,unreadableKept:r.status==='unreadable'?kept:undefined,...(outcome||{})};
   }
@@ -6088,7 +6104,7 @@ const Checklist=(()=>{
    ensureLoaded();
    try{if(!storage)throw new Error('no storage');storage.removeItem(key);}catch(_){return fail('This browser would not remove the saved checklist, so it may return when the page reloads.');}
    try{storage.removeItem(SIDE_KEY);}catch(_){}
-   state=emptyState();pending.length=0;loadStatus='none';
+   state=emptyState();pending.length=0;loadStatus='none';keptCopy=null;
    return {ok:true};
   }
 
@@ -6107,7 +6123,7 @@ const Checklist=(()=>{
    const all=sections.flatMap(s=>s.items);
    return {sections,hidden:items.filter(i=>hiddenSet.has(i.id)).map(i=>({id:i.id,group:i.group,text:i.text})),
     done:all.filter(i=>i.checked).length,total:all.length,
-    fields:fieldDefs.map(f=>({id:f.id,label:f.label,type:f.type,hint:f.hint,max:f.max,keep:f.keep,value:state.fields[f.id]??''})),groups:[...groups]};
+    fields:fieldDefs.map(f=>({id:f.id,label:f.label,type:f.type,hint:f.hint,max:f.max,keep:f.keep,value:state.fields[f.id]??''})),groups:[...groups],unreadableCopy:keptCopy};
   }
   /* Plain text of the checklist as it stands, for a note or a message. `when` is passed in so the engine stays pure. */
   function toText(title,when){
@@ -6136,12 +6152,35 @@ const ChecklistUI=(()=>{
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function storage(){try{return window.localStorage;}catch(_){return null;}}
  function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
- const savedText=r=>r.saved?'Saved on this device only. It is not part of a job backup.':'This browser would not save it, so it lasts until you close the page.';
+ const savedText=r=>r.unreadableKept===false?'Not saved. The checklist already on this device could not be read, and a copy of it could not be set aside (storage may be full), so it was left exactly as it was. Your change lasts only until you close the page. Free some space or back up your projects and change something again, or use Clear this checklist to discard the unreadable data.':r.saved?(r.unreadableKept===true?'Saved on this device only. A copy of the unreadable older data is kept on this device. It is not part of a job backup.':'Saved on this device only. It is not part of a job backup.'):'This browser would not save it, so it lasts until you close the page.';
  function mount(options,list){
   const panel=document.getElementById(options.panelId);if(!panel)return null;
   const p=options.prefix;
   let editing=false;
   const note=(text,error)=>{const el=panel.querySelector('#'+p+'-note');if(el){el.textContent=text;el.classList.toggle('error',!!error);}};
+  /* A refused entry is explained right under its own box, and the box is marked, so the reason is on screen where the
+     person is looking. The box keeps what they typed (a half-edited native time is not stored, and not thrown away). */
+  function clearProblem(t){
+   t.removeAttribute('aria-invalid');t.removeAttribute('aria-describedby');
+   const e=t.closest('label')?.nextElementSibling;if(e&&e.classList.contains('check-field-error'))e.remove();
+  }
+  function showProblem(t,text){
+   clearProblem(t);const label=t.closest('label');if(!label){note(text,true);return;}
+   const e=document.createElement('p');e.className='status error check-field-error';e.setAttribute('role','alert');e.id=p+'-problem-'+t.dataset.checkField;e.textContent=text;
+   label.insertAdjacentElement('afterend',e);t.setAttribute('aria-invalid','true');t.setAttribute('aria-describedby',e.id);
+  }
+  /* Store one note box. A native time box with a part filled in and a part blank reads as '' but is not blank
+     (validity.badInput): that is refused, not saved as blank, and the saved time stays. A box with every part
+     cleared is deliberately blank and is saved as blank. */
+  function saveField(t,fromInput){
+   const id=t.dataset.checkField,def=list.view().fields.find(f=>f.id===id),time=t.type==='time';
+   const still=time?(def&&def.value?' The saved time is still '+def.value+'.':' No time is saved yet.'):'';
+   if(time&&t.validity&&t.validity.badInput){showProblem(t,'Not saved. The time is incomplete. Fill in every part (hours, minutes, and AM or PM if shown), or clear every part to leave it blank.'+still);return;}
+   const r=list.setField(id,t.value,storage());
+   if(!r.ok){showProblem(t,'Not saved. '+r.error+still);return;}
+   clearProblem(t);note(savedText(r),!r.saved);
+   if(!fromInput&&!time)render();   /* a time box is never redrawn under the person's finger: its value is already exactly what is stored */
+  }
   function itemRow(i){
    const label=escape(i.text);
    if(!editing)return `<li class="check-row"><label class="check-item"><input type="checkbox" data-check="${i.id}"${i.checked?' checked':''}><span>${label}</span></label></li>`;
@@ -6153,7 +6192,7 @@ const ChecklistUI=(()=>{
    const sections=v.sections.map(s=>`<fieldset class="check-section"><legend>${escape(s.group)}</legend><ul class="check-list">${s.items.map(itemRow).join('')||'<li class="note tight">Every item in this section is hidden.</li>'}</ul></fieldset>`).join('');
    const hiddenBox=v.hidden.length?`<div class="check-hidden"><h3>Hidden items</h3><ul class="check-list">${v.hidden.map(h=>`<li class="check-row"><span>${escape(h.text)}</span><button type="button" data-check-show="${h.id}" aria-label="Show item again: ${escape(h.text)}">Show again</button></li>`).join('')}</ul></div>`:'';
    const editor=editing?`<div class="check-add"><h3>Add an item</h3><div class="calc-fields"><label>Section<select data-check-add-group>${v.groups.map(g=>`<option value="${escape(g)}">${escape(g)}</option>`).join('')}</select></label><label class="calc-wide">Wording<input type="text" maxlength="${Checklist.MAX_TEXT}" data-check-add-text></label></div><div class="toolbar"><button type="button" data-check-add>Add item</button><button type="button" data-check-restore class="danger">Restore the original list</button></div></div>${hiddenBox}`:'';
-   const warn=st==='newer'?`<p class="status warning" role="status">${escape(Checklist.NEWER)}</p>`:st==='unreadable'?'<p class="status warning" role="status">The saved checklist on this device could not be read, so the original list is shown. A copy of the unreadable data is kept on this device and your next change replaces the saved list.</p>':'';
+   const warn=st==='newer'?`<p class="status warning" role="status">${escape(Checklist.NEWER)}</p>`:st==='unreadable'?(v.unreadableCopy===false?'<p class="status error" role="alert">The saved checklist on this device could not be read, and a copy of it could not be set aside, so it has been left as it was. Changes you make now last only until you close the page. Free some space or back up your projects and change something again, or use Clear this checklist to discard the unreadable data.</p>':'<p class="status warning" role="status">The saved checklist on this device could not be read, so the original list is shown. Before your next change replaces it, a copy of the unreadable data is set aside on this device; if that copy cannot be made, the unreadable data is left as it is and your change is kept only until you close the page.</p>'):'';
    panel.querySelector('#'+p+'-body').innerHTML=`${warn}<p class="check-progress" aria-live="polite"><strong>${v.done} of ${v.total}</strong> ticked</p>${sections}<div class="check-notes"><h3>Notes for this job</h3><div class="calc-fields">${fields}</div></div>${editor}`;
    const edit=panel.querySelector('#'+p+'-edit');if(edit){edit.setAttribute('aria-pressed',String(editing));edit.textContent=editing?'Done changing the list':'Change this list';}
   }
@@ -6161,9 +6200,20 @@ const ChecklistUI=(()=>{
   render();
   panel.addEventListener('change',event=>{
    const t=event.target;if(!panel.contains(t))return;
-   if(t.dataset.check!==undefined){const r=list.toggle(t.dataset.check,t.checked,storage());if(!r.ok)note(r.error,true);else note(r.saved?'':savedText(r),!r.saved);render();}
-   else if(t.dataset.checkField!==undefined){const r=list.setField(t.dataset.checkField,t.value,storage());if(!r.ok){note(r.error,true);render();return;}note(savedText(r),!r.saved);render();}
+   if(t.dataset.check!==undefined){const r=list.toggle(t.dataset.check,t.checked,storage());if(!r.ok)note(r.error,true);else note(r.saved&&r.unreadableKept!==true?'':savedText(r),!r.saved);render();}
+   else if(t.dataset.checkField!==undefined)saveField(t,false);
    else if(t.dataset.checkText!==undefined){const r=list.editItem(t.dataset.checkText,t.value,storage());if(!r.ok){note(r.error,true);render();return;}note(savedText(r),!r.saved);render();}
+  });
+  /* A native time box reports a finished time, or every part cleared, through input as well as change; and leaving it
+     half filled can send no change at all, so whatever the box holds is reconciled with what is saved when it loses focus. */
+  panel.addEventListener('input',event=>{
+   const t=event.target;if(t.dataset&&t.dataset.checkField!==undefined&&t.type==='time')saveField(t,true);
+  });
+  panel.addEventListener('focusout',event=>{
+   const t=event.target;
+   if(!t.dataset||t.dataset.checkField===undefined||t.type!=='time')return;
+   const def=list.view().fields.find(f=>f.id===t.dataset.checkField);
+   if(t.validity&&t.validity.badInput||t.value!==(def?def.value:''))saveField(t,true);   /* nothing to say when it already matches */
   });
   panel.addEventListener('click',event=>{
    const b=event.target.closest('button');if(!b||!panel.contains(b))return;
@@ -6175,7 +6225,7 @@ const ChecklistUI=(()=>{
     r=list.startOver(storage());
    }
    else if(b.id===p+'-clear'){
-    if(typeof confirm==='function'&&!confirm('Clear this checklist from this device? That removes your ticks, notes and every change you made to the list. It cannot be exported first.'))return;
+    if(typeof confirm==='function'&&!confirm('Clear this checklist from this device? That removes your ticks, notes and every change you made to the list, and any copy of unreadable data kept for safety. It cannot be exported first.'))return;
     r=list.clearAll(storage());if(!r.ok){note(r.error,true);return;}editing=false;note('Cleared on this device.',false);render();return;
    }
    else if(b.id===p+'-export'){
@@ -6688,6 +6738,6 @@ const FiberToolsUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"aa8e3ea8fa7694442f65","worker":"sw.aa8e3ea8fa7694442f65.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"310fd42d481dfedaec16","worker":"sw.310fd42d481dfedaec16.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
