@@ -315,6 +315,9 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .hs-table{border-collapse:collapse;width:100%;min-width:300px}
 .hs-table th,.hs-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px;overflow-wrap:anywhere}
 .hs-table thead th{font-weight:700;border-bottom:2px solid var(--line)}
+.pop-table th,.pop-table td{white-space:normal}
+.pop-card .source-tag{min-height:44px;min-width:44px}
+@media(max-width:700px){.pop-table{min-width:0}.pop-table thead{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.pop-table,.pop-table tbody,.pop-table tr,.pop-table th,.pop-table td{display:block;width:100%}.pop-table tr{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:6px 0}.pop-table th[scope=row]{background:transparent;border:0;font-size:15px;padding-bottom:2px}.pop-table td{border:0;padding-top:2px}.pop-table td:last-child{color:var(--muted);font-size:13px}}
 .hs-list,.hs-steps{margin:8px 0;padding-left:22px}
 .hs-list li,.hs-steps li{margin:8px 0;overflow-wrap:anywhere}
 .hs-source{display:block;margin-top:2px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
