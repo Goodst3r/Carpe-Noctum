@@ -107,7 +107,7 @@ body[data-task=gain] #routePanel>.route-toolbar,body[data-task=readings] #routeP
 body[data-task=gain] .rowhead>.delete,body[data-task=readings] .rowhead>.delete{display:none!important}body[data-task=readings] .point-meters{margin-top:12px}body[data-task=route] #pointEmpty button{display:none!important}
 body[data-task=trial] #powerWhatIf{border:0;margin:0;padding:0}
 html[data-theme=sun] .task-tabs button[aria-selected=true]{background:#dae9ef;color:#153b4c;border-color:#517d91}html[data-theme=sun] .task-grid>button{background:#fffefa}html[data-theme=sun] .task-number,html[data-theme=sun] .text-action{color:#15576e}
-@media(min-width:760px){.task-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.point-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}.point-pagination{margin-top:0;min-height:50px}.task-tabs{flex-wrap:nowrap}.task-tabs button{flex:1 1 0}.routefields{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:760px){.task-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.point-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}.point-pagination{margin-top:0;min-height:50px}.task-tabs{flex-wrap:wrap}.task-tabs button{flex:1 1 0}.routefields{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.task-tabs{gap:6px;padding-top:10px}.task-tabs button{font-size:13px;flex-basis:90px;padding:8px}.task-grid{gap:10px}.task-grid>button{padding:13px;min-height:155px}.task-grid>button strong{font-size:16px}.task-grid>button>span:last-child{font-size:12px}.home-current{padding:15px}.home-current h2{font-size:22px}.home-current .toolbar{flex-wrap:wrap}.home-current .toolbar button{flex:1 1 140px}.point-picker{padding:12px}.point-pagination{gap:6px}.point-pagination button{padding:8px;font-size:12px}.screen-title h2{font-size:26px}.route-build-heading .actions button{flex:1 1 120px}header{gap:8px;flex-wrap:wrap}.brand{flex:1 1 200px}header .brand .sub{font-size:10px;letter-spacing:.3px}.theme-toggle{margin-left:auto!important}.filemenu>summary{min-width:64px}.routefields .part-search{grid-column:1/-1!important}}
 @media(max-width:350px){.task-grid{grid-template-columns:1fr}.task-grid>button{min-height:100px}.task-tabs button{flex-basis:80px}.point-pagination span{max-width:55px}.home-stats strong{font-size:23px}}
 @media print{.task-tabs,#homePanel,#pointPicker,.point-task-links,.bottom-nav{display:none!important}body[data-task=gain] #route>[data-row]>*:not(.rowhead):not(.active-editor),body[data-task=readings] #route>[data-row]>*:not(.rowhead):not(.point-meters){display:none!important}}
@@ -240,6 +240,19 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
+/* DOCSIS health card (build list item 5) */
+.health-rows{display:grid;gap:4px}
+.health-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line)}
+.health-row>span{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--muted);min-width:0}
+.health-row strong{font-size:17px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.health-row small{font-size:12px;font-weight:500}
+.health-status{margin:2px 0 6px;font-weight:600;line-height:1.4}
+.health-status.warn{color:var(--warn)}
+.health-status.neutral{color:var(--ink)}
+.health-window{margin-top:12px;border-top:1px solid var(--line);padding-top:6px}
+.health-window>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}
+.health-window .error{color:var(--warn)}
+.health-card [hidden]{display:none!important}
