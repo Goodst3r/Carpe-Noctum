@@ -128,6 +128,54 @@ def docsis_real_input_checks(browser):
     check('DOCSIS plants: both windows are read back after a reload, each for its own plant', page.evaluate("DocsisHealth.getWindow('scqam','42').max===7&&DocsisHealth.getWindow('scqam','204').max===12"))
     context.close()
 
+def leakage_real_input_checks(browser):
+    """A lone minus sign in a company-setting box must not clear what is saved, and a blank date must not become today.
+    Typing into a real number box is the only way to reach the empty-but-invalid state."""
+    port = server.server_port
+    context = browser.new_context(viewport={'width': 390, 'height': 900})
+    page = context.new_page()
+    page.on('pageerror', lambda e: errors.append(str(e)))
+    page.goto(f'http://127.0.0.1:{port}/index.html')
+    page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof Leakage!=="undefined"')
+    page.evaluate("WorkflowUI.go('leakage')")
+    stored = lambda: page.evaluate("JSON.parse(localStorage.getItem('nightsweep-leakage-v1')||'null')")
+    text = lambda id: page.evaluate("id=>document.getElementById(id).textContent.replace(/\\s+/g,' ')", id)
+    page.evaluate("document.getElementById('leakCompany').open=true")
+    repair = page.locator('[data-leak-company="repair"]')
+    tol = page.locator('[data-leak-company="tolerance"]')
+    repair.click(); page.keyboard.type('25'); page.keyboard.press('Tab')
+    tol.click(); page.keyboard.type('1'); page.keyboard.press('Tab')
+    check('Leakage real keyboard: typed company settings are saved', stored()['company'] == {'repair': 25, 'tolerance': 1})
+    repair.click(); page.keyboard.press('Control+A'); page.keyboard.type('-')
+    check('Leakage real keyboard: a lone minus sign leaves the box empty and marked badInput', repair.evaluate('el=>el.value===""&&el.validity.badInput===true'))
+    page.keyboard.press('Tab')
+    check('Leakage real keyboard: that entry is refused and says what is still in use', 'Not saved.' in text('leak-company-note') and 'Still using repair threshold 25 µV/m and tolerance 1 dB' in text('leak-company-note'))
+    check('Leakage real keyboard: the saved settings are not cleared and the box shows the value in use', stored()['company'] == {'repair': 25, 'tolerance': 1} and repair.evaluate('el=>el.value==="25"&&el.validity.badInput===false'))
+    tol.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace'); page.keyboard.press('Tab')
+    check('Leakage real keyboard: emptying a box on purpose still clears that one setting', stored()['company'] == {'repair': 25, 'tolerance': None})
+    # dates
+    today = page.evaluate("(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})()")
+    check('Leakage dates: the check date starts as today', page.locator('[data-leak="detector"][data-field="date"]').input_value() == today)
+    page.select_option('[data-leak="detector"][data-field="method"]', 'direct')
+    page.locator('[data-leak="detector"][data-field="expected"]').click(); page.keyboard.type('20')
+    page.locator('[data-leak="detector"][data-field="read"]').click(); page.keyboard.type('22')
+    date = page.locator('[data-leak="detector"][data-field="date"]')
+    date.click(); page.keyboard.press('Backspace'); page.keyboard.press('Tab'); page.keyboard.press('Backspace')
+    page.locator('[data-leak="detector"][data-field="date"]').fill('')
+    page.locator('#leakCheckSave').click()
+    check('Leakage dates: a blank check date is refused with a reason and no check is saved', 'Enter the date of the detector check' in text('leak-detector-result') and page.evaluate('Leakage.snapshot().checks.length') == 0)
+    page.locator('[data-leak="log"][data-field="found"]').fill('2026-11-05')
+    page.locator('[data-leak="log"][data-field="location"]').fill('Pole 14 at Elm and 3rd')
+    page.locator('#leakAdd').click()
+    leak = page.evaluate("Leakage.snapshot().leaks[0].id")
+    page.locator(f'[data-leak-repair="{leak}"]').fill('')
+    page.locator(f'[data-leak-mark="{leak}"]').click()
+    check('Leakage dates: Mark repaired with a cleared date is refused and the leak stays open', 'Enter the repair date' in text('leak-log-note') and stored()['leaks'][0]['repaired'] == '')
+    page.locator(f'[data-leak-repair="{leak}"]').fill('2026-11-09')
+    page.locator(f'[data-leak-mark="{leak}"]').click()
+    check('Leakage dates: the date that was chosen is the date kept', stored()['leaks'][0]['repaired'] == '2026-11-09')
+    context.close()
+
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
@@ -209,6 +257,7 @@ try:
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)
+        leakage_real_input_checks(browser)
         check('No uncaught application errors', not errors)
         browser.close()
     OUT.write_text(json.dumps({'checks': len(checks), 'passed': True, 'cases': checks, 'standalone_sha256': hashlib.sha256(html.encode()).hexdigest(),

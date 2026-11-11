@@ -5428,7 +5428,12 @@ const LeakageUI=(()=>{
  function markup(){
   return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
  }
- function read(id){const v={};document.querySelectorAll(`[data-leak="${id}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but is
+    marked badInput. It must not read as a blank: a blank can mean "not given" or "clear the setting".
+    Such a box is passed on as text that is not a number, so the entry is refused with its reason. */
+ const NOT_A_NUMBER='not a number';
+ const typed=el=>el.validity&&el.validity.badInput?NOT_A_NUMBER:el.value;
+ function read(id){const v={};document.querySelectorAll(`[data-leak="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});return v;}
  const blank=(v,keys)=>keys.every(k=>String(v[k]??'').trim()==='');
  function out(id,r,html){
   const el=document.getElementById('leak-'+id+'-result');if(!el)return;
@@ -5540,12 +5545,13 @@ const LeakageUI=(()=>{
   Leakage.load(storage());
   panel.innerHTML=markup();syncCompanyFields();
   const foundField=panel.querySelector('[data-leak="log"][data-field="found"]');if(foundField)foundField.value=today();
+  const checkDate=panel.querySelector('[data-leak="detector"][data-field="date"]');if(checkDate)checkDate.value=today();
   const upd={limit:updateLimit,normalize:updateNormalize,cli:updateCli,detector:updateDetector};
   const onEdit=event=>{
    const t=event.target;if(!panel.contains(t))return;
    if(t.dataset.leak&&upd[t.dataset.leak])upd[t.dataset.leak]();
    else if(t.dataset.leakCompany&&event.type==='change'){
-    const r=t.dataset.leakCompany==='repair'?Leakage.setCompany(t.value,undefined,storage()):Leakage.setCompany(undefined,t.value,storage());
+    const r=t.dataset.leakCompany==='repair'?Leakage.setCompany(typed(t),undefined,storage()):Leakage.setCompany(undefined,typed(t),storage());
     if(!r.ok){const c=currentCompany();note('leak-company-note','Not saved. '+r.error+' Still using repair threshold '+(c.repair===null?'unknown':shortValue(c.repair)+' µV/m')+' and tolerance '+(c.tolerance===null?'unknown':shortValue(c.tolerance)+' dB')+'.',true);syncCompanyFields();return;}
     note('leak-company-note',savedText(r),!r.saved);updateDetector();renderLists();
    }
@@ -5571,12 +5577,13 @@ const LeakageUI=(()=>{
     note('leak-log-note',ok?'Cleared on this device.':'This browser would not remove the saved data, so it may return when the page reloads.',!ok);
    }else if(b.id==='leakCheckSave'){
     const v=read('detector');
-    const r=Leakage.addCheck({date:v.date||today(),method:v.method,expected:v.expected,read:v.read},storage());
+    const r=Leakage.addCheck({date:v.date,method:v.method,expected:v.expected,read:v.read},storage());   /* the date box starts as today; a blank or invalid date is refused, never replaced */
     if(!r.ok){out('detector',r);return;}
+    const dateBox=panel.querySelector('[data-leak="detector"][data-field="date"]');if(dateBox)dateBox.value=today();
     renderLists();updateDetector();note('leak-detector-note','Check saved. '+savedText(r),!r.saved);
    }else if(b.dataset.leakMark){
     const input=[...panel.querySelectorAll('[data-leak-repair]')].find(el=>el.dataset.leakRepair===b.dataset.leakMark);
-    const r=Leakage.markRepaired(b.dataset.leakMark,input?.value||today(),storage());
+    const r=Leakage.markRepaired(b.dataset.leakMark,input?input.value:'',storage());   /* the box starts as today; a blank or invalid date is refused, never replaced */
     if(!r.ok){note('leak-log-note',r.error,true);return;}
     note('leak-log-note','Marked repaired. '+savedText(r),!r.saved);renderLists();
    }else if(b.dataset.leakReopen){

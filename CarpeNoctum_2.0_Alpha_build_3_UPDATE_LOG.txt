@@ -138,6 +138,11 @@ CHANGES
      outside jobs and their backups. Existing storage keys and the job
      format are unchanged. The screen asks for a pole, tap or cross street,
      never customer names, addresses or account numbers.
+   - A number box holding text that is not a number (a lone minus sign) is
+     refused with its reason: it never clears a saved company setting and
+     is never read as "not given". A blank detector-check date or a cleared
+     repair date is refused and the record is left alone; the date boxes
+     start as today and what was chosen is what is kept.
    - Twelve registry rows (seven spec, one spec secondary for 47 CFR 76.614,
      two expert flagged secondary, two company). Sources and what was read:
      research/build3/LEAKAGE_SOURCES.md.
