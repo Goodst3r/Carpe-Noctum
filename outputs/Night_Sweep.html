@@ -1781,7 +1781,8 @@ const SweepGradingUI=(()=>{
  const criteria=()=>clone(state.sweepGrading?.profiles?.[key()]||{});
  function data(){if(!state.sweepGrading)state.sweepGrading=empty();return state.sweepGrading;}
  function context(){
-  const s=state,recordSnapshot=JSON.stringify({source:{type:s.setup?.sourceType,model:s.setup?.sourceModel,asset:s.setup?.sourceAsset,port:s.setup?.sourcePort},node:s.node||null,rows:(s.rows||[]).map(r=>({id:r.id,device:r.device,parent:r.parent,name:r.name,meters:r.meters||null})),forward:s.project?.forward||[],returns:s.project?.returns||[],stationRecords:s.stationView?.records||null});
+  // StationView stores records in stations; records() is its computed public API.
+  const s=state,recordSnapshot=JSON.stringify({source:{type:s.setup?.sourceType,model:s.setup?.sourceModel,asset:s.setup?.sourceAsset,port:s.setup?.sourcePort},node:s.node||null,rows:(s.rows||[]).map(r=>({id:r.id,device:r.device,parent:r.parent,name:r.name,meters:r.meters||null})),forward:s.project?.forward||[],returns:s.project?.returns||[],stationRecords:s.stationView?.stations||null});
   if(recordSnapshot.length>16000)throw Error('Job source context is too large for a compact grading record.');
   return {jobId:String(s.job?.id||''),jobName:String(s.job?.name||s.project?.meta?.job||''),nodeAsset:String(s.job?.node||s.node?.asset||s.project?.meta?.node||''),hardware:String(s.node?.model||s.setup?.sourceModel||s.setup?.sourceType||''),recordSnapshot};
  }
