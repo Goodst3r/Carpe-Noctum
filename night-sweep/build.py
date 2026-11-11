@@ -43,6 +43,8 @@ MODULES = [
     ('<!--OUTAGE-->', 'outage.js'),
     ('<!--IMPAIRMENTS-->', 'impairments.js'),
     ('<!--FIBERTOOLS-->', 'fiber-tools.js'),
+    ('<!--STATION-->', 'station.js'),
+    ('<!--STATIONSTYLE-->', 'station.css'),
 ]
 for token,name in MODULES:
     if token not in shell:raise ValueError(f'Missing build token {token}')
