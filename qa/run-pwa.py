@@ -16,7 +16,7 @@ suites=[
  ('Build 3 tilt, EQ and pad solver against the recalculated spreadsheet','build3-alignment.test.cjs',r'Build3 alignment: (\d+) checks passed'),
  ('Build 3 DOCSIS health card against independent decimal references','build3-docsis-health.test.cjs',r'Build3 DOCSIS health: (\d+) checks passed'),
  ('Build 3 leakage tools against independent decimal references','build3-leakage.test.cjs',r'Build3 leakage: (\d+) checks passed'),
- ('Build 3 shared checklist engine and pre-work safety card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
+ ('Build 3 shared checklist engine, pre-work safety card and outage first-response card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
  ('Build 3 checklist cards in a real browser: half-edited time box and a full storage quota','build3-checklist-real.test.py',r'Build3 checklist real browser: (\d+) checks passed'),
  ('Build 3 station worksheet arithmetic and saved jobs','build3-station.test.cjs',r'Build3 station: (\d+) checks passed'),
  ('Build 3 rendered station phone layout','build3-station-layout.test.py',r'Build3 station layout: (\d+) checks passed'),
