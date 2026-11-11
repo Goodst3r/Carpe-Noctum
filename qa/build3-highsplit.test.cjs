@@ -51,8 +51,10 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
     comparisons += items.length;
   });
 
-  await check('The R-PHY bring-up steps are the eight verified ones in order, name who does each, and the screen invents no setting, timer, pilot code or event number', async () => {
-    eq(h.json('HighSplit.RPHY_STEPS.map(s=>s.id)'), ['local', 'auth', 'address', 'time', 'gcp', 'tunnels', 'timing', 'operational'], 'order');
+  await check('The R-PHY bring-up steps are the eight verified ones, listed in the order each is first needed but never presented as one strict sequence (timing runs in parallel with configuration), name who does each, and the screen invents no setting, timer, pilot code or event number', async () => {
+    eq(h.json('HighSplit.RPHY_STEPS.map(s=>s.id)').slice().sort(), ['address', 'auth', 'gcp', 'local', 'operational', 'time', 'timing', 'tunnels'], 'the eight steps');
+    const timing = h.json("HighSplit.RPHY_STEPS.find(s=>s.id==='timing')");
+    assert.match(timing.text, /in parallel with the configuration/); assert.match(timing.text, /sections 6\.9 and 6\.10\.1/); assert.match(timing.text, /before the core moves the RPD to operational/);
     for (const s of h.json('HighSplit.RPHY_STEPS')) { assert(s.who.length > 5 && s.text.length > 40, s.id); }
     await goto(h, 'highSplit');
     const text = words(h.d.getElementById('highSplitPanel'));
@@ -62,6 +64,9 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
     for (const m of ['Cisco', 'Teleste', 'Harmonic']) assert.match(text, new RegExp(m));
     assert.match(text, /Their lights and steps are for their own hardware and do not carry over/);
     assert.match(text, /none of it is a check you can make with a meter at the node/);
+    assert.match(text, /not one strict sequence/); assert.match(text, /synchronizes to its timing source in parallel with the configuration/);
+    assert.doesNotMatch(text, /after power-up, in order/); assert.doesNotMatch(text, /read the eight steps in order/i);
+    assert.match(text, /assumes a contiguous occupied downstream spectrum/); assert.match(text, /can leave a hole/);
   });
 
   await check('The screen is Test → High split after Fiber, shows only there, and its tables carry the plan numbers, the gaps and which direction 108–137 MHz is in', async () => {

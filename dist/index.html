@@ -305,9 +305,13 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-flow{padding-left:22px}
 .imp-flow li{margin:8px 0}
 .imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
+.imp-tool input[aria-invalid=true]{border:3px solid var(--bad)}
+.imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
 .fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
 .fiber-reference{margin:10px 0}
+#fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+#fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-panel .calc-card button{min-height:44px}
 .hs-card{min-width:0}
 .hs-card h4{margin:16px 0 6px}
@@ -3804,6 +3808,7 @@ const WorkflowUI=(()=>{
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();
   if(tab==='limits'&&typeof Thresholds!=='undefined')Thresholds.renderLimits();
   if(tab==='docsisHealth'&&typeof DocsisHealthUI!=='undefined')DocsisHealthUI.refresh();
+  if(tab==='impairments'&&typeof ImpairmentsUI!=='undefined')ImpairmentsUI.updateRipple();
   if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
   renderNav();apply();
   document.querySelector('.filemenu').open=false;
@@ -4036,7 +4041,7 @@ const TrainingJob=(()=>{
   ['outage','Walk through an outage first response','outage','','Open Job → Outage. The screen opens with “Follow your company’s outage procedure first”: the list is a set of prompts written for this app, not your company’s procedure. Tick the prompts for scope, power and the node, then type a plant place such as node leg 3 or amp 2, the time you arrived and what you found, all on a 24-hour clock. Fill in the optional damage or theft notes only if you suspect it, using roles and never names. Enter no customer names, addresses, phone numbers or account numbers. Choose Start a new call to clear the ticks and notes for the next one. Everything stays on this device and is not in the job backup. All entries are practice values.'],
   ['impairments','Find an impairment from what the meter shows','impairments','','Open Test → Impairments. Pick the picture of a regular up-and-down ripple. In the standing-wave card type a ripple spacing of 4.3 MHz and a cable velocity of 0.87: the distance between the two mismatches is 99.5 ft, and the saved practice route has two places about that far apart, each 100 ft: the launch to TRAIN Custom cable and passive, and that point to TRAIN Cable-only reverse-TDR origin. Each is a place to look at both ends, not a finding. Then pick the picture of a single notch and read the suckout card: its causes name loose seizure screws, and its five steps are analyze, localize, prioritize, repair and validate. Nothing is read from a meter and nothing is stored. All values are synthetic.'],
   ['fiber','Find a fiber and estimate a link loss','fiber','','Open Test → Fiber. In the color finder type fiber 30: it is white, position 6 in tube 3, which is green. In the loss budget type a 12.4 km link at 0.35 dB/km, 4 mated connector pairs at 0.3 dB, 6 splices at 0.1 dB, 3.5 dB of other loss and a 3 dB margin: the estimated loss is 9.64 dB and 12.64 dB with the margin. Add a transmitter power of 3 dBm and a receiver sensitivity of −24 dBm: the optics budget is 27 dB and 14.36 dB is left. The TIA allowances in the table are worst-case values, copied into the fields only when you choose, and your company\'s limits are not known to the app. All values are synthetic and nothing is stored.'],
-  ['highSplit','Read the band plans and the Remote PHY order','highSplit','','Open Test → High split. In the band table read the high-split row: upstream 5 to 204 MHz, downstream 258 to 1794 MHz, and the mid-split row: 5 to 85 and 108 to 1644. In the gap table the high-split gap is 54 MHz. In the side table 108 to 137 MHz is upstream on the 204/258 plant and downstream on the 42/54 plant, which is why a downstream leakage tag no longer stands for that band. Under Remote PHY bring-up read the eight steps in order and note who does each one. Every statement names its document and issue; the Vecima guide is not public, so the screen does not describe it. Nothing is typed or stored.'],
+  ['highSplit','Read the band plans and the Remote PHY bring-up steps','highSplit','','Open Test → High split. In the band table read the high-split row: upstream 5 to 204 MHz, downstream 258 to 1794 MHz, and the mid-split row: 5 to 85 and 108 to 1644. In the gap table the high-split gap is 54 MHz. In the side table 108 to 137 MHz is upstream on the 204/258 plant and downstream on the 42/54 plant, which is why a downstream leakage tag no longer stands for that band. Under Remote PHY bring-up read the eight steps, note who does each one, and note that timing runs in parallel with configuration rather than after it. Every statement names its document and issue; the Vecima guide is not public, so the screen does not describe it. Nothing is typed or stored.'],
   ['why','Read a why card and follow its link','why','','Open Test → Why cards. Open the decibel card (SCTE 293-1 2024): a bare dB is only ever a ratio, and a level needs a reference such as dBmV. Open the unity gain card, read why it matters and tap Route → Station to go to the screen that uses it. The cards are our own short summaries and each names the SCTE monograph to read in full. Nothing is typed or stored.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
@@ -4106,7 +4111,7 @@ const TrainingJob=(()=>{
   ['outage','Outage first-response prompts','Job','custom-curves','outage','outage','Prompts ticked for scope, power and the node, a plant place and times typed, and a new call started, all kept on this device with no customer identifiers.'],
   ['impairments','Impairment cards and standing-wave search','Test','custom-curves','impairments','impairments','A synthetic 4.3 MHz ripple on 0.87 VP cable that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored.'],
   ['fiber','Fiber color finder and link loss budget','Test','custom-curves','fiber','fiber','Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored.'],
-  ['highSplit','Band plans, aeronautical band and Remote PHY order','Test','custom-curves','highSplit','highSplit','The high-split band table, the side of 108 to 137 MHz on each plant and the eight Remote PHY bring-up steps, each read with its document and issue; nothing is typed, read from a node or stored.'],
+  ['highSplit','Band plans, aeronautical band and Remote PHY bring-up','Test','custom-curves','highSplit','highSplit','The high-split band table, the side of 108 to 137 MHz on each plant and the eight Remote PHY bring-up steps, each read with its document and issue; nothing is typed, read from a node or stored.'],
   ['why','Why cards: the SCTE 293 basics','Test','custom-curves','why','why','The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
  const featureControls={why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',station:'[data-station-target]',fiber:'[data-fiber="finder"][data-field="fiber"]',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
@@ -4523,7 +4528,7 @@ const Thresholds=(()=>{
    conditions:'Reading peak spacing off a display is imprecise, so the search accepts a pair of points whose cable distance is within this percentage of the distance the ripple gives. The technician can change it for one search; it is not saved. A narrower width gives fewer, closer candidates and can miss the real pair.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Test → Impairments'},
   {id:'fiber.tia598.colors',label:'spec',name:'Fiber and buffer-tube color code',kind:'formula',units:'—',formula:'1 blue, 2 orange, 3 green, 4 brown, 5 slate, 6 white, 7 red, 8 black, 9 yellow, 10 violet, 11 rose, 12 aqua; fiber n is in tube ⌈n ÷ 12⌉ at position ((n − 1) mod 12) + 1',
    source:'ANSI/TIA-598 (fiber optic cable color coding); read in manufacturer and reference summaries (BWN Fiber, Fiber Field Kit, Radix Fibrotech, Hexatronic color-code guide), not in the standard itself',revision:'Revision not established; the 12-color order is the same in every summary read',locator:'The 12-color sequence; marking past position 12 is not set here',
-   conditions:'Fibers and buffer tubes use the same twelve colors in the same order. Past 12 the colors repeat with a stripe, dashes or rings and makers differ (fiber or tube 20 is clear, or black with a yellow stripe, depending on the maker), so the cable print legend decides. The tool assumes 12 fibers per tube.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: color finder'},
+   conditions:'Fibers and buffer tubes use the same twelve colors in the same order. Past 12 the colors repeat with a stripe, dashes or rings and makers differ (fiber or tube 20 is clear, or black with a yellow stripe, or black with a white tracer, depending on the maker), so the cable print legend decides. The tool assumes 12 fibers per tube.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: color finder'},
   {id:'fiber.tia.connector',label:'spec',name:'Mated connector pair, maximum insertion loss',kind:'limit',units:'dB',value:0.75,rangeText:'0.75 dB per mated pair',
    source:'ANSI/TIA-568.3-D, Optical Fiber Cabling and Components Standard (component allowances), as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) replaced it and was not checked; the standard itself was not read',locator:'Clauses on cable plant loss allowances, as quoted',
    conditions:'A worst-case design and certification value for a mated pair, not what good connectors measure (typically 0.2 to 0.5 dB). Your company\'s own limit may be tighter and starts unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
@@ -4541,7 +4546,7 @@ const Thresholds=(()=>{
    conditions:'An estimate to compare with a measured insertion loss. It does not include measurement uncertainty, does not judge a link against your company\'s pass limit and does not choose the wavelength. Passive devices such as splitters and WDMs are entered from their data sheets under other loss. The optics budget is transmit power minus receiver sensitivity.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
   {id:'band.docsis40.fdd',label:'spec',name:'DOCSIS 4.0 FDD band edges: sub-split, mid-split, high-split and ultra-high splits',kind:'limit',units:'MHz',rangeText:'upstream 5–42 / downstream 50–54 to 1584–1590; 5–85 / 108 to 1644; 5–204 / 258 to 1794; ultra-high splits to 300, 396, 492 and 684 (downstream top 1794)',
    source:'CableLabs CM-SP-PHYv4.0, DOCSIS 4.0 Physical Layer Specification',revision:'I08, September 28, 2026 (cover status ISSUED)',locator:'Section 7.3.2, Table 29 (p. 109) and Table 31 (p. 111); Figure 29',
-   conditions:'North American FDD plan. The edges a node or cable modem is built to; a plant\'s actual split, channel plan and OFDMA placement are the operator\'s design, and nothing here says how a plant measures. Sub-split and mid-split are marked node only; high-split applies to the node and the cable modem. The text was read in full by two independent reviewers on November 11, 2026, not by the author.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: band plans'},
+   conditions:'North American FDD plan. Table 29 assumes a contiguous occupied downstream spectrum, which the specification says is not a requirement (an example leaves a hole at LTE frequencies), and for the newer splits the downstream lower edge can sit anywhere from the upstream upper edge to the edge printed here. The edges a node or cable modem is built to; a plant\'s actual split, channel plan and OFDMA placement are the operator\'s design, and nothing here says how a plant measures. Sub-split and mid-split are marked node only; high-split applies to the node and the cable modem. The text was read in full by two independent reviewers on November 11, 2026, not by the author.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: band plans'},
   {id:'band.docsis31.edges',label:'spec',name:'DOCSIS 3.1 cable modem band edges',kind:'limit',units:'MHz',rangeText:'upstream upper edge one or more of 42, 65, 85, 117, 204 (at least one of 85 or more); downstream lower edge 258 supported; demodulates to 1218; 1794 optional',
    source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification',revision:'I20, April 19, 2023 (cover status ISSUED)',locator:'Sections 7.2.1, 7.2.3 and 7.2.4; Table 4 (p. 37)',
    conditions:'Section 5.2.1.1 of the same issue leaves 117 MHz out of its own list while Table 4 and section 7.2.3 keep it. Support for 1794 MHz is optional (MAY) in DOCSIS 3.1 and required only of DOCSIS 4.0 FDD devices. The text was read in full by two independent reviewers on November 11, 2026, not by the author.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: band plans'},
@@ -6509,8 +6514,8 @@ const Impairments=(()=>{
     validate:'Measure the two pilots again and confirm the tilt is back inside your target.'}},
   {id:'flat-loss',name:'Excessive flat loss',group:GROUPS[1],ref:'SCTE 280 §9.9 (heading only); SCTE PNM series, Course 4',verified:'unverified',
    looks:'The whole spectrum sits lower by about the same number of dB at every frequency, with the same shape as a good response.',
-   causes:['A part or connection that adds loss equally at all frequencies: a bad connector, a pad that is too large, a damaged or very long cable.','A device that is not delivering its gain.'],
-   lookalikes:['Loss that grows with frequency is tilt or roll-off.'],
+   causes:['A part or connection that adds loss equally at all frequencies: a bad connector, a pad that is too large, a damaged cable.','A device that is not delivering its gain.'],
+   lookalikes:['Loss that grows with frequency is tilt or roll-off. More cable than the design has is that kind of loss, not flat loss.'],
    flow:{analyze:'Check whether the shape is unchanged and only the level is down. Note by how many dB.',
     localize:'Compare levels against the design at each point along the path. The step where the drop begins is the place.',
     prioritize:'Take a drop that puts channels below the modem\'s input range, or one that affects many customers, first.',
@@ -6519,7 +6524,7 @@ const Impairments=(()=>{
   {id:'ingress',name:'Ingress (narrow-band)',group:GROUPS[2],ref:'SCTE 280 §9.4, §9.4.2, §9.4.4; SCTE 294 2024r1',verified:'primary',
    looks:'Narrow spikes at fixed frequencies on the noise floor or between channels, for example from FM broadcast, VHF, UHF, two-way radio or amateur radio. They can be steady or come and go.',
    causes:['A fault in the shielding of the network: loose, wrong or damaged connectors, cracked shielding, rodent chews, warped or loose lids on amplifiers and passives.','Damaged drop cable, including a drop that is old or kinked.','Ingress can sit on any frequency, so a spike at one frequency does not mean other frequencies are clear.'],
-   lookalikes:['Direct pickup enters a device without a cable.','HPNA and other in-home signals are inside the plant, not over the air.'],
+   lookalikes:['Direct pickup enters a device without a cable.','HPNA and other in-home signals are inside the plant, not over the air.','Wide-band interference raises the noise floor over a span instead of making narrow spikes; a raised floor can be wide-band ingress, noise or CPD, so look at the shape and at whether it follows the downstream signals.'],
    flow:{analyze:'Note the frequencies and whether they match a known broadcaster or service. Check whether it is steady or intermittent.',
     localize:'Compare modems or nodes: ingress that shows on many at once is early in the path; on one it is at the house. Move toward the stronger reading.',
     prioritize:'Ingress near the node end of the downstream path or in the upstream affects the most customers.',
@@ -6537,7 +6542,7 @@ const Impairments=(()=>{
   {id:'cpd',name:'Common path distortion (CPD)',group:GROUPS[2],ref:'SCTE 280 §9.4.7; SCTE 294 2024r1',verified:'primary',
    looks:'In the upstream, a raised noise floor (third order) or repeating hump-shaped haystacks (second order) that appear when the downstream signals are present. It is not ingress, and not true noise, though it can look like noise.',
    causes:['The downstream signals pass through a diode-like nonlinearity where corrosion has formed in the signal path shared by the downstream and the upstream: a loose seizure screw, a defective end-of-line terminator, a corroded connector.','The oxide layer is fragile, so wind, vibration, temperature and the downstream level can make it come and go.'],
-   lookalikes:['Impulse and burst noise are short events, not a steady raised floor.','Ingress is at fixed frequencies, not a smooth floor.'],
+   lookalikes:['Impulse and burst noise are short events, not a steady raised floor.','Narrow-band ingress is a set of spikes at fixed frequencies, but wide-band interference can also lift the floor over a span, so a raised floor alone does not point to CPD. CPD follows the downstream signals being present.'],
    flow:{analyze:'Look at the upstream with the downstream carriers present and note the shape of the floor and any haystacks.',
     localize:'Because it comes and goes, check places where the shared path has metal-to-metal joints: amplifier seizure screws, terminators, connectors, starting at the strongest reading.',
     prioritize:'Take CPD that raises the floor under upstream channels used by many modems first.',
@@ -6596,6 +6601,7 @@ const ImpairmentsUI=(()=>{
  const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
  const trim=(v,d=1)=>String(Number(v.toFixed(d)));
+ const BOX_NAME={spacing:'ripple spacing',vp:'velocity of propagation',width:'search width'};
  let selected='',initialized=false;
  function shapePicker(){
   return `<fieldset class="imp-picker"><legend>What does the meter or spectrum show?</legend>${Impairments.SHAPES.map(s=>`<label class="imp-shape"><input type="radio" name="impShape" value="${s.id}"${selected===s.id?' checked':''}><span>${escape(s.text)}</span></label>`).join('')}</fieldset>`;
@@ -6617,7 +6623,13 @@ const ImpairmentsUI=(()=>{
  }
  function updateRipple(){
   const out=document.getElementById('impRippleResult');if(!out)return;
-  const v={};document.querySelectorAll('[data-imp]').forEach(el=>{v[el.dataset.imp]=el.value;});
+  const v={},bad=[];
+  document.querySelectorAll('[data-imp]').forEach(el=>{
+   v[el.dataset.imp]=el.value;
+   /* a native number box with an unfinished entry (a lone minus sign) reads as "" but is not blank */
+   if(el.validity&&el.validity.badInput===true){bad.push(BOX_NAME[el.dataset.imp]||'number');el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+  });
+  if(bad.length){out.classList.add('error');out.innerHTML=`<p class="note" role="alert">Not calculated. The ${escape(bad.join(' and the '))} box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box${bad.length&&v.width===''&&bad.includes(BOX_NAME.width)?' to use the default width':''}. The route search waits until then.</p>`;return;}
   if(String(v.spacing??'').trim()===''&&String(v.vp??'').trim()===''){out.classList.remove('error');out.innerHTML='<p class="note">Enter the spacing and the cable velocity to see the distance and the candidate places on your route.</p>';return;}
   const r=typeof FieldCalc!=='undefined'?FieldCalc.rippleDistance(v.spacing,v.vp):{ok:false,error:'The ripple calculator is not available.'};
   if(!r.ok){out.classList.add('error');out.innerHTML=`<p class="note">${escape(r.error)}</p>`;return;}
@@ -6643,6 +6655,8 @@ const ImpairmentsUI=(()=>{
    else if(t.dataset&&t.dataset.imp)updateRipple();
   });
   panel.addEventListener('input',event=>{const t=event.target;if(t.dataset&&t.dataset.imp)updateRipple();});
+  /* leaving a half-filled box from empty sends no change event */
+  panel.addEventListener('focusout',event=>{const t=event.target;if(t.dataset&&t.dataset.imp)updateRipple();});
  }
  return {init,render,updateRipple,select:id=>{selected=id;render();}};
 })();
@@ -6668,7 +6682,7 @@ const FiberTools=(()=>{
  /* ---- TIA-598 color code: twelve colors for fibers and for buffer tubes, in this order ---- */
  function tubeMarking(tube){
   if(tube<=PER_TUBE)return {marked:false,text:'plain color'};
-  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is black, so it takes a yellow stripe':'the color sequence repeats with a stripe or dashes'};
+  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is the black position, and makers mark the repeat differently (a white tracer in one maker\'s note, a yellow stripe in another\'s)':'the color sequence repeats with a stripe or dashes'};
  }
  /* Where is fiber n, counting from 1 across the whole cable with 12 fibers in each tube? */
  function locate(fiber){
@@ -6735,17 +6749,30 @@ const FiberToolsUI=(()=>{
  const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
  const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
  const field=(card,name,label,hint,extra='')=>`<label>${label}<input type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}></label>`;
- function read(card){const v={};document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
+    dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
+ function boxName(el){const label=el.closest('label'),text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function read(card){
+  const v={},bad=[];
+  document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
+   v[el.dataset.field]=el.value;
+   if(el.validity&&el.validity.badInput===true){bad.push(boxName(el));el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+  });
+  Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
+  return v;
+ }
+ const unfinished=bad=>({ok:false,error:'Not calculated. The '+bad.join(' and the ')+' box'+(bad.length>1?'es hold':' holds')+' an unfinished entry (for example just a minus sign). Finish the number, or clear the box.'});
  function out(id,r,html){
   const el=document.getElementById('fiber-'+id+'-result');if(!el)return;
   el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
-  el.innerHTML=r?.ok?html:`<p class="note">${escape(r?.error??'Enter values to see the result.')}</p>`;
+  el.innerHTML=r?.ok?html:`<p class="note"${r&&!r.ok&&r.error&&/^Not calculated/.test(r.error)?' role="alert"':''}>${escape(r?.error??'Enter values to see the result.')}</p>`;
  }
  function colorTable(){
   return `<div class="table-scroll" tabindex="0" role="region" aria-label="TIA-598 colors"><table class="leak-table"><thead><tr><th scope="col">Position</th><th scope="col">Color</th><th scope="col">Position</th><th scope="col">Color</th></tr></thead><tbody>${[0,1,2,3,4,5].map(i=>`<tr><td>${i+1}</td><td>${swatch(FiberTools.COLORS[i])}${FiberTools.COLORS[i]}</td><td>${i+7}</td><td>${swatch(FiberTools.COLORS[i+6])}${FiberTools.COLORS[i+6]}</td></tr>`).join('')}</tbody></table></div>`;
  }
  function updateFinder(){
   const v=read('finder');
+  if(v.__bad.length)return out('finder',unfinished(v.__bad));
   if(String(v.fiber??'').trim()===''&&String(v.tube??'').trim()===''&&String(v.position??'').trim()==='')return out('finder',{ok:false,error:null});
   const byTube=String(v.fiber??'').trim()==='';
   const r=byTube?FiberTools.fromTube(v.tube,v.position):FiberTools.locate(v.fiber);
@@ -6755,6 +6782,7 @@ const FiberToolsUI=(()=>{
  const STANDARD=Object.freeze({connector:'fiber.tia.connector',splice:'fiber.tia.splice',osp:'fiber.tia.sm.osp',isp:'fiber.tia.sm.isp'});
  function updateBudget(){
   const v=read('budget');
+  if(v.__bad.length)return out('budget',unfinished(v.__bad));
   if(Object.values(v).every(x=>String(x??'').trim()===''))return out('budget',{ok:false,error:null});
   const r=FiberTools.budget(v);
   if(!r.ok)return out('budget',r);
@@ -6777,7 +6805,7 @@ const FiberToolsUI=(()=>{
   panel.innerHTML=markup();
   const upd={finder:updateFinder,budget:updateBudget};
   const onEdit=event=>{const t=event.target;if(panel.contains(t)&&t.dataset.fiber&&upd[t.dataset.fiber])upd[t.dataset.fiber]();};
-  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);panel.addEventListener('focusout',onEdit);   /* leaving a half-filled box from empty sends no change */
   panel.addEventListener('click',event=>{
    const b=event.target.closest('button[data-fiber-fill]');if(!b||!panel.contains(b))return;
    const value=id=>typeof Thresholds!=='undefined'?Thresholds.get(id)?.value:undefined;
@@ -6874,8 +6902,9 @@ const HighSplit=(()=>{
   {id:'exclusion',text:'A carrier or signal component capable of 10 to the power of −5 watts peak or more may not be anywhere in the system within 100 kHz of 121.5 MHz, or within 50 kHz of 156.8 MHz or 243.0 MHz; section 76.616 also limits the 405.925 to 406.176 MHz range. 121.5 MHz lies inside the 108 to 137 MHz band.',src:'cfr616',loc:'Section 76.616(a) and (b)',registry:'aero.fcc.76616.exclusion'}
  ]);
 
- /* Remote PHY bring-up: what the specification says happens, in order. It is automatic; the screen says who does each step
-    and what is not defined for a technician to read at the node. */
+ /* Remote PHY bring-up: what the specification says happens, listed in the order each part is first needed. It is NOT one strict
+    sequence: timing (PTP) is synchronized in parallel with the configuration done by the principal and auxiliary cores. It is
+    automatic; the screen says who does each step and what is not defined for a technician to read at the node. */
  const RPHY_STEPS=Object.freeze([
   {id:'local',who:'The RPD alone',text:'Starts up, records a reboot event as early as it can and, if it has saved settings, restores them. Some RF output (power and pilot tones are the spec’s examples) can therefore come back before any contact with a core. Then it waits for an Ethernet link on a core-facing interface; no link in time is an event and the RPD tries a soft reset.',src:'rphy',loc:'Sections 6.3, 6.3.1 and 6.13.1'},
   {id:'auth',who:'The RPD and the network’s authentication server',text:'Network authentication (802.1X) comes first when the network uses it, before link discovery and DHCP. An RPD that never gets a request from the network carries on as if the network were unauthenticated; a rejection is an event and it waits before trying again.',src:'rphy',loc:'Sections 6.4.4.5, 6.4.4.6, 6.4.4.8, 6.5.2, 6.13.2 and 6.13.3'},
@@ -6883,7 +6912,7 @@ const HighSplit=(()=>{
   {id:'time',who:'The RPD and a time server',text:'Time of day from a time server named in the DHCP answer. Until it has the time the RPD stamps events from 1 January 1970; when it first locks to PTP it also takes the time from PTP. Without the time it cannot check a core’s certificate dates.',src:'rphy',loc:'Sections 6.7.1 and 6.7.2 (their text was read in the earlier issue I18; I22’s contents list has the same sections)'},
   {id:'gcp',who:'The RPD, which starts the connection, and the principal core',text:'The control channel. The RPD works down its list of cores, runs mutual authentication where the configuration requires it, opens the control connection to the principal core and announces itself. The core answers and configures the RPD, and the RPD finishes its first configuration with the principal core before it takes any from an auxiliary core.',src:'rphy',loc:'Sections 6.8.2, 6.8.4, 6.8.7.1 and 6.13.4 to 6.13.8 (read in I17 and a later issue; not re-read in I22 itself)'},
   {id:'tunnels',who:'The CCAP core (it starts) and the RPD',text:'The L2TPv3 data tunnels. The core sets up a control connection after the control channel is up, then one session per channel; data starts to flow for a channel when its session setup completes. The RPD cannot start these itself.',src:'rdepi',loc:'Sections 7.1, 7.4.1.1 and 7.4.2.1'},
-  {id:'timing',who:'The RPD and its timing source',text:'Timing. An RPD must be able to act as a node-side slave of a 1588 timing source. The Remote PHY OSS specification defines events for the clock reaching sync, losing it, running too long in holdover and failing to reach its master; how a node shows them is the maker’s choice.',src:'rdti',loc:'Section 7.2 (and R-OSSI I23, Table 312, for the events)'},
+  {id:'timing',who:'The RPD and its timing source',text:'Timing, in parallel with the configuration steps around it, not after them. An RPD must be able to act as a node-side slave of a 1588 timing source. The Remote PHY specification (CM-SP-R-PHY I22, sections 6.9 and 6.10.1, as read in Lane A’s review of this screen) has the RPD synchronize to PTP in parallel with its configuration by the principal and auxiliary cores, and requires that synchronization to have been started before the core moves the RPD to operational. The Remote PHY OSS specification defines events for the clock reaching sync, losing it, running too long in holdover and failing to reach its master; how a node shows them is the maker’s choice.',src:'rdti',loc:'Section 7.2 (and R-OSSI I23, Table 312, for the events)'},
   {id:'operational',who:'The principal core',text:'The core tells the RPD to move to operational. RF activity is then controlled port by port and channel by channel by the core; the RPD must also generate downstream pilot tones under the core’s control, and they are meant to be present continuously unless an operator removes one for maintenance.',src:'rphy',loc:'Sections 6.10.1 to 6.10.3 (and R-OOB I15, section 9.1)'}
  ]);
  const RPHY_VISIBILITY=Object.freeze({
@@ -6940,7 +6969,7 @@ const HighSplitUI=(()=>{
   const d=HighSplit.D31,w=HighSplit.widths();
   return `<div class="sectionhead"><div><h2>High split</h2><p class="note tight">A reading aid for the 204/258 MHz plant and for what is public about Remote PHY bring-up. It takes no input, reads nothing from a node, meter or core and stores nothing. Each statement names the document and the issue it was read in. It is not a procedure and does not replace your node maker’s guide or your company’s.</p></div></div>
 <section class="calc-card hs-card" aria-labelledby="hsBandsTitle"><div class="calc-card-head"><h3 id="hsBandsTitle">Band plans</h3>${tag('band.docsis40.fdd','DOCSIS 4.0 band plans')}</div>
-<p class="note tight">Where the upstream ends and the downstream begins, in MHz, as the DOCSIS 4.0 specification prints them for frequency-division duplex (FDD). The 42/54 MHz and 204/258 MHz plants are different plans and stay separate here, as in the rest of the app.</p>
+<p class="note tight">Where the upstream ends and the downstream begins, in MHz, as the DOCSIS 4.0 specification prints them for frequency-division duplex (FDD). The table assumes a contiguous occupied downstream spectrum (the specification’s table caption says so); that is not a requirement, and a device can leave a hole, so read the top edge as the highest frequency in use. For the newer splits the downstream lower edge can also sit anywhere from the upstream upper edge to the edge printed here. The 42/54 MHz and 204/258 MHz plants are different plans and stay separate here, as in the rest of the app.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="DOCSIS 4.0 FDD band edges"><table class="hs-table"><thead><tr><th scope="col">Split</th><th scope="col">Upstream</th><th scope="col">Downstream starts</th><th scope="col">Downstream ends</th><th scope="col">Applies to</th></tr></thead><tbody>${planRows()}</tbody></table></div>
 <p class="note tight">${cite('phy40','Section 7.3.2, Table 29 and Table 31')}</p>
 <h4>The gap between the two directions ${tag('band.derived.gaps','derived gaps')}</h4>
@@ -6958,7 +6987,7 @@ const HighSplitUI=(()=>{
 <ul class="hs-list">${HighSplit.RULES.map(r=>`<li>${escape(r.text)} ${tag(r.registry,r.loc)} ${cite(r.src,r.loc)}</li>`).join('')}</ul>
 <p class="note tight">Official leakage results belong to your engineering group. The Leakage screen is a notebook and calculator, not a filing.</p></section>
 <section class="calc-card hs-card" aria-labelledby="hsRphyTitle"><div class="calc-card-head"><h3 id="hsRphyTitle">Remote PHY bring-up</h3></div>
-<p class="note tight">What the CableLabs specifications say an RPD does after power-up, in order. It is automatic. Most of it is done with the network and the CCAP core, and none of it is a check you can make with a meter at the node; use it to know what the core operator is waiting for.</p>
+<p class="note tight">What the CableLabs specifications say an RPD does after power-up. The steps are listed in the order each is first needed, but they are not one strict sequence: for example, the RPD synchronizes to its timing source in parallel with the configuration done by the principal and auxiliary cores, and that synchronization has to be started before the core moves the RPD to operational. It is automatic. Most of it is done with the network and the CCAP core, and none of it is a check you can make with a meter at the node; use it to know what the core operator is waiting for.</p>
 <ol class="hs-steps">${HighSplit.RPHY_STEPS.map(s=>`<li><strong>${escape(s.who)}.</strong> ${escape(s.text)} ${cite(s.src,s.loc)}</li>`).join('')}</ol>
 <p class="note tight"><strong>What you can see at the node.</strong> ${escape(HighSplit.RPHY_VISIBILITY.text)} ${cite(HighSplit.RPHY_VISIBILITY.src,HighSplit.RPHY_VISIBILITY.loc)}</p>
 <h4>Vecima nodes</h4>
@@ -7080,6 +7109,6 @@ const WhyCardsUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"c41d4cc3b7ba77751364","worker":"sw.c41d4cc3b7ba77751364.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"5bde150dd3dc1969a68b","worker":"sw.5bde150dd3dc1969a68b.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

@@ -38,7 +38,7 @@ const call = (h, fn, input) => h.json(`FiberTools.${fn}(${JSON.stringify(input)}
       const r = h.json(`FiberTools.fromTube(${c.input.tube},${c.input.position})`);
       assert.equal(r.ok, true); assert.deepEqual([r.fiber, r.tube, r.position, r.fiberColor, r.tubeColor], [c.expected.fiber, c.expected.tube, c.expected.position, c.expected.fiberColor, c.expected.tubeColor]); comparisons++;
     }
-    assert.match(h.json('FiberTools.locate(20*12)').tubeMarking.text || '', /tube 20 is black.*yellow stripe/, 'tube 20 takes a yellow stripe');
+    assert.match(h.json('FiberTools.locate(20*12)').tubeMarking.text || '', /tube 20 is the black position.*makers mark the repeat differently/, 'tube 20: no single stripe is claimed');
     assert.match(h.json('FiberTools.locate(13*12)').tubeMarking.text, /repeats with a stripe or dashes/); assert.equal(h.json('FiberTools.locate(12)').tubeMarking.marked, false);
   });
 
