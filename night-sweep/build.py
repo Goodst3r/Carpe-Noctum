@@ -5,8 +5,9 @@ import subprocess
 root=Path(__file__).resolve().parent
 subprocess.run(['node',str(root/'selfcheck.js')],check=True,stdout=subprocess.DEVNULL)
 shell=(root/'shell.html').read_text()
-# One module per line, in splice order. To add a module, add its placeholder to
-# shell.html and append ('<!--TOKEN-->', 'file.js') on its own line below.
+# One module per line, in splice order. To add a module, put its placeholder in
+# shell.html and add one line below (placeholder, then file name). Keep sample
+# entries out of comments: some tests read this file with a pattern match.
 MODULES = [
     ('<!--STYLE-->', 'style.css'),
     ('<!--SWEEPSTYLE-->', 'sweep-setup.css'),
