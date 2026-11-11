@@ -6,8 +6,11 @@ from urllib.parse import urlsplit, unquote
 import hashlib
 import json
 import re
+import sys
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / 'qa'))
+from release_receipts import missing_receipts, receipts_message
 checks = []
 
 def check(name, fn):
@@ -108,6 +111,8 @@ def android_readiness():
     if metadata['final_apk_built']:
         import zipfile
         output = ROOT / 'android-build/dist/preview'
+        absent = missing_receipts(output)
+        require(not absent, receipts_message(output.relative_to(ROOT), absent))
         receipt = json.loads((output / 'build-info.json').read_text())
         require(receipt.get('signed') is True and receipt.get('installable') is True, 'final APK must be signed and installable')
         require(receipt.get('version') == metadata['version'] and receipt.get('version_code') == 27, 'final APK release identity')

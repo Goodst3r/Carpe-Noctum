@@ -49,7 +49,7 @@ await check('A new1.8 synthetic export uses GS7K, GainMaker GaN and the 42/54 wo
  assert.deepEqual(h.json('state.rows.filter(row=>device(row.device)?.active).map(row=>row.device)'),['active_gm_gan_hgd','active_gm_gan_hgd']);
  const profile=example.project.profiles.find(p=>p.id===example.project.selectedProfile);assert.equal(profile.returnCeiling,42);assert.equal(profile.forwardFloor,54);assert.equal(profile.forwardLow,54);assert.equal(profile.forwardHigh,860);
  const families=h.json('state.rows.map(row=>device(row.device)?.family)');for(const name of ['Scientific-Atlanta','GigaXtend','Technetix'])assert(families.some(f=>f.includes(name)),name+' passive family');
- if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')fs.writeFileSync('release/NightSweep_1.8_Alpha_build_2_Training_Job.json',JSON.stringify(example,null,2)+'\n');
+ if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')fs.writeFileSync(require('./evidence-path.cjs').evidencePath('release/NightSweep_1.8_Alpha_build_2_Training_Job.json'),JSON.stringify(example,null,2)+'\n');
 });
 console.log(`1.6 to 1.7 migration: ${cases.length} checks passed`);for(const h of instances)h.dom.window.close();
 })().catch(e=>{console.error(e);for(const h of instances)h.dom.window.close();process.exitCode=1;});
