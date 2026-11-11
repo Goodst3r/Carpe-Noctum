@@ -44,6 +44,25 @@ const ALLOWED_PHRASES = new Map([
   ['launch origin exercise', 'a named practice exercise'],
   ['gs7k', 'a model name'],
   ['qam / digital selection', 'describes an ONX setting, not an app control'],
+  ['onx/evidence files', 'a kind of record the technician attaches under Files, not a control'],
+  ['gainmaker hgd gaas', 'an equipment model chosen from the catalog list, not a control'],
+]);
+
+// Names that are real only in one document, with the reason: the installer file, and the Android and iPhone
+// system prompts the installation guide describes. They are not allowed anywhere else.
+const DOCUMENT_ALLOWED = new Map([
+  ['night-sweep/README.md', new Map([
+    ['gs7k/gainmaker gan baseline', 'the name of a practice job'],
+    ['documented setup method offered', 'the label "Documented setup method" followed by prose'],
+    ['gainmaker source/route station', 'a station of the practice job, described in prose'],
+    ['sc-qam csv', 'an entry shown in Job → ONX files for the practice evidence file'],
+    ['nightsweep-1', 'part of the installer file name NightSweep-1.8-preview.apk'],
+    ['install', 'the Android installer prompt'],
+  ])],
+  ['docs/NightSweep_1.8_Alpha_Android_iOS_Installation.md', new Map([
+    ['share button', 'the Safari toolbar button'],
+    ['add', 'the iPhone Add to Home Screen confirmation'],
+  ])],
 ]);
 
 // Retired only as a screen name in the practice-job text, where the screen is "Amp / node setup".
@@ -63,7 +82,9 @@ const ROOT_TABS = ['Home', 'Route', 'Test', 'Power', 'Job'];
 const PATH_START = new RegExp('\\b(?:' + [...ROOT_TABS, 'Files'].join('|') + ')\\s*→', 'g');
 const SEGMENT = /\s*→\s*([^→.,;:()|\n]*?)(?=\s*→|[.,;:()|\n]|\s+(?:and|or|then|to|for|from|in|on|when|if|before|after|with|until|so|that|which|are|is|can|will|the|a)\s|$)/y;
 const VERBS = 'Open|Tap|Press|Select|Choose|Click|Try|Practice|Expand|Return to|Go to';
-const VERB_NAME = new RegExp('\\b(?:' + VERBS + ')\\s+(?:the\\s+)?(?:(?:button|tab|screen|menu)\\s+)?[“"*]*([A-Z][\\w&/ →\'’+-]{1,48}?)[”"*]*(?=[.,;:)]|\\s+(?:and|then|to|or|with|for|from|under|before|after|at|in|on|as|by)\\s|$)', 'g');
+// Verbs match in any letter case ("practice Save now", "TAP Save now"); the control name that follows must still start with a capital letter.
+const anyCase = words => words.split('|').map(word => word.replace(/[A-Za-z]/g, c => '[' + c.toUpperCase() + c.toLowerCase() + ']')).join('|');
+const VERB_NAME = new RegExp('\\b(?:' + anyCase(VERBS) + ')\\s+(?:the\\s+)?(?:(?:button|tab|screen|menu)\\s+)?[“"*]*(?!(?:For|If|When|While|In|On|At|The|A|An|Then|With|Without|And|Or|But)\\b)([A-Z][\\w&/ →\'’+-]{1,48}?)[”"*]*(?=[.,;:)]|\\s+(?:and|then|to|or|with|for|from|under|before|after|at|in|on|as|by|when|if|while|until|but)\\s|$)', 'g');
 
 function stripMarkup(text) {
   return String(text).replace(/\*\*/g, '').replace(/`/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/<[^>]+>/g, ' ');
@@ -124,8 +145,10 @@ async function appUniverse() {
     // exist after a tap or in a state the walk above does not reach (for example "More" or "Save/share file").
     // Literals that read as sentences (end with punctuation, or contain template code) are left out.
     const srcDir = path.join(root, 'night-sweep');
-    for (const file of fs.readdirSync(srcDir).filter(f => /\.(js|html)$/.test(f))) {
-      const code = fs.readFileSync(path.join(srcDir, file), 'utf8');
+    // pwa/pwa.js holds the install, update and offline-setup controls ("Install update", "Reload app").
+    const sources = fs.readdirSync(srcDir).filter(f => /\.(js|html)$/.test(f)).map(f => [f, path.join(srcDir, f)]).concat([['pwa.js', path.join(root, 'pwa', 'pwa.js')]]);
+    for (const [file, full] of sources) {
+      const code = fs.readFileSync(full, 'utf8');
       for (const m of code.matchAll(/>([^<>{}$`\n]{2,80})</g)) {
         const t = norm(m[1]);
         if (t) universe.add(t);
@@ -157,7 +180,7 @@ function known(universe, name, { tail = false } = {}) {
 }
 
 // Route points are named by letter or by their TRAIN label, not by a control name.
-const isRoutePoint = phrase => /^(?:[A-F]\d?\b|TRAIN\b)/.test(phrase);
+const isRoutePoint = phrase => /^(?:[A-F]\d?\b|TRAIN\b|GaN A\d\b)/.test(phrase);
 
 function pathsIn(text) {
   const found = [];
@@ -217,7 +240,7 @@ function screenLists(info, clean, label, failures) {
   }
 }
 
-function check(label, info, text, failures, { verbs = true } = {}) {
+function check(label, info, text, failures, { verbs = true, allowed = new Map() } = {}) {
   const clean = stripMarkup(text);
   screenLists(info, clean, label, failures);
   for (const [pattern, current] of RETIRED) {
@@ -233,7 +256,7 @@ function check(label, info, text, failures, { verbs = true } = {}) {
   while ((m = VERB_NAME.exec(clean))) {
     const phrase = m[1].trim();
     if (phrase.includes('→') || isRoutePoint(phrase)) continue; // paths are checked above; route points are not controls
-    if (!known(info.universe, phrase)) failures.push(`${label}: "${phrase}" is named as a control but does not exist in the app`);
+    if (!known(info.universe, phrase) && !allowed.has(norm(phrase))) failures.push(`${label}: "${phrase}" is named as a control but does not exist in the app`);
   }
 }
 
@@ -261,6 +284,20 @@ function check(label, info, text, failures, { verbs = true } = {}) {
     const text = failures.join('\n');
     assert(/Equipment setup/.test(text) && /Save named job/.test(text) && /Sun/.test(text), text);
     assert(/Nonexistent screen/.test(text) && /Imaginary control/.test(text), text);
+    // Verbs are matched in any letter case. The training text really says "practice Save now and Duplicate" (lowercase p),
+    // so a lowercase verb followed by an unknown control must fail exactly as the capitalized one does.
+    for (const verb of ['practice', 'Practice', 'PRACTICE', 'tap', 'press', 'select', 'choose', 'open', 'try', 'expand', 'go to', 'return to']) {
+      const bad = [];
+      check('probe', info, `In Named jobs on this device, ${verb} Imaginary control and Duplicate.`, bad);
+      assert(bad.some(f => /"Imaginary control" is named as a control/.test(f)), `${verb} did not flag an unknown control: ${bad.join('; ')}`);
+    }
+    const exact = [];
+    check('probe', info, 'In Named jobs on this device, practice Imaginary control and Duplicate, then try the palette button in the header and Help & methods.', exact);
+    assert.equal(exact.length, 1, exact.join('; '));
+    // The real wording, and real names after lowercase verbs, stay accepted.
+    const lowerGood = [];
+    check('probe', info, 'In Named jobs on this device, practice Save now and Duplicate, then try the palette button in the header and Help & methods. You can tap Back up project.', lowerGood);
+    assert.deepEqual(lowerGood, []);
     const good = [];
     check('probe', info, 'Use Job → Details → Save now, then Route → Amp / node setup, then Files → Back up project.', good);
     assert.deepEqual(good, []);
@@ -295,7 +332,7 @@ function check(label, info, text, failures, { verbs = true } = {}) {
     const failures = [];
     for (const file of GUIDES) {
       const text = fs.readFileSync(path.join(root, file), 'utf8');
-      check(file, info, text, failures);
+      check(file, info, text, failures, { allowed: DOCUMENT_ALLOWED.get(file) });
     }
     assert.deepEqual([...new Set(failures)], []);
   });

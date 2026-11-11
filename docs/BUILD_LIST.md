@@ -94,7 +94,7 @@ A 5–42 and 5–204 MHz band overlay marking FM (88–108) and aeronautical (10
 *Funneling math (expert, to verify against SCTE 293-11, 293-13 and 270):* thermal noise ≈ −57.2 dBmV in 6.4 MHz; one amp's CNR ≈ input − NF + 57.2; N identical amps → subtract 10·log N; combine with the optical link by power addition. Example: 15 dBmV input, NF 8 dB → 64.2 dB; 10 amps → 54.2 dB; with a 45 dB link → 44.5 dB.
 
 **13. Imported sweep grading** · M · new (needs supervisor OK)
-Grade an ONX CSV sweep already attached to a job against an editable profile: peak-to-valley, low/high level vs. target, tilt. The old n/10 + x peak-to-valley rule is shown only as historical guidance; operators set their own limits.
+Grade a VIAVI sweep export already attached to a job against an editable profile: peak-to-valley, low/high level vs. target, tilt. Spencer clarified November 11 that his meter produces JSON, so the implementation must support the verified JSON structure instead of assuming the originally proposed CSV. Unknown formats or units produce a reason, never a grade. The old n/10 + x peak-to-valley rule is shown only as historical guidance; operators set their own limits.
 *Test:* synthetic CSVs with 1.0, 2.5 and 4.0 dB peak-to-valley grade correctly at a 3 dB limit.
 
 **14. Power supply PM record, battery trends and span voltage drop** · M · merges roadmap items

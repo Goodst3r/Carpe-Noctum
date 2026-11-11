@@ -290,6 +290,16 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.deepEqual(blocked.errors, []); blocked.close();
   });
 
+  await check('A very long run of digits is refused quickly instead of being scanned many times (the number pattern reads each string one way)', () => {
+    const started = Date.now();
+    for (const text of ['1'.repeat(5000) + 'x', '1'.repeat(60), '-'.repeat(40) + '1', '1.' + '1'.repeat(70)]) {
+      const r = h.json(`DocsisHealth.scqam({level:${JSON.stringify(text)}})`);
+      assert.equal(r.ok, false, text.slice(0, 20)); assert(r.error);
+    }
+    assert(Date.now() - started < 250, 'refused quickly');
+    assert.equal(h.json('DocsisHealth.scqam({level:"-7.3"})').ok, true);
+  });
+
   await check('The module is bundled once, loads without script errors, and the built-in self-check still passes', () => {
     assert.equal(h.ev('typeof DocsisHealth'), 'object'); assert.equal(h.ev('typeof DocsisHealthUI'), 'object');
     assert.equal((html.match(/const DocsisHealth=\(\(\)=>/g) || []).length, 1);

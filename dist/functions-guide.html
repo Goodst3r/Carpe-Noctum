@@ -2,10 +2,10 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — All Functions Reference: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — All Functions Reference — Technician guide</title>
 <style>
 :root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
-</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#40-feature-coverage-index">40-feature coverage index</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
+</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#leakage">Leakage</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#41-feature-coverage-index">41-feature coverage index</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
 <p><strong>Technician README · Updated November 11, 2026</strong></p>
-<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library&#39;s feature index. The 2.0 Alpha build 3 additions below bring that to 23 screens and 40 entries.</p>
-<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> adds three Test screens, <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a> and the <a href="#docsis-health-card">DOCSIS health card</a>. The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 40.</p>
+<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library&#39;s feature index. The 2.0 Alpha build 3 additions below bring that to 24 screens and 41 entries.</p>
+<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> adds four Test screens, <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a>, the <a href="#docsis-health-card">DOCSIS health card</a> and <a href="#leakage">Leakage</a>. The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38 to 41.</p>
 <p>For installation, use the separate <a href="phone-installation.html">Android and iOS installation guide</a>. This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android&#39;s native save/share/print dialogs appear when using the APK.</p>
 <h2 id="guide-contents">Guide contents</h2>
 <ol>
@@ -27,6 +27,7 @@
 <li><a href="#field-calculators">Field calculators</a></li>
 <li><a href="#limits-and-sources">Limits and sources</a></li>
 <li><a href="#docsis-health-card">DOCSIS health card</a></li>
+<li><a href="#leakage">Leakage</a></li>
 <li><a href="#power-supply-load">Power-supply load</a></li>
 <li><a href="#power-what-if">Power what-if</a></li>
 <li><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a></li>
@@ -35,7 +36,7 @@
 <li><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a></li>
 <li><a href="#offline-use-updates-and-help">Offline use, updates and Help</a></li>
 <li><a href="#checked-example-answers">Checked example answers</a></li>
-<li><a href="#40-feature-coverage-index">40-feature coverage index</a></li>
+<li><a href="#41-feature-coverage-index">41-feature coverage index</a></li>
 <li><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></li>
 </ol>
 <h2 id="working-rules-and-navigation">Working rules and navigation</h2>
@@ -60,7 +61,7 @@
 </tr>
 <tr>
 <td>Test</td>
-<td>Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health</td>
+<td>Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage</td>
 <td>Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit</td>
 </tr>
 <tr>
@@ -189,7 +190,7 @@
 <tr>
 <td><strong>Custom curves and reverse TDR</strong></td>
 <td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources</td>
-<td>11 steps; no supplied meter captures</td>
+<td>12 steps; no supplied meter captures</td>
 </tr>
 <tr>
 <td><strong>GainMaker OEM AGC</strong></td>
@@ -1020,6 +1021,54 @@
 <p><strong>Total upstream power, not one channel.</strong> Enter the modem&#39;s total transmit power. In DOCSIS 3.1 operation the specification reports per-channel power normalized to 1.6 MHz, so a 6.4 MHz channel&#39;s actual power is about 6 dB above the number reported; your modem page or meter may use a different convention, so check which one it uses before adding channels up.</p>
 <p>Checked worked numbers: 16 dBmV on an SC-QAM channel is <strong>1.0 dB above</strong> the range, and 3.2 dBmV is inside, <strong>11.8 dB</strong> from the upper edge; −8 dBmV over 24 MHz is inside, <strong>1.0 dB</strong> from the lower edge; 40 dBmV total on a 3.1 modem is <strong>at</strong> the limit, not below it; 52 dBmV total transmit power on a 3.1 modem with the 65 dBmV default Pmax leaves <strong>13.0 dB</strong> of headroom.</p>
 <p>What this card leaves out on purpose: MER and SNR, per-channel upstream power, the limit on level differences between channels, DOCSIS 4.0, and the EuroDOCSIS 8 MHz ranges, which differ from the North American ones used here.</p>
+<h2 id="leakage">Leakage</h2>
+<p><strong>Where:</strong> Test → Leakage. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Check and log signal leakage.</p>
+<p>Five tools for signal leakage on one screen. <strong>This is your own notebook and calculator, not the company&#39;s official leak record, and none of its results is a filing.</strong> Nothing is sent anywhere. The leak log, saved detector checks and company settings are kept in the browser on this device only, under their own storage key. They are <strong>not</strong> part of a job or its full backup, and only the log can be exported (CSV); the saved checks and company settings cannot.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Enter</th>
+<th>What it does</th>
+<th>Source tag</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FCC leakage limit check</td>
+<td>Test frequency (MHz), analog or digital, the field strength (µV/m) and the distance from the leak</td>
+<td>Picks the limit for the band and compares your reading with it at the rule&#39;s distance. The limits as the rule prints them: analog 15 µV/m and digital 13.1 µV/m at 30 m at 54 MHz and below and over 216 MHz; analog 20 µV/m and digital 17.4 µV/m at 3 m over 54 MHz up to and including 216 MHz. A reading exactly at the limit is within it. A reading restated from another distance gets a neutral mark and the word approximate, not a green check. It also says when your distance is inside the near field at that frequency</td>
+<td>Spec · 47 CFR 76.605(c), Table 1; a separate row records the § 76.614 expectation for the aeronautical bands</td>
+</tr>
+<tr>
+<td>Distance to 3 m</td>
+<td>Field strength and distance in metres or feet</td>
+<td>Restates the reading at 3 m and at 30 m: E at 3 m ≈ E measured × distance ÷ 3 m. In the far field the field strength falls in proportion to distance. Close to the leak it does not, and how close depends on the frequency: a common rule of thumb puts the edge of the near field at the wavelength ÷ 2π, about 0.4 m at 121 MHz and 4.8 m at 10 MHz. The card warns inside 3 m; the limit check, which knows the frequency, warns inside that edge. A restated reading is approximate</td>
+<td>Expert · far-field relation; SCTE 221 2020 (R2026) for the far-field definition (secondary: read by a review agent). SCTE 293-12 2025 was identified from its catalog summary only</td>
+</tr>
+<tr>
+<td>Cumulative leakage index (CLI)</td>
+<td>The field strength of each leak at 3 m, separated by spaces, new lines or semicolons (a comma followed by a space also works), and the fraction of the plant examined (or strand miles tested and total, not both)</td>
+<td>10·log10 of (1 ÷ fraction examined) × the sum of each leak&#39;s field strength squared, counting only leaks of 50 µV/m or more at 3 m, compared with the printed value of 64. If no leak counts the card says so instead of showing zero. The fraction runs from 0.001 to 1. Under 75% examined the result is marked as an estimate only, with no green check, because the rule asks for at least 75% of the strand. A comma with no space after it, as in 1,500 or 120,5, is refused: it could be a decimal comma or a thousands separator. Strengths must already be on the 108–137 MHz basis: the FCC&#39;s frequency correlation is not done here</td>
+<td>Spec · 47 CFR 76.611(a)(1) and (b)(1)</td>
+</tr>
+<tr>
+<td>Detector check</td>
+<td>The check method (a directly connected source, or a calibrated leak with a half-wave dipole), the expected and read values (µV/m) and the date</td>
+<td>The difference in dB and per cent, and whether it is within your company tolerance, which starts unknown. A saved check keeps the tolerance that was in force when it was saved, so changing the tolerance later does not change an old record</td>
+<td>Expert · SCTE 289 2024r1 (secondary: only the SCTE catalog summary was read)</td>
+</tr>
+<tr>
+<td>Leak log</td>
+<td>Date found, where (pole, tap or cross street), probable cause, date repaired (blank while open), and optionally field strength, distance, frequency and notes</td>
+<td>A list of leaks with open ones marked, the 3 m equivalent and whether it counts in the CLI, a <strong>Mark repaired</strong> action (the date is filled in with today and can be changed), <strong>Reopen</strong> to undo a mistaken Mark repaired, <strong>Delete</strong> and an <strong>Export log (CSV)</strong>. A leak counts in the CLI only if it is at least 50 µV/m at 3 m with the test frequency in the 108–137 MHz band; otherwise the row says what is missing. A leak logged with a field strength but no distance says it was not restated, compared with your repair threshold or checked for the CLI. The fields follow 47 CFR 76.1706 (date and location found, date repaired, probable cause; operators keep the log for two years, and for five years in some systems under 1,000 subscribers, § 76.601(d))</td>
+<td>Spec · 47 CFR 76.1706</td>
+</tr>
+</tbody></table></div>
+<p><strong>Company settings</strong> (a box at the bottom): your repair threshold in µV/m at 3 m, which flags open leaks in the log at or above it, and your detector tolerance in ± dB. Both start unknown; blank is never zero, and editing one never changes the other. They are one set for the whole device and appear in <strong>Test → Limits</strong> under their own heading. The FCC limits are limits on the field a system may produce. For aeronautical-band leaks, § 76.614 separately expects an operator carrying signals there to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m. The repair threshold is your company&#39;s own and starts unknown.</p>
+<p><strong>Keep the log free of customer information.</strong> Describe a place by pole, tap or cross street. Do not enter customer names, addresses or account numbers: the place and notes text go into the exported CSV. <strong>Clear everything on this device</strong> asks first and clears the log, the saved detector checks and the company settings; only the log can be exported before that.</p>
+<p><strong>If this browser will not save.</strong> A change this browser would not store stays on the screen until the page closes and is written with the next change that does save. If the saved notebook cannot be read, a copy of it is kept on this device and the screen says so before the next change replaces it. If a newer version of the app saved it, this version will not overwrite it.</p>
+<p>Checked worked numbers: 25 µV/m analog at 3 m and 121.2625 MHz is <strong>5 µV/m over</strong> the 20 µV/m limit; leaks of 100, 60 and 50 µV/m with 0.8 of the plant examined give a sum of squares of <strong>16,100</strong>, an index of 16,100 ÷ 0.8 = 20,125, which is <strong>43.04 dB</strong>, 21.0 dB at or below 64; leaks of 120, 85, 60, 250 and 50 µV/m at 0.8 give <strong>50.52 dB</strong>; 40 µV/m at 10 m is <strong>133.3 µV/m</strong> at 3 m.</p>
+<p>What this screen leaves out on purpose: the airspace measurement alternative, the correction for a test frequency outside 108–137 MHz, tracking of the quarterly aeronautical-band monitoring, the half-wave dipole voltage to field-strength conversion, per-job leak logs and live detector or GPS data.</p>
 <h2 id="power-supply-load">Power-supply load</h2>
 <p><strong>Where:</strong> Power → Load. <strong>Practice:</strong> Complete → Power; Six actives → explicit power topology.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
@@ -1522,7 +1571,7 @@
 </tr>
 </tbody></table></div>
 <p>The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under <code>research/alpha18/</code>. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.</p>
-<h2 id="40-feature-coverage-index">40-feature coverage index</h2>
+<h2 id="41-feature-coverage-index">41-feature coverage index</h2>
 <p>This index follows the feature choices in the app. Choose the same label in Home&#39;s feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
@@ -1771,6 +1820,12 @@
 <td align="right">40</td>
 <td>DOCSIS health card <!-- feature:docsisHealth --></td>
 <td><a href="#docsis-health-card">DOCSIS health card</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">41</td>
+<td>Leakage limits, CLI and leak log <!-- feature:leakage --></td>
+<td><a href="#leakage">Leakage</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 </tbody></table></div>
