@@ -287,3 +287,5 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-notes,.check-add,.check-hidden{margin:14px 0}
 .check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
 .check-panel button.danger{border-color:var(--bad);color:var(--bad)}
+.check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
+.check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
