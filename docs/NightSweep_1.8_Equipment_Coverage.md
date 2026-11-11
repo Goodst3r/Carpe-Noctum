@@ -73,7 +73,7 @@ Example pairs populate conversion draft frequencies only; base design and measur
 
 ### Where to find GS7K setup
 
-In the app, use **Route → Setup → Node output**, select the exact standard **GS7000 1 GHz** or **1.2 GHz** model and installed split/port, then choose **Source setup & manual**. **Route → Equipment setup** also opens the launch source’s applicable guide. Standard-node setup covers optical receiver/routing identification, model-specific receiver attenuation, OIB receiver padding, shared-port output pads, path EQs and separate return setup. Enter approved job targets; manual examples and published composite ratings do not populate launch levels.
+In the app, use **Route → Setup → Node output**, select the exact standard **GS7000 1 GHz** or **1.2 GHz** model and installed split/port, then choose **Source setup & manual**. **Route → Amp / node setup** also opens the launch source’s applicable guide. Standard-node setup covers optical receiver/routing identification, model-specific receiver attenuation, OIB receiver padding, shared-port output pads, path EQs and separate return setup. Enter approved job targets; manual examples and published composite ratings do not populate launch levels.
 
 Current launch Equipment setup selectors cover **standard GS7000 1 GHz and standard 1.2 GHz** only. SHO/Fiber Deep, Intelligent and retrofit-RPD documents remain exact-variant source references, not additional selectable launch/setup profiles. Conventional LCM module discovery is separate from RF balancing. Intelligent-node forward Auto Setup has its own software/manual conditions; it does not align return.
 

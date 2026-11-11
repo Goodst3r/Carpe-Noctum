@@ -45,10 +45,10 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
-| Route | Setup; Cable route; Amp gain; Equipment setup; Equipment | Starting signal, RF topology, active gain and exact-model references |
-| Test | Sweep setup; TDR; Sweep; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Records; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -69,12 +69,12 @@ Keep these distinctions while using every tool:
 | Function | Enter or do | Result and limit |
 | --- | --- | --- |
 | Main and task tabs | Choose a work area, then its task | Opens the relevant controls while preserving the current job |
-| Files → Save project | Export the working project and finish the device's save action | Portable JSON with supported job data and original evidence; verify the file outside the app |
+| Files → Back up project | Export the working project and finish the device's save action | Portable JSON with supported job data and original evidence; verify the file outside the app |
 | Files → Open project | Choose a NightSweep project JSON | Validates the incoming project before loading; export important current work before replacement |
 | Files → Export RF levels | Export the current route table | Predictions and context in CSV; unavailable results remain blank |
 | Files → Print report | Open the native or browser print dialog | Printing/PDF depends on the device and print service; use Run sheet for a focused field summary |
 | Help & methods | Open help from the header or Home | Task guidance, calculation definitions and limits |
-| Sun / Night | Select the display palette | Changes presentation, without changing inputs or calculations |
+| Palette button (header: Switch to Sun palette or Switch to Night palette) | Select the display palette | Changes presentation, without changing inputs or calculations |
 | Working-job card | Read the job name, asset and sample/training warning | Helps prevent entering real readings into a sample job |
 | Task shortcuts | Choose route, TDR, gain, readings, power, sweep setup or run sheet | Opens that live task using the current job |
 | Home statistics | Review farthest route distance and active count | Summarizes the entered RF topology; an active count alone does not prove a serial cascade |
@@ -117,7 +117,7 @@ The complete workflow uses GS7K/GainMaker GaN, not the AOI six-active path. Its 
 | Linked metadata | Edit work-order number, node or lead in Details or Records | Keeps those shared identity fields consistent; other record fields remain their own entries |
 | Node details | Identify model, installed band, asset, RF port/leg, modules, operating upper and notes | Describes source identity; model selection does not supply measured launch levels |
 | + New blank job | Start a clean field job after protecting current work | Removes sample inputs from the new working job; check its name before field entry |
-| Save named job | Save the desired working version to the device's job library | Local named copy; save/export important revisions deliberately |
+| Save now | Save the desired working version to the device's job library | Local named copy; save/export important revisions deliberately |
 | Open | Select a stored job | Restores that job's data and attachment references; storage failure blocks unsafe switching |
 | Duplicate | Make a separately named copy | Uses the latest working state when duplicating the active named job; updated original and new copy are written together. A failed write leaves the library unchanged; training stays synthetic |
 | Delete | Remove the intended named entry after exporting anything needed | Not a recovery workflow; check the job identity before confirming |
@@ -193,7 +193,7 @@ Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/3
 
 ## Installed equipment, manuals and control paths
 
-**Where:** Route → Equipment setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
+**Where:** Route → Amp / node setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -230,7 +230,7 @@ The historical Rev A table contains 86 literal rows: channels 52–94 and 100–
 
 ## Equipment catalog
 
-**Where:** Route → Equipment. **Practice:** Complete → Equipment references.
+**Where:** Route → Catalog. **Practice:** Complete → Equipment references.
 
 Choose category/family and search the exact model. The list includes RF equipment, cables, node profiles and power models. Search can widen beyond a family when that filter has no matching entry; read the displayed count/filter message and narrow a long list.
 
@@ -258,7 +258,7 @@ Custom curves: reverse from the 200 ft endpoint; **100 × 0.88/0.80 − 25 = 85 
 
 ## Forward and return sweep setup
 
-**Where:** Test → Sweep setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
+**Where:** Test → Meter setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -279,7 +279,7 @@ For physical-output budgeting, full physical losses remain losses even if instru
 
 ## Predicted sweep and output table
 
-**Where:** Test → Sweep. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
+**Where:** Test → Predicted levels. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -476,7 +476,7 @@ Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm 
 
 ## Project records and closeout
 
-**Where:** Job → Records. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
+**Where:** Job → Acceptance. **Practice:** Complete → Records; DSIM → findings; focused equipment guides.
 
 ### Identity, profiles and acceptance criteria
 
@@ -527,10 +527,10 @@ Run sheet combines job/work-order context, selected frequency, source/model/spli
 | Export RF levels | Files | Route predictions at listed frequencies; unavailable results blank |
 | Export frequency results | Test → Frequency | Single-path inputs, frequencies, units, flags and results |
 | Export power load | Power → Load | Power topology, loads, per-section results and qualifications |
-| Record CSVs | Job → Records | The selected section's entered rows and computed review fields |
-| Export setup notes | Test → Sweep setup | Setup drafts, guide/context and saved station snapshots |
+| Record CSVs | Job → Acceptance | The selected section's entered rows and computed review fields |
+| Export setup notes | Test → Meter setup | Setup drafts, guide/context and saved station snapshots |
 | Save original | Job → ONX files | Exact original attachment bytes |
-| Save project / Home backup | Files or Home | Full supported route, power, job, records, field/setup drafts, training state and original evidence |
+| Back up project | Files or Home | Full supported route, power, job, records, field/setup drafts, training state and original evidence |
 | Open project / recover backup | Files, Home or ONX project shortcut | Validates and restores the entire supported project; verify route and originals after opening |
 
 **Your file is ready** means bytes are prepared. Choose **Save/share file** or **Download file** when offered, complete the phone's final save action, then confirm the result in Files/Downloads or the chosen destination. Cancellation is not a completed export. A PDF, screenshot, CSV, named job or prepared-file message is not a full external backup.

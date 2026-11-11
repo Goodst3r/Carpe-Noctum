@@ -70,6 +70,7 @@ suites=[
  ('Retained field tools and named jobs','alpha012.test.cjs',r'Alpha 0.12 field checks passed: (\d+)'),
  ('0.13 APK backup migration','upgrade01314.test.cjs',r'0\.13 to 1\.5 upgrade: (\d+) checks passed'),
  ('1.4 backup and active/TDR migration','upgrade01415.test.cjs',r'1\.4 to 1\.5 upgrade: (\d+) checks passed'),
+ ('Training, guide and app text names real screens and buttons','ui-names.test.cjs',r'UI names: (\d+) checks passed'),
  ('Built-in reference calculations','../night-sweep/selfcheck.js',None),
  ('Catalog structure','catalog-audit.cjs',None),
  ('Test gate: time limit, evidence redirect, receipts message','gate-reliability.test.py',r'Gate reliability: (\d+) checks passed'),
