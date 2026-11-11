@@ -98,7 +98,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 12 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 14 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
