@@ -46,7 +46,7 @@ const SweepDue=(()=>{
   return result;
  }
  const jobId=owner=>typeof owner?.job?.id==='string'&&owner.job.id.trim()?owner.job.id:'';
- function collect({working,snapshots=[],today=deviceToday(),interval=''}={}){
+ function collect({working,snapshots=[],today='',interval=''}={}){
   const diagnostics=[],groups=[],counts={jobs:0,stations:0,work:{green:0,yellow:0,red:0,neutral:0},practice:{green:0,yellow:0,red:0,neutral:0}},list=Array.isArray(snapshots)?snapshots:[];
   if(!Array.isArray(snapshots))diagnostics.push('Saved jobs unavailable — invalid snapshot list.');
   const ids=new Map();for(const owner of list){const id=jobId(owner);if(id)ids.set(id,(ids.get(id)||0)+1);}

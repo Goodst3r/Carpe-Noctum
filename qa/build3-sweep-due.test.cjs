@@ -47,6 +47,9 @@ const row=(v,point='r1',group=0)=>v.groups[group].rows.find(r=>r.pointId===point
  await check('Collector reads source and route Station records without mutating either owners or selection',()=>{
   const a=owner(),b=owner('job_second','2025-04-11'),before=JSON.stringify([a,b]),v=view(a,[b]);assert.equal(v.groups.length,2);assert.equal(v.counts.stations,14);assert.equal(row(v).sweep.status,'yellow');assert.match(row(v,'source').label,/Launch node/);assert.equal(JSON.stringify([a,b]),before);assert.deepEqual(v.diagnostics,[]);
  });
+ await check('Pure collection requires explicit civil today; an omitted date never reads a clock into reminders',()=>{
+  const v=json('SweepDue.collect('+JSON.stringify({working:owner(),snapshots:[],interval:'18'})+')');assert.equal(v.today,'');assert.equal(row(v).sweep.status,'neutral');assert.equal(row(v).sweep.due,null);assert.match(row(v).sweep.text,/device date/i);
+ });
  await check('Current overlay replaces only one uniquely matching saved job and uses latest unsaved dates',()=>{
   const saved=owner(),working=structuredClone(saved);working.stationView.stations.synthetic_1.swept.date='2026-11-11';const v=view(working,[saved]);assert.equal(v.groups.length,1);assert.equal(v.groups[0].current,true);assert.equal(row(v).sweep.status,'green');assert.match(v.groups[0].origin,/Current working/);
  });

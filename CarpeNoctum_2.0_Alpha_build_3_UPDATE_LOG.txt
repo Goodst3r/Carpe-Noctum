@@ -283,13 +283,13 @@ Current merged-base practice/docs: 26 screens, 43 feature choices; Leakage remai
 Main README copies match. The focused fixture saves three named synthetic jobs
 for 0/12/19-month examples at explicitly injected 2026-11-11 and entered 18.
 
-Own focused checks after integrating reviewed build3 5588a49: A3 source 32 and
-frozen 32; new rendered Chromium 73; independent Python calendar 14 cases;
+Own focused checks after integrating reviewed build3 5588a49: A3 source 33 and
+frozen 33; new rendered Chromium 73; independent Python calendar 14 cases;
 retained registry 13, UI names 6, Station 22, Station review 11, Leakage 32 / 391
 reference comparisons, practice library 11, named-job storage 5, design 8 passed.
 Actual Chrome DevTools MCP 1.13.0 inspected the frozen synthetic 390 px view,
 including invalid-input focus/error, separate dates, clear labels and no overflow
 or console errors. Frozen HTML SHA-256:
-717e26a9f87391d4f2750ddd3e2f645d78e5fe3b44f987383605eb6a3059ccae
+d0fd54c6869ab86ea11fa5048898b0156e2b6db0990d5a9febee7ff793b4966e
 Full gate and whole-app layout/smoke await coordinator execution at final head.
 No APK, emulator, physical phone, Safari/WebView, hardware or field test claimed.
