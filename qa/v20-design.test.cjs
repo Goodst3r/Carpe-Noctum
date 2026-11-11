@@ -40,7 +40,7 @@ async function newJobWith(choice) {
     assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Setup', 'Cable route', 'Amp gain', 'Amp / node setup', 'Catalog']);
     assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Route');
     ev("WorkflowUI.go('sweepSetup')");
-    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'TDR', 'Predicted levels', 'Frequency', 'Readings', 'References', 'Calculators', 'Limits']);
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'TDR', 'Predicted levels', 'Frequency', 'Readings', 'References', 'Calculators', 'Limits', 'DOCSIS health']);
     ev("WorkflowUI.go('projects')");
     assert([...d.querySelectorAll('#taskTabs button')].some(b => b.textContent === 'Acceptance'));
     const toggle = d.getElementById('themeToggle');

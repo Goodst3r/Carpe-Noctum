@@ -1,0 +1,291 @@
+/* DOCSIS health card (build list item 5, 2.0 Alpha build 3). Compares a reading you already
+   have, from a meter or a modem's status page, with the cable modem input and output
+   requirements in the CableLabs DOCSIS physical-layer specifications. Offline and
+   deterministic: nothing is read from a modem, CMTS or meter. Missing or invalid input gives
+   no result and a reason; it is never shown as zero.
+
+   Spec ranges are what a modem must be able to accept or transmit. They are capability
+   limits, not operating targets, and say nothing about error rate. Company windows are your
+   own targets; they start unknown and are saved on this device only. Wording is our own;
+   the specification is cited by document number, issue, table and section. */
+const DocsisHealth=(()=>{
+ const EPS=1e-9;
+ const STORAGE_KEY='nightsweep-docsis-windows-v1';
+ /* Requirements, all in dBmV. See the registry rows named in `rows` for sources. */
+ const SCQAM_RANGE=Object.freeze({low:-15,high:15});     // one 6 MHz SC-QAM channel
+ const OFDM_PER6=Object.freeze({low:-15,high:15});       // equivalent PSD per 6 MHz, stated in the OFDM row
+ const OFDM_PER24=Object.freeze({low:-9,high:21});       // 24 MHz minimum occupied bandwidth
+ const TOTAL_LIMIT=Object.freeze({'3.1':40,'3.0':33});   // total input power, strictly below
+ const PMAX_MIN=65;                                       // lowest allowed maximum total transmit power
+ const READING_BOUNDS=Object.freeze({min:-100,max:150});
+ const MEASUREMENTS=Object.freeze(['scqam','ofdm','total','upstream']);
+ const fail=error=>({ok:false,error});
+ const num=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
+ function level(value,label){
+  const v=num(value);
+  if(v===null)return fail('Enter '+label+' in dBmV as a number.');
+  if(v<READING_BOUNDS.min||v>READING_BOUNDS.max)return fail('Enter '+label+' between '+READING_BOUNDS.min+' and +'+READING_BOUNDS.max+' dBmV. If it is in dBµV, subtract 60.');
+  return {ok:true,value:v};
+ }
+ /* Inclusive range check. margin is the distance to the nearest edge when inside and the
+    distance outside the range otherwise; it is never negative. */
+ function inRange(reading,low,high){
+  if(reading<low-EPS)return {status:'below',margin:low-reading,edge:'low'};
+  if(reading>high+EPS)return {status:'above',margin:reading-high,edge:'high'};
+  const toLow=Math.max(0,reading-low),toHigh=Math.max(0,high-reading);
+  return {status:'inside',margin:Math.min(toLow,toHigh),edge:toLow<=toHigh?'low':'high'};
+ }
+ /* Downstream SC-QAM: one 6 MHz channel at the modem input, -15 to +15 dBmV. */
+ function scqam(input){
+  const r=level(input?.level,'the channel level');if(!r.ok)return r;
+  return {ok:true,id:'scqam',reading:r.value,low:SCQAM_RANGE.low,high:SCQAM_RANGE.high,units:'dBmV per 6 MHz channel',...inRange(r.value,SCQAM_RANGE.low,SCQAM_RANGE.high),compare:r.value};
+ }
+ /* Downstream OFDM. The stated range is -15 to +15 dBmV per 6 MHz and -9 to +21 dBmV per
+    24 MHz. For another whole number of 6 MHz channels the 24 MHz row is moved by
+    10·log10(occupied ÷ 24), the same flat-power relation the OFDM calculator uses. */
+ function ofdmRange(basis,occupied){
+  if(basis==='6')return {low:OFDM_PER6.low,high:OFDM_PER6.high,width:6,derived:false};
+  if(basis==='24')return {low:OFDM_PER24.low,high:OFDM_PER24.high,width:24,derived:false};
+  if(basis!=='other')return null;
+  const b=num(occupied);
+  if(b===null||!Number.isInteger(b)||b<24||b>192||b%6!==0)return fail('Enter the occupied bandwidth in MHz: a whole number of 6 MHz channels from 24 to 192.');
+  const shift=10*Math.log10(b/24);
+  return {low:OFDM_PER24.low+shift,high:OFDM_PER24.high+shift,width:b,derived:b!==24};
+ }
+ function ofdm(input){
+  const basis=String(input?.basis??'6');
+  const range=ofdmRange(basis,input?.occupied);
+  if(range===null)return fail('Choose how the OFDM power was measured: per 6 MHz, per 24 MHz or over another occupied bandwidth.');
+  if(range.ok===false)return range;
+  const r=level(input?.power,'the OFDM power');if(!r.ok)return r;
+  const per6=r.value-10*Math.log10(range.width/6);
+  return {ok:true,id:'ofdm',reading:r.value,low:range.low,high:range.high,width:range.width,derived:range.derived,per6,units:'dBmV over '+range.width+' MHz',...inRange(r.value,range.low,range.high),compare:per6};
+ }
+ /* Total downstream input power: strictly below 40 dBmV for a DOCSIS 3.1 modem, 33 dBmV for a 3.0-only modem. */
+ function total(input){
+  const modem=String(input?.modem??'3.1');
+  if(!(modem in TOTAL_LIMIT))return fail('Choose the modem generation: DOCSIS 3.1 or 3.0 only.');
+  const r=level(input?.total,'the total input power');if(!r.ok)return r;
+  const limit=TOTAL_LIMIT[modem];
+  const below=r.value<limit;
+  return {ok:true,id:'total',reading:r.value,limit,modem,status:below?'below-limit':'at-or-over',margin:Math.abs(limit-r.value),units:'dBmV total',compare:r.value};
+ }
+ /* Upstream: headroom between the total transmit power and Pmax, the maximum total power
+    the modem supports. 65 dBmV is the default and the lowest allowed Pmax. */
+ function upstream(input){
+  const r=level(input?.total,'the total transmit power');if(!r.ok)return r;
+  let pmax=PMAX_MIN;
+  if(String(input?.pmax??'').trim()!==''){
+   const p=num(input.pmax);
+   if(p===null)return fail('Enter the modem’s Pmax in dBmV as a number, or leave it blank for the 65 dBmV minimum.');
+   if(p<PMAX_MIN)return fail('Pmax cannot be below 65 dBmV, the lowest value the specification allows.');
+   if(p>READING_BOUNDS.max)return fail('Enter a Pmax of '+READING_BOUNDS.max+' dBmV or less.');
+   pmax=p;
+  }
+  const headroom=pmax-r.value;
+  return {ok:true,id:'upstream',reading:r.value,pmax,defaultPmax:String(input?.pmax??'').trim()==='',headroom,status:headroom>=-EPS?'headroom':'over-pmax',margin:Math.abs(headroom),units:'dBmV total',compare:r.value};
+ }
+ const evaluators=Object.freeze({scqam,ofdm,total,upstream});
+ function evaluate(id,input){const fn=evaluators[id];return fn?fn(input):fail('Unknown measurement.');}
+ /* Company window: a minimum, a maximum or both, in the same units as `compare`. Blank is
+    unknown, never zero. */
+ function parseWindow(min,max){
+  const parse=(value,label)=>{
+   if(value===null||value===undefined||String(value).trim()==='')return {ok:true,value:null};
+   const v=num(value);
+   if(v===null)return fail('Enter the '+label+' as a number or leave it blank.');
+   if(v<READING_BOUNDS.min||v>READING_BOUNDS.max)return fail('Enter the '+label+' between '+READING_BOUNDS.min+' and +'+READING_BOUNDS.max+' dBmV.');
+   return {ok:true,value:v};
+  };
+  const lo=parse(min,'lowest allowed level');if(!lo.ok)return lo;
+  const hi=parse(max,'highest allowed level');if(!hi.ok)return hi;
+  if(lo.value!==null&&hi.value!==null&&lo.value>hi.value)return fail('The lowest level is above the highest. Swap them.');
+  return {ok:true,min:lo.value,max:hi.value};
+ }
+ function againstWindow(reading,window){
+  if(!window||(window.min===null&&window.max===null))return {status:'unknown'};
+  const lo=window.min,hi=window.max;
+  if(lo!==null&&reading<lo-EPS)return {status:'below',margin:lo-reading,min:lo,max:hi};
+  if(hi!==null&&reading>hi+EPS)return {status:'above',margin:reading-hi,min:lo,max:hi};
+  const toLo=lo===null?Infinity:Math.max(0,reading-lo),toHi=hi===null?Infinity:Math.max(0,hi-reading);
+  return {status:'inside',margin:Math.min(toLo,toHi),min:lo,max:hi};
+ }
+ /* Windows are kept on this device only, in one versioned key, and never in a job or backup. */
+ const emptyWindows=()=>Object.fromEntries(MEASUREMENTS.map(id=>[id,{min:null,max:null}]));
+ let windows=emptyWindows(),loaded=false;
+ /* Windows load from this device the first time they are needed. */
+ function ensureLoaded(){
+  if(loaded)return;loaded=true;
+  try{windows=typeof localStorage!=='undefined'?readStored(localStorage):emptyWindows();}catch(_){windows=emptyWindows();}
+ }
+ function readStored(storage){
+  const fresh=emptyWindows();
+  try{
+   const raw=storage?.getItem(STORAGE_KEY);if(!raw)return fresh;
+   const saved=JSON.parse(raw);
+   if(!saved||saved.version!==1||typeof saved.windows!=='object'||saved.windows===null)return fresh;
+   for(const id of MEASUREMENTS){
+    const w=saved.windows[id];if(!w||typeof w!=='object')continue;
+    const parsed=parseWindow(w.min,w.max);
+    if(parsed.ok)fresh[id]={min:parsed.min,max:parsed.max};
+   }
+  }catch(_){return emptyWindows();}
+  return fresh;
+ }
+ function loadWindows(storage){loaded=true;windows=readStored(storage);return windows;}
+ function getWindow(id){ensureLoaded();return windows[id]||{min:null,max:null};}
+ /* Returns {ok,saved}: ok false means the entry was rejected; saved false means this
+    browser would not store it, so it lasts until the page closes. */
+ function setWindow(id,min,max,storage){
+  if(!MEASUREMENTS.includes(id))return fail('Unknown measurement.');
+  const parsed=parseWindow(min,max);if(!parsed.ok)return parsed;
+  ensureLoaded();
+  windows={...windows,[id]:{min:parsed.min,max:parsed.max}};
+  let saved=true;
+  try{
+   if(!storage)throw new Error('no storage');
+   storage.setItem(STORAGE_KEY,JSON.stringify({version:1,windows}));
+  }catch(_){saved=false;}
+  return {ok:true,saved,window:windows[id]};
+ }
+ function clearWindows(storage){
+  loaded=true;windows=emptyWindows();
+  try{storage?.removeItem(STORAGE_KEY);}catch(_){return false;}
+  return true;
+ }
+ /* Value text for the registry's company rows. */
+ function registryValue(id){
+  const w=getWindow(id);
+  if(w.min===null&&w.max===null)return {value:null,text:'Unknown — not entered',where:'Saved on this device only'};
+  const bit=v=>{const n=Number(Math.abs(v).toFixed(2));return (v>0?'+':v<0&&n!==0?'−':'')+n;};
+  const text=w.min!==null&&w.max!==null?bit(w.min)+' to '+bit(w.max)+' dBmV':w.min!==null?'at least '+bit(w.min)+' dBmV':'at most '+bit(w.max)+' dBmV';
+  return {value:w.min??w.max,text,where:'Saved on this device only'};
+ }
+ return {STORAGE_KEY,MEASUREMENTS,SCQAM_RANGE,OFDM_PER6,OFDM_PER24,TOTAL_LIMIT,PMAX_MIN,evaluate,scqam,ofdm,total,upstream,parseWindow,againstWindow,loadWindows,getWindow,setWindow,clearWindows,registryValue};
+})();
+
+const DocsisHealthUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const trim2=v=>{const s=Number(v.toFixed(2)).toString();return s==='-0'?'0':s;};
+ const level=v=>(v>0?'+':v<0?'−':'')+trim2(Math.abs(v));
+ const dB=v=>{const m=Math.abs(v);const one=m.toFixed(1);return (one==='0.0'&&m>0?m.toFixed(2):one)+' dB';};
+ const CARDS=Object.freeze({
+  scqam:{title:'Downstream SC-QAM channel',spec:'docsis.ds.scqam.range',company:'company.docsis.scqam',
+   lead:'Level of one 6 MHz digital channel at the modem input, from your meter or the modem’s status page.',
+   fields:()=>field('scqam','level','Channel level (dBmV)','e.g. 3.2'),
+   conditions:'North American 6 MHz channels, 64-QAM and 256-QAM. A DOCSIS 3.1 modem takes its SC-QAM range from the 3.0 specification. Check each channel; one reading does not cover the others.'},
+  ofdm:{title:'Downstream OFDM channel',spec:'docsis.ds.ofdm.range',company:'company.docsis.ofdm',
+   lead:'Level of a DOCSIS 3.1 OFDM channel at the modem input. Most meters show it per 6 MHz.',
+   fields:()=>field('ofdm','power','OFDM power (dBmV)','e.g. -2.5')+`<label>Measured over<select data-health="ofdm" data-field="basis"><option value="6">Each 6 MHz (most meters)</option><option value="24">24 MHz</option><option value="other">Another occupied bandwidth</option></select></label><label data-health-other hidden>Occupied bandwidth (MHz)<input type="number" min="24" max="192" step="6" inputmode="numeric" data-health="ofdm" data-field="occupied" placeholder="e.g. 96"></label>`,
+   conditions:'The stated range is for equal power across the band. The other-bandwidth range moves the 24 MHz row by 10·log10(occupied ÷ 24) and is derived, not printed in the specification. Occupied bandwidth is a whole number of 6 MHz channels, 24 to 192 MHz, edge taper included.'},
+  total:{title:'Total downstream input power',spec:'docsis.ds.total31.limit',company:'company.docsis.total',
+   lead:'Power of every downstream signal added together at the modem input, in dBmV.',
+   fields:()=>field('total','total','Total input power (dBmV)','e.g. 28')+`<label>Modem<select data-health="total" data-field="modem"><option value="3.1">DOCSIS 3.1 (limit 40)</option><option value="3.0">DOCSIS 3.0 only (limit 33)</option></select></label>`,
+   conditions:'Use your meter’s total-power reading across the full downstream band. The 3.1 limit covers 54 to 1794 MHz; the 3.0-only limit covers 40 MHz and above. Do not apply 40 dBmV to a 3.0-only modem.'},
+  upstream:{title:'Upstream transmit headroom',spec:'docsis.us.pmax.capability',company:'company.docsis.upstream',
+   lead:'How far the modem’s total transmit power sits below the most it can transmit (Pmax).',
+   fields:()=>field('upstream','total','Total transmit power (dBmV)','e.g. 48')+field('upstream','pmax','Modem Pmax (dBmV, optional)','65 if blank'),
+   conditions:'Enter a total, not one channel: a modem status page lists per-channel numbers that are referenced to 1.6 MHz, and a 6.4 MHz channel carries 6 dB more actual power than the number shown. A modem may support a Pmax above 65; enter it if the modem reports it. Headroom is a margin, not a pass or fail.'}
+ });
+ function field(card,name,label,hint){return `<label>${label}<input type="number" step="any" inputmode="decimal" data-health="${card}" data-field="${name}" placeholder="${hint}"></label>`;}
+ function windowBox(id){
+  const c=CARDS[id];
+  const unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
+  return `<details class="health-window" data-health-window-box="${id}"><summary>Company window (your target)</summary><p class="note tight">Your own limits for this reading, in ${unit}. Leave a box blank if you have no limit on that side; blank is unknown, not zero. ${tag(c.company,c.title+' company window')}</p><div class="calc-fields"><label>Lowest (${unit})<input type="number" step="any" inputmode="decimal" data-health-window="${id}" data-field="min"></label><label>Highest (${unit})<input type="number" step="any" inputmode="decimal" data-health-window="${id}" data-field="max"></label></div><p class="note" id="health-${id}-window-note" role="status" aria-live="polite"></p></details>`;
+ }
+ function card(id){
+  const c=CARDS[id];
+  return `<section class="calc-card health-card" data-health-card="${id}" aria-labelledby="health-${id}-title"><div class="calc-card-head"><h3 id="health-${id}-title">${c.title}</h3>${tag(c.spec,c.title+' spec')}</div><p class="note tight">${c.lead}</p><div class="calc-fields">${c.fields()}</div><div class="calc-result" id="health-${id}-result" role="status" aria-live="polite"></div>${windowBox(id)}<p class="note calc-conditions">${c.conditions}</p></section>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>DOCSIS health</h2><p class="note tight">Check a reading you already have against the DOCSIS modem requirements and your own window. Nothing is read from a modem or meter. The spec range is what a modem must accept, not a target: inside it does not mean the link is healthy, because error rate and MER are separate.</p></div><button type="button" id="healthClear">Clear company windows</button></div><div class="calc-grid">${MEASUREMENTS_ORDER.map(card).join('')}</div>`;
+ }
+ const MEASUREMENTS_ORDER=['scqam','ofdm','total','upstream'];
+ function read(id){const v={};document.querySelectorAll(`[data-health="${id}"]`).forEach(el=>{v[el.dataset.field]=el.value;});return v;}
+ function specRows(id,r){
+  const c=CARDS[id];
+  if(id==='scqam')return `<div class="health-row"><span>Spec range ${tag(c.spec,'SC-QAM spec range')}</span><strong>${level(r.low)} to ${level(r.high)} <small>dBmV per 6 MHz</small></strong></div>`;
+  if(id==='ofdm'){
+   const derived=r.derived?` ${tag('docsis.ds.ofdm.scaling','OFDM range for another bandwidth')}`:'';
+   return `<div class="health-row"><span>Spec range, over ${r.width} MHz ${tag(c.spec,'OFDM spec range')}${derived}</span><strong>${level(r.low)} to ${level(r.high)} <small>dBmV</small></strong></div>`;
+  }
+  if(id==='total'){
+   const specId=r.modem==='3.0'?'docsis.ds.total30.limit':'docsis.ds.total31.limit';
+   return `<div class="health-row"><span>Spec limit, DOCSIS ${r.modem}${r.modem==='3.0'?' only':''} ${tag(specId,'total input power limit')}</span><strong>below ${r.limit} <small>dBmV</small></strong></div>`;
+  }
+  return `<div class="health-row"><span>Maximum total power (Pmax) ${tag(c.spec,'Pmax')}</span><strong>${trim2(r.pmax)} <small>dBmV${r.defaultPmax?', the minimum':''}</small></strong></div>`;
+ }
+ function statusLine(id,r){
+  const where=r.edge==='low'?'lower':'upper';
+  if(id==='total'){
+   return r.status==='below-limit'?`<p class="health-status ok">✓ ${dB(r.margin)} below the ${r.limit} dBmV limit.</p>`:`<p class="health-status warn">⚠ At or above the ${r.limit} dBmV limit${r.margin>0?` (${dB(r.margin)} over)`:''}.</p>`;
+  }
+  if(id==='upstream'){
+   return r.status==='headroom'?`<p class="health-status ok">✓ ${dB(r.headroom)} of headroom below Pmax.</p>`:`<p class="health-status warn">⚠ The reading is ${dB(r.margin)} above Pmax. Check the reading, or enter the Pmax the modem reports.</p>`;
+  }
+  if(r.status==='inside')return `<p class="health-status ok">✓ Inside the spec range, ${dB(r.margin)} from the ${where} edge.</p>`;
+  return `<p class="health-status warn">⚠ ${dB(r.margin)} ${r.status} the spec range.</p>`;
+ }
+ function companyRows(id,r){
+  const c=CARDS[id],w=DocsisHealth.getWindow(id),res=DocsisHealth.againstWindow(r.compare,w);
+  const unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
+  const head=`<span>Company window ${tag(c.company,c.title+' company window')}</span>`;
+  if(res.status==='unknown')return `<div class="health-row">${head}<strong>Unknown — not entered</strong></div><p class="note tight">Enter your target in the company window box below to compare.</p>`;
+  const range=res.min!==null&&res.max!==null?`${level(res.min)} to ${level(res.max)}`:res.min!==null?`at least ${level(res.min)}`:`at most ${level(res.max)}`;
+  const line=res.status==='inside'?`<p class="health-status ok">✓ Inside your window${Number.isFinite(res.margin)?`, ${dB(res.margin)} from the nearest edge`:''}.</p>`:`<p class="health-status warn">⚠ ${dB(res.margin)} ${res.status} your window.</p>`;
+  const extra=id==='ofdm'?` (reading restated: ${level(r.compare)} dBmV per 6 MHz)`:'';
+  return `<div class="health-row">${head}<strong>${range} <small>${unit}</small></strong></div>${line}${extra?`<p class="note tight">${extra.trim()}</p>`:''}`;
+ }
+ function out(id,r){
+  const el=document.getElementById('health-'+id+'-result');if(!el)return;
+  el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
+  if(!r||!r.ok){el.innerHTML=`<p class="note">${escape(r?.error??'Enter a reading to compare.')}</p>`;return;}
+  el.innerHTML=`<div class="health-rows">${specRows(id,r)}${statusLine(id,r)}${companyRows(id,r)}</div>`;
+ }
+ function blank(v,keys){return keys.every(k=>String(v[k]??'').trim()==='');}
+ function update(id){
+  const v=read(id);
+  const other=document.querySelector('[data-health-other]');
+  if(id==='ofdm'&&other)other.hidden=v.basis!=='other';
+  const primary={scqam:['level'],ofdm:['power'],total:['total'],upstream:['total']}[id];
+  if(blank(v,primary))return out(id,{ok:false,error:null});
+  out(id,DocsisHealth.evaluate(id,v));
+ }
+ function storage(){try{return window.localStorage;}catch(_){return null;}}
+ function syncWindowFields(){
+  for(const id of DocsisHealth.MEASUREMENTS){
+   const w=DocsisHealth.getWindow(id);
+   document.querySelectorAll(`[data-health-window="${id}"]`).forEach(el=>{el.value=w[el.dataset.field]===null?'':String(w[el.dataset.field]);});
+  }
+ }
+ function note(id,text,error){const el=document.getElementById('health-'+id+'-window-note');if(el){el.textContent=text;el.classList.toggle('error',!!error);}}
+ function commitWindow(id){
+  const min=document.querySelector(`[data-health-window="${id}"][data-field="min"]`)?.value??'',max=document.querySelector(`[data-health-window="${id}"][data-field="max"]`)?.value??'';
+  const res=DocsisHealth.setWindow(id,min,max,storage());
+  if(!res.ok){note(id,res.error,true);return;}
+  note(id,res.saved?'Saved on this device. It is not part of a job backup.':'This browser would not save it, so it lasts until you close the page.',!res.saved);
+  update(id);
+ }
+ let initialized=false;
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('docsisHealthPanel');if(!panel)return;
+  DocsisHealth.loadWindows(storage());
+  panel.innerHTML=markup();syncWindowFields();
+  const onEdit=event=>{
+   const t=event.target;if(!panel.contains(t))return;
+   if(t.dataset.health)update(t.dataset.health);
+   else if(t.dataset.healthWindow&&event.type==='change')commitWindow(t.dataset.healthWindow);
+  };
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  panel.addEventListener('click',event=>{
+   if(event.target.id!=='healthClear')return;
+   if(typeof confirm==='function'&&!confirm('Clear all four company windows on this device?'))return;
+   DocsisHealth.clearWindows(storage());syncWindowFields();
+   DocsisHealth.MEASUREMENTS.forEach(id=>{note(id,'',false);update(id);});
+  });
+  DocsisHealth.MEASUREMENTS.forEach(update);
+ }
+ return {init,markup,update,CARDS};
+})();

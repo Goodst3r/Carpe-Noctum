@@ -64,6 +64,36 @@ const Thresholds=(()=>{
    source:'R. Hranac, “Frequency Response Testing,” Broadband Library (balance on a low and a high signal sets pad, EQ, level and tilt, and does not replace sweep); the order follows the GainMaker manual procedure steps in this app’s setup references (input EQ for tilt, input pad at the highest design frequency)',revision:'Broadband Library, February 19, 2022; Cisco GainMaker guide OL-31156-01 (February 2014, third-party mirror)',locator:'Hranac: “Sweep or balance?”; GainMaker guide chapter 3 manual and thermal setup steps',
    conditions:'Readings and targets at the same two pilots and the same measurement plane. The station must be in the manual or backoff state its procedure requires, because an active AGC or ALSC loop can hide a pad or EQ change. Pads are treated as flat. Picks use only the model’s sourced pad and EQ values and only inside each EQ’s published frequencies. Re-measure after every change.',date:CHECKED,scope:'all',verification:'derived',usedBy:'Test → Calculators: pad / EQ balance',
    note:'Balancing on two pilots does not show the response between them; it does not replace a sweep.'},
+  {id:'docsis.ds.scqam.range',label:'spec',name:'Downstream SC-QAM channel level at the cable modem',kind:'limit',units:'dBmV per 6 MHz channel',rangeText:'−15 to +15 dBmV per 6 MHz channel',
+   source:'CableLabs CM-SP-PHYv3.0, DOCSIS 3.0 Physical Layer Specification, Downstream Electrical Input to CM; CM-SP-PHYv3.1 section 6.4.2 applies it to DOCSIS 3.1 modems',revision:'PHYv3.0 C01 (December 7, 2017); PHYv3.1 I20 (April 19, 2023)',locator:'PHYv3.0 C01 section 6.3.2, Table 6–22, row “Level Range (one DOCSIS channel)” (p. 100); PHYv3.1 I20 section 6.4.2 (p. 43)',
+   conditions:'North American 6 MHz channels, 64-QAM and 256-QAM, at the modem F connector. A capability limit: the levels a modem must accept. It is not an operating target and says nothing about error rate. The EuroDOCSIS 8 MHz ranges are different and are not used here.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
+  {id:'docsis.ds.ofdm.range',label:'spec',name:'Downstream OFDM level at the cable modem',kind:'limit',units:'dBmV per 24 MHz',rangeText:'−9 to +21 dBmV per 24 MHz (−15 to +15 dBmV per 6 MHz)',
+   source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification, Cable Modem Receiver Input Requirements',revision:'PHYv3.1 I20 (April 19, 2023)',locator:'Section 7.5.11, Table 45 “Electrical Input to CM”, row “Level Range (24 MHz min occupied BW)” (p. 146)',
+   conditions:'For an OFDM channel occupying at least 24 MHz. The table gives the range as −9 to +21 dBmV per 24 MHz and says it is equivalent to the SC-QAM range of −15 to +15 dBmV per 6 MHz. Those two statements differ by 0.02 dB (10·log10 of 4 is 6.02 dB); the card uses each as printed. A capability limit, not an operating target; the specification notes that the level range implies nothing about error performance.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
+  {id:'docsis.ds.ofdm.scaling',label:'expert',name:'OFDM level range for another occupied bandwidth',kind:'formula',units:'dBmV',formula:'low = −9 + 10·log10(B ÷ 24); high = +21 + 10·log10(B ÷ 24), in dBmV over B MHz',
+   source:'Derived from the PHYv3.1 I20 Table 45 24 MHz row with the flat-power bandwidth relation also used by the OFDM power calculator (row calc.ofdm.bandwidth). The specification prints ranges only for 6 and 24 MHz',revision:'PHYv3.1 I20 (April 19, 2023); SCTE 258 2026 (September 2026)',locator:'PHYv3.1 I20 Table 45; SCTE 258 section 7.2',
+   conditions:'B is the occupied bandwidth, a whole number of 6 MHz channels from 24 to 192 MHz, taper included. Assumes equal power density across the band, so it does not suit a tilted OFDM output. The specification does not print this relation for other widths, which is why the label is Expert.',date:CHECKED,scope:'all',verification:'derived',usedBy:'Test → DOCSIS health'},
+  {id:'docsis.ds.total31.limit',label:'spec',name:'Total downstream input power, DOCSIS 3.1 modem',kind:'limit',units:'dBmV total',rangeText:'below 40 dBmV',
+   source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification, Cable Modem Receiver Input Requirements',revision:'PHYv3.1 I20 (April 19, 2023)',locator:'Section 7.5.11, Table 45 “Electrical Input to CM”, row “Total Input Power” (p. 146)',
+   conditions:'Total power of all signals from 54 to 1794 MHz, assuming negligible power outside that range, at the modem input. Strictly below 40 dBmV. A DOCSIS 3.0-only modem has the lower limit in the next row.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
+  {id:'docsis.ds.total30.limit',label:'spec',name:'Total downstream input power, DOCSIS 3.0-only modem',kind:'limit',units:'dBmV total',rangeText:'below 33 dBmV',
+   source:'CableLabs CM-SP-PHYv3.0, DOCSIS 3.0 Physical Layer Specification, Downstream Electrical Input to CM',revision:'PHYv3.0 C01 (December 7, 2017)',locator:'Section 6.3.2, Table 6–22, row “Total Input Power (40 MHz and above)” (p. 100)',
+   conditions:'North American plant, total power of all signals from 40 MHz up, at the modem input. Strictly below 33 dBmV. Do not apply the 3.1 limit of 40 dBmV to a modem that is only DOCSIS 3.0.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
+  {id:'docsis.us.pmax.capability',label:'spec',name:'Maximum total transmit power (Pmax) a cable modem must support',kind:'limit',units:'dBmV total',rangeText:'at least 65 dBmV (the default and lowest allowed Pmax)',
+   source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification, Transmit Power Requirements',revision:'PHYv3.1 I20 (April 19, 2023); the same 65 dBmV statement appears in issue I08',locator:'Section 7.4.12.2 Transmit Power Requirements and section 7.4.12.3.1 (definition of Pmax); output-level rows of the CM transmitter tables in sections 6.2 and 7.4.13',
+   conditions:'A minimum capability, not a limit on what the modem sends and not a target. A modem may support a higher Pmax and reports it in a capability message; the default is 65 dBmV when none is reported. It applies to the total across the transmit channel set. Per-channel numbers on a modem status page are referenced to 1.6 MHz and are not totals.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → DOCSIS health'},
+  {id:'company.docsis.scqam',label:'company',name:'Your window, downstream SC-QAM level',kind:'target',units:'dBmV',store:'docsis',field:'scqam',
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for one 6 MHz SC-QAM channel at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+  {id:'company.docsis.ofdm',label:'company',name:'Your window, downstream OFDM level',kind:'target',units:'dBmV per 6 MHz',store:'docsis',field:'ofdm',
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for OFDM power restated per 6 MHz at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+  {id:'company.docsis.total',label:'company',name:'Your window, total downstream input power',kind:'target',units:'dBmV',store:'docsis',field:'total',
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for total power at the modem input. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
+  {id:'company.docsis.upstream',label:'company',name:'Your window, total upstream transmit power',kind:'target',units:'dBmV',store:'docsis',field:'upstream',
+   source:'Entered by you on the DOCSIS health card',revision:'Saved on this device only; not part of a job or its backups',locator:'Test → DOCSIS health → Company window',
+   conditions:'Your own limits for the modem’s total transmit power. Starts blank (unknown). Either side can stay blank.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Test → DOCSIS health'},
   {id:'app.cable.temperatureCoefficient',label:'unknown',name:'Cable loss temperature correction',kind:'constant',value:0.1,units:'% per °F',formula:'loss × (1 + 0.001 × (T − 68 °F))',
    source:'CommScope Cable Technician Pocket Guide, document MX0398 (the repository’s cable audit records that this value matches it)',revision:'MX0398 Rev U (2021), read from an indexed copy; the live document was not reachable',locator:'Not recorded; see night-sweep/research/equipment-audit-build17/passives/README.md',
    conditions:'Applied to every catalog cable from −40 to 185 °F, referenced to 68 °F.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Route predictions, Predicted levels and Frequency',
@@ -115,7 +145,7 @@ const Thresholds=(()=>{
   if(!VERIFICATION[row.verification])problems.push('unsupported verification');
   if(row.date!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(row.date)&&!['Not recorded when entered',PRESET_DATE].includes(row.date))problems.push('date must be YYYY-MM-DD');
   if(row.label==='company'&&row.verification!=='entered')problems.push('company values are entered values');
-  if(row.store&&!['profile','sweep'].includes(row.store))problems.push('unsupported store');
+  if(row.store&&!['profile','sweep','docsis'].includes(row.store))problems.push('unsupported store');
   return problems;
  }
  function selectedProfile(s=owner()){return s.project?.profiles?.find(p=>String(p.id)===String(s.project.selectedProfile))||null;}
@@ -124,6 +154,7 @@ const Thresholds=(()=>{
   const row=get(id);if(!row)return null;
   if(row.store==='profile'){const p=selectedProfile(s);return {value:p?finite(p[row.field]):null,where:p?'Selected profile '+p.id:'No project profile selected'};}
   if(row.store==='sweep'){const v=s.sweepSetup?.profiles?.[row.split]?.[row.field];return {value:finite(v),where:'This job’s '+row.split+' MHz meter setup'};}
+  if(row.store==='docsis')return typeof DocsisHealth!=='undefined'?DocsisHealth.registryValue(row.field):{value:null,text:'Unknown — not entered',where:'Saved on this device only'};
   if(row.preset){const preset=typeof FieldReference!=='undefined'?FieldReference.localNonHighSplitPreset:null;return {value:preset?finite(preset[row.preset]):null,where:'Built-in local preset'};}
   return {value:typeof row.value==='number'&&Number.isFinite(row.value)?row.value:null,where:row.kind==='formula'?'Formula':'Built in'};
  }
@@ -131,6 +162,8 @@ const Thresholds=(()=>{
  function display(id,s=owner()){
   const row=get(id),r=resolve(id,s);if(!row||!r)return '—';
   if(row.kind==='formula')return row.formula||'Formula';
+  if(row.rangeText)return row.rangeText;
+  if(r.text)return r.text;
   if(r.value===null)return row.label==='company'?'Unknown — not entered':'—';
   return row.units.startsWith('± ')?'± '+trim(r.value)+' '+row.units.slice(2):trim(r.value)+' '+row.units;
  }
@@ -143,7 +176,7 @@ const Thresholds=(()=>{
  function sheetBody(row){
   const info=LABEL_INFO[row.label],r=resolve(row.id),value=display(row.id);
   const caution=['secondary','unverified'].includes(row.verification)?`<p class="status warning">${escape(VERIFICATION[row.verification])}</p>`:'';
-  const edit=row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:'';
+  const edit=row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Test → DOCSIS health</button>`:'';
   return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail('Used by',row.usedBy)}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
  }
  let sheet=null,returnFocus=null;
@@ -158,13 +191,13 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')]];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'],['Built-in approximations',r=>r.id.startsWith('app.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis']];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
   document.querySelectorAll('[data-limits-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.limitsFilter===filter)));
   const count=document.getElementById('limitsCount');if(count)count.textContent=shown.length+' of '+rows.length+' entries';
-  host.innerHTML=groups.map(([title,test])=>{const list=shown.filter(test);return list.length?`<h3>${escape(title)}</h3><ul class="limits-list">${list.map(r=>`<li><div><strong>${escape(r.name)}</strong><span class="limits-value${resolve(r.id)?.value===null&&r.kind!=='formula'?' unknown':''}">${escape(display(r.id))}</span></div>${tag(r.id)}</li>`).join('')}</ul>`:'';}).join('')||'<p class="note">No entries have this label.</p>';
+  host.innerHTML=groups.map(([title,test])=>{const list=shown.filter(test);return list.length?`<h3>${escape(title)}</h3><ul class="limits-list">${list.map(r=>`<li><div><strong>${escape(r.name)}</strong><span class="limits-value${resolve(r.id)?.value===null&&r.kind!=='formula'&&!r.rangeText?' unknown':''}">${escape(display(r.id))}</span></div>${tag(r.id)}</li>`).join('')}</ul>`:'';}).join('')||'<p class="note">No entries have this label.</p>';
  }
  function setFilter(value){if(value!=='all'&&!LABELS.includes(value))return false;filter=value;renderLimits();return true;}
  let initialized=false;

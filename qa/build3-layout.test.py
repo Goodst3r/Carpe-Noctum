@@ -47,6 +47,15 @@ FILL = '''() => {
   for (const [k, v] of Object.entries({ lowMHz: '54', highMHz: '860', measuredLow: '30', measuredHigh: '40', targetLow: '39', targetHigh: '49' })) set(`[data-calc="balance"][data-field="${k}"]`, v);
   set('[data-calc="balance"][data-field="pad"]', '0', 'change'); set('[data-calc="balance"][data-field="eq"]', '30', 'change');
 }'''
+FILL_DOCSIS = '''() => {
+  const set = (sel, v, type = 'input') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
+  set('[data-health="scqam"][data-field="level"]', '-15.5');
+  set('[data-health="ofdm"][data-field="basis"]', 'other', 'change'); set('[data-health="ofdm"][data-field="occupied"]', '25'); set('[data-health="ofdm"][data-field="power"]', '30');
+  set('[data-health="total"][data-field="total"]', '41.25'); set('[data-health="total"][data-field="modem"]', '3.0', 'change');
+  set('[data-health="upstream"][data-field="total"]', '70'); set('[data-health="upstream"][data-field="pmax"]', '68.5');
+  document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
+  set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
+}'''
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
@@ -64,7 +73,7 @@ try:
                 page.evaluate("WorkflowUI.go('calculators')")
                 page.evaluate(FILL)
                 check(f'{label} calculators fit without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
-                cards = page.evaluate("[...document.querySelectorAll('.calc-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                cards = page.evaluate("[...document.querySelectorAll('#calculatorPanel .calc-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
                 check(f'{label} every calculator card stays inside the viewport', len(cards) == 6 and all(l >= -1 and r <= width + 1 for l, r in cards))
                 check(f'{label} long results wrap inside their cards', page.evaluate("[...document.querySelectorAll('.calc-stats strong')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
                 sizes = page.evaluate("[...document.querySelectorAll('#calculatorPanel .source-tag')].map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
@@ -73,6 +82,20 @@ try:
                 check(f'{label} calculator tag text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
                 inputs = page.evaluate("[...document.querySelectorAll('#calculatorPanel input,#calculatorPanel select')].map(e=>e.getBoundingClientRect().height)")
                 check(f'{label} calculator inputs keep field-sized controls', min(inputs) >= 40)
+                page.evaluate("WorkflowUI.go('docsisHealth')")
+                page.evaluate(FILL_DOCSIS)
+                check(f'{label} DOCSIS health fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                cards = page.evaluate("[...document.querySelectorAll('.health-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                check(f'{label} every DOCSIS health card stays inside the viewport', len(cards) == 4 and all(l >= -1 and r <= width + 1 for l, r in cards))
+                check(f'{label} DOCSIS health results wrap inside their cards', page.evaluate("[...document.querySelectorAll('.health-row strong, .health-status')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
+                sizes = page.evaluate("[...document.querySelectorAll('#docsisHealthPanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
+                check(f'{label} DOCSIS health source tags are at least 24 px tap targets', len(sizes) >= 8 and all(w >= 24 and h >= 24 for w, h in sizes))
+                ratios = page.evaluate(CONTRAST)
+                check(f'{label} DOCSIS health tag text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
+                inputs = page.evaluate("[...document.querySelectorAll('#docsisHealthPanel input,#docsisHealthPanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} DOCSIS health inputs keep field-sized controls', inputs and min(inputs) >= 40)
+                check(f'{label} DOCSIS health company-window headings are 44 px tap targets', page.evaluate("[...document.querySelectorAll('.health-window>summary')].every(s=>s.getBoundingClientRect().height>=44)"))
+                check(f'{label} DOCSIS health states each result in words, not color alone', page.evaluate("[...document.querySelectorAll('.health-status')].length>=4&&[...document.querySelectorAll('.health-status')].every(s=>/^(✓|⚠)/.test(s.textContent.trim()))"))
                 page.evaluate("WorkflowUI.go('limits')")
                 check(f'{label} limits list fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 ratios = page.evaluate(CONTRAST)
@@ -89,7 +112,7 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         check('No uncaught application errors', not errors)

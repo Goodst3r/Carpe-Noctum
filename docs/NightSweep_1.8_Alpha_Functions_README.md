@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index. The 2.0 Alpha build 3 additions below bring that to 23 screens and 40 entries.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds two Test screens, [Field calculators](#field-calculators) and [Limits and sources](#limits-and-sources). The custom-curves exercise gains two guide steps for them, and the feature index gains entries 38 and 39.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds three Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources) and the [DOCSIS health card](#docsis-health-card). The custom-curves exercise gains three guide steps for them, and the feature index gains entries 38, 39 and 40.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -27,16 +27,17 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 15. [Field references and target conversions](#field-references-and-target-conversions)
 16. [Field calculators](#field-calculators)
 17. [Limits and sources](#limits-and-sources)
-18. [Power-supply load](#power-supply-load)
-19. [Power what-if](#power-what-if)
-20. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-21. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-22. [Project records and closeout](#project-records-and-closeout)
-23. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-24. [Offline use, updates and Help](#offline-use-updates-and-help)
-25. [Checked example answers](#checked-example-answers)
-26. [37-feature coverage index](#37-feature-coverage-index)
-27. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+18. [DOCSIS health card](#docsis-health-card)
+19. [Power-supply load](#power-supply-load)
+20. [Power what-if](#power-what-if)
+21. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+22. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+23. [Project records and closeout](#project-records-and-closeout)
+24. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+25. [Offline use, updates and Help](#offline-use-updates-and-help)
+26. [Checked example answers](#checked-example-answers)
+27. [40-feature coverage index](#40-feature-coverage-index)
+28. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -46,7 +47,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Acceptance; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -92,7 +93,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 10 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 11 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -387,6 +388,31 @@ What the list holds:
 
 The list describes values; it does not approve criteria or change the job. Example targets on older screens, such as the workbook and sample targets in Test → References, are not listed yet, and older screens do not show tags; later build-list tools add them where their values appear.
 
+## DOCSIS health card
+
+**Where:** Test → DOCSIS health. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check modem levels against the spec.
+
+Compare a reading you already have, from a meter or a modem's status page, with what the DOCSIS specifications require a cable modem to accept or transmit, and with your own window. Nothing is read from a modem, CMTS or meter, and nothing is saved in the job.
+
+**The spec range is a capability limit, not a target.** It is the range of levels a modem must be able to handle. A reading inside it does not mean the link is healthy: error rate, MER and the other checks are separate. A message instead of a result means an input is missing or out of range; it is never a zero.
+
+| Card | Enter | Spec comparison | Source tag |
+| --- | --- | --- | --- |
+| Downstream SC-QAM channel | The level of one 6 MHz digital channel at the modem input (dBmV) | −15 to +15 dBmV per 6 MHz channel, both edges inside | Spec · CableLabs PHYv3.0 C01 section 6.3.2, Table 6–22 (PHYv3.1 section 6.4.2 applies it to 3.1 modems) |
+| Downstream OFDM channel | The OFDM power (dBmV) and what it was measured over: each 6 MHz (most meters), 24 MHz, or another occupied bandwidth (a whole number of 6 MHz channels, 24 to 192 MHz) | −15 to +15 dBmV per 6 MHz and −9 to +21 dBmV per 24 MHz, as printed. For another width the 24 MHz row moves by 10·log10(occupied ÷ 24), which is derived and tagged Expert because the specification prints only the 6 and 24 MHz rows | Spec · CableLabs PHYv3.1 I20 section 7.5.11, Table 45 |
+| Total downstream input power | The power of all downstream signals together (dBmV) and whether the modem is DOCSIS 3.1 or 3.0 only | Strictly below 40 dBmV for a 3.1 modem (54 to 1794 MHz) or 33 dBmV for a 3.0-only modem (40 MHz and up). Exactly 40 is not below 40 | Spec · PHYv3.1 I20 Table 45; PHYv3.0 C01 Table 6–22 |
+| Upstream transmit headroom | The modem's total transmit power (dBmV) and its Pmax if you know it | Headroom = Pmax − total. Pmax is 65 dBmV unless the modem reports a higher value; 65 is the lowest the specification allows. It is a minimum capability, not a limit on what the modem sends | Spec · PHYv3.1 I20 sections 7.4.12.2 and 7.4.12.3.1 |
+
+Each result says in words how far inside or outside the range the reading is, so it does not rely on color. The printed 6 MHz and 24 MHz OFDM figures differ by 0.02 dB (10·log10 of 4 is 6.02 dB, not 6); the card uses each as printed.
+
+**Company window.** Every card has a **Company window** box for the lowest and highest level your company wants. Leave a side blank for no limit on that side: blank is unknown, never zero. The OFDM window is in dBmV per 6 MHz, and the card restates your reading per 6 MHz to compare. Windows start unknown and are saved on this device only, in the browser's storage, so they are **not** part of a job or its full backup; **Clear company windows** removes all four. If the browser will not store them, the card says so and keeps them until the page closes. Company windows also appear in **Test → Limits** under their own heading.
+
+**Total upstream power, not one channel.** Enter the modem's total transmit power. A modem status page lists per-channel numbers referenced to 1.6 MHz, and a 6.4 MHz channel carries 6 dB more actual power than the number shown, so one channel's number is not the total.
+
+Checked worked numbers: 16 dBmV on an SC-QAM channel is **1.0 dB above** the range, and 3.2 dBmV is inside, **11.8 dB** from the upper edge; −8 dBmV over 24 MHz is inside, **1.0 dB** from the lower edge; 40 dBmV total on a 3.1 modem is **at** the limit, not below it; 52 dBmV total transmit power with the 65 dBmV default Pmax leaves **13.0 dB** of headroom.
+
+What this card leaves out on purpose: MER and SNR, per-channel upstream power, the limit on level differences between channels, DOCSIS 4.0, and the EuroDOCSIS 8 MHz ranges, which differ from the North American ones used here.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -581,7 +607,7 @@ These are reference answers for the unchanged **synthetic** examples. Restore a 
 
 The fresh independent complete-workflow audit compares actual application values with Wolfram references, including baseline/trial power and the explicit custom drop. Retained evidence lives with the release under `research/alpha18/`. Arithmetic agreement checks the supplied assumptions and inputs; it does not verify installed equipment, waveform, actual losses or phone behavior.
 
-## 37-feature coverage index
+## 40-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -626,6 +652,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 37 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
 | 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
 | 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
+| 40 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
