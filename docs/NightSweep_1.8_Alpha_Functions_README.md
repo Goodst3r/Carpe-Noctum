@@ -430,7 +430,7 @@ Complete's trial adds **300 ft P3 .625 and 0.75 A after GaN A2**. The independen
 | Evidence classification | Choose Sweep, Ingress, OneCheck or supported attachment context; stage Before, After or Reference; asset/station and notes | Labels the original file and makes before/after comparisons interpretable |
 | Add meter files or photos | Choose available files and wait for completion | Stores original bytes with the job; does not control a meter or read an image's numbers automatically |
 | Supported CSV preview | Supply explicit frequency and level/response/channel columns | Decodes supported interchange data; proprietary ONX JSON/XML/ZIP/PDF and other native schemas remain originals unless supported |
-| View decoded CSV measurements | Expand the parsed trace/channel table | Inspect values, units and source context; previewing applies no silent TP correction |
+| View decoded measurements | Expand the parsed trace/channel table | Inspect values, units and source context; previewing applies no silent TP correction |
 | Sweep / ingress before-after | Match compatible asset, kind, units and frequencies/stages | Compares entered file data; does not invent values or operator acceptance thresholds |
 | OneCheck/channel table | Review supported channel, frequency, level and MER columns | Preserves discrete channel data; SC-QAM and OFDM PLC/block quantities are not interchangeable |
 | Original-only attachments | Retain unsupported formats or photos | Preserves evidence without pretending it has measurement decoding or OCR |

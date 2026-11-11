@@ -733,7 +733,7 @@ A photograph of a meter screen is useful job evidence. Attaching it does not rea
 If you received a separate NightSweep reference job, save your current work with **Files → Back up project** before opening it.
 
 1. Choose **Job → ONX files → Open project backup**, then select the supplied project JSON. In the original 1.7 Alpha APK, use **Files → Open project**.
-2. In **Job → ONX files**, expand the SC-QAM CSV and tap **View decoded CSV measurements**. Each dot is one supplied channel reading. Spaces between dots have no supplied readings.
+2. In **Job → ONX files**, expand the SC-QAM CSV and tap **View decoded measurements**. Each dot is one supplied channel reading. Spaces between dots have no supplied readings.
 3. Open the OFDM photo entries to review the PLC and block metrics. Tap **Save original** to retrieve an attached image. Use **Job → Details → Save now** to keep the reference job on that device.
 
 A manually transcribed downstream channel table can use **OneCheck / Reference** to enable the channel-table preview. Record the asset, measurement point, plant split, and any applied test-point correction with the reading. Keep SC-QAM channel levels separate from OFDM PLC and block metrics. Use confirmed readings at the required endpoints for a full-band tilt measurement and the applicable local procedure for acceptance.

@@ -43,6 +43,18 @@ try:
             check(f'{width}px every criterion carries a Company source tag',page.locator('#sweepGradingPanel [data-threshold][data-label="company"]').count()==8)
             page.locator('#grading-ptvLimitDb').fill('2')
             check(f'{width}px edit marks current grade stale', 'stale / unknown' in page.locator('#gradingStatus').inner_text())
+            if width==320:
+                import base64
+                raw=(ROOT/'qa/fixtures/viavi-synthetic/reverse.json-1.gz').read_bytes()
+                page.locator('#evidenceFiles').set_input_files({'name':'SYNTHETIC.json-1.gz','mimeType':'application/gzip','buffer':raw})
+                page.wait_for_function('!EvidenceUI.isBusy()&&state.evidence.length===2')
+                page.select_option('#gradingEvidence',page.evaluate('state.evidence[1].id'))
+                page.select_option('#gradingDirection','reverse')
+                for k,v in {'lowFrequencyMHz':'7','highFrequencyMHz':'15','ptvLimitDb':'3'}.items():page.locator('#grading-'+k).fill(v)
+                page.locator('#gradingRun').click();page.wait_for_function('state.sweepGrading.records.length===2')
+                check('320px native gzip uses browser decompression and raw unreferenced samples',page.evaluate('state.sweepGrading.records[1].result.metrics.ptvDb===2&&state.sweepGrading.records[1].source.native.referenceState==="unreferenced"&&state.sweepGrading.records[1].result.overall==="unknown"'))
+                exported=page.evaluate('async()=>{const p=await evidenceExportProject(state);return p.evidenceFiles[1].base64}')
+                check('320px native gzip original remains byte-identical in portable backup',exported==base64.b64encode(raw).decode())
             page.screenshot(path=str(serve/f'grading-{width}.png'),full_page=True)
             context.close()
         browser.close()
