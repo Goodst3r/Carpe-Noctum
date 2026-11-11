@@ -54,12 +54,12 @@
 </tr>
 <tr>
 <td>Route</td>
-<td>Setup; Cable route; Amp gain; Equipment setup; Equipment</td>
+<td>Setup; Cable route; Amp gain; Amp / node setup; Catalog</td>
 <td>Starting signal, RF topology, active gain and exact-model references</td>
 </tr>
 <tr>
 <td>Test</td>
-<td>Sweep setup; TDR; Sweep; Frequency; Readings; References; Calculators; Limits</td>
+<td>Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits</td>
 <td>Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit</td>
 </tr>
 <tr>
@@ -69,7 +69,7 @@
 </tr>
 <tr>
 <td>Job</td>
-<td>Details; ONX files; Checklists; Records; Run sheet</td>
+<td>Details; ONX files; Checklists; Acceptance; Run sheet</td>
 <td>Local jobs, original evidence, work notes, acceptance records and reports</td>
 </tr>
 <tr>
@@ -104,7 +104,7 @@
 <td>Opens the relevant controls while preserving the current job</td>
 </tr>
 <tr>
-<td>Files → Save project</td>
+<td>Files → Back up project</td>
 <td>Export the working project and finish the device&#39;s save action</td>
 <td>Portable JSON with supported job data and original evidence; verify the file outside the app</td>
 </tr>
@@ -129,7 +129,7 @@
 <td>Task guidance, calculation definitions and limits</td>
 </tr>
 <tr>
-<td>Sun / Night</td>
+<td>Palette button (header: Switch to Sun palette or Switch to Night palette)</td>
 <td>Select the display palette</td>
 <td>Changes presentation, without changing inputs or calculations</td>
 </tr>
@@ -251,7 +251,7 @@
 <td>Removes sample inputs from the new working job; check its name before field entry</td>
 </tr>
 <tr>
-<td>Save named job</td>
+<td>Save now</td>
 <td>Save the desired working version to the device&#39;s job library</td>
 <td>Local named copy; save/export important revisions deliberately</td>
 </tr>
@@ -509,7 +509,7 @@
 </tbody></table></div>
 <p>Complete&#39;s helper uses <strong>7.1/16.1 dBmV +20 dB each</strong> at 54 MHz: corrected 27.1/36.1 dBmV gives <strong>9 dB gain</strong>. A1&#39;s entered anchors are 9/18 dB at 54/860 MHz; A2&#39;s table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not GainMaker GaN control settings.</p>
 <h2 id="installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</h2>
-<p><strong>Where:</strong> Route → Equipment setup; also <strong>Source setup &amp; manual</strong> from Setup. <strong>Practice:</strong> Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.</p>
+<p><strong>Where:</strong> Route → Amp / node setup; also <strong>Source setup &amp; manual</strong> from Setup. <strong>Practice:</strong> Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -601,7 +601,7 @@
 <p>The historical Rev A table contains 86 literal rows: channels 52–94 and 100–142. DSIM-SG Rev E&#39;s pad instructions differ from Rev H; the app preserves that conflict rather than mixing settings. Match the full installed procedure before physical use.</p>
 <p><strong>AOI in the separate six-active example:</strong> HGD/HGBT guidance covers saved downstream profile → downstream Auto → optional downstream Manual → applicable upstream sequence → ALSC after both paths. The cited historical SA procedure is not a substitute for missing exact Quantum18 LE/BA I&amp;O. Its instrument instructions remain separate from the local XPERTrak return workflow.</p>
 <h2 id="equipment-catalog">Equipment catalog</h2>
-<p><strong>Where:</strong> Route → Equipment. <strong>Practice:</strong> Complete → Equipment references.</p>
+<p><strong>Where:</strong> Route → Catalog. <strong>Practice:</strong> Complete → Equipment references.</p>
 <p>Choose category/family and search the exact model. The list includes RF equipment, cables, node profiles and power models. Search can widen beyond a family when that filter has no matching entry; read the displayed count/filter message and narrow a long list.</p>
 <p>Expand <strong>View published loss data</strong>, <strong>View operating gain &amp; conditions</strong>, <strong>View bands &amp; test points</strong>, or <strong>View power data &amp; conditions</strong>. Read units, frequency/voltage domains, source, configuration, nominal/maximum basis and source qualifications before using a value. Node and power entries link to their working setup/load screens.</p>
 <p>Custom entries require actual input tables. Published references do not automatically fill installed operating gain. Unavailable curves do not become zero or extrapolate. UBT remains unavailable for new selections; older saved UBT definitions remain readable without silently replacing them. A legacy power row with unsupported current data needs an applicable entered load.</p>
@@ -654,7 +654,7 @@
 <p>Complete: after GaN A2 at <strong>1700 ft</strong>, <strong>295 − 25 = 270 ft</strong> of cable path locates <strong>1970 ft</strong>, <strong>160 ft</strong> into Main Tap B&#39;s 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.</p>
 <p>Custom curves: reverse from the 200 ft endpoint; <strong>100 × 0.88/0.80 − 25 = 85 ft</strong> toward the source places the hit at <strong>115 ft</strong>, 15 ft into the second span. These VFs and distances are teaching inputs.</p>
 <h2 id="forward-and-return-sweep-setup">Forward and return sweep setup</h2>
-<p><strong>Where:</strong> Test → Sweep setup. <strong>Practice:</strong> Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.</p>
+<p><strong>Where:</strong> Test → Meter setup. <strong>Practice:</strong> Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -726,7 +726,7 @@
 </tbody></table></div>
 <p>For physical-output budgeting, full physical losses remain losses even if instrument compensation is enabled. Do not enter the summed physical-output estimate as ONX network-plane Injection while also applying the same TPC. The Records injection helper instead uses <strong>remaining uncompensated</strong> losses for its manual-setting estimate. Neither establishes an approved meter mode or measured injection. Return Sweepless Sweep does not use this generator calculation.</p>
 <h2 id="predicted-sweep-and-output-table">Predicted sweep and output table</h2>
-<p><strong>Where:</strong> Test → Sweep. <strong>Practice:</strong> Complete → Predicted sweep; Six actives → six restored marker outputs.</p>
+<p><strong>Where:</strong> Test → Predicted levels. <strong>Practice:</strong> Complete → Predicted sweep; Six actives → six restored marker outputs.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -1211,7 +1211,7 @@
 </tbody></table></div>
 <p>Practice <strong>72 dBµV =12 dBmV</strong>. This is a voltage-reference conversion, not dBm power, leakage field strength or proof of a measured level.</p>
 <h2 id="project-records-and-closeout">Project records and closeout</h2>
-<p><strong>Where:</strong> Job → Records. <strong>Practice:</strong> Complete → Records; DSIM → findings; focused equipment guides.</p>
+<p><strong>Where:</strong> Job → Acceptance. <strong>Practice:</strong> Complete → Records; DSIM → findings; focused equipment guides.</p>
 <h3 id="identity-profiles-and-acceptance-criteria">Identity, profiles and acceptance criteria</h3>
 <p>Record ticket/node/design revision, lead, meter/calibration, reference ID, reviewer, acceptance date, disposition and notes. Job ticket/node/lead are linked with the corresponding Details fields.</p>
 <p>Select the actual profile and enter <strong>installed equipment upper</strong>, <strong>planned upper</strong>, <strong>available spectrum</strong>, return ceiling/forward floor, forward/return marker frequencies, design or receiver targets, level/tilt/ripple tolerances, minimum MER, network injection targets/tolerance, control/procedure and marker basis. Mark approval only when the operator&#39;s criteria are genuinely approved.</p>
@@ -1307,12 +1307,12 @@
 </tr>
 <tr>
 <td>Record CSVs</td>
-<td>Job → Records</td>
+<td>Job → Acceptance</td>
 <td>The selected section&#39;s entered rows and computed review fields</td>
 </tr>
 <tr>
 <td>Export setup notes</td>
-<td>Test → Sweep setup</td>
+<td>Test → Meter setup</td>
 <td>Setup drafts, guide/context and saved station snapshots</td>
 </tr>
 <tr>
@@ -1321,7 +1321,7 @@
 <td>Exact original attachment bytes</td>
 </tr>
 <tr>
-<td>Save project / Home backup</td>
+<td>Back up project</td>
 <td>Files or Home</td>
 <td>Full supported route, power, job, records, field/setup drafts, training state and original evidence</td>
 </tr>

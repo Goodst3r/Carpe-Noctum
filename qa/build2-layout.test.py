@@ -8,10 +8,13 @@ import importlib.util
 import json
 import re
 import os
+import sys
 import hashlib
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parent.parent
-OUT=ROOT/'research/build2';OUT.mkdir(exist_ok=True,parents=True)
+sys.path.insert(0,str(ROOT/'qa'))
+from evidence_path import evidence_path
+OUT=evidence_path('research/build2/layout-candidate.html').parent
 src=ROOT/'night-sweep';html=(src/'shell.html').read_text()
 for token,name in re.findall(r"\('([^']*<!--[^']*-->)', '([^']+)'\)",(src/'build.py').read_text()):
  data=(src/name).read_text()
