@@ -1,0 +1,188 @@
+/* Build 3 threshold and source registry (build list item 1), against the built standalone app DOM. */
+'use strict';
+const fs = require('node:fs'), assert = require('node:assert/strict'), { webcrypto } = require('node:crypto');
+const { JSDOM, VirtualConsole } = require('./runtime/node_modules/jsdom'), FDB = require('./runtime/node_modules/fake-indexeddb');
+const html = process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST === '1' ? require('./build2-source-harness.cjs').assembleHtml() : fs.readFileSync('outputs/Night_Sweep.html', 'utf8');
+const cases = [], errors = [], vc = new VirtualConsole(); vc.on('jsdomError', e => errors.push(e.message));
+const dom = new JSDOM(html, { url: 'https://nightsweep.test/', runScripts: 'dangerously', pretendToBeVisual: true, virtualConsole: vc, beforeParse(w) {
+  w.ResizeObserver = class { observe() {} }; w.scrollTo = () => {}; w.HTMLElement.prototype.scrollIntoView = () => {}; w.confirm = () => true; w.print = () => {}; w.structuredClone = structuredClone;
+  w.indexedDB = new FDB.IDBFactory(); w.TextEncoder = TextEncoder; w.TextDecoder = TextDecoder; Object.defineProperty(w.crypto, 'subtle', { value: webcrypto.subtle });
+  // JSDOM has no modal dialogs; this stand-in opens and closes the source sheet.
+  w.HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', ''); };
+  w.HTMLDialogElement.prototype.close = function () { this.removeAttribute('open'); };
+} });
+const w = dom.window, d = w.document, ev = s => w.eval(s), json = s => JSON.parse(ev('JSON.stringify(' + s + ')'));
+const flush = () => new Promise(r => setImmediate(r));
+async function check(name, fn) { await fn(); await flush(); assert.deepEqual(errors, [], 'runtime errors'); cases.push(name); console.log('PASS ' + name); }
+const rows = () => json('Thresholds.rows');
+const sheet = () => d.querySelector('dialog.source-sheet');
+function tagsIn(root) { return [...root.querySelectorAll('[data-threshold]')]; }
+function assertResolves(tags) {
+  const registry = rows();
+  for (const t of tags) {
+    const id = t.dataset.threshold, hits = registry.filter(r => r.id === id);
+    assert.equal(hits.length, 1, 'tag resolves to exactly one registry row: ' + id);
+    assert.equal(t.dataset.label, hits[0].label, 'tag label matches registry: ' + id);
+    assert.equal(t.tagName, 'BUTTON', 'tag is a button: ' + id);
+    assert.equal(t.textContent, json('Thresholds.LABEL_INFO')[hits[0].label].text, 'visible tag text: ' + id);
+  }
+}
+
+(async () => {
+  await flush();
+  ev("var __selected=()=>state.project.profiles.find(p=>String(p.id)===String(state.project.selectedProfile))");
+  await check('Every registry row has its required provenance fields and one of the four labels', () => {
+    const registry = rows(), required = json('Thresholds.REQUIRED');
+    assert(registry.length >= 25, 'registry rows: ' + registry.length);
+    assert.deepEqual(json('Thresholds.LABELS'), ['spec', 'expert', 'company', 'unknown']);
+    for (const r of registry) {
+      for (const key of required) assert(typeof r[key] === 'string' && r[key].trim(), r.id + ' has ' + key);
+      assert(['spec', 'expert', 'company', 'unknown'].includes(r.label), r.id + ' label');
+      assert.deepEqual(json(`Thresholds.checkRow(Thresholds.get(${JSON.stringify(r.id)}))`), [], r.id + ' row check');
+    }
+    assert.equal(new Set(registry.map(r => r.id)).size, registry.length, 'unique ids');
+    assert(ev('Object.isFrozen(Thresholds.rows)&&Thresholds.rows.every(Object.isFrozen)'), 'registry is read-only at runtime');
+  });
+
+  await check('Row checks reject a missing source, a fifth label and a company value that is not an entered value', () => {
+    const problems = json(`Thresholds.checkRow({...Thresholds.get('calc.ofdm.bandwidth'),source:'',label:'vendor'})`);
+    assert(problems.includes('missing source') && problems.some(p => /label must be/.test(p)), problems.join('; '));
+    assert(json(`Thresholds.checkRow({...Thresholds.get('company.profile.fLevelTol'),verification:'primary'})`).includes('company values are entered values'));
+    assert.throws(() => ev("Thresholds.tag('no.such.row')"), /Unregistered threshold/);
+  });
+
+  await check('Labels follow the build list: spec, expert, company and unknown rows sit where expected', () => {
+    const label = id => json(`Thresholds.get(${JSON.stringify(id)}).label`);
+    for (const id of ['calc.ofdm.bandwidth', 'calc.preeq.tapDistance', 'calc.db.dbm', 'calc.db.dbuv', 'const.speedOfLight']) assert.equal(label(id), 'spec', id);
+    for (const id of ['calc.ripple.distance', 'calc.microreflection.delay']) assert.equal(label(id), 'expert', id);
+    for (const id of ['app.cable.temperatureCoefficient', 'app.power.resistanceAlpha']) assert.equal(label(id), 'unknown', id);
+    assert(rows().filter(r => r.label === 'company').every(r => r.verification === 'entered'), 'company rows are entered values');
+  });
+
+  await check('Local non-high-split rows show the built-in 31 / 43 dBmV forward references and the separate 38 dBmV TX reference', () => {
+    const preset = json('FieldReference.localNonHighSplitPreset');
+    assert.deepEqual([preset.launchLow, preset.launchHigh, preset.txReference], [31, 43, 38]);
+    assert.equal(json("Thresholds.resolve('company.local.forward54').value"), 31);
+    assert.equal(json("Thresholds.resolve('company.local.forward860').value"), 43);
+    assert.equal(json("Thresholds.resolve('company.local.returnTx').value"), 38);
+    for (const id of ['company.local.forward54', 'company.local.forward860', 'company.local.returnTx']) assert.equal(json(`Thresholds.get('${id}').scope`), '42/54', id + ' scope');
+    assert.match(json("Thresholds.get('company.local.returnTx').conditions"), /Separate from sweep injection and receiver references/);
+  });
+
+  await check('Job-profile company targets start unknown, are never read as zero, and follow the selected profile', () => {
+    const fields = json('projectProfileFields.map(f=>f[0])');
+    const profileRows = rows().filter(r => r.store === 'profile');
+    assert(profileRows.length >= 14, 'profile rows');
+    for (const r of profileRows) assert(fields.includes(r.field), r.id + ' maps to an existing profile field');
+    ev("state.project=projectDefaults()");
+    assert.equal(json("Thresholds.resolve('company.profile.fLevelTol').value"), null, 'blank is unknown');
+    assert.equal(ev("Thresholds.display('company.profile.fLevelTol')"), 'Unknown — not entered');
+    ev("__selected().fLevelTol='0'");
+    assert.equal(json("Thresholds.resolve('company.profile.fLevelTol').value"), 0, 'an entered zero stays zero');
+    ev("__selected().fLevelTol='1.5'");
+    assert.equal(ev("Thresholds.display('company.profile.fLevelTol')"), '± 1.5 dB');
+    ev("__selected().fLevelTol='abc'");
+    assert.equal(json("Thresholds.resolve('company.profile.fLevelTol').value"), null, 'unreadable text is unknown');
+    ev("state.project.selectedProfile='750'");
+    assert.equal(json("Thresholds.resolve('company.profile.launchLow').value"), 32, 'follows the selected profile');
+    assert.match(json("Thresholds.resolve('company.profile.launchLow').where"), /Selected profile 750/);
+    ev("state.project.selectedProfile='none-such'");
+    assert.equal(json("Thresholds.resolve('company.profile.launchLow').value"), null, 'no selected profile is unknown');
+  });
+
+  await check('Meter-setup TX references resolve per workflow and stay unknown until entered', () => {
+    ev("state.sweepSetup=SweepSetup.defaults()");
+    assert.equal(json("Thresholds.resolve('company.sweep42.txReference').value"), null);
+    ev("state.sweepSetup.profiles['42'].txReference='38'");
+    assert.equal(json("Thresholds.resolve('company.sweep42.txReference').value"), 38);
+    assert.equal(json("Thresholds.resolve('company.sweep204.txReference').value"), null, '204 workflow stays separate');
+    assert.equal(json("Thresholds.get('company.sweep204.txReference').scope"), '204/258');
+  });
+
+  await check('The Limits tab lists every registry row with a tag, and the label filter narrows the list', () => {
+    ev("WorkflowUI.go('limits')");
+    assert.equal(d.getElementById('limitsPanel').hidden, false, 'limits panel shown');
+    assert.equal(d.getElementById('calculatorPanel').hidden, true, 'calculators hidden');
+    const listTags = tagsIn(d.getElementById('limitsList'));
+    assert.equal(listTags.length, rows().length, 'one tag per registry row');
+    assert.deepEqual(new Set(listTags.map(t => t.dataset.threshold)), new Set(rows().map(r => r.id)));
+    assertResolves(listTags);
+    d.querySelector('[data-limits-filter="company"]').click();
+    const companyTags = tagsIn(d.getElementById('limitsList'));
+    assert(companyTags.length > 0 && companyTags.every(t => t.dataset.label === 'company'), 'company filter');
+    assert.equal(d.querySelector('[data-limits-filter="company"]').getAttribute('aria-pressed'), 'true');
+    assert.equal(d.querySelector('[data-limits-filter="all"]').getAttribute('aria-pressed'), 'false');
+    assert.match(d.getElementById('limitsCount').textContent, new RegExp(companyTags.length + ' of ' + rows().length));
+    d.querySelector('[data-limits-filter="unknown"]').click();
+    assert(tagsIn(d.getElementById('limitsList')).every(t => t.dataset.label === 'unknown'));
+    d.querySelector('[data-limits-filter="all"]').click();
+    assert.equal(tagsIn(d.getElementById('limitsList')).length, rows().length);
+    assert.equal(ev("Thresholds.setFilter('vendor')"), false, 'no fifth label filter');
+  });
+
+  await check('Every tag the app renders on any screen resolves to exactly one registry row with the same label', () => {
+    for (const tab of Object.keys(json('WorkflowUI.screens'))) ev(`WorkflowUI.go(${JSON.stringify(tab)})`);
+    const all = tagsIn(d);
+    assert(all.length >= rows().length + 7, 'tags rendered across limits and calculators: ' + all.length);
+    assertResolves(all);
+    assertResolves(tagsIn(d.getElementById('calculatorPanel')));
+    assert(tagsIn(d.getElementById('calculatorPanel')).length >= 7, 'calculator tags');
+  });
+
+  await check('Tapping a tag opens a source sheet with label, source, revision, page, units, conditions and date', async () => {
+    ev("WorkflowUI.go('calculators')");
+    const tag = d.querySelector('#calculatorPanel [data-threshold="calc.ofdm.bandwidth"]');
+    tag.click(); await flush();
+    const s = sheet();
+    assert(s && s.hasAttribute('open'), 'sheet open');
+    assert.equal(s.dataset.sheetFor, 'calc.ofdm.bandwidth');
+    assert.equal(s.getAttribute('aria-labelledby'), 'sourceSheetTitle');
+    assert.equal(d.activeElement.id, 'sourceSheetTitle', 'focus moves into the sheet');
+    const terms = [...s.querySelectorAll('dt')].map(x => x.textContent);
+    for (const term of ['Formula', 'Units', 'Applies when', 'Plant', 'Source', 'Revision', 'Page, table or section', 'Checked', 'Used by']) assert(terms.includes(term), 'sheet shows ' + term);
+    const row = json("Thresholds.get('calc.ofdm.bandwidth')");
+    for (const value of [row.source, row.revision, row.locator, row.conditions]) assert(s.textContent.includes(value), 'sheet text includes ' + value.slice(0, 40));
+    assert(s.textContent.includes(json('Thresholds.LABEL_INFO').spec.help), 'label explanation');
+    s.querySelector('button.primary[data-source-close]').click(); await flush();
+    assert.equal(sheet(), null, 'closed');
+    assert.equal(d.activeElement, tag, 'focus returns to the tag');
+  });
+
+  await check('Escape closes the sheet, a second tag replaces the first, and unverified rows carry a caution', async () => {
+    ev("WorkflowUI.go('limits')");
+    const unknownTag = d.querySelector('#limitsList [data-threshold="app.cable.temperatureCoefficient"]');
+    unknownTag.click(); await flush();
+    assert.match(sheet().querySelector('.status.warning').textContent, /Not verified/);
+    assert(sheet().textContent.includes('0.1 % per °F'), 'value with units');
+    ev("Thresholds.open('calc.ripple.distance')"); await flush();
+    assert.equal(d.querySelectorAll('dialog.source-sheet').length, 1, 'one sheet at a time');
+    assert.equal(sheet().dataset.sheetFor, 'calc.ripple.distance');
+    sheet().dispatchEvent(new w.Event('cancel', { cancelable: true })); await flush();
+    assert.equal(sheet(), null, 'Escape (cancel) closes the sheet');
+  });
+
+  await check('A company tag shows Unknown until entered and links to the screen where it is edited', async () => {
+    ev("state.project=projectDefaults();WorkflowUI.go('limits')");
+    d.querySelector('#limitsList [data-threshold="company.profile.fTiltTol"]').click(); await flush();
+    assert(sheet().textContent.includes('Unknown — not entered'));
+    assert.match(sheet().textContent, /Entered by a person/);
+    const edit = sheet().querySelector('[data-task="records"]');
+    assert(edit, 'edit link');
+    edit.click(); await flush(); await flush();
+    assert.equal(sheet(), null, 'sheet closes on navigation');
+    assert.equal(ev('WorkflowUI.current()'), 'records', 'opens Job → Acceptance');
+  });
+
+  await check('Opening the registry and its sheets does not change the job or write storage', async () => {
+    const before = json('state'), saved = w.localStorage.getItem('hfc-route-v1'), keys = Object.keys(w.localStorage).sort();
+    ev("WorkflowUI.go('limits')");
+    for (const t of tagsIn(d.getElementById('limitsList')).slice(0, 8)) { t.click(); await flush(); ev('Thresholds.close()'); }
+    d.querySelector('[data-limits-filter="spec"]').click();
+    assert.deepEqual(json('state'), before, 'job state unchanged');
+    assert.equal(w.localStorage.getItem('hfc-route-v1'), saved, 'autosave untouched');
+    assert.deepEqual(Object.keys(w.localStorage).sort(), keys, 'no new storage keys');
+  });
+
+  fs.writeFileSync('qa/build3-registry-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, rows: rows().length, cases, scope: 'JSDOM registry structure, tag resolution across rendered screens, source sheet and company-value resolution. No browser pixel or device claim.' }, null, 2) + '\n');
+  console.log(`Build3 registry: ${cases.length} checks passed`);
+})().catch(error => { console.error(error); process.exit(1); });

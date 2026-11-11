@@ -2,9 +2,10 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — All Functions Reference: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — All Functions Reference — Technician guide</title>
 <style>
 :root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
-</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#37-feature-coverage-index">37-feature coverage index</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
+</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#37-feature-coverage-index">37-feature coverage index</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
 <p><strong>Technician README · Updated November 11, 2026</strong></p>
 <p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library&#39;s feature index.</p>
+<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> adds two Test screens, <a href="#field-calculators">Field calculators</a> and <a href="#limits-and-sources">Limits and sources</a>. The custom-curves exercise gains two guide steps for them, and the feature index gains entries 38 and 39.</p>
 <p>For installation, use the separate <a href="phone-installation.html">Android and iOS installation guide</a>. This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android&#39;s native save/share/print dialogs appear when using the APK.</p>
 <h2 id="guide-contents">Guide contents</h2>
 <ol>
@@ -23,6 +24,8 @@
 <li><a href="#single-path-frequency-checker">Single-path frequency checker</a></li>
 <li><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a></li>
 <li><a href="#field-references-and-target-conversions">Field references and target conversions</a></li>
+<li><a href="#field-calculators">Field calculators</a></li>
+<li><a href="#limits-and-sources">Limits and sources</a></li>
 <li><a href="#power-supply-load">Power-supply load</a></li>
 <li><a href="#power-what-if">Power what-if</a></li>
 <li><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a></li>
@@ -56,8 +59,8 @@
 </tr>
 <tr>
 <td>Test</td>
-<td>Sweep setup; TDR; Sweep; Frequency; Readings; References</td>
-<td>Guided test records, predicted response, distance and measurement comparisons</td>
+<td>Sweep setup; TDR; Sweep; Frequency; Readings; References; Calculators; Limits</td>
+<td>Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit</td>
 </tr>
 <tr>
 <td>Power</td>
@@ -184,8 +187,8 @@
 </tr>
 <tr>
 <td><strong>Custom curves and reverse TDR</strong></td>
-<td>Manual launch table, custom cable/passive tables, exact-frequency entries and reverse TDR</td>
-<td>8 steps; no supplied meter captures</td>
+<td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources</td>
+<td>10 steps; no supplied meter captures</td>
 </tr>
 <tr>
 <td><strong>GainMaker OEM AGC</strong></td>
@@ -884,6 +887,88 @@
 </tbody></table></div>
 <p>Square-root examples from 31/43 dBmV at 54/860 MHz: <strong>57/753 → 31.11/41.97 dBmV</strong>; <strong>63/550 → 31.32/39.79 dBmV</strong>. The corresponding linear-MHz estimates are <strong>31.04/41.41</strong> and <strong>31.13/38.38</strong>. Curve choice requires the applicable local procedure; these are not a measured installed equalizer curve.</p>
 <p>The available-carrier draft survives project backup and is reported separately in equipment setup/run sheet. It does not choose an AGC pilot. If actual live spectrum stops below the practice pilot, identify a compatible approved live pilot; the app does not invent one. The six-active Vecima/AOI profile keeps its separate in-band 261/993 MHz setup.</p>
+<h2 id="field-calculators">Field calculators</h2>
+<p><strong>Where:</strong> Test → Calculators. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Quick calculations with source tags.</p>
+<p>Each calculator shows its formula&#39;s source tag. Tap the tag for the source, revision, page or section, units, conditions and the date it was checked. A message instead of a number means an input is missing or out of range; it is never a zero.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Calculator</th>
+<th>Enter</th>
+<th>Result and limit</th>
+<th>Source tag</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dB converter</td>
+<td>A level, its unit (dBmV, dBm, dBµV, mV or mW) and 75 Ω or 50 Ω</td>
+<td>All five units. dBm = dBmV − 48.75 dB at 75 Ω or − 46.99 dB at 50 Ω; dBµV = dBmV + 60. RMS voltage across a matched load</td>
+<td>Spec · SCTE 270 2021r1 identities, re-derived</td>
+</tr>
+<tr>
+<td>Ripple to distance</td>
+<td>Spacing between ripple peaks (MHz) and the cable&#39;s VP</td>
+<td>Echo path length between two mismatches: 491.79 × VP ÷ spacing (the published 492 is rounded). One mismatch may be the device you test at</td>
+<td>Expert · Hranac, <em>Communications Technology</em>, Aug. 2005; SCTE 280 2022 section 9.7</td>
+</tr>
+<tr>
+<td>Pre-EQ tap to distance</td>
+<td>Echo tap, main tap (8 is typical; the CMTS sets it), symbol rate 5.12, 2.56 or 1.28 Msym/s, and VP</td>
+<td>Distance, the ±½-tap range and feet per tap. Taps after the main tap only. DOCSIS 2.0/3.0 single-carrier upstream; not DOCSIS 3.1 OFDMA</td>
+<td>Spec · CableLabs PHYv3.0 section 6.2.16; PNM Best Practices V03 sections 5.5 and 6.6.2</td>
+</tr>
+<tr>
+<td>OFDM power</td>
+<td>Measured power, the bandwidth it was measured in (6, 24 or 1.6 MHz) and the occupied bandwidth</td>
+<td>Total power and power per 6, 24 and 1.6 MHz. Assumes flat power; a tilted output needs the total composite power method in SCTE 270 section 30.14</td>
+<td>Spec · CableLabs PHYv3.1-I20 section 7.5.9.1; SCTE 258 2026</td>
+</tr>
+<tr>
+<td>Echo delay</td>
+<td>Cable length between two mismatches and VP</td>
+<td>Round-trip delay in ns and µs, and in 5.12 Msym/s symbol periods</td>
+<td>Expert · Hranac, <em>Communications Technology</em>, Nov. 2009; SCTE 293-2 2024 section 4.1</td>
+</tr>
+</tbody></table></div>
+<p>Checked worked numbers: ripple 6 MHz apart at VP 0.87 → <strong>71.3 ft</strong>; tap 9 with main tap 8 at 5.12 Msym/s and VP 0.87 → <strong>83.6 ft</strong> (41.8–125.3 ft), or <strong>167.1 ft</strong> at 2.56 Msym/s; 42 dBmV per 6 MHz over 192 MHz → <strong>57.05 dBmV</strong> total; 100 ft at VP 0.87 → <strong>233.7 ns</strong>.</p>
+<p><strong>VP:</strong> pick a catalog cable that lists a nominal VP (MC2 .440, MC2 1.000, Series 6 and Series 11 drop), or type the VP from the cable&#39;s datasheet as a fraction from 0.50 to 1.00. Most hardline catalog entries do not list a VP yet. For DOCSIS 3.1 downstream, occupied bandwidth is a whole number of 6 MHz channels, at least 24 MHz, and includes the edge taper.</p>
+<p>The calculators do not save their inputs, change the job or read a modem, CMTS or meter. Results are calculations, not measurements.</p>
+<h2 id="limits-and-sources">Limits and sources</h2>
+<p><strong>Where:</strong> Test → Limits, and the tag beside each formula. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Check a limit and its source.</p>
+<p>One list of every limit, target and formula the field tools use. Each entry carries one of four labels:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Spec</td>
+<td>A published rule, standard or definition: FCC rule, CableLabs specification, SCTE standard or SI definition</td>
+</tr>
+<tr>
+<td>Expert</td>
+<td>Published expert guidance; good practice, not a standard</td>
+</tr>
+<tr>
+<td>Company</td>
+<td>A local target entered by you or your company. It starts unknown until someone enters it</td>
+</tr>
+<tr>
+<td>Unknown</td>
+<td>The source is not verified; treat it as unconfirmed guidance</td>
+</tr>
+</tbody></table></div>
+<p>Tap a tag to open its source sheet: the value or formula, units, when it applies, which plant, the source, revision, page or section, the date it was checked and how it was checked, and what uses it. Filter the list by label with the buttons at the top.</p>
+<p>What the list holds:</p>
+<ul>
+<li>The calculator formulas and the speed of light they use.</li>
+<li>Your built-in local preset: <strong>31 dBmV at 54 MHz</strong>, <strong>43 dBmV at 860 MHz</strong> and the separate <strong>38 dBmV return TX reference</strong> (42/54 plant).</li>
+<li>This job&#39;s project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX references for the 42 and 204 MHz workflows. They show <strong>Unknown — not entered</strong> until entered; an entered 0 stays 0. A company sheet links to the screen where you edit the value.</li>
+<li>Two built-in approximations labeled <strong>Unknown</strong> because no published source is recorded: the 0.1 % per °F cable-loss temperature correction and the 0.004 per °C default power-cable resistance coefficient.</li>
+</ul>
+<p>The list describes values; it does not approve criteria or change the job. Older screens do not show tags yet; later build-list tools add them where their values appear.</p>
 <h2 id="power-supply-load">Power-supply load</h2>
 <p><strong>Where:</strong> Power → Load. <strong>Practice:</strong> Complete → Power; Six actives → explicit power topology.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
@@ -1618,6 +1703,18 @@
 <td>Portable backup and recovery <!-- feature:backup-roundtrip --></td>
 <td><a href="#run-sheet-exports-and-full-backups">Full backups</a></td>
 <td>Complete</td>
+</tr>
+<tr>
+<td align="right">38</td>
+<td>Field calculators and source tags <!-- feature:calculators --></td>
+<td><a href="#field-calculators">Field calculators</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">39</td>
+<td>Limits, labels and sources <!-- feature:limits --></td>
+<td><a href="#limits-and-sources">Limits and sources</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 </tbody></table></div>
 <h2 id="known-limits-and-unresolved-information">Known limits and unresolved information</h2>

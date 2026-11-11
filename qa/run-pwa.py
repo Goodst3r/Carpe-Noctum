@@ -11,6 +11,8 @@ def snapshot():
 tested_build=snapshot()
 logs=root/'qa/pwa-testlogs';logs.mkdir(exist_ok=True)
 suites=[
+ ('Build 3 threshold and source registry','build3-registry.test.cjs',r'Build3 registry: (\d+) checks passed'),
+ ('Build 3 field calculators against independent references','build3-field-calcs.test.cjs',r'Build3 field calculators: (\d+) checks passed'),
  ('2.0 Alpha design changes','v20-design.test.cjs',r'2\.0 design: (\d+) checks passed'),
  ('Build 2 TDR active-boundary regressions','build2-tdr-boundaries.test.cjs',r'Build2 TDR boundaries: (\d+) checks passed'),
  ('Build 2 RF and records property backtests','build2-rf-properties.test.cjs',r'Build2 RF properties: (\d+) checks passed'),

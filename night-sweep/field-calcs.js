@@ -1,0 +1,133 @@
+/* Field calculators (build list item 4, 2.0 Alpha build 3). Offline, deterministic and
+   labeled from the threshold registry. Missing or invalid input gives no result and a
+   reason; it is never shown as zero. No live modem, CMTS or meter data is read. */
+const FieldCalc=(()=>{
+ const C_FT_PER_US=299792458/0.3048/1e6;
+ const C_FT_PER_NS=C_FT_PER_US/1000;
+ const UNITS=Object.freeze(['dBmV','dBm','dBuV','mV','mW']);
+ const IMPEDANCES=Object.freeze([75,50]);
+ const SYMBOL_RATES=Object.freeze([5.12,2.56,1.28]);
+ const fail=error=>({ok:false,error});
+ const num=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
+ const whole=x=>{const n=num(x);return n!==null&&Number.isInteger(n)?n:null;};
+ function velocity(value){
+  const v=num(value);
+  if(v===null)return fail('Enter the cable’s velocity of propagation (VP) as a fraction, for example 0.87.');
+  if(v>=50&&v<=100)return fail('Enter VP as a fraction (0.87), not a percent (87).');
+  if(v<0.5||v>1)return fail('Enter a VP from 0.50 to 1.00.');
+  return {ok:true,value:v};
+ }
+ /* dBmV, dBm, dBµV, mV and mW at 75 or 50 Ω. RMS voltage across a matched load. */
+ function convertLevel(value,unit,ohms=75){
+  const x=num(value),R=num(ohms);
+  if(!UNITS.includes(unit))return fail('Choose a unit.');
+  if(!IMPEDANCES.includes(R))return fail('Choose 75 Ω or 50 Ω.');
+  if(x===null)return fail('Enter a level to convert.');
+  const offset=10*Math.log10(1000*R);let dBmV;
+  if(unit==='dBmV')dBmV=x;else if(unit==='dBuV')dBmV=x-60;else if(unit==='dBm')dBmV=x+offset;
+  else if(unit==='mV'){if(!(x>0))return fail('Enter a voltage above 0 mV.');dBmV=20*Math.log10(x);}
+  else{if(!(x>0))return fail('Enter a power above 0 mW.');dBmV=10*Math.log10(x)+offset;}
+  if(!Number.isFinite(dBmV)||Math.abs(dBmV)>200)return fail('That level is outside the supported range of ±200 dBmV.');
+  const dBm=dBmV-offset;
+  return {ok:true,ohms:R,offset,dBmV,dBm,dBuV:dBmV+60,mV:10**(dBmV/20),mW:10**(dBm/10)};
+ }
+ /* One-way distance between two mismatches from the ripple spacing on a sweep. */
+ function rippleDistance(spacingMHz,vpValue){
+  const df=num(spacingMHz);
+  if(df===null||!(df>0))return fail('Enter the spacing between ripple peaks in MHz, above 0.');
+  if(df>1800)return fail('Enter a ripple spacing of 1,800 MHz or less.');
+  const v=velocity(vpValue);if(!v.ok)return v;
+  const feet=C_FT_PER_US/2*v.value/df;
+  return {ok:true,feet,meters:feet*0.3048,constant:C_FT_PER_US/2,vp:v.value,spacing:df};
+ }
+ /* DOCSIS 2.0/3.0 SC-QAM upstream pre-equalizer: symbol-spaced taps. */
+ function preEqDistance(tap,mainTap=8,symbolRate=5.12,vpValue){
+  const t=whole(tap),m=whole(mainTap),rate=num(symbolRate);
+  if(m===null||m<1||m>24)return fail('Enter the main tap as a whole number from 1 to 24.');
+  if(t===null||t<1||t>24)return fail('Enter the echo tap as a whole number from 1 to 24.');
+  if(t<=m)return fail('Choose a tap after the main tap. This calculator does not turn taps at or before the main tap into a distance.');
+  if(!SYMBOL_RATES.includes(rate))return fail('Choose a DOCSIS 2.0/3.0 upstream symbol rate.');
+  const v=velocity(vpValue);if(!v.ok)return v;
+  const periodUs=1/rate,perTap=C_FT_PER_US*v.value*periodUs/2,offset=t-m;
+  return {ok:true,offset,periodUs,perTap,feet:offset*perTap,low:(offset-0.5)*perTap,high:(offset+0.5)*perTap,vp:v.value};
+ }
+ /* Same power density over a different bandwidth. Flat across the band only. */
+ function ofdmPower(power,basisMHz,occupiedMHz){
+  const p=num(power),a=num(basisMHz),b=num(occupiedMHz);
+  if(p===null)return fail('Enter the measured power in dBmV.');
+  if(Math.abs(p)>200)return fail('Enter a power within ±200 dBmV.');
+  if(a===null||!(a>0)||a>2000)return fail('Enter the bandwidth that power was measured in, from above 0 to 2,000 MHz.');
+  if(b===null||!(b>0)||b>2000)return fail('Enter the occupied bandwidth, from above 0 to 2,000 MHz.');
+  const at=mhz=>p+10*Math.log10(mhz/a);
+  return {ok:true,total:at(b),per6:at(6),per24:at(24),per1_6:at(1.6),delta:10*Math.log10(b/a),basis:a,occupied:b};
+ }
+ /* Round-trip delay of an echo between two mismatches a known cable length apart. */
+ function echoDelay(lengthFt,vpValue){
+  const L=num(lengthFt);
+  if(L===null||!(L>0))return fail('Enter the cable length between the mismatches in feet, above 0.');
+  if(L>100000)return fail('Enter a length of 100,000 ft or less.');
+  const v=velocity(vpValue);if(!v.ok)return v;
+  const ns=2*L/(C_FT_PER_NS*v.value);
+  return {ok:true,ns,us:ns/1000,symbols512:ns/(1000/5.12),nsPerFoot:1/C_FT_PER_NS,vp:v.value};
+ }
+ return {C_FT_PER_US,C_FT_PER_NS,UNITS,IMPEDANCES,SYMBOL_RATES,velocity,convertLevel,rippleDistance,preEqDistance,ofdmPower,echoDelay};
+})();
+
+const FieldCalcs=(()=>{
+ const unitLabels={dBmV:'dBmV',dBm:'dBm',dBuV:'dBµV',mV:'mV',mW:'mW'};
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const fixed=(v,d)=>Number.isFinite(v)?v.toFixed(d):'—';
+ const sig=v=>Number.isFinite(v)?v.toLocaleString('en-US',{maximumSignificantDigits:4}):'—';
+ const grouped=v=>Number.isFinite(v)?v.toLocaleString('en-US',{maximumFractionDigits:1,minimumFractionDigits:1}):'—';
+ function vpCables(){return typeof catalog!=='undefined'?catalog.cables.filter(c=>Number.isFinite(Number(c.nvpPercent))&&Number(c.nvpPercent)>0&&Number(c.nvpPercent)<=100):[];}
+ function vpField(id){
+  const cables=vpCables();
+  return `<label>Cable VP<select data-calc-vp-source="${id}"><option value="">Enter VP</option>${cables.map(c=>`<option value="${escape(c.id)}">${escape(c.label)} · ${escape((Number(c.nvpPercent)/100).toFixed(2))} catalog</option>`).join('')}</select></label><label>Velocity of propagation (0.50–1.00)<input type="number" min="0.5" max="1" step="any" inputmode="decimal" data-calc="${id}" data-field="vp" placeholder="e.g. 0.87"><span class="note" data-calc-vp-note="${id}">Use the VP from your cable’s datasheet, or pick a catalog cable that lists one.</span></label>`;
+ }
+ function card(id,title,lead,fields,ref,refContext,conditions){
+  return `<section class="calc-card" data-calc-card="${id}" aria-labelledby="calc-${id}-title"><div class="calc-card-head"><h3 id="calc-${id}-title">${title}</h3>${tag(ref,refContext)}</div><p class="note tight">${lead}</p><div class="calc-fields">${fields}</div><div class="calc-result" id="calc-${id}-result" role="status" aria-live="polite"></div><p class="note calc-conditions">${conditions}</p></section>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Field calculators</h2><p class="note tight">Quick math for the night. Each formula carries a source tag; tap it for the source and limits. Results are calculations, not measurements.</p></div></div>
+<div class="calc-grid">
+${card('db','dB converter','dBmV, dBm, dBµV, mV and mW at 75 Ω or 50 Ω.',`<label>Level<input type="number" step="any" inputmode="decimal" data-calc="db" data-field="value" placeholder="e.g. 10"></label><label>Unit<select data-calc="db" data-field="unit">${FieldCalc.UNITS.map(u=>`<option value="${u}">${unitLabels[u]}</option>`).join('')}</select></label><label>Impedance<select data-calc="db" data-field="ohms"><option value="75">75 Ω (cable)</option><option value="50">50 Ω (test gear)</option></select></label>`,'calc.db.dbm','dB converter','RMS voltage across a matched load of the chosen impedance. dBµV = dBmV + 60 at any impedance '+tag('calc.db.dbuv','dBµV conversion')+'.')}
+${card('ripple','Ripple to distance','Spacing between ripple peaks on a sweep gives the distance between two mismatches.',`<label>Ripple spacing, peak to peak (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ripple" data-field="spacing" placeholder="e.g. 6"><span class="note">Measure across several ripples and divide by the count for a steadier spacing.</span></label>${vpField('ripple')}`,'calc.ripple.distance','ripple to distance','Echo path length between two mismatches, through cable of this VP; one mismatch may be the device you are testing at. A mix of cable types needs separate checks. Speed of light '+tag('const.speedOfLight','speed of light')+'.')}
+${card('preeq','Pre-EQ tap to distance','Tap number from an upstream pre-equalizer reading you already have. Nothing is read from a modem.',`<label>Echo tap (1–24)<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="tap" placeholder="e.g. 10"></label><label>Main tap<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="main" value="8"><span class="note">Tap 8 of 24 is typical, but the CMTS sets it. Use the numbering your tool shows.</span></label><label>Upstream symbol rate<select data-calc="preeq" data-field="rate">${FieldCalc.SYMBOL_RATES.map(r=>`<option value="${r}">${r} Msym/s</option>`).join('')}</select></label>${vpField('preeq')}`,'calc.preeq.tapDistance','pre-EQ tap distance','DOCSIS 2.0/3.0 single-carrier upstream only, not DOCSIS 3.1 OFDMA. The ±½ tap range is shown because a tap covers one symbol period.')}
+${card('ofdm','OFDM power','Power in one bandwidth, restated per 6, 24 or 1.6 MHz and over the occupied band.',`<label>Measured power (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="ofdm" data-field="power" placeholder="e.g. 42"></label><label>Measured in (MHz)<select data-calc="ofdm" data-field="basis"><option value="6">6 MHz</option><option value="24">24 MHz</option><option value="1.6">1.6 MHz</option></select></label><label>Occupied bandwidth (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ofdm" data-field="occupied" placeholder="e.g. 192"></label>`,'calc.ofdm.bandwidth','OFDM power','Assumes flat power across the occupied band. A tilted output needs a total composite power method instead (SCTE 270 section 30.14). For DOCSIS 3.1 downstream, occupied bandwidth is a whole number of 6 MHz channels (24 MHz minimum) and includes the edge taper.')}
+${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a known cable length apart.',`<label>Cable length between mismatches (ft)<input type="number" min="0" step="any" inputmode="decimal" data-calc="echo" data-field="length" placeholder="e.g. 100"></label>${vpField('echo')}`,'calc.microreflection.delay','echo delay','The echo travels the length twice. Speed of light '+tag('const.speedOfLight','speed of light')+'.')}
+</div>`;
+ }
+ function read(id){const values={};document.querySelectorAll(`[data-calc="${id}"]`).forEach(el=>{values[el.dataset.field]=el.value;});return values;}
+ function out(id,result,html){const el=document.getElementById('calc-'+id+'-result');if(!el)return;el.classList.toggle('error',!!result&&!result.ok&&result.error!==null);el.innerHTML=result?.ok?html:`<p class="note">${escape(result?.error||'Enter values to calculate.')}</p>`;}
+ const stat=(label,value,unit)=>`<div><span>${escape(label)}</span><strong>${escape(value)}${unit?` <small>${escape(unit)}</small>`:''}</strong></div>`;
+ function blank(values,keys){return keys.every(k=>String(values[k]??'').trim()==='');}
+ function update(id){
+  const v=read(id);
+  if(id==='db'){if(blank(v,['value']))return out(id,{ok:false,error:null});const r=FieldCalc.convertLevel(v.value,v.unit,v.ohms);out(id,r,`<div class="calc-stats">${stat('dBmV',fixed(r.dBmV,2))}${stat('dBm',fixed(r.dBm,2))}${stat('dBµV',fixed(r.dBuV,2))}${stat('mV',sig(r.mV))}${stat('mW',sig(r.mW))}</div><p class="note">At ${r.ohms} Ω, dBm = dBmV − ${fixed(r.offset,2)} dB.</p>`);}
+  if(id==='ripple'){if(blank(v,['spacing','vp']))return out(id,{ok:false,error:null});const r=FieldCalc.rippleDistance(v.spacing,v.vp);out(id,r,`<div class="calc-stats">${stat('Distance between mismatches',grouped(r.feet),'ft')}${stat('Metres',fixed(r.meters,1),'m')}</div><p class="note">${fixed(r.constant,1)} × ${r.vp} ÷ ${r.spacing} MHz = ${grouped(r.feet)} ft.</p>`);}
+  if(id==='preeq'){if(blank(v,['tap','vp']))return out(id,{ok:false,error:null});const r=FieldCalc.preEqDistance(v.tap,v.main,v.rate,v.vp);out(id,r,`<div class="calc-stats">${stat('Echo distance',grouped(r.feet),'ft')}${stat('Range (±½ tap)',grouped(r.low)+'–'+grouped(r.high),'ft')}${stat('Per tap',grouped(r.perTap),'ft')}</div><p class="note">${r.offset} tap${r.offset===1?'':'s'} after the main tap × ${grouped(r.perTap)} ft (symbol period ${fixed(r.periodUs*1000,1)} ns, VP ${r.vp}).</p>`);}
+  if(id==='ofdm'){if(blank(v,['power','occupied']))return out(id,{ok:false,error:null});const r=FieldCalc.ofdmPower(v.power,v.basis,v.occupied);out(id,r,`<div class="calc-stats">${stat('Total over '+r.occupied+' MHz',fixed(r.total,2),'dBmV')}${stat('Per 6 MHz',fixed(r.per6,2),'dBmV')}${stat('Per 24 MHz',fixed(r.per24,2),'dBmV')}${stat('Per 1.6 MHz',fixed(r.per1_6,2),'dBmV')}</div><p class="note">10·log10(${r.occupied} ÷ ${r.basis}) = ${r.delta>=0?'+':''}${fixed(r.delta,2)} dB.</p>`);}
+  if(id==='echo'){if(blank(v,['length','vp']))return out(id,{ok:false,error:null});const r=FieldCalc.echoDelay(v.length,v.vp);out(id,r,`<div class="calc-stats">${stat('Round-trip delay',fixed(r.ns,1),'ns')}${stat('Microseconds',fixed(r.us,4),'µs')}${stat('At 5.12 Msym/s',fixed(r.symbols512,2),'symbol periods')}</div><p class="note">2 × length × ${fixed(r.nsPerFoot,4)} ns/ft ÷ ${r.vp}.</p>`);}
+ }
+ function chooseCable(id,cableId){
+  const input=document.querySelector(`[data-calc="${id}"][data-field="vp"]`),note=document.querySelector(`[data-calc-vp-note="${id}"]`),cable=vpCables().find(c=>c.id===cableId);
+  if(!input)return;
+  if(cable){input.value=String(Number(cable.nvpPercent)/100);if(note)note.textContent=`Catalog VP for ${cable.label}: nominal ${cable.nvpPercent}%. Calibrate against the installed cable when you can.`;}
+  else if(note)note.textContent='Use the VP from your cable’s datasheet, or pick a catalog cable that lists one.';
+  update(id);
+ }
+ let initialized=false;
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('calculatorPanel');if(!panel)return;panel.innerHTML=markup();
+  const onEdit=event=>{const t=event.target;if(!panel.contains(t))return;
+   if(t.dataset.calcVpSource!==undefined){if(event.type==='change')chooseCable(t.dataset.calcVpSource,t.value);return;}
+   if(t.dataset.calc){if(t.dataset.field==='vp'&&event.type==='input'){const source=panel.querySelector(`[data-calc-vp-source="${t.dataset.calc}"]`),cable=vpCables().find(c=>c.id===source?.value);if(cable&&Number(t.value)!==Number(cable.nvpPercent)/100){source.value='';const note=panel.querySelector(`[data-calc-vp-note="${t.dataset.calc}"]`);if(note)note.textContent='Entered VP.';}}update(t.dataset.calc);}
+  };
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  ['db','ripple','preeq','ofdm','echo'].forEach(update);
+ }
+ return {init,update,markup};
+})();
+if(typeof module!=='undefined'&&module.exports)module.exports=FieldCalc;

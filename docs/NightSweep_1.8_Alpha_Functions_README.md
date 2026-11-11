@@ -4,6 +4,8 @@
 
 This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. It covers all 20 task screens and the 37 entries in the Practice library's feature index.
 
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds two Test screens, [Field calculators](#field-calculators) and [Limits and sources](#limits-and-sources). The custom-curves exercise gains two guide steps for them, and the feature index gains entries 38 and 39.
+
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
 ## Guide contents
@@ -23,16 +25,18 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 13. [Single-path frequency checker](#single-path-frequency-checker)
 14. [Meter readings and prediction error](#meter-readings-and-prediction-error)
 15. [Field references and target conversions](#field-references-and-target-conversions)
-16. [Power-supply load](#power-supply-load)
-17. [Power what-if](#power-what-if)
-18. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-19. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-20. [Project records and closeout](#project-records-and-closeout)
-21. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-22. [Offline use, updates and Help](#offline-use-updates-and-help)
-23. [Checked example answers](#checked-example-answers)
-24. [37-feature coverage index](#37-feature-coverage-index)
-25. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+16. [Field calculators](#field-calculators)
+17. [Limits and sources](#limits-and-sources)
+18. [Power-supply load](#power-supply-load)
+19. [Power what-if](#power-what-if)
+20. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+21. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+22. [Project records and closeout](#project-records-and-closeout)
+23. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+24. [Offline use, updates and Help](#offline-use-updates-and-help)
+25. [Checked example answers](#checked-example-answers)
+26. [37-feature coverage index](#37-feature-coverage-index)
+27. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -42,7 +46,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Equipment setup; Equipment | Starting signal, RF topology, active gain and exact-model references |
-| Test | Sweep setup; TDR; Sweep; Frequency; Readings; References | Guided test records, predicted response, distance and measurement comparisons |
+| Test | Sweep setup; TDR; Sweep; Frequency; Readings; References; Calculators; Limits | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Records; Run sheet | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -88,7 +92,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 21 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 13 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries and reverse TDR | 8 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 10 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -336,6 +340,50 @@ Square-root examples from 31/43 dBmV at 54/860 MHz: **57/753 → 31.11/41.97 dBm
 
 The available-carrier draft survives project backup and is reported separately in equipment setup/run sheet. It does not choose an AGC pilot. If actual live spectrum stops below the practice pilot, identify a compatible approved live pilot; the app does not invent one. The six-active Vecima/AOI profile keeps its separate in-band 261/993 MHz setup.
 
+## Field calculators
+
+**Where:** Test → Calculators. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Quick calculations with source tags.
+
+Each calculator shows its formula's source tag. Tap the tag for the source, revision, page or section, units, conditions and the date it was checked. A message instead of a number means an input is missing or out of range; it is never a zero.
+
+| Calculator | Enter | Result and limit | Source tag |
+| --- | --- | --- | --- |
+| dB converter | A level, its unit (dBmV, dBm, dBµV, mV or mW) and 75 Ω or 50 Ω | All five units. dBm = dBmV − 48.75 dB at 75 Ω or − 46.99 dB at 50 Ω; dBµV = dBmV + 60. RMS voltage across a matched load | Spec · SCTE 270 2021r1 identities, re-derived |
+| Ripple to distance | Spacing between ripple peaks (MHz) and the cable's VP | Echo path length between two mismatches: 491.79 × VP ÷ spacing (the published 492 is rounded). One mismatch may be the device you test at | Expert · Hranac, *Communications Technology*, Aug. 2005; SCTE 280 2022 section 9.7 |
+| Pre-EQ tap to distance | Echo tap, main tap (8 is typical; the CMTS sets it), symbol rate 5.12, 2.56 or 1.28 Msym/s, and VP | Distance, the ±½-tap range and feet per tap. Taps after the main tap only. DOCSIS 2.0/3.0 single-carrier upstream; not DOCSIS 3.1 OFDMA | Spec · CableLabs PHYv3.0 section 6.2.16; PNM Best Practices V03 sections 5.5 and 6.6.2 |
+| OFDM power | Measured power, the bandwidth it was measured in (6, 24 or 1.6 MHz) and the occupied bandwidth | Total power and power per 6, 24 and 1.6 MHz. Assumes flat power; a tilted output needs the total composite power method in SCTE 270 section 30.14 | Spec · CableLabs PHYv3.1-I20 section 7.5.9.1; SCTE 258 2026 |
+| Echo delay | Cable length between two mismatches and VP | Round-trip delay in ns and µs, and in 5.12 Msym/s symbol periods | Expert · Hranac, *Communications Technology*, Nov. 2009; SCTE 293-2 2024 section 4.1 |
+
+Checked worked numbers: ripple 6 MHz apart at VP 0.87 → **71.3 ft**; tap 9 with main tap 8 at 5.12 Msym/s and VP 0.87 → **83.6 ft** (41.8–125.3 ft), or **167.1 ft** at 2.56 Msym/s; 42 dBmV per 6 MHz over 192 MHz → **57.05 dBmV** total; 100 ft at VP 0.87 → **233.7 ns**.
+
+**VP:** pick a catalog cable that lists a nominal VP (MC2 .440, MC2 1.000, Series 6 and Series 11 drop), or type the VP from the cable's datasheet as a fraction from 0.50 to 1.00. Most hardline catalog entries do not list a VP yet. For DOCSIS 3.1 downstream, occupied bandwidth is a whole number of 6 MHz channels, at least 24 MHz, and includes the edge taper.
+
+The calculators do not save their inputs, change the job or read a modem, CMTS or meter. Results are calculations, not measurements.
+
+## Limits and sources
+
+**Where:** Test → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check a limit and its source.
+
+One list of every limit, target and formula the field tools use. Each entry carries one of four labels:
+
+| Label | Meaning |
+| --- | --- |
+| Spec | A published rule, standard or definition: FCC rule, CableLabs specification, SCTE standard or SI definition |
+| Expert | Published expert guidance; good practice, not a standard |
+| Company | A local target entered by you or your company. It starts unknown until someone enters it |
+| Unknown | The source is not verified; treat it as unconfirmed guidance |
+
+Tap a tag to open its source sheet: the value or formula, units, when it applies, which plant, the source, revision, page or section, the date it was checked and how it was checked, and what uses it. Filter the list by label with the buttons at the top.
+
+What the list holds:
+
+- The calculator formulas and the speed of light they use.
+- Your built-in local preset: **31 dBmV at 54 MHz**, **43 dBmV at 860 MHz** and the separate **38 dBmV return TX reference** (42/54 plant).
+- This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX references for the 42 and 204 MHz workflows. They show **Unknown — not entered** until entered; an entered 0 stays 0. A company sheet links to the screen where you edit the value.
+- Two built-in approximations labeled **Unknown** because no published source is recorded: the 0.1 % per °F cable-loss temperature correction and the 0.004 per °C default power-cable resistance coefficient.
+
+The list describes values; it does not approve criteria or change the job. Older screens do not show tags yet; later build-list tools add them where their values appear.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -573,6 +621,8 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 35 | Return injection and receiver records <!-- feature:return-injection --> | [Records](#project-records-and-closeout), [sweep setup](#forward-and-return-sweep-setup) | Complete |
 | 36 | Before / after evidence comparison <!-- feature:evidence-comparison --> | [Evidence](#onx-files-original-evidence-and-comparisons) | Complete |
 | 37 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
+| 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
+| 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 
