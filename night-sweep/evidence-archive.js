@@ -6,7 +6,7 @@
 })(typeof globalThis!=='undefined'?globalThis:this,function(EvidenceCore){
  'use strict';
  // No files are extracted. Only bounded byte views and decoded chunks are used.
- const maxEntries=32;
+ const limits=Object.freeze({inputBytes:EvidenceCore.limits.fileBytes,decodedBytes:EvidenceCore.limits.textBytes,entries:32});
  const fail=message=>{throw Error(message);};
  const attachment=message=>({status:'attachment',message:'Original attachment retained; preview unavailable. '+message});
  function decodeText(bytes){
@@ -57,7 +57,7 @@
   const count=u16(end+10),centralSize=u32(end+12),centralOffset=u32(end+16);
   if(count===0xffff||centralSize===0xffffffff||centralOffset===0xffffffff)fail('ZIP64 archives are unsupported.');
   if(u16(end+4)!==0||u16(end+6)!==0||u16(end+8)!==count)fail('Multidisk ZIP archives are unsupported.');
-  if(count>maxEntries)fail('ZIP exceeds the 32-entry preview limit.');
+  if(count>limits.entries)fail('ZIP exceeds the '+limits.entries+'-entry preview limit.');
   if(!inside(centralOffset,centralSize,end)||centralOffset+centralSize!==end)fail('ZIP central directory bounds are malformed.');
   const entries=[],names=new Set();let cursor=centralOffset,totalDeclared=0;
   for(let i=0;i<count;i++){
@@ -126,8 +126,8 @@
    if(input instanceof Uint8Array)bytes=input;
    else if(input instanceof ArrayBuffer)bytes=new Uint8Array(input);
    else fail('Preview requires an original byte array.');
-   if(bytes.length>EvidenceCore.limits.fileBytes)fail('Original files must be 8 MiB or smaller.');
-   const name=String(filename||''),limit=EvidenceCore.limits.textBytes;
+   if(bytes.length>limits.inputBytes)fail('Original files must be 8 MiB or smaller.');
+   const name=String(filename||''),limit=limits.decodedBytes;
    let textName=name,decoded=bytes;
    if(/\.zip$/i.test(name)){decoded=await unzip(bytes,limit);textName='decoded.json';}
    else if(/\.gz$/i.test(name)){decoded=await inflate(bytes,'gzip',limit);textName='decoded.json';}
@@ -136,5 +136,5 @@
    return EvidenceCore.parseText(decodeText(decoded),textName,kind);
   }catch(e){return attachment(e.message||'Unsupported file data.');}
  }
- return Object.freeze({parseBytes});
+ return Object.freeze({limits,parseBytes});
 });

@@ -50,6 +50,7 @@ test('Native descriptor remains strict and backwards compatible',()=>{E.validate
 
 test('Persisted native parses require Sweep attachment classification',()=>{const p=parse(f());const item={id:'invented_evidence',name:'invented.json',size:100,type:'application/json',kind:'Sweep',stage:'Before',importedAt:'2000-01-01T00:00:00.000Z',sha256:'a'.repeat(64),parse:p};assert.equal(E.validateEvidence([item]),true);for(const kind of ['Ingress','OneCheck'])assert.throws(()=>E.validateEvidence([{...item,kind}]),/Sweep/);});
 
+test('Archive limits are frozen and share EvidenceCore byte caps',()=>{assert.deepEqual(A().limits,{inputBytes:E.limits.fileBytes,decodedBytes:E.limits.textBytes,entries:32});assert.equal(Object.isFrozen(A().limits),true);assert.throws(()=>{A().limits.entries=99;},TypeError);});
 test('Archive module accepts plain JSON and CSV bytes',async()=>{assert.equal((await archive('forward.json')).status,'parsed');const p=await A().parseBytes(new TextEncoder().encode('frequency_mhz,response_db\n100,0\n200,1'),'a.csv','Sweep');assert.deepEqual(p.series.points,[[100,0],[200,1]]);});
 test('Platform gzip decode handles json-1.gz without filename direction',async()=>{const p=await archive('reverse.json-1.gz');assert.equal(p.status,'parsed');assert.equal(p.native.direction,'reverse');assert.equal(p.series.points.length,4);});
 test('Python standard-library stored ZIP CRC and declared sizes validate',async()=>assert.deepEqual((await archive('forward-stored.zip')).series.points,parse(f()).series.points));
