@@ -426,6 +426,29 @@ function fakeStorage(initial = {}) {
     x.close();
   });
 
+  await check('The three software caps are registered as Unknown application guards with units, conditions and a source, grouped on Test -> Limits, and tagged beside the controls they bound (never inside a label)', async () => {
+    const x = boot(); await flush();
+    const rows = x.json("Thresholds.rows.filter(r=>r.id.startsWith('checklist.')).map(r=>({id:r.id,label:r.label,value:r.value,units:r.units,source:r.source,conditions:r.conditions,usedBy:r.usedBy,kind:r.kind}))");
+    assert.deepEqual(rows.map(r => [r.id, r.value, r.units]), [['checklist.items.max', 40, 'items per checklist'], ['checklist.itemText.max', 160, 'characters per item'], ['checklist.note.max', 120, 'characters per note box']]);
+    for (const r of rows) { assert.equal(r.label, 'unknown'); assert.equal(r.kind, 'limit'); assert.match(r.source, /application guard/i); assert(r.conditions.length > 60 && /not|only/i.test(r.conditions)); assert.match(r.usedBy, /^Job → Safety/); }
+    assert.match(rows.find(r => r.id === 'checklist.note.max').conditions, /who knows where you are 80/); assert.match(rows.find(r => r.id === 'checklist.note.max').conditions, /company keeps its safety policy 120/);
+    // the numbers the code really enforces are the registered ones
+    assert.equal(x.json('Checklist.MAX_CUSTOM'), 40); assert.equal(x.json('Checklist.MAX_TEXT'), 160); assert.equal(x.json('Checklist.MAX_NOTE'), 120);
+    await goto(x, 'limits');
+    assert(/Checklist cards application guards/.test(words(x.d.getElementById('limitsList'))), 'the group appears on Test -> Limits');
+    await goto(x, 'safety');
+    const notesTag = x.d.querySelector('#safetyPanel .check-notes h3 [data-threshold="checklist.note.max"]'); assert(notesTag, 'a tag beside Notes for this job');
+    assert(!x.d.querySelector('#safetyPanel label [data-threshold]'), 'no source tag sits inside a label');
+    assert(!x.d.querySelector('#safetyPanel .check-add'), 'the editor is closed until Change this list is pressed');
+    click(x, '#safety-edit'); await flush();
+    for (const id of ['checklist.items.max', 'checklist.itemText.max']) assert(x.d.querySelector(`#safetyPanel .check-add h3 [data-threshold="${id}"]`), 'a tag beside Add an item for ' + id);
+    assert(!x.d.querySelector('#safetyPanel label [data-threshold]'), 'still no source tag inside a label');
+    assert.match(x.d.querySelector('#safetyPanel [data-threshold="checklist.items.max"]').getAttribute('aria-label'), /^Unknown source for how many items you can add/);
+    // the real numbers still bound the real controls
+    assert.equal(x.d.querySelector('[data-check-add-text]').maxLength, 160); assert.equal(x.d.querySelector('[data-check-field="who"]').maxLength, 80); assert.equal(x.d.querySelector('[data-check-field="policy"]').maxLength, 120);
+    x.close();
+  });
+
   await check('Untick, save as text and clear: the export carries items and notes and says to check it; clear asks first and can be cancelled', async () => {
     downloads = [];
     click(h, '#safety-export'); await flush();
@@ -451,7 +474,7 @@ function fakeStorage(initial = {}) {
 
   await check('The card is not in the printed run sheet, the Limits screen has no new row, and nothing else in the app changed', () => {
     assert.match(fs.readFileSync('night-sweep/style.css', 'utf8'), /#safetyPanel\{display:none!important\}|#safetyPanel,|,#safetyPanel/);
-    assert.equal(h.json('Thresholds.rows.some(r=>/safety|outage|checklist/i.test(r.id))'), false, 'the card has no limits, so it adds no registry row');
+    assert.deepEqual(h.json('Thresholds.rows.filter(r=>/safety|outage|checklist/i.test(r.id)).map(r=>r.id).sort()'), ['checklist.itemText.max', 'checklist.items.max', 'checklist.note.max'], 'the cards add exactly their three software caps to the registry, and nothing else');
     assert.equal((html.match(/const Checklist=\(\(\)=>/g) || []).length, 1); assert.equal((html.match(/const Safety=\(\(\)=>/g) || []).length, 1);
     assert.equal(h.json('NightSweep.selfCheck.ok'), true);
     assert.deepEqual(h.errors, []);

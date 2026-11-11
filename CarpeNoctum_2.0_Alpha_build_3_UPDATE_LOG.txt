@@ -167,7 +167,7 @@ CHANGES
 
 8. Pre-work safety card (build list item 9), Job -> Safety
    - A reminder list to tick before climbing, opening plant or working near
-     a road: thirty-four items in eight sections (before you leave,
+     a road: thirty-three items in eight sections (before you leave,
      protective equipment, vehicle and traffic, ladders and climbing,
      electrical, digging and underground, fiber and laser, before you leave
      the site). It opens with "Follow company policy" and says it is not
