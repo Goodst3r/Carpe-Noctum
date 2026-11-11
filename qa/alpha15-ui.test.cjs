@@ -19,7 +19,7 @@ function uniqueIds(){const ids=[...d.querySelectorAll('[id]')].map(e=>e.id),dups
 function shown(selector){assert(visible(d.querySelector(selector)),selector+' should be visible');}
 function hidden(selector){assert(!visible(d.querySelector(selector)),selector+' should be hidden');}
 const field=(id,key)=>`#route [data-row="${id}"] [data-field="${key}"]`;
-const map={home:['homePanel'],sweepSetup:['sweepSetupPanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
 (async()=>{
  await check('App starts at Home with five named primary tasks and no duplicated controls',()=>{
   assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 3');assert.equal(ev('WorkflowUI.current()'),'home');shown('#homePanel');
@@ -37,7 +37,7 @@ const map={home:['homePanel'],sweepSetup:['sweepSetupPanel'],setup:['setup'],rou
  });
  await check('Subtabs support keyboard movement and identify real controlled content',()=>{
   go('setup');const a=d.querySelector('#taskTabs [data-task="setup"]');assert(a);a.focus();a.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'route');assert.equal(d.activeElement.dataset.task,'route');
-  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'parts');
+  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),ev('WorkflowUI.groups.route.tabs.at(-1)[0]'));
   d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'setup');
   assert.equal(d.querySelectorAll('#taskTabs [aria-selected="true"]').length,1);
   for(const b of d.querySelectorAll('#taskTabs [aria-controls]')){const targets=b.getAttribute('aria-controls').trim().split(/\s+/).map(id=>d.getElementById(id));assert(targets.length&&targets.every(Boolean));assert(targets.some(e=>e.children.length>0),'Tab controls must point at actual content');}
