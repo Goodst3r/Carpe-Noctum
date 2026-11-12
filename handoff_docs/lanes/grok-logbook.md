@@ -2,6 +2,23 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · own gate on `6f8512c` is green
+
+Docs-only child of `afba6cb`. Same Chromium and `NIGHTSWEEP_SUITE_TIMEOUT=3600`. Clock 2026-11-12T04:52:29Z–05:04:21Z. Log `/tmp/grok-gate-6f8512c.log`.
+
+| Command | Exit |
+| --- | --- |
+| `python3 night-sweep/build.py` | 0 |
+| `python3 build-pwa.py` | 0 |
+| `python3 qa/run-pwa.py` | 0 |
+| `python3 qa/build3-layout.test.py` | 0 |
+| `python3 qa/browser-smoke.py` | 0 |
+| `git status --porcelain` | 0, no lines |
+
+**82/2,174, 685.4 s, layout 554, smoke 352.** Standalone SHA-256 still `b1591b4d1bfb639eec5a39014c2cbd4ab9f72871bdeb90cc90af41d67aa6e4de`. Record: `handoff_docs/reviews/grok-gate-6f8512c.md`. Hosted CI on this same head succeeded: https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43157602918. `origin/build3` was still `f467e52` and is an ancestor.
+
+This commit adds that record. It is not the gated head. AUDIT and merge wait until this new head is gated and hosted CI on it is green. **D3: one run (Grok)** still means one assistant, two local runs of the same paperwork tree.
+
 ## November 12, 2026 · own gate on `afba6cb` is green
 
 Draft pull request: https://github.com/Goodst3r/Carpe-Noctum/pull/24 (`grok/b9-closeout` into `build3`). Opened while the gate was still running. A draft does not need gate results. The body is updated with the counts below.

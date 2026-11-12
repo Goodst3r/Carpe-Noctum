@@ -4,7 +4,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts) |
 | --- | --- | --- | --- | --- | --- |
-| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) draft | `afba6cb` gated; this status commit is not that run | own gate green on `afba6cb`; hosted CI and AUDIT not done yet | 82/2174, 689.3 s, layout 554, smoke 352, clean, SHA `b1591b4d…e4de` |
+| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) draft | `6f8512c` gated; record commit follows | local gate and hosted CI green on `6f8512c`; AUDIT not posted | 82/2174, 685.4 s, layout 554, smoke 352, clean, SHA `b1591b4d…e4de` |
 | Stretch #13 item 11 | `claude/b11-impairments` | #13 draft | `920c8a7` | waiting until D1–D5 | not run by Grok |
 | Stretch #15 item 15 | `claude/b15-fiber` | #15 draft | `f2f7e02` | waiting | not run by Grok |
 | Stretch #16 item 17 | `claude/b17-highsplit` | #16 draft | `c639ea8` | waiting | not run by Grok |
@@ -17,7 +17,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 ## Next
 
-Hosted CI ("QA gate") must be green on the pull request head, then an AUDIT review at that SHA, then a merge commit if the local gate on that same head is also green. The run in `handoff_docs/reviews/grok-gate-afba6cb.md` is `afba6cb` only. **D3: one run (Grok).** Spencer accepts or rejects D3. Stretch pull requests stay queued until this close-out merges.
+Hosted CI on `6f8512c` is green ([run 43157602918](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43157602918)). The commit that adds `grok-gate-6f8512c.md` is a new head and needs its own local gate and hosted CI before merge. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
 ## Blocked
 

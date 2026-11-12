@@ -13,7 +13,7 @@ Written November 12, 2026 by Grok. Lane A (ChatGPT) and Lane B (Claude) had stop
 | App bytes changed by the paperwork? | No. `python3 night-sweep/build.py` rewrote the same SHA-256. |
 | PWA | Changed. Guide HTML is copied into `dist/` by `python3 build-pwa.py`. New content id from that build: `587c6f7c99559a428a45`. |
 | Version | 2.0 Alpha build 3. Android source code 27. No build 3 APK. Signed installer in the repo is still 2.0 Alpha build 2, code 26. |
-| Own full gate on `afba6cb` | **D3: one run (Grok).** 82 suites, 2,174 checks, 689.3 s; layout 554; smoke 352; exit codes 0; `git status` clean; standalone SHA-256 unchanged. Record: `handoff_docs/reviews/grok-gate-afba6cb.md`. This is one machine, not both lanes. Spencer accepts or rejects D3. |
+| Own full gate on `afba6cb` | **D3: one run (Grok).** 82 suites, 2,174 checks, 689.3 s; layout 554; smoke 352; exit codes 0; `git status` clean; standalone SHA-256 unchanged. Record: `handoff_docs/reviews/grok-gate-afba6cb.md`. A second local run of the docs-only child `6f8512c` (2026-11-12T04:52:29Z–05:04:21Z) was 82/2,174, 685.4 s, layout 554, smoke 352, clean, same standalone SHA-256. Record: `handoff_docs/reviews/grok-gate-6f8512c.md`. Hosted CI on `6f8512c`: [run 43157602918](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43157602918). This is one assistant, not both lanes. Spencer accepts or rejects D3. |
 
 `main` was not touched. Pull requests #1 and #2 were not touched.
 
