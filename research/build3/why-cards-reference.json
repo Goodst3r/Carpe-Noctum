@@ -1,0 +1,19 @@
+{
+ "source": "SCTE Standards Catalog (account.scte.org/standards/library/catalog/), read November 11, 2026: the SCTE 293 rows",
+ "topics": [
+  {"n": 1, "year": 2024, "title": "What is … the Decibel?"},
+  {"n": 2, "year": 2024, "title": "What is … Velocity of Propagation?"},
+  {"n": 3, "year": 2024, "title": "What is…Return Loss?"},
+  {"n": 4, "year": 2024, "title": "What is…Loss (Attenuation)?"},
+  {"n": 5, "year": 2024, "title": "What is…Unity Gain?"},
+  {"n": 6, "year": 2024, "title": "What is… Skin Effect and Skin Depth?"},
+  {"n": 7, "year": 2025, "title": "What is… Long Loop Automatic Level Control?"},
+  {"n": 8, "year": 2025, "title": "What is...S-Parameters?"},
+  {"n": 9, "year": 2025, "title": "What is … RF?"},
+  {"n": 10, "year": 2025, "title": "What Is...Signal Level?"},
+  {"n": 11, "year": 2025, "title": "What Is...Noise Figure?"},
+  {"n": 12, "year": 2025, "title": "What is...Signal Leakage Field Strength?"},
+  {"n": 13, "year": 2026, "title": "What is … Carrier-to-Noise Ratio?"},
+  {"n": 14, "year": 2026, "title": "What is …Impedance?"}
+ ]
+}

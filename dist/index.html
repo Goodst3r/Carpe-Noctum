@@ -250,7 +250,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -321,6 +321,46 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
 .imp-field>input{width:100%}
 .imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
+.fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
+.fiber-reference{margin:10px 0}
+#fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+.fiber-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fiber-field>label{font-size:13px;font-weight:600}
+.fiber-box-error{margin:0;font-size:13px;font-weight:600;color:var(--bad);overflow-wrap:anywhere}
+#fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-panel .calc-card button{min-height:44px}
+.hs-card{min-width:0}
+.hs-card h4{margin:16px 0 6px}
+.hs-table{border-collapse:collapse;width:100%;min-width:300px}
+.hs-table th,.hs-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px;overflow-wrap:anywhere}
+.hs-table thead th{font-weight:700;border-bottom:2px solid var(--line)}
+.pop-table th,.pop-table td{white-space:normal}
+.pop-card .source-tag{min-height:44px;min-width:44px}
+@media(max-width:700px){.pop-table{min-width:0}.pop-table thead{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.pop-table,.pop-table tbody,.pop-table tr,.pop-table th,.pop-table td{display:block;width:100%}.pop-table tr{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:6px 0}.pop-table th[scope=row]{background:transparent;border:0;font-size:15px;padding-bottom:2px}.pop-table td{border:0;padding-top:2px}.pop-table td:last-child{color:var(--muted);font-size:13px}}
+.hs-list,.hs-steps{margin:8px 0;padding-left:22px}
+.hs-list li,.hs-steps li{margin:8px 0;overflow-wrap:anywhere}
+.hs-source{display:block;margin-top:2px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.hs-panel .calc-card button{min-height:44px}
+.why-list{display:grid;gap:10px;margin-top:12px}
+.why-card{border:1px solid var(--line);border-radius:12px;padding:0;min-width:0}
+.why-card>summary{cursor:pointer;min-height:44px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;font-weight:700}
+.why-cite{font-weight:400;font-size:13px;color:var(--muted)}
+.why-card .source-tag{min-height:44px;min-width:44px}
+.why-body{padding:0 14px 12px}
+.why-body p{margin:8px 0;overflow-wrap:anywhere}
+.why-go{min-height:44px;margin:2px 6px 2px 0}
+.why-tags .source-tag{margin-right:6px}
+.study-card{min-width:0}
+.study-prompt{font-size:16px;margin:10px 0;overflow-wrap:anywhere}
+.study-choices{border:0;margin:8px 0;padding:0;min-width:0}
+.study-choice{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:8px 4px;overflow-wrap:anywhere}
+.study-choice input{width:24px;height:24px;flex:0 0 24px;margin:0}
+.study-number{display:block;margin:8px 0}
+.study-feedback{margin-top:10px;min-width:0}
+.study-feedback p,.study-feedback li{overflow-wrap:anywhere}
+.study-card .toolbar button,.study-go{min-height:44px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Guided 42 MHz / 204 MHz field setup. Inherits the established night / sun palette. */
 .sweep-setup-panel{max-width:1050px;margin-left:auto;margin-right:auto}
@@ -463,6 +503,11 @@ html[data-theme=sun] .sweep-due-green{color:#22613b}
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
 <section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
 <section class="panel calculator-panel imp-panel" data-screen="test" hidden="" id="impairmentsPanel"></section>
+<section class="panel calculator-panel fiber-panel" data-screen="test" hidden="" id="fiberPanel"></section>
+<section class="panel calculator-panel hs-panel" data-screen="test" hidden="" id="highSplitPanel"></section>
+<section class="panel calculator-panel why-panel" data-screen="test" hidden="" id="whyPanel"></section>
+<section class="panel calculator-panel pop-panel" data-screen="test" hidden="" id="popPanel"></section>
+<section class="panel calculator-panel study-panel" data-screen="test" hidden="" id="studyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
@@ -4567,7 +4612,7 @@ const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[]},
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
-  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments']]},
+  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance'],['study','Study']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
   job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log'],['sweepDue','Sweep due']]}
  };
@@ -4588,6 +4633,11 @@ const WorkflowUI=(()=>{
   readings:['test','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['test','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
+  fiber:['test','Fiber color code and loss budget','Find a fiber by number, tube and color, and estimate a link\'s loss from length, connectors and splices. Nothing is read from a meter.'],
+  study:['test','Study mode: practice questions','Original practice questions made from this app\'s calculators and reference screens, grouped by the five SCTE BDS domains, with working shown. Practice only: a score is kept for this visit and nothing is saved.'],
+  pop:['test','FCC proof of performance','The FCC technical limits and test rules an operator\'s proof-of-performance tests are measured against, with their rule sections. A reference only: official results belong to engineering. Nothing is typed, stored or read from a meter.'],
+  why:['test','Why cards: the basics in plain words','Fourteen short cards on the basics behind the numbers in this app, one for each SCTE 293 "What is …?" monograph, each linking to the screen that uses it. A summary, not a copy. Nothing is typed, stored or read from a meter.'],
+  highSplit:['test','High split and Remote PHY','Band plans for the 204/258 MHz plant, where the aeronautical band falls, and what is public about Remote PHY bring-up. Each statement names its document and issue. A reading aid: nothing is read from a node or stored.'],
   impairments:['test','Find the impairment','Pick what the meter shows and read its card: what it looks like, what usually causes it and five steps. Your own aid, not your company\'s procedure.'],
   leakage:['test','Check and log signal leakage','FCC limits, distance and CLI math, a detector check and your own leak log. A personal notebook, not the company record.'],
   docsisHealth:['test','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
@@ -4614,7 +4664,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4872,6 +4922,11 @@ const TrainingJob=(()=>{
   ['safety','Tick off pre-work safety reminders','safety','','Open Job → Safety. The screen opens with “Follow company policy”: the list is a set of reminders written for this app, not your company’s procedure. Tick two or three reminders, then type who knows where you are as a role (for example crew lead), a check-in time on a 24-hour clock and where your company keeps its safety policy. Choose Change this list to reword an item, hide one or add your own, then choose the same button again to finish. Ticks, notes and changes stay on this device and are not in the job backup. All entries are practice values: do not type customer names or addresses.'],
   ['outage','Walk through an outage first response','outage','','Open Job → Outage. The screen opens with “Follow your company’s outage procedure first”: the list is a set of prompts written for this app, not your company’s procedure. Tick the prompts for scope, power and the node, then type a plant place such as node leg 3 or amp 2, the time you arrived and what you found, all on a 24-hour clock. Fill in the optional damage or theft notes only if you suspect it, using roles and never names. Enter no customer names, addresses, phone numbers or account numbers. Choose Start a new call to clear the ticks and notes for the next one. Everything stays on this device and is not in the job backup. All entries are practice values.'],
   ['impairments','Find an impairment from what the meter shows','impairments','','Open Test → Impairments. Pick the picture of a regular up-and-down ripple. In the standing-wave card type a ripple spacing of 4.3 MHz and a cable velocity of 0.87: the distance between the two mismatches is 99.5 ft, and the saved practice route has two places about that far apart, each 100 ft: the launch to TRAIN Custom cable and passive, and that point to TRAIN Cable-only reverse-TDR origin. Each is a place to look at both ends, not a finding. Then pick the picture of a single notch and read the suckout card: its causes name loose seizure screws, and its five steps are analyze, localize, prioritize, repair and validate. Nothing is read from a meter and nothing is stored. All values are synthetic.'],
+  ['fiber','Find a fiber and estimate a link loss','fiber','','Open Test → Fiber. In the color finder type fiber 30: it is white, position 6 in tube 3, which is green. In the loss budget type a 12.4 km link at 0.35 dB/km, 4 mated connector pairs at 0.3 dB, 6 splices at 0.1 dB, 3.5 dB of other loss and a 3 dB margin: the estimated loss is 9.64 dB and 12.64 dB with the margin. Add a transmitter power of 3 dBm and a receiver sensitivity of −24 dBm: the optics budget is 27 dB and 14.36 dB is left. The TIA allowances in the table are worst-case values, copied into the fields only when you choose, and your company\'s limits are not known to the app. All values are synthetic and nothing is stored.'],
+  ['highSplit','Read the band plans and the Remote PHY bring-up steps','highSplit','','Open Test → High split. In the band table read the high-split row: upstream 5 to 204 MHz, downstream 258 to 1794 MHz, and the mid-split row: 5 to 85 and 108 to 1644. In the gap table the high-split gap is 54 MHz. In the side table 108 to 137 MHz is upstream on the 204/258 plant and downstream on the 42/54 plant, which is why a downstream leakage tag no longer stands for that band. Under Remote PHY bring-up read the eight steps, note who does each one, and note that timing runs in parallel with configuration rather than after it. Every statement names its document and issue; the Vecima guide is not public, so the screen does not describe it. Nothing is typed or stored.'],
+  ['why','Read a why card and follow its link','why','','Open Test → Why cards. Open the decibel card (SCTE 293-1 2024): a bare dB is only ever a ratio, and a level needs a reference such as dBmV. Open the unity gain card, read why it matters and tap Route → Station to go to the screen that uses it. The cards are our own short summaries and each names the SCTE monograph to read in full. Nothing is typed or stored.'],
+  ['pop','Read the FCC proof-of-performance limits','pop','','Open Test → Proof of performance. In the second table read the visual carrier to noise row: not less than 43 dB, 76.605(b)(7). In the first table read how often the tests are made: at least twice each calendar year, no more than seven months apart, and how many points: six for a system of 1,000 to 12,500 subscribers. Every row names its rule section and has a source tag. It is a reference only; official results belong to your engineering group. Nothing is typed or stored.'],
+  ['study','Answer a practice question','study','','Open Test → Study and choose Signal types. The first question asks for a level in dBm: the answer is the dBmV reading minus 48.75 dB at 75 ohms. Type your answer and tap Check my answer; a wrong answer shows the right one with its working and a button to the calculator that does it. Tap New numbers for the same kind of question with different values. The questions are original, made from this app’s own calculators, and a score is kept for this visit only: nothing is saved.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4887,7 +4942,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'22 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'16 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'16 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'21 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4941,9 +4996,14 @@ const TrainingJob=(()=>{
   ['nightLog','Night log and shift handoff','Job','aoi-six-active','nightLog','nightLog','Manually record invented A1–A5 Station stages, capture each worksheet explicitly and export a compact synthetic handoff; no field measurements are prefilled.'],
   ['sweepDue','Personal sweep reminders and independent balance dates','Job','aoi-six-active','sweepDue','sweepDue','Read saved Station work dates; explicitly enter 18 only for synthetic practice, then clear it to restore unknown.'],
   ['sweep-grading','Attached sweep grading aid','Job','custom-curves','grading','evidence','Company criteria deliberately start unknown. The guide provides an invented three-point interchange CSV to attach; no real meter file is bundled.'],
-  ['impairments','Impairment cards and standing-wave search','Test','custom-curves','impairments','impairments','A synthetic 4.3 MHz ripple on 0.87 VP cable that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored.']
+  ['impairments','Impairment cards and standing-wave search','Test','custom-curves','impairments','impairments','A synthetic 4.3 MHz ripple on 0.87 VP cable that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored.'],
+  ['fiber','Fiber color finder and link loss budget','Test','custom-curves','fiber','fiber','Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored.'],
+  ['highSplit','Band plans, aeronautical band and Remote PHY bring-up','Test','custom-curves','highSplit','highSplit','The high-split band table, the side of 108 to 137 MHz on each plant and the eight Remote PHY bring-up steps, each read with its document and issue; nothing is typed, read from a node or stored.'],
+  ['why','Why cards: the SCTE 293 basics','Test','custom-curves','why','why','The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored.'],
+  ['pop','FCC proof-of-performance limits and test rules','Test','custom-curves','pop','pop','The carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored.'],
+  ['study','Study mode: practice questions','Test','custom-curves','study','study','A level conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={'sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={study:'#studyDomain',pop:'#popPanel .pop-table',why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',fiber:'[data-fiber="finder"][data-field="fiber"]','sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -5275,6 +5335,51 @@ const Thresholds=(()=>{
    formula:'c = 299,792,458 m/s (exact) ÷ 0.3048 m/ft (exact) = 983.571 ft/µs',
    source:'SCTE 293-2, What is … Velocity of Propagation? (c₀ = 983,571,056.43 ft/s), from the exact SI value of c and the international foot',revision:'SCTE 293-2 2024',locator:'Section 4.1, Speed of Light',
    conditions:'Vacuum. A signal in cable travels at VP × c.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Calculators: ripple distance, pre-EQ tap distance, echo delay'},
+  {id:'const.coax.impedance',label:'spec',name:'Nominal impedance of the coaxial plant',kind:'constant',value:75,units:'Ω',
+   source:'SCTE 293-14 2026, What is …Impedance?, and SCTE 293-10 2025, What Is...Signal Level?',revision:'SCTE 293-14 2026 (the SCTE Standards Updates description was read; the document was not); SCTE 293-10 2025 (an excerpt of section 5.5 was read)',locator:'SCTE Standards Updates entry for 293-14; SCTE 293-10 section 5.5 (The Decibel and dBmV)',
+   conditions:'The coaxial portions of HFC networks use cables and components with a nominal impedance of 75 ohms; the dBmV reference (1 millivolt) is across 75 ohms. Some test equipment is 50 ohms, and the dB converter in Test → Calculators handles both. A nominal value, not a measured one.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Why cards'},
+  {id:'fcc.pop.frequency',label:'spec',name:'How often proof-of-performance tests are made',kind:'limit',units:'per calendar year',rangeText:'at least 2, at intervals of no more than 7 months',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.601(b)',
+   conditions:'Systems with 1,000 or more subscribers that operate NTSC or similar channels; the tests are directed at the standards of 76.605. Not required of systems under 1,000 subscribers (76.601(d)).',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.points',label:'spec',name:'Number of proof-of-performance test points',kind:'limit',units:'points',rangeText:'6 for 1,000 to 12,500 subscribers, plus one for every further 12,500 or fraction; at least one third at the most distant terminals',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.601(b)(1)',
+   conditions:'For a technically integrated portion that is not mechanically continuous, at least one point per portion served by a hub. Points are widely separated and balanced across the geographic areas served. Measurements may be taken at convenient monitoring points if data relates them to a nearby subscriber terminal.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.channels',label:'spec',name:'Number of channels tested',kind:'limit',units:'channels',rangeText:'5 below 550 MHz activated capacity, 10 at 550 MHz or more',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.601(b)(2)',
+   conditions:'Applies to the standards of 76.605(b) other than (b)(3), (b)(4) and (b)(5), which are tested on every NTSC or similar channel. The channels chosen represent all channels in the system.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.level',label:'spec',name:'Minimum visual signal level at the terminal',kind:'limit',units:'dBmV',rangeText:'not less than 0 dBmV at the terminal; not less than +3 dBmV at the end of a 100 ft (30 m) drop',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(3)',
+   conditions:'1 millivolt across 75 ohms is 0 dBmV; 1.41 millivolts is +3 dBmV. For other impedances the rule gives square-root formulas. Each NTSC or similar video channel.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.variation',label:'spec',name:'Variation of the visual signal level',kind:'limit',units:'dB',rangeText:'at most 8 dB in six months; within 3 dB of a carrier within 6 MHz; within 10 dB (plus 1 dB per 100 MHz of upper limit above 300 MHz) of any other channel',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(4) and 76.601(b)(2)(i)',
+   conditions:'Measured at the end of a 30 m drop; the six-month interval includes four tests in six-hour steps over 24 hours in July or August and in January or February, covering the warmest and coldest times; a maximum level that avoids overload in the receiver is also required.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.aural',label:'spec',name:'Aural carrier frequency and level',kind:'limit',units:'MHz, dB',rangeText:'4.5 MHz ± 5 kHz above the visual carrier; 10 to 17 dB below the visual level',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(2) and (b)(5)',
+   conditions:'Frequency applies at the headend modulating or processing equipment and at the terminal; level at the terminal and at the headend. For terminals that remodulate the aural level is 6.5 to 17 dB below the visual.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.response',label:'spec',name:'Frequency response within a channel',kind:'limit',units:'dB',rangeText:'within ± 2 dB from 0.75 to 5.0 MHz above the lower channel boundary',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(6)',
+   conditions:'Referenced to the average of the highest and lowest amplitudes in that span; measured at the subscriber terminal.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.cnr',label:'spec',name:'Visual carrier to system noise',kind:'limit',units:'dB',rangeText:'not less than 43 dB',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(7)',
+   conditions:'For class I channels the requirement applies only to the signals the rule lists (those within their predicted service contour and direct feeds).',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.coherent',label:'spec',name:'Visual level to coherent disturbances',kind:'limit',units:'dB',rangeText:'not less than 51 dB (47 dB for disturbances frequency-coincident with the visual carrier in a coherent system)',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(8)',
+   conditions:'Intermodulation products, second- and third-order distortion and discrete interfering signals not on proper offset assignments; measured with modulated carriers and time averaged.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.isolation',label:'spec',name:'Terminal isolation',kind:'limit',units:'dB',rangeText:'not less than 18 dB',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(9) and 76.609(g)',
+   conditions:'Terminal-isolation measurements are not required when the maker’s specifications for tap isolation, based on a representative sample of no fewer than 500 subscriber taps, or laboratory tests by or for the operator on a representative sample of no fewer than 50 subscriber taps, show the 18 dB standard is met; either is attached as an exhibit to each proof-of-performance record (76.609(g), whose text still refers to the standard as 76.605(a)(9)). Reflections from open or shorted terminals must also not cause visible picture impairments at any other terminal (76.605(b)(9)(ii)).',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.hum',label:'spec',name:'Hum and low-frequency disturbance',kind:'limit',units:'percent of visual level',rangeText:'peak-to-peak variation of at most 3 percent',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(10)',
+   conditions:'Disturbances generated within the system or from inadequate low-frequency response; one unmodulated carrier on a single channel may be used to show compliance at each test location.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.headend',label:'spec',name:'Headend video quality (chroma delay, differential gain and phase)',kind:'limit',units:'ns, percent, degrees',rangeText:'chroma delay within 170 ns; differential gain within ± 20 percent; differential phase within ± 10 degrees',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.605(b)(11); tested every third year under 76.601(b)(2)(ii)',
+   conditions:'Measured at the output of the modulating or processing equipment, by the NCTA recommended practices named in 76.609(j).',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.noise',label:'spec',name:'Bandwidth for the system noise measurement',kind:'limit',units:'MHz',rangeText:'a 4 MHz band centered in the channel',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.609(e)',
+   conditions:'Calibrated field-strength meter on a matched resistive termination, in successive steps of its bandwidth summed over the 4 MHz band. A single reading corrected by the ratio of 4 MHz to the meter’s noise bandwidth is allowed only if it has been established that the noise level is constant within that band (76.609(e)). An amplifier ahead of the meter needs at least 4 MHz of bandwidth and corrections for its gain and noise figure; the NCTA Recommended Practices, 2nd edition, November 1989, are an allowed alternative.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
+  {id:'fcc.pop.records',label:'spec',name:'How long proof-of-performance data is kept',kind:'limit',units:'years',rangeText:'at least 5, at the local business office',
+   source:'47 CFR Part 76 (Federal Communications Commission), eCFR',revision:'Current eCFR text read November 11, 2026',locator:'Section 76.1704(a); 76.601(d) for the leakage log',
+   conditions:'Available to the Commission or the franchising authority on request. Systems under 1,000 subscribers are exempt from 76.1704(a) but, if they use spectrum beyond over-the-air TV and FM, keep their leakage log five years.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → Proof of performance'},
   {id:'calc.db.dbuv',label:'spec',name:'dBmV to dBµV',kind:'formula',units:'dB',formula:'dBµV = dBmV + 60',
    source:'Decibel and SI unit definitions: 1 mV = 1,000 µV, so 20·log10(1000) = 60 dB. SCTE 270, Mathematics of Cable, is SCTE’s cable-math reference; its treatment of this identity was not checked',revision:'SCTE 270 2021r1 (title and revision confirmed)',locator:'Not checked; the identity is re-derived',
    conditions:'RMS voltage. Independent of impedance.',date:CHECKED,scope:'all',verification:'derived',usedBy:'Test → Calculators: dB converter'},
@@ -5372,6 +5477,42 @@ const Thresholds=(()=>{
   {id:'app.impairment.rippleSearchWidth',label:'expert',name:'Standing-wave candidate search width',kind:'constant',value:10,units:'± % of the distance',formula:'a pair of route points is a candidate when its cable distance is within ±10% of 492 × VP ÷ ripple spacing',
    source:'This app’s own choice for how wide to look; the distance formula is the ripple-to-distance relation of SCTE 280 2022 section 9.7',revision:'Not a published value; no source sets it',locator:'Test → Impairments → standing wave',
    conditions:'Reading peak spacing off a display is imprecise, so the search accepts a pair of points whose cable distance is within this percentage of the distance the ripple gives. The technician can change it for one search; it is not saved. A narrower width gives fewer, closer candidates and can miss the real pair.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Test → Impairments'},
+  {id:'fiber.tia598.colors',label:'spec',name:'Fiber and buffer-tube color code',kind:'formula',units:'—',formula:'1 blue, 2 orange, 3 green, 4 brown, 5 slate, 6 white, 7 red, 8 black, 9 yellow, 10 violet, 11 rose, 12 aqua; fiber n is in tube ⌈n ÷ 12⌉ at position ((n − 1) mod 12) + 1',
+   source:'ANSI/TIA-598 (fiber optic cable color coding); read in manufacturer and reference summaries (BWN Fiber, Fiber Field Kit, Radix Fibrotech, Hexatronic color-code guide), not in the standard itself',revision:'Revision not established; the 12-color order is the same in every summary read',locator:'The 12-color sequence; marking past position 12 is not set here',
+   conditions:'Fibers and buffer tubes use the same twelve colors in the same order. Past 12 the colors repeat with a stripe, dashes or rings and makers differ (fiber or tube 20 is clear, or black with a yellow stripe, or black with a white tracer, depending on the maker), so the cable print legend decides. The tool assumes 12 fibers per tube.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: color finder'},
+  {id:'fiber.tia.connector',label:'spec',name:'Mated connector pair, maximum insertion loss',kind:'limit',units:'dB',value:0.75,rangeText:'0.75 dB per mated pair',
+   source:'ANSI/TIA-568.3-D, Optical Fiber Cabling and Components Standard (component allowances), as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) replaced it and was not checked; the standard itself was not read',locator:'Clauses on cable plant loss allowances, as quoted',
+   conditions:'A worst-case design and certification value for a mated pair, not what good connectors measure (typically 0.2 to 0.5 dB). Your company\'s own limit may be tighter and starts unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.splice',label:'spec',name:'Splice, maximum insertion loss',kind:'limit',units:'dB',value:0.3,rangeText:'0.3 dB per splice',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cable plant loss allowances, as quoted',
+   conditions:'A worst-case value for a fusion or mechanical splice. Fusion splices usually measure well under 0.1 dB. Your company\'s own limit may be tighter and starts unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.sm.osp',label:'spec',name:'Single-mode outside-plant cable, maximum attenuation',kind:'limit',units:'dB/km',value:0.5,rangeText:'0.5 dB/km at 1310 and 1550 nm',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cabled-fiber attenuation, as quoted',
+   conditions:'A worst-case cabling allowance at both wavelengths, not the loss of the glass (typically about 0.35 dB/km at 1310 nm and 0.25 dB/km at 1550 nm). The cable maker\'s datasheet value at your wavelength is a better number when you have it.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.sm.isp',label:'spec',name:'Single-mode inside-plant cable, maximum attenuation',kind:'limit',units:'dB/km',value:1,rangeText:'1.0 dB/km at 1310 and 1550 nm',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cabled-fiber attenuation, as quoted',
+   conditions:'A worst-case cabling allowance for premises (tight-buffered) cable at both wavelengths. The cable maker\'s datasheet value is a better number when you have it.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.budget.formula',label:'expert',name:'Link loss budget',kind:'formula',units:'dB',formula:'loss = length (km) × attenuation (dB/km) + mated pairs × loss per pair + splices × loss per splice + other; required budget = loss + safety margin',
+   source:'The standard telco link budget method, as set out by the Fiber Optic Association and Fluke Networks',revision:'FOA loss-estimate guidance and Fluke SimpliFiber Pro knowledge-base article, read November 11, 2026',locator:'FOA "Guidelines on what loss to expect"; Fluke "Fiber optic link loss budget calculation"',
+   conditions:'An estimate to compare with a measured insertion loss. It does not include measurement uncertainty, does not judge a link against your company\'s pass limit and does not choose the wavelength. Passive devices such as splitters and WDMs are entered from their data sheets under other loss. The optics budget is transmit power minus receiver sensitivity.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'band.docsis40.fdd',label:'spec',name:'DOCSIS 4.0 FDD band edges: sub-split, mid-split, high-split and ultra-high splits',kind:'limit',units:'MHz',rangeText:'upstream 5–42 / downstream 50–54 to 1584–1590; 5–85 / 108 to 1644; 5–204 / 258 to 1794; ultra-high splits to 300, 396, 492 and 684 (downstream top 1794)',
+   source:'CableLabs CM-SP-PHYv4.0, DOCSIS 4.0 Physical Layer Specification',revision:'I08, September 28, 2026 (cover status ISSUED)',locator:'Section 7.3.2, Table 29 (p. 109) and Table 31 (p. 111); Figure 29',
+   conditions:'North American FDD plan. Table 29 assumes a contiguous occupied downstream spectrum, which the specification says is not a requirement (an example leaves a hole at LTE frequencies), and for the newer splits the downstream lower edge can sit anywhere from the upstream upper edge to the edge printed here. The edges a node or cable modem is built to; a plant\'s actual split, channel plan and OFDMA placement are the operator\'s design, and nothing here says how a plant measures. Sub-split and mid-split are marked node only; high-split applies to the node and the cable modem. The text was read in full by two independent reviewers on November 11, 2026, not by the author.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: band plans'},
+  {id:'band.docsis31.edges',label:'spec',name:'DOCSIS 3.1 cable modem band edges',kind:'limit',units:'MHz',rangeText:'upstream upper edge one or more of 42, 65, 85, 117, 204 (at least one of 85 or more); downstream lower edge 258 supported; demodulates to 1218; 1794 optional',
+   source:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification',revision:'I20, April 19, 2023 (cover status ISSUED)',locator:'Sections 7.2.1, 7.2.3 and 7.2.4; Table 4 (p. 37)',
+   conditions:'Section 5.2.1.1 of the same issue leaves 117 MHz out of its own list while Table 4 and section 7.2.3 keep it. Support for 1794 MHz is optional (MAY) in DOCSIS 3.1 and required only of DOCSIS 4.0 FDD devices. The text was read in full by two independent reviewers on November 11, 2026, not by the author.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: band plans'},
+  {id:'band.derived.gaps',label:'expert',name:'Gap between the upstream and downstream edges of a split',kind:'formula',units:'MHz',formula:'gap = downstream lower edge − upstream upper edge',rangeText:'8 to 12 (sub-split), 23 (mid-split), 54 (high-split)',
+   source:'Our subtraction of the edges in the DOCSIS 4.0 table (band.docsis40.fdd)',revision:'Derived from CM-SP-PHYv4.0 I08, Table 29',locator:'Table 29; Figure 29 (legacy transition band 85–108 MHz, HS transition band 204–258 MHz)',
+   conditions:'The specification calls these spans transition bands and gives no value for them; this is only the difference of the printed edges. The sub-split edge is a range, so its gap is a range. Checked with an independent decimal calculation.',date:CHECKED,scope:'all',verification:'derived',usedBy:'Test → High split: band plans'},
+  {id:'aero.band.side',label:'expert',name:'Which direction the 108–137 MHz aeronautical band lies in, for each split',kind:'formula',units:'MHz',formula:'upstream if 137 ≤ upstream upper edge; downstream if 108 ≥ downstream lower edge',rangeText:'42/54: downstream; 85/108: downstream; 204/258: upstream',
+   source:'The aeronautical band edges of 47 CFR 76.610 and the split edges of band.docsis40.fdd',revision:'Derived; both inputs read November 11, 2026',locator:'47 CFR 76.610; CM-SP-PHYv4.0 I08, Table 29',
+   conditions:'Our reading of where the band falls on each plan; the DOCSIS 3.1 modem\'s other upstream edges (65, 117 MHz) are not plans in this table. Checked with an independent calculation.',date:CHECKED,scope:'all',verification:'derived',usedBy:'Test → High split: the aeronautical band'},
+  {id:'aero.fcc.76610.scope',label:'spec',name:'Aeronautical-band rules: carriage that brings an operator under them',kind:'limit',units:'µW per 25 kHz in any 160 µs',rangeText:'analog 100 µW; digital 75.85 µW',
+   source:'47 CFR 76.610, Operation in the frequency bands 108–137 MHz and 225–400 MHz (Federal Communications Commission)',revision:'Text read November 11, 2026 on the Cornell LII and govinfo copies (the eCFR page did not load); amended 83 FR 7629 (February 22, 2018)',locator:'Section 76.610',
+   conditions:'Applies to a multichannel video programming distributor carrying analog carriers or components at 100 microwatts or more across 25 kHz in any 160 microsecond period, or digital carriers or components at 75.85 microwatts, in 108–137 or 225–400 MHz at any point in its distribution system and for any purpose. The rule is on the operator.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → High split: the rules'},
+  {id:'aero.fcc.76616.exclusion',label:'spec',name:'Exclusion near 121.5, 156.8 and 243.0 MHz',kind:'limit',units:'W peak',rangeText:'under 10⁻⁵ W peak within 100 kHz of 121.5 MHz and within 50 kHz of 156.8 and 243.0 MHz',
+   source:'47 CFR 76.616, Operation near certain aeronautical and marine emergency radio frequencies (Federal Communications Commission)',revision:'eCFR text read November 11, 2026',locator:'Section 76.616(a) and (b)',
+   conditions:'A carrier or signal component capable of 10⁻⁵ watt peak power or more is not to be anywhere in the cable system within those ranges. Paragraph (b) separately limits 405.925–406.176 MHz. 121.5 MHz is inside the 108–137 MHz band.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Test → High split: the rules'},
   {id:'app.power.resistanceAlpha',label:'unknown',name:'Default power-cable resistance coefficient',kind:'constant',value:0.004,units:'per °C',formula:'R(T) = R(68 °F) × (1 + α × (T − 68 °F) × 5 ÷ 9)',
    source:'App default, described on screen as an engineering approximation; no published source is recorded',revision:'Carried forward from earlier NightSweep builds',locator:'Power → Load (resistance coefficient)',
    conditions:'Applied to built-in loop resistance referenced to 68 °F / 20 °C. Editable on the Power screen.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Power → Load and What-if',
@@ -5472,7 +5613,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage'],['Fiber color code and loss budget',r=>r.id.startsWith('fiber.')],['Band plans and the aeronautical band',r=>r.id.startsWith('band.')||r.id.startsWith('aero.')],['FCC proof of performance',r=>r.id.startsWith('fcc.pop.')]];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
@@ -6208,6 +6349,10 @@ const DocsisHealthUI=(()=>{
    are our own. Missing or invalid input gives no result and a reason; it is never shown as zero. */
 const Leakage=(()=>{
  const STORAGE_KEY='nightsweep-leakage-v1';
+ /* The one leakage detector this app names: the unit the crew carries, as printed on its label.
+    Display text only. It is not stored, so the leak log, saved checks and jobs are unchanged.
+    Do not add other makes or models here without Spencer's say-so. */
+ const DETECTOR=Object.freeze({maker:'Arcom Digital',model:'QS-NAVPLUS-OUDP'});
  const FT_PER_M=1/0.3048;                // exact: 1 ft = 0.3048 m
  const CLI_LIMIT=64;                      // 10·log10(I∞) must be equal to or less than 64
  const CLI_MIN_LEAK=50;                   // µV/m at 3 m; only leaks at or above this are counted
@@ -6551,7 +6696,7 @@ const Leakage=(()=>{
   }
   return rows.map(r=>r.map(csvCell).join(',')).join('\r\n')+'\r\n';
  }
- return {STORAGE_KEY,SIDE_KEY,NEWER,LIMITS,CLI_LIMIT,CLI_MIN_LEAK,CLI_SAMPLING,CLI_BAND,MIN_THETA,MIN_REPAIR,MAX_LOG,MAX_CHECKS,FT_PER_M,rule,checkLimit,normalize,restate,nearFieldMetres,cliStatus,parseLeaks,cli,detector,toleranceCheck,
+ return {STORAGE_KEY,DETECTOR,SIDE_KEY,NEWER,LIMITS,CLI_LIMIT,CLI_MIN_LEAK,CLI_SAMPLING,CLI_BAND,MIN_THETA,MIN_REPAIR,MAX_LOG,MAX_CHECKS,FT_PER_M,rule,checkLimit,normalize,restate,nearFieldMetres,cliStatus,parseLeaks,cli,detector,toleranceCheck,
   validateLeak,validDate,load,status,snapshot,addLeak,markRepaired,reopenLeak,removeLeak,addCheck,removeCheck,setCompany,clearAll,registryValue,leaksCsv,csvCell,sanitizeStore};
 })();
 
@@ -6591,7 +6736,7 @@ const LeakageUI=(()=>{
    fields:()=>`<label class="calc-wide">Leak field strengths at 3 m (µV/m), separated by spaces or new lines (a comma and a space also works)<textarea data-leak="cli" data-field="leaks" rows="3" placeholder="e.g. 120, 85, 60, 250, 50"></textarea></label>`+field('cli','theta','Fraction of the plant examined','e.g. 0.8')+field('cli','tested','Or strand miles tested (not both)','e.g. 160')+field('cli','total','Total strand miles','e.g. 200'),
    conditions:'10·log10 of (1 ÷ fraction examined) × the sum of each leak’s field strength squared, counting only leaks of 50 µV/m or more at 3 m. The rule asks for at least 75% of the strand and a test every calendar year. Strengths must already be on the 108–137 MHz basis: this card does not do the FCC’s frequency correlation.'},
   detector:{title:'Detector check',ref:'leak.detector.methods',context:'detector check methods',
-   lead:'Record what your leakage detector read against what a calibrated source should give.',
+   lead:`Record what your ${Leakage.DETECTOR.maker} ${Leakage.DETECTOR.model} read against what a calibrated source should give.`,
    fields:()=>`<label>Check method<select data-leak="detector" data-field="method"><option value="">Choose</option><option value="direct">Directly connected RF source</option><option value="dipole">Calibrated leak with a half-wave dipole</option></select></label>`+field('detector','expected','Expected reading (µV/m)','e.g. 20')+field('detector','read','Detector read (µV/m)','e.g. 22')+`<label>Date of the check<input type="date" data-leak="detector" data-field="date"></label>`,
    conditions:'The two methods are the ones SCTE 289 describes: a directly connected source sets general accuracy, and a calibrated leak shows the detector measuring a known field outdoors. Your company’s tolerance starts unknown. Detector checks are kept on this device only.'}
  });
@@ -6608,7 +6753,7 @@ const LeakageUI=(()=>{
   return `<section class="calc-card leak-card leak-log" data-leak-card="log" aria-labelledby="leak-log-title"><div class="calc-card-head"><h3 id="leak-log-title">Leak log</h3>${tag('leak.log.fields','leak log fields')}</div><p class="note tight">Your own notebook of leaks: where, when found, probable cause and when repaired, the fields 47 CFR 76.1706 asks an operator to keep. It is not the company’s official record. Describe the place by pole, tap or cross street; do not enter customer names, addresses or account numbers.</p><div class="calc-fields"><label>Date found<input type="date" data-leak="log" data-field="found"></label><label>Where (pole, tap or cross street; no customer details)<input type="text" maxlength="120" data-leak="log" data-field="location"></label><label>Probable cause<input type="text" maxlength="120" data-leak="log" data-field="cause" placeholder="e.g. loose drop connector"></label><label>Date repaired (blank while open)<input type="date" data-leak="log" data-field="repaired"></label>${field('log','field','Field strength (µV/m)','optional')}${field('log','distance','Distance (m)','optional')}${field('log','frequency','Test frequency (MHz)','optional')}<label class="calc-wide">Notes (no customer names, addresses or account numbers)<input type="text" maxlength="300" data-leak="log" data-field="notes"></label></div><div class="toolbar"><button type="button" id="leakAdd" class="primary">Add to log</button><button type="button" id="leakExport">Export log (CSV)</button><button type="button" id="leakClear" class="danger">Clear everything on this device</button></div><p class="status warning" id="leak-store-note" role="status" hidden></p><p class="note" id="leak-log-note" role="status" aria-live="polite"></p><div id="leakList"></div><p class="note calc-conditions">Kept in this browser on this device only, not in a job or its backups. Only the log can be exported (CSV); the saved checks and company settings cannot. The rule asks operators to keep their log for two years, longer for some small systems; clearing browser data erases this one.</p></section>`;
  }
  function markup(){
-  return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
+  return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p><p class="note tight" id="leakDetectorModel">Leak detector: <strong>${Leakage.DETECTOR.maker} ${Leakage.DETECTOR.model}</strong>. It is the only leak detector this app names; enter what it reads.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
  }
  /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but is
     marked badInput. It must not read as a blank: a blank can mean "not given" or "clear the setting".
@@ -7479,7 +7624,772 @@ const ImpairmentsUI=(()=>{
  return {init,render,updateRipple,select:id=>{selected=id;render();}};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"7bfb1f0b74575f6d1257","worker":"sw.7bfb1f0b74575f6d1257.js","appVersion":"2.0 Alpha build 3"}</script>
+<script>/* Build 3 fiber tools (build list item 15, first part): the TIA-598 color code finder and a simple link loss budget.
+   Offline and deterministic. Nothing is read from a meter and nothing is stored. A blank entry is never read as zero:
+   a count of 0 contributes nothing, but a blank count or a blank loss for a counted item gives a reason and no number.
+   The standard's allowances are shown, with a source tag, as a reference the technician may copy into the fields on
+   purpose; they are never filled in silently, and a company's own targets are not known to the app. */
+const FiberTools=(()=>{
+ const COLORS=Object.freeze(['Blue','Orange','Green','Brown','Slate','White','Red','Black','Yellow','Violet','Rose','Aqua']);
+ const PER_TUBE=12,MAX_TUBE=24,MAX_FIBER=PER_TUBE*MAX_TUBE;
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+ const fail=error=>({ok:false,error});
+ const num=x=>{
+  if(typeof x==='number')return Number.isFinite(x)?x:null;
+  if(typeof x!=='string'||x.length>40||!DECIMAL.test(x.trim()))return null;
+  const n=Number(x.trim());return Number.isFinite(n)?n:null;
+ };
+ const whole=x=>{const n=num(x);return n!==null&&Number.isInteger(n)?n:null;};
+ const blank=x=>x===null||x===undefined||String(x).trim()==='';
+
+ /* ---- TIA-598 color code: twelve colors for fibers and for buffer tubes, in this order ---- */
+ function tubeMarking(tube){
+  if(tube<=PER_TUBE)return {marked:false,text:'plain color'};
+  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is the black position, and makers mark the repeat differently (a white tracer in one maker\'s note, a yellow stripe in another\'s)':'the color sequence repeats with a stripe or dashes'};
+ }
+ /* Where is fiber n, counting from 1 across the whole cable with 12 fibers in each tube? */
+ function locate(fiber){
+  const n=whole(fiber);
+  if(n===null)return fail('Enter the fiber number as a whole number.');
+  if(n<1)return fail('Enter a fiber number of 1 or more.');
+  if(n>MAX_FIBER)return fail('Enter a fiber number up to '+MAX_FIBER+' (24 tubes of 12). Past that, read the cable maker\'s construction sheet.');
+  const tube=Math.ceil(n/PER_TUBE),position=((n-1)%PER_TUBE)+1;
+  return {ok:true,fiber:n,tube,position,tubeColor:COLORS[(tube-1)%PER_TUBE],fiberColor:COLORS[position-1],tubeMarking:tubeMarking(tube)};
+ }
+ /* Which fiber is it, given the tube number and the fiber's position (1 to 12) inside the tube? */
+ function fromTube(tube,position){
+  const t=whole(tube),p=whole(position);
+  if(t===null||t<1||t>MAX_TUBE)return fail('Enter the tube number from 1 to '+MAX_TUBE+'.');
+  if(p===null||p<1||p>PER_TUBE)return fail('Enter the position inside the tube from 1 to '+PER_TUBE+'.');
+  return locate((t-1)*PER_TUBE+p);
+ }
+
+ /* ---- Simple link loss budget ---- */
+ const LIMITS=Object.freeze({length:[0,500],attenuation:[0,5],count:[0,500],each:[0,5],other:[0,50],margin:[0,30],tx:[-40,40],rx:[-80,20]});
+ function required(value,label,[lo,hi],unit){
+  if(blank(value))return fail('Enter '+label+'.');
+  const v=num(value);
+  if(v===null||v<lo||v>hi)return fail('Enter '+label+' as a number from '+lo+' to '+hi+(unit?' '+unit:'')+'.');
+  return {ok:true,value:v};
+ }
+ /* Count of items and the loss of each: a count of 0 needs no loss, a count above 0 needs one. */
+ function counted(count,each,names){
+  if(blank(count))return fail('Enter the number of '+names.plural+', or 0 if there are none.');
+  const c=whole(count);
+  if(c===null||c<LIMITS.count[0]||c>LIMITS.count[1])return fail('Enter the number of '+names.plural+' as a whole number from 0 to '+LIMITS.count[1]+'.');
+  if(c===0)return {ok:true,count:0,each:null,total:0};
+  const e=required(each,'the loss of each '+names.single+' in dB',LIMITS.each,'dB');if(!e.ok)return e;
+  return {ok:true,count:c,each:e.value,total:c*e.value};
+ }
+ function budget(input){
+  const length=required(input?.length,'the link length in km',LIMITS.length,'km');if(!length.ok)return length;
+  const attenuation=required(input?.attenuation,'the fiber attenuation in dB per km',LIMITS.attenuation,'dB/km');if(!attenuation.ok)return attenuation;
+  const connectors=counted(input?.connectors,input?.connectorLoss,{plural:'mated connector pairs',single:'mated pair'});if(!connectors.ok)return connectors;
+  const splices=counted(input?.splices,input?.spliceLoss,{plural:'splices',single:'splice'});if(!splices.ok)return splices;
+  const other=blank(input?.other)?{ok:true,value:0,entered:false}:{...required(input?.other,'the other loss in dB',LIMITS.other,'dB'),entered:true};if(!other.ok)return other;
+  const margin=required(input?.margin,'the safety margin in dB (0 for none)',LIMITS.margin,'dB');if(!margin.ok)return margin;
+  const fiber=length.value*attenuation.value;
+  const total=fiber+connectors.total+splices.total+other.value;
+  const out={ok:true,length:length.value,attenuation:attenuation.value,fiber,connectors,splices,other:other.value,otherEntered:other.entered,margin:margin.value,estimated:total,required:total+margin.value,optics:null};
+  const hasTx=!blank(input?.tx),hasRx=!blank(input?.rx);
+  if(hasTx!==hasRx)return fail('Enter both the transmitter output power and the receiver sensitivity in dBm, or leave both blank.');
+  if(hasTx){
+   const tx=required(input.tx,'the transmitter output power in dBm',LIMITS.tx,'dBm');if(!tx.ok)return tx;
+   const rx=required(input.rx,'the receiver sensitivity (the weakest signal it accepts) in dBm',LIMITS.rx,'dBm');if(!rx.ok)return rx;
+   if(!(tx.value>rx.value))return fail('The transmitter power must be higher than the receiver sensitivity, both in dBm.');
+   const available=tx.value-rx.value,headroom=available-out.required;
+   out.optics={tx:tx.value,rx:rx.value,available,headroom,status:headroom>=-1e-12?'within':'short'};
+  }
+  return out;
+ }
+ return {COLORS,PER_TUBE,MAX_TUBE,MAX_FIBER,LIMITS,locate,fromTube,budget,tubeMarking};
+})();
+
+const FiberToolsUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const trim=(v,d=2)=>{const s=Number(v.toFixed(d)).toString();return s==='-0'?'0':s;};
+ const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
+ const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
+ const field=(card,name,label,hint,extra='')=>`<div class="fiber-field"><label for="fiber-${card}-${name}">${label}</label><input id="fiber-${card}-${name}" type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}><p class="fiber-box-error" id="fiber-${card}-${name}-error" hidden></p></div>`;
+ /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
+    dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
+ function boxName(el){const label=el.labels&&el.labels[0],text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function read(card){
+  const v={},bad=[];
+  document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
+   v[el.dataset.field]=el.value;
+   const note=document.getElementById(el.id+'-error');
+   if(el.validity&&el.validity.badInput===true){
+    const name=boxName(el);bad.push(name);el.setAttribute('aria-invalid','true');
+    /* the reason sits directly under the box (the card-wide result can be far below on a phone) and the box points at it */
+    if(note){note.textContent='The '+name+' box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box.';note.hidden=false;el.setAttribute('aria-describedby',note.id);}
+   }else{el.removeAttribute('aria-invalid');if(note){note.hidden=true;note.textContent='';}el.removeAttribute('aria-describedby');}
+  });
+  Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
+  return v;
+ }
+ const unfinished=bad=>({ok:false,error:'Not calculated. The '+bad.join(' and the ')+' box'+(bad.length>1?'es hold':' holds')+' an unfinished entry (for example just a minus sign). Finish the number, or clear the box.'});
+ function out(id,r,html){
+  const el=document.getElementById('fiber-'+id+'-result');if(!el)return;
+  el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
+  el.innerHTML=r?.ok?html:`<p class="note"${r&&!r.ok&&r.error&&/^Not calculated/.test(r.error)?' role="alert"':''}>${escape(r?.error??'Enter values to see the result.')}</p>`;
+ }
+ function colorTable(){
+  return `<div class="table-scroll" tabindex="0" role="region" aria-label="TIA-598 colors"><table class="leak-table"><thead><tr><th scope="col">Position</th><th scope="col">Color</th><th scope="col">Position</th><th scope="col">Color</th></tr></thead><tbody>${[0,1,2,3,4,5].map(i=>`<tr><td>${i+1}</td><td>${swatch(FiberTools.COLORS[i])}${FiberTools.COLORS[i]}</td><td>${i+7}</td><td>${swatch(FiberTools.COLORS[i+6])}${FiberTools.COLORS[i+6]}</td></tr>`).join('')}</tbody></table></div>`;
+ }
+ function updateFinder(){
+  const v=read('finder');
+  if(v.__bad.length)return out('finder',unfinished(v.__bad));
+  if(String(v.fiber??'').trim()===''&&String(v.tube??'').trim()===''&&String(v.position??'').trim()==='')return out('finder',{ok:false,error:null});
+  const byTube=String(v.fiber??'').trim()==='';
+  const r=byTube?FiberTools.fromTube(v.tube,v.position):FiberTools.locate(v.fiber);
+  if(!r.ok)return out('finder',r);
+  out('finder',r,`${row('Fiber '+r.fiber,swatch(r.fiberColor)+r.fiberColor+' <small>(position '+r.position+')</small>')}${row('In tube '+r.tube,swatch(r.tubeColor)+r.tubeColor)}<p class="note tight">${r.tubeMarking.marked?'Tube '+r.tube+' is past 12: '+escape(r.tubeMarking.text)+'. Marking past 12 differs between makers, so check the cable print legend before you splice.':'Fibers and tubes both use the same twelve colors in the same order.'}</p>`);
+ }
+ const STANDARD=Object.freeze({connector:'fiber.tia.connector',splice:'fiber.tia.splice',osp:'fiber.tia.sm.osp',isp:'fiber.tia.sm.isp'});
+ function updateBudget(){
+  const v=read('budget');
+  if(v.__bad.length)return out('budget',unfinished(v.__bad));
+  if(Object.values(v).every(x=>String(x??'').trim()===''))return out('budget',{ok:false,error:null});
+  const r=FiberTools.budget(v);
+  if(!r.ok)return out('budget',r);
+  const part=(label,value)=>row(label,trim(value)+' <small>dB</small>');
+  let html=part('Fiber, '+trim(r.length,3)+' km × '+trim(r.attenuation,3)+' dB/km',r.fiber)+part('Connectors, '+r.connectors.count+(r.connectors.count?' × '+trim(r.connectors.each):''),r.connectors.total)+part('Splices, '+r.splices.count+(r.splices.count?' × '+trim(r.splices.each):''),r.splices.total)+(r.otherEntered?part('Other loss',r.other):'')+row('Estimated link loss',trim(r.estimated)+' <small>dB</small>')+row('With the safety margin of '+trim(r.margin)+' dB',trim(r.required)+' <small>dB</small>');
+  if(r.optics)html+=row('Optics budget (transmit power − receiver sensitivity)',trim(r.optics.available)+' <small>dB</small>')+(r.optics.status==='within'?`<p class="health-status ok">✓ ${trim(r.optics.headroom)} dB of the optics budget is left after the loss and the margin.</p>`:`<p class="health-status warn">⚠ Short by ${trim(-r.optics.headroom)} dB: the loss and margin exceed the optics budget.</p>`);
+  else html+='<p class="health-status neutral">• No optics numbers were entered, so this is the loss to expect, not a pass or fail.</p>';
+  out('budget',r,html);
+ }
+ function referenceBox(){
+  return `<div class="fiber-reference"><h4>Standard allowances (worst-case design values) ${tag('fiber.tia.connector','TIA connector allowance')}</h4><div class="table-scroll" tabindex="0" role="region" aria-label="TIA-568.3-D allowances"><table class="leak-table"><thead><tr><th scope="col">Item</th><th scope="col">Allowance</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">Mated connector pair</th><td>0.75 dB</td><td>${tag('fiber.tia.connector','connector allowance')}</td></tr><tr><th scope="row">Splice</th><td>0.3 dB</td><td>${tag('fiber.tia.splice','splice allowance')}</td></tr><tr><th scope="row">Single-mode, outside plant</th><td>0.5 dB/km</td><td>${tag('fiber.tia.sm.osp','outside plant attenuation allowance')}</td></tr><tr><th scope="row">Single-mode, inside plant</th><td>1.0 dB/km</td><td>${tag('fiber.tia.sm.isp','inside plant attenuation allowance')}</td></tr></tbody></table></div><div class="toolbar"><button type="button" data-fiber-fill="osp">Copy the outside-plant allowances into the fields</button><button type="button" data-fiber-fill="isp">Copy the inside-plant allowances into the fields</button></div><p class="note">Real glass and good connectors measure better than these allowances, and your company's own limits may be tighter; the app does not know them. Copying the allowances is your choice, never a default.</p></div>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Fiber</h2><p class="note tight">The TIA-598 color code and a simple link loss budget. Offline; nothing is read from a meter and nothing is stored. A blank entry is never read as zero.</p></div></div><div class="calc-grid"><section class="calc-card" aria-labelledby="fiber-finder-title"><div class="calc-card-head"><h3 id="fiber-finder-title">Fiber color finder</h3>${tag('fiber.tia598.colors','TIA-598 color code')}</div><p class="note tight">Counting from 1 across the cable with 12 fibers in each tube. Enter a fiber number, or a tube and a position inside it.</p>${colorTable()}<div class="calc-fields">${field('finder','fiber','Fiber number (1 to '+FiberTools.MAX_FIBER+')','e.g. 30')}${field('finder','tube','Or tube number (1 to '+FiberTools.MAX_TUBE+')','e.g. 3')}${field('finder','position','Position inside the tube (1 to 12)','e.g. 6')}</div><div class="calc-result" id="fiber-finder-result" role="status" aria-live="polite"></div><p class="note calc-conditions">Twelve colors in this order for fibers and for buffer tubes: blue, orange, green, brown, slate, white, red, black, yellow, violet, rose, aqua. Past 12 the colors repeat with a stripe, dashes or rings, and makers differ (fiber 20 is often clear or yellow-striped), so the cable print legend and the construction sheet decide. Cables with 24 fibers in a tube, ribbons and other color schemes are not covered.</p></section><section class="calc-card" aria-labelledby="fiber-budget-title"><div class="calc-card-head"><h3 id="fiber-budget-title">Link loss budget</h3>${tag('fiber.budget.formula','link loss budget formula')}</div><p class="note tight">Estimated loss = length × attenuation + connector pairs × loss + splices × loss + other loss. A count of 0 needs no loss; a blank is not zero.</p>${referenceBox()}<div class="calc-fields">${field('budget','length','Link length (km)','e.g. 12.4')}${field('budget','attenuation','Fiber attenuation (dB/km)','e.g. 0.35')}${field('budget','connectors','Mated connector pairs (count)','e.g. 4')}${field('budget','connectorLoss','Loss of each pair (dB)','e.g. 0.3')}${field('budget','splices','Splices (count)','e.g. 6')}${field('budget','spliceLoss','Loss of each splice (dB)','e.g. 0.1')}${field('budget','other','Other loss, such as a splitter (dB, optional)','e.g. 3.5')}${field('budget','margin','Safety margin (dB, 0 for none)','e.g. 3')}${field('budget','tx','Transmitter output power (dBm, optional)','e.g. 3')}${field('budget','rx','Receiver sensitivity (dBm, with the transmitter power)','e.g. -24')}</div><div class="calc-result" id="fiber-budget-result" role="status" aria-live="polite"></div><p class="note calc-conditions">A loss budget is an estimate to compare with a measured insertion loss; it does not include measurement uncertainty and does not judge a link against your company's pass limit. The optics budget needs the maker's transmit power and receiver sensitivity at the wavelength you use. Enter splitter or WDM loss from its data sheet under other loss.</p></section></div>`;
+ }
+ let initialized=false;
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('fiberPanel');if(!panel)return;
+  panel.innerHTML=markup();
+  const upd={finder:updateFinder,budget:updateBudget};
+  const onEdit=event=>{const t=event.target;if(panel.contains(t)&&t.dataset.fiber&&upd[t.dataset.fiber])upd[t.dataset.fiber]();};
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);panel.addEventListener('focusout',onEdit);   /* leaving a half-filled box from empty sends no change */
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button[data-fiber-fill]');if(!b||!panel.contains(b))return;
+   const value=id=>typeof Thresholds!=='undefined'?Thresholds.get(id)?.value:undefined;
+   const set=(name,v)=>{const el=panel.querySelector(`[data-fiber="budget"][data-field="${name}"]`);if(el&&Number.isFinite(v))el.value=String(v);};
+   set('connectorLoss',value(STANDARD.connector));set('spliceLoss',value(STANDARD.splice));set('attenuation',value(STANDARD[b.dataset.fiberFill]));
+   updateBudget();
+  });
+ }
+ return {init,updateFinder,updateBudget,STANDARD};
+})();
+</script>
+<script>/* High-split and 1.8 GHz reference, with what is publicly documented about Remote PHY bring-up (build list item 17,
+   2.0 Alpha build 3). A reading aid, not a procedure: it holds no meter input, stores nothing and reads nothing from a
+   node or a CCAP core. Every statement names the document and the issue it was read in, and where in it. Wording is our own.
+   Nothing here is invented: where a maker's guide is not public (Vecima's are behind its customer portal) the screen
+   says so instead of filling the gap. */
+const HighSplit=(()=>{
+ /* The documents read. `issue` is what the document itself prints. */
+ const SOURCES=Object.freeze({
+  phy40:{title:'CableLabs CM-SP-PHYv4.0, DOCSIS 4.0 Physical Layer Specification',issue:'I08, September 28, 2026 (ISSUED)'},
+  phy31:{title:'CableLabs CM-SP-PHYv3.1, DOCSIS 3.1 Physical Layer Specification',issue:'I20, April 19, 2023 (ISSUED)'},
+  scte300:{title:'SCTE 300 2024, Best Practices for Migrating to DOCSIS 4.0 (SCTE Operational Practice)',issue:'single release dated December 2, 2024'},
+  scte294:{title:'SCTE 294 2024r1, Understanding and Troubleshooting Cable Upstream RF Spectrum',issue:'catalog page only; the document itself was not read'},
+  scte2020:{title:'SCTE-ISBE EXPO 2020 paper, Leakage in a High Split World: Detecting and Measuring Upstream Leakage Levels in a One Gbps Symmetrical High Split HFC Network',issue:'copyright 2020; no revision number printed'},
+  scte2021:{title:'SCTE paper, Leakage Detection in a High-Split World: Industry Progress Toward a Viable Solution',issue:'copyright 2021; no revision number printed'},
+  viavi:{title:'VIAVI Solutions web page, What is High-Split Leakage?',issue:'undated page, read November 11, 2026 (a maker’s view, not a standard)'},
+  ossi31:{title:'CableLabs CM-SP-CCAP-OSSIv3.1, CCAP Operations Support System Interface',issue:'I30, April 29, 2026 (contents list and revision history only)'},
+  cfr610:{title:'47 CFR 76.610, Operation in the frequency bands 108–137 MHz and 225–400 MHz',issue:'text read November 11, 2026 (Cornell LII and govinfo copies; the eCFR page did not load)'},
+  cfr611:{title:'47 CFR 76.611, Cable television basic signal leakage performance criteria',issue:'eCFR text read November 11, 2026'},
+  cfr614:{title:'47 CFR 76.614, Cable television system regular monitoring',issue:'eCFR text read November 11, 2026'},
+  cfr616:{title:'47 CFR 76.616, Operation near certain aeronautical and marine emergency radio frequencies',issue:'eCFR text read November 11, 2026'},
+  rphy:{title:'CableLabs CM-SP-R-PHY, Remote PHY Specification',issue:'I22, August 19, 2026'},
+  rdepi:{title:'CableLabs CM-SP-R-DEPI, Remote Downstream External PHY Interface',issue:'I18, August 26, 2026'},
+  rdti:{title:'CableLabs CM-SP-R-DTI, Remote DOCSIS Timing Interface',issue:'I08, March 23, 2020'},
+  roob:{title:'CableLabs CM-SP-R-OOB, Remote Out-of-Band',issue:'I15, August 26, 2026'},
+  rossi:{title:'CableLabs CM-SP-R-OSSI, Remote PHY OSS Interface',issue:'I23, June 11, 2025'},
+  vecimaSupport:{title:'Vecima Networks, Customer and Product Support page',issue:'undated page, read November 11, 2026'},
+  vecimaBrief:{title:'Vecima Entra EN9000 Generic Access Platform product brief',issue:'publish date September 2026 (a product brief, not a procedure)'},
+  ciscoLeds:{title:'Cisco, Monitoring the Cisco Remote-PHY Solution (RPD LEDs)',issue:'Updated August 13, 2018'},
+  ciscoGs7000:{title:'Cisco 1.2 GHz GS7000 Remote PHY Module Compatible 2X2 Segmentable Node Installation and Configuration Guide',issue:'chapter prints no date; Cisco lists the book as September 28, 2018'},
+  cisco2x2:{title:'Cisco 2x2 Remote-PHY Device Hardware Installation Guide',issue:'First Published February 28, 2019'},
+  teleste:{title:'Teleste DAN3 User Manual',issue:'Revision 008, copyright 2023 (a distributor-hosted copy)'},
+  harmonic:{title:'Harmonic CableOS Ripple-2 Node (COS-RPL2) Installation Guide',issue:'Cert. Revision A, marked DRAFT (a ManualsLib copy; only some pages read)'}
+ });
+
+ /* DOCSIS 4.0 FDD band edges, MHz. Each edge is one number or a [low, high] range as the table prints it. */
+ const PLANS=Object.freeze([
+  {id:'sub',name:'Sub-split and extended sub-split',upper:[42],dsLow:[50,54],dsHigh:[1584,1590],applies:'node only',src:'phy40',loc:'Section 7.3.2, Table 29'},
+  {id:'mid',name:'Mid-split',upper:[85],dsLow:[108],dsHigh:[1644],applies:'node only',src:'phy40',loc:'Section 7.3.2, Table 29; Figure 29 (legacy transition band 85 to 108 MHz)'},
+  {id:'high',name:'High-split',upper:[204],dsLow:[258],dsHigh:[1794],applies:'node and cable modem',src:'phy40',loc:'Section 7.3.2, Table 29; Figure 29 (HS transition band)'}
+ ].map(Object.freeze));
+ /* Ultra-high splits: upstream upper edge and the range the downstream lower edge may take. */
+ const ULTRA=Object.freeze([
+  {id:'uhs300',upper:300,dsLow:[300,372]},{id:'uhs396',upper:396,dsLow:[396,492]},{id:'uhs492',upper:492,dsLow:[492,606]},{id:'uhs684',upper:684,dsLow:[684,834]}
+ ].map(Object.freeze));
+ const ULTRA_TOP=1794;
+ /* DOCSIS 3.1 cable modem requirements, MHz. */
+ const D31=Object.freeze({upstreamEdges:Object.freeze([42,65,85,117,204]),downstreamLowMust:258,downstreamDemodulateTo:1218,downstreamOptionalTo:1794});
+
+ /* Derived arithmetic (our own, shown as derived): the gap between the upstream and downstream edges of a split, and the
+    downstream width where one edge is a single number. */
+ function range(r){return r.length===1?String(r[0]):r[0]+' to '+r[1];}
+ function gaps(){
+  return PLANS.map(p=>({id:p.id,min:p.dsLow[0]-p.upper[0],max:p.dsLow[p.dsLow.length-1]-p.upper[0]}));
+ }
+ function widths(){
+  return PLANS.filter(p=>p.dsLow.length===1&&p.dsHigh.length===1).map(p=>({id:p.id,width:p.dsHigh[0]-p.dsLow[0]}));
+ }
+ /* The aeronautical band (108 to 137 MHz): which direction it lies in for each plan. */
+ const AERO_BAND=Object.freeze([108,137]);
+ function aeroBandSide(plan){
+  const lo=AERO_BAND[0],hi=AERO_BAND[1],up=plan.upper[0],dsLow=plan.dsLow[0];
+  if(hi<=up)return 'upstream';
+  if(lo>=plan.dsLow[plan.dsLow.length-1])return 'downstream';
+  if(lo>=up&&hi<=dsLow)return 'in the gap between them';
+  return 'split between the two';
+ }
+
+ const AERO=Object.freeze([
+  {id:'inside',text:'On a 204/258 MHz plant the upstream reaches past the whole 108 to 137 MHz aeronautical band, so that band now carries subscribers’ cable-modem signals. They are strongest at the home and the drop and weakest at the node or headend, which is the reverse of the downstream case, so a downstream test tone no longer stands for what leaks in that band. On a 42/54 MHz plant the band is downstream; with a mid-split (85/108) it is downstream too.',src:'scte2020',loc:'Section 1 (Introduction, p. 4) and Section 6 (pp. 9 and 10)'},
+  {id:'method',text:'The approach the industry papers settle on is a test signal the cable modems send on request: an OFDMA upstream data profile (OUDP) burst, scheduled by the CCAP or the node, in a test region the operator chooses in or near the aeronautical band. A field leakage detector is tuned to that region and looks for the known pattern. Expressed for a technician: the detector’s frequency and profile settings must match what operations configured on the CCAP. Those settings come from your company’s leakage group; this screen gives none.',src:'scte2021',loc:'Section 2 (p. 3) and Section 4.2 (p. 11)'},
+  {id:'region',text:'The same paper advises putting the test region just above the aeronautical band, so the test itself does not put energy into the band.',src:'scte2021',loc:'Section 3.2 (p. 7)'},
+  {id:'alt',text:'The 2020 paper also looked at dedicated test carriers sent by the modems and at a downstream tone. It says the first are outside DOCSIS 3.1 and today’s modems cannot make them without new firmware or hardware, and it found the downstream tone hard to tie to upstream levels. It names the OUDP burst as the ideal signal.',src:'scte2020',loc:'Section 7 (7.1 and 7.2) and the Conclusions'},
+  {id:'maker',text:'One test-equipment maker lists four options for high-split leakage and favours OUDP bursts, and says it sees no sign the FCC will relax the aeronautical-band rules. That is a maker’s position, not a standard, and the screen offers it only as a pointer.',src:'viavi',loc:'Sections “High-Split Leakage”, “Monitoring” and “What is OUDP Leakage Detection”'},
+  {id:'ossi',text:'CableLabs defines how a CCAP is told to run a leakage test session in its OSSI specification, section 9.4, Leakage Detection Test Interface. Only that heading and the revision history were read; the requirement text was not.',src:'ossi31',loc:'Contents list, section 9.4'},
+  {id:'gap',text:'No document read tells a technician in so many words whether to inject a downstream leakage tag into 108 to 137 MHz on a node with a 204 MHz upstream. Ask your leakage group before putting any test signal in that band.',src:null,loc:'Searched; nothing found'}
+ ]);
+
+ /* The rules: stated in our words, with the section. The numbers shown are registered rows in Limits. */
+ const RULES=Object.freeze([
+  {id:'scope',text:'The aeronautical-band leakage rules apply to a cable operator that carries, anywhere in its distribution system and for any purpose, an analog carrier at 100 microwatts or more across 25 kHz in any 160 microseconds, or a digital carrier at 75.85 microwatts across 25 kHz in any 160 microseconds, in 108 to 137 MHz or 225 to 400 MHz.',src:'cfr610',loc:'Section 76.610',registry:'aero.fcc.76610.scope'},
+  {id:'cli',text:'To operate in those bands the operator shows either a cumulative leakage index of 64 or less (at least 75% of the plant, tested at least once a year) or an airspace measurement not above 10 µV/m at 450 m altitude. The test signal is an unmodulated analog signal in 108 to 137 MHz, or one whose results correlate to it.',src:'cfr611',loc:'Section 76.611(a)(1), (a)(2) and (b)',registry:'leak.cli.limit'},
+  {id:'monitor',text:'Regular monitoring must cover substantially all of the plant every three months, with equipment and procedures able to find a leak of 20 µV/m or more at 3 m, and such a leak in the aeronautical bands is to be noted and repaired in a reasonable time. Records follow section 76.1706.',src:'cfr614',loc:'Section 76.614 and Note 1',registry:'leak.fcc.aero.repair'},
+  {id:'exclusion',text:'A carrier or signal component capable of 10 to the power of −5 watts peak or more may not be anywhere in the system within 100 kHz of 121.5 MHz, or within 50 kHz of 156.8 MHz or 243.0 MHz; section 76.616 also limits the 405.925 to 406.176 MHz range. 121.5 MHz lies inside the 108 to 137 MHz band.',src:'cfr616',loc:'Section 76.616(a) and (b)',registry:'aero.fcc.76616.exclusion'}
+ ]);
+
+ /* Remote PHY bring-up: what the specification says happens, listed in the order each part is first needed. It is NOT one strict
+    sequence: timing (PTP) is synchronized in parallel with the configuration done by the principal and auxiliary cores. It is
+    automatic; the screen says who does each step and what is not defined for a technician to read at the node. */
+ const RPHY_STEPS=Object.freeze([
+  {id:'local',who:'The RPD alone',text:'Starts up, records a reboot event as early as it can and, if it has saved settings, restores them. Some RF output (power and pilot tones are the spec’s examples) can therefore come back before any contact with a core. Then it waits for an Ethernet link on a core-facing interface; no link in time is an event and the RPD tries a soft reset.',src:'rphy',loc:'Sections 6.3, 6.3.1 and 6.13.1'},
+  {id:'auth',who:'The RPD and the network’s authentication server',text:'Network authentication (802.1X) comes first when the network uses it, before link discovery and DHCP. An RPD that never gets a request from the network carries on as if the network were unauthenticated; a rejection is an event and it waits before trying again.',src:'rphy',loc:'Sections 6.4.4.5, 6.4.4.6, 6.4.4.8, 6.5.2, 6.13.2 and 6.13.3'},
+  {id:'address',who:'The RPD and the network’s DHCP server',text:'Address assignment with DHCPv4, DHCPv6 or SLAAC. The answer lists the CCAP cores to contact, with the active principal core first, and the RPD builds its table of cores from the first list it receives after a reset.',src:'rphy',loc:'Sections 6.6, 6.6.1 and 6.6.1.1 (their text was read in the earlier issue I17; I22’s contents list has the same sections)'},
+  {id:'time',who:'The RPD and a time server',text:'Time of day from a time server named in the DHCP answer. Until it has the time the RPD stamps events from 1 January 1970; when it first locks to PTP it also takes the time from PTP. Without the time it cannot check a core’s certificate dates.',src:'rphy',loc:'Sections 6.7.1 and 6.7.2 (their text was read in the earlier issue I18; I22’s contents list has the same sections)'},
+  {id:'gcp',who:'The RPD, which starts the connection, and the principal core',text:'The control channel. The RPD works down its list of cores, runs mutual authentication where the configuration requires it, opens the control connection to the principal core and announces itself. The core answers and configures the RPD, and the RPD finishes its first configuration with the principal core before it takes any from an auxiliary core.',src:'rphy',loc:'Sections 6.8.2, 6.8.4, 6.8.7.1 and 6.13.4 to 6.13.8 (read in I17 and a later issue; not re-read in I22 itself)'},
+  {id:'tunnels',who:'The CCAP core (it starts) and the RPD',text:'The L2TPv3 data tunnels. The core sets up a control connection after the control channel is up, then one session per channel; data starts to flow for a channel when its session setup completes. The RPD cannot start these itself.',src:'rdepi',loc:'Sections 7.1, 7.4.1.1 and 7.4.2.1'},
+  {id:'timing',who:'The RPD and its timing source',text:'Timing, in parallel with the configuration steps around it, not after them. An RPD must be able to act as a node-side slave of a 1588 timing source. The Remote PHY specification (CM-SP-R-PHY I22, sections 6.9 and 6.10.1, as read in Lane A’s review of this screen) has the RPD synchronize to PTP in parallel with its configuration by the principal and auxiliary cores, and requires that synchronization to have been started before the core moves the RPD to operational. The Remote PHY OSS specification defines events for the clock reaching sync, losing it, running too long in holdover and failing to reach its master; how a node shows them is the maker’s choice.',src:'rdti',loc:'Section 7.2 (and R-OSSI I23, Table 312, for the events)'},
+  {id:'operational',who:'The principal core',text:'The core tells the RPD to move to operational. RF activity is then controlled port by port and channel by channel by the core; the RPD must also generate downstream pilot tones under the core’s control, and they are meant to be present continuously unless an operator removes one for maintenance.',src:'rphy',loc:'Sections 6.10.1 to 6.10.3 (and R-OOB I15, section 9.1)'}
+ ]);
+ const RPHY_VISIBILITY=Object.freeze({
+  text:'The RPD keeps a local event log that the principal core can read; the specification does not say how or whether a node shows its state on its own panel, so lights, status pages and commands are each maker’s own design.',
+  src:'rossi',loc:'Section 9.2.2 and 9.2.2.1.1'
+ });
+ /* Public, node-side documents of other makers, listed so a technician knows what exists. Their lights and procedures do not carry over to another maker's node. */
+ const OTHER_MAKERS=Object.freeze([
+  {maker:'Cisco',src:'ciscoLeds',what:'a table of what the RPD’s lights show',scope:'Cisco RPD'},
+  {maker:'Cisco',src:'ciscoGs7000',what:'a quick start for the GS7000 intelligent node: link, address, software download and level and tilt steps',scope:'Cisco GS7000 iNode'},
+  {maker:'Cisco',src:'cisco2x2',what:'monitoring the 2x2 RPD, with its light tables',scope:'Cisco 2x2 RPD'},
+  {maker:'Teleste',src:'teleste',what:'a section on the RPD diagnostic lights (1.3.3.14)',scope:'Teleste DAN3'},
+  {maker:'Harmonic',src:'harmonic',what:'installation steps and light tables (chapter 7), draft copy',scope:'Harmonic Ripple-2'}
+ ]);
+ const VECIMA=Object.freeze({
+  text:'Vecima says its installation and configuration guides, user manuals and release notes are in its Customer Portal, which needs a login. The public items found are product briefs. No Vecima commissioning procedure could be read, so this screen does not describe one, and it does not borrow another maker’s steps or lights for a Vecima node.',
+  src:'vecimaSupport',loc:'“Product Documentation” block',
+  briefSrc:'vecimaBrief'
+ });
+
+ /* Every source id used by a statement must be in SOURCES and every statement must carry a locator. */
+ function selfCheck(){
+  const problems=[];
+  const used=[...AERO,...RULES,...RPHY_STEPS,RPHY_VISIBILITY,VECIMA,...PLANS,...OTHER_MAKERS];
+  for(const item of used){
+   if(item.src===null)continue;
+   if(!Object.prototype.hasOwnProperty.call(SOURCES,item.src))problems.push('unknown source '+item.src);
+   else if(!SOURCES[item.src].issue)problems.push('source without an issue '+item.src);
+   if(item.loc===undefined&&!item.what)problems.push('statement without a locator: '+(item.id||item.maker));
+  }
+  return problems;
+ }
+ return {SOURCES,PLANS,ULTRA,ULTRA_TOP,D31,AERO,RULES,RPHY_STEPS,RPHY_VISIBILITY,OTHER_MAKERS,VECIMA,AERO_BAND,range,gaps,widths,aeroBandSide,selfCheck};
+})();
+
+const HighSplitUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const cite=(src,loc)=>{const s=HighSplit.SOURCES[src];return s?`<span class="hs-source">${escape(s.title)} — ${escape(s.issue)}${loc?'; '+escape(loc):''}</span>`:`<span class="hs-source">${escape(loc||'')}</span>`;};
+ let initialized=false;
+ function planRows(){
+  return HighSplit.PLANS.map(p=>`<tr><th scope="row">${escape(p.name)}</th><td>5 to ${HighSplit.range(p.upper)}</td><td>${HighSplit.range(p.dsLow)}</td><td>${HighSplit.range(p.dsHigh)}</td><td>${escape(p.applies)}</td></tr>`).join('')
+   +HighSplit.ULTRA.map(u=>`<tr><th scope="row">Ultra-high split, ${u.upper} MHz</th><td>5 to ${u.upper}</td><td>${HighSplit.range(u.dsLow)}</td><td>${HighSplit.ULTRA_TOP}</td><td>see Table 29</td></tr>`).join('');
+ }
+ function gapRows(){
+  const names={sub:'Sub-split',mid:'Mid-split',high:'High-split'};
+  return HighSplit.gaps().map(g=>`<tr><th scope="row">${names[g.id]}</th><td>${g.min===g.max?g.min:g.min+' to '+g.max} MHz</td></tr>`).join('');
+ }
+ function sideRows(){
+  const names={sub:'42/54 MHz plant (sub-split)',mid:'85/108 MHz (mid-split)',high:'204/258 MHz plant (high-split)'};
+  return HighSplit.PLANS.map(p=>`<tr><th scope="row">${names[p.id]}</th><td>${escape(HighSplit.aeroBandSide(p))}</td></tr>`).join('');
+ }
+ function markup(){
+  const d=HighSplit.D31,w=HighSplit.widths();
+  return `<div class="sectionhead"><div><h2>High split</h2><p class="note tight">A reading aid for the 204/258 MHz plant and for what is public about Remote PHY bring-up. It takes no input, reads nothing from a node, meter or core and stores nothing. Each statement names the document and the issue it was read in. It is not a procedure and does not replace your node maker’s guide or your company’s.</p></div></div>
+<section class="calc-card hs-card" aria-labelledby="hsBandsTitle"><div class="calc-card-head"><h3 id="hsBandsTitle">Band plans</h3>${tag('band.docsis40.fdd','DOCSIS 4.0 band plans')}</div>
+<p class="note tight">Where the upstream ends and the downstream begins, in MHz, as the DOCSIS 4.0 specification prints them for frequency-division duplex (FDD). The table assumes a contiguous occupied downstream spectrum (the specification’s table caption says so); that is not a requirement, and a device can leave a hole, so read the top edge as the highest frequency in use. For the newer splits the downstream lower edge can also sit anywhere from the upstream upper edge to the edge printed here. The 42/54 MHz and 204/258 MHz plants are different plans and stay separate here, as in the rest of the app.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="DOCSIS 4.0 FDD band edges"><table class="hs-table"><thead><tr><th scope="col">Split</th><th scope="col">Upstream</th><th scope="col">Downstream starts</th><th scope="col">Downstream ends</th><th scope="col">Applies to</th></tr></thead><tbody>${planRows()}</tbody></table></div>
+<p class="note tight">${cite('phy40','Section 7.3.2, Table 29 and Table 31')}</p>
+<h4>The gap between the two directions ${tag('band.derived.gaps','derived gaps')}</h4>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Gap between upstream and downstream"><table class="hs-table"><thead><tr><th scope="col">Split</th><th scope="col">Downstream start minus upstream end</th></tr></thead><tbody>${gapRows()}</tbody></table></div>
+<p class="note tight">Our own subtraction of the table’s edges. The specification calls these spans transition bands (it names the 85 to 108 MHz span the legacy transition band and 204 to 258 MHz the HS transition band), not guard bands. The mid-split and high-split downstream bands are ${[...new Set(w.map(x=>x.width))].join(' and ')} MHz wide${new Set(w.map(x=>x.width)).size===1?' in both cases':''} (top edge minus start); the sub-split edges are ranges, so no single width follows for it. No document read gives 102 MHz as a mid-split downstream edge: the specification says 108.</p>
+<h4>What a DOCSIS 3.1 modem must support ${tag('band.docsis31.edges','DOCSIS 3.1 band edges')}</h4>
+<ul class="hs-list"><li>Upstream upper edges: one or more of ${d.upstreamEdges.join(', ')} MHz, at least one of them 85 MHz or more.</li><li>Downstream: it must work with a lower edge of ${d.downstreamLowMust} MHz and demodulate to ${d.downstreamDemodulateTo} MHz. Reaching ${d.downstreamOptionalTo} MHz is optional in DOCSIS 3.1 and required of DOCSIS 4.0 FDD devices.</li></ul>
+<p class="note tight">${cite('phy31','Sections 7.2.1, 7.2.3 and 7.2.4, and Table 4')}. Passing a sweep to 993 MHz does not certify a plant for 1.8 GHz.</p>
+<p class="note tight">SCTE 300 2024 (Best Practices for Migrating to DOCSIS 4.0) covers readiness tests and measurements and says it does not define band edges; it reproduces tables from an older PHY issue (I06), so use the specification above for edges. SCTE 294 2024r1 (upstream spectrum troubleshooting) was found only as a catalog entry. ${cite('scte300','Cover, Scope and Document Release History')}</p></section>
+<section class="calc-card hs-card" aria-labelledby="hsAeroTitle"><div class="calc-card-head"><h3 id="hsAeroTitle">The aeronautical band and leakage</h3>${tag('aero.band.side','aeronautical band by split')}</div>
+<p class="note tight">The 108 to 137 MHz aeronautical band, and the plan edges above, put it in a different place on each plant:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Where 108 to 137 MHz falls"><table class="hs-table"><thead><tr><th scope="col">Plan</th><th scope="col">108 to 137 MHz is</th></tr></thead><tbody>${sideRows()}</tbody></table></div>
+<ul class="hs-list">${HighSplit.AERO.map(a=>`<li>${escape(a.text)} ${cite(a.src,a.loc)}</li>`).join('')}</ul>
+<h4>The rules, in plain words</h4>
+<ul class="hs-list">${HighSplit.RULES.map(r=>`<li>${escape(r.text)} ${tag(r.registry,r.loc)} ${cite(r.src,r.loc)}</li>`).join('')}</ul>
+<p class="note tight">Official leakage results belong to your engineering group. The Leakage screen is a notebook and calculator, not a filing.</p></section>
+<section class="calc-card hs-card" aria-labelledby="hsRphyTitle"><div class="calc-card-head"><h3 id="hsRphyTitle">Remote PHY bring-up</h3></div>
+<p class="note tight">What the CableLabs specifications say an RPD does after power-up. The steps are listed in the order each is first needed, but they are not one strict sequence: for example, the RPD synchronizes to its timing source in parallel with the configuration done by the principal and auxiliary cores, and that synchronization has to be started before the core moves the RPD to operational. It is automatic. Most of it is done with the network and the CCAP core, and none of it is a check you can make with a meter at the node; use it to know what the core operator is waiting for.</p>
+<ol class="hs-steps">${HighSplit.RPHY_STEPS.map(s=>`<li><strong>${escape(s.who)}.</strong> ${escape(s.text)} ${cite(s.src,s.loc)}</li>`).join('')}</ol>
+<p class="note tight"><strong>What you can see at the node.</strong> ${escape(HighSplit.RPHY_VISIBILITY.text)} ${cite(HighSplit.RPHY_VISIBILITY.src,HighSplit.RPHY_VISIBILITY.loc)}</p>
+<h4>Vecima nodes</h4>
+<p class="status warning">${escape(HighSplit.VECIMA.text)} ${cite(HighSplit.VECIMA.src,HighSplit.VECIMA.loc)}</p>
+<p class="note tight">When you have the Vecima guide your company holds, write its title and revision on your run sheet; any optics, timing, registration and RF checks come from that document.</p>
+<h4>Other makers’ public guides</h4>
+<p class="note tight">Listed so you know they exist. Their lights and steps are for their own hardware and do not carry over to another maker’s node.</p>
+<ul class="hs-list">${HighSplit.OTHER_MAKERS.map(m=>`<li>${escape(m.maker)}, ${escape(m.scope)}: ${escape(m.what)}. ${cite(m.src,'')}</li>`).join('')}</ul></section>`;
+ }
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('highSplitPanel');if(!panel)return;
+  panel.innerHTML=markup();
+ }
+ return {init,markup};
+})();
+</script>
+<script>/* "Why" cards (build list item 18, 2.0 Alpha build 3): one short card for each of the fourteen "What is …?" monographs in
+   SCTE's 293 series, in our own words, each saying why the topic matters in the field, linking to the screen in this app that
+   uses it, and citing "SCTE 293-n year". The monographs are free to download from SCTE; this is a summary, not a copy, and
+   it does not replace reading them. No input, nothing stored, nothing read from a meter. */
+const WhyCards=(()=>{
+ const SERIES='SCTE 293';
+ /* Titles and years as the SCTE Standards Catalog prints them (read November 11, 2026). */
+ const TOPICS=Object.freeze([
+  {n:1,year:2024,title:'What is … the Decibel?',name:'The decibel',
+   what:'The decibel compares two amounts of power on a logarithmic scale: ten times the base-10 logarithm of their ratio. Two voltages can be compared the same way, with twenty times the logarithm, as long as both are across the same impedance. A bare dB is only ever a ratio, such as the gain of an amplifier or the loss of a splitter. It is never a level.',
+   why:'Gain and loss along a run simply add and subtract in dB, and a level needs a reference unit, such as dBmV, before it means anything. A reading in plain dB is a difference between two levels.',
+   tools:[{task:'calculators',label:'Test → Calculators'}],tags:['calc.db.dbm']},
+  {n:2,year:2024,title:'What is … Velocity of Propagation?',name:'Velocity of propagation',
+   what:'Velocity of propagation (VoP) is how fast a signal travels in a particular cable, stated as a percentage of the speed of light in a vacuum. It follows from the cable’s insulation, it is published for each cable type, and water in the insulation changes it.',
+   why:'A distance worked out from a ripple spacing or from a TDR echo time depends on it. The same measurement gives a different distance if the wrong VoP is used.',
+   tools:[{task:'calculators',label:'Test → Calculators'},{task:'tdr',label:'Test → TDR'}],tags:['calc.ripple.distance','const.speedOfLight']},
+  {n:3,year:2024,title:'What is…Return Loss?',name:'Return loss',
+   what:'Return loss says how much of a signal is reflected at an impedance mismatch, in dB: the gap between the power sent toward the mismatch and the power that comes back. A bigger number means less reflected power and a better match. It has nothing to do with the loss of the return (upstream) path.',
+   why:'Damaged cable, loose or wrong connectors, open ports and water all show up as poor return loss, and reflections bouncing between two mismatches are what draw a standing-wave ripple on a sweep.',
+   tools:[{task:'impairments',label:'Test → Impairments'}],tags:[]},
+  {n:4,year:2024,title:'What is…Loss (Attenuation)?',name:'Loss (attenuation)',
+   what:'Loss is the drop in signal power through a cable or a part, stated in dB. Through a device it is called insertion loss and it is written as a positive number. Three kinds matter in a plant: flat loss (the same at every frequency), cable loss (more at the high end than the low end) and equalizer loss (made to be the opposite of cable’s tilt).',
+   why:'Each span’s loss has to be made up by the amplifier after it. Loss that is not in the design, from damage, a wrong pad or equalizer, a filter that should have come out, or leakage, is a fault to find.',
+   tools:[{task:'route',label:'Route → Cable route'},{task:'sweep',label:'Test → Predicted levels'}],tags:[]},
+  {n:5,year:2024,title:'What is…Unity Gain?',name:'Unity gain',
+   what:'Unity gain means each amplifier’s gain equals the loss of the span ahead of it at the same frequency, so signal levels repeat from one amplifier to the next. It applies to the forward path and to the reverse path.',
+   why:'It gives the best noise and distortion performance. A wrong pad or equalizer shows up as a level that drifts along the cascade, which is what the station worksheet and the two-pilot balance are for.',
+   tools:[{task:'gain',label:'Route → Amp gain'},{task:'station',label:'Route → Station'}],tags:['calc.alignment.balance']},
+  {n:6,year:2024,title:'What is… Skin Effect and Skin Depth?',name:'Skin effect and skin depth',
+   what:'At radio frequencies current runs in a thin layer at the surface of a conductor, and the layer gets thinner as the frequency rises. Skin depth is the measure of how deep the current reaches. The effect keeps RF signals inside intact cable and keeps unwanted outside signals out, and it is a main reason cable loss grows with frequency: the current has less metal to use.',
+   why:'It explains why the high channels lose more than the low ones, and why tilt exists at all.',
+   tools:[{task:'route',label:'Route → Cable route'}],tags:[]},
+  {n:7,year:2025,title:'What is… Long Loop Automatic Level Control?',name:'Long loop automatic level control',
+   what:'Long loop ALC is how a DOCSIS CMTS or CCAP keeps upstream signals arriving at the right level. It measures what it receives from each modem and tells the modem to raise or lower its transmit level.',
+   why:'The upstream level at the CMTS input is a set point someone chose, so a return worksheet needs your company’s receiver reference entered, not assumed. After a return pad or reverse gain change the modems re-adjust on their own.',
+   tools:[{task:'station',label:'Route → Station'}],tags:[]},
+  {n:8,year:2025,title:'What is...S-Parameters?',name:'S-parameters',
+   what:'S-parameters describe how a device with ports, such as a splitter, amplifier or filter, behaves when every port is terminated in its nominal impedance, usually measured with a vector network analyzer. They convert to the familiar gain, loss and return loss.',
+   why:'Makers publish them for parts, and you meet them when a data file comes with a device. The app has no S-parameter screen.',
+   tools:[],tags:[]},
+  {n:9,year:2025,title:'What is … RF?',name:'RF',
+   what:'RF is radio frequency: the part of the electromagnetic spectrum used for radio, from a few kilohertz up to just below infrared light. The word also names the signals that occupy that range and the rate of an oscillation in it. The coax in a cable plant carries several kinds of RF (telemetry, analog, SC-QAM, OFDM and OFDMA) alongside AC power for the actives.',
+   why:'The same RF that belongs inside the cable is interference if it leaks out, and outside RF that gets in is ingress, which is why shielding and good connectors matter.',
+   tools:[{task:'frequency',label:'Test → Frequency'},{task:'leakage',label:'Test → Leakage'}],tags:[]},
+  {n:10,year:2025,title:'What Is...Signal Level?',name:'Signal level',
+   what:'Signal level is the power of a signal, usually written in dBmV (decibels relative to 1 millivolt across 75 ohms), or in dBµV or dBm. What is measured depends on the signal: the peak envelope power of an analog TV visual carrier, the average power across an SC-QAM channel’s occupied bandwidth, the average power per 6 MHz for a downstream OFDM channel, and an average over a narrower bandwidth for upstream OFDMA.',
+   why:'Level alone does not say a signal is good, because error rate and MER are separate checks, but a wrong level, or a reading taken on a different basis than the limit, is the first thing to rule out.',
+   tools:[{task:'calculators',label:'Test → Calculators'},{task:'docsisHealth',label:'Test → DOCSIS health'}],tags:['calc.db.dbuv','calc.ofdm.bandwidth','const.coax.impedance']},
+  {n:11,year:2025,title:'What Is...Noise Figure?',name:'Noise figure',
+   what:'Noise figure says, in dB, how much a device degrades the carrier-to-noise ratio of a signal passing through it, measured with only thermal noise at the input at a standard noise temperature. A lower figure is better, and the devices in a cascade add their contributions.',
+   why:'It is why an amplifier’s input level matters: if the input is too low, the amplifier’s own noise starts to dominate.',
+   tools:[],tags:[]},
+  {n:12,year:2025,title:'What is...Signal Leakage Field Strength?',name:'Signal leakage field strength',
+   what:'Leakage is described by field strength: how strong a radio wave a leak produces at a stated distance, in volts per meter (microvolts per meter in practice). Rules give limits together with the distance each applies at, and a reading taken with a dipole in dBmV has to be converted to field strength for its frequency.',
+   why:'A leakage reading means nothing without its distance and its frequency. The leakage screen restates a reading at 3 m and compares it with the FCC table.',
+   tools:[{task:'leakage',label:'Test → Leakage'}],tags:['leak.normalize.distance']},
+  {n:13,year:2026,title:'What is … Carrier-to-Noise Ratio?',name:'Carrier-to-noise ratio',
+   what:'Carrier-to-noise ratio (CNR) compares a carrier’s power with the noise power in a stated bandwidth, in dB, as read on a spectrum analyzer. The noise reading can need a bandwidth correction, and the analyzer’s own noise floor has to sit below the plant’s.',
+   why:'A low CNR points at noise, low levels or a noisy active device. It is a different check from MER and error counts, and a signal can have a fine level and a poor ratio.',
+   tools:[],tags:[]},
+  {n:14,year:2026,title:'What is …Impedance?',name:'Impedance',
+   what:'Impedance is the opposition a circuit offers to alternating current, combining resistance and reactance. The coax in a cable plant is nominally 75 ohms. Wherever the impedance changes, because of damage, water, a loose connector or a wrong part, some of the signal is reflected.',
+   why:'A mismatch is where return-loss problems and ripple begin, so 75 ohm parts have to be used all the way through.',
+   tools:[{task:'impairments',label:'Test → Impairments'}],tags:['const.coax.impedance']}
+ ].map(t=>Object.freeze({...t,tools:Object.freeze(t.tools.map(Object.freeze)),tags:Object.freeze(t.tags)})));
+ const cite=t=>SERIES+'-'+t.n+' '+t.year;
+ /* Problems with the table: a card must name its document, say what and why, and every tool must be a screen of this app. */
+ function selfCheck(taskIds){
+  const problems=[],seen=new Set();
+  for(const t of TOPICS){
+   if(seen.has(t.n))problems.push('duplicate n '+t.n);seen.add(t.n);
+   if(!t.title||!t.year||!t.what||t.what.length<80||!t.why||t.why.length<40)problems.push('thin card '+t.n);
+   for(const tool of t.tools)if(taskIds&&!taskIds.includes(tool.task))problems.push('card '+t.n+' links to an unknown screen '+tool.task);
+  }
+  if(TOPICS.length!==14)problems.push('expected 14 topics');
+  return problems;
+ }
+ return {SERIES,TOPICS,cite,selfCheck};
+})();
+
+const WhyCardsUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ let initialized=false;
+ function card(t){
+  const tools=t.tools.length?`<p class="why-tools"><strong>In the app:</strong> ${t.tools.map(x=>`<button type="button" class="why-go" data-why-go="${escape(x.task)}">${escape(x.label)}</button>`).join(' ')}</p>`:'<p class="note tight why-tools">The app has no screen for this topic yet.</p>';
+  return `<details class="why-card" data-why="${t.n}"><summary><span class="why-name">${escape(t.name)}</span> <span class="why-cite">${escape(WhyCards.cite(t))}</span></summary><div class="why-body"><p>${escape(t.what)}</p><p><strong>Why it matters in the field.</strong> ${escape(t.why)}</p>${tools}${t.tags.length?`<p class="why-tags">${t.tags.map(id=>tag(id,t.name)).join(' ')}</p>`:''}<p class="note tight why-source">Our own summary of ${escape(WhyCards.cite(t))}, “${escape(t.title)}”, one of SCTE’s free technical monographs. Read it for the full explanation.</p></div></details>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Why cards</h2><p class="note tight">Fourteen short cards on the basics behind the numbers in this app, one for each “What is …?” monograph in SCTE’s 293 series. Each is in our own words, says why the topic matters in the field and points at the screen that uses it. They are a summary, not a copy: SCTE’s monographs are free to download and are the place to read the full explanation. Nothing here is typed, stored or read from a meter.</p></div></div><div class="why-list">${WhyCards.TOPICS.map(card).join('')}</div>`;
+ }
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('whyPanel');if(!panel)return;
+  panel.innerHTML=markup();
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('[data-why-go]');if(!b||!panel.contains(b))return;
+   if(typeof WorkflowUI!=='undefined')WorkflowUI.go(b.dataset.whyGo);
+  });
+ }
+ return {init,markup};
+})();
+</script>
+<script>/* FCC proof-of-performance reference card (build list item 20, 2.0 Alpha build 3). A reading aid for the technical
+   requirements and testing rules of 47 CFR Part 76 that an operator's proof-of-performance tests are measured against:
+   how often and where to test, what the analog-channel limits are, how the main measurements are made and how long the
+   records are kept. Reference only: it takes no input, stores nothing, and official results belong to engineering. The rule
+   text was read on the eCFR on November 11, 2026; wording here is our own. */
+const ProofOfPerformance=(()=>{
+ const RULES=Object.freeze({
+  s601:'47 CFR 76.601, Performance tests',
+  s605:'47 CFR 76.605, Technical standards',
+  s609:'47 CFR 76.609, Measurements',
+  s1704:'47 CFR 76.1704, Proof-of-performance test data'
+ });
+ /* One row per requirement. `limit` is how the screen states it; `registry` is the Limits row that carries the source, and
+    `rule` is the section. The numbers in `limit` are checked against the rule text by qa/build3-pop.test.cjs. */
+ const GROUPS=Object.freeze([
+  {id:'when',title:'How often, where and on what',items:Object.freeze([
+   {id:'frequency',what:'How often',limit:'At least twice each calendar year, at intervals of no more than seven months',rule:'s601',loc:'76.601(b)',registry:'fcc.pop.frequency'},
+   {id:'points',what:'How many test points',limit:'Six widely separated points for a system of 1,000 to 12,500 subscribers, and one more for every further 12,500 subscribers or fraction of that; at least one third of the points are the terminals farthest from the system input',rule:'s601',loc:'76.601(b)(1)',registry:'fcc.pop.points'},
+   {id:'channels',what:'How many channels',limit:'Five channels where the activated capacity is under 550 MHz, ten at 550 MHz or more, chosen to represent the whole system; the visual level, its variation and the aural level are measured on every analog channel',rule:'s601',loc:'76.601(b)(2)',registry:'fcc.pop.channels'},
+   {id:'small',what:'Small systems',limit:'Under 1,000 subscribers the performance-test paragraphs do not apply, but a system that uses spectrum beyond over-the-air TV and FM must still do the signal-leakage tests and monitoring, and its leakage log is kept five years',rule:'s601',loc:'76.601(d)',registry:'fcc.pop.records'}
+  ])},
+  {id:'limits',title:'The analog-channel limits (measured at a subscriber terminal unless noted)',items:Object.freeze([
+   {id:'level',what:'Visual signal level',limit:'Not less than 0 dBmV (1 millivolt across 75 ohms) at the terminal, and not less than +3 dBmV at the end of a 100 ft (30 m) drop',rule:'s605',loc:'76.605(b)(3)',registry:'fcc.pop.level'},
+   {id:'variation',what:'Level variation',limit:'Measured at the end of a 30 m drop: no more than 8 dB over any six months (four tests in six-hour steps over 24 hours in July or August and again in January or February); within 3 dB of any carrier within 6 MHz, and within 10 dB of any other channel on a system whose upper frequency limit is up to 300 MHz, plus 1 dB for each further 100 MHz of upper limit',rule:'s605',loc:'76.605(b)(4)',registry:'fcc.pop.variation'},
+   {id:'aural',what:'Aural carrier',limit:'4.5 MHz ± 5 kHz above the visual carrier, and 10 to 17 dB below the visual level',rule:'s605',loc:'76.605(b)(2) and (5)',registry:'fcc.pop.aural'},
+   {id:'response',what:'Frequency response',limit:'Within ± 2 dB from 0.75 to 5.0 MHz above the lower channel edge',rule:'s605',loc:'76.605(b)(6)',registry:'fcc.pop.response'},
+   {id:'cnr',what:'Carrier-to-noise',limit:'Visual carrier to system noise not less than 43 dB',rule:'s605',loc:'76.605(b)(7)',registry:'fcc.pop.cnr'},
+   {id:'coherent',what:'Coherent disturbances',limit:'Visual level to intermodulation, distortion products and discrete interference not less than 51 dB (47 dB for those on the visual carrier in a coherent system), measured with modulated carriers',rule:'s605',loc:'76.605(b)(8)',registry:'fcc.pop.coherent'},
+   {id:'isolation',what:'Terminal isolation',limit:'Not less than 18 dB, and enough to keep reflections from an open or shorted terminal from causing a visible picture impairment at any other terminal. Terminal-isolation measurements are not required when the maker’s specifications, based on a representative sample of at least 500 subscriber taps, or laboratory tests by or for the operator on a representative sample of at least 50 taps, show the 18 dB standard is met; that evidence is attached to each proof-of-performance record (76.609(g), which still refers to the standard as 76.605(a)(9))',rule:'s605',loc:'76.605(b)(9) and 76.609(g)',registry:'fcc.pop.isolation'},
+   {id:'hum',what:'Hum and low-frequency disturbance',limit:'Peak-to-peak variation of the visual level no more than 3 percent',rule:'s605',loc:'76.605(b)(10)',registry:'fcc.pop.hum'},
+   {id:'headend',what:'At the headend (every third year)',limit:'Chroma delay within 170 ns, differential gain within ± 20 percent, differential phase within ± 10 degrees',rule:'s605',loc:'76.605(b)(11) and 76.601(b)(2)(ii)',registry:'fcc.pop.headend'}
+  ])},
+  {id:'digital',title:'Digital channels and leakage',items:Object.freeze([
+   {id:'qam',what:'QAM channels',limit:'A system that carries video on QAM channels follows ANSI/SCTE 40 2016. Its requirements are not listed here',rule:'s605',loc:'76.605(a)',registry:null},
+   {id:'leakage',what:'Signal leakage',limit:'Measured with a half-wave dipole 3 m from the leak and limited by the table in 76.605(c); see Test → Leakage',rule:'s605',loc:'76.605(c) and 76.609(h)',registry:'leak.fcc.analog.near'}
+  ])},
+  {id:'how',title:'How it is measured and kept',items:Object.freeze([
+   {id:'noise',what:'Noise',limit:'Measured with a calibrated field-strength meter on a matched termination in successive steps over a 4 MHz band centered in the channel. One reading corrected by the ratio of 4 MHz to the meter’s noise bandwidth may be used only if it has been established that the noise level is constant within that band',rule:'s609',loc:'76.609(e)',registry:'fcc.pop.noise'},
+   {id:'conditions',what:'Test conditions',limit:'Amplifiers at normal gain, pilot tones and other signals at normal levels, other channels left on while one channel’s signal is replaced by a termination; the procedures in the rule are examples, not mandatory',rule:'s609',loc:'76.609(a) and (b)',registry:null},
+   {id:'record',what:'Test report',limit:'Includes the instruments with make, model and latest calibration date, the procedure used and the qualifications of the person testing',rule:'s601',loc:'76.601(b)(1)',registry:null},
+   {id:'retention',what:'How long it is kept',limit:'At the local business office for at least five years, available to the Commission or the franchising authority on request',rule:'s1704',loc:'76.1704(a)',registry:'fcc.pop.records'}
+  ])}
+ ]);
+ /* Problems with the table: every item names a rule section and a locator, every registry id is distinct per limit. */
+ function selfCheck(){
+  const problems=[],seen=new Set();
+  for(const g of GROUPS)for(const i of g.items){
+   if(!Object.prototype.hasOwnProperty.call(RULES,i.rule))problems.push('unknown rule '+i.rule);
+   if(!i.loc||!/^76\./.test(i.loc))problems.push('locator '+i.id);
+   if(!i.what||!i.limit)problems.push('thin item '+i.id);
+   if(seen.has(i.id))problems.push('duplicate '+i.id);seen.add(i.id);
+  }
+  return problems;
+ }
+ return {RULES,GROUPS,selfCheck};
+})();
+
+const ProofOfPerformanceUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ let initialized=false;
+ function group(g){
+  return `<section class="calc-card pop-card" aria-labelledby="pop-${g.id}"><div class="calc-card-head"><h3 id="pop-${g.id}">${escape(g.title)}</h3></div><div class="table-scroll" tabindex="0" role="region" aria-label="${escape(g.title)}"><table class="hs-table pop-table" role="table"><thead><tr role="row"><th scope="col" role="columnheader">What</th><th scope="col" role="columnheader">The rule</th><th scope="col" role="columnheader">Where</th></tr></thead><tbody>${g.items.map(i=>`<tr role="row"><th scope="row" role="rowheader">${escape(i.what)}</th><td role="cell">${escape(i.limit)} ${i.registry?tag(i.registry,i.what):''}</td><td role="cell">${escape(ProofOfPerformance.RULES[i.rule])}, ${escape(i.loc)}</td></tr>`).join('')}</tbody></table></div></section>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>FCC proof of performance</h2><p class="note tight">A reference for the technical requirements the FCC’s cable rules (47 CFR Part 76) set and how an operator’s proof-of-performance tests are measured against them. It takes no input and stores nothing. <strong>Official results belong to your engineering group</strong>; this card does not make or record a test and is not a filing. The limits are those for analog (NTSC or similar) channels and are in the rule text as read on the eCFR on November 11, 2026; ask engineering what applies to your system and your franchise. SCTE 204 2025, <em>FCC Proof-of-Performance Checklist for Analog and Digital Signals</em>, is the industry’s checklist for this and is the place to read how to carry out the tests (it was found in the SCTE catalog and not read).</p></div></div>${ProofOfPerformance.GROUPS.map(group).join('')}`;
+ }
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('popPanel');if(!panel)return;
+  panel.innerHTML=markup();
+ }
+ return {init,markup};
+})();
+</script>
+<script>/* Study mode (build list item 19, 2.0 Alpha build 3): original practice questions built from this app's own calculators
+   and reference screens, tagged by the five SCTE BDS domains (architectures; distribution components; signal types;
+   maintenance and troubleshooting; safety and construction). Nothing here is taken from an SCTE or NCTI exam or question
+   bank: every question is generated from a calculator or a screen of this app, with numbers chosen on a fixed grid from a
+   seed, and its answer is computed by the same function the app uses. Practice only: a score is kept for this visit,
+   never saved, and it is not a test result. */
+const StudyMode=(()=>{
+ const DOMAINS=Object.freeze([
+  {id:'architectures',name:'Architectures'},
+  {id:'components',name:'Distribution components'},
+  {id:'signals',name:'Signal types'},
+  {id:'troubleshooting',name:'Maintenance and troubleshooting'},
+  {id:'safety',name:'Safety and construction'}
+ ].map(Object.freeze));
+ /* A small seeded generator, so a question can be reproduced from its number and seed. */
+ function rng(seed){
+  let a=(Math.trunc(seed)>>>0)||1;
+  return ()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};
+ }
+ const pick=(r,list)=>list[Math.floor(r()*list.length)];
+ const grid=(r,lo,hi,step)=>{const n=Math.round((hi-lo)/step);return lo+Math.floor(r()*(n+1))*step;};
+ const round=(x,d=2)=>Number(x.toFixed(d));
+ const shuffle=(r,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+ const app=()=>({
+  calc:typeof FieldCalc!=='undefined'?FieldCalc:null,leak:typeof Leakage!=='undefined'?Leakage:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
+  docsis:typeof DocsisHealth!=='undefined'?DocsisHealth:null,split:typeof HighSplit!=='undefined'?HighSplit:null,imp:typeof Impairments!=='undefined'?Impairments:null,
+  safety:typeof Safety!=='undefined'?Safety:null,outage:typeof Outage!=='undefined'?Outage:null
+ });
+ /* Choices: the right answer is placed at a random position among the others, never repeated. */
+ function choice(r,right,others){
+  const pool=[...new Set(others.filter(x=>x!==right))];
+  const picked=shuffle(r,pool).slice(0,3);
+  const all=shuffle(r,[right,...picked]);
+  return {choices:all,correct:all.indexOf(right)};
+ }
+ const number=(q)=>({kind:'number',...q});
+ /* Each generator: id, domain, tool (the screen that practices it) and make(seed) -> a question. `params` holds the inputs of a
+    numeric answer, so qa/build3-study.test.cjs can recompute it independently. */
+ const GENERATORS=[
+  {id:'dbm',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const level=grid(r,-10,50,0.5),a=app();
+   const x=a.calc.convertLevel(level,'dBmV',75);
+   return number({prompt:`A meter reads ${level} dBmV across 75 ohms. What is that level in dBm?`,unit:'dBm',answer:x.dBm,tol:0.05,params:{level},working:['dBm = dBmV − 48.75 dB at 75 ohms (the dB converter in Test → Calculators).',`${level} − 48.75 = ${round(x.dBm)} dBm.`],source:'SCTE 293-10 2025, signal level'});
+  }},
+  {id:'dbuv',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const level=grid(r,-10,50,0.5),a=app();
+   const x=a.calc.convertLevel(level,'dBmV',75);
+   return number({prompt:`A level is ${level} dBmV. What is it in dBµV?`,unit:'dBµV',answer:x.dBuV,tol:0.05,params:{level},working:['dBµV = dBmV + 60 dB, because 1 mV is 1000 µV.',`${level} + 60 = ${round(x.dBuV)} dBµV.`],source:'SCTE 293-1 2024, the decibel'});
+  }},
+  {id:'ofdm6',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const bandwidth=pick(r,[24,48,96,192]),power=grid(r,10,60,0.5),a=app();
+   const x=a.calc.ofdmPower(power,bandwidth,bandwidth);
+   return number({prompt:`A downstream OFDM channel occupies ${bandwidth} MHz, and its power is spread evenly across that occupied bandwidth (flat power spectral density, so every 6 MHz carries the same power). The total power over the ${bandwidth} MHz measures ${power} dBmV. What is the average power per 6 MHz?`,unit:'dBmV per 6 MHz',answer:x.per6,tol:0.05,params:{power,bandwidth},working:['This holds when the power is spread evenly across the occupied bandwidth (flat power spectral density). Then power per 6 MHz = total power − 10·log10(occupied bandwidth ÷ 6 MHz). A channel whose power is not flat has the same average, but its individual 6 MHz segments differ from it.',`${power} − 10·log10(${bandwidth} ÷ 6) = ${round(x.per6)} dBmV average per 6 MHz.`],source:'SCTE 293-10 2025, signal level (the per-6 MHz basis); flat power is the assumption of the Field calculators card'});
+  }},
+  {id:'scqam',domain:'signals',tool:{task:'docsisHealth',label:'Test → DOCSIS health'},make:r=>{
+   const level=grid(r,-20,20,1),a=app();
+   const x=a.docsis.scqam({level});
+   const right=x.status==='inside'?'Inside the range':x.status==='below'?'Below the range':'Above the range';
+   const c=choice(r,right,['Inside the range','Below the range','Above the range']);
+   return {kind:'choice',prompt:`A downstream SC-QAM channel reads ${level} dBmV at the modem. A DOCSIS modem must accept −15 to +15 dBmV per 6 MHz channel. Where is the reading?`,choices:c.choices,correct:c.correct,params:{level},working:['The range is inclusive: −15 and +15 dBmV are inside it.',`${level} dBmV is ${right.toLowerCase()}.`],source:'CM-SP-PHYv3.0 C01, Table 6–22'};
+  }},
+  {id:'ofdmbasis',domain:'signals',tool:{task:'why',label:'Test → Why cards'},make:r=>{
+   const right='Average power per 6 MHz';
+   const c=choice(r,right,['Peak envelope power of the visual carrier','Power of the strongest subcarrier','Total power over the whole channel bandwidth, whatever its width','The voltage across 50 ohms']);
+   return {kind:'choice',prompt:'How is the signal level of a downstream OFDM channel usually stated?',choices:c.choices,correct:c.correct,working:['A downstream OFDM channel’s level is its average power, stated per 6 MHz so it can be compared with other channels.','Peak envelope power is how an analog TV visual carrier is measured.'],source:'SCTE 293-10 2025, signal level'};
+  }},
+  {id:'splitter',domain:'components',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const ways=pick(r,[2,3,4,8]),level=grid(r,0,50,1);
+   const answer=level-10*Math.log10(ways);
+   return number({prompt:`An ideal ${ways}-way splitter shares the signal equally. The input is ${level} dBmV. What is the level at each output?`,unit:'dBmV',answer,tol:0.05,params:{ways,level},working:['An equal split divides the power by the number of outputs: loss = 10·log10(outputs).',`${level} − 10·log10(${ways}) = ${round(answer)} dBmV. A real splitter has more loss than the ideal.`],source:'SCTE 293-4 2024, loss'});
+  }},
+  {id:'fiberbudget',domain:'components',tool:{task:'fiber',label:'Test → Fiber'},make:r=>{
+   const length=pick(r,[2,5,8,12,20]),attenuation=pick(r,[0.35,0.4,0.5]),connectors=pick(r,[2,4,6]),splices=pick(r,[0,2,4,6]),a=app();
+   const x=a.fiber.budget({length,attenuation,connectors,connectorLoss:0.3,splices,spliceLoss:0.1,margin:0});
+   return number({prompt:`A single-mode link is ${length} km at ${attenuation} dB/km with ${connectors} mated connector pairs at 0.3 dB each and ${splices} splices at 0.1 dB each. No other loss, no margin. What is the estimated loss?`,unit:'dB',answer:x.estimated,tol:0.01,params:{length,attenuation,connectors,splices},working:['Loss = length × attenuation + pairs × loss per pair + splices × loss per splice.',`${length} × ${attenuation} + ${connectors} × 0.3 + ${splices} × 0.1 = ${round(x.estimated)} dB.`],source:'SCTE 181 2025 and FOA loss-budget guidance (see Test → Fiber)'});
+  }},
+  {id:'fibercolor',domain:'components',tool:{task:'fiber',label:'Test → Fiber'},make:r=>{
+   const fiber=grid(r,1,288,1),a=app();
+   const x=a.fiber.locate(fiber);
+   const c=choice(r,x.fiberColor,a.fiber.COLORS);
+   return {kind:'choice',prompt:`Counting from 1 with 12 fibers in each tube, which color is fiber ${fiber}?`,choices:c.choices,correct:c.correct,params:{fiber},working:[`Fiber ${fiber} is position ${x.position} in tube ${x.tube}.`,`The TIA-598 order is ${a.fiber.COLORS.join(', ')}, so position ${x.position} is ${x.fiberColor}.`],source:'TIA-598 color code (see Test → Fiber)'};
+  }},
+  {id:'unity',domain:'components',tool:{task:'gain',label:'Route → Amp gain'},make:r=>{
+   const cable=grid(r,10,30,0.5),passives=grid(r,1,8,0.5);
+   const answer=cable+passives;
+   return number({prompt:`A span has ${cable} dB of cable loss and ${passives} dB of passive loss at the highest operating frequency. For unity gain, how much operational gain should the amplifier after it have?`,unit:'dB',answer,tol:0.05,params:{cable,passives},working:['Unity gain: the amplifier’s gain equals the loss of the span ahead of it at the same frequency.',`${cable} + ${passives} = ${round(answer)} dB.`],source:'SCTE 293-5 2024, unity gain'});
+  }},
+  {id:'aero',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS);
+   const names={sub:'a 42/54 MHz plant',mid:'a mid-split (85/108 MHz) plant',high:'a 204/258 MHz plant'};
+   const right=a.split.aeroBandSide(plan)==='upstream'?'Upstream':'Downstream';
+   const c={choices:['Upstream','Downstream'],correct:['Upstream','Downstream'].indexOf(right)};
+   return {kind:'choice',prompt:`On ${names[plan.id]}, which direction carries the 108 to 137 MHz aeronautical band?`,choices:c.choices,correct:c.correct,params:{plan:plan.id},working:[`The upstream ends at ${plan.upper[0]} MHz and the downstream starts at ${plan.dsLow[0]} MHz.`,`108 to 137 MHz is ${right.toLowerCase()} on this plan.`],source:'CM-SP-PHYv4.0 I08, Table 29'};
+  }},
+  {id:'edge',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS.filter(p=>p.dsLow.length===1));
+   const names={mid:'Mid-split',high:'High-split'};
+   const right=names[plan.id];
+   const c=choice(r,right,['Mid-split','High-split','Sub-split','Ultra-high split']);
+   return {kind:'choice',prompt:`Which DOCSIS 4.0 split has its downstream starting at ${plan.dsLow[0]} MHz?`,choices:c.choices,correct:c.correct,params:{plan:plan.id},working:['From the band table: sub-split 50 to 54 MHz, mid-split 108 MHz, high-split 258 MHz.',`${plan.dsLow[0]} MHz is the ${right.toLowerCase()} downstream edge.`],source:'CM-SP-PHYv4.0 I08, Table 29'};
+  }},
+  {id:'gap',domain:'architectures',tool:{task:'highSplit',label:'Test → High split'},make:r=>{
+   const a=app(),plan=pick(r,a.split.PLANS.filter(p=>p.dsLow.length===1));
+   const g=a.split.gaps().find(x=>x.id===plan.id);
+   return number({prompt:`In the ${plan.id==='mid'?'mid':'high'}-split plan the upstream ends at ${plan.upper[0]} MHz and the downstream starts at ${plan.dsLow[0]} MHz. How many MHz lie between them?`,unit:'MHz',answer:g.min,tol:0,params:{upper:plan.upper[0],dsLow:plan.dsLow[0]},working:['Subtract the upstream upper edge from the downstream lower edge.',`${plan.dsLow[0]} − ${plan.upper[0]} = ${g.min} MHz (the specification calls this a transition band).`],source:'CM-SP-PHYv4.0 I08, Table 29 (our subtraction)'});
+  }},
+  {id:'ripple',domain:'troubleshooting',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
+   const spacing=grid(r,0.5,8,0.1),vp=pick(r,[0.85,0.87,0.9]),a=app();
+   const spacingR=round(spacing,1);
+   const x=a.calc.rippleDistance(spacingR,vp);
+   return number({prompt:`A sweep shows a standing-wave ripple whose peaks are ${spacingR} MHz apart, on cable with a velocity of propagation of ${vp}. How far apart, in feet, are the two mismatches?`,unit:'ft',answer:x.feet,tol:0.01,relative:true,params:{spacing:spacingR,vp},working:[`Distance (ft) = ${round(a.calc.C_FT_PER_US/2,1)} × VP ÷ ripple spacing (MHz), where ${round(a.calc.C_FT_PER_US/2,1)} ft·MHz is half the speed of light in feet per microsecond.`,`${round(a.calc.C_FT_PER_US/2,1)} × ${vp} ÷ ${spacingR} = ${round(x.feet,1)} ft.`],source:'SCTE 280 2022, standing waves (see Test → Impairments)'});
+  }},
+  {id:'leak3m',domain:'troubleshooting',tool:{task:'leakage',label:'Test → Leakage'},make:r=>{
+   const field=grid(r,20,200,5),distance=pick(r,[10,30,100]),a=app();
+   const x=a.leak.normalize({field,distance,unit:'m'});
+   return number({prompt:`A leak reads ${field} µV/m at ${distance} m. What is that restated at 3 m?`,unit:'µV/m',answer:x.at3,tol:0.005,relative:true,params:{field,distance},working:['In the far field the field strength falls in proportion to distance: E at 3 m ≈ E × distance ÷ 3 m.',`${field} × ${distance} ÷ 3 = ${round(x.at3,1)} µV/m (an approximation; measure at 3 m when you can).`],source:'SCTE 221 2020 (R2026) and SCTE 293-12 2025'});
+  }},
+  {id:'cli',domain:'troubleshooting',tool:{task:'leakage',label:'Test → Leakage'},make:r=>{
+   const leaks=[grid(r,60,300,10),grid(r,60,300,10),grid(r,60,300,10)],theta=pick(r,[0.8,0.9,1]),a=app();
+   const x=a.leak.cli({leaks:leaks.join(' '),theta:String(theta)});
+   return number({prompt:`Three leaks of ${leaks.join(', ')} µV/m were found at 3 m on the 108–137 MHz basis, with ${Math.round(theta*100)}% of the plant examined. What is the cumulative leakage index in dB?`,unit:'dB',answer:x.cli,tol:0.05,params:{leaks,theta},working:['CLI = 10·log10( (1 ÷ fraction examined) × the sum of each leak’s field strength squared ), counting leaks of 50 µV/m or more.',`10·log10( (${leaks.map(v=>v+'²').join(' + ')}) ÷ ${theta} ) = ${round(x.cli)} dB. The limit is 64 dB.`],source:'47 CFR 76.611(a)(1)'});
+  }},
+  {id:'impairment',domain:'troubleshooting',tool:{task:'impairments',label:'Test → Impairments'},make:r=>{
+   const a=app(),ids=['ripple','notch','high-decline','slope','flat-drop','bursts'],shapeId=pick(r,ids),shape=a.imp.SHAPES.find(s=>s.id===shapeId);
+   const right=a.imp.cardForShape(shape.id).name;
+   const others=ids.filter(i=>i!==shape.id).map(i=>a.imp.cardForShape(i).name);
+   const c=choice(r,right,others);
+   return {kind:'choice',prompt:`A trace shows this: ${shape.text.charAt(0).toLowerCase()+shape.text.slice(1)}. Which impairment card fits?`,choices:c.choices,correct:c.correct,params:{shape:shape.id},working:[`The impairment cards are picked by what the trace looks like. This shape opens the “${right}” card.`],source:'SCTE 280 2022 (see Test → Impairments)'};
+  }},
+  {id:'popcnr',domain:'troubleshooting',tool:{task:'pop',label:'Test → Proof of performance'},make:r=>{
+   const right='Not less than 43 dB';
+   const c=choice(r,right,['Not less than 51 dB','Not less than 18 dB','Not less than 30 dB','Not less than 60 dB']);
+   return {kind:'choice',prompt:'What is the FCC minimum ratio of visual carrier to system noise for an analog channel?',choices:c.choices,correct:c.correct,working:['47 CFR 76.605(b)(7): the ratio of RF visual signal level to system noise shall not be less than 43 dB.','51 dB is the coherent-disturbance figure and 18 dB the terminal isolation.'],source:'47 CFR 76.605(b)(7)'};
+  }},
+  {id:'safetysection',domain:'safety',tool:{task:'safety',label:'Job → Safety'},make:r=>{
+   const a=app(),items=a.safety.ITEMS,item=pick(r,items);
+   const groups=[...new Set(items.map(i=>i.group))];
+   const c=choice(r,item.group,groups);
+   return {kind:'choice',prompt:`In which section of the pre-work safety card does this reminder appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of reminders written for this app. It is not your company’s procedure; follow company policy first.'],source:'This app’s Job → Safety card'};
+  }},
+  {id:'outagesection',domain:'safety',tool:{task:'outage',label:'Job → Outage'},make:r=>{
+   const a=app(),items=a.outage.ITEMS,item=pick(r,items);
+   const groups=[...new Set(items.map(i=>i.group))];
+   const c=choice(r,item.group,groups);
+   return {kind:'choice',prompt:`In which section of the outage first-response card does this prompt appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of prompts written for this app. It is not your company’s procedure; follow it first.'],source:'This app’s Job → Outage card'};
+  }}
+ ].map(g=>Object.freeze(g));
+ const SEED_STEP=7919;
+ /* Question number k (0 based) within a domain filter, for a base seed. */
+ function list(domain){return domain&&domain!=='all'?GENERATORS.filter(g=>g.domain===domain):GENERATORS;}
+ function question(domain,index,seed){
+  const gens=list(domain);if(!gens.length)return null;
+  const g=gens[((Math.trunc(index)%gens.length)+gens.length)%gens.length];
+  const q=g.make(rng(Math.trunc(seed)+Math.trunc(index)*SEED_STEP));
+  return {id:g.id,domain:g.domain,tool:g.tool,...q};
+ }
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/;
+ /* Checks one response. A number is read strictly as a plain decimal; blank is "no answer", never zero. */
+ function check(q,response){
+  if(!q)return {ok:false,error:'There is no question.'};
+  if(q.kind==='choice'){
+   if(response===null||response===undefined||response==='')return {ok:false,error:'Choose an answer first.'};
+   const i=Number(response);if(!Number.isInteger(i)||i<0||i>=q.choices.length)return {ok:false,error:'Choose one of the answers shown.'};
+   return {ok:true,right:i===q.correct,answer:q.choices[q.correct]};
+  }
+  const text=String(response??'').trim();
+  if(text==='')return {ok:false,error:'Type your answer first.'};
+  if(text.length>20||!DECIMAL.test(text))return {ok:false,error:'Type the answer as a plain number, such as 12.5.'};
+  const v=Number(text);if(!Number.isFinite(v))return {ok:false,error:'Type the answer as a plain number, such as 12.5.'};
+  const allowed=q.relative?Math.abs(q.answer)*q.tol:q.tol;
+  return {ok:true,right:Math.abs(v-q.answer)<=allowed+1e-9,answer:round(q.answer,2),entered:v};
+ }
+ /* What counts as right, in words, so the person knows the precision asked for before answering. */
+ function toleranceText(q){
+  if(!q||q.kind!=='number')return '';
+  if(q.relative)return 'Counts as right within '+round(q.tol*100,2)+' percent of the correct value.';
+  if(q.tol===0)return 'Give the exact whole number.';
+  return 'Counts as right within '+q.tol+(q.unit?' '+q.unit:'')+' of the correct value.';
+ }
+ return {DOMAINS,GENERATORS,list,question,check,rng,toleranceText};
+})();
+
+const StudyModeUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ /* A number box whose text is not a number (a lone "-") reports an empty value but is marked badInput; it must read as text
+    that is not a number, never as an empty answer. */
+ const typed=el=>el.validity&&el.validity.badInput?'not a number':el.value;
+ const state={domain:'all',index:0,seed:1,right:0,asked:0,answered:false};
+ let initialized=false;
+ function current(){return StudyMode.question(state.domain,state.index,state.seed);}
+ function body(q){
+  const total=StudyMode.list(state.domain).length;
+  const answer=q.kind==='choice'
+   ?`<fieldset class="study-choices"><legend class="sr-only">Answers</legend>${q.choices.map((c,i)=>`<label class="study-choice"><input type="radio" name="studyAnswer" value="${i}"> <span>${escape(c)}</span></label>`).join('')}</fieldset>`
+   :`<label class="study-number">Your answer${q.unit?` (${escape(q.unit)})`:''}<input type="number" step="any" id="studyNumber" data-study="answer" autocomplete="off" aria-describedby="studyTolerance"></label><p class="note tight" id="studyTolerance">${escape(StudyMode.toleranceText(q))}</p>`;
+  return `<p class="note tight" id="studyWhere">Question ${state.index+1} · ${escape(StudyMode.DOMAINS.find(d=>d.id===q.domain).name)} · ${total} question${total===1?'':'s'} in this set</p><p class="study-prompt" id="studyPrompt">${escape(q.prompt)}</p>${answer}<div class="toolbar"><button type="button" id="studyCheck">Check my answer</button><button type="button" id="studyNext">Next question</button><button type="button" id="studyNew">New numbers</button></div><div class="study-feedback" id="studyFeedback" role="status" aria-live="polite"></div>`;
+ }
+ function render(){
+  const panel=document.getElementById('studyPanel');if(!panel)return;
+  const q=current();state.answered=false;
+  const where=panel.querySelector('#studyBody');if(where)where.innerHTML=q?body(q):'<p class="note">No questions in this set.</p>';
+  const score=panel.querySelector('#studyScore');if(score)score.textContent=state.asked?`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`:'Nothing is saved, and a score here is not a test result.';
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All five domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
+ }
+ function showResult(q,res,panel){
+  const out=panel.querySelector('#studyFeedback');
+  if(!res.ok){out.classList.add('error');out.innerHTML=`<p class="note">${escape(res.error)}</p>`;return;}
+  out.classList.remove('error');
+  if(!state.answered){state.answered=true;state.asked++;if(res.right)state.right++;}
+  const score=panel.querySelector('#studyScore');if(score)score.textContent=`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`;
+  const tool=q.tool?`<button type="button" class="study-go" data-study-go="${escape(q.tool.task)}">${escape(q.tool.label)}</button>`:'';
+  out.innerHTML=`<p class="health-status ${res.right?'ok':'warn'}">${res.right?'✓ Right.':'✗ Not quite.'} The answer is ${escape(res.answer)}${q.unit&&q.kind==='number'?' '+escape(q.unit):''}.</p><p><strong>Working.</strong></p><ul class="hs-list">${q.working.map(w=>`<li>${escape(w)}</li>`).join('')}</ul><p class="note tight">Source: ${escape(q.source)}. ${tool}</p>`;
+ }
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('studyPanel');if(!panel)return;
+  panel.innerHTML=markup();render();
+  panel.addEventListener('change',event=>{
+   if(event.target.id==='studyDomain'){state.domain=event.target.value;state.index=0;render();}
+  });
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button');if(!b||!panel.contains(b))return;
+   const q=current();
+   if(b.id==='studyCheck'){
+    let response='';
+    if(q.kind==='choice'){const r=panel.querySelector('input[name="studyAnswer"]:checked');response=r?r.value:'';}
+    else{const el=panel.querySelector('#studyNumber');response=el?typed(el):'';}
+    showResult(q,StudyMode.check(q,response),panel);
+   }else if(b.id==='studyNext'){state.index++;render();}
+   else if(b.id==='studyNew'){state.seed++;render();}
+   else if(b.dataset.studyGo&&typeof WorkflowUI!=='undefined')WorkflowUI.go(b.dataset.studyGo);
+  });
+ }
+ return {init,markup,state,render};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();initWorkflow();initTraining();</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"a98aa4a0363aa345628a","worker":"sw.a98aa4a0363aa345628a.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

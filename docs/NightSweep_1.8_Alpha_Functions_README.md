@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 30 task screens and 48 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **30 task screens** and **48** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **16**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [Impairments](#impairments) is feature 48 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → Impairments then adds the impairment cards and feature 48, which is the sixteenth custom-curves guide step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **35 task screens** and **53** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **21**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [Study mode](#study-mode) is feature 53 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → [Impairments](#impairments) then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → [Fiber](#fiber) adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which was the nineteenth custom-curves guide step. Test → Proof of performance adds the FCC proof-of-performance reference card as feature 52, which was the twentieth custom-curves guide step. Test → Study adds the study-mode questions as feature 53, which is the twenty-first custom-curves guide step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -30,22 +30,27 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 18. [DOCSIS health card](#docsis-health-card)
 19. [Leakage](#leakage)
 20. [Impairments](#impairments)
-21. [Power-supply load](#power-supply-load)
-22. [Power what-if](#power-what-if)
-23. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-24. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-25. [Pre-work safety](#pre-work-safety)
-26. [Outage first response](#outage-first-response)
-27. [Project records and closeout](#project-records-and-closeout)
-28. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-29. [Offline use, updates and Help](#offline-use-updates-and-help)
-30. [Checked example answers](#checked-example-answers)
-31. [Station worksheet](#station-worksheet)
-32. [Night log and shift handoff](#night-log-and-shift-handoff)
-33. [Sweep due](#sweep-due)
-34. [48-feature coverage index](#48-feature-coverage-index)
-35. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
-35. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+21. [Fiber](#fiber)
+22. [High split](#high-split)
+23. [Why cards](#why-cards)
+24. [Proof of performance](#proof-of-performance)
+25. [Study mode](#study-mode)
+26. [Power-supply load](#power-supply-load)
+27. [Power what-if](#power-what-if)
+28. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+29. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+30. [Pre-work safety](#pre-work-safety)
+31. [Outage first response](#outage-first-response)
+32. [Project records and closeout](#project-records-and-closeout)
+33. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+34. [Offline use, updates and Help](#offline-use-updates-and-help)
+35. [Checked example answers](#checked-example-answers)
+36. [Station worksheet](#station-worksheet)
+37. [Night log and shift handoff](#night-log-and-shift-handoff)
+38. [Sweep due](#sweep-due)
+39. [53-feature coverage index](#53-feature-coverage-index)
+40. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
+40. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -55,7 +60,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance; Study | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -101,7 +106,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response and impairment cards | 16 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode | 21 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -474,6 +479,66 @@ Checked worked numbers: a 1.7 MHz ripple on 0.87 VP cable is **251.7 ft** and, o
 
 What this screen leaves out on purpose: reading peaks off a sweep, any live capture, amplitude or depth limits (those are your company's), PNM data from modems, impairments of the node or headend, and the cards for amplifier distortion noise, HPNA, OBI, filters and missing channels, pullout and adjacent-channel alignment (named in the SCTE series but not built here).
 
+## Fiber
+
+**Where:** Test → Fiber. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find a fiber and estimate a link loss.
+
+Two small fiber tools. Offline; nothing is read from a meter and nothing is saved. A blank entry is never read as zero.
+
+**Fiber color finder.** Counting from 1 across the cable with 12 fibers in each tube, enter a fiber number (1 to 288), or a tube (1 to 24) and a position inside it (1 to 12). It shows the fiber's color and position and the tube's color, using the TIA-598 order for both fibers and tubes: blue, orange, green, brown, slate, white, red, black, yellow, violet, rose, aqua. Past tube 12 the colors repeat with a stripe or dashes and makers differ (tube 20 is the black position, and makers mark the repeat differently: a white tracer in one maker's note, a yellow stripe in another's), so the cable print legend and the construction sheet decide. Cables with 24 fibers in a tube, ribbons and other color schemes are not covered. The source is a secondary summary of ANSI/TIA-598: the standard itself was not read.
+
+**Link loss budget.** Estimated loss = length × attenuation + mated connector pairs × loss per pair + splices × loss per splice + other loss (a splitter or WDM, from its data sheet). A count of 0 needs no loss; a blank count, or a blank loss for a counted item, gives a reason and no number. Add the safety margin to get the budget the link must fit in. With the transmitter output power and the receiver sensitivity (the weakest signal it accepts, both in dBm) it also shows the optics budget (transmit power minus sensitivity) and how many dB are left, or the shortfall. Without them it says it is the loss to expect, not a pass or fail. It does not include measurement uncertainty and does not judge a link against your company's pass limit, which the app does not know.
+
+**The standard's allowances are shown, never filled in silently.** A table lists TIA-568.3-D's worst-case design values: 0.75 dB per mated connector pair, 0.3 dB per splice, and for single-mode cable 0.5 dB/km outside plant or 1.0 dB/km inside plant at both 1310 and 1550 nm. Each has a source tag; they are labeled Spec and flagged secondary, because they were read in vendor and association summaries and not in the standard, and TIA-568.3-E (2022) replaced the -D edition and was not checked. Real glass and connectors measure better (about 0.35 dB/km at 1310 nm, 0.2 to 0.5 dB per pair), and your cable maker's datasheet is the better number. **Copy the outside-plant allowances into the fields** and **Copy the inside-plant allowances into the fields** put the standard's values in the boxes when you ask; nothing starts with a default.
+
+**An unfinished number is reported where you typed it.** A number box that holds only a minus sign or an unfinished exponent is never read as blank and never replaced by another way of entering the same thing. The box turns red, a message directly under that box names it and says to finish the number or clear the box, the box points at the message for a screen reader, and the result below says it is not calculated.
+
+Checked worked numbers: fiber 30 is white (position 6) in tube 3, which is green; fiber 240 is aqua in tube 20 (black, with the marking noted); a 12.4 km link at 0.35 dB/km with 4 connector pairs at 0.3 dB, 6 splices at 0.1 dB and 3.5 dB of other loss is **9.64 dB**, **12.64 dB** with a 3 dB margin, and with a 3 dBm transmitter and a −24 dBm receiver the optics budget is **27 dB** with **14.36 dB** left.
+
+What this screen leaves out on purpose: OTDR events, multimode budgets by wavelength, a bandwidth or dispersion budget, PON split budgets, polarity and MPO fiber maps, fiber-count conventions with more than 12 per tube, and any company pass limit.
+
+## High split
+
+**Where:** Test → High split. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the band plans and the Remote PHY bring-up steps.
+
+A reading aid for the 204/258 MHz plant and for what is public about Remote PHY (R-PHY) bring-up. It takes no input, reads nothing from a node, meter or core, and stores nothing. **Every statement names its document, the issue it was read in and where in it.** It is not a procedure and does not replace your node maker's guide or your company's.
+
+**Band plans.** A table of the DOCSIS 4.0 frequency-division-duplex band edges, in MHz: sub-split and extended sub-split (upstream 5 to 42, downstream starts 50 to 54 and ends 1584 to 1590), mid-split (5 to 85, 108 to 1644), high-split (5 to 204, 258 to 1794) and the ultra-high splits (upstream to 300, 396, 492 or 684, downstream from 300 to 372, 396 to 492, 492 to 606 or 684 to 834, all ending at 1794). The source is CableLabs CM-SP-PHYv4.0 issue I08 (September 28, 2026), Table 29 and Table 31. The 42/54 and 204/258 plants are different plans and stay separate. A second table gives the gap between the two directions (8 to 12 MHz, 23 MHz and 54 MHz): it is our subtraction of the printed edges, labeled derived, and the specification calls such spans transition bands, not guard bands. A short list gives what a DOCSIS 3.1 modem must support (CM-SP-PHYv3.1 issue I20, April 19, 2023): upstream edges from 42, 65, 85, 117 and 204 MHz, a 258 MHz downstream lower edge, demodulation to 1218 MHz, and 1794 MHz only as an option. No document read gives 102 MHz as a mid-split downstream edge; the specification says 108. SCTE 300 2024 (Best Practices for Migrating to DOCSIS 4.0) covers readiness and says it does not define band edges; SCTE 294 2024r1 was found only as a catalog entry. Passing a sweep to 993 MHz does not certify a plant for 1.8 GHz. The table assumes a contiguous occupied downstream spectrum, as its caption in the specification says; that is not a requirement, a device can leave a hole, and the downstream lower edge of the newer splits can sit anywhere from the upstream upper edge to the edge printed.
+
+**The aeronautical band and leakage.** A table says which direction 108 to 137 MHz is in for each plan: downstream on the 42/54 plant and on a mid-split, **upstream on the 204/258 plant**, where it carries subscribers' modem signals (strongest at the home, weakest at the node), so a downstream test tone no longer stands for that band. The approach two SCTE papers (2020 and 2021) describe is a test burst the modems send on request (an OFDMA upstream data profile, OUDP) in a region the operator chooses just above the band, with the field detector set to match what operations configured on the CCAP; a maker's page and CableLabs' OSSI section 9.4 are named as pointers. The screen gives no detector setting, test frequency or pilot code, and it says no document read tells a technician whether to inject a downstream tag into that band on a 204 MHz node: ask your leakage group. The rules are in plain words with their sections: 47 CFR 76.610 (which operators the rules reach), 76.611 (a cumulative leakage index of 64 or less, or an airspace measurement not above 10 µV/m at 450 m), 76.614 (monitoring every three months, finding a 20 µV/m leak at 3 m, repairing within a reasonable time) and 76.616 (no strong carrier within 100 kHz of 121.5 MHz and 50 kHz of 156.8 and 243.0 MHz). Official leakage results belong to your engineering group.
+
+**Remote PHY bring-up.** Eight steps the CableLabs specifications give for an RPD after power-up, listed in the order each is first needed (they are not one strict sequence: timing is synchronized in parallel with the principal and auxiliary cores’ configuration, and has to be started before the core moves the RPD to operational), each with who does it and its document and issue: local initialization, network authentication, address assignment, time of day, the control connection to the principal core, the data tunnels, timing, and the move to operational. It is automatic and most of it is done with the network and the core, so none of it is a meter check at the node. **Vecima nodes:** Vecima keeps its installation and configuration guides in its Customer Portal (a login), and only product briefs are public, so the screen does not describe a Vecima procedure and does not borrow another maker's steps or lights. Cisco, Teleste and Harmonic public guides are listed so you know they exist; their lights and steps are for their own hardware. When you have the Vecima guide your company holds, write its title and revision on your run sheet.
+
+What this screen leaves out on purpose: a Vecima commissioning checklist (no public document), optical receive levels and timing-lock indicators (no public figure or display found), leakage detector and OUDP settings, pilot patterns, timers and event numbers, and a procedure for converting a node to high split.
+
+## Why cards
+
+**Where:** Test → Why cards. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read a why card and follow its link.
+
+Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Route → Station**, **Test → Calculators**, **Test → TDR**, **Test → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
+
+The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Test → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read, so check the monograph itself.
+
+## Proof of performance
+
+**Where:** Test → Proof of performance. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the FCC proof-of-performance limits.
+
+A reference for the technical requirements of the FCC's cable rules (47 CFR Part 76) and how an operator's proof-of-performance tests are measured against them. **It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.** The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section, the 16 rows that state a limit or a method also have a source tag (the three rows about QAM channels, test conditions and the test report name their rule section but have no tag), and the limits are registered in **Test → Limits**.
+
+Four cards. **How often, where and on what** (76.601): tests at least twice each calendar year at intervals of no more than seven months; six widely separated test points for a system of 1,000 to 12,500 subscribers and one more for each further 12,500 or fraction, with at least a third at the most distant terminals; five channels below 550 MHz of activated capacity and ten at 550 MHz or more (the visual level, its variation and the aural level on every analog channel); systems under 1,000 subscribers are outside the performance-test paragraphs but, if they use spectrum beyond over-the-air TV and FM, must still do the leakage tests and monitoring, with the log kept five years. **The analog-channel limits** (76.605(b)): visual level not less than 0 dBmV at the terminal and +3 dBmV at the end of a 100 ft drop; level variation of at most 8 dB over six months with the adjacent-carrier and any-other-channel limits; aural carrier 4.5 MHz ± 5 kHz above the visual and 10 to 17 dB below it; frequency response within ± 2 dB; carrier to noise not less than 43 dB; coherent disturbances not less than 51 dB (47 dB); terminal isolation not less than 18 dB; hum at most 3 percent; and, every third year at the headend, chroma delay, differential gain and differential phase. **Digital channels and leakage:** QAM video follows ANSI/SCTE 40 2016, which is not read or listed here, and leakage is measured by the half-wave-dipole method of 76.609(h) against the table in 76.605(c) (see **Test → Leakage**). **How it is measured and kept** (76.609 and 76.1704): the system-noise method over a 4 MHz band, the test conditions, what the report must include and the five-year record.
+
+These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, *FCC Proof-of-Performance Checklist for Analog and Digital Signals*, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and **not read**.
+
+## Study mode
+
+**Where:** Test → Study. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Answer a practice question.
+
+Practice questions made from this app's own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains: **architectures; distribution components; signal types; maintenance and troubleshooting; safety and construction**. **They are original, not SCTE or NCTI questions, and not an exam.** Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the two checklists), so the question and the answer cannot disagree with the screen it practices.
+
+Choose a domain (or all five), read the question, type a number or pick an answer and tap **Check my answer**. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. **Next question** moves on and **New numbers** asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: **nothing is saved**, in the job or anywhere else, and a score here is not a test result.
+
+The safety and construction questions only ask which section of this app's own pre-work safety or outage card a reminder belongs to. They test the card, not safe practice, and follow company policy first. The domains are the build list's grouping; the questions do not follow any exam blueprint.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -767,7 +832,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 48-feature coverage index
+## 53-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -821,6 +886,11 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 46 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 | 47 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
 | 48 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
+| 49 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
+| 50 | High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
+| 51 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
+| 52 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
+| 53 | Study mode: practice questions in five domains <!-- feature:study --> | [Study mode](#study-mode) | Custom curves (2.0 Alpha build 3) |
 
 ## Build 3 attached sweep grading aid
 

@@ -129,7 +129,7 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     assert.equal(h.d.getElementById('leakagePanel').hidden, true);
     await goto(h, 'leakage');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs.slice(-4, -1), ['Limits', 'DOCSIS health', 'Leakage']);
+    assert.deepEqual(tabs.slice(-9, -6), ['Limits', 'DOCSIS health', 'Leakage']);
     assert.equal(h.d.getElementById('leakagePanel').hidden, false); assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check and log signal leakage/);
     assert.equal(h.d.querySelectorAll('#leakagePanel .leak-card').length, 5);
@@ -574,6 +574,16 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     bad('[data-leak="limit"][data-field="frequency"]').dispatchEvent(new t.w.Event('input', { bubbles: true }));
     assert.doesNotMatch(result(t, 'limit'), /within|over/, 'no verdict from a malformed frequency');
     assert.deepEqual(t.errors, []); t.close();
+  });
+
+  await check('The screen names one leak detector, the Arcom Digital QS-NAVPLUS-OUDP, and no other make', () => {
+    assert.deepEqual(h.json('Leakage.DETECTOR'), { maker: 'Arcom Digital', model: 'QS-NAVPLUS-OUDP' });
+    const text = words(h.d.getElementById('leakagePanel'));
+    assert.match(words(h.d.getElementById('leakDetectorModel')), /Leak detector: Arcom Digital QS-NAVPLUS-OUDP ?\./);
+    assert.match(words(h.d.querySelector('[data-leak-card="detector"]')), /your Arcom Digital QS-NAVPLUS-OUDP read/);
+    assert.equal(/seeker|trilithic|comsonics|effigis|cpat|sniffer|viavi|veex/i.test(text), false, 'no other leak detector make on the Leakage screen');
+    assert.equal(/seeker|trilithic|comsonics|effigis|cpat flex|sniffer/i.test(html), false, 'no other leak detector make anywhere in the built app');
+    assert.equal(/014645/.test(html), false, 'the unit serial number is not in the app');
   });
 
   await check('The module is bundled once, loads without script errors and the built-in self-check still passes', () => {

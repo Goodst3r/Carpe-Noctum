@@ -11,7 +11,7 @@ Carpe Noctum (formerly NightSweep) is an offline HFC field app for maintenance t
 5. `handoff_docs/PARALLEL_TASKS.md`: the two-lane plan, the rules both lanes follow, the work loop and the definition of done. It is the source of truth for who does what.
 6. `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md` and `handoff_docs/lanes/codex-status.md`: what each assistant last recorded. Never rely on memory of an earlier chat; the repository is the record.
 7. `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`: what is not done or not verified, and how to set up a machine.
-8. `docs/BUILD_LIST.md`: the 20 planned features with sources, labels and acceptance tests. `handoff_docs/CHATGPT_HANDOFF.md` is the record of what the first build 3 session delivered.
+8. `docs/BUILD_LIST.md`: the 20 planned features with sources, labels and acceptance tests. `handoff_docs/FINAL_HANDOFF.md` is the record of what was delivered, and `handoff_docs/APK_PLAN.md` says how the APK is built.
 
 ## Where the work lives
 
@@ -81,6 +81,6 @@ A third assistant, Grok, took over after Lane A (ChatGPT) and Lane B (Claude) st
 
 Counted by Grok in jsdom on that standalone HTML: **29 screens, 47 features, 114 registry rows**, practice steps **22/16/15/8/9/7/10**. D1 and D2 are met on that commit. D4 is the paperwork on the close-out branch. D5 is `handoff_docs/FINAL_HANDOFF.md`. D3 is a full gate on the post-paperwork head. Grok's run is one run. Lane A and Lane B are not here to rerun it, so D3 stays for Spencer to accept.
 
-Stretch items 11, 12 and 14–20 are not on `f467e52`. This branch, `claude/b11-impairments`, adds item 11 only: 30 screens, 48 features, custom curves 16 steps. Draft pull requests #13, #15, #16, #18, #19 and #20 are open. Items 12, 14 and 16 are not started. Pull requests #1 and #2 into `main` are Spencer's decision.
+Stretch items 11, 12 and 14–20 are not on `f467e52`. Items 11, 15, 17, 18 and 20 are merged. This branch, `claude/b19-study`, adds item 19: 35 screens, 53 features, custom curves 21 steps. Draft pull request #20 is still open. Items 12, 14 and 16 are not started. Pull requests #1 and #2 into `main` are Spencer's decision.
 
 No build 3 APK exists. No emulator, phone or field test has been done for any 2.0 build. Export and verify full project backups before any update, rollback or transfer. Read `handoff_docs/lanes/grok-status.md` for what this assistant is doing now.

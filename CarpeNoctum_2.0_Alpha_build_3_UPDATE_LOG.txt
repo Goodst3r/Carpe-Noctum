@@ -270,6 +270,100 @@ EARLY-SESSION CHANGES (items 1, 2 and 4; later items are in the lane sections)
    - Practice: the custom-curves exercise gains a step (fifteen in total)
      and the feature index gains entry 44.
 
+11. Fiber tools (build list item 15, first part), Test -> Fiber
+   - A TIA-598 color finder: a fiber number (1 to 288, 12 fibers per tube)
+     or a tube and position gives the fiber's color and position and the
+     tube's color; the stripe or dash marking past tube 12 differs between
+     makers, so the screen sends the technician to the cable print legend.
+   - A simple link loss budget: length x attenuation + connector pairs x
+     loss + splices x loss + other loss, a safety margin and, with the
+     transmitter power and receiver sensitivity, the optics budget and the
+     headroom. No pass or fail without optics numbers and never against a
+     company limit. A blank is never zero; a count of 0 needs no loss.
+   - TIA-568.3-D allowances (0.75 dB per pair, 0.3 dB per splice, 0.5 or
+     1.0 dB/km single-mode outside or inside plant) are shown with source
+     tags and copied into the fields only when asked. Six registry rows,
+     all Spec or Expert and flagged secondary: they were read in vendor and
+     association summaries, not in the standards, and TIA-568.3-E was not
+     checked. Sources and gaps: research/build3/FIBER_SOURCES.md.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (sixteen in total)
+     and the feature index gains entry 45.
+
+12. High split and Remote PHY reference (build list item 17), Test -> High split
+   - A reading aid: the DOCSIS 4.0 frequency-division-duplex band edges
+     (sub-split, mid-split, high-split, ultra-high splits; CM-SP-PHYv4.0
+     I08, Table 29 and Table 31), the gap between the two directions (our
+     subtraction, labeled derived), what a DOCSIS 3.1 modem must support
+     (CM-SP-PHYv3.1 I20), and which direction the 108 to 137 MHz
+     aeronautical band is in on each plant (upstream on 204/258).
+   - The aeronautical band and leakage: the OUDP test-burst approach of two
+     SCTE papers, a maker's view and the CCAP interface heading are named as
+     pointers; 47 CFR 76.610, 76.611, 76.614 and 76.616 are stated in plain
+     words with their sections. The screen gives no detector setting, test
+     frequency or pilot code, and says no document read tells a technician
+     whether to inject a downstream tag on a 204 MHz node.
+   - Remote PHY bring-up: eight steps from the CableLabs R-PHY, R-DEPI,
+     R-DTI, R-OOB and R-OSSI specifications, each with who does it and its
+     document, issue and section. Vecima's guides are behind its customer
+     portal, so no Vecima procedure is described and no other maker's steps
+     or lights are borrowed (Cisco, Teleste and Harmonic public guides are
+     only listed). Not a checklist for a Vecima node: see the status file.
+   - Six registry rows (spec, expert and derived). Nothing is read from a
+     node or stored; no new storage key, no change to the job format
+     (tested). Sources and gaps: research/build3/HIGHSPLIT_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (seventeen in total)
+     and the feature index gains entry 47.
+
+13. Why cards (build list item 18), Test -> Why cards
+   - Fourteen short cards, one for each "What is ...?" monograph in SCTE's
+     293 series (293-1 2024 the decibel to 293-14 2026 impedance), each in
+     our own words: what the topic is, why it matters in the field, and a
+     button to the screen of this app that uses it. A summary, not a copy;
+     each card names the monograph to read in full.
+   - Titles and years come from the SCTE Standards Catalog. Cards 7, 13 and
+     14 rest on a description page, not the document, and the guide says so.
+   - No figure on a card except definitions and registered ones; one new
+     registry row (75 ohm nominal impedance, spec, secondary). Nothing is
+     typed, stored or read from a meter; no new storage key, no change to
+     the job format (tested). Sources: research/build3/WHY_CARDS_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (eighteen in total)
+     and the feature index gains entry 48.
+
+14. FCC proof-of-performance reference card (build list item 20), Test -> Proof of performance
+   - A reference only: how often and where proof-of-performance tests are
+     made, the analog-channel limits (47 CFR 76.605(b)), how the main
+     measurements are made (76.609) and how long the records are kept
+     (76.1704), each row with its rule section and a source tag. No input,
+     nothing stored; it makes or records no test and is not a filing.
+     Official results belong to engineering.
+   - Fourteen registry rows (spec, primary): the rule text was read on the
+     eCFR on November 11, 2026. SCTE 204 2025 (FCC Proof-of-Performance
+     Checklist for Analog and Digital Signals) was found in the catalog and
+     not read; QAM video follows ANSI/SCTE 40 2016, which is not read here.
+   - Practice: the custom-curves exercise gains a step (nineteen in total)
+     and the feature index gains entry 49. Sources and gaps:
+     research/build3/POP_SOURCES.md.
+
+15. Study mode (build list item 19), Test -> Study
+   - Practice questions in the five BDS domains (architectures;
+     distribution components; signal types; maintenance and
+     troubleshooting; safety and construction), made from this app's own
+     calculators and reference screens: nineteen generators, numbers from a
+     seed on a fixed grid, each answer computed by the function the screen
+     uses, with the working and a link to that screen after an answer.
+   - Original: no SCTE or NCTI question or key was used, and the screen says
+     it is not an exam. A blank answer, a lone minus sign or text is never
+     taken as an answer. A score is kept for the visit only; nothing is
+     stored, no new storage key, no change to the job format (tested).
+   - Checked against an independent Python decimal recomputation of every
+     numeric answer (research/build3/study-reference.py). Safety and
+     construction questions only ask which section of the app's own cards a
+     reminder belongs to. Sources: research/build3/STUDY_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (twenty in total) and
+     the feature index gains entry 50.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
