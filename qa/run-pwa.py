@@ -103,6 +103,7 @@ suites=[
  ('Catalog structure','catalog-audit.cjs',None),
  ('Test gate: time limit, evidence redirect, receipts message','gate-reliability.test.py',r'Gate reliability: (\d+) checks passed'),
  ('Build 3 power sum against the shared calculator vectors','build3-power-sum.test.cjs',r'Build3 power sum: (\d+) checks passed'),
+ ('Build 3 power sum in a real browser: a half-typed level is not dropped','build3-power-sum-real.test.py',r'Build3 power sum real browser: (\d+) checks passed'),
 ]
 import sys,time
 sys.path.insert(0,str(root/'qa'))

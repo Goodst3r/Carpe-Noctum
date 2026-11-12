@@ -230,6 +230,8 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
    const op=v.operation||'power_add';
    const body=document.querySelector('[data-power-body]');
    if(body&&body.dataset.powerOp!==op){body.dataset.powerOp=op;body.innerHTML=powerBody(op);}
+   const unfinished=[...document.querySelectorAll('[data-power-body] input')].some(el=>el.validity&&el.validity.badInput);
+   if(unfinished)return out(id,{ok:false,error:'Finish the number. A half-typed value is not a blank.'});
    let input=null;
    if(op==='power_add'){
     const values=[...document.querySelectorAll('[data-power-level]')].map(el=>el.value);
