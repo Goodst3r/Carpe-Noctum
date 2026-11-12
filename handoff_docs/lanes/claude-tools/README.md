@@ -24,4 +24,23 @@ b20 POP          base claude/b18-why-cards   {"name":"Proof of performance","anc
 b19 study        base claude/b20-pop         {"name":"Study mode","anchor":"study-mode","prev_name":"Proof of performance","prev_anchor":"proof-of-performance","feature_id":"study","screens":35,"features":53,"count_word":"ten","custom_steps":21,"row_name":"Study","prev_row":"Proof of performance","sentence":"Test → Study adds the study-mode questions as feature 53, with its own custom-curves guide step."}
 ```
 
-After every level: run `run_node_suites.sh`, the level's own real-browser suite if it has one, then commit with `git commit --no-edit` and push. Never `git add -A qa` (it would add the local `qa/runtime/node_modules` link). Run the full gate once on the top of the stack, and check hosted CI ("QA gate") on every pushed head.
+After every level: run `run_node_suites.sh`, the level's real-browser suites (`qa/build3-impairments-real.test.py` from b11 up and `qa/build3-fiber-real.test.py` from b15 up; b17 to b19 add none), then commit with `git commit --no-edit` and push. Never `git add -A qa` (it would add the local `qa/runtime/node_modules` link). Check `handoff_docs/lanes/claude-status.md` after each level merge: keep the newest Lane B version (the B9 / log-book one), not a branch's old copy. Run the full gate once on the top of the stack, and check hosted CI ("QA gate") on #13 to #19; #20 gets no hosted CI while its base is `claude/b20-pop`.
+
+**Known gap in these helpers (Lane A review 5868433524 on #13):** `finish_merge.sh` renders only the Functions and Training Coverage guides, never the main README (`node docs/render_readme.cjs` with no arguments, see `docs/DEVELOPER_BUILD.md`), so `docs/NightSweep_1.8_Alpha_README.html` and `dist/guide.html` fall behind the Markdown. `bump_totals.py` also misses "custom curves N" in the README, "fifteen steps", "N choices" in the Training Coverage table and "custom curves **N**". Add the main-guide render and those patterns before the next resync.
+
+## Resuming in a new container
+
+```
+git clone https://github.com/Goodst3r/Carpe-Noctum && cd Carpe-Noctum   # or git fetch origin in an existing clone
+npm ci --prefix qa/runtime --no-audit --no-fund                          # jsdom etc. for the node suites
+pip install playwright                                                  # Python Playwright for the rendered suites
+S=<your scratchpad>; mkdir -p $S
+npm install --prefix $S/marked-latest marked@18.2.0                     # for docs/render_readme.cjs (CODEX_PRIMARY_RUNTIME_NODE_MODULES=$S/marked-latest/node_modules)
+for b in b11-impairments b15-fiber b17-highsplit b18-why-cards b20-pop b19-study; do
+  w=$S/wt-${b%%-*}; git worktree add $w claude/$b; ln -s "$PWD/qa/runtime/node_modules" $w/qa/runtime/node_modules
+done
+git worktree add -b claude/b9-closeout $S/wt-b9 origin/build3            # B9 starts here; merge origin/claude/logbook and origin/codex/core-closeout-status first
+cp handoff_docs/lanes/claude-tools/* /tmp/                               # then set S= and NIGHTSWEEP_CHROMIUM in the .sh files
+```
+
+The scripts take the worktree's **directory name under `$S`** (`wt-b11`, `wt-b15`, `wt-b17`, `wt-b18`, `wt-b20` for proof of performance, `wt-b19` for study mode), not a path.
