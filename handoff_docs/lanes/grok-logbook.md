@@ -2,7 +2,27 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · own gate on fiber record `e9e0473` is green
+
+Docs-only child of `5b33079`. Same Chromium and `NIGHTSWEEP_SUITE_TIMEOUT=3600`. Clock 2026-11-12T05:58:26Z–06:11:03Z. Log `/tmp/grok-gate-e9e0473.log`.
+
+| Command | Exit |
+| --- | --- |
+| `python3 night-sweep/build.py` | 0 |
+| `python3 build-pwa.py` | 0 |
+| `python3 qa/run-pwa.py` | 0 |
+| `python3 qa/build3-layout.test.py` | 0 |
+| `python3 qa/browser-smoke.py` | 0 |
+| `git status --porcelain` | 0; only `?? qa/runtime/node_modules` |
+
+**86/2,269, 729.7 s, layout 714, smoke 358.** Standalone SHA-256 still `44801b66e935fedd578e692fd4072f33fbc16c9f5c278a64d03925141b33fa62`. Record: `handoff_docs/reviews/grok-gate-e9e0473.md`. Hosted CI on `e9e0473` was in progress at the time of this commit: https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43164896007.
+
+Also written into `KNOWN_GAPS.md`: the fiber real-browser check compares the box-plus-message span with the viewport height. Lane A review 5867997446 already called that nonblocking. No product change.
+
+This commit adds that record and the gap line. It is not the gated head. AUDIT and the merge wait until this new head is gated and hosted CI on it is green.
+
 ## November 12, 2026 · own gate on fiber `5b33079` is green
+
 
 Merged `origin/build3` (`e7313cf`, which already contains merged #24 and merged #13) into `claude/b15-fiber`. No source conflict. Guide conflicts were resolved by keeping item 15 on top of item 11: **31 screens, 49 features, custom curves 17**. Counted from source before the commit: `thresholds.js` 118 rows alone, 121 with the three evidence-archive guards, six of them `fiber.*`; `build.py` 43 module lines. Rendered the main README, Functions, Training Coverage and the installation guide with `marked` 18.2.0, then `python3 night-sweep/build.py` and `python3 build-pwa.py`. Merge commit `5b33079981bac37e793c38b7abbb070a7d960e39`. PWA content id `ebe9b831091a7c85b587`.
 
