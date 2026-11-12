@@ -566,8 +566,10 @@
         "night-sweep/build.py"
       ],
       "started_utc": "2026-11-12T00:16:03.067526+00:00",
+      "started_time_ns": 1794442563067557414,
       "log": "/tmp/carpe-a3-nightlog-full-standalone_build.log",
       "exit_code": 0,
+      "finished_time_ns": 1794442563692478600,
       "finished_utc": "2026-11-12T00:16:03.692483+00:00",
       "seconds": 0.624,
       "comparison_to_initial": {
@@ -596,8 +598,10 @@
         "build-pwa.py"
       ],
       "started_utc": "2026-11-12T00:16:04.043045+00:00",
+      "started_time_ns": 1794442564043055315,
       "log": "/tmp/carpe-a3-nightlog-full-pwa_build.log",
       "exit_code": 0,
+      "finished_time_ns": 1794442564272162438,
       "finished_utc": "2026-11-12T00:16:04.272167+00:00",
       "seconds": 0.221,
       "comparison_to_initial": {
@@ -626,8 +630,10 @@
         "qa/run-pwa.py"
       ],
       "started_utc": "2026-11-12T00:16:04.480326+00:00",
+      "started_time_ns": 1794442564480341953,
       "log": "/tmp/carpe-a3-nightlog-full-gate.log",
       "exit_code": 0,
+      "finished_time_ns": 1794443195248142626,
       "finished_utc": "2026-11-12T00:26:35.248209+00:00",
       "seconds": 630.763,
       "comparison_to_initial": {
@@ -685,8 +691,10 @@
         "qa/build3-layout.test.py"
       ],
       "started_utc": "2026-11-12T00:26:35.378004+00:00",
+      "started_time_ns": 1794443195378015294,
       "log": "/tmp/carpe-a3-nightlog-full-layout.log",
       "exit_code": 0,
+      "finished_time_ns": 1794443210008713946,
       "finished_utc": "2026-11-12T00:26:50.008718+00:00",
       "seconds": 14.625,
       "comparison_to_initial": {
@@ -734,8 +742,10 @@
         "qa/browser-smoke.py"
       ],
       "started_utc": "2026-11-12T00:26:50.078843+00:00",
+      "started_time_ns": 1794443210078853295,
       "log": "/tmp/carpe-a3-nightlog-full-smoke.log",
       "exit_code": 0,
+      "finished_time_ns": 1794443227980118915,
       "finished_utc": "2026-11-12T00:27:07.980123+00:00",
       "seconds": 17.894,
       "comparison_to_initial": {
