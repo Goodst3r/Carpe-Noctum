@@ -8,14 +8,14 @@ Grok and ChatGPT build and review each other’s pull requests; Claude is the ga
 
 ### Counts on this branch
 
-Counted on November 12, 2026 from the rebuilt standalone `outputs/Night_Sweep.html` after merging #36 and #42, loaded in JSDOM through `qa/build2-source-harness.cjs`. These are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
+Counted once on November 12, 2026 by ChatGPT from the committed standalone `outputs/Night_Sweep.html` at final batch head `fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850`, including #36, #42, #41, #44 and #40, loaded in JSDOM through `qa/build2-source-harness.cjs`. The registry without archive guards was also loaded independently in a Node VM. These are product counts, separate from the full-gate result in `handoff_docs/reviews/chatgpt-handoff-for-claude.md`. Historical counts below remain tied to their named heads.
 
 | Count | What |
 | --- | --- |
 | 35 | task screens (`WorkflowUI.screens`, including Help) |
 | 53 | Practice library feature choices (`TrainingJob.features`) |
 | 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 159 | registry rows in the running app: `Thresholds.rows.length` is 159; `thresholds.js` loaded without `EvidenceArchive` has 156 and `EvidenceArchive.limits` adds 3. #36 adds the three manual-ingress text bounds. #42 adds no row |
+| 160 | registry rows in the running app: `Thresholds.rows.length` is 160; `thresholds.js` loaded without `EvidenceArchive` has 157 and `EvidenceArchive.limits` adds 3. #36 adds three manual-ingress text bounds; #40 adds `power.pm.file.max`. Registry validation problems: 0. #42 adds no row |
 | 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 4 / 18 | Study domains / question generators |
 | 22 / 7 | Outage prompts / sections |
@@ -51,7 +51,7 @@ Counted on November 12, 2026 from the rebuilt standalone `outputs/Night_Sweep.ht
 | 18. Why cards (SCTE 293 series) | **On this branch** (merged pull request #18). Tools → Why cards. |
 | 20. FCC proof of performance | **On this branch** (merged pull request #19). Tools → Proof of performance. Fourteen spec rows. Reference only. SCTE 204 2025 was not read. |
 | 19. Study mode | **On this branch** (Lane B stretch, pull request #20). Tools → Study. Practice questions from this app's calculators. A score for this visit only. Nothing stored. |
-| 14. Standby supply PM | **On the branch** (PR #30, `61069f4`). Plan → Supply PM. Notebook export/import remains A4b in the workflow. |
+| 14. Standby supply PM | **On the branch** (PR #30, `61069f4`). Plan → Supply PM. Notebook export/import is merged in PR #40; the notebook remains device-only and separate from project backups. Export it and check the file before uninstalling. |
 | 12, 16 | **Blocked on sources.** See `handoff_docs/WORKFLOW.md`. |
 
 The historical required core is `f467e52` (29 screens, 47 features, custom curves 15). Later merged features and B1 change the current totals above. Each B1 head still needs the full local and hosted gate and the other builder’s review under `handoff_docs/WORKFLOW.md`.

@@ -1,0 +1,1011 @@
+{
+  "head_before": "fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850",
+  "started_utc": "2026-11-12T17:27:49.124479+00:00",
+  "status_before": "",
+  "steps": [
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--prefix",
+        "qa/runtime",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "seconds": 0.742,
+      "log": "/tmp/chatgpt-final-build3-gate/01.log"
+    },
+    {
+      "command": [
+        "python3",
+        "night-sweep/build.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.191,
+      "log": "/tmp/chatgpt-final-build3-gate/02.log"
+    },
+    {
+      "command": [
+        "python3",
+        "build-pwa.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.059,
+      "log": "/tmp/chatgpt-final-build3-gate/03.log"
+    },
+    {
+      "command": [
+        "python3",
+        "qa/run-pwa.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1022.26,
+      "log": "/tmp/chatgpt-final-build3-gate/04.log"
+    },
+    {
+      "command": [
+        "python3",
+        "qa/build3-layout.test.py"
+      ],
+      "exit_code": 0,
+      "seconds": 26.449,
+      "log": "/tmp/chatgpt-final-build3-gate/05.log"
+    },
+    {
+      "command": [
+        "python3",
+        "qa/browser-smoke.py"
+      ],
+      "exit_code": 0,
+      "seconds": 19.518,
+      "log": "/tmp/chatgpt-final-build3-gate/06.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.005,
+      "log": "/tmp/chatgpt-final-build3-gate/07.log"
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 0,
+      "seconds": 0.005,
+      "log": "/tmp/chatgpt-final-build3-gate/08.log"
+    }
+  ],
+  "head_after": "fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850",
+  "status_after": "",
+  "ended_utc": "2026-11-12T17:45:38.581938+00:00",
+  "standalone_sha256": "4fdf7aa3626222c65efac8eecf6e36a373f5bc5b4340a9d3a5154d946cac3d43",
+  "tracked_unchanged": true,
+  "head_unchanged": true,
+  "all_commands_passed": true,
+  "tracked_files_checked": 809,
+  "hosted_qa": {
+    "conclusion": "success",
+    "createdAt": "2026-11-12T17:27:29Z",
+    "headSha": "fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850",
+    "status": "completed",
+    "updatedAt": "2026-11-12T17:43:12Z",
+    "url": "https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43269625747"
+  },
+  "recount": {
+    "head": "fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850",
+    "screens": 35,
+    "features": 53,
+    "practice_steps": [
+      {
+        "id": "complete",
+        "steps": 22
+      },
+      {
+        "id": "aoi-six-active",
+        "steps": 16
+      },
+      {
+        "id": "custom-curves",
+        "steps": 21
+      },
+      {
+        "id": "gainmaker-oem",
+        "steps": 8
+      },
+      {
+        "id": "gainmaker-dsim",
+        "steps": 9
+      },
+      {
+        "id": "gainmaker-manual",
+        "steps": 7
+      },
+      {
+        "id": "gs7k-node",
+        "steps": 10
+      }
+    ],
+    "registry_live": 160,
+    "registry_without_archive": 157,
+    "archive_guards": 3,
+    "registry_problems": [],
+    "module_splices": 47,
+    "standalone_sha256": "4fdf7aa3626222c65efac8eecf6e36a373f5bc5b4340a9d3a5154d946cac3d43"
+  },
+  "automated_suites": {
+    "release": "b38fa222907d5203824b",
+    "version": "2.0 Alpha build 3",
+    "suites": [
+      {
+        "name": "Build 3 threshold and source registry",
+        "script": "build3-registry.test.cjs",
+        "passed": true,
+        "checks": 14,
+        "seconds": 5.7
+      },
+      {
+        "name": "Build 3 field calculators against independent references",
+        "script": "build3-field-calcs.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 2.6
+      },
+      {
+        "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
+        "script": "build3-alignment.test.cjs",
+        "passed": true,
+        "checks": 12,
+        "seconds": 2.8
+      },
+      {
+        "name": "Build 3 DOCSIS health card against independent decimal references",
+        "script": "build3-docsis-health.test.cjs",
+        "passed": true,
+        "checks": 20,
+        "seconds": 23.0
+      },
+      {
+        "name": "Build 3 leakage tools against independent decimal references",
+        "script": "build3-leakage.test.cjs",
+        "passed": true,
+        "checks": 33,
+        "seconds": 25.2
+      },
+      {
+        "name": "Build 3 shared checklist engine and outage first-response card",
+        "script": "build3-checklist.test.cjs",
+        "passed": true,
+        "checks": 33,
+        "seconds": 12.4
+      },
+      {
+        "name": "Build 3 impairment cards and standing-wave candidate search against an independent reference",
+        "script": "build3-impairments.test.cjs",
+        "passed": true,
+        "checks": 14,
+        "seconds": 8.1
+      },
+      {
+        "name": "Build 3 fiber color code and link loss budget against an independent reference",
+        "script": "build3-fiber.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 5.2
+      },
+      {
+        "name": "Build 3 high split band plans, aeronautical band and Remote PHY reference",
+        "script": "build3-highsplit.test.cjs",
+        "passed": true,
+        "checks": 7,
+        "seconds": 3.5
+      },
+      {
+        "name": "Build 3 why cards against the SCTE 293 catalog list",
+        "script": "build3-why-cards.test.cjs",
+        "passed": true,
+        "checks": 7,
+        "seconds": 5.7
+      },
+      {
+        "name": "Build 3 FCC proof of performance card against the rule clauses",
+        "script": "build3-pop.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 3.5
+      },
+      {
+        "name": "Build 3 study mode against an independent decimal reference",
+        "script": "build3-study.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 6.9
+      },
+      {
+        "name": "Build 3 supply PM notebook and span voltage drop against an independent reference",
+        "script": "build3-power-pm.test.cjs",
+        "passed": true,
+        "checks": 4,
+        "seconds": 2.2
+      },
+      {
+        "name": "Build 3 supply PM notebook export, import and unique ids",
+        "script": "build3-power-pm-export.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 23.9
+      },
+      {
+        "name": "Build 3 fiber tools in a real browser: unfinished number boxes",
+        "script": "build3-fiber-real.test.py",
+        "passed": true,
+        "checks": 30,
+        "seconds": 7.4
+      },
+      {
+        "name": "Build 3 impairment route search in a real browser: stale candidates and unfinished number boxes",
+        "script": "build3-impairments-real.test.py",
+        "passed": true,
+        "checks": 42,
+        "seconds": 13.4
+      },
+      {
+        "name": "Build 3 checklist cards in a real browser: half-edited time box and a full storage quota",
+        "script": "build3-checklist-real.test.py",
+        "passed": true,
+        "checks": 38,
+        "seconds": 8.6
+      },
+      {
+        "name": "Build 3 station worksheet arithmetic and saved jobs",
+        "script": "build3-station.test.cjs",
+        "passed": true,
+        "checks": 22,
+        "seconds": 34.0
+      },
+      {
+        "name": "Build 3 rendered station phone layout",
+        "script": "build3-station-layout.test.py",
+        "passed": true,
+        "checks": 121,
+        "seconds": 11.9
+      },
+      {
+        "name": "Build 3 station field-review regressions",
+        "script": "build3-station-review.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 32.9
+      },
+      {
+        "name": "Build 3 station native-input retention",
+        "script": "build3-station-native.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 36.1
+      },
+      {
+        "name": "Build 3 rendered station native editing",
+        "script": "build3-station-native-layout.test.py",
+        "passed": true,
+        "checks": 89,
+        "seconds": 6.8
+      },
+      {
+        "name": "Build 3 night-log capture and handoff contracts",
+        "script": "build3-night-log.test.cjs",
+        "passed": true,
+        "checks": 30,
+        "seconds": 75.5
+      },
+      {
+        "name": "Build 3 rendered night-log phone layout",
+        "script": "build3-night-log-layout.test.py",
+        "passed": true,
+        "checks": 191,
+        "seconds": 14.9
+      },
+      {
+        "name": "Build 3 sweep-due calendar and saved-job reminders",
+        "script": "build3-sweep-due.test.cjs",
+        "passed": true,
+        "checks": 37,
+        "seconds": 25.8
+      },
+      {
+        "name": "Build 3 rendered sweep-due phone layout",
+        "script": "build3-sweep-due-layout.test.py",
+        "passed": true,
+        "checks": 189,
+        "seconds": 9.6
+      },
+      {
+        "name": "Build 3 native JSON and archive evidence",
+        "script": "build3-native-evidence.test.cjs",
+        "passed": true,
+        "checks": 69,
+        "seconds": 0.2
+      },
+      {
+        "name": "Build 3 format-independent sweep grading",
+        "script": "build3-sweep-grading-core.test.cjs",
+        "passed": true,
+        "checks": 93,
+        "seconds": 0.3
+      },
+      {
+        "name": "Build 3 grading UI and original identity integration",
+        "script": "sweep-grading-ui.test.cjs",
+        "passed": true,
+        "checks": 56,
+        "seconds": 60.0
+      },
+      {
+        "name": "Build 3 rendered grading controls",
+        "script": "sweep-grading-layout.test.py",
+        "passed": true,
+        "checks": 88,
+        "seconds": 8.6
+      },
+      {
+        "name": "Build 3 combined night-log and grading persistence",
+        "script": "build3-night-log-grading.test.cjs",
+        "passed": true,
+        "checks": 3,
+        "seconds": 25.1
+      },
+      {
+        "name": "Build 3 combined sweep-due, night-log and grading persistence",
+        "script": "build3-sweep-due-grading.test.cjs",
+        "passed": true,
+        "checks": 3,
+        "seconds": 26.2
+      },
+      {
+        "name": "2.0 Alpha design changes",
+        "script": "v20-design.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 5.3
+      },
+      {
+        "name": "Build 2 TDR active-boundary regressions",
+        "script": "build2-tdr-boundaries.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.0
+      },
+      {
+        "name": "Build 2 RF and records property backtests",
+        "script": "build2-rf-properties.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.4
+      },
+      {
+        "name": "Build 2 all seven examples frequency replay",
+        "script": "build2-example-math.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 1.9
+      },
+      {
+        "name": "Build 2 power circuits and current-curve backtests",
+        "script": "build2-power.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 0.2
+      },
+      {
+        "name": "Build 2 imported DSIM calendar dates",
+        "script": "build2-dsim-dates.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 1.9
+      },
+      {
+        "name": "Build 2 calculation reuse and import boundaries",
+        "script": "build2-frontend.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 16.5
+      },
+      {
+        "name": "Build 2 rendered cascade and lazy-chart layout",
+        "script": "build2-layout.test.py",
+        "passed": true,
+        "checks": 55,
+        "seconds": 31.5
+      },
+      {
+        "name": "Build 2 original-byte limits and atomic job operations",
+        "script": "build2-reliability.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 22.4
+      },
+      {
+        "name": "Build 2 native filename and print lifecycle",
+        "script": "android-native-edge.test.py",
+        "passed": true,
+        "checks": 12,
+        "seconds": 0.8
+      },
+      {
+        "name": "1.8 profile acceptance guards",
+        "script": "alpha18-math.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.8 independent arithmetic and curve integrity",
+        "script": "alpha18-numeric.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 0.1
+      },
+      {
+        "name": "1.8 corrected GS7K GaN complete practice independent math",
+        "script": "complete-workflow-math.test.cjs",
+        "passed": true,
+        "checks": 17,
+        "seconds": 2.8
+      },
+      {
+        "name": "1.8 release identity and documentation",
+        "script": "alpha18-release.test.py",
+        "passed": true,
+        "checks": 6,
+        "seconds": 0.1
+      },
+      {
+        "name": "Android source identity and rejected artifact isolation",
+        "script": "android-preview.test.py",
+        "passed": true,
+        "checks": 18,
+        "seconds": 0.4
+      },
+      {
+        "name": "1.8 imported route and power ID boundaries",
+        "script": "import-id-boundaries.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 1.9
+      },
+      {
+        "name": "1.8 seven practice exercises and seeded feature coverage",
+        "script": "training-library.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 89.9
+      },
+      {
+        "name": "1.6 to current release migration and portable example",
+        "script": "upgrade01617.test.cjs",
+        "passed": true,
+        "checks": 6,
+        "seconds": 10.3
+      },
+      {
+        "name": "1.7 stable workflow rendering",
+        "script": "alpha17-render.test.cjs",
+        "passed": true,
+        "checks": 3,
+        "seconds": 2.4
+      },
+      {
+        "name": "1.7 source and equipment reports",
+        "script": "alpha17-report.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 0.4
+      },
+      {
+        "name": "1.7 launch source workflow",
+        "script": "launch-source.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 3.6
+      },
+      {
+        "name": "1.7 equipment setup and DSIM",
+        "script": "equipment-setup.test.cjs",
+        "passed": true,
+        "checks": 39,
+        "seconds": 1.4
+      },
+      {
+        "name": "1.7 local operator targets and available carriers",
+        "script": "local-operator-preset.test.cjs",
+        "passed": true,
+        "checks": 19,
+        "seconds": 7.9
+      },
+      {
+        "name": "1.7 DSIM historical pilot-code lookup",
+        "script": "dsim-pilot-codes.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.7 separate installed gain-control paths",
+        "script": "equipment-control.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.6
+      },
+      {
+        "name": "1.7 current node setup references",
+        "script": "node-setup-refresh.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.7 retired UBT compatibility",
+        "script": "retired-equipment.test.cjs",
+        "passed": true,
+        "checks": 7,
+        "seconds": 2.6
+      },
+      {
+        "name": "1.7 fresh independent numerical references",
+        "script": "../night-sweep/research/alpha17-fresh-reference-check.cjs",
+        "passed": true,
+        "checks": 18,
+        "seconds": 0.0
+      },
+      {
+        "name": "1.7 RF band and hidden view regressions",
+        "script": "alpha17-engine.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.1
+      },
+      {
+        "name": "1.7 evidence job context",
+        "script": "evidence-context.test.cjs",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.5
+      },
+      {
+        "name": "Wolfram record and measurement guards",
+        "script": "wolfram-records.test.cjs",
+        "passed": true,
+        "checks": 9,
+        "seconds": 0.0
+      },
+      {
+        "name": "Wolfram RF, distance and sweep references",
+        "script": "wolfram-rf.test.cjs",
+        "passed": true,
+        "checks": 25,
+        "seconds": 0.2
+      },
+      {
+        "name": "Wolfram power references and edge cases",
+        "script": "wolfram-power.test.cjs",
+        "passed": true,
+        "checks": 30,
+        "seconds": 0.1
+      },
+      {
+        "name": "Guided sweep setup and 1.5 migration",
+        "script": "sweep-setup.test.cjs",
+        "passed": true,
+        "checks": 32,
+        "seconds": 18.1
+      },
+      {
+        "name": "Equipment reference catalog",
+        "script": "equipment-reference.test.cjs",
+        "passed": true,
+        "checks": 18,
+        "seconds": 2.2
+      },
+      {
+        "name": "PWA package and service worker",
+        "script": "pwa-worker.test.cjs",
+        "passed": true,
+        "checks": 36,
+        "seconds": 0.4
+      },
+      {
+        "name": "PWA install and update interface",
+        "script": "pwa-client.test.cjs",
+        "passed": true,
+        "checks": 20,
+        "seconds": 2.4
+      },
+      {
+        "name": "Browser file export and sharing",
+        "script": "browser-files.test.cjs",
+        "passed": true,
+        "checks": 23,
+        "seconds": 2.4
+      },
+      {
+        "name": "Guided training job and preserved work",
+        "script": "training-job.test.cjs",
+        "passed": true,
+        "checks": 41,
+        "seconds": 40.5
+      },
+      {
+        "name": "Production training buttons and fleet split",
+        "script": "training-controls.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 34.6
+      },
+      {
+        "name": "RF and power engine",
+        "script": "engine.test.js",
+        "passed": true,
+        "checks": 41,
+        "seconds": 0.1
+      },
+      {
+        "name": "Route distances, TDR and gain budgets",
+        "script": "route14.test.cjs",
+        "passed": true,
+        "checks": 34,
+        "seconds": 0.0
+      },
+      {
+        "name": "Project records and acceptance",
+        "script": "projects.test.js",
+        "passed": true,
+        "checks": 39,
+        "seconds": 0.0
+      },
+      {
+        "name": "Frequency calculations",
+        "script": "frequency-regression.cjs",
+        "passed": true,
+        "checks": 16,
+        "seconds": 0.1
+      },
+      {
+        "name": "Retained interface behavior",
+        "script": "dom-tests.cjs",
+        "passed": true,
+        "checks": 38,
+        "seconds": 6.2
+      },
+      {
+        "name": "Active and TDR interface calculations",
+        "script": "alpha14-ui.test.cjs",
+        "passed": true,
+        "checks": 36,
+        "seconds": 11.6
+      },
+      {
+        "name": "Technician task navigation and live controls",
+        "script": "alpha15-ui.test.cjs",
+        "passed": true,
+        "checks": 22,
+        "seconds": 11.2
+      },
+      {
+        "name": "Node profiles and current curves",
+        "script": "nodes.test.cjs",
+        "passed": true,
+        "checks": 29,
+        "seconds": 0.5
+      },
+      {
+        "name": "Evidence parser and validation",
+        "script": "evidence.test.cjs",
+        "passed": true,
+        "checks": 52,
+        "seconds": 0.1
+      },
+      {
+        "name": "Evidence UI and storage",
+        "script": "evidence-ui.test.cjs",
+        "passed": true,
+        "checks": 28,
+        "seconds": 0.7
+      },
+      {
+        "name": "IndexedDB failure and commit boundaries",
+        "script": "evidence-storage-failures.test.cjs",
+        "passed": true,
+        "checks": 13,
+        "seconds": 0.6
+      },
+      {
+        "name": "Named jobs corruption and capacity",
+        "script": "named-jobs-storage.test.cjs",
+        "passed": true,
+        "checks": 5,
+        "seconds": 12.2
+      },
+      {
+        "name": "Legacy upgrade and portable backup",
+        "script": "alpha011-integration.cjs",
+        "passed": true,
+        "checks": 21,
+        "seconds": 11.7
+      },
+      {
+        "name": "Retained field tools and named jobs",
+        "script": "alpha012.test.cjs",
+        "passed": true,
+        "checks": 32,
+        "seconds": 19.3
+      },
+      {
+        "name": "0.13 APK backup migration",
+        "script": "upgrade01314.test.cjs",
+        "passed": true,
+        "checks": 15,
+        "seconds": 6.0
+      },
+      {
+        "name": "1.4 backup and active/TDR migration",
+        "script": "upgrade01415.test.cjs",
+        "passed": true,
+        "checks": 10,
+        "seconds": 6.1
+      },
+      {
+        "name": "Training, guide and app text names real screens and buttons",
+        "script": "ui-names.test.cjs",
+        "passed": true,
+        "checks": 7,
+        "seconds": 23.8
+      },
+      {
+        "name": "Built-in reference calculations",
+        "script": "../night-sweep/selfcheck.js",
+        "passed": true,
+        "checks": 8,
+        "seconds": 0.1
+      },
+      {
+        "name": "Catalog structure",
+        "script": "catalog-audit.cjs",
+        "passed": true,
+        "checks": 0,
+        "seconds": 0.1
+      },
+      {
+        "name": "Test gate: time limit, evidence redirect, receipts message",
+        "script": "gate-reliability.test.py",
+        "passed": true,
+        "checks": 7,
+        "seconds": 13.8
+      },
+      {
+        "name": "Build 3 power sum against the shared calculator vectors",
+        "script": "build3-power-sum.test.cjs",
+        "passed": true,
+        "checks": 49,
+        "seconds": 2.5
+      },
+      {
+        "name": "Build 3 power sum in a real browser: a half-typed level is not dropped",
+        "script": "build3-power-sum-real.test.py",
+        "passed": true,
+        "checks": 20,
+        "seconds": 5.9
+      },
+      {
+        "name": "Build 3 Safety removal and legacy data retention",
+        "script": "build3-safety-removal.test.cjs",
+        "passed": true,
+        "checks": 5,
+        "seconds": 4.9
+      },
+      {
+        "name": "Build 3 cascade thermal/CNR against the shared calculator vectors",
+        "script": "build3-cascade.test.cjs",
+        "passed": true,
+        "checks": 62,
+        "seconds": 2.8
+      },
+      {
+        "name": "Build 3 cascade in a real browser: a half-typed value is not dropped",
+        "script": "build3-cascade-real.test.py",
+        "passed": true,
+        "checks": 24,
+        "seconds": 6.9
+      },
+      {
+        "name": "Build 3 upstream composite margin and context refusals",
+        "script": "build3-composite-upstream.test.cjs",
+        "passed": true,
+        "checks": 37,
+        "seconds": 3.5
+      },
+      {
+        "name": "Build 3 rendered upstream composite margin and reference context",
+        "script": "build3-composite-upstream-layout.test.py",
+        "passed": true,
+        "checks": 132,
+        "seconds": 6.5
+      },
+      {
+        "name": "Build 3 headroom and bandwidth reference vectors against real functions",
+        "script": "build3-composite-margin.test.cjs",
+        "passed": true,
+        "checks": 49,
+        "seconds": 2.7
+      },
+      {
+        "name": "Build 3 navigation regroup",
+        "script": "build3-nav1.test.cjs",
+        "passed": true,
+        "checks": 5,
+        "seconds": 3.0
+      },
+      {
+        "name": "Build 3 filtered list keyboard entry",
+        "script": "build3-nav1-keyboard.test.py",
+        "passed": true,
+        "checks": 46,
+        "seconds": 4.7
+      },
+      {
+        "name": "Build 3 read-only context strip",
+        "script": "build3-context-strip.test.cjs",
+        "passed": true,
+        "checks": 23,
+        "seconds": 3.6
+      },
+      {
+        "name": "Build 3 context strip at phone width in the night palette",
+        "script": "build3-context-strip-layout.test.py",
+        "passed": true,
+        "checks": 20,
+        "seconds": 3.5
+      },
+      {
+        "name": "Build 3 manual intermittent ingress and saved-job compatibility",
+        "script": "build3-night-log-ingress.test.cjs",
+        "passed": true,
+        "checks": 11,
+        "seconds": 12.0
+      }
+    ],
+    "checks": 2884,
+    "suite_timeout_seconds": 3600,
+    "total_seconds": 1021.9,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "worktree_unchanged_during_tests": true,
+    "html_sha256": "b6a71d4b72b8f0381061a1f5f1af2ba66def2f5fbe4d4045d542790accf22527",
+    "standalone_sha256": "4fdf7aa3626222c65efac8eecf6e36a373f5bc5b4340a9d3a5154d946cac3d43",
+    "worker_sha256": "e679cc16e1bab95c8509bf385c47976a1680ffc5e1bbc48853d9a60ce67952b1",
+    "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
+  },
+  "layout_checks": 1252,
+  "smoke_checks": 370,
+  "review_pr40": {
+    "head": "bfdb8ea5562f9305552fba2c2f759747919a0bbc",
+    "targeted_receipt": [
+      {
+        "command": [
+          "python3",
+          "night-sweep/build.py"
+        ],
+        "exit_code": 0,
+        "seconds": 0.33,
+        "log": "/tmp/chatgpt-pr40-review/target-01.log"
+      },
+      {
+        "command": [
+          "python3",
+          "build-pwa.py"
+        ],
+        "exit_code": 0,
+        "seconds": 0.08,
+        "log": "/tmp/chatgpt-pr40-review/target-02.log"
+      },
+      {
+        "command": [
+          "node",
+          "qa/build3-power-pm-export.test.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 20.28,
+        "log": "/tmp/chatgpt-pr40-review/target-03.log"
+      },
+      {
+        "command": [
+          "node",
+          "qa/build3-power-pm.test.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 1.97,
+        "log": "/tmp/chatgpt-pr40-review/target-04.log"
+      },
+      {
+        "command": [
+          "node",
+          "qa/build3-safety-removal.test.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 5.49,
+        "log": "/tmp/chatgpt-pr40-review/target-05.log"
+      },
+      {
+        "command": [
+          "node",
+          "qa/build3-context-strip.test.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 4.08,
+        "log": "/tmp/chatgpt-pr40-review/target-06.log"
+      },
+      {
+        "command": [
+          "node",
+          "qa/ui-names.test.cjs"
+        ],
+        "exit_code": 0,
+        "seconds": 28.12,
+        "log": "/tmp/chatgpt-pr40-review/target-07.log"
+      },
+      {
+        "command": [
+          "python3",
+          "/tmp/chatgpt-pr40-filechooser.py"
+        ],
+        "exit_code": 1,
+        "seconds": 7.2,
+        "log": "/tmp/chatgpt-pr40-review/target-08.log"
+      }
+    ],
+    "corrected_browser_exit_code": 0,
+    "corrected_browser_result": {
+      "checks": 28,
+      "passed": [
+        "real Add this span controls accept 1001 spans",
+        "real Save this visit stores all 1001 spans",
+        "native browser download contains all 1001 spans",
+        "export asks user to check Downloads before uninstalling",
+        "native notebook export leaves job bytes unchanged",
+        "FileChooser restores every field and ordered span, ignoring fresh visit IDs",
+        "import generates fresh supply and visit IDs",
+        "native repeated import adds nothing and preserves exact stored bytes",
+        "native notebook imports leave post-startup job bytes unchanged",
+        "no uncaught browser error",
+        "390px page has no horizontal overflow",
+        "320px actual export contains literal battery name",
+        "320px own-file dedupe keeps exact stored bytes",
+        "320px imported markup appears literally in saved visit",
+        "320px imported markup creates no image and executes no handler",
+        "320px actual BrowserFiles denial propagates to PM",
+        "320px actual BrowserFiles AbortError propagates to PM",
+        "320px export error/cancel leaves notebook byte-identical",
+        "320px no horizontal page overflow",
+        "430px actual export contains literal battery name",
+        "430px own-file dedupe keeps exact stored bytes",
+        "430px imported markup appears literally in saved visit",
+        "430px imported markup creates no image and executes no handler",
+        "430px actual BrowserFiles denial propagates to PM",
+        "430px actual BrowserFiles AbortError propagates to PM",
+        "430px export error/cancel leaves notebook byte-identical",
+        "430px no horizontal page overflow",
+        "all browser contexts have no uncaught page errors"
+      ],
+      "standalone_sha256": "4fdf7aa3626222c65efac8eecf6e36a373f5bc5b4340a9d3a5154d946cac3d43",
+      "export_sha256": "86a728ca7bb5de5af73d969989fc3f2b92d19407122509b8e3e3ddb44323afea"
+    },
+    "initial_scratch_failure": "PASS real Add this span controls accept 1001 spans\nPASS real Save this visit stores all 1001 spans\nPASS native browser download contains all 1001 spans\nPASS export asks user to check Downloads before uninstalling\nPASS FileChooser restores every field and ordered span, ignoring fresh visit IDs\nPASS import generates fresh supply and visit IDs\nPASS native repeated import adds nothing and preserves exact stored bytes\nTraceback (most recent call last):\n  File \"/tmp/chatgpt-pr40-filechooser.py\", line 65, in <module>\n    check('job storage stays byte-identical', page.evaluate(\"localStorage.getItem('hfc-route-v1')\") == job)\n  File \"/tmp/chatgpt-pr40-filechooser.py\", line 16, in check\n    assert value, name\n           ^^^^^\nAssertionError: job storage stays byte-identical",
+    "old_source_negative_control": "PASS A saved notebook exports and comes back unchanged with fresh ids\nPASS Importing the same file again adds nothing\nPASS Imported supplies are added beside the ones already on the device\nPASS A bad file is refused whole and leaves the notebook byte for byte\nPASS Ids do not repeat between page loads, so a new supply cannot collide with an older one\nPASS Importing the notebook the screen just saved adds nothing (key order does not matter)\nPASS Imported text stays text: a markup-looking battery name or supply name creates no element and runs nothing\nPASS A notebook the screen could save, including 41 spans in one visit and over 2 MiB in all, exports and restores whole\nAssertionError [ERR_ASSERTION]: The input did not match the regular expression /Imported 1 supply/. Input:\n\n'Supply 1: too many spans in one visit. Nothing was imported.'\n\n    at /tmp/chatgpt-pr40-review/old-span-regression.cjs:183:12\n    at async check (/tmp/chatgpt-pr40-review/old-span-regression.cjs:9:34)\n    at async /tmp/chatgpt-pr40-review/old-span-regression.cjs:174:3 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 'Supply 1: too many spans in one visit. Nothing was imported.',\n  expected: /Imported 1 supply/,\n  operator: 'match',\n  diff: 'simple'\n}\n"
+  },
+  "grok_comparison": "Grok's independent full-gate receipt on `fc7e9c8c7d9ddc2bcad4c4a7ec866a0ab6d96850` is not yet published in the inspected build3 status or PR #40 discussion. Its last merged local receipt is on `2cf5920`, which is a different head; no same-head match is claimed. The exact shared SHA and hosted run were posted in [PR #40's coordination comment](https://github.com/Goodst3r/Carpe-Noctum/pull/40#issuecomment-6830930689). ChatGPT's own gate and recount are complete in this receipt; two-builder closure awaits Grok's independently recorded run on this SHA."
+}
