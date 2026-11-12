@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+import functools,json,pathlib,threading,sys,tempfile
+from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
+from playwright.sync_api import sync_playwright
+root=pathlib.Path(sys.argv[1] if len(sys.argv)>1 else '/workspace/Carpe-Noctum-pr34')
+out=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else pathlib.Path(tempfile.mkdtemp(prefix='carpe-pr34-browser-'))
+out.mkdir(parents=True,exist_ok=True)
+class Handler(SimpleHTTPRequestHandler):
+ def log_message(self,*args):pass
+server=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(root/'dist')))
+threading.Thread(target=server.serve_forever,daemon=True).start()
+rows=[]; checks=[]; errors=[]
+def check(name,ok,detail=None):checks.append({'name':name,'pass':bool(ok),'detail':detail})
+with sync_playwright() as p:
+ browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox'])
+ for width in [320,375,390,430]:
+  context=browser.new_context(viewport={'width':width,'height':900},color_scheme='dark')
+  page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+  page.goto(f'http://127.0.0.1:{server.server_port}/index.html');page.wait_for_function('typeof FieldCalc!=="undefined"')
+  page.evaluate("WorkflowUI.go('calculators')")
+  card=page.locator('[data-calc-card="power"]'); card.scroll_into_view_if_needed()
+  check(f'{width} source tag',card.locator('[data-threshold="calc.power.sum"]').count()==1)
+  bounds=card.evaluate('''el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,scroll:document.documentElement.scrollWidth,width:innerWidth,controls:[...el.querySelectorAll('input,select,button:not([data-threshold])')].filter(e=>e.getClientRects().length).map(e=>({width:e.getBoundingClientRect().width,height:e.getBoundingClientRect().height}))})''')
+  check(f'{width} no horizontal overflow',bounds['scroll']<=width and bounds['left']>=0 and bounds['right']<=width,bounds)
+  check(f'{width} controls at least44px',all(x['height']>=44 for x in bounds['controls']),bounds['controls'])
+  lev=page.locator('[data-power-level]');lev.nth(0).fill('40');lev.nth(1).fill('37')
+  result=page.locator('#calc-power-result')
+  check(f'{width} two levels compute','41.7643' in result.inner_text())
+  card.locator('[data-power-add]').click();third=page.locator('[data-power-level]').nth(2)
+  third.click();page.keyboard.type('-')
+  bad=third.evaluate('e=>({value:e.value,badInput:e.validity.badInput})')
+  text=result.inner_text()
+  check(f'{width} malformed trailing row refuses',bad['badInput'] and '41.7643' not in text,{'input':bad,'result':text})
+  row={'width':width,'typed':'-','input':bad,'result':text};rows.append(row)
+  if width==320:card.screenshot(path=str(out/'power-sum-320-malformed.png'))
+  third.press('Control+A');third.press('Backspace');page.keyboard.type('1e')
+  bad=third.evaluate('e=>({value:e.value,badInput:e.validity.badInput})');text=result.inner_text()
+  check(f'{width} incomplete exponent refuses',bad['badInput'] and '41.7643' not in text,{'input':bad,'result':text})
+  rows.append({'width':width,'typed':'1e','input':bad,'result':text})
+  third.press('Control+A');third.press('Backspace');third.fill('34')
+  check(f'{width} complete third row computes','42.4363' in result.inner_text())
+  if width==430:card.screenshot(path=str(out/'power-sum-430-valid.png'))
+  op=card.locator('[data-calc="power"][data-field="operation"]');op.select_option('equal_carriers')
+  card.locator('[data-field="level"]').fill('-20');card.locator('[data-field="count"]').fill('1')
+  check(f'{width} N1 negative accepted','-20.0000' in result.inner_text() and 'unchanged' in result.inner_text())
+  op.select_option('subtract_noise');card.locator('[data-field="total"]').fill('50');card.locator('[data-field="noise"]').fill('49')
+  check(f'{width} negative SNR displayed','43.1317' in result.inner_text() and '-5.86825' in result.inner_text())
+  card.locator('[data-field="total"]').fill('49')
+  check(f'{width} equal total noise explains refusal','Total must exceed noise' in result.inner_text())
+  context.close()
+ browser.close()
+server.shutdown()
+check('no page errors',not errors,errors)
+data={'checks':checks,'reproductions':rows,'errors':errors,'passed':sum(c['pass'] for c in checks),'failed':sum(not c['pass'] for c in checks)}
+(out/'rendered-results.json').write_text(json.dumps(data,indent=2)+'\n')
+for c in checks: print(('PASS' if c['pass'] else 'FAIL')+' '+c['name']+((': '+json.dumps(c['detail'])) if not c['pass'] else ''))
+print(f"Rendered power check: {data['passed']} passed; {data['failed']} failed; {len(checks)} total")
+sys.exit(bool(data['failed']))
