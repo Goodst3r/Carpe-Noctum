@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-12T02:32:29.608043+00:00",
+  "head": "2d95e04e908eba822c2789787e0fa9ec9285f269",
+  "tracked_HEAD_blob_and_initial_hash_count": 703,
+  "semantic_index_and_status_clean": true,
+  "MCP_assertions": 82,
+  "MCP_widths": {
+    "320": 41,
+    "390": 41
+  },
+  "all_MCP_passed": true,
+  "proof_sha256": "9709372c2e9aa700d0e6910973badd455915eaefce4ca8c0ae9ea160c09d3033",
+  "MCP_raw_sha256": "d71362fcf00e7f7174ea39502703e58cbe17bd9adb91c26ea6516611d8c9c6ac",
+  "diagnostic": "Initial root comparison used newline-delimited ls-files --stage against the saved NUL-delimited semantic manifest and asserted; corrected only read command to --stage -z. All703 file/blob/hash comparisons already passed; no source change or product test failure."
+}

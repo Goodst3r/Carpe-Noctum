@@ -1,44 +1,40 @@
-# Lane A status — imported grading current-base gate and peer handoff
+# Lane A status — native retention validated on the merged required core
 
-Current tested source61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe on reviewedbase394 passes80/2072,679.0s +554/352 and accepted independent scoped review. Ordinary metadata publication preserves all tested product bytes. PR14 is ready for Lane B’s same-published-head gate/review/merge; Lane A cannot self-merge.
+Tested native source `2d95e04e908eba822c2789787e0fa9ec9285f269`, from807+actual reviewed build3 `0e67660c530047d292b7838d892b1ae74862affb`, passes **82/2174,683.7s +layout554/smoke352**. Accepted author/independent scoped reports and the ordinary metadata publication preserve tested product bytes. PR23 is ready for Lane B’s same-published-head gate/review/merge; Lane A cannot self-merge. D1/D2 complete;D3–D5 pending.
 
-D1 complete. A2 item6 mergedf50; A3 item10 merged394. **D2 only imported grading item13 remains. D3 final combined verification, D4 reconciliation and D5 handoff are open.** No own PR self-merge. Reintegrate/review/rederive if reviewed build3 advances.
-
-| Item | Published or merged history | Current state |
+| Item / branch / PR | Source and actual record | State / next |
 | --- | --- | --- |
-| Original A1 Station | PR8 merged21ed | Complete original feature; native correction separatePR23. |
-| A1 native correction | PR23 public2d837f9810d918ebd5e4aff2376316bc84051083; tested0da historical72/1505+554/343 on3cf | Current source807e710ee9ba475e06c5653b926df0c19097738d on394. Author proper-mode native13/13, NightLog23/23, Due37/37, Checklist37/37, registry14/14, names6/browser105+19. Independent accepted native13/13, Due37/37, audit13/MCP35/631strict. Full pending, preferably after actual14 merge while retaining pure boundRecords. |
-| A2 NightLog | PR17 mergedf50a7445a8c5254b0db4db5d9e4309569345c12c | Root source2690 gate72/1534,524.9s +554/346; public3c3a receipt remains historical, no D3 combined claim. |
-| A3 Sweep Due | PR21 merged394179c7ac15ad57d19b654a4427e3b9fa2f54c0, exact published0e tree | Root source072 full74/1760,630.0s +554/349. Lane B's separate own74/1760,562s +554/349 and review5867343345 are distinct. Peer-first request6810849358 fulfilled. |
-| A4 grading | PR14 publicf6d113d87c97f39099f3c2c602757382cdfac6a2/testedfe historical74/1701,526.6s +554/346 on3cf | Current61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe, ordinary41+394 merge; source and independent scoped PASS accepted. Fresh exact61 current-base full PASS80/2072,679.0s +554/352; ready for Lane B same-published-head gate/review/merge, no own merge. |
-| A5/A6/A7 stretch | After required completion | No new implementation/gate claim. |
+| Original A1 / codex/station-view /8 | Source603/publicatione83f, merged21ed | Complete; [historical receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/e83f51615fd980155441f8861a9e474b30ad6d65/handoff_docs/lanes/codex-a1-validation.json). |
+| A2 / codex/night-log /17 | Tested2690/publication3c3a, mergedf50 | Complete; [historical72/1534+554/346](https://github.com/Goodst3r/Carpe-Noctum/blob/3c3a25f57654d3597112d8c60d130ae5707dada3/handoff_docs/lanes/codex-a2-validation.json). |
+| A3 / codex/sweep-due /21 | Tested072/publication0e930, merged394 | Complete; [historical74/1760+554/349](https://github.com/Goodst3r/Carpe-Noctum/blob/0e930d13f1954191ac5b0a5498e6e1ad93c74d0d/handoff_docs/lanes/codex-a3-validation.json). |
+| A4 / codex/sweep-grading /14 | Tested61/base394,publishedd95,actually merged0e676 | Complete. Own80/2072,679.0s +554/352; Lane B separate702s/48touch,formal5867946559. [Receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/d95f08b184b9cc3cc33150e58736ecc03d9d42b8/handoff_docs/lanes/codex-a4-validation.json). |
+| Native A1 / codex/station-input-retention /23 | Start807,tested2d95 onactual0e676; ordinary metadata successor | Current82/2174,683.7s +554/352 PASS; peer same-head gate/review/actual merge pending. |
+| A5/A6/A7 stretch | No new implementation/run | After core D3–D5. |
 
-A1 mode erratum: old889 generic Checklist37/registry14 runs used DEFAULT/explicit-release built HTML, not source/frozen. Author preserved that disclosure and freshly passed correct source37/14 at889. Proper807 source/frozen modes above are actual later runs. Do not relabel old counts.
+Native2d95 Station is exact807 plus incoming pure boundRecords/export; native committed-value/draft guards and all3 optional/history/original contracts survive. Current29screens/47features/114registry rows, practice22/16/15/8/9/7/10. Source identity appb1591b4d1bfb639eec5a39014c2cbd4ab9f72871bdeb90cc90af41d67aa6e4de/PWAdc6d93410e547078005a; version2.0Alpha build3/code27 unchanged. Sources: authorized A1 plan, Station/export contracts/STATION_VIEW_SOURCES and MDN badInput/focusout; no math/range/target/key/schema change. File/reason lists and exact scoped commands are in the copied current integration/review reports.
 
-## A4 current61 integration and accepted scoped evidence
+Author native13/13,UI56/56,Log23/23,Due37/37,paired/triple3/3each,core93singlemodule,correct-source/built-HTMLregistry14/14,names6; separate desktop Chromium35. Independent native13/13,triple3/3,frozenLog23,audits6+6,MCP82(41each320/390),703strict. Author35,MCP82 and static82 registrations are distinct.
 
-Starting reviewed production41c4db2ea7c6fd550069b5e1c6a88217c1876f61 merged reviewed Sweep Due394. Parent60d earlier merged publishedf6d with NightLogf50. Current source/frozen/guides: **29screens,47features;22/16/15/8/9/7/10**. All46 base feature tuples,72 base registry rows and38 splice entries remain ordered prefixes;42A4 rows total114,3A4 splice entries append.80 unique registered suites is static registration, not final full totals.21 guide practice cells/47 markers/20 assets/9 Job tabs match.
+Fresh full02:29:04.688782–02:40:59.439362UTC; all5commands0/fresh/raw-source-equal,82unique suites sum2174.703tracked(680source/23generated),semantic staged/HEADtree/README/lock/40dependencies unchanged/clean without restoration;12manifest SHA/size/mtime verified. Gate wall683.973s,allcommands713.808s;rawindexcache diagnostic only. Exact commands:
 
-Both NightLog/grading Example keepers and all3 optional validators/content terms survive, including reviewed interval-drop behavior. Captured dates/grades stay immutable when live Station dates/reminder change. Native parser/SHA/archive/math/pipeline are retained. Station exact41; relative394 only existing pure boundRecords helper/export differs. No unmerged A1 native fix is imported.
+```sh
+python3 night-sweep/build.py
+python3 build-pwa.py
+GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py
+GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-layout.test.py
+GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/browser-smoke.py
+```
 
-Author61:19 focused commands pass grading56/56, Due37/37, Log23/23, old/new interop3/3 each, proper-mode Checklist37/37/registry14/14, names6; native69/core93 single module invocations. Rendered grading88/Due189 and separate actual browser27 at320/390;680strict clean. Independent61: grading56/56, triple3/3,6 source/runtime+6 guide groups, actualMCP38/680strict. Final accepted report separately adds14 targeted interval24 MCP checks,7 per width: stored/autosaved/readView24→2027-11-11, explicit restore18→2027-05-11, then date edit→2028-05-11. Original38 raw/script/log untouched; omitted sequencing/oracle gap, no production defect/change, no single52 campaign.
+Current [receipt](codex-station-native-validation.json), [integration](../reviews/codex-station-native-grading-integration.md), [independent review](../reviews/codex-station-native-grading-review.md), [full gate](../reviews/codex-station-native-grading-gate.md) preserve actual raw/full command records including nanoseconds. [Historical0da receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/2d837f9810d918ebd5e4aff2376316bc84051083/handoff_docs/lanes/codex-station-native-validation.json) keeps72/1505,502.0s +554/343 and the unfinished environment attempt without a final total. Exact889mode erratum/separate-source correction and proper807reports retain their old heads. External harness/reader diagnostics and MDtimestamp-only correction are preserved; no product failure/count transfer. Last private-owner replay9cad stays historical.
 
-UI4886 is exact reviewed optimization. Render-local historical context is lazy, shallow copied per row and discarded after synchronous render; public freshness is still one-argument/direct. Grade/signature/observer/save/init/export/SHA/archive/math exact60d and retained61; freshness helper intentionally changes implementation, not warning/state/API semantics. No persistent context/grade/verification cache or new formula/limit/tolerance/default/key/schema/version. Steady100-history operations100→1, first-owner101→2; Node medians215.296→5.753/870.146→14.493ms exclude DOM/phone; one-history0.642→0.740ms has no gain. Five alternating pairs/one warmup, no timing assertion.
+## Next
 
-## Separate historical evidence
+Lane B gates/reviews this same published PR23 head and merges if eligible. Root owns PR API; no own merge. If build3/source changes, renew exact-head evidence. Lane B’s D4 reconciliation/regeneration from the accepted readiness audit precedes both lanes’ final same-head D3 gates and D5 handoff; these remain pending. All existing ProjectStatus/update-log feature bytes are preserved before the new own-native appendix; global D4 belongs to Lane B.
 
-Parent41/f50 full is sealed PASS **77/1843,610.6s +554/349**,5commands0/fresh/raw-source-equal;653tracked/630source/23generated, semantic staged/tree/README/lock/40dependencies clean,12manifest verified without restoration. Root read/report and direct artifact checks accepted. Production41 independent own56/56,11real-app groups/MCP23/653strict stays parent scope. Earlier60d55/55+3/3/MCP22; supplied63component/22browser; independent scratch17; implementation41 evidence retain exact actors/heads. None becomes a fresh61 whole-gate result.
+## Blocked
 
-Current61 full prefix `/tmp/carpe-a4-sweepdue-full-*` sealed PASS80/2072,679.0s +554/352,01:15:59–01:27:49UTC. All5zero/fresh/raw-source-equal;680tracked/657source/23generated, semantic staged/HEADtree/README/lock/40dependencies unchanged/clean without restoration;12manifest SHA/size/mtime entries verified. Actual base394 same start/end and publication fetch. Raw index stat-cache bytes diagnostic only. Current receipt contains whole raw_gate and all5FULLcommands including nanoseconds losslessly; historical41 raw/commands are separately preserved. Compact root/final checks and separate targeted14 raw/proof are exact copies. Source61 app SHA8caf8ff1e9ccccc701a3f8e27e88c46f8331bdf9747946ccc97d1e05bdc9cb24; PWA b354fda83dc6f8c89109.
+No hard block. Peer merge23 and final D3–D5 remain coordination work. Root-attributed PR13 closure5867877672/PR15closure5867997446 retain their scopes; B19Minor source wording5867867045 remains. No stretch full merge before core D3–D5.
 
-[Publishedf6d historical receipt](https://github.com/Goodst3r/Carpe-Noctum/blob/f6d113d87c97f39099f3c2c602757382cdfac6a2/handoff_docs/lanes/codex-a4-validation.json) retainsfe74/1701 on3cf. Failed533 remains FAILED71/72,1566 counted.60d packed second-JSDOM default/jitless diagnostic mechanism remains unproven; all55 cases retained,3interop in a registered fresh default process, no product workaround/JIT flag. Guide-name RED, old100-vs1 RED and new-test cleanup failure remain exact reports.10required review fixes and pure startup boundary remain closed in retained scope; recommended focus/internal IDs/long-context/parser/resource/history/eager-preview deferrals remain Known Gaps. Private-owner replay last9cad historical only.
+## Questions
 
-## Peer dispositions and next
-
-B7/B8 mergedccf/3cf. PR13 latest4c092e7c7dc1de10b23e83dd6eaf754dbac01d67 closes the final header-import Important and44px-label Minor in root scoped review5867509179; its base3cf→current394 integration/full remain pending. Olderaf36 descendants must propagate4c. B15/16/18/19/20 own scopes closed; inheritance/current-base/full holds are separate. No stretch merge before coreD3–D5. DuplicateB22 untouched-imported-raw loss finding remains historical coordination withPR23, not a reason to duplicate the native fix.
-
-Root read/sealed exact61 full, directly verified all artifacts and authorized bounded metadata-only ordinary publication after currentbase394 helper fetch/dry-run succeeded. Root owns PR14 API and Lane B same-head review/gate/merge; no author self-merge. A1 full follows actual core merge. Current own ProjectStatus/update-log projection replaces only the A4 span and preserves every A2/A3 prefix/suffix byte from immutable61. Existing Known Gaps/provenance unchanged.
-
-No fresh private replay, physical phone/emulator/Safari/WebView/mobile native segmented-input/touch/screen reader/provider/RF/field or DOM-phone-performance acceptance. No APK/signing/deployment. D1 done; D2item13/D3–D5 open.
-
-Current receipt: [codex-a4-validation.json](codex-a4-validation.json). Exact current author/delta/full reports: [integration](../reviews/codex-sweep-grading-sweepdue-integration.md), [independent review](../reviews/codex-sweep-grading-sweepdue-review.md), [full gate](../reviews/codex-sweep-grading-sweepdue-full-gate.md). Proof SHA973204faf6550338459adf754e23086bf2b7e69206bee585c626765b2a0c5d09; raw SHA93e1b5a2ee9ff408dcd1dbc72ce39e20e2d2f480889f7e4ca9d676a34cdebd25; manifest SHAbd1509779db8a1754d93aa6fd1aaa8f47f49be835ecc7424487bb7c216e95ad4.
+No new native decision. Existing Unknown company targets/tolerances/cadence, supervisor/local-procedure/coworker, permitted OEM/Vecima/AOI source access/revisions and device/field questions remain in BuildList/KnownGaps. No new company value/backend/purchase. No fresh private replay, emulator/physical phone/Safari/WebView/mobile input/locale/touch/rotation/screen-reader/provider/RF/field/APK/signing/deployment result.

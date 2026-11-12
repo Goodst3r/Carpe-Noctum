@@ -1,0 +1,49 @@
+# D4 pre-close-out readiness audit
+
+Pinned merged core: **0e67660c530047d292b7838d892b1ae74862affb**, Git tree **4711132e6557fbd39a24402cc2b8e264a8e090f5**. Every file/line below refers to that immutable source. This is read-only documentation readiness, **not completed D4**, a new QA run, native approval or final handoff. No active worktree comparison/edit, test/build, dependency operation, external API or publishing was performed. A delegated static guide audit was checked against the pinned blobs.
+
+Plan authority: `handoff_docs/PARALLEL_TASKS.md:45–47` requires final same-head own-lane gates for D3, code-matching paperwork for D4, and Lane B's final handoff for D5. `:53` preserves one writer per file; `:157` assigns B9 only after A1–A4 and both gates. Historical receipts must retain their actors, exact source and outcomes.
+
+## Confirmed current static inventory
+
+- **29 screens**, `night-sweep/workflow.js:11–39`; **47 feature tuples**, `night-sweep/training.js:115–163`; practice **22/16/15/8/9/7/10**. The current Functions guide navigation (`docs/NightSweep_1.8_Alpha_Functions_README.md:53–60`) and feature index (`:783–792`) already reflect the merged core.
+- **114 registry rows**, statically derived from `night-sweep/thresholds.js:39–212`: 50 literal rows + 7 Station mappings + 14 project-profile mappings + 1 sweep mapping + 3 archive guards + 7 grading guards + 32 grading company-profile fields. These are registry rows, not practice steps or test outcomes.
+- **41 registered build splice entries**, `night-sweep/build.py:11–53`; Station/Night log/Sweep due and archive/grading entries are present at `:44–52`. DSIM pilot code also has its explicit insertion at `:61`. No missing-module claim is supported.
+- Main README copies are byte-identical. **33 Safety default reminders** are correct (`night-sweep/safety.js:9–41`); do not carry an older 33/34 observation into the current close-out.
+
+## Concrete reconciliation work for Lane B / B9
+
+| Pinned file and lines | Stale/missing statement | Concrete close-out action |
+|---|---|---|
+| `START_HERE_CODEX.md:67` | Says Station, Night log, Sweep due and imported grading are in progress/queued. | Replace with the actual merged required-core inventory and explicit final native/D3/D4/D5 pending state. |
+| `START_HERE_CODEX.md:57` | “Only synthetic CSVs” may enter the repository, despite supported native JSON and committed invented JSON/gzip/ZIP fixtures. | Preserve the privacy prohibition; describe the documented synthetic CSV/JSON/compressed fixtures accurately. `PARALLEL_TASKS.md` A4 detail explicitly allows invented JSON, and `qa/fixtures/viavi-synthetic/` contains them. |
+| `NightSweep_Project_Status.md:5,13,19,24,27,63,65–66`; `CarpeNoctum_2.0_Alpha_build_3_UPDATE_LOG.txt:12,21` | Current opening blocks still name frozen `ccr-7abea525-rljsni`, call Station/6/10/13 not started, claim 27 registry rows and ten custom-curves steps, say DOCSIS/leakage are not built, and say the build-list files are absent. | Rewrite the current summary around merged `build3`, 29/47/114 and current practice/modules. Preserve genuinely unimplemented stretch items. Both `docs/BUILD_LIST.md` and `docs/ROADMAP.md` exist; their PR/owner-decision status was not queried and must not be invented. |
+| `NightSweep_Project_Status.md:42–55`; update log `:258–270` | “Current verification” / “THIS RUN” still presents the early 61-suite/1,109 +141/328 result and old HTML hash as the global current verification. | Relabel as exact historical baseline. Reserve final native and D3 head/hash/count fields as **PENDING** until the final frozen integration is actually verified by each lane. Do not replace them with static suite registration counts. |
+| Status `:124–175`; update log `:293–346` | Appended source-scoped A4/A2/A3 publications compete as “CURRENT”; A2 says 28/45, A3's final paragraph says current combined 29/46, and author handoffs still say A4 merge/item13 are pending. | Keep all original source-scoped receipts/failures intact, clearly label those checkpoints historical, and provide one current 29/47/114 merged-core summary. Code completion does not close final D3–D5 or the still-pending native integration. |
+| `handoff_docs/KNOWN_GAPS.md:45–46`; `TOOLS_AND_SETUP.md:39–44`; `CLAUDE.md:16`; plan `:57` | B4's naming test and B1's configurable/redirected gate are still described as unfinished; routine restoration of tracked test churn remains advised. | Retire the obsolete B1/B4 gaps and describe the implemented default: `qa/evidence-path.cjs:4–6,15–28` redirects evidence unless explicitly enabled; `qa/suite_runner.py:13–31` supports the timeout; `qa/ui-names.test.cjs:2–13` checks names. Preserve clean/no-restoration gate expectations; do not normalize away unexplained changes. |
+| `handoff_docs/KNOWN_GAPS.md:30–31`; Project Status `:65` | Blanket claims that DOCSIS I20 ranges still await primary confirmation and FCC CLI/log rules were never checked contradict the later source records. | Reconcile narrowly against `research/build3/DOCSIS_HEALTH_SOURCES.md:11–18,34–38` and `LEAKAGE_SOURCES.md:11–17,31–37`. Preserve the actual remaining gaps: unrepeated pointers/pages, spec ambiguities, unread SCTE bodies, secondary normalizer/detector methods and unknown company values. Do not upgrade their provenance by inference. |
+| Both main READMEs (`docs/NightSweep_1.8_Alpha_README.md` and `night-sweep/README.md`) `:30` | “Choose the complete example for every tool” is false for current exercise mappings. | Point newer tools to Custom curves and Night log/Sweep due to Six-active, matching `training.js:154–162` and the already-correct Functions guide `:783–792`. |
+| Both main READMEs `:34–58` | The tool finder omits six merged screens: Calculators, Limits, DOCSIS health, Leakage, Safety and Outage. | Add their actual navigation/prerequisites; source paths are explicit in `workflow.js:6,8,26–29,34–35`. Full Functions coverage already exists, so this is a quick-reference omission, not a missing-implementation claim. |
+| `docs/NightSweep_1.8_Training_Coverage.md:23–55` | “Every task has an example” table omits Night log although its exercise exists. | Add the existing mapping from `training.js:72,160`; the same guide already describes the exercise at `:109–111`. Regenerate the current HTML/PWA mirrors through the documented workflow when authorized. |
+| Both main READMEs `:64–79`; `docs/DEVELOPER_BUILD.md:1–3,18` | Current build-3 orientation still presents the old 1.8 build-2 ZIP/code24 delivery and calls this the build-2 source workspace. | Separate historical installer/package instructions from current source/browser instructions. `AGENTS.md:3,15` says latest signed release is 2.0 build2/code26 and build3/source27 has no APK. Do **not** turn planned code27 into a claimed available installer. Explicitly Build-2-labelled setup/installation artifacts are historical, not evidence that current practice arrays are wrong. |
+
+The stale lane snapshots also need coordination: Lane B's own status `handoff_docs/lanes/claude-status.md:11–16,20–29` still calls merged core PRs open and waits for A1–A4; Lane A's status `codex-status.md:3–5,13,40–42` predates A4's actual merge. Lane B should reconcile its own file and request Lane A's final status rather than edit the other lane's record. Their historical test counts must not become final D3 counts.
+
+## Facts to preserve; no inferred closure
+
+- `AGENTS.md` already correctly retains 2.0 Alpha build3/source27, released build2/code26, stable package/storage identities, external original signing key, no new APK and no implied deployment. `CLAUDE.md` correctly delegates standing rules to it; those files are present.
+- Keep Unknown company targets/cadence, separate 42/54 and 204/258 methods, manufacturer/manual/reference-plane gaps, UBT/legacy read-only behavior, additive original/history retention and every actual unresolved source limitation.
+- Keep all real-file/customer/employer/signing exclusions, own-meter import scope, synthetic examples, no live systems/cloud/OCR, supervisor review of leakage/safety/outage before coworker use, and explicit non-acceptance wording.
+- Physical Android/iPhone, emulator/native provider dialogs, Safari/WebView, touch/rotation/offline eviction and RF/field validation remain separate/unverified. Static source constants and desktop/mobile-viewport results do not supply those results.
+- Preserve explicit historical 1.6/1.7/1.8 build2 artifacts and immutable raw receipts, including failures. Correct current links/context instead of rewriting their historical outcomes. Existing nonblocking parser/resource/focus/history/performance gaps remain until separately closed with evidence.
+
+## Close-out fields remain PENDING
+
+| Field | Readiness status |
+|---|---|
+| Final native PR23 integration/full review/merge | **PENDING**; root reports native `2d95` frozen/focused work, no final full/merge yet. Do not silently close the upstream native-input gap from that fact. |
+| D3 final build3 head + frozen standalone hash + both lanes' own full/rendered receipts | **PENDING**; no final counts/hash supplied by this audit. Earlier source-specific passes remain historical. |
+| D4 reconciled docs/guides/practice and authorized regenerated artifacts | **PENDING**; this report identifies readiness work, not completion. |
+| D5 `handoff_docs/FINAL_HANDOFF.md` | **PENDING**; absent at this pin, appropriately awaiting B9. It must eventually name final build3/HTML hashes, per-item behavior/own verification, all untested items and supervisor questions, and Spencer's exact next steps per plan `:47`. |
+
+Tools used: read-only local Git blob/tree queries and Python standard-library text/AST counting; no new application or test execution. This report is external to the repository at `/tmp/carpe-d4-readiness-audit.md`.
