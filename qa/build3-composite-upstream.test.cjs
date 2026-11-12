@@ -84,6 +84,7 @@ const flush=()=>new Promise(r=>setImmediate(r));
    assert.equal(h.d.querySelector('[data-health="upstream"][data-field="basis"]').value,'');
    set(h,'total','60');set(h,'mode','3.1','change');assert.match(text(h),/confirm|simultaneous|basis/i);assert.equal(printed(h),undefined);
    set(h,'basis','confirmed','change');assert.equal(printed(h),'+5.00000 dB');assert.match(text(h),/assumed.*Spec minimum\/default/i);assert.match(text(h),/actual.*capability.*Unknown|not.*capability report/i);
+   const formula=h.d.querySelector('#health-upstream-result [data-threshold="docsis.us.compositeMargin"]');assert(formula,'composite formula has its own source tag');assert.equal(formula.dataset.label,'expert');
   });
   for(const c of upstreamCases)await check(c.id+' six-significant result uses the real UI',()=>{
    const i=c.inputs;set(h,'mode','3.1','change');set(h,'basis','confirmed','change');set(h,'pmax',i.entered_Pmax_dBmV??'');set(h,'total',i.simultaneous_total_dBmV);

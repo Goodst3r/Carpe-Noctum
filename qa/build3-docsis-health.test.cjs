@@ -217,7 +217,7 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
   await check('Registry rows: spec rows are primary-checked, company rows start unknown and are entered values, shown once for each plant', () => {
     const rows = h.json('Thresholds.rows');
     const mine = rows.filter(r => /^(docsis\.|company\.docsis\.)/.test(r.id));
-    assert.equal(mine.length, 10);
+    assert.equal(mine.length, 12);
     for (const r of mine) { assert.equal(r.scope, 'all', r.id); assert(r.usedBy.includes('DOCSIS health'), r.id); }
     for (const r of mine.filter(r => r.id.startsWith('docsis.') && r.label === 'spec')) assert.equal(r.verification, 'primary', r.id);
     assert.equal(mine.find(r => r.id === 'docsis.ds.ofdm.scaling').label, 'expert');
