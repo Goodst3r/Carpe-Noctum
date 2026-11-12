@@ -4,6 +4,24 @@ November 12, 2026 · written by Claude for Spencer, Grok and ChatGPT · docs onl
 
 This is the final call on `Carpe_Noctum_Roadmap.pdf` (Grok's synthesis, pinned to `f467e52`). It says what to keep, change or defer, in what order, and what has to be checked first. The three starting prompts are in `handoff_docs/ROADMAP_PROMPTS.md`.
 
+## Revision 2: after ChatGPT's critique (Nov 12)
+
+ChatGPT's critique (`handoff_docs/reviews/chatgpt-roadmap-critique.md`, branch `chatgpt/roadmap-critique`, commit `69c2c62`, read against `build3` `b4cb832`) found real errors in revision 1. I spot-checked the main ones on `b4cb832` myself (Test tab count, the existing headroom card, `hfc-named-jobs-v1`, the bonding entry, the ripple-width label) and they hold. The rest is ChatGPT's reading, not re-verified by me. Changes, folded into the sections below:
+
+1. **Re-pin:** `build3` is now `b4cb832` (Fiber #15 and High split #16 merged). 32 screens, 50 features, 127 registry rows; Test has 13 tabs (ChatGPT's counts).
+2. **There is already an upstream transmit headroom card** in DOCSIS health (`docsis-health.js` around line 86). Revision 1 missed it. Its number is composite margin to Pmax, not per-channel headroom. Fixing its wording is now the first P0 item.
+3. **The 1.6 to 6.4 MHz conversion already exists** in the OFDM power calculator. No new converter.
+4. **Storage list was incomplete:** add the named-job library `hfc-named-jobs-v1`. The evidence store `nightsweep-evidence-v1` is an IndexedDB database, not a localStorage value.
+5. **A project backup is the working job only.** Named jobs and device settings (DOCSIS windows, leak notebook, Safety, Outage) are outside it. The phone check now starts with backing up every job and writing down device settings.
+6. **Help (`help`) was missing from the screen map.** It stays in the header.
+7. **Checklists is not a repair tracker.** It has five fixed maintenance entries with done and notes. A grounding/bonding check already exists there.
+8. **No backup or export time is stored.** A "last backup" line must never claim a file was saved just because an export started.
+9. **P0 order changed** to follow the evidence: record reliability first, calculators later.
+10. **New defect:** the standing-wave search width (±10%) in `thresholds.js` is labeled Expert but is the app's own choice, so it should be Unknown.
+11. **#18 and #19 hosted CI were failing** on their last checked heads.
+
+The original `Carpe_Noctum_Roadmap.pdf` is now in `handoff_docs/` so ChatGPT can check it.
+
 This file was written in a claude.ai session running Fable 5.2, not Sonnet 5.5 at medium effort as the working agreement asks. Spencer picks the model when he starts a session; an assistant cannot switch itself.
 
 ## Who does what
@@ -30,7 +48,7 @@ Read-only, on `origin/build3` = `e7313cf6dd5702a7263160d4f56ab2ba373fbaf4` (fetc
 | Station and Readings hold different measurements | Station: balance and sweep at an installed active. Readings: a meter reading at a route point against the predicted level. | Confirmed from the screen definitions. I did not read both modules' data models. |
 | Stretch pull requests open | #15 Fiber, #16 High split, #18 Why cards, #19 Proof of performance, #20 Study (base is `claude/b20-pop`, not `build3`). All draft. All add a Test tab. | Confirmed. Test would reach 16 tabs. |
 | (not in the roadmap) | The bottom bar already has five tabs: Home, Route, Test, Power, Job. Route has 6 sub-screens, Job has 9. | The change is a regroup, not a cut from seven tabs to five. |
-| (not in the roadmap) | The working job is stored under `hfc-route-v1`. Device-local keys: `nightsweep-docsis-windows-v1`, `-evidence-v1`, `-leakage-v1`, `-outage-v1`, `-safety-v1`, `-theme-v1`. | These names must not change. |
+| (not in the roadmap) | The working job is stored under `hfc-route-v1` and the named-job library under `hfc-named-jobs-v1`. Device-local keys: `nightsweep-docsis-windows-v1`, `-leakage-v1`, `-outage-v1`, `-safety-v1`, `-theme-v1`, plus recovery side keys. Evidence is the IndexedDB database `nightsweep-evidence-v1`. | These names must not change. (Named-job key and IndexedDB detail added in revision 2.) |
 | (not in the roadmap) | #25 (draft) names the Arcom Digital QS-NAVPLUS-OUDP as the only leak detector. | Spencer's instruction, Nov 11. |
 | P0 list | The roadmap PDF has six P0 items. "Evidence handoff" was in Spencer's message, not in the PDF. | Undefined item. See P0-7. |
 
@@ -71,8 +89,9 @@ Where each existing screen goes. Screen ids stay exactly as they are; only the g
 | Home | Home (`home`), Safety (`safety`), Outage (`outage`) |
 | Plan | Details (`projects`), Setup (`setup`), Cable route (`route`), Amp gain (`gain`), Amp / node setup (`equipmentSetup`), Predicted levels (`sweep`), Load (`power`), What-if (`trial`), Sweep due (`sweepDue`) |
 | Field | Meter setup (`sweepSetup`), Station (`station`), Readings (`readings`), TDR (`tdr`), ONX files (`evidence`), Leakage (`leakage`), Checklists (`checklists`), Night log (`nightLog`) |
-| Tools | Calculators (`calculators`), Limits (`limits`), References (`references`), Frequency (`frequency`), Catalog (`parts`), DOCSIS health (`docsisHealth`), Impairments (`impairments`), and each stretch screen as it merges (Fiber, High split, Why cards, Proof of performance, Study) |
+| Tools | Calculators (`calculators`), Limits (`limits`), References (`references`), Frequency (`frequency`), Catalog (`parts`), DOCSIS health (`docsisHealth`), Impairments (`impairments`), Fiber (`fiber`), High split (`highSplit`), and each remaining stretch screen as it merges (Why cards, Proof of performance, Study; record their real ids when they merge) |
 | Closeout | Acceptance (`records`), Run sheet (`runsheet`) |
+| Header (unchanged) | Help (`help`), inside the Files menu |
 
 Plan has nine screens and Field has eight. That is still a long sub-tab row on a phone. NAV-1 must show how those two rows behave at 320 px, and if they wrap badly, Plan and Field get the same list treatment as Tools. Decide that from a rendered check and then a real phone, not from this table.
 
@@ -85,7 +104,22 @@ NAV-1 exit criteria, replacing the roadmap's list:
 
 ## P0 determination
 
-In build order.
+**Revision 2 build order** (replaces the order of the table below; the table's details still apply except where noted):
+
+1. **Headroom wording fix (new, small).** Relabel the existing DOCSIS health headroom result as composite margin to the entered Pmax, for that reading. Say what it cannot tell you (per-channel room, DRW, channel count and width). Say that a blank Pmax uses 65 dBmV, the lowest allowed, not the modem's real capability. No new math.
+2. **Night log fixes, then the intermittent-ingress entry (P0-6).** Add Remove/Undo and stop blank entries using a slot first.
+3. **Temporary-repair follow-up (P0-2)**, as structured entries next to the Checklists maintenance notes, with open or closed status.
+4. **Tonight list (P0-1).** Show "never" or "unknown" for backup and export times; no stored time exists today.
+5. **Context strip (P0-3).**
+6. **Exact resume (P0-8)**, after the phone interruption checks.
+7. **Power-sum calculator (P0-4)**, using ChatGPT's section 2 formulas, worked cases and refusal rules. No correlated add.
+8. **Bandwidth conversion (P0-5):** no new feature. At most, also offer 6.4 MHz as a measured-in width so the reverse step is reachable.
+9. **Leakage-method pointer (P0-3b):** High split has merged, but the Arcom manual and the company method are still missing. Stays deferred.
+10. **Per-channel headroom tool:** deferred. It needs the transmit channel set, widths, DRW state and Pmax provenance (ChatGPT section 3). A company ceiling alone does not fix it.
+
+Evidence handoff (P0-7) stays deferred until Spencer defines it.
+
+Revision 1 table, in its original order:
 
 | # | Item | Call | Detail |
 | --- | --- | --- | --- |
@@ -105,8 +139,9 @@ In build order.
 | --- | --- | --- |
 | Map symbol legend | Keep | The tech fills it in. Nothing copied from SCTE. The company legend may be internal. |
 | Spectrum analyzer setup card | Keep, gated | Only from VIAVI ONX documentation that somebody has actually opened. Not re-verified. |
-| Cascade noise and distortion calculator | Keep, gated | ChatGPT checks each formula against a primary source first, and says whether CTB and CSO figures still mean anything on an all-digital plant. |
-| Bonding and grounding reminder | Keep | Put it in the construction and connector checklist (item 16, not built yet). |
+| Cascade noise and distortion calculator | Keep, narrowed (rev. 2) | Thermal noise / CNR only, with ChatGPT's section 4 assumptions. No CTB/CSO "plant health" number; the CSO shortcut does not hold for short cascades (under 10 amps). |
+| Bonding and grounding reminder | Already exists (rev. 2) | Checklists has a grounding/bonding check. Add context to it when item 16 is built; it is not a new feature. |
+| Ripple search width label (new, rev. 2) | Fix | `thresholds.js` labels the ±10% standing-wave search width Expert. It is the app's own choice: label it Unknown. Small Grok fix with a test. |
 | Generator pre-start checklist | Keep | Supervisor review, like the Outage card. |
 | Photo attachments, battery runtime estimator, transponder alarm cards | Hold | As the roadmap says. |
 | Anything needing a company target | Hold | Until Spencer supplies the value. |
@@ -132,7 +167,7 @@ On the live repository, by Grok, before any branch is cut:
 6. Check whether a backup time and a night-log export time are stored anywhere, before P0-1.
 7. List the state of #15, #16, #18, #19, #20 and #25, and the hosted CI result for each head.
 
-On a real phone, by Spencer. Nobody has run any 2.0 build on a phone, so everything here is still untested:
+On a real phone, by Spencer. Nobody has run any 2.0 build on a phone, so everything here is still untested. **Revision 2:** use the 11-step list in section 6 of ChatGPT's critique instead of the list below. Its first step matters most: "Back up project" saves only the working job, so export every job you need one at a time, reopen each export to prove it works, and write down your device settings (DOCSIS windows, leak notebook and settings, Safety, Outage) before installing anything. Revision 1's list, kept for reference:
 
 1. Take a full backup. Install the build 3 web version (or an APK Spencer builds and signs himself) over the existing install and confirm the jobs are still there.
 2. Airplane mode: cold start, open a job, save, back up, restore.
