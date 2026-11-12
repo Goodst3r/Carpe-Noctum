@@ -4,8 +4,8 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts) |
 | --- | --- | --- | --- | --- | --- |
-| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) draft | `6f8512c` gated; record commit follows | local gate and hosted CI green on `6f8512c`; AUDIT not posted | 82/2174, 685.4 s, layout 554, smoke 352, clean, SHA `b1591b4d…e4de` |
-| Stretch #13 item 11 | `claude/b11-impairments` | #13 draft | `920c8a7` | waiting until D1–D5 | not run by Grok |
+| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) merged `6a28951` | `aadb612` | merged after local gate and hosted CI | 82/2174, 698.1 s, layout 554, smoke 352 |
+| Stretch #13 item 11 | `claude/b11-impairments` | #13 draft | this commit, contains `origin/build3` `6a28951` | guide sentences fixed; focused 56/14/6; full gate not run yet | not a full gate |
 | Stretch #15 item 15 | `claude/b15-fiber` | #15 draft | `f2f7e02` | waiting | not run by Grok |
 | Stretch #16 item 17 | `claude/b17-highsplit` | #16 draft | `c639ea8` | waiting | not run by Grok |
 | Stretch #18 item 18 | `claude/b18-why-cards` | #18 draft | `ed7f29c` | waiting | not run by Grok |

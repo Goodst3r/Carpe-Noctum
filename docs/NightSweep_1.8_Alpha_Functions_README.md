@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 47 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 30 task screens and 48 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise now has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; the custom-curves exercise now has 15 steps.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **30 task screens** and **48** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **16**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [Impairments](#impairments) is feature 48 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → Impairments then adds the impairment cards and feature 48, which is the sixteenth custom-curves guide step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -29,21 +29,22 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 17. [Limits and sources](#limits-and-sources)
 18. [DOCSIS health card](#docsis-health-card)
 19. [Leakage](#leakage)
-20. [Power-supply load](#power-supply-load)
-21. [Power what-if](#power-what-if)
-22. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-23. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-24. [Pre-work safety](#pre-work-safety)
-25. [Outage first response](#outage-first-response)
-26. [Project records and closeout](#project-records-and-closeout)
-27. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-28. [Offline use, updates and Help](#offline-use-updates-and-help)
-29. [Checked example answers](#checked-example-answers)
-30. [Station worksheet](#station-worksheet)
-31. [Night log and shift handoff](#night-log-and-shift-handoff)
-32. [Sweep due](#sweep-due)
-33. [47-feature coverage index](#47-feature-coverage-index)
-34. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
+20. [Impairments](#impairments)
+21. [Power-supply load](#power-supply-load)
+22. [Power what-if](#power-what-if)
+23. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+24. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+25. [Pre-work safety](#pre-work-safety)
+26. [Outage first response](#outage-first-response)
+27. [Project records and closeout](#project-records-and-closeout)
+28. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+29. [Offline use, updates and Help](#offline-use-updates-and-help)
+30. [Checked example answers](#checked-example-answers)
+31. [Station worksheet](#station-worksheet)
+32. [Night log and shift handoff](#night-log-and-shift-handoff)
+33. [Sweep due](#sweep-due)
+34. [48-feature coverage index](#48-feature-coverage-index)
+35. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
 35. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
@@ -54,7 +55,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -100,7 +101,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, attached sweep grading, DOCSIS health, leakage, pre-work safety and outage first response | 15 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response and impairment cards | 16 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -446,6 +447,33 @@ Checked worked numbers: 25 µV/m analog at 3 m and 121.2625 MHz is **5 µV/m ove
 
 What this screen leaves out on purpose: the airspace measurement alternative, the correction for a test frequency outside 108–137 MHz, tracking of the quarterly aeronautical-band monitoring, the half-wave dipole voltage to field-strength conversion, per-job leak logs and live detector or GPS data.
 
+## Impairments
+
+**Where:** Test → Impairments. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find an impairment from what the meter shows.
+
+Pick what the meter or spectrum display shows, from ten pictures, and read the matching card: **what it looks like**, **what usually causes it**, **what it is easily mistaken for** and **five steps: analyze, localize, prioritize, repair, validate**. It is your own aid and **not your company's procedure**, nothing is read from a meter or modem, and nothing is saved in the job or on the device. What a card says about the look and the causes follows SCTE 280 2022, paraphrased and cited by section; the five-step order is the workflow of SCTE's April 2026 PNM course series; the steps under each are general practice, labeled Expert.
+
+| You see | Card | Source |
+| --- | --- | --- |
+| A regular ripple repeating across the spectrum | Standing wave | SCTE 280 §9.7 to §9.7.3 |
+| One notch spanning a few channels | Suckout | SCTE 280 §9.3 |
+| One hump that rises and falls, sometimes with a dip | Resonant peaking | SCTE 280 §9.5 |
+| Levels falling away gradually toward the top of the band | Roll-off | SCTE 280 §9.6 |
+| A steady slope across the band | Tilt | SCTE 280 §9.8 heading only; SCTE PNM series (body not read, so the card says so) |
+| Every frequency lower by about the same amount | Excessive flat loss | SCTE 280 §9.9 heading only; SCTE PNM series (body not read, so the card says so) |
+| Narrow spikes at fixed frequencies, such as FM or VHF | Ingress | SCTE 280 §9.4.2, §9.4.4; SCTE 294 2024r1 |
+| Interference high in the downstream, above about 600 MHz | Cellular (LTE) ingress | SCTE 280 §9.4.3 |
+| A raised upstream floor or haystacks that go with the downstream signals | Common path distortion | SCTE 280 §9.4.7; SCTE 294 2024r1 |
+| Short wide-band bursts in the upstream | Impulse and burst noise, such as power-line gap noise | SCTE 280 §9.4.6; SCTE 294 2024r1 |
+
+**The standing-wave card finds two mismatches on your saved route.** Enter the ripple spacing between neighbouring peaks (MHz) and the cable's velocity of propagation. The distance between the two mismatches is 492 × VP ÷ spacing, in feet; the card shows it with the same calculator as Test → Calculators and lists the pairs of points on the saved route whose cable distance is within a search width of it (10 percent unless you change it for that search). A pair is the launch point or a point's far end of a span and a later point on the same path, so a candidate can span several cables; parallel branches are never added. Each candidate is a place to look at both ends, not a finding: a mismatch can be a connector, splitter, tap, amplifier input or the cable itself, and the real pair may lie outside the saved route. The search width is registered in Test → Limits as an Expert value; no source sets it.
+
+Checked worked numbers: a 1.7 MHz ripple on 0.87 VP cable is **251.7 ft** and, on the sample route, points to the 250 ft span from Tap 1 to Tap 2; a 4.3 MHz ripple on 0.87 VP cable is **99.5 ft** and, on the custom-curves practice route, points to its two 100 ft spans.
+
+**The list follows the working job.** It is recomputed whenever the route or job changes while this screen is open, including Files → Open project and switching to another job; opening a project that has no route clears the old places and says the route has no point with a valid distance. Each number box has its own label, and the two Expert tags beside the heading and the search width are separate 44 px controls.
+
+What this screen leaves out on purpose: reading peaks off a sweep, any live capture, amplitude or depth limits (those are your company's), PNM data from modems, impairments of the node or headend, and the cards for amplifier distortion noise, HPNA, OBI, filters and missing channels, pullout and adjacent-channel alignment (named in the SCTE series but not built here).
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -739,7 +767,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 47-feature coverage index
+## 48-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -764,27 +792,27 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 17 | Original files and supported CSV <!-- feature:evidence --> | [Evidence](#onx-files-original-evidence-and-comparisons) | Complete |
 | 18 | Leakage, maintenance and conversion <!-- feature:checklists --> | [Checklists](#field-checklists-and-unit-conversion) | Complete |
 | 19 | Forward, return, punch and review <!-- feature:records --> | [Records](#project-records-and-closeout) | Complete |
-| 20 | Run sheet, share, print and CSV exports <!-- feature:runsheet --> | [Exports](#run-sheet-exports-and-full-backups) | Complete |
-| 21 | Six serial active devices <!-- feature:six-active-cascade --> | [Practice library](#practice-library-and-example-selection), [checked answers](#checked-example-answers) | Six actives |
-| 22 | Entered amplifier gain table <!-- feature:gain-table --> | [Gain](#amplifier-gain-and-test-point-helper) | Six actives |
-| 23 | Derive gain from two corrected readings <!-- feature:gain-test-points --> | [Gain helper](#amplifier-gain-and-test-point-helper) | Complete |
-| 24 | Tap faces and RG-6 drop splitter <!-- feature:tap-drop --> | [Point tools](#cable-route-branches-and-point-tools) | Complete; explicit custom loss |
-| 25 | Map note and step-by-step arithmetic <!-- feature:map-arithmetic --> | [Point tools](#cable-route-branches-and-point-tools) | Custom curves |
-| 26 | Custom cable and passive loss tables <!-- feature:custom-tables --> | [Cable route](#cable-route-branches-and-point-tools) | Custom curves |
-| 27 | Manual source and launch table <!-- feature:launch-table --> | [RF setup](#rf-setup-and-launch-source) | Custom curves |
-| 28 | Reverse TDR and velocity correction <!-- feature:reverse-tdr --> | [TDR](#tdr-distance-locator) | Custom curves |
-| 29 | Available carriers and local targets <!-- feature:available-carriers --> | [References](#field-references-and-target-conversions) | DSIM |
-| 30 | OEM AGC installed control path <!-- feature:oem-agc --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | OEM AGC |
-| 31 | DSIM and historical pilot-code lookup <!-- feature:dsim-pilot --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | DSIM |
-| 32 | Manual / thermal installed control path <!-- feature:manual-thermal --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | Manual / thermal |
-| 33 | Conventional GS7K procedure <!-- feature:gs7k-setup --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | GS7K node |
-| 34 | dBµV ↔ dBmV conversion <!-- feature:db-units --> | [Unit conversion](#field-checklists-and-unit-conversion) | Complete |
-| 35 | Return injection and receiver records <!-- feature:return-injection --> | [Records](#project-records-and-closeout), [sweep setup](#forward-and-return-sweep-setup) | Complete |
-| 36 | Before / after evidence comparison <!-- feature:evidence-comparison --> | [Evidence](#onx-files-original-evidence-and-comparisons) | Complete |
-| 37 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
-| 38 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
-| 39 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
-| 40 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
+| 20 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
+| 21 | Run sheet, share, print and CSV exports <!-- feature:runsheet --> | [Exports](#run-sheet-exports-and-full-backups) | Complete |
+| 22 | Six serial active devices <!-- feature:six-active-cascade --> | [Practice library](#practice-library-and-example-selection), [checked answers](#checked-example-answers) | Six actives |
+| 23 | Entered amplifier gain table <!-- feature:gain-table --> | [Gain](#amplifier-gain-and-test-point-helper) | Six actives |
+| 24 | Derive gain from two corrected readings <!-- feature:gain-test-points --> | [Gain helper](#amplifier-gain-and-test-point-helper) | Complete |
+| 25 | Tap faces and RG-6 drop splitter <!-- feature:tap-drop --> | [Point tools](#cable-route-branches-and-point-tools) | Complete; explicit custom loss |
+| 26 | Map note and step-by-step arithmetic <!-- feature:map-arithmetic --> | [Point tools](#cable-route-branches-and-point-tools) | Custom curves |
+| 27 | Custom cable and passive loss tables <!-- feature:custom-tables --> | [Cable route](#cable-route-branches-and-point-tools) | Custom curves |
+| 28 | Manual source and launch table <!-- feature:launch-table --> | [RF setup](#rf-setup-and-launch-source) | Custom curves |
+| 29 | Reverse TDR and velocity correction <!-- feature:reverse-tdr --> | [TDR](#tdr-distance-locator) | Custom curves |
+| 30 | Available carriers and local targets <!-- feature:available-carriers --> | [References](#field-references-and-target-conversions) | DSIM |
+| 31 | OEM AGC installed control path <!-- feature:oem-agc --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | OEM AGC |
+| 32 | DSIM and historical pilot-code lookup <!-- feature:dsim-pilot --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | DSIM |
+| 33 | Manual / thermal installed control path <!-- feature:manual-thermal --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | Manual / thermal |
+| 34 | Conventional GS7K procedure <!-- feature:gs7k-setup --> | [Equipment controls](#installed-equipment-manuals-and-control-paths) | GS7K node |
+| 35 | dBµV ↔ dBmV conversion <!-- feature:db-units --> | [Unit conversion](#field-checklists-and-unit-conversion) | Complete |
+| 36 | Return injection and receiver records <!-- feature:return-injection --> | [Records](#project-records-and-closeout), [sweep setup](#forward-and-return-sweep-setup) | Complete |
+| 37 | Before / after evidence comparison <!-- feature:evidence-comparison --> | [Evidence](#onx-files-original-evidence-and-comparisons) | Complete |
+| 38 | Portable backup and recovery <!-- feature:backup-roundtrip --> | [Full backups](#run-sheet-exports-and-full-backups) | Complete |
+| 39 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
+| 40 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
 | 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
 | 43 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
@@ -792,6 +820,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 45 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
 | 46 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 | 47 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
+| 48 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
 
 ## Build 3 attached sweep grading aid
 

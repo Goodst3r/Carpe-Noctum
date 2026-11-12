@@ -2,6 +2,24 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · close-out merged
+
+Pull request #24 merged at 2026-11-12T05:19:08Z. Merge commit `6a28951122e2197211d569150b6d9f721df31f43`. Head that was gated and reviewed: `aadb612`. Local gate 82/2,174, 698.1 s, layout 554, smoke 352, clean, standalone `b1591b4d…e4de`. Hosted CI [run 43159076654](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43159076654). AUDIT comment says clean, ready to merge, and that it is not a second lane. **D3: one run (Grok).**
+
+Merged `origin/build3` into `claude/b11-impairments` after that (merge commit on this branch). No conflict. The item 11 guide fix was already committed locally as `40ff2c5`.
+
+## November 12, 2026 · item 11 guide fix prepared locally
+
+On `claude/b11-impairments` in a separate worktree, merged close-out `aadb612` (not yet the GitHub merge commit). Resolved the README table to six-active Night log/Sweep due **and** custom curves **16**, including Impairments. Changed the stale "custom curves 15", "fifteen steps", "47 choices" and "custom curves **15**" sentences. Rewrote the Functions opening paragraph so the current total is 30 screens / 48 features / custom curves 16, and "15 steps" is only "before Impairments". Rendered the main README, Training Coverage, Functions and the installation guide with `marked` 18.2.0. Rebuilt with `python3 night-sweep/build.py` and `python3 build-pwa.py`. PWA content id `7bfb1f0b74575f6d1257`.
+
+Focused commands, exit 0:
+
+- `node qa/sweep-grading-ui.test.cjs` — 56 checks
+- `node qa/build3-impairments.test.cjs` — 14 checks, 1940 comparisons
+- `node qa/ui-names.test.cjs` — 6 checks
+
+Not pushed. Not a full gate. Not hosted CI. The pull request body is not refreshed yet. This is not a merge.
+
 ## November 12, 2026 · own gate on `6f8512c` is green
 
 Docs-only child of `afba6cb`. Same Chromium and `NIGHTSWEEP_SUITE_TIMEOUT=3600`. Clock 2026-11-12T04:52:29Z–05:04:21Z. Log `/tmp/grok-gate-6f8512c.log`.

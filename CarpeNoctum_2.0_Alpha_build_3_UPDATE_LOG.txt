@@ -16,6 +16,14 @@ Required core on that branch before this close-out: f467e5261295449f94dd232ab399
   (items 1 to 10 and 13, including the Station native-input follow-up).
   Stretch items 11, 12 and 14 to 20 are not on that commit.
 
+This checkout is claude/b11-impairments, which adds item 11 on top of that
+core. Counted from this branch's source (not a second jsdom of f467):
+30 task screens, 48 feature choices, practice steps 22/16/16/8/9/7/10.
+thresholds.js returns 112 rows alone; EvidenceArchive.limits adds 3 when the
+full app has loaded, so the running registry is 115. build.py has 42 module
+splice lines, plus the separate DSIM pilot-code insertion. Safety reminders
+remain 33.
+
 No deployment, APK, physical phone installation or plant acceptance is
 claimed. Storage keys, package ID and the job file format are unchanged.
 Saved-job changes on the branch are additive.
@@ -238,6 +246,29 @@ EARLY-SESSION CHANGES (items 1, 2 and 4; later items are in the lane sections)
      prepares a short note to check before sharing. New Job sub-tab: Outage.
    - Practice: the custom-curves exercise gains a step (fourteen in total)
      and the feature index gains entry 43.
+
+10. Impairment decision tree and signature cards (build list item 11), Test -> Impairments
+   - Pick what the meter or spectrum shows (ten pictures) and read the
+     matching card: what it looks like, what usually causes it, what it is
+     easily mistaken for, and five steps (analyze, localize, prioritize,
+     repair, validate). Cards: standing wave, suckout, resonant peaking,
+     roll-off, tilt, excessive flat loss, ingress, cellular (LTE) ingress,
+     common path distortion, impulse and burst noise.
+   - Looks and causes follow SCTE 280 2022 (paraphrased, cited by section);
+     the five-step order is the workflow of SCTE's April 2026 PNM series;
+     the steps under each card are general practice labeled Expert. The
+     tilt and flat-loss cards say the source text was not read. It is the
+     technician's own aid, not a company procedure. Sources and what was
+     read: research/build3/IMPAIRMENT_SOURCES.md.
+   - The standing-wave card gives the distance between two mismatches
+     (492 x VP / ripple spacing, the Calculators formula) and lists the
+     pairs of points on the saved route that far apart, within a search
+     width (10 percent, changeable for one search, a registered Expert
+     value). A candidate is a place to look first, not a finding.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (fifteen in total)
+     and the feature index gains entry 44.
 
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each

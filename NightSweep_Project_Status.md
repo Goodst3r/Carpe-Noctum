@@ -2,7 +2,7 @@
 
 ## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Integration branch **`build3`**. This section describes the required core on that branch, not the open stretch pull requests. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
+Integration branch **`build3`**. The paragraphs that follow were written for the required core. On this branch they are updated for item 11 (Test → Impairments). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
 A third assistant, Grok, took over on November 12, 2026 after Lane A (ChatGPT) and Lane B (Claude) stopped. Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md`, `handoff_docs/lanes/codex-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
@@ -12,14 +12,14 @@ From `outputs/Night_Sweep.html` as committed on `f467e52`, loaded in jsdom (Node
 
 | Count | What |
 | --- | --- |
-| 29 | task screens (`WorkflowUI.screens`, including Help) |
-| 47 | Practice library feature choices |
-| 22 / 16 / 15 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 114 | registry rows (`Thresholds.rows.length`) |
-| 41 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
+| 30 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
+| 48 | Practice library feature choices, counted from `training.js` `features` |
+| 22 / 16 / 16 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
+| 115 | registry rows in the running app: `thresholds.js` returns 112 when loaded alone, and `EvidenceArchive.limits` adds 3 (input bytes, decoded bytes, ZIP entries) when the full app has loaded. The required-core close-out's jsdom count of 114 is that core, before this one impairment row |
+| 42 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 33 | default Safety reminders, counted by reading the `ITEMS` array in `night-sweep/safety.js` |
 
-`docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This close-out does not merge them.
+`docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
 
 | Build list item | Status on this branch |
 | --- | --- |
@@ -33,10 +33,12 @@ From `outputs/Night_Sweep.html` as committed on `f467e52`, loaded in jsdom (Node
 | 8. Outage | **On the branch** (Lane B). Job → Outage. **Supervisor review needed** against the local outage procedure before coworkers use it. |
 | 9. Safety | **On the branch** (Lane B). Job → Safety. **Supervisor or safety officer review needed** before coworkers use it. |
 | 10. Sweep due | **On the branch** (Lane A). Job → Sweep due. The interval starts unknown. |
+| 11. Impairment decision tree | **On this branch** (Lane B stretch, pull request #13). Test → Impairments. Ten cards, five steps each, standing-wave distance from the calculators formula. Tilt and flat loss say the source text was not read. |
 | 13. Imported sweep grading | **On the branch** (Lane A). Job → ONX files → Grading aid. Synthetic fixtures only. |
-| 11, 12, 14–20 | **Not on this branch.** Draft pull requests #13, #15, #16, #18, #19 and #20 cover items 11, 15, 17, 18, 20 and 19. Items 12, 14 and 16 are not started. |
+| 12, 14–20 | **Not on this branch.** Draft pull requests #15, #16, #18, #19 and #20 cover items 15, 17, 18, 20 and 19. Items 12, 14 and 16 are not started. |
 
-D1 and D2 are met on `f467e52`. D4 is this paperwork. D5 is the final handoff. D3 needs a full gate on the head after the guides are re-rendered, because `build-pwa.py` copies those guides into `dist/`. Lane A and Lane B each reported a green gate on the pre-paperwork tree `f467e52` (their counts, not mine). Grok's gate is recorded in `handoff_docs/FINAL_HANDOFF.md` and is one run, so D3 stays for the owner to accept.
+The required core without item 11 is `f467e52` (29 screens, 47 features, custom curves 15). This branch adds item 11. D3 for the core close-out is one Grok run and is for Spencer to accept. This feature branch still needs its own gate.
+
 
 ### What changed
 
@@ -46,7 +48,7 @@ The bullets below are the feature notes from the sessions that built them. They 
 - **Registry (`night-sweep/thresholds.js`):** every row is labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile, the 42/54 meter-setup TX reference, station worksheets, the grading aid, sweep-due interval, DOCSIS windows, leakage settings, or the built-in 31/43/38 local preset). Blank is unknown and never zero. The first registry pass described 27 rows. The merged core's live list is **114** rows (counted above). Two existing app approximations stay labeled Unknown: the 0.1 %/°F cable temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). Example targets on older screens (Test → References workbook and sample targets, plant-picker starting levels) are not registered yet.
 - **Calculators (`night-sweep/field-calcs.js`):** offline, deterministic, no job or storage writes. Invalid or missing input gives a reason, never a number. VP comes from catalog cables that list one (four today) or is typed in.
 - **Tilt/EQ/pad solver (`night-sweep/alignment.js`):** level error at each pilot, tilt error and the direction to move each control for any model. For GainMaker 1 GHz system amplifiers and line extenders it picks the input EQ for tilt, then the input pad for level at the high pilot, from Cisco's published values (pads 0–20.5 dB in 0.5 dB steps; 1 GHz cable EQs 1.5–30 dB with their loss chart at 52–1000 MHz), and predicts the levels after the change. It never offers a value outside that list, never interpolates across the chart's 86–550 MHz gap, and leaves out the uncharted 0 dB jumper, inverse EQs and 870 MHz EQs. Quantum18 HGD and HGBT align electronically in AOI's QuantumLink Local app and the LE has no public procedure or pad/EQ list, so all three get a note instead of picks; the BA gives pad direction in its sourced 2 dB steps. Advice is worded from the pick, with the GainMaker procedure's ±0.5 dB window, and pilots must sit inside the model's forward band. Sources: `research/build3/PAD_EQ_SOURCES.md`.
-- **Practice:** seven exercises, 22 / 16 / 15 / 8 / 9 / 7 / 10 steps, and 47 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage and the grading aid. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
+- **Practice:** seven exercises, 22 / 16 / 16 / 8 / 9 / 7 / 10 steps, and 48 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage, the grading aid and the impairment cards. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
 - **QA:** `qa/build2-layout.test.py` now honors `NIGHTSWEEP_CHROMIUM`. New suites: `build3-registry.test.cjs`, `build3-field-calcs.test.cjs` (app output against independent 50-digit decimal references in `research/build3/field-calcs-reference.json`) and `build3-layout.test.py` (rendered Chromium, run separately like `browser-smoke.py`).
 
 - **DOCSIS health card (`night-sweep/docsis-health.js`, Test → DOCSIS health):** four cards compare a reading with what a cable modem must accept or transmit: downstream SC-QAM level (−15 to +15 dBmV per 6 MHz, PHYv3.0 C01 Table 6–22), downstream OFDM level (−15 to +15 per 6 MHz and −9 to +21 per 24 MHz as printed, PHYv3.1 I20 Table 45; other widths derived and tagged Expert), total input power (strictly below 40 dBmV for a 3.1 modem, 33 for a 3.0-only modem) and upstream headroom to Pmax (65 dBmV default, PHYv3.1 I20 7.4.12.2). These are capability limits, not targets. Company windows start unknown, blank is never zero, and they are kept on this device only under the new key `nightsweep-docsis-windows-v1`, separately for the 42/54 and 204/258 plants, outside the job and its backups. Ten registry rows. Not covered: MER and SNR, per-channel upstream power, the 10 dB channel-spread rule, DOCSIS 4.0, EuroDOCSIS.
@@ -56,6 +58,8 @@ The bullets below are the feature notes from the sessions that built them. They 
 - **Pre-work safety card (`night-sweep/safety.js`, Job → Safety) and the shared checklist engine (`night-sweep/checklist.js`):** thirty-three reminders in eight sections (before you leave, protective equipment, vehicle and traffic, ladders and climbing, electrical, digging and underground, fiber and laser, before you leave the site), opening with "Follow company policy". The wording is original, with no numbers, limits or copied NCTI or SCTE text, so it adds no registry row. The technician can reword, hide and add items, tick them, and type a role of who knows where they are, a check-in time and where the company keeps its safety policy. Everything is kept on this device only under `nightsweep-safety-v1`, outside the job and its backups. A browser that will not store a change keeps it for the page and writes it with the next change that saves; unreadable data is copied aside before it is replaced (and is left untouched, with the change held for the page, when the copy cannot be made), a half-filled check-in time is refused with the reason under the box instead of saving a blank, and data from a newer version is never overwritten. The engine is reused by the outage first-response card. A supervisor or safety officer has not reviewed the list.
 
 - **Outage first-response card (`night-sweep/outage.js`, Job → Outage):** twenty-four prompts in eight sections on the shared checklist engine, opening with "Follow your company's outage procedure first". Original wording, no numbers or limits (no registry row), no customer names, addresses, phone numbers or account numbers, no photos or locations. Notes: a plant place, four times, what was found, who was told as a role, and three optional damage or theft notes. Kept on this device only under `nightsweep-outage-v1`, outside the job and its backups; Start a new call clears the ticks and notes. It points at SCTE's 2026 Critical Infrastructure Protection Subcommittee only to say its evidence-collection standard is not implemented. **A supervisor has not reviewed it against the local outage procedure; that review is the release condition.**
+
+- **Impairment cards (`night-sweep/impairments.js`, Test → Impairments):** ten pictures lead to ten cards (standing wave, suckout, resonant peaking, roll-off, tilt, flat loss, ingress, LTE ingress, CPD, impulse), each with what it looks like, causes, look-alikes and the five-step workflow (analyze, localize, prioritize, repair, validate). Looks and causes follow SCTE 280 2022, paraphrased; the steps are general practice labeled Expert; tilt and flat loss say the source text was not read. The standing-wave card turns a ripple spacing and VP into a distance (the Calculators formula) and lists candidate pairs of points on the saved route within a ±10% search width (a registered Expert value). Nothing is read from a meter or stored; no job-format or storage-key change.
 
 ### Independent review
 

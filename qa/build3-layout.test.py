@@ -104,6 +104,13 @@ FILL_OUTAGE_EDIT = '''() => {
   set('[data-check-text="scope-what"]', 'Reworded '.repeat(17).trim());
   document.querySelector('[data-check-hide="rec-restored"]').click();
 }'''
+FILL_IMP = '''() => {
+  const pick = id => { const el = document.querySelector(`input[name=impShape][value="${id}"]`); el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); };
+  const set = (sel, v) => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); };
+  pick('ripple');
+  state.rows[0].name = 'N'.repeat(70);
+  set('[data-imp=spacing]', '1'); set('[data-imp=vp]', '0.87');
+}'''
 CHECK_CONTRAST = '''(sel) => {
   const lum = c => { const v = c.match(/[\\d.]+/g).slice(0, 3).map(Number).map(x => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
   const bg = el => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const m = c.match(/[\\d.]+/g); if (m && (m.length < 4 || Number(m[3]) > 0.99)) return c; } return 'rgb(255,255,255)'; };
@@ -300,6 +307,20 @@ try:
                 check(f'{label} Outage text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
                 check(f'{label} Outage opens with the company-policy line before any checklist item', page.evaluate("(()=>{const p=document.querySelector('#outagePanel .check-policy'),s=document.querySelector('#outagePanel .check-section');return /^Follow your company’s outage procedure/.test(p.textContent)&&!!(p.compareDocumentPosition(s)&4)})()"))
                 check(f'{label} Outage shows the count in words', page.evaluate("/^\\d+ of \\d+ ticked$/.test(document.querySelector('#outagePanel .check-progress').textContent.trim())"))
+                page.evaluate("WorkflowUI.go('impairments')")
+                page.evaluate(FILL_IMP)
+                check(f'{label} Impairments fits without sideways scrolling, with a 70-character unbroken point name in the candidate table', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                boxes = page.evaluate("[...document.querySelectorAll('#impairmentsPanel .imp-picker, #impairmentsPanel .imp-card, #impairmentsPanel .imp-tool')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                check(f'{label} the Impairments picker, card and tool stay inside the viewport', len(boxes) >= 3 and all(l >= -1 and r <= width + 1 for l, r in boxes))
+                check(f'{label} Impairments text wraps inside its box and the candidate table scrolls inside its own region', page.evaluate("(()=>{const region=document.querySelector('#impairmentsPanel .table-scroll');return !!region&&getComputedStyle(region).overflowX==='auto'&&[...document.querySelectorAll('#impairmentsPanel .imp-shape span, #impairmentsPanel .imp-card li, #impairmentsPanel .imp-card p')].every(s=>s.scrollWidth<=s.clientWidth+1)})()"))
+                check(f'{label} each Impairments picture is a 44 px row with a tick target of at least 24 px', page.evaluate("(()=>{const rows=[...document.querySelectorAll('#impairmentsPanel .imp-shape')];return rows.length===10&&rows.every(r=>r.getBoundingClientRect().height>=44&&r.querySelector('input').getBoundingClientRect().width>=24)})()"))
+                inputs = page.evaluate("[...document.querySelectorAll('#impairmentsPanel input[type=number]')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Impairments inputs keep field-sized controls', len(inputs) == 3 and min(inputs) >= 40)
+                sizes = page.evaluate("[...document.querySelectorAll('#impairmentsPanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
+                check(f'{label} Impairments source tags are at least 24 px tap targets', len(sizes) >= 2 and all(w >= 24 and h >= 24 for w, h in sizes))
+                ratios = page.evaluate(CHECK_CONTRAST, '#impairmentsPanel .imp-shape span, #impairmentsPanel .imp-card p, #impairmentsPanel .imp-card li, #impairmentsPanel legend, #impairmentsPanel .note, #impairmentsPanel .health-status')
+                check(f'{label} Impairments text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
+                check(f'{label} Impairments shows the distance and the candidate places in words', page.evaluate("(()=>{const t=document.getElementById('impRippleResult').textContent;return /Distance between the two mismatches\\s*427\\.\\d ft/.test(t)&&/2 candidate places on the saved route/.test(t)})()"))
                 page.evaluate("WorkflowUI.go('limits')")
                 check(f'{label} limits list fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 ratios = page.evaluate(CONTRAST)
@@ -316,7 +337,7 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel','outagePanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel','outagePanel','impairmentsPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)
