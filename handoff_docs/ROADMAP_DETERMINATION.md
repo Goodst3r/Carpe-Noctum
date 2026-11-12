@@ -12,7 +12,7 @@ ChatGPT's critique (`handoff_docs/reviews/chatgpt-roadmap-critique.md`, branch `
 2. **There is already an upstream transmit headroom card** in DOCSIS health (`docsis-health.js` around line 86). Revision 1 missed it. Its number is composite margin to Pmax, not per-channel headroom. Fixing its wording is now the first P0 item.
 3. **The 1.6 to 6.4 MHz conversion already exists** in the OFDM power calculator. No new converter.
 4. **Storage list was incomplete:** add the named-job library `hfc-named-jobs-v1`. The evidence store `nightsweep-evidence-v1` is an IndexedDB database, not a localStorage value.
-5. **A project backup is the working job only.** Named jobs and device settings (DOCSIS windows, leak notebook, Safety, Outage) are outside it. The phone check now starts with backing up every job and writing down device settings.
+5. **A project backup is the working job only.** The other named jobs and device settings (DOCSIS windows, leak notebook, Safety, Outage) are outside it; the open job's original attachments are included. The phone check now starts with backing up every job and writing down device settings.
 6. **Help (`help`) was missing from the screen map.** It stays in the header.
 7. **Checklists is not a repair tracker.** It has five fixed maintenance entries with done and notes. A grounding/bonding check already exists there.
 8. **No backup or export time is stored.** A "last backup" line must never claim a file was saved just because an export started.
@@ -35,6 +35,8 @@ This file was written in a claude.ai session running Fable 5.2, not Sonnet 5.5 a
 "Grok writes the feature branches" is my reading of "heavy lifter". Spencer, say so if you want a different writer.
 
 ## What I checked, and against which commit
+
+*Revision 1 history.* This table describes `build3` at `e7313cf`. Current facts are in the Revision 2 list above: `b4cb832`, 13 Test tabs, #15 and #16 merged.
 
 Read-only, on `origin/build3` = `e7313cf6dd5702a7263160d4f56ab2ba373fbaf4` (fetched Nov 12). I read `night-sweep/workflow.js`, the header and bottom bar in `night-sweep/shell.html`, the storage keys, `handoff_docs/FINAL_HANDOFF.md`, `KNOWN_GAPS.md`, `lanes/grok-status.md` and the open pull request list. I ran no tests for this file.
 
@@ -61,7 +63,7 @@ Offline only. No customer names, addresses, account numbers or modem MACs. Compa
 ## Order of work
 
 1. **Before any branch work:** the checks in "Re-check first" below, and Spencer's acceptance of build 3 (D3 is one Grok run, not two lanes).
-2. **Finish the stretch stack that is already in review** (#15, #16, #18, #19, #20) and #25, one at a time, each with its own gate. Do not start A5 to A7 (items 14, 16, 12) yet.
+2. **Finish the stretch stack that is already in review** (#18, #19, #20; #15 and #16 merged as of revision 2) and #25 separately, one at a time, each with its own gate. Do not start A5 to A7 (items 14, 16, 12) yet.
 3. **NAV-1: the navigation regroup.** One writer, one pull request, no features.
 4. **P0 items**, in the order given under "P0 determination".
 5. A5 to A7 and the medium-term items, placed in the new groups.
@@ -106,10 +108,10 @@ NAV-1 exit criteria, replacing the roadmap's list:
 
 **Revision 2 build order** (replaces the order of the table below; the table's details still apply except where noted):
 
-1. **Headroom wording fix (new, small).** Relabel the existing DOCSIS health headroom result as composite margin to the entered Pmax, for that reading. Say what it cannot tell you (per-channel room, DRW, channel count and width). Say that a blank Pmax uses 65 dBmV, the lowest allowed, not the modem's real capability. No new math.
+1. **Headroom wording fix (new, small).** Relabel the existing DOCSIS health headroom result as composite margin to the entered Pmax, for that reading. The label only fits when the entered reading is a real simultaneous total at the modem's F-connector; a per-channel status-page number does not become a total by renaming the result. Keep the 3.0 compatibility-mode caveat. Say what it cannot tell you (per-channel room, DRW, channel count and width). Say that a blank Pmax uses 65 dBmV, the specification's lowest allowed value in 3.1 operation; the blank field does not show the modem's real capability. No new math.
 2. **Night log fixes, then the intermittent-ingress entry (P0-6).** Add Remove/Undo and stop blank entries using a slot first.
 3. **Temporary-repair follow-up (P0-2)**, as structured entries next to the Checklists maintenance notes, with open or closed status.
-4. **Tonight list (P0-1).** Show "never" or "unknown" for backup and export times; no stored time exists today.
+4. **Tonight list (P0-1).** Show "Unknown: no recorded backup time" and "Unknown: no recorded handoff export time". No time is stored today, and that does not prove no backup happened.
 5. **Context strip (P0-3).**
 6. **Exact resume (P0-8)**, after the phone interruption checks.
 7. **Power-sum calculator (P0-4)**, using ChatGPT's section 2 formulas, worked cases and refusal rules. No correlated add.
@@ -127,7 +129,7 @@ Revision 1 table, in its original order:
 | P0-3b | Leakage-method reminder | **Defer the method text.** | The only detector the app names is the Arcom Digital QS-NAVPLUS-OUDP (#25). The company's leakage method and tag settings start Unknown. Do not write OUDP or legacy-tag steps until the Arcom manual and the High split registry rows (#16) are in. A one-line pointer to Test → High split is fine once #16 merges. |
 | P0-1 | Tonight open-items list | **Keep.** | Version 1 reads only what is already stored: Station stages not marked balanced or swept, and Sweep due. Add open temporary repairs when P0-2 lands. "Unexported night log" and "last backup" need a timestamp the app may not store today (not re-verified); if so, that is a new device-local key, never a job-format change. |
 | P0-4 | Power-sum and composite-power calculator | **Keep.** | Three sums: uncorrelated add, N equal carriers, and signal-plus-noise minus noise. It must refuse a total that is not above the noise, and say why. Correlated (voltage) addition is left out of version 1. ChatGPT checks the formulas and edge cases before Grok builds. Registry rows and an independent reference are required. |
-| P0-5 | Upstream headroom card | **Split.** Conversion now, headroom deferred. | The 1.6 to 6.4 MHz step is 10·log10(4) = 6.02 dB and belongs with the existing OFDM power calculator; do not build a second converter. The "headroom to a ceiling" part waits for two things: ChatGPT's check of the maximum transmit rules in the DOCSIS 3.1 PHY specification (they depend on channel count and width, and open question 3 on the DOCSIS card is unresolved), and a company ceiling from Spencer's supervisor. |
+| P0-5 | Upstream headroom card | **Split.** Conversion now, headroom deferred. | The 1.6 to 6.4 MHz step is 10·log10(4) = 6.02 dB and belongs with the existing OFDM power calculator; do not build a second converter. The "headroom to a ceiling" part waits for two things: ChatGPT's check of the maximum transmit rules in the DOCSIS 3.1 PHY specification (they depend on channel count and width, (rev. 2: open question 3 is a separate downstream question and is not a prerequisite here), and a company ceiling from Spencer's supervisor. |
 | P0-6 | Intermittent-ingress record | **Keep, changed.** | An entry type in Job → Night log (conditions, time, what was tried, weather typed by hand), not a new screen or store. First fix the two Night log gaps in `KNOWN_GAPS.md`: no Remove or Undo for an entry, and a blank Add using one of the 200 slots. |
 | P0-2 | Temporary-repair tracker | **Keep, changed.** | Read `night-sweep/field-work.js` first: Job → Checklists already holds repair notes (not re-verified what it stores). Extend that instead of building a second repair list. Station or span names only, no address field, additive job field. Spencer should tell his supervisor it is a personal reminder list, not the record. |
 | P0-8 | Exact resume | **Keep, reduced.** | Return to the last screen and the selected active for the working job, from a new device-local key. Restoring scroll position and half-typed fields waits for the real-phone check; Station already retains typed input (#23). |
@@ -139,7 +141,7 @@ Revision 1 table, in its original order:
 | --- | --- | --- |
 | Map symbol legend | Keep | The tech fills it in. Nothing copied from SCTE. The company legend may be internal. |
 | Spectrum analyzer setup card | Keep, gated | Only from VIAVI ONX documentation that somebody has actually opened. Not re-verified. |
-| Cascade noise and distortion calculator | Keep, narrowed (rev. 2) | Thermal noise / CNR only, with ChatGPT's section 4 assumptions. No CTB/CSO "plant health" number; the CSO shortcut does not hold for short cascades (under 10 amps). |
+| Cascade noise and distortion calculator | Keep, narrowed (rev. 2) | Thermal noise / CNR only, with ChatGPT's section 4 assumptions. No CTB/CSO "plant health" number; the 10·log(N) CSO approximation is not generally reliable for short identical cascades (its source qualifies N under 10). |
 | Bonding and grounding reminder | Already exists (rev. 2) | Checklists has a grounding/bonding check. Add context to it when item 16 is built; it is not a new feature. |
 | Ripple search width label (new, rev. 2) | Fix | `thresholds.js` labels the ±10% standing-wave search width Expert. It is the app's own choice: label it Unknown. Small Grok fix with a test. |
 | Generator pre-start checklist | Keep | Supervisor review, like the Outage card. |
@@ -177,5 +179,8 @@ On a real phone, by Spencer. Nobody has run any 2.0 build on a phone, so everyth
 6. iPhone Safari from the Home Screen, if an HTTPS link exists. Otherwise mark it untested.
 
 ## Not re-verified
+
+This is Claude's own verification scope. ChatGPT's critique has since closed the PDF, the data-model reads and some Reddit material; see its sections 1 and 7.
+
 
 The screen and feature counts after `f467e52`; the data models behind Station, Readings, Checklists and Night log; whether a backup or export timestamp exists; whether `WorkflowUI` supports sub-screens under Home; the DOCSIS maximum-transmit rules; anything about the Arcom unit beyond the maker and model on its label; every phone, emulator and field behavior. The pain-point evidence in the Nov 11 research still has no Reddit or Facebook material in it.
