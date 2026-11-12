@@ -1,0 +1,60 @@
+PASS pwa/430 OWN-CNR-ZERO exact six-significant DOM
+PASS pwa/430 OWN-CNR-ZERO output units
+PASS pwa/430 OWN-CNR-ZERO no sideways page overflow
+PASS pwa/430 OWN-CNR-EQUAL-ZERO exact six-significant DOM
+PASS pwa/430 OWN-CNR-EQUAL-ZERO output units
+PASS pwa/430 OWN-CNR-EQUAL-ZERO no sideways page overflow
+PASS pwa/430 OWN-CNR-TINY exact six-significant DOM
+PASS pwa/430 OWN-CNR-TINY output units
+PASS pwa/430 OWN-CNR-TINY no sideways page overflow
+PASS pwa/430 OWN-CNR-TINY-REORDER exact six-significant DOM
+PASS pwa/430 OWN-CNR-TINY-REORDER output units
+PASS pwa/430 OWN-CNR-TINY-REORDER no sideways page overflow
+PASS pwa/430 OWN-CNR-SUBTINY exact six-significant DOM
+PASS pwa/430 OWN-CNR-SUBTINY output units
+PASS pwa/430 OWN-CNR-SUBTINY no sideways page overflow
+PASS pwa/430 OWN-N1-NF0 exact six-significant DOM
+PASS pwa/430 OWN-N1-NF0 output units
+PASS pwa/430 OWN-N1-NF0 no sideways page overflow
+PASS pwa/430 OWN-SAFE-COUNT exact six-significant DOM
+PASS pwa/430 OWN-SAFE-COUNT output units
+PASS pwa/430 OWN-SAFE-COUNT no sideways page overflow
+PASS pwa/430 OWN-NEGATIVE-CNR exact six-significant DOM
+PASS pwa/430 OWN-NEGATIVE-CNR output units
+PASS pwa/430 OWN-NEGATIVE-CNR no sideways page overflow
+PASS pwa/430 OWN-FRACTIONAL-INPUTS exact six-significant DOM
+PASS pwa/430 OWN-FRACTIONAL-INPUTS output units
+PASS pwa/430 OWN-FRACTIONAL-INPUTS no sideways page overflow
+PASS pwa/430 OWN-OPTICAL-NEGATIVE exact six-significant DOM
+PASS pwa/430 OWN-OPTICAL-NEGATIVE output units
+PASS pwa/430 OWN-OPTICAL-NEGATIVE no sideways page overflow
+PASS pwa/430 native bandwidth - refused without stale output
+PASS pwa/430 native bandwidth 1e refused without stale output
+PASS pwa/430 native input - refused without stale output
+PASS pwa/430 native input 1e refused without stale output
+PASS pwa/430 native nf - refused without stale output
+PASS pwa/430 native nf 1e refused without stale output
+PASS pwa/430 native count - refused without stale output
+PASS pwa/430 native count 1e refused without stale output
+PASS pwa/430 native optical - refused without stale output
+PASS pwa/430 native optical 1e refused without stale output
+PASS pwa/430 native CNR row0 - refused without stale output
+PASS pwa/430 native CNR row0 1e refused without stale output
+PASS pwa/430 native CNR row1 - refused without stale output
+PASS pwa/430 native CNR row1 1e refused without stale output
+PASS pwa/430 native CNR row2 - refused without stale output
+PASS pwa/430 native CNR row2 1e refused without stale output
+PASS pwa/430 internal blank CNR refuses rather than zero/drop
+PASS pwa/430 trailing optional empty CNR row omitted
+PASS pwa/430 refusal bandwidth=0
+PASS pwa/430 refusal bandwidth=-1
+PASS pwa/430 refusal nf=-1
+PASS pwa/430 refusal count=0
+PASS pwa/430 refusal count=1.5
+PASS pwa/430 refusal count=9007199254740992
+PASS pwa/430 optional optical blank leaves three thermal results
+PASS pwa/430 blank NF unknown rather than zero
+PASS pwa/430 form controls at least44px
+PASS pwa/430 Expert source sheet includes declared model/source conditions
+PASS pwa/430 calculator use leaves exact state/storage unchanged
+{"checks": 824, "failures": 0, "runtimeErrors": [], "head": "59ddf48986f9498b574fc1cb67081f3eb0df7dee", "status": ""}

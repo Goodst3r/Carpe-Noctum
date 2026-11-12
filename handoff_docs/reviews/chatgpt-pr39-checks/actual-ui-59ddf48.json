@@ -1,0 +1,210 @@
+{
+  "standalone": {
+    "C1": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "54.1628",
+      "combined_CNR_dB": "44.5029"
+    },
+    "C2": {
+      "thermal_noise_dBmV": "-58.1319",
+      "single_CNR_dB": "65.1319",
+      "equal_chain_CNR_dB": "55.1319",
+      "combined_CNR_dB": "44.5979"
+    },
+    "C3": {
+      "combined_CNR_dB": "37.5637"
+    },
+    "C4": {
+      "combined_CNR_dB": "36.9897"
+    },
+    "CX01": {
+      "thermal_noise_dBmV": "-63.1834",
+      "single_CNR_dB": "53.1834",
+      "equal_chain_CNR_dB": "53.1834"
+    },
+    "CX02": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "64.1628"
+    },
+    "CX03": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "61.1525",
+      "combined_CNR_dB": "44.8959"
+    },
+    "CX04": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "34.1628"
+    },
+    "CX05": {
+      "combined_CNR_dB": "-20.4139"
+    },
+    "CX06": {
+      "combined_CNR_dB": "996.990"
+    },
+    "CX07": {
+      "combined_CNR_dB": "-1003.01"
+    },
+    "CX08": {
+      "thermal_noise_dBmV": "-125.225",
+      "single_CNR_dB": "25.2246",
+      "equal_chain_CNR_dB": "22.2143"
+    },
+    "CX09": {
+      "thermal_noise_dBmV": "-35.2246",
+      "single_CNR_dB": "53.2246",
+      "equal_chain_CNR_dB": "53.2246"
+    },
+    "CX10": {
+      "combined_CNR_dB": "40.0000"
+    },
+    "OWN-CNR-ZERO": {
+      "combined_CNR_dB": "0.00000"
+    },
+    "OWN-CNR-EQUAL-ZERO": {
+      "combined_CNR_dB": "-3.01030"
+    },
+    "OWN-CNR-TINY": {
+      "combined_CNR_dB": "-4.34294E-20"
+    },
+    "OWN-CNR-TINY-REORDER": {
+      "combined_CNR_dB": "-4.34294E-20"
+    },
+    "OWN-CNR-SUBTINY": {
+      "combined_CNR_dB": "-4.34294E-120"
+    },
+    "OWN-N1-NF0": {
+      "thermal_noise_dBmV": "-125.225",
+      "single_CNR_dB": "125.225",
+      "equal_chain_CNR_dB": "125.225"
+    },
+    "OWN-SAFE-COUNT": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "-95.3831"
+    },
+    "OWN-NEGATIVE-CNR": {
+      "thermal_noise_dBmV": "-35.2246",
+      "single_CNR_dB": "-164.775",
+      "equal_chain_CNR_dB": "-164.775"
+    },
+    "OWN-FRACTIONAL-INPUTS": {
+      "thermal_noise_dBmV": "-57.1544",
+      "single_CNR_dB": "64.0309",
+      "equal_chain_CNR_dB": "59.2597"
+    },
+    "OWN-OPTICAL-NEGATIVE": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "64.1628",
+      "combined_CNR_dB": "-20.0000"
+    }
+  },
+  "pwa": {
+    "C1": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "54.1628",
+      "combined_CNR_dB": "44.5029"
+    },
+    "C2": {
+      "thermal_noise_dBmV": "-58.1319",
+      "single_CNR_dB": "65.1319",
+      "equal_chain_CNR_dB": "55.1319",
+      "combined_CNR_dB": "44.5979"
+    },
+    "C3": {
+      "combined_CNR_dB": "37.5637"
+    },
+    "C4": {
+      "combined_CNR_dB": "36.9897"
+    },
+    "CX01": {
+      "thermal_noise_dBmV": "-63.1834",
+      "single_CNR_dB": "53.1834",
+      "equal_chain_CNR_dB": "53.1834"
+    },
+    "CX02": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "64.1628"
+    },
+    "CX03": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "61.1525",
+      "combined_CNR_dB": "44.8959"
+    },
+    "CX04": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "34.1628"
+    },
+    "CX05": {
+      "combined_CNR_dB": "-20.4139"
+    },
+    "CX06": {
+      "combined_CNR_dB": "996.990"
+    },
+    "CX07": {
+      "combined_CNR_dB": "-1003.01"
+    },
+    "CX08": {
+      "thermal_noise_dBmV": "-125.225",
+      "single_CNR_dB": "25.2246",
+      "equal_chain_CNR_dB": "22.2143"
+    },
+    "CX09": {
+      "thermal_noise_dBmV": "-35.2246",
+      "single_CNR_dB": "53.2246",
+      "equal_chain_CNR_dB": "53.2246"
+    },
+    "CX10": {
+      "combined_CNR_dB": "40.0000"
+    },
+    "OWN-CNR-ZERO": {
+      "combined_CNR_dB": "0.00000"
+    },
+    "OWN-CNR-EQUAL-ZERO": {
+      "combined_CNR_dB": "-3.01030"
+    },
+    "OWN-CNR-TINY": {
+      "combined_CNR_dB": "-4.34294E-20"
+    },
+    "OWN-CNR-TINY-REORDER": {
+      "combined_CNR_dB": "-4.34294E-20"
+    },
+    "OWN-CNR-SUBTINY": {
+      "combined_CNR_dB": "-4.34294E-120"
+    },
+    "OWN-N1-NF0": {
+      "thermal_noise_dBmV": "-125.225",
+      "single_CNR_dB": "125.225",
+      "equal_chain_CNR_dB": "125.225"
+    },
+    "OWN-SAFE-COUNT": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "-95.3831"
+    },
+    "OWN-NEGATIVE-CNR": {
+      "thermal_noise_dBmV": "-35.2246",
+      "single_CNR_dB": "-164.775",
+      "equal_chain_CNR_dB": "-164.775"
+    },
+    "OWN-FRACTIONAL-INPUTS": {
+      "thermal_noise_dBmV": "-57.1544",
+      "single_CNR_dB": "64.0309",
+      "equal_chain_CNR_dB": "59.2597"
+    },
+    "OWN-OPTICAL-NEGATIVE": {
+      "thermal_noise_dBmV": "-57.1628",
+      "single_CNR_dB": "64.1628",
+      "equal_chain_CNR_dB": "64.1628",
+      "combined_CNR_dB": "-20.0000"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "precision": 220,
+  "k_exact_J_per_K": "1.380649E-23",
+  "fixed_temperature_K": "290",
+  "matched_load_ohm": "75",
+  "source_vector_sha256": "fa87017273e9915ded87e09f1e49af50d76b1c755daa7893660a0bd5113314b2",
+  "cases": 54,
+  "numeric_cases": 24,
+  "refusal_cases": 30,
+  "app_test_run": false,
+  "formula": "direct linear powers; see cascade_oracle.py",
+  "reference_sha256": "c0976014c88b2d9f527365b1d3682e588caa3e54538b7388df23656027726750"
+}

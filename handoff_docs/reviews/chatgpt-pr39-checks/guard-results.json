@@ -1,0 +1,917 @@
+{
+  "head_before": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+  "checks": [
+    {
+      "artifact": "source",
+      "id": "CONTROL-fixed75",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "CONTROL-matched75-numberstring",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": 75,
+        "Rload_ohm": "75",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "CONTROL-matched75-sameequiv",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75.0",
+        "Rload_ohm": "75.0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "CONTROL-explicit-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "load_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "CONTROL-source75-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "MATCHED50-must-refuse-fixed75-model",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "50",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "MATCHED0-must-refuse-invalid-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "0",
+        "Rload_ohm": "0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "MATCHEDNaN-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "NaN",
+        "Rload_ohm": "NaN",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "MATCHEDunknown-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "unknown",
+        "Rload_ohm": "unknown",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "CONTROL-NF-ref290",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "290",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "NF-ref300-must-refuse-reference-mismatch",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "300",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "THERMAL-common-ingress-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "correlation": "common_ingress"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "source",
+      "id": "THERMAL-optical-MER-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45",
+        "kinds": [
+          "CNR",
+          "MER"
+        ]
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-fixed75",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-matched75-numberstring",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": 75,
+        "Rload_ohm": "75",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-matched75-sameequiv",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75.0",
+        "Rload_ohm": "75.0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-explicit-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "load_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-source75-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "MATCHED50-must-refuse-fixed75-model",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "50",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "MATCHED0-must-refuse-invalid-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "0",
+        "Rload_ohm": "0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "MATCHEDNaN-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "NaN",
+        "Rload_ohm": "NaN",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "MATCHEDunknown-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "unknown",
+        "Rload_ohm": "unknown",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "CONTROL-NF-ref290",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "290",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "NF-ref300-must-refuse-reference-mismatch",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "300",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "THERMAL-common-ingress-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "correlation": "common_ingress"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "standalone",
+      "id": "THERMAL-optical-MER-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45",
+        "kinds": [
+          "CNR",
+          "MER"
+        ]
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-fixed75",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-matched75-numberstring",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": 75,
+        "Rload_ohm": "75",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-matched75-sameequiv",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75.0",
+        "Rload_ohm": "75.0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-explicit-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "load_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-source75-load50-refuses",
+      "expected_ok": false,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "75",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": false,
+        "error": "This model requires a declared matched impedance, not mismatched source/load values."
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "MATCHED50-must-refuse-fixed75-model",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "50",
+        "Rload_ohm": "50",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "MATCHED0-must-refuse-invalid-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "0",
+        "Rload_ohm": "0",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "MATCHEDNaN-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "NaN",
+        "Rload_ohm": "NaN",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "MATCHEDunknown-must-refuse-unknown-impedance",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "Rsource_ohm": "unknown",
+        "Rload_ohm": "unknown",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "CONTROL-NF-ref290",
+      "expected_ok": true,
+      "pass": true,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "290",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "NF-ref300-must-refuse-reference-mismatch",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "NF_ref_K": "300",
+        "equal_independent_receiver_referred_noise": true
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "THERMAL-common-ingress-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "correlation": "common_ingress"
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224
+      }
+    },
+    {
+      "artifact": "pwa",
+      "id": "THERMAL-optical-MER-must-refuse",
+      "expected_ok": false,
+      "pass": false,
+      "inputs": {
+        "operation": "thermal_chain",
+        "B_Hz": "6400000",
+        "input_dBmV": "15",
+        "NF_dB": "8",
+        "N": "10",
+        "source_reference_K": "290",
+        "load_ohm": "75",
+        "equal_independent_receiver_referred_noise": true,
+        "optical_CNR_dB": "45",
+        "kinds": [
+          "CNR",
+          "MER"
+        ]
+      },
+      "raw_result": {
+        "ok": true,
+        "operation": "thermal_chain",
+        "thermal_floor_dBmV": -57.16277482047224,
+        "single_CNR_dB": 64.16277482047224,
+        "equal_contributions_CNR_dB": 54.16277482047224,
+        "combined_CNR_dB": 44.50293134893922
+      }
+    }
+  ],
+  "runtime_errors": {
+    "source": [],
+    "standalone": [],
+    "pwa": []
+  },
+  "head_after": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+  "status_after": "",
+  "passes": 18,
+  "failures": 21
+}

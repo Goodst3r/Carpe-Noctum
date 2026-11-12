@@ -1,0 +1,824 @@
+[
+  {
+    "id": "C1",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "C2",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "5120000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "C3",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43",
+        "46"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "C4",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "40"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX01",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1600000",
+      "input_dBmV": "-10",
+      "NF_dB": "0",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX02",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX03",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "2",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX04",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1000",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX05",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "-10",
+        "-20"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX06",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "1000",
+        "1000"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert",
+    "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+  },
+  {
+    "id": "CX07",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "-1000",
+        "-1000"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert",
+    "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+  },
+  {
+    "id": "CX08",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1",
+      "input_dBmV": "-100",
+      "NF_dB": "0",
+      "N": "2",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX09",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1000000000",
+      "input_dBmV": "20",
+      "NF_dB": "2",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CX10",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    },
+    "label": "expert",
+    "application_disposition": "One-contribution identity is valid; a documented UI minimum of two would be Unknown/application policy, not physics."
+  },
+  {
+    "id": "CR01",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR02",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "unknown",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR03",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "0",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR04",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "-1",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR05",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "0",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR06",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "-1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR07",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1.5",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR08",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "9007199254740992",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR09",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR10",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "-",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR11",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "-1",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR12",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "Infinity",
+      "NF_dB": "8",
+      "N": "10",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "45"
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR13",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43"
+      ],
+      "kinds": [
+        "CNR",
+        "MER"
+      ]
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR14",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43"
+      ],
+      "contributions": [
+        "cumulative_chain",
+        "constituent_of_chain"
+      ]
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR15",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43"
+      ],
+      "correlation": "common_ingress"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR16",
+    "inputs": {
+      "operation": "thermal_chain",
+      "N": "4",
+      "equal_receiver_referred_noise": "unknown"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR17",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43"
+      ],
+      "bandwidths": [
+        "6.4_MHz",
+        "unknown"
+      ]
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR18",
+    "inputs": {
+      "operation": "thermal_chain",
+      "NF_ref_K": "290",
+      "source_K": "300",
+      "formula": "k_Tsource_B_times_unchanged_F"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR19",
+    "inputs": {
+      "operation": "thermal_chain",
+      "Rsource_ohm": "75",
+      "Rload_ohm": "50"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR20",
+    "inputs": {
+      "operation": "CTB_CSO_plant_health",
+      "CTB_dBc": "-60"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR21",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR22",
+    "inputs": {
+      "operation": "thermal_chain",
+      "NF_dB": "8",
+      "NF_datasheet_conditions_match": false
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR23",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "43"
+      ],
+      "measurement_planes": [
+        "receiver",
+        "unknown"
+      ]
+    },
+    "label": "expert"
+  },
+  {
+    "id": "CR24",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "Infinity"
+    },
+    "label": "unknown"
+  },
+  {
+    "id": "CR25",
+    "inputs": {
+      "operation": "thermal_chain",
+      "N": "4",
+      "return_leg_gains_losses": "unknown"
+    },
+    "label": "expert"
+  },
+  {
+    "id": "OWN-CNR-ZERO",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "0"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-CNR-EQUAL-ZERO",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "0",
+        "0"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-CNR-TINY",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "0",
+        "200"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-CNR-TINY-REORDER",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "200",
+        "0"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-CNR-SUBTINY",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "0",
+        "1200"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-N1-NF0",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1",
+      "input_dBmV": "0",
+      "NF_dB": "0",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-SAFE-COUNT",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "9007199254740991",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-NEGATIVE-CNR",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1000000000",
+      "input_dBmV": "-100",
+      "NF_dB": "100",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-FRACTIONAL-INPUTS",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6412345.6789",
+      "input_dBmV": "15.0000001",
+      "NF_dB": "8.1234567",
+      "N": "3",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-OPTICAL-NEGATIVE",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true,
+      "optical_CNR_dB": "-20"
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-UNSAFE-COUNT",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "9007199254740993",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-TEMP300",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1",
+      "source_reference_K": "300",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-NONFINITE-NF",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "6400000",
+      "input_dBmV": "15",
+      "NF_dB": "NaN",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-PARTIAL-BANDWIDTH",
+    "inputs": {
+      "operation": "thermal_chain",
+      "B_Hz": "1e",
+      "input_dBmV": "15",
+      "NF_dB": "8",
+      "N": "1",
+      "source_reference_K": "290",
+      "load_ohm": "75",
+      "equal_independent_receiver_referred_noise": true
+    },
+    "origin": "reviewer_extra"
+  },
+  {
+    "id": "OWN-MALFORMED-CNR",
+    "inputs": {
+      "operation": "combine_cnr",
+      "CNR_dB": [
+        "40",
+        "-"
+      ],
+      "same_carrier_plane_and_noise_bandwidth": true,
+      "standalone_independent_contributions": true
+    },
+    "origin": "reviewer_extra"
+  }
+]

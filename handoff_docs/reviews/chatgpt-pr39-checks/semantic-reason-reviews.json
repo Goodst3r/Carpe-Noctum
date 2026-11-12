@@ -1,0 +1,37 @@
+{
+  "OWN-UNSAFE-COUNT": {
+    "head_sha": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+    "category": "unsafe_count",
+    "accepted_reason": "Count exceeds safe-integer representation.",
+    "reviewed_by": "ChatGPT",
+    "rationale": "The entered count9007199254740993 exceeds the exact safe integer ceiling; this specific reason matches the independent safe-count refusal."
+  },
+  "OWN-TEMP300": {
+    "head_sha": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+    "category": "unsupported_temperature",
+    "accepted_reason": "Use equivalent noise temperature or keep the source at the NF reference; this temperature substitution is not the approved model.",
+    "reviewed_by": "ChatGPT",
+    "rationale": "The raw source reference is300K, outside the approved fixed290K source/NF-reference model."
+  },
+  "OWN-NONFINITE-NF": {
+    "head_sha": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+    "category": "nonfinite_NF_dB",
+    "accepted_reason": "Complete the numeric noise figure.",
+    "reviewed_by": "ChatGPT",
+    "rationale": "NaN is not a finite numeric noise figure; the actual parser refuses it without substituting zero. The wording requests a numeric NF rather than labeling a physical limit."
+  },
+  "OWN-PARTIAL-BANDWIDTH": {
+    "head_sha": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+    "category": "malformed_B_Hz",
+    "accepted_reason": "Complete the numeric noise bandwidth.",
+    "reviewed_by": "ChatGPT",
+    "rationale": "The raw1e token is an incomplete numeric bandwidth expression, so completion is the relevant refusal."
+  },
+  "OWN-MALFORMED-CNR": {
+    "head_sha": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+    "category": "incomplete_CNR_dB",
+    "accepted_reason": "Complete the numeric CNR.",
+    "reviewed_by": "ChatGPT",
+    "rationale": "A bare minus sign is incomplete; no numerical CNR may be derived or dropped."
+  }
+}
