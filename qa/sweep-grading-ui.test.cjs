@@ -88,6 +88,36 @@ await check('Each criterion has exactly one proper label and source buttons sit 
  for(const input of d.querySelectorAll('[data-grading-field]')){assert.equal(input.labels.length,1,input.id);assert.equal(input.labels[0].htmlFor,input.id);assert.equal(input.labels[0].querySelector('[data-threshold]'),null);assert.match(input.labels[0].textContent,/\S/);const tag=input.closest('.grading-field').querySelector('[data-threshold]');assert(tag);assert.equal(tag.closest('label'),null);}
 });
 await check('Grade reparses verified originals and ignores tampered cached preview',async()=>{await ev('EvidenceUI').importFiles([file('invented.csv',csv)],{kind:'Sweep',stage:'Before',asset:'PRACTICE'});set('gradingEvidence',json('state.evidence[0].id'));ev('state.evidence[0].parse.series.points[0][1]=999');const r=await api().grade();assert.equal(r.result.metrics.ptvDb,2.5);assert.equal(r.result.overall,'pass');assert.equal(r.measuredAt,null);assert(r.gradedAt);assert.equal(json('state.sweepGrading.records.length'),1);assert(!JSON.stringify(r).includes('points'));});
+await check('One history render binds Station context once and observes subsequent raw edits and owners',async()=>{
+ const draftIds=['gradingEvidence','gradingPlant','gradingDirection','gradingPlane','gradingMeasuredAt'],savedDraft=Object.fromEntries(draftIds.map(id=>[id,d.getElementById(id).value]));
+ const fixture=installStationContext(),owner=fixture.owner,station=ev('StationView'),bound=station.boundRecords,savedGrading=plain(owner.sweepGrading);
+ let calls=0;
+ try{
+  const original=owner.evidence.find(m=>m.kind==='Sweep'&&m.parse?.series?.unit==='dBmV'&&m.parse.series.points.some(p=>p[0]===54)&&m.parse.series.points.some(p=>p[0]===860));assert(original);
+  set('gradingEvidence',original.id);set('gradingPlant','42');set('gradingDirection','forward');set('grading-lowFrequencyMHz','54');set('grading-highFrequencyMHz','860');
+  const calculated=await api().grade();
+  owner.sweepGrading.records=Array.from({length:100},(_,i)=>({...plain(calculated),id:'grade_render_probe_'+i}));api().validate(owner.sweepGrading);
+  api().render(); // New IDs demote the previous Current row before counting history work.
+  station.boundRecords=function(...args){calls++;return bound.apply(this,args);};
+  const renderOnce=()=>{calls=0;const before=JSON.stringify(ev('state'));api().render();assert.equal(calls,1);assert.equal(JSON.stringify(ev('state')),before);assert.equal(d.querySelectorAll('[data-grading-current]').length,100);};
+  const stale=()=>assert([...d.querySelectorAll('[data-grading-current]')].every(card=>/requires verification/i.test(card.querySelector('p').textContent)));
+  renderOnce();
+  const hadMeters=Object.prototype.hasOwnProperty.call(owner.rows[0],'meters'),meters=hadMeters?plain(owner.rows[0].meters):undefined;
+  owner.rows[0].meters={...(meters||{}),forward:{...(meters?.forward||{}),reading:Number(meters?.forward?.reading)===1?2:1}};
+  renderOnce();stale();
+  if(hadMeters)owner.rows[0].meters=meters;else delete owner.rows[0].meters;
+  renderOnce();assert(!/requires verification/i.test(d.querySelector('[data-grading-current] p').textContent));
+  const beforeStation=plain(fixture.record.stages.before.forward);
+  fixture.record.stages.before.forward.measuredLow=beforeStation.measuredLow==='1'?'2':'1';renderOnce();stale();
+  fixture.record.stages.before.forward=beforeStation;renderOnce();
+  w.__renderContextNextOwner=plain(owner);ev('state=__renderContextNextOwner');api().render(); // Sync intentionally takes its own context snapshot.
+  renderOnce();stale(); // Later render must use the new owner and preserve missing-digest -> unknown.
+ }finally{
+  station.boundRecords=bound;w.__renderContextOriginalOwner=owner;ev('state=__renderContextOriginalOwner');owner.sweepGrading=savedGrading;fixture.restore();
+  // Owner changes intentionally reset the public draft; leave the next case its prior controls.
+  for(const id of draftIds)set(id,savedDraft[id]);
+ }
+});
 await check('Invalid criteria show adjacent human range errors and real evidence rerenders restore saved valid text consistently',async()=>{
  for(const [field,value,rule]of [['ptvLimitDb','-1',/Peak-to-valley limit.*0 or more.*1,000,000 dB/],['lowFrequencyMHz','2000',/Low measured marker.*between 5 and 1800 MHz/],['highTargetDbmv','1e7',/High level target.*between.*1,000,000.*dBmV/]]){
   const id='grading-'+field,prior=d.getElementById(id).value;set(id,value);let input=d.getElementById(id);assert.equal(input.value,value);assert.equal(input.getAttribute('aria-invalid'),'true');const error=d.getElementById(input.getAttribute('aria-errormessage'));assert(error);assert(input.getAttribute('aria-describedby').split(' ').includes(error.id));assert.equal(error.parentElement,input.parentElement);assert.match(error.textContent,rule);assert.match(error.textContent,/Error:/);assert(!error.hidden);
