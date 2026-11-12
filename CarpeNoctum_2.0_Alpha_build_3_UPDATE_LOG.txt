@@ -1,5 +1,7 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
+Power sum, November 12, 2026: Test → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
+
 CURRENT B1 PRODUCT NOTE - November 12, 2026 UTC
 Safety is removed by Spencer's decision: its screen, practice feature and
 step, Study domain/question, guide section and Outage arrival group are gone.
@@ -9,7 +11,7 @@ on re-export. No new field, storage key, version or APK is introduced.
 
 Counted from current assembled source in JSDOM after B1 (not a full gate):
 35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
-147 live registry rows (144 in thresholds.js alone plus 3 EvidenceArchive),
+150 live registry rows (147 in thresholds.js alone plus 3 EvidenceArchive),
 47 module splices plus DSIM insertion, Study 4 domains/18 generators,
 Outage 22 prompts/7 sections. Full same-head gates are recorded separately.
 

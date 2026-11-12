@@ -14,12 +14,12 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 | Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | Two own runs, both green: 90/2297, 802.7 s and 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
 | Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | on `build3`. The gate file on that branch is not this session's run | `handoff_docs/reviews/grok-gate-54d5bee.md` says 90/2298, 872.5 s, layout 1004, smoke 370, standalone `8dcd277e…4035` |
 | Roadmap determination | `claude/roadmap-determination` | [#26](https://github.com/Goodst3r/Carpe-Noctum/pull/26) merged `6414668` | `6414668` | docs only, already on `build3`. Not gated by this session | not a full gate |
-| A5 item 14 (supply PM, span voltage drop) | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) merged `61069f4` | `e83cafa` | merged after local gate, hosted CI [43189377721](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43189377721) and AUDIT on that SHA (Grok's report; not re-checked by Claude's gate) | 91/2302, 788.9 s, layout 1054, smoke 373. Standalone `ac987a33…3a8b` |
+| A5 item 14 (supply PM, span voltage drop) | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) merged `61069f4` | `e83cafa` | merged. Do not rework it. A4b adds the export | 91/2302, 788.9 s, layout 1054, smoke 373. Standalone `ac987a33…3a8b`. Not re-run this session |
 | Build-list item 16 (connector checklist) | not started | | | BLOCKED on sources: catalog manuals hold no torque or pin length | |
 | Build-list item 12 (return path toolkit) | not started | | | BLOCKED on sources: funneling example not checked against SCTE 293-11, 293-13 or 270 | |
-| A0 merge #31, #29, then `ccr-026a9e4b-35w77r` | `build3` / this branch | #31 `3a7b25b`, #29 `fdf4ea3` | #31 head `b9c6cc7` (vectors identical to approved `2493cf8`); #29 head `ed2826c` | #31 and #29 merged. This commit brings the workflow branch onto that `build3`. Docs only. | not a full gate |
-| A1 power-sum calculator (cases P1-P6) | not started | | | | |
-| A2 cascade thermal/CNR calculator (cases C1-C4) | not started | | | | |
+| A0 merge #31, #29, then the workflow branch | `build3` | #31 `3a7b25b`, #29 `fdf4ea3`, #33 `7dfddf7` | #31 parent `b9c6cc7` (vectors identical to approved `2493cf8`); #29 `ed2826c`; #33 `bf5782f` | merged. #33 hosted gate on `bf5782f` was green ([43193224835](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43193224835)) | docs only, not a feature gate |
+| A1 power-sum calculator (cases P1–P6) | `grok/a1-power-sum` | [#34](https://github.com/Goodst3r/Carpe-Noctum/pull/34) draft | this commit | in progress. No correlated add. Contains `build3` `7dfddf7`. Half-typed levels are refused. ChatGPT's review of `785ca6e` found that defect; the fix is in `df857d0` | Gate on `df857d0`: 93 suites / 2371 checks, 820.7 s, layout 1054, smoke 373, exit 0. Power sum 49 and real-keyboard 20. Standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. This commit only records that gate |
+| A2 cascade thermal/CNR calculator (cases C1–C4) | not started | | | after A1 is marked ready | |
 | A3 NAV-1 | not started | | | waits for ChatGPT's Safety removal (B1) to merge | |
 | A4 context strip (P0-3) | not started | | | | |
 | A4b Supply PM notebook export/import | not started | | | after A4 | |
@@ -29,11 +29,11 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 
 ## Next
 
-Live queue: A1 next, then A2, A3, A4, A4b, A5, A6, A7 in `handoff_docs/WORKFLOW.md`. No deadline. Build-list items 16 and 12 stay blocked on sources. PR #30 stays merged (`61069f4`); do not rework it. Draft #32 stays a draft. Review and merge ChatGPT's open PRs before each new item. Never merge your own PR. Headroom wording, Night log and temporary repairs belong to ChatGPT.
+Finish the full gate on this head, then mark #34 ready and start A2. Do not merge #34. A3 waits until ChatGPT's Safety removal (B1) has merged. Then A4, A4b, A5, A6, A7. No deadline. Items 16 and 12 stay blocked. PR #30 stays merged. Draft #32 stays a draft. Review ChatGPT's open PRs before each new item. Never merge your own PR.
 
-#31 merged at `3a7b25b`. I approved `2493cf8`. The merged parent was `b9c6cc7`: the vectors file is byte-identical to `2493cf8`; the extra commit only ends the wait log and adds `chatgpt-status.md`. #29 merged at `fdf4ea3` from the approved head `ed2826c`. GitHub would not take a formal Approve review because this token opened the pull requests; the review comments are the record.
+#31 merged at `3a7b25b`. I approved `2493cf8`. The merged parent was `b9c6cc7`: the vectors file is byte-identical; the extra commit only ends the wait log and adds `chatgpt-status.md`. #29 merged at `fdf4ea3` from `ed2826c`. GitHub would not take a formal Approve review from this token. #33 is on `build3` at `7dfddf7`.
 
-Screens on `f2641a2`, from an earlier recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. Supply PM (#30) added a Power screen after that recount. Not re-counted on `fdf4ea3`.
+Screens on `f2641a2`, from an earlier recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. Supply PM (#30) added a Power screen after that recount. Not re-counted on this commit.
 
 ## Blocked
 
@@ -41,6 +41,7 @@ Build-list items 16 and 12: missing sources, recorded in the table. A6 exact res
 
 ## Questions for Spencer
 
-None open. Settled by Spencer, Nov 12: Safety is removed from the app; the Vecima setup is plug and play (no guide needed); the 33 vs 40 dBmV question is dropped.
+Settled by Spencer, Nov 12: Safety is removed from the app; the Vecima setup is plug and play (no guide needed); the 33 vs 40 dBmV question is dropped.
+
 1. Where should company settings live: each phone's browser (today, outside jobs and backups), or a shared company profile?
 2. Who reviews the Outage and Leakage cards before coworkers use them? (Safety no longer exists.)

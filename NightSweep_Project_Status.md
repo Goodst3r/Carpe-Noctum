@@ -15,7 +15,7 @@ Counted on November 12, 2026 from the current B1 source assembled by `qa/build2-
 | 35 | task screens (`WorkflowUI.screens`, including Help) |
 | 53 | Practice library feature choices (`TrainingJob.features`) |
 | 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 147 | registry rows in the running app: `thresholds.js` has 144 when loaded alone, and `EvidenceArchive.limits` adds 3 |
+| 150 | registry rows in the running app: `thresholds.js` has 147 when loaded alone, and `EvidenceArchive.limits` adds 3 |
 | 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 4 / 18 | Study domains / question generators |
 | 22 / 7 | Outage prompts / sections |
@@ -105,8 +105,8 @@ The baseline before any change was 1,013 checks across 55 passing suites; two su
 - Most hardline catalog cables (P3, QR, MC2 .500–.750) do not list a VP yet. Add datasheet VP with provenance before relying on catalog VP for them.
 - Quantum18 HGD, HGBT and LE pad and EQ values: none are public (AOI's English data sheets are behind a request form), so no values are offered. The BA's 0/2/4/6 dB pad list comes from a preliminary data sheet.
 - Register the older screens' example targets (Test → References workbook 32/43 and sample 34/46 dBmV, anchor pairs, plant-picker starting levels) and add tags where they appear.
-- DOCSIS and leakage are built. Remaining source limits are in `research/build3/DOCSIS_HEALTH_SOURCES.md` and `LEAKAGE_SOURCES.md` (unread SCTE 289 and 293-12 bodies, secondary normalizer and detector methods, the unrepeated I20 section 6.4.2 pointer, and the 33-versus-40 dBmV question). Do not read the old "not built" sentence as current.
-- Safety (item 9), Outage (item 8) and Leakage (item 7) need a supervisor's review before coworkers use them.
+- DOCSIS and leakage are built. Remaining source limits are in `research/build3/DOCSIS_HEALTH_SOURCES.md` and `LEAKAGE_SOURCES.md` (unread SCTE 289 and 293-12 bodies, secondary normalizer and detector methods, the unrepeated I20 section 6.4.2 pointer). Do not read the old "not built" sentence as current.
+- Outage (item 8) and Leakage (item 7) need a supervisor's review before coworkers use them. Safety was removed by Spencer.
 - Pull requests #1 (roadmap) and #2 (build list) are still open into `main`. The files are already on `build3`. The owner decides those pull requests.
 - Stretch items 12, 14 and 16 are not on this branch. Items 11, 15, 17, 18, 19 and 20 are.
 
