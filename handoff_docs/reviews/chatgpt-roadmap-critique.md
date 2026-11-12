@@ -2,6 +2,8 @@
 
 Review date: 12 November 2026 (UTC). Evidence and critique only. No app code, navigation, generated files, version, storage identity, signing or deployment changed.
 
+**Follow-up completed:** the original PDF and determination revision 2 were personally read at **a073fafc2f4d951b7ca04786767ec6c936000af6**. The six original P0 rows and their wording are now verified; the PDF contains no explicit equations or worked calculations unique to it. Section 7 records the revision-2 reconciliation and remaining wording corrections. Sections 1–6 retain the initial audit's pinned sources; resolved revision-1 findings there are historical, not allegations that revision 2 omitted every correction.
+
 **Assessment: revise the planning facts and the meaning of headroom before implementation.** The power-sum arithmetic is supportable. Ingress records and unfinished-work handoff have the strongest practitioner support in the recovered evidence. Phone acceptance remains open.
 
 ## Baseline, reads and labels
@@ -10,10 +12,10 @@ Review date: 12 November 2026 (UTC). Evidence and critique only. No app code, na
 - Determination personally read: **38a172c65e4e2852d6d539225385fa8ac592c138**, then rechecked at **1ee5a723defc88260cd73826abf4b5625be009b1**, from branch **claude/roadmap-determination**. The determination file is byte-identical at those two commits (SHA-256 f7b82497ac6332029b90ee295b88c4aafade08f9058a5a734a4afa741e3c185c); the latter only changes starting prompts. GitHub reports [PR #26](https://github.com/Goodst3r/Carpe-Noctum/pull/26) open, draft and unmerged. Its application snapshot is e7313cf6dd5702a7263160d4f56ab2ba373fbaf4.
 - Own documentation branch: **chatgpt/roadmap-critique**, based on the application baseline above.
 - All seven requested files were read: handoff_docs/ROADMAP_DETERMINATION.md from that separate branch; handoff_docs/FINAL_HANDOFF.md; handoff_docs/KNOWN_GAPS.md; docs/BUILD_LIST.md; night-sweep/field-calcs.js; night-sweep/thresholds.js; night-sweep/docsis-health.js. **None of those seven was unreadable.**
-- The original **Carpe_Noctum_Roadmap.pdf** was absent from the fetched checkout. Its original P0 count, wording and any equations unique to it are **not re-verified** pending the attachment Spencer offered. The older docs/ROADMAP.md is a different document.
+- The original **Carpe_Noctum_Roadmap.pdf**, unavailable during the initial audit, has now been personally read on both pages at **a073faf**. Its original P0 count, wording and mathematical scope are verified in section 7. The older docs/ROADMAP.md is a different document. The private-message provenance of an additional evidence-handoff request remains **not re-verified**.
 - Baseline standalone SHA-256 personally checked: **0bd53b6a4411cf4677066d49b529ca505a33b95e54b215224df19002a03ee725**. This differs from the older close-out hash because later app features have merged; it is not evidence of unexplained corruption.
 
-In references below, **D:line** means the byte-identical determination at 1ee5a72. Every other repository file/line refers to **b4cb832**, unless explicitly stated otherwise. Links to [the determination](https://github.com/Goodst3r/Carpe-Noctum/blob/1ee5a723defc88260cd73826abf4b5625be009b1/handoff_docs/ROADMAP_DETERMINATION.md) and [the application tree](https://github.com/Goodst3r/Carpe-Noctum/tree/b4cb832d2bdcf18a81d855f1a7acae6699ac8015) preserve that distinction. This is a frozen fetched/metadata snapshot, not a promise that the actively merged remote branch will stop moving.
+In sections 1–6, **D:line** means revision 1 of the determination at 1ee5a72. Every other repository file/line refers to **b4cb832**, unless explicitly stated otherwise. Links to [revision 1](https://github.com/Goodst3r/Carpe-Noctum/blob/1ee5a723defc88260cd73826abf4b5625be009b1/handoff_docs/ROADMAP_DETERMINATION.md) and [the application tree](https://github.com/Goodst3r/Carpe-Noctum/tree/b4cb832d2bdcf18a81d855f1a7acae6699ac8015) preserve that distinction. Section 7 uses **D2:line** for revision 2 at a073faf. These are frozen fetched/metadata snapshots, not a promise that the actively merged remote branches will stop moving.
 
 Severity: **High** can mislead a field decision or compromise retention; **Medium** changes scope, implementation prerequisites or interpretation; **Low** is a locator/documentation issue; **None** means confirmed within the stated check. These are review severities, not the roadmap's P0 numbering.
 
@@ -40,7 +42,7 @@ The determination was often accurate for its own snapshot. Later drift is identi
 | 32: already five bottom tabs; Route six / Job nine | **Confirmed; None.** | shell.html:69; workflow.js:4 through :8. |
 | 33: working-job and device-local storage names | **Medium: names are right but inventory is incomplete and store type imprecise.** Preserve named-job library **hfc-named-jobs-v1** too. Evidence is an IndexedDB database, not a localStorage value. | app.js:32; jobs.js:3; docsis-health.js:13; leakage.js:10; safety.js:48; outage.js:47; evidence-ui.js:25 through :30, database nightsweep-evidence-v1 / object store files. Recovery sidekeys also exist, including app.js:32, checklist.js:35 and leakage.js:170. |
 | 34: draft #25 names only Arcom Digital QS-NAVPLUS-OUDP | **Confirmed on the PR branch; Medium scope distinction.** It is not yet on this build3 baseline. | Opened [PR #25](https://github.com/Goodst3r/Carpe-Noctum/pull/25), head e59d694; branch leakage.js:14 and :398 versus baseline leakage.js:394. The public PR records Spencer's instruction; the original label photograph and private conversation are **not re-verified**. No Arcom manual/settings were verified here. |
-| 35: PDF has six P0s; evidence handoff came from Spencer's message | **Unknown / not re-verified.** Neither the original PDF nor that message was available in the checkout. | D:5 and :100 report provenance; they cannot independently establish it. Do not substitute the older docs/ROADMAP.md. |
+| 35: PDF has six P0s; evidence handoff came from Spencer's message | **PDF portion confirmed in the follow-up; None.** Six original P0 rows, with no separately named evidence-handoff item. The private-message origin is still **not re-verified**. | Supplied PDF at a073faf, p. 1 §3, both pages searched/read; see section 7. PDF absence does not prove who first requested another feature. |
 
 GitHub metadata/CI initially opened at approximately **06:37–06:40 UTC, 12 November**, then #16/#26 refreshed after the **06:47** merge; these states can change. Hosted results are GitHub-reported, not tests run by this reviewer.
 
@@ -196,7 +198,7 @@ Company ceilings remain **Unknown for 42/54 GS7K/GainMaker** and separately **Un
 
 ## 4. Cascade calculator
 
-**Medium prerequisite finding — D:108; docs/BUILD_LIST.md:94 and :162.** The available build-list proposal can now be checked against primary text, but only with its assumptions. No original-PDF-only equation is approved by inference.
+**Medium prerequisite finding — D:108; docs/BUILD_LIST.md:94 and :162.** The available build-list proposal can be checked against primary text, but only with its assumptions. The original PDF, now read, prints no cascade equations; the models below are candidate engineering formulas, not corrections to equations printed in that PDF.
 
 Personally opened [SCTE 270 2021r1](https://account.scte.org/documents/5880/SCTE_270_2021r1.pdf), **§13, §14.1–14.4, §15.1, §15.3–15.5 and relevant Appendix D cascade excerpts**, through Parallel's extracted primary-document text. Direct PDF download returned HTTP 403. Also opened [SCTE 293-11 2025](https://account.scte.org/documents/8267/SCTE_293-11_2025.pdf), **§5.5 and the appendix on cascaded networks/Friis, pp. 18–28**. These are issue-specific reads. Formulas below are independently expressed; no SCTE text, table or example solution is reproduced.
 
@@ -358,6 +360,83 @@ Do not test storage clearing/uninstall/eviction against the only copy of real wo
 - Primary CableLabs I20 PDF downloaded/read; primary SCTE text read via Parallel; NIST/Agilent, public practitioner posts and official curriculum pages opened as identified above.
 - Staged documentation diff/whitespace check passed. The changed-file allowlist contains only this Markdown file; comparison against b4cb832 found no app, PWA, generated, Android or QA delta. The standalone hash remains the baseline value above. No old full-gate count is presented as a new run.
 
-**Not executed / not re-verified:** full app build/gate, Chromium rendering, emulator, actual phone, iPhone Safari/WebView, screen reader, meter, plant/field acceptance, company targets/procedures/pilot codes, Arcom/ONX operational manuals, original roadmap PDF pending attachment, any primary technical procedure explicitly marked not re-verified above, or whether I20 is the newest PHY issue. The repository-audit lane's attempted jsdom harness lacked the installed dependency; it produced no UI result. A source-counting fallback was sufficient for the inventory question.
+**Not executed / not re-verified:** full app build/gate, Chromium rendering, emulator, actual phone, iPhone Safari/WebView, screen reader, meter, plant/field acceptance, company targets/procedures/pilot codes, Arcom/ONX operational manuals, any primary technical procedure explicitly marked not re-verified above, or whether I20 is the newest PHY issue. The original PDF is now read and its availability gap is closed in section 7. The repository-audit lane's attempted jsdom harness lacked the installed dependency; it produced no UI result. A source-counting fallback was sufficient for the inventory question.
 
 Tools actually useful: GitHub connector for live PR/head/check metadata; shell/Git/Node/Python for source and numerical checks; Parallel for primary/public source extraction; Wolfram Language evaluator for independent arithmetic. Data validation and Superpowers verification/parallel-work skills guided the review. Research-lane notes were cross-checked against opened source/code; any un-reopened material is labeled **not re-verified**, rather than silently inheriting another assistant's confidence.
+
+## 7. Original PDF and revision-2 follow-up
+
+**Sources personally read, 12 November 2026:** branch claude/roadmap-determination, exact commit **a073fafc2f4d951b7ca04786767ec6c936000af6**:
+
+- [handoff_docs/Carpe_Noctum_Roadmap.pdf](https://github.com/Goodst3r/Carpe-Noctum/blob/a073fafc2f4d951b7ca04786767ec6c936000af6/handoff_docs/Carpe_Noctum_Roadmap.pdf): both pages, embedded text and rendered pages. File size **5,438 bytes**; SHA-256 **f39179c5ea3c2b6d65a307bf6b23c05f59ac60ee723701d981f2ef80a6543bb5**; Git blob f6b4c26482e8abef02404db47a390cae3a41799f.
+- [handoff_docs/ROADMAP_DETERMINATION.md, revision 2](https://github.com/Goodst3r/Carpe-Noctum/blob/a073fafc2f4d951b7ca04786767ec6c936000af6/handoff_docs/ROADMAP_DETERMINATION.md): all 181 lines, compared with revision 1 at 1ee5a72 and this critique as originally published at **69c2c625fb699795f140e57053460299e48ad8fd**.
+
+**D2:line** below denotes revision 2 at a073faf. PDF page/section/row locators refer to that exact binary; PDF byte count, row counts and identifiers are **Unknown/application-document metadata**, not RF specifications. The application baseline remains **b4cb832**; this follow-up does not rerun or extend the application gate.
+
+### Original P0 count and wording: closed
+
+**Confirmed, None — PDF p. 1 §3; D2:53.** There are exactly **six P0 rows**. The PDF labels every row P0; it does not print P0-1 through P0-6 identifiers. Those identifiers are the determination's useful cross-reference scheme.
+
+| Original row, in PDF order | Exact item title | Feature wording verified in the embedded text, paraphrased |
+| --- | --- | --- |
+| 1 | Tonight open-items list | Put unfinished stations, open temporary repairs, unexported-log status and last-backup information on Home. |
+| 2 | Temporary-repair tracker | Keep RG6/pad/terminator notes by station/span until closed. |
+| 3 | Plant banner + leakage method | Identify 42/54 versus 204/258 and the applicable legacy/OUDP method. The PDF does not establish which method or settings are authorized locally. |
+| 4 | Power-sum / composite calculator | Add/subtract dBmV, equal-carrier count and signal-plus-noise operations, with visible arithmetic. It does not define those operations mathematically. |
+| 5 | Upstream headroom card | Restate a 1.6 MHz reference over 6.4 MHz and show headroom, with the company ceiling Unknown. |
+| 6 | Intermittent-ingress investigation record | Add personal Night-log observations about conditions, time and what was tried. Weather/ingress hunting is given as the rationale. |
+
+**Confirmed, None — PDF pp. 1–2; D2:120 and :134.** There is no separately named “Evidence handoff” feature or seventh P0 row. The PDF does mention handoff/night continuity as the open-items list's rationale; that does not define an evidence inventory, hashes or a file-transfer feature. “Exact resume” appears in the **Immediate** section on p. 1 §2, outside the P0 table. Cascade noise/distortion appears in the **Medium-term** list, p. 1 §4.
+
+The determination therefore represents the original **count and inventory correctly**. Its claim that the additional evidence-handoff request originated in Spencer's separate message remains **not re-verified**; reading this PDF can establish absence from the PDF, not conversational authorship.
+
+**Low source-readability finding — PDF p. 1 §3.** Text in the rendered P0 table overflows into adjacent columns. Raw text extraction recovers the row wording; I checked it against both pages rather than treating the interleaved layout extraction as a different title or extra row. The complete sixth title is “Intermittent-ingress investigation record.” No PDF edit is included.
+
+### Equations unique to the PDF: closed, none present
+
+**Confirmed, None — PDF pp. 1–2.** The supplied document contains **no explicit mathematical equations, worked numerical calculations or proposed accumulation coefficients**. There are no printed CNR, thermal-noise, CTB, CSO or Friis formulas to check beyond the candidate formulas already assessed in sections 2–4.
+
+| PDF mathematical subject matter | What is actually specified | Consequence for the critique |
+| --- | --- | --- |
+| p. 1 §3, power-sum row | The exact short description is “Add/subtract dBmV, N equal carriers, signal+noise. Shows arithmetic.” | **Medium scope ambiguity:** this is not an equation and does not prove the PDF advocated direct addition/subtraction of logarithmic level numbers. It leaves physical operations, correlation and measurement conventions unspecified. The three uncorrelated operations in section 2 are the determination/critique's explicit clarification; do not falsely attribute their full definitions to the PDF. |
+| p. 1 §3, headroom row | A **1.6 to 6.4 MHz** reference conversion and an Unknown company ceiling. | The PDF provides neither the **6.02059991327962 dB** result nor a headroom equation. That result remains an **Expert derivation** under the flat-PSD assumptions and **Spec** normalization sources in section 3. The PDF is not an independent validation of those sources or of usable transmit headroom. |
+| p. 1 §4, cascade item | “Cascade noise/distortion calculator (inputs from spec sheets).” | No formula or all-digital CTB/CSO claim is printed. Section 4 checks candidate engineering models and the build-list example; it does not correct an erroneous formula actually printed in this PDF. |
+
+Other numeric notations are historical application counts, split names and a phone-layout width range. “Load + What-if” names two screens; it is not a power-addition equation. No additional calculator implementation or reference calculation is needed to close the PDF-only gap.
+
+**Medium qualification — PDF p. 1 §3 introduction and headroom row.** “No company numbers required” cannot authorize a local headroom result when its company ceiling is explicitly Unknown, or supply a leakage method. A converter or an unavailable/Unknown comparison can be presented without inventing a company number. Revision 2 correctly keeps leakage-method/per-channel claims deferred and treats the existing composite margin separately. All company ceilings, targets, tolerances and pilot codes remain **Unknown**, separately for 42/54 and 204/258.
+
+### Did revision 2 represent the critique correctly?
+
+**Overall: substantially yes.** It adopts the principal factual corrections, preserves source/verification limits and makes defensible planning choices. The table below separates faithful incorporation from remaining wording issues. A choice to narrow scope or change build order is not itself a misrepresentation of the evidence.
+
+| D2 file/line | Result / severity | Reconciliation with the original critique |
+| --- | --- | --- |
+| :9–11 | **Faithful; None.** | Correctly identifies critique commit 69c2c62 and application baseline b4cb832; 32 screens / 50 feature entries / 127 rows / 13 Test tabs match the initial executions. Claude clearly separates its spot checks from my source reads. These are baseline counts, not new gate outcomes. |
+| :12–14, :51, :109, :116 and :118 | **Faithful core correction; None.** | Existing composite-margin arithmetic, no second bandwidth converter, named-job key, IndexedDB distinction and missing TCS/DRW/Pmax provenance are represented correctly. The proposed 6.4 MHz input basis is an optional exposure of existing engine capability. |
+| :15 and :170 | **Faithful; Low wording precision.** | Working-job-only export and the reference to all 11 phone checks are correct. “Named jobs ... are outside it” should read **the other named jobs/the named-job library are outside it**: a named job loaded as the working job is included when exported. Its originals are bundled; device-only settings and unrelated jobs are not. Evidence: section 1 retention finding; app.js:282–289 and jobs.js:3. |
+| :16–18, :92–94, :110–111, :143–144 | **Faithful; None.** | Help and the two merged stretch IDs are now accounted for. Existing Checklists/bonding, Night-log lifecycle prerequisites, missing export times and Unknown for the app-chosen ripple search policy are correctly conveyed. New structured repair entries remain a planner's proposal, not an existing tracker. |
+| :19, :107–120 | **Faithful planning synthesis; None.** | Record reliability precedes new calculators; evidence handoff remains deferred until defined. Putting the existing misleading headroom wording fix first is consistent with the critique's interpretation risk. The public sample does not empirically determine exact ordering between temporary repairs, an open-items list and resume; revision 2 must remain a planning judgment, not a measured practitioner preference. |
+| :21 | **Faithful historical status; Low dating requirement.** | Initial failures were checked on **#18 ed7f29c** and **#19 a66d313**, with linked runs in section 1. Do not transfer those conclusions to later heads. This follow-up did not run their gates or diagnose failures. |
+| :115 and :129 | **Faithful; None.** | Correctly inherits section 2's assumptions, worked cases and refusal rules, excluding correlated addition. Negative logarithmic levels and equal uncorrelated levels remain valid; total at/below noise remains a refusal. |
+| :142 | **Faithful scope decision; Low technical precision.** | Thermal-noise/CNR-only scope and no analog CTB/CSO digital “plant health” number reflect section 4. Prefer **“the 10log(N) CSO approximation is not generally reliable for short identical cascades; its phase/loading assumptions and N < 10 caveat apply”** to a statement implying it must be numerically false for every short chain. Primary evidence already opened: SCTE 270 2021r1 §15.3.1 footnote 22 / Appendix D and §15.5. The underlying nonlinearities do persist on digital plant. |
+| :140–147 and :170 | **Faithful; None.** | OEM-document gates, company-target holds, existing bonding reminder and actual-phone verification remain appropriately bounded. The curriculum/public reports do not establish Arcom controls, ONX settings, company procedures or generator steps. |
+
+### Remaining corrections for revision 2
+
+These findings are against **handoff_docs/ROADMAP_DETERMINATION.md at a073faf**, not proposed edits to that file in this branch.
+
+1. **Medium — D2:112: use Unknown, not “never,” for untracked history.** No recorded timestamp does not prove no backup/export has happened. app.js:282–290 and night-log.js:107 can export without recording the event. Use **“Unknown / no recorded backup time”** and **“Unknown / no recorded handoff export time.”** This corrects the interpretation; it does not introduce a new timestamp, target or store.
+2. **Medium — D2:107 and :130: explicitly remove downstream question 3 from upstream prerequisites.** The retained table's details remain active except where noted. Its P0-5 detail still points to the downstream 33-versus-40 dBmV input question as an upstream dependency. FINAL_HANDOFF.md:67 and docsis-health.js:221 identify that as a separate downstream issue. Sections 3 and D2:118 already give the relevant upstream prerequisites; the downstream question stays open independently.
+3. **Medium — D2:39–49, :64 and :69: distinguish historical facts from current actions.** The revision-2 introduction correctly pins b4cb832 and 13 Test tabs, but the older fact table still says “Now 11” and treats #15/#16 as open; the operative order still says finish both merged PRs. Label that table explicitly as revision-1 history and restrict the remaining stretch action to #18/#19/#20, plus #25 separately. Eventual 16 Test tabs still means **13 + 3** at this pinned baseline. This is reconciliation of known merged history, not a fresh assertion about later PR heads.
+4. **Medium implementation condition — D2:109: preserve the actual-total and mode qualifications in the wording fix.** A “composite margin” label requires a genuine simultaneous composite-total reading at the comparable modem F-connector plane and declared power basis. A normalized/per-channel status-page number does not become a total by renaming the result. Blank **65 dBmV** is an assumed **Spec** minimum/default reference only in its applicable 3.1 CM/CMTS and mode context, not verified capability; it may equal the modem's real capability, but the blank field does not establish that. Keep the compatibility-mode caveat and the distinction from channel/DRW room. No new math or company value is requested.
+
+The inherited end-of-document “Not re-verified” list at D2:179–181 should be read as **Claude's own verification scope**, consistent with D2:9, or labeled as historical. It must not imply that the separate critique still lacks the PDF, model/store reads or Reddit/Facebook material. Their closure here does not create a phone/field result or re-verify company/OEM material.
+
+### Follow-up verification and remaining limits
+
+- Read the exact Git PDF blob, confirmed hash/size and both pages, compared raw/layout text, and visually inspected both pages with Poppler and MuPDF. The table-overflow limitation is real in both renderers. Poppler initially reported font-cache warnings; MuPDF independently rendered readable page text and the same overflowing table cells.
+- Read the complete revision-2 Markdown and its diff from 1ee5a72; independently compared its representations with critique commit 69c2c62. Two parallel read-only review lanes corroborated the six-row/no-equation inventory and the material reconciliation findings; I opened the underlying files myself.
+- Only this critique Markdown is edited. The original PDF, determination, app code, navigation and generated files are unchanged. No new equations, software guards or company targets are introduced; no app build, gate, browser test, emulator or physical-phone check was rerun for this documentation follow-up.
+- **Closed:** original-PDF availability, original P0 count/titles/wording, absence of a separately named evidence-handoff item, and the question of unique printed equations.
+- **Still not re-verified:** private-message origin of evidence handoff; all previously identified unopened OEM/company material and technical procedures; physical phone/meter/field acceptance; whether the selected PHY issue is the newest. The PDF supplies no new primary-source evidence for these.
