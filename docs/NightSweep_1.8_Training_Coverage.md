@@ -37,10 +37,10 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → Frequency | Complete, custom curves | Exact-frequency loss budget, table interpolation and unavailable ranges |
 | Test → Readings | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
 | Test → References | Complete, OEM AGC, DSIM | Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates |
-| Test → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, OFDM power, power sum and echo delay, each with its source tag (2.0 Alpha build 3) |
+| Test → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum and echo delay, each with its source tag (2.0 Alpha build 3) |
 | Job → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |
 | Test → Limits | Custom curves | Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3) |
-| Test → DOCSIS health | Custom curves | Synthetic downstream and upstream readings against the modem requirements, with a company window that starts unknown (2.0 Alpha build 3) |
+| Test → DOCSIS health | Custom curves | Synthetic downstream capability comparisons and upstream composite margin to a declared comparable total reference; company windows start Unknown (2.0 Alpha build 3) |
 | Test → Leakage | Custom curves | Synthetic leaks against the FCC 3 m limits, the CLI worked example, the 3 m distance restatement and a leak log kept on this device (2.0 Alpha build 3) |
 | Test → Impairments | Custom curves | A synthetic 4.3 MHz ripple that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored (2.0 Alpha build 3) |
 | Test → Fiber | Custom curves | Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored (2.0 Alpha build 3) |

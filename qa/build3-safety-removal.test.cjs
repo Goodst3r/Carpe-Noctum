@@ -43,7 +43,7 @@ let checks=0;async function check(name,fn){await fn();checks++;console.log('PASS
   ev(`loadState(${JSON.stringify(original)})`);
   const rf=json('HFC.run(state,catalog,54)');
   assert.deepEqual(rf,beforeOpaqueRF,'opaque legacy Safety fields do not change RF results');
-  const first=await w.evidenceExportProject(ev('state')); 
+  const first=await w.evidenceExportProject(ev('state'));
   assert.deepEqual(JSON.parse(JSON.stringify(first.safety)),opaque);
   await ev(`openProjectText(${JSON.stringify(JSON.stringify(first))},true)`);
   const second=await w.evidenceExportProject(ev('state'));

@@ -9,14 +9,15 @@ from pathlib import Path
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
-import hashlib, json, os, tempfile
+import hashlib, json, os, subprocess, tempfile
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-html = (ROOT / 'outputs/Night_Sweep.html').read_text()
+html = (subprocess.run(['node', '-e', "process.stdout.write(require('./qa/build2-source-harness.cjs').assembleHtml())"], cwd=ROOT, check=True, capture_output=True, text=True).stdout
+        if os.environ.get('NIGHTSWEEP_BUILD2_SOURCE_TEST') == '1' else (ROOT / 'outputs/Night_Sweep.html').read_text())
 serve = Path(tempfile.mkdtemp(prefix='cn-build3-layout-'))
 (serve / 'index.html').write_text(html)
-OUT = ROOT / 'qa/build3-layout-results.json'
+OUT = Path(os.environ.get('NIGHTSWEEP_LAYOUT_RESULTS') or ROOT / 'qa/build3-layout-results.json')
 
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
@@ -41,7 +42,7 @@ FILL = '''() => {
   set('[data-calc="db"][data-field="value"]', '-12.5');
   set('[data-calc="ripple"][data-field="spacing"]', '0.4'); set('[data-calc="ripple"][data-field="vp"]', '0.87');
   set('[data-calc="preeq"][data-field="tap"]', '24'); set('[data-calc-vp-source="preeq"]', 'mc2_1000', 'change');
-  set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '1794');
+  set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '1794'); set('[data-calc="ofdm"][data-field="context"]', 'confirmed', 'change');
   set('[data-calc="echo"][data-field="length"]', '99999'); set('[data-calc="echo"][data-field="vp"]', '0.5');
   set('[data-calc="balance"][data-field="model"]', 'active_gm_hgd', 'change');
   for (const [k, v] of Object.entries({ lowMHz: '54', highMHz: '860', measuredLow: '30', measuredHigh: '40', targetLow: '39', targetHigh: '49' })) set(`[data-calc="balance"][data-field="${k}"]`, v);
@@ -52,7 +53,7 @@ FILL_DOCSIS = '''() => {
   set('[data-health="scqam"][data-field="level"]', '-15.5');
   set('[data-health="ofdm"][data-field="basis"]', 'other', 'change'); set('[data-health="ofdm"][data-field="occupied"]', '96'); set('[data-health="ofdm"][data-field="power"]', '-9.5');
   set('[data-health="total"][data-field="modem"]', '3.0', 'change'); set('[data-health="total"][data-field="total"]', '41.25');
-  set('[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set('[data-health="upstream"][data-field="total"]', '70'); set('[data-health="upstream"][data-field="pmax"]', '68.5');
+  set('[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set('[data-health="upstream"][data-field="total"]', '70'); set('[data-health="upstream"][data-field="pmax"]', '68.5'); set('[data-health="upstream"][data-field="basis"]', 'confirmed', 'change');
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
   set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
 }'''
@@ -137,13 +138,14 @@ def docsis_real_input_checks(browser):
     check('DOCSIS real keyboard: emptying the box on purpose still clears the window', stored()['plants']['42']['scqam']['max'] is None and 'Saved on this device' in note('scqam'))
     hi.click(); page.keyboard.type('7'); page.keyboard.press('Tab')
     page.select_option('[data-health="upstream"][data-field="mode"]', '3.1')
+    page.select_option('[data-health="upstream"][data-field="basis"]', 'confirmed')
     page.locator('[data-health="upstream"][data-field="total"]').click(); page.keyboard.type('52')
-    check('DOCSIS real keyboard: a blank Pmax on a 3.1 modem uses the 65 dBmV minimum', '13.0 dB of headroom' in result('upstream'))
+    check('DOCSIS real keyboard: a blank Pmax on a 3.1 modem uses the 65 dBmV minimum', '+13.0000 dB' in result('upstream'))
     pm = page.locator('[data-health="upstream"][data-field="pmax"]')
     pm.click(); page.keyboard.type('-')
     check('DOCSIS real keyboard: a lone minus sign in Pmax is refused and not read as the default', pm.evaluate('el=>el.validity.badInput===true') and 'as a number' in result('upstream') and 'headroom' not in result('upstream'))
     pm.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace')
-    check('DOCSIS real keyboard: emptying Pmax goes back to the default', '13.0 dB of headroom' in result('upstream'))
+    check('DOCSIS real keyboard: emptying Pmax goes back to the default', '+13.0000 dB' in result('upstream'))
     page.locator('[data-health="scqam"][data-field="level"]').click(); page.keyboard.type('9')
     check("DOCSIS real keyboard: a reading is compared with the window of the job's plant", '2.0 dB above your window' in result('scqam'))
     page.evaluate("WorkflowUI.go('sweepSetup')")
@@ -158,6 +160,39 @@ def docsis_real_input_checks(browser):
     page.reload(); page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof DocsisHealth!=="undefined"')
     check('DOCSIS plants: both windows are read back after a reload, each for its own plant', page.evaluate("DocsisHealth.getWindow('scqam','42').max===7&&DocsisHealth.getWindow('scqam','204').max===12"))
     context.close()
+
+def ofdm_real_input_checks(browser):
+    # Real keyboard and source-built existing converter; no physical-device claim.
+    for width in (320, 360, 390, 430):
+        context = browser.new_context(viewport={'width': width, 'height': 800}, is_mobile=True, has_touch=True, color_scheme='dark')
+        page = context.new_page()
+        page.on('pageerror', lambda error: errors.append(str(error)))
+        page.goto(f'http://127.0.0.1:{server.server_port}/index.html')
+        page.wait_for_function('typeof FieldCalc!=="undefined" && typeof WorkflowUI!=="undefined"')
+        page.evaluate("WorkflowUI.go('calculators')")
+        field = lambda name: page.locator(f'[data-calc="ofdm"][data-field="{name}"]')
+        text = lambda: page.locator('#calc-ofdm-result').inner_text().replace('\n', ' ')
+        first = lambda: page.locator('#calc-ofdm-result .calc-stats strong').first.inner_text().replace('\n', ' ')
+        label = f'{width}px OFDM restatement'
+        check(label + ' starts with explicit unconfirmed context', field('context').input_value() == '')
+        field('power').fill('48'); field('occupied').fill('6.4'); field('basis').select_option('1.6')
+        check(label + ' has no numeric result before confirmation', page.locator('#calc-ofdm-result .calc-stats').count() == 0 and 'Confirm flat PSD' in text())
+        field('context').select_option('confirmed')
+        check(label + ' prints H1 total and delta at six significant figures', first() == '54.0206 dBmV' and '+6.02060 dB' in text())
+        field('basis').select_option('6.4'); field('power').fill('54'); field('occupied').fill('1.6')
+        check(label + ' exposes reverse6.4 basis and prints H2 at six significant figures', first() == '47.9794 dBmV' and '-6.02060 dB' in text())
+        check(label + ' keeps instantaneous total and headroom unavailable', 'does not determine instantaneous OFDMA total power' in text() and 'headroom: Unknown' in text())
+        for name in ('power', 'occupied'):
+            box = field(name)
+            for unfinished in ('-', '1e'):
+                box.click(); page.keyboard.press('Control+A'); page.keyboard.type(unfinished)
+                check(label + f' refuses real {unfinished} badInput in {name}', box.evaluate('el=>el.validity.badInput') and page.locator('#calc-ofdm-result .calc-stats').count() == 0 and 'half-typed' in text())
+            box.fill('54' if name == 'power' else '1.6')
+        field('context').select_option('')
+        check(label + ' clearing context removes stale numeric output', page.locator('#calc-ofdm-result .calc-stats').count() == 0)
+        field('context').select_option('confirmed')
+        check(label + ' fits its card and controls without horizontal overflow', page.evaluate("""(()=>{const c=document.querySelector('[data-calc-card="ofdm"]');return document.documentElement.scrollWidth<=innerWidth+1&&[c,...c.querySelectorAll('input,select,.calc-result')].every(e=>{const r=e.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&e.scrollWidth<=e.clientWidth+1})})()"""))
+        context.close()
 
 def leakage_real_input_checks(browser):
     """A lone minus sign in a company-setting box must not clear what is saved, and a blank date must not become today.
@@ -408,6 +443,7 @@ try:
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)
+        ofdm_real_input_checks(browser)
         leakage_real_input_checks(browser)
         check('No uncaught application errors', not errors)
         browser.close()
