@@ -34,7 +34,7 @@ Grok counted the merged core in jsdom on the `f467e52` standalone: 29 screens, 4
 | 10 Sweep-due tracker | The card is on the branch. The interval starts unknown. The 18-month interval attributed to Hranac was not re-verified. It may be shown only as unverified guidance. | `docs/BUILD_LIST.md`, `night-sweep/thresholds.js` |
 | 12 Return path toolkit | Not built. Noise-funneling math is standard practice but not checked against an SCTE primary source (293-11, 293-13, 270). | `docs/BUILD_LIST.md` |
 | 13 Imported sweep grading | The aid is on the branch. The SCTE operational practice behind n/10 + x peak-to-valley grading was not re-verified; it appears only as labeled historical guidance. Native schema beyond the two inspected layouts is not supported. | `docs/BUILD_LIST.md`, the A4 section below |
-| 17 High split | Not on this branch. No Vecima commissioning checklist: the guides are behind a customer portal. No steps may be invented. | Lane B log book; question 0 for Spencer |
+| 15 Fiber color and budget | On this branch. TIA-598 itself was not read; the color order is a secondary summary. The real-browser check that an unfinished number's message sits with its box compares the combined span with the viewport height (`qa/build3-fiber-real.test.py`). It does not prove both rectangles are inside the viewport. Lane A review 5867997446 called that wording nonblocking. The message is still the box's description, directly under the box. | `research/build3/FIBER_SOURCES.md`, `qa/build3-fiber-real.test.py` |
 | General | NCTI's own pages disagree on System Technician seat hours (26 versus 42). | `docs/BUILD_LIST.md` |
 
 ## Company targets and decisions that need a person

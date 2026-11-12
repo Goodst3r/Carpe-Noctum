@@ -42,6 +42,7 @@ MODULES = [
     ('<!--SAFETY-->', 'safety.js'),
     ('<!--OUTAGE-->', 'outage.js'),
     ('<!--IMPAIRMENTS-->', 'impairments.js'),
+    ('<!--FIBERTOOLS-->', 'fiber-tools.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
     ('<!--NIGHTLOG-->', 'night-log.js'),

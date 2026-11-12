@@ -111,6 +111,12 @@ FILL_IMP = '''() => {
   state.rows[0].name = 'N'.repeat(70);
   set('[data-imp=spacing]', '1'); set('[data-imp=vp]', '0.87');
 }'''
+FILL_FIBER = '''() => {
+  const set = (sel, v) => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); };
+  set('[data-fiber="finder"][data-field="fiber"]', '240');
+  const b = (n, v) => set(`[data-fiber="budget"][data-field="${n}"]`, v);
+  b('length', '499.999'); b('attenuation', '0.35'); b('connectors', '4'); b('connectorLoss', '0.3'); b('splices', '6'); b('spliceLoss', '0.1'); b('other', '3.5'); b('margin', '3'); b('tx', '3'); b('rx', '-24');
+}'''
 CHECK_CONTRAST = '''(sel) => {
   const lum = c => { const v = c.match(/[\\d.]+/g).slice(0, 3).map(Number).map(x => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
   const bg = el => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const m = c.match(/[\\d.]+/g); if (m && (m.length < 4 || Number(m[3]) > 0.99)) return c; } return 'rgb(255,255,255)'; };
@@ -321,6 +327,21 @@ try:
                 ratios = page.evaluate(CHECK_CONTRAST, '#impairmentsPanel .imp-shape span, #impairmentsPanel .imp-card p, #impairmentsPanel .imp-card li, #impairmentsPanel legend, #impairmentsPanel .note, #impairmentsPanel .health-status')
                 check(f'{label} Impairments text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
                 check(f'{label} Impairments shows the distance and the candidate places in words', page.evaluate("(()=>{const t=document.getElementById('impRippleResult').textContent;return /Distance between the two mismatches\\s*427\\.\\d ft/.test(t)&&/2 candidate places on the saved route/.test(t)})()"))
+                page.evaluate("WorkflowUI.go('fiber')")
+                page.evaluate(FILL_FIBER)
+                check(f'{label} Fiber fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                boxes = page.evaluate("[...document.querySelectorAll('#fiberPanel .calc-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
+                check(f'{label} both Fiber cards stay inside the viewport', len(boxes) == 2 and all(l >= -1 and r <= width + 1 for l, r in boxes))
+                check(f'{label} Fiber results and tables wrap or scroll inside their cards', page.evaluate("(()=>{const regions=[...document.querySelectorAll('#fiberPanel .table-scroll')];return regions.length===2&&regions.every(r=>getComputedStyle(r).overflowX==='auto')&&[...document.querySelectorAll('#fiberPanel .health-row strong, #fiberPanel .health-status, #fiberPanel .note')].every(s=>s.scrollWidth<=s.clientWidth+1)})()"))
+                inputs = page.evaluate("[...document.querySelectorAll('#fiberPanel input')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Fiber inputs keep field-sized controls', len(inputs) == 13 and min(inputs) >= 40)
+                buttons = page.evaluate("[...document.querySelectorAll('#fiberPanel button:not(.source-tag)')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
+                check(f'{label} Fiber buttons are 44 px controls', len(buttons) == 2 and min(buttons) >= 44)
+                sizes = page.evaluate("[...document.querySelectorAll('#fiberPanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
+                check(f'{label} Fiber source tags are at least 24 px tap targets', len(sizes) >= 6 and all(w >= 24 and h >= 24 for w, h in sizes))
+                ratios = page.evaluate(CHECK_CONTRAST, '#fiberPanel .note, #fiberPanel .health-row, #fiberPanel .health-status, #fiberPanel th, #fiberPanel td, #fiberPanel label')
+                check(f'{label} Fiber text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
+                check(f'{label} Fiber states each result in words, and a color name sits beside every swatch', page.evaluate("(()=>{const t=document.getElementById('fiber-budget-result').textContent;const rows=[...document.querySelectorAll('#fiberPanel .fiber-swatch')];return /Estimated link loss/.test(t)&&/optics budget is left|Short by/.test(t)&&rows.length>=14&&rows.every(s=>s.parentElement.textContent.trim().length>=3)})()"))
                 page.evaluate("WorkflowUI.go('limits')")
                 check(f'{label} limits list fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 ratios = page.evaluate(CONTRAST)
@@ -337,7 +358,7 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel','outagePanel','impairmentsPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel','outagePanel','impairmentsPanel','fiberPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)

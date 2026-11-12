@@ -250,7 +250,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -321,6 +321,15 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
 .imp-field>input{width:100%}
 .imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
+.fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
+.fiber-reference{margin:10px 0}
+#fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+.fiber-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fiber-field>label{font-size:13px;font-weight:600}
+.fiber-box-error{margin:0;font-size:13px;font-weight:600;color:var(--bad);overflow-wrap:anywhere}
+#fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-panel .calc-card button{min-height:44px}
 
 /* Guided 42 MHz / 204 MHz field setup. Inherits the established night / sun palette. */
 .sweep-setup-panel{max-width:1050px;margin-left:auto;margin-right:auto}
@@ -463,6 +472,7 @@ html[data-theme=sun] .sweep-due-green{color:#22613b}
 <section class="panel calculator-panel health-panel" data-screen="test" hidden="" id="docsisHealthPanel"></section>
 <section class="panel calculator-panel leak-panel" data-screen="test" hidden="" id="leakagePanel"></section>
 <section class="panel calculator-panel imp-panel" data-screen="test" hidden="" id="impairmentsPanel"></section>
+<section class="panel calculator-panel fiber-panel" data-screen="test" hidden="" id="fiberPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
@@ -4567,7 +4577,7 @@ const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[]},
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
-  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments']]},
+  test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
   job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log'],['sweepDue','Sweep due']]}
  };
@@ -4588,6 +4598,7 @@ const WorkflowUI=(()=>{
   readings:['test','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['test','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
+  fiber:['test','Fiber color code and loss budget','Find a fiber by number, tube and color, and estimate a link\'s loss from length, connectors and splices. Nothing is read from a meter.'],
   impairments:['test','Find the impairment','Pick what the meter shows and read its card: what it looks like, what usually causes it and five steps. Your own aid, not your company\'s procedure.'],
   leakage:['test','Check and log signal leakage','FCC limits, distance and CLI math, a detector check and your own leak log. A personal notebook, not the company record.'],
   docsisHealth:['test','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
@@ -4614,7 +4625,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4872,6 +4883,7 @@ const TrainingJob=(()=>{
   ['safety','Tick off pre-work safety reminders','safety','','Open Job → Safety. The screen opens with “Follow company policy”: the list is a set of reminders written for this app, not your company’s procedure. Tick two or three reminders, then type who knows where you are as a role (for example crew lead), a check-in time on a 24-hour clock and where your company keeps its safety policy. Choose Change this list to reword an item, hide one or add your own, then choose the same button again to finish. Ticks, notes and changes stay on this device and are not in the job backup. All entries are practice values: do not type customer names or addresses.'],
   ['outage','Walk through an outage first response','outage','','Open Job → Outage. The screen opens with “Follow your company’s outage procedure first”: the list is a set of prompts written for this app, not your company’s procedure. Tick the prompts for scope, power and the node, then type a plant place such as node leg 3 or amp 2, the time you arrived and what you found, all on a 24-hour clock. Fill in the optional damage or theft notes only if you suspect it, using roles and never names. Enter no customer names, addresses, phone numbers or account numbers. Choose Start a new call to clear the ticks and notes for the next one. Everything stays on this device and is not in the job backup. All entries are practice values.'],
   ['impairments','Find an impairment from what the meter shows','impairments','','Open Test → Impairments. Pick the picture of a regular up-and-down ripple. In the standing-wave card type a ripple spacing of 4.3 MHz and a cable velocity of 0.87: the distance between the two mismatches is 99.5 ft, and the saved practice route has two places about that far apart, each 100 ft: the launch to TRAIN Custom cable and passive, and that point to TRAIN Cable-only reverse-TDR origin. Each is a place to look at both ends, not a finding. Then pick the picture of a single notch and read the suckout card: its causes name loose seizure screws, and its five steps are analyze, localize, prioritize, repair and validate. Nothing is read from a meter and nothing is stored. All values are synthetic.'],
+  ['fiber','Find a fiber and estimate a link loss','fiber','','Open Test → Fiber. In the color finder type fiber 30: it is white, position 6 in tube 3, which is green. In the loss budget type a 12.4 km link at 0.35 dB/km, 4 mated connector pairs at 0.3 dB, 6 splices at 0.1 dB, 3.5 dB of other loss and a 3 dB margin: the estimated loss is 9.64 dB and 12.64 dB with the margin. Add a transmitter power of 3 dBm and a receiver sensitivity of −24 dBm: the optics budget is 27 dB and 14.36 dB is left. The TIA allowances in the table are worst-case values, copied into the fields only when you choose, and your company\'s limits are not known to the app. All values are synthetic and nothing is stored.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -4887,7 +4899,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'22 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'16 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'16 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'17 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4941,9 +4953,10 @@ const TrainingJob=(()=>{
   ['nightLog','Night log and shift handoff','Job','aoi-six-active','nightLog','nightLog','Manually record invented A1–A5 Station stages, capture each worksheet explicitly and export a compact synthetic handoff; no field measurements are prefilled.'],
   ['sweepDue','Personal sweep reminders and independent balance dates','Job','aoi-six-active','sweepDue','sweepDue','Read saved Station work dates; explicitly enter 18 only for synthetic practice, then clear it to restore unknown.'],
   ['sweep-grading','Attached sweep grading aid','Job','custom-curves','grading','evidence','Company criteria deliberately start unknown. The guide provides an invented three-point interchange CSV to attach; no real meter file is bundled.'],
-  ['impairments','Impairment cards and standing-wave search','Test','custom-curves','impairments','impairments','A synthetic 4.3 MHz ripple on 0.87 VP cable that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored.']
+  ['impairments','Impairment cards and standing-wave search','Test','custom-curves','impairments','impairments','A synthetic 4.3 MHz ripple on 0.87 VP cable that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored.'],
+  ['fiber','Fiber color finder and link loss budget','Test','custom-curves','fiber','fiber','Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={'sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={fiber:'[data-fiber="finder"][data-field="fiber"]','sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -5372,6 +5385,24 @@ const Thresholds=(()=>{
   {id:'app.impairment.rippleSearchWidth',label:'expert',name:'Standing-wave candidate search width',kind:'constant',value:10,units:'± % of the distance',formula:'a pair of route points is a candidate when its cable distance is within ±10% of 492 × VP ÷ ripple spacing',
    source:'This app’s own choice for how wide to look; the distance formula is the ripple-to-distance relation of SCTE 280 2022 section 9.7',revision:'Not a published value; no source sets it',locator:'Test → Impairments → standing wave',
    conditions:'Reading peak spacing off a display is imprecise, so the search accepts a pair of points whose cable distance is within this percentage of the distance the ripple gives. The technician can change it for one search; it is not saved. A narrower width gives fewer, closer candidates and can miss the real pair.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Test → Impairments'},
+  {id:'fiber.tia598.colors',label:'spec',name:'Fiber and buffer-tube color code',kind:'formula',units:'—',formula:'1 blue, 2 orange, 3 green, 4 brown, 5 slate, 6 white, 7 red, 8 black, 9 yellow, 10 violet, 11 rose, 12 aqua; fiber n is in tube ⌈n ÷ 12⌉ at position ((n − 1) mod 12) + 1',
+   source:'ANSI/TIA-598 (fiber optic cable color coding); read in manufacturer and reference summaries (BWN Fiber, Fiber Field Kit, Radix Fibrotech, Hexatronic color-code guide), not in the standard itself',revision:'Revision not established; the 12-color order is the same in every summary read',locator:'The 12-color sequence; marking past position 12 is not set here',
+   conditions:'Fibers and buffer tubes use the same twelve colors in the same order. Past 12 the colors repeat with a stripe, dashes or rings and makers differ (fiber or tube 20 is clear, or black with a yellow stripe, or black with a white tracer, depending on the maker), so the cable print legend decides. The tool assumes 12 fibers per tube.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: color finder'},
+  {id:'fiber.tia.connector',label:'spec',name:'Mated connector pair, maximum insertion loss',kind:'limit',units:'dB',value:0.75,rangeText:'0.75 dB per mated pair',
+   source:'ANSI/TIA-568.3-D, Optical Fiber Cabling and Components Standard (component allowances), as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) replaced it and was not checked; the standard itself was not read',locator:'Clauses on cable plant loss allowances, as quoted',
+   conditions:'A worst-case design and certification value for a mated pair, not what good connectors measure (typically 0.2 to 0.5 dB). Your company\'s own limit may be tighter and starts unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.splice',label:'spec',name:'Splice, maximum insertion loss',kind:'limit',units:'dB',value:0.3,rangeText:'0.3 dB per splice',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cable plant loss allowances, as quoted',
+   conditions:'A worst-case value for a fusion or mechanical splice. Fusion splices usually measure well under 0.1 dB. Your company\'s own limit may be tighter and starts unknown.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.sm.osp',label:'spec',name:'Single-mode outside-plant cable, maximum attenuation',kind:'limit',units:'dB/km',value:0.5,rangeText:'0.5 dB/km at 1310 and 1550 nm',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cabled-fiber attenuation, as quoted',
+   conditions:'A worst-case cabling allowance at both wavelengths, not the loss of the glass (typically about 0.35 dB/km at 1310 nm and 0.25 dB/km at 1550 nm). The cable maker\'s datasheet value at your wavelength is a better number when you have it.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.tia.sm.isp',label:'spec',name:'Single-mode inside-plant cable, maximum attenuation',kind:'limit',units:'dB/km',value:1,rangeText:'1.0 dB/km at 1310 and 1550 nm',
+   source:'ANSI/TIA-568.3-D, as quoted by Fluke Networks, Nordix and Radix Fibrotech',revision:'TIA-568.3-D (2016); TIA-568.3-E (2022) was not checked; the standard itself was not read',locator:'Clauses on cabled-fiber attenuation, as quoted',
+   conditions:'A worst-case cabling allowance for premises (tight-buffered) cable at both wavelengths. The cable maker\'s datasheet value is a better number when you have it.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
+  {id:'fiber.budget.formula',label:'expert',name:'Link loss budget',kind:'formula',units:'dB',formula:'loss = length (km) × attenuation (dB/km) + mated pairs × loss per pair + splices × loss per splice + other; required budget = loss + safety margin',
+   source:'The standard telco link budget method, as set out by the Fiber Optic Association and Fluke Networks',revision:'FOA loss-estimate guidance and Fluke SimpliFiber Pro knowledge-base article, read November 11, 2026',locator:'FOA "Guidelines on what loss to expect"; Fluke "Fiber optic link loss budget calculation"',
+   conditions:'An estimate to compare with a measured insertion loss. It does not include measurement uncertainty, does not judge a link against your company\'s pass limit and does not choose the wavelength. Passive devices such as splitters and WDMs are entered from their data sheets under other loss. The optics budget is transmit power minus receiver sensitivity.',date:CHECKED,scope:'all',verification:'secondary',usedBy:'Test → Fiber: link loss budget'},
   {id:'app.power.resistanceAlpha',label:'unknown',name:'Default power-cable resistance coefficient',kind:'constant',value:0.004,units:'per °C',formula:'R(T) = R(68 °F) × (1 + α × (T − 68 °F) × 5 ÷ 9)',
    source:'App default, described on screen as an engineering approximation; no published source is recorded',revision:'Carried forward from earlier NightSweep builds',locator:'Power → Load (resistance coefficient)',
    conditions:'Applied to built-in loop resistance referenced to 68 °F / 20 °C. Editable on the Power screen.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Power → Load and What-if',
@@ -5472,7 +5503,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage'],['Fiber color code and loss budget',r=>r.id.startsWith('fiber.')]];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);
@@ -7479,7 +7510,168 @@ const ImpairmentsUI=(()=>{
  return {init,render,updateRipple,select:id=>{selected=id;render();}};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"7bfb1f0b74575f6d1257","worker":"sw.7bfb1f0b74575f6d1257.js","appVersion":"2.0 Alpha build 3"}</script>
+<script>/* Build 3 fiber tools (build list item 15, first part): the TIA-598 color code finder and a simple link loss budget.
+   Offline and deterministic. Nothing is read from a meter and nothing is stored. A blank entry is never read as zero:
+   a count of 0 contributes nothing, but a blank count or a blank loss for a counted item gives a reason and no number.
+   The standard's allowances are shown, with a source tag, as a reference the technician may copy into the fields on
+   purpose; they are never filled in silently, and a company's own targets are not known to the app. */
+const FiberTools=(()=>{
+ const COLORS=Object.freeze(['Blue','Orange','Green','Brown','Slate','White','Red','Black','Yellow','Violet','Rose','Aqua']);
+ const PER_TUBE=12,MAX_TUBE=24,MAX_FIBER=PER_TUBE*MAX_TUBE;
+ const DECIMAL=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i;
+ const fail=error=>({ok:false,error});
+ const num=x=>{
+  if(typeof x==='number')return Number.isFinite(x)?x:null;
+  if(typeof x!=='string'||x.length>40||!DECIMAL.test(x.trim()))return null;
+  const n=Number(x.trim());return Number.isFinite(n)?n:null;
+ };
+ const whole=x=>{const n=num(x);return n!==null&&Number.isInteger(n)?n:null;};
+ const blank=x=>x===null||x===undefined||String(x).trim()==='';
+
+ /* ---- TIA-598 color code: twelve colors for fibers and for buffer tubes, in this order ---- */
+ function tubeMarking(tube){
+  if(tube<=PER_TUBE)return {marked:false,text:'plain color'};
+  return {marked:true,text:tube===20?'the color sequence repeats with a stripe or dashes; tube 20 is the black position, and makers mark the repeat differently (a white tracer in one maker\'s note, a yellow stripe in another\'s)':'the color sequence repeats with a stripe or dashes'};
+ }
+ /* Where is fiber n, counting from 1 across the whole cable with 12 fibers in each tube? */
+ function locate(fiber){
+  const n=whole(fiber);
+  if(n===null)return fail('Enter the fiber number as a whole number.');
+  if(n<1)return fail('Enter a fiber number of 1 or more.');
+  if(n>MAX_FIBER)return fail('Enter a fiber number up to '+MAX_FIBER+' (24 tubes of 12). Past that, read the cable maker\'s construction sheet.');
+  const tube=Math.ceil(n/PER_TUBE),position=((n-1)%PER_TUBE)+1;
+  return {ok:true,fiber:n,tube,position,tubeColor:COLORS[(tube-1)%PER_TUBE],fiberColor:COLORS[position-1],tubeMarking:tubeMarking(tube)};
+ }
+ /* Which fiber is it, given the tube number and the fiber's position (1 to 12) inside the tube? */
+ function fromTube(tube,position){
+  const t=whole(tube),p=whole(position);
+  if(t===null||t<1||t>MAX_TUBE)return fail('Enter the tube number from 1 to '+MAX_TUBE+'.');
+  if(p===null||p<1||p>PER_TUBE)return fail('Enter the position inside the tube from 1 to '+PER_TUBE+'.');
+  return locate((t-1)*PER_TUBE+p);
+ }
+
+ /* ---- Simple link loss budget ---- */
+ const LIMITS=Object.freeze({length:[0,500],attenuation:[0,5],count:[0,500],each:[0,5],other:[0,50],margin:[0,30],tx:[-40,40],rx:[-80,20]});
+ function required(value,label,[lo,hi],unit){
+  if(blank(value))return fail('Enter '+label+'.');
+  const v=num(value);
+  if(v===null||v<lo||v>hi)return fail('Enter '+label+' as a number from '+lo+' to '+hi+(unit?' '+unit:'')+'.');
+  return {ok:true,value:v};
+ }
+ /* Count of items and the loss of each: a count of 0 needs no loss, a count above 0 needs one. */
+ function counted(count,each,names){
+  if(blank(count))return fail('Enter the number of '+names.plural+', or 0 if there are none.');
+  const c=whole(count);
+  if(c===null||c<LIMITS.count[0]||c>LIMITS.count[1])return fail('Enter the number of '+names.plural+' as a whole number from 0 to '+LIMITS.count[1]+'.');
+  if(c===0)return {ok:true,count:0,each:null,total:0};
+  const e=required(each,'the loss of each '+names.single+' in dB',LIMITS.each,'dB');if(!e.ok)return e;
+  return {ok:true,count:c,each:e.value,total:c*e.value};
+ }
+ function budget(input){
+  const length=required(input?.length,'the link length in km',LIMITS.length,'km');if(!length.ok)return length;
+  const attenuation=required(input?.attenuation,'the fiber attenuation in dB per km',LIMITS.attenuation,'dB/km');if(!attenuation.ok)return attenuation;
+  const connectors=counted(input?.connectors,input?.connectorLoss,{plural:'mated connector pairs',single:'mated pair'});if(!connectors.ok)return connectors;
+  const splices=counted(input?.splices,input?.spliceLoss,{plural:'splices',single:'splice'});if(!splices.ok)return splices;
+  const other=blank(input?.other)?{ok:true,value:0,entered:false}:{...required(input?.other,'the other loss in dB',LIMITS.other,'dB'),entered:true};if(!other.ok)return other;
+  const margin=required(input?.margin,'the safety margin in dB (0 for none)',LIMITS.margin,'dB');if(!margin.ok)return margin;
+  const fiber=length.value*attenuation.value;
+  const total=fiber+connectors.total+splices.total+other.value;
+  const out={ok:true,length:length.value,attenuation:attenuation.value,fiber,connectors,splices,other:other.value,otherEntered:other.entered,margin:margin.value,estimated:total,required:total+margin.value,optics:null};
+  const hasTx=!blank(input?.tx),hasRx=!blank(input?.rx);
+  if(hasTx!==hasRx)return fail('Enter both the transmitter output power and the receiver sensitivity in dBm, or leave both blank.');
+  if(hasTx){
+   const tx=required(input.tx,'the transmitter output power in dBm',LIMITS.tx,'dBm');if(!tx.ok)return tx;
+   const rx=required(input.rx,'the receiver sensitivity (the weakest signal it accepts) in dBm',LIMITS.rx,'dBm');if(!rx.ok)return rx;
+   if(!(tx.value>rx.value))return fail('The transmitter power must be higher than the receiver sensitivity, both in dBm.');
+   const available=tx.value-rx.value,headroom=available-out.required;
+   out.optics={tx:tx.value,rx:rx.value,available,headroom,status:headroom>=-1e-12?'within':'short'};
+  }
+  return out;
+ }
+ return {COLORS,PER_TUBE,MAX_TUBE,MAX_FIBER,LIMITS,locate,fromTube,budget,tubeMarking};
+})();
+
+const FiberToolsUI=(()=>{
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const tag=(id,context)=>typeof Thresholds!=='undefined'?Thresholds.tag(id,context):'';
+ const trim=(v,d=2)=>{const s=Number(v.toFixed(d)).toString();return s==='-0'?'0':s;};
+ const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
+ const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
+ const field=(card,name,label,hint,extra='')=>`<div class="fiber-field"><label for="fiber-${card}-${name}">${label}</label><input id="fiber-${card}-${name}" type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}><p class="fiber-box-error" id="fiber-${card}-${name}-error" hidden></p></div>`;
+ /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
+    dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
+ function boxName(el){const label=el.labels&&el.labels[0],text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function read(card){
+  const v={},bad=[];
+  document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
+   v[el.dataset.field]=el.value;
+   const note=document.getElementById(el.id+'-error');
+   if(el.validity&&el.validity.badInput===true){
+    const name=boxName(el);bad.push(name);el.setAttribute('aria-invalid','true');
+    /* the reason sits directly under the box (the card-wide result can be far below on a phone) and the box points at it */
+    if(note){note.textContent='The '+name+' box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box.';note.hidden=false;el.setAttribute('aria-describedby',note.id);}
+   }else{el.removeAttribute('aria-invalid');if(note){note.hidden=true;note.textContent='';}el.removeAttribute('aria-describedby');}
+  });
+  Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
+  return v;
+ }
+ const unfinished=bad=>({ok:false,error:'Not calculated. The '+bad.join(' and the ')+' box'+(bad.length>1?'es hold':' holds')+' an unfinished entry (for example just a minus sign). Finish the number, or clear the box.'});
+ function out(id,r,html){
+  const el=document.getElementById('fiber-'+id+'-result');if(!el)return;
+  el.classList.toggle('error',!!r&&!r.ok&&r.error!==null);
+  el.innerHTML=r?.ok?html:`<p class="note"${r&&!r.ok&&r.error&&/^Not calculated/.test(r.error)?' role="alert"':''}>${escape(r?.error??'Enter values to see the result.')}</p>`;
+ }
+ function colorTable(){
+  return `<div class="table-scroll" tabindex="0" role="region" aria-label="TIA-598 colors"><table class="leak-table"><thead><tr><th scope="col">Position</th><th scope="col">Color</th><th scope="col">Position</th><th scope="col">Color</th></tr></thead><tbody>${[0,1,2,3,4,5].map(i=>`<tr><td>${i+1}</td><td>${swatch(FiberTools.COLORS[i])}${FiberTools.COLORS[i]}</td><td>${i+7}</td><td>${swatch(FiberTools.COLORS[i+6])}${FiberTools.COLORS[i+6]}</td></tr>`).join('')}</tbody></table></div>`;
+ }
+ function updateFinder(){
+  const v=read('finder');
+  if(v.__bad.length)return out('finder',unfinished(v.__bad));
+  if(String(v.fiber??'').trim()===''&&String(v.tube??'').trim()===''&&String(v.position??'').trim()==='')return out('finder',{ok:false,error:null});
+  const byTube=String(v.fiber??'').trim()==='';
+  const r=byTube?FiberTools.fromTube(v.tube,v.position):FiberTools.locate(v.fiber);
+  if(!r.ok)return out('finder',r);
+  out('finder',r,`${row('Fiber '+r.fiber,swatch(r.fiberColor)+r.fiberColor+' <small>(position '+r.position+')</small>')}${row('In tube '+r.tube,swatch(r.tubeColor)+r.tubeColor)}<p class="note tight">${r.tubeMarking.marked?'Tube '+r.tube+' is past 12: '+escape(r.tubeMarking.text)+'. Marking past 12 differs between makers, so check the cable print legend before you splice.':'Fibers and tubes both use the same twelve colors in the same order.'}</p>`);
+ }
+ const STANDARD=Object.freeze({connector:'fiber.tia.connector',splice:'fiber.tia.splice',osp:'fiber.tia.sm.osp',isp:'fiber.tia.sm.isp'});
+ function updateBudget(){
+  const v=read('budget');
+  if(v.__bad.length)return out('budget',unfinished(v.__bad));
+  if(Object.values(v).every(x=>String(x??'').trim()===''))return out('budget',{ok:false,error:null});
+  const r=FiberTools.budget(v);
+  if(!r.ok)return out('budget',r);
+  const part=(label,value)=>row(label,trim(value)+' <small>dB</small>');
+  let html=part('Fiber, '+trim(r.length,3)+' km × '+trim(r.attenuation,3)+' dB/km',r.fiber)+part('Connectors, '+r.connectors.count+(r.connectors.count?' × '+trim(r.connectors.each):''),r.connectors.total)+part('Splices, '+r.splices.count+(r.splices.count?' × '+trim(r.splices.each):''),r.splices.total)+(r.otherEntered?part('Other loss',r.other):'')+row('Estimated link loss',trim(r.estimated)+' <small>dB</small>')+row('With the safety margin of '+trim(r.margin)+' dB',trim(r.required)+' <small>dB</small>');
+  if(r.optics)html+=row('Optics budget (transmit power − receiver sensitivity)',trim(r.optics.available)+' <small>dB</small>')+(r.optics.status==='within'?`<p class="health-status ok">✓ ${trim(r.optics.headroom)} dB of the optics budget is left after the loss and the margin.</p>`:`<p class="health-status warn">⚠ Short by ${trim(-r.optics.headroom)} dB: the loss and margin exceed the optics budget.</p>`);
+  else html+='<p class="health-status neutral">• No optics numbers were entered, so this is the loss to expect, not a pass or fail.</p>';
+  out('budget',r,html);
+ }
+ function referenceBox(){
+  return `<div class="fiber-reference"><h4>Standard allowances (worst-case design values) ${tag('fiber.tia.connector','TIA connector allowance')}</h4><div class="table-scroll" tabindex="0" role="region" aria-label="TIA-568.3-D allowances"><table class="leak-table"><thead><tr><th scope="col">Item</th><th scope="col">Allowance</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">Mated connector pair</th><td>0.75 dB</td><td>${tag('fiber.tia.connector','connector allowance')}</td></tr><tr><th scope="row">Splice</th><td>0.3 dB</td><td>${tag('fiber.tia.splice','splice allowance')}</td></tr><tr><th scope="row">Single-mode, outside plant</th><td>0.5 dB/km</td><td>${tag('fiber.tia.sm.osp','outside plant attenuation allowance')}</td></tr><tr><th scope="row">Single-mode, inside plant</th><td>1.0 dB/km</td><td>${tag('fiber.tia.sm.isp','inside plant attenuation allowance')}</td></tr></tbody></table></div><div class="toolbar"><button type="button" data-fiber-fill="osp">Copy the outside-plant allowances into the fields</button><button type="button" data-fiber-fill="isp">Copy the inside-plant allowances into the fields</button></div><p class="note">Real glass and good connectors measure better than these allowances, and your company's own limits may be tighter; the app does not know them. Copying the allowances is your choice, never a default.</p></div>`;
+ }
+ function markup(){
+  return `<div class="sectionhead"><div><h2>Fiber</h2><p class="note tight">The TIA-598 color code and a simple link loss budget. Offline; nothing is read from a meter and nothing is stored. A blank entry is never read as zero.</p></div></div><div class="calc-grid"><section class="calc-card" aria-labelledby="fiber-finder-title"><div class="calc-card-head"><h3 id="fiber-finder-title">Fiber color finder</h3>${tag('fiber.tia598.colors','TIA-598 color code')}</div><p class="note tight">Counting from 1 across the cable with 12 fibers in each tube. Enter a fiber number, or a tube and a position inside it.</p>${colorTable()}<div class="calc-fields">${field('finder','fiber','Fiber number (1 to '+FiberTools.MAX_FIBER+')','e.g. 30')}${field('finder','tube','Or tube number (1 to '+FiberTools.MAX_TUBE+')','e.g. 3')}${field('finder','position','Position inside the tube (1 to 12)','e.g. 6')}</div><div class="calc-result" id="fiber-finder-result" role="status" aria-live="polite"></div><p class="note calc-conditions">Twelve colors in this order for fibers and for buffer tubes: blue, orange, green, brown, slate, white, red, black, yellow, violet, rose, aqua. Past 12 the colors repeat with a stripe, dashes or rings, and makers differ (fiber 20 is often clear or yellow-striped), so the cable print legend and the construction sheet decide. Cables with 24 fibers in a tube, ribbons and other color schemes are not covered.</p></section><section class="calc-card" aria-labelledby="fiber-budget-title"><div class="calc-card-head"><h3 id="fiber-budget-title">Link loss budget</h3>${tag('fiber.budget.formula','link loss budget formula')}</div><p class="note tight">Estimated loss = length × attenuation + connector pairs × loss + splices × loss + other loss. A count of 0 needs no loss; a blank is not zero.</p>${referenceBox()}<div class="calc-fields">${field('budget','length','Link length (km)','e.g. 12.4')}${field('budget','attenuation','Fiber attenuation (dB/km)','e.g. 0.35')}${field('budget','connectors','Mated connector pairs (count)','e.g. 4')}${field('budget','connectorLoss','Loss of each pair (dB)','e.g. 0.3')}${field('budget','splices','Splices (count)','e.g. 6')}${field('budget','spliceLoss','Loss of each splice (dB)','e.g. 0.1')}${field('budget','other','Other loss, such as a splitter (dB, optional)','e.g. 3.5')}${field('budget','margin','Safety margin (dB, 0 for none)','e.g. 3')}${field('budget','tx','Transmitter output power (dBm, optional)','e.g. 3')}${field('budget','rx','Receiver sensitivity (dBm, with the transmitter power)','e.g. -24')}</div><div class="calc-result" id="fiber-budget-result" role="status" aria-live="polite"></div><p class="note calc-conditions">A loss budget is an estimate to compare with a measured insertion loss; it does not include measurement uncertainty and does not judge a link against your company's pass limit. The optics budget needs the maker's transmit power and receiver sensitivity at the wavelength you use. Enter splitter or WDM loss from its data sheet under other loss.</p></section></div>`;
+ }
+ let initialized=false;
+ function init(){
+  if(initialized||typeof document==='undefined')return;initialized=true;
+  const panel=document.getElementById('fiberPanel');if(!panel)return;
+  panel.innerHTML=markup();
+  const upd={finder:updateFinder,budget:updateBudget};
+  const onEdit=event=>{const t=event.target;if(panel.contains(t)&&t.dataset.fiber&&upd[t.dataset.fiber])upd[t.dataset.fiber]();};
+  panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);panel.addEventListener('focusout',onEdit);   /* leaving a half-filled box from empty sends no change */
+  panel.addEventListener('click',event=>{
+   const b=event.target.closest('button[data-fiber-fill]');if(!b||!panel.contains(b))return;
+   const value=id=>typeof Thresholds!=='undefined'?Thresholds.get(id)?.value:undefined;
+   const set=(name,v)=>{const el=panel.querySelector(`[data-fiber="budget"][data-field="${name}"]`);if(el&&Number.isFinite(v))el.value=String(v);};
+   set('connectorLoss',value(STANDARD.connector));set('spliceLoss',value(STANDARD.splice));set('attenuation',value(STANDARD[b.dataset.fiberFill]));
+   updateBudget();
+  });
+ }
+ return {init,updateFinder,updateBudget,STANDARD};
+})();
+</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();initWorkflow();initTraining();</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"ebe9b831091a7c85b587","worker":"sw.ebe9b831091a7c85b587.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
