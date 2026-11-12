@@ -10,20 +10,19 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #16 item 17 | `claude/b17-highsplit` | [#16](https://github.com/Goodst3r/Carpe-Noctum/pull/16) merged `b4cb832` | `0436e9a` | merged after local gate and hosted CI | 87/2276, 745.4 s, layout 784, smoke 361 |
 | Stretch #18 item 18 | `claude/b18-why-cards` | [#18](https://github.com/Goodst3r/Carpe-Noctum/pull/18) merged `cb3c3b2` | `7d18b9a` | merged after local gate and hosted CI | 88/2283, 781.8 s, layout 854, smoke 364 |
 | Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
-| Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
 | Re-pin after #28 | `build3` | [#28](https://github.com/Goodst3r/Carpe-Noctum/pull/28) merged `93acbac` | `93acbac` | merged, docs only; local re-pin gate recorded | 89/2289, 776.7 s, layout 944, smoke 367. Standalone `9a9da29f…9081`. See `handoff_docs/reviews/grok-gate-93acbac.md` |
 | Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | Two own runs, both green: 90/2297, 802.7 s and 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
-| Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `304cb77` | already on `build3` before this A5 merge. The status written on that branch said the docs head `54d5bee` was not a full gate | not gated by this session |
-| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | this merge | local gate green on `a467418` only; this merge of `304cb77` is a new head and is not gated yet | `a467418`: 91/2301, 792.3 s, layout 1054, smoke 373. `3c9d3a4` layout failed |
-
+| Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | on `build3`. The gate file on that branch is not this session's run | `handoff_docs/reviews/grok-gate-54d5bee.md` says 90/2298, 872.5 s, layout 1004, smoke 370, standalone `8dcd277e…4035` |
+| Roadmap determination | `claude/roadmap-determination` | [#26](https://github.com/Goodst3r/Carpe-Noctum/pull/26) merged `6414668` | `6414668` | docs only, already on `build3`. Not gated by this session | not a full gate |
+| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | this merge | `023653f` was green and contains `304cb77`, not `6414668`. This merge is not gated yet | `023653f`: 91/2302, 791.5 s, layout 1054, smoke 373. CI [43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) pass. `3c9d3a4` layout failed |
 | A6 item 16 | not started | | | after A5 | |
 | A7 item 12 | not started | | | after A6 | |
 
 ## Next
 
-This branch is A5, item 14, after merging `origin/build3` at `304cb77` (pull request #25, the Arcom detector name, is already on `build3`). Local gate on `a467418` was green (91/2301, 792.3 s, layout 1054, smoke 373) but that commit does not contain `304cb77`, so it is not the merge head. This merge is not gated yet. **D3: one run (Grok).** Spencer accepts or rejects D3.
+This branch is A5, item 14, after merging `origin/build3` at `6414668` (pull request #26, roadmap docs only). `023653f` was a green local gate and a green hosted CI run, and it contains the Arcom wording, but it does not contain `6414668`. This merge is not gated yet. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
-The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. Another session had already merged #25 and had written that A5 waits until after NAV-1. This session follows the chat for what to build next, and it keeps #25 because `build3` already has it. #26 and NAV-1 are not started.
+The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. `build3` already has #25 and #26. `handoff_docs/ROADMAP_PROMPTS.md` says do not start A5 to A7 and do NAV-1 next. This session follows the chat: finish A5, then A6 and A7. NAV-1 is not started.
 
 Screens on `f2641a2`, from the other session's recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139.
 

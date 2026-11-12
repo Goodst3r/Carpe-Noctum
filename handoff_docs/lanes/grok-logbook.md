@@ -2,6 +2,14 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 14 merge gate green; build3 moved again
+
+Head `023653f` (merge of `a467418` and `304cb77`) local gate 2026-11-12T08:56:26Z–09:10:10Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2302 checks, 791.5 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `ac987a33f4008a62f8195599b0755219a6e5f7b46f44680ff1622b69461e3a8b`. Porcelain afterwards only `?? qa/runtime/node_modules`. Hosted CI [run 43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) passed. Record: `handoff_docs/reviews/grok-gate-023653f.md`.
+
+Not merged. `origin/build3` moved to `6414668` during that run (pull request #26, roadmap docs, no app source). This commit merges that. The gate on this merge is not run yet.
+
+The chat for this session still says A5, then A6, then A7. `handoff_docs/ROADMAP_PROMPTS.md` says not to start A5 to A7. This session follows the chat.
+
 ## November 12, 2026 · item 14 layout fix gated; build3 moved
 
 Head `a467418` local gate 2026-11-12T08:40:23Z–08:54:09Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 792.3 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `96d6dde661d84da592f93766ecce077704289021590edcfc6b8bb933bdae9083`. Porcelain afterwards only `?? qa/runtime/node_modules`. Log `/tmp/grok-gate-a467418.log`. That head does not contain `origin/build3` `304cb77`, so it is not merged.
