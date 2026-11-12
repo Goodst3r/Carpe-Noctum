@@ -2,6 +2,8 @@
 
 Installation, offline use, updates and project backups for Android phones/tablets, iPhone and iPad. Prepared November 11, 2026.
 
+This page describes the **historical 1.8 Alpha build 2** ZIP and its Preview APK (code 24). It is not a 2.0 installer. The signed installer in the current repository is 2.0 Alpha build 2, Android code 26. 2.0 Alpha build 3 is source only (Android source code 27). No build 3 APK is in the repository.
+
 ## Read this before choosing an installation
 
 The single delivery is **NightSweep 1.8 Alpha build 2.zip**. Extract its one folder, **NightSweep 1.8 Alpha build 2/**, before opening files. It separates Android web, Android APK, iOS web, documentation, examples, source and verification records.

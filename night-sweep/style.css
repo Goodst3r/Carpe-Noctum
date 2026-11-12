@@ -247,7 +247,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -265,7 +265,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .health-card [hidden]{display:none!important}
 /* Leakage tools (build list item 7) */
 .leak-card textarea{width:100%;min-height:76px;font:inherit}
-.leak-card .table-scroll{overflow-x:auto;max-width:100%}
+.table-scroll{overflow-x:auto;max-width:100%}
 .leak-table{width:100%;min-width:440px;border-collapse:collapse;margin:8px 0}
 .leak-table th,.leak-table td{padding:7px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
 .leak-table thead th{color:var(--muted);font-size:12px;font-weight:600}
@@ -297,3 +297,64 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
 .check-panel h3 .source-tag{min-height:44px;min-width:44px;margin-left:6px;vertical-align:middle}
 .check-panel .check-field-error{grid-column:1/-1;margin:2px 0 8px;font-weight:600;overflow-wrap:anywhere}
+.imp-picker{border:1px solid var(--line);border-radius:12px;margin:12px 0;padding:6px 12px 10px;min-width:0}
+.imp-picker legend{padding:0 6px;font-weight:700}
+.imp-shape{display:flex;align-items:flex-start;gap:12px;min-height:48px;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}
+.imp-shape:first-of-type{border-top:0}
+.imp-shape input{flex:0 0 auto;width:26px;height:26px;margin:0;accent-color:var(--blue)}
+.imp-shape span{min-width:0;overflow-wrap:anywhere}
+.imp-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0;min-width:0}
+.imp-card h4{margin:14px 0 4px}
+.imp-card li,.imp-card p{overflow-wrap:anywhere}
+.imp-flow{padding-left:22px}
+.imp-flow li{margin:8px 0}
+.imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
+.imp-tool input[aria-invalid=true]{border:3px solid var(--bad)}
+.imp-tool-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.imp-tool-head h4{margin:0;flex:1 1 200px}
+.imp-tool .source-tag{min-width:44px;min-height:44px}
+.imp-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.imp-field-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px}
+.imp-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
+.imp-field>input{width:100%}
+.imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
+.fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
+.fiber-reference{margin:10px 0}
+#fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+.fiber-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fiber-field>label{font-size:13px;font-weight:600}
+.fiber-box-error{margin:0;font-size:13px;font-weight:600;color:var(--bad);overflow-wrap:anywhere}
+#fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
+.fiber-panel .calc-card button{min-height:44px}
+.hs-card{min-width:0}
+.hs-card h4{margin:16px 0 6px}
+.hs-table{border-collapse:collapse;width:100%;min-width:300px}
+.hs-table th,.hs-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px;overflow-wrap:anywhere}
+.hs-table thead th{font-weight:700;border-bottom:2px solid var(--line)}
+.pop-table th,.pop-table td{white-space:normal}
+.pop-card .source-tag{min-height:44px;min-width:44px}
+@media(max-width:700px){.pop-table{min-width:0}.pop-table thead{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.pop-table,.pop-table tbody,.pop-table tr,.pop-table th,.pop-table td{display:block;width:100%}.pop-table tr{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:6px 0}.pop-table th[scope=row]{background:transparent;border:0;font-size:15px;padding-bottom:2px}.pop-table td{border:0;padding-top:2px}.pop-table td:last-child{color:var(--muted);font-size:13px}}
+.hs-list,.hs-steps{margin:8px 0;padding-left:22px}
+.hs-list li,.hs-steps li{margin:8px 0;overflow-wrap:anywhere}
+.hs-source{display:block;margin-top:2px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.hs-panel .calc-card button{min-height:44px}
+.why-list{display:grid;gap:10px;margin-top:12px}
+.why-card{border:1px solid var(--line);border-radius:12px;padding:0;min-width:0}
+.why-card>summary{cursor:pointer;min-height:44px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;font-weight:700}
+.why-cite{font-weight:400;font-size:13px;color:var(--muted)}
+.why-card .source-tag{min-height:44px;min-width:44px}
+.why-body{padding:0 14px 12px}
+.why-body p{margin:8px 0;overflow-wrap:anywhere}
+.why-go{min-height:44px;margin:2px 6px 2px 0}
+.why-tags .source-tag{margin-right:6px}
+.study-card{min-width:0}
+.study-prompt{font-size:16px;margin:10px 0;overflow-wrap:anywhere}
+.study-choices{border:0;margin:8px 0;padding:0;min-width:0}
+.study-choice{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:8px 4px;overflow-wrap:anywhere}
+.study-choice input{width:24px;height:24px;flex:0 0 24px;margin:0}
+.study-number{display:block;margin:8px 0}
+.study-feedback{margin-top:10px;min-width:0}
+.study-feedback p,.study-feedback li{overflow-wrap:anywhere}
+.study-card .toolbar button,.study-go{min-height:44px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

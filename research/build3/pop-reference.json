@@ -1,0 +1,129 @@
+{
+ "frequency": {
+  "rule": "76.601(b)",
+  "numbers": [
+   2,
+   7
+  ],
+  "clause": "at least twice each calendar year (at intervals not to exceed seven months)"
+ },
+ "points": {
+  "rule": "76.601(b)(1)",
+  "numbers": [
+   6,
+   1000,
+   12500
+  ],
+  "clause": "For cable television systems with 1,000 or more subscribers but with 12,500 or fewer subscribers, measurements taken at six (6) widely separated points. However, within each cable system, one additional test point shall be added for every additional 12,500 subscribers or fraction thereof. At least one-third of the test points shall be representative of subscriber terminals most distant"
+ },
+ "channels": {
+  "rule": "76.601(b)(2)",
+  "numbers": [
+   5,
+   10,
+   550
+  ],
+  "clause": "a minimum of five (5) channels for systems operating a total activated channel capacity of less than 550 MHz, and ten (10) channels for systems operating a total activated channel capacity of 550 MHz or greater"
+ },
+ "level": {
+  "rule": "76.605(b)(3)",
+  "numbers": [
+   0,
+   1,
+   1.41,
+   3,
+   30,
+   75,
+   100
+  ],
+  "clause": "shall not be less than 1 millivolt across an internal impedance of 75 ohms (0 dBmV). Additionally, as measured at the end of a 30 meter (100 foot) cable drop, it shall not be less than 1.41 millivolts across an internal impedance of 75 ohms (+3 dBmV)"
+ },
+ "variation": {
+  "rule": "76.605(b)(4)",
+  "numbers": [
+   1,
+   3,
+   6,
+   8,
+   10,
+   24,
+   30,
+   100,
+   300
+  ],
+  "clause": "as measured at the end of a 30 meter cable drop that is connected to the subscriber tap, shall not vary more than 8 decibels within any six-month interval, which must include four tests performed in six-hour increments during a 24-hour period in July or August and during a 24-hour period in January or February, and shall be maintained within 3 decibels (dB) of the visual signal level of any visual carrier within a 6 MHz nominal frequency separation; 10 dB of the visual signal level on any other channel on a cable television system of up to 300 MHz of cable distribution system upper frequency limit, with a 1 dB increase for each additional 100 MHz"
+ },
+ "aural": {
+  "rule": "76.605(b)(2),(5)",
+  "numbers": [
+   4.5,
+   5,
+   10,
+   17
+  ],
+  "clause": "The aural center frequency of the aural carrier must be 4.5 MHz ±5 kHz above the frequency of the visual carrier. The rms voltage of the aural signal shall be maintained between 10 and 17 decibels below the associated visual signal level"
+ },
+ "response": {
+  "rule": "76.605(b)(6)",
+  "numbers": [
+   0.75,
+   2,
+   5
+  ],
+  "clause": "The amplitude characteristic shall be within a range of ±2 decibels from 0.75 MHz to 5.0 MHz above the lower boundary frequency"
+ },
+ "cnr": {
+  "rule": "76.605(b)(7)",
+  "numbers": [
+   43
+  ],
+  "clause": "The ratio of RF visual signal level to system noise shall not be less than 43 decibels"
+ },
+ "coherent": {
+  "rule": "76.605(b)(8)",
+  "numbers": [
+   47,
+   51
+  ],
+  "clause": "shall not be less than 51 decibels for noncoherent channel cable television systems; frequency-coincident with the visual carrier shall not be less than 47 decibels for coherent channel cable systems"
+ },
+ "isolation": {
+  "rule": "76.605(b)(9) and 76.609(g)",
+  "numbers": [
+   18,
+   50,
+   500
+  ],
+  "clause": "Shall not be less than 18 decibels. Measurements of terminal isolation are not required when either the manufacturer's specifications for subscriber tap isolation based on a representative sample of no less than 500 subscribers taps or laboratory tests performed by or for the operator of a cable television system on a representative sample of no less than 50 subscriber taps, indicates that the terminal isolation standard of § 76.605(a)(9) is met. To demonstrate compliance, the operator shall attach either such manufacturer's specifications or laboratory measurements as an exhibit to each proof-of-performance record."
+ },
+ "hum": {
+  "rule": "76.605(b)(10)",
+  "numbers": [
+   3
+  ],
+  "clause": "shall not exceed 3 percent of the visual signal level"
+ },
+ "headend": {
+  "rule": "76.605(b)(11)",
+  "numbers": [
+   10,
+   20,
+   170
+  ],
+  "clause": "shall be within 170 nanoseconds; shall not exceed ±20%; shall not exceed ±10 degrees"
+ },
+ "noise": {
+  "rule": "76.609(e)",
+  "numbers": [
+   4
+  ],
+  "clause": "summing the power indications to obtain the total noise power present over a 4 MHz band centered within the cable television channel. If it is established that the noise level is constant within this bandwidth, a single measurement may be taken which is corrected by an appropriate factor representing the ratio of 4 MHz to the noise bandwidth of the frequency-selective voltmeter."
+ },
+ "retention": {
+  "rule": "76.1704(a)",
+  "numbers": [
+   5
+  ],
+  "clause": "maintained on file at the operator's local business office for at least five years"
+ }
+}

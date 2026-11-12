@@ -18,6 +18,8 @@ Priorities, sources and acceptance tests for every item are in `docs/BUILD_LIST.
 
 ## Where things stand
 
+**November 12, 2026 update (Grok).** The paragraphs below this note are the November 11 snapshot. They are not the current branch. `build3` at `f467e5261295449f94dd232ab3995c8a00be25ee` holds items 1 to 10 and 13. D1 and D2 are met. D3, D4 and D5 were open when Grok started the close-out. Lane A and Lane B have stopped. A third assistant (Grok) is doing the close-out. See `handoff_docs/lanes/grok-status.md` and `START_HERE_CODEX.md`. Do not use the November 11 suite counts below as the current gate.
+
 **Integration branch: `build3`.** It holds the build 3 work from `ccr-7abea525-rljsni` (build list items 1, 2 and 4) plus these docs. `main` stays at 2.0 Alpha build 2 until Spencer accepts build 3.
 
 **Base check on `c55a67c`, Lane A's own run (Nov 11).** Install and both builds passed; rendered checks passed (55 inside the runner, 141 build 3 layout, 328 browser smoke). `qa/run-pwa.py` hit its 150 s per-suite limit in `build2-reliability.test.cjs`, so only 10 suites (107 checks) finished. Lane A made no changes. Its receipt wasn't on GitHub when this was written.
@@ -162,7 +164,7 @@ Phase 0 comes first, in this order, and must not change app behavior: the rebuil
 - **Item 13 (imported sweep grading) is approved** (Spencer, Nov 11) for files he exported himself. Anything beyond that, such as company systems or other people's files, is still off limits. Real meter files are never committed.
 - **Company targets and tolerances** (forward levels, return injection and receiver, tilt, sweep peak-to-valley, leak repair threshold, sweep interval) start unknown everywhere. Never fill them in. The open questions for the supervisor are at the end of `docs/BUILD_LIST.md`.
 - **Items 8, 9, 7:** the safety, outage and leak cards are for a supervisor to review before coworkers use them. Mark each "review needed" in the final handoff.
-- **APK, emulator, phone and field tests:** only Spencer can do these. They aren't part of done.
+- **APK, emulator, phone and field tests:** the APK may be built and signed only by the finishing session, under `handoff_docs/APK_PLAN.md` (Spencer's authorisation, Nov 12, 2026). Emulator, phone and field tests only Spencer can do. They aren't part of done.
 
 ## No-push mode (when a session can't write to GitHub)
 

@@ -1,26 +1,53 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
-Prepared November 11, 2026 UTC
+Close-out note added November 12, 2026 UTC by Grok.
+The November 11 body below is the early session. Later lane sections are
+historical checkpoints. The current summary is this block.
 
 RELEASE IDENTITY
 Application: 2.0 Alpha build 3 (in development; formerly NightSweep)
 Export filename prefix: CarpeNoctum_2.0_Alpha_build_3_
-Android Preview version code: 27 (source identity only)
+Android Preview version code: 27 (source identity only; no build 3 APK)
 Android package: com.spencerwilliams.nightsweep.preview (unchanged)
 Build 3 APK: NOT BUILT. The original signing key is not in this environment.
 Latest signed installer: apk/CarpeNoctum-2.0-build2-preview.apk (code 26)
-Branch: ccr-7abea525-rljsni
+Integration branch: build3
+Required core on that branch before this close-out: f467e5261295449f94dd232ab3995c8a00be25ee
+  (items 1 to 10 and 13, including the Station native-input follow-up).
+  Stretch items 11, 12 and 14 to 20 are not on that commit.
+
+This checkout is claude/b11-impairments, which adds item 11 on top of that
+core. Counted from this branch's source (not a second jsdom of f467):
+30 task screens, 48 feature choices, practice steps 22/16/16/8/9/7/10.
+thresholds.js returns 112 rows alone; EvidenceArchive.limits adds 3 when the
+full app has loaded, so the running registry is 115. build.py has 42 module
+splice lines, plus the separate DSIM pilot-code insertion. Safety reminders
+remain 33.
 
 No deployment, APK, physical phone installation or plant acceptance is
-claimed. Storage keys and the job file format are unchanged.
+claimed. Storage keys, package ID and the job file format are unchanged.
+Saved-job changes on the branch are additive.
+
+CURRENT SOURCE COUNTS (Grok, jsdom on the f467e52 standalone HTML)
+29 task screens, 47 feature choices, practice steps 22/16/15/8/9/7/10,
+114 registry rows. Safety default reminders: 33, counted in safety.js.
+These counts are not a gate result. The post-paperwork gate is in
+handoff_docs/FINAL_HANDOFF.md. Lane A and Lane B each reported their own
+gate on f467e52 (82 suites, 2,174 checks, layout 554, smoke 352). Those
+are their runs. D3 is not closed by one assistant.
+
+SUPERVISOR REVIEW NEEDED before coworkers use the cards:
+  Leakage (item 7), Outage (item 8), Safety (item 9).
 
 SOURCE OF THE WORK
-The prioritized build list (docs/BUILD_LIST.md, GitHub pull request #2,
-branch claude/build-list) sets the order: 1 threshold and source registry,
-2 tilt/EQ/pad solver, 3 station view, 4 calculator bundle, and so on.
-Build 3 delivers items 1, 4 and 2.
+docs/BUILD_LIST.md is on build3. The same text is pull request #2 into
+main (owner's decision, not merged by this close-out). docs/ROADMAP.md is
+pull request #1 into main, also the owner's decision.
+The early session delivered items 1, 2 and 4. Later merges added 3, 5, 6,
+7, 8, 9, 10 and 13. The change list below is the early session. Feature
+notes after BACKUPS are the lanes' own sections; read them as checkpoints.
 
-CHANGES
+EARLY-SESSION CHANGES (items 1, 2 and 4; later items are in the lane sections)
 1. Threshold and source registry (build list item 1)
    - Test -> Limits lists every limit, target and formula the field tools
      use, filterable by label: Spec, Expert, Company, Unknown.
@@ -220,6 +247,123 @@ CHANGES
    - Practice: the custom-curves exercise gains a step (fourteen in total)
      and the feature index gains entry 43.
 
+10. Impairment decision tree and signature cards (build list item 11), Test -> Impairments
+   - Pick what the meter or spectrum shows (ten pictures) and read the
+     matching card: what it looks like, what usually causes it, what it is
+     easily mistaken for, and five steps (analyze, localize, prioritize,
+     repair, validate). Cards: standing wave, suckout, resonant peaking,
+     roll-off, tilt, excessive flat loss, ingress, cellular (LTE) ingress,
+     common path distortion, impulse and burst noise.
+   - Looks and causes follow SCTE 280 2022 (paraphrased, cited by section);
+     the five-step order is the workflow of SCTE's April 2026 PNM series;
+     the steps under each card are general practice labeled Expert. The
+     tilt and flat-loss cards say the source text was not read. It is the
+     technician's own aid, not a company procedure. Sources and what was
+     read: research/build3/IMPAIRMENT_SOURCES.md.
+   - The standing-wave card gives the distance between two mismatches
+     (492 x VP / ripple spacing, the Calculators formula) and lists the
+     pairs of points on the saved route that far apart, within a search
+     width (10 percent, changeable for one search, a registered Expert
+     value). A candidate is a place to look first, not a finding.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (fifteen in total)
+     and the feature index gains entry 44.
+
+11. Fiber tools (build list item 15, first part), Test -> Fiber
+   - A TIA-598 color finder: a fiber number (1 to 288, 12 fibers per tube)
+     or a tube and position gives the fiber's color and position and the
+     tube's color; the stripe or dash marking past tube 12 differs between
+     makers, so the screen sends the technician to the cable print legend.
+   - A simple link loss budget: length x attenuation + connector pairs x
+     loss + splices x loss + other loss, a safety margin and, with the
+     transmitter power and receiver sensitivity, the optics budget and the
+     headroom. No pass or fail without optics numbers and never against a
+     company limit. A blank is never zero; a count of 0 needs no loss.
+   - TIA-568.3-D allowances (0.75 dB per pair, 0.3 dB per splice, 0.5 or
+     1.0 dB/km single-mode outside or inside plant) are shown with source
+     tags and copied into the fields only when asked. Six registry rows,
+     all Spec or Expert and flagged secondary: they were read in vendor and
+     association summaries, not in the standards, and TIA-568.3-E was not
+     checked. Sources and gaps: research/build3/FIBER_SOURCES.md.
+   - Nothing is read from a meter and nothing is stored: no new storage key,
+     no change to the job format (tested).
+   - Practice: the custom-curves exercise gains a step (sixteen in total)
+     and the feature index gains entry 45.
+
+12. High split and Remote PHY reference (build list item 17), Test -> High split
+   - A reading aid: the DOCSIS 4.0 frequency-division-duplex band edges
+     (sub-split, mid-split, high-split, ultra-high splits; CM-SP-PHYv4.0
+     I08, Table 29 and Table 31), the gap between the two directions (our
+     subtraction, labeled derived), what a DOCSIS 3.1 modem must support
+     (CM-SP-PHYv3.1 I20), and which direction the 108 to 137 MHz
+     aeronautical band is in on each plant (upstream on 204/258).
+   - The aeronautical band and leakage: the OUDP test-burst approach of two
+     SCTE papers, a maker's view and the CCAP interface heading are named as
+     pointers; 47 CFR 76.610, 76.611, 76.614 and 76.616 are stated in plain
+     words with their sections. The screen gives no detector setting, test
+     frequency or pilot code, and says no document read tells a technician
+     whether to inject a downstream tag on a 204 MHz node.
+   - Remote PHY bring-up: eight steps from the CableLabs R-PHY, R-DEPI,
+     R-DTI, R-OOB and R-OSSI specifications, each with who does it and its
+     document, issue and section. Vecima's guides are behind its customer
+     portal, so no Vecima procedure is described and no other maker's steps
+     or lights are borrowed (Cisco, Teleste and Harmonic public guides are
+     only listed). Not a checklist for a Vecima node: see the status file.
+   - Six registry rows (spec, expert and derived). Nothing is read from a
+     node or stored; no new storage key, no change to the job format
+     (tested). Sources and gaps: research/build3/HIGHSPLIT_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (seventeen in total)
+     and the feature index gains entry 47.
+
+13. Why cards (build list item 18), Test -> Why cards
+   - Fourteen short cards, one for each "What is ...?" monograph in SCTE's
+     293 series (293-1 2024 the decibel to 293-14 2026 impedance), each in
+     our own words: what the topic is, why it matters in the field, and a
+     button to the screen of this app that uses it. A summary, not a copy;
+     each card names the monograph to read in full.
+   - Titles and years come from the SCTE Standards Catalog. Cards 7, 13 and
+     14 rest on a description page, not the document, and the guide says so.
+   - No figure on a card except definitions and registered ones; one new
+     registry row (75 ohm nominal impedance, spec, secondary). Nothing is
+     typed, stored or read from a meter; no new storage key, no change to
+     the job format (tested). Sources: research/build3/WHY_CARDS_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (eighteen in total)
+     and the feature index gains entry 48.
+
+14. FCC proof-of-performance reference card (build list item 20), Test -> Proof of performance
+   - A reference only: how often and where proof-of-performance tests are
+     made, the analog-channel limits (47 CFR 76.605(b)), how the main
+     measurements are made (76.609) and how long the records are kept
+     (76.1704), each row with its rule section and a source tag. No input,
+     nothing stored; it makes or records no test and is not a filing.
+     Official results belong to engineering.
+   - Fourteen registry rows (spec, primary): the rule text was read on the
+     eCFR on November 11, 2026. SCTE 204 2025 (FCC Proof-of-Performance
+     Checklist for Analog and Digital Signals) was found in the catalog and
+     not read; QAM video follows ANSI/SCTE 40 2016, which is not read here.
+   - Practice: the custom-curves exercise gains a step (nineteen in total)
+     and the feature index gains entry 49. Sources and gaps:
+     research/build3/POP_SOURCES.md.
+
+15. Study mode (build list item 19), Test -> Study
+   - Practice questions in the five BDS domains (architectures;
+     distribution components; signal types; maintenance and
+     troubleshooting; safety and construction), made from this app's own
+     calculators and reference screens: nineteen generators, numbers from a
+     seed on a fixed grid, each answer computed by the function the screen
+     uses, with the working and a link to that screen after an answer.
+   - Original: no SCTE or NCTI question or key was used, and the screen says
+     it is not an exam. A blank answer, a lone minus sign or text is never
+     taken as an answer. A score is kept for the visit only; nothing is
+     stored, no new storage key, no change to the job format (tested).
+   - Checked against an independent Python decimal recomputation of every
+     numeric answer (research/build3/study-reference.py). Safety and
+     construction questions only ask which section of the app's own cards a
+     reminder belongs to. Sources: research/build3/STUDY_SOURCES.md.
+   - Practice: the custom-curves exercise gains a step (twenty in total) and
+     the feature index gains entry 50.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
@@ -255,7 +399,7 @@ with Python decimal arithmetic at 50 significant digits, written separately
 from the app. Wolfram was not available in this session; this is the
 independent check used instead.
 
-VERIFICATION (THIS RUN)
+VERIFICATION (EARLY SESSION ONLY, November 11, 2026 — not the current head)
 Automated suites (python3 qa/run-pwa.py): 1,109 checks across 61
   suites passed; generated build unchanged during tests.
   New suites: registry 13 checks; calculators 10 checks with 123
@@ -279,7 +423,8 @@ BACKUPS
 Export a full project backup before installing any new build. The registry
 and calculators do not change saved jobs.
 
-A1 — MERGED STATION WORKSHEET, NOVEMBER 11, 2026
+A1 — HISTORICAL MERGED STATION WORKSHEET, NOVEMBER 11, 2026
+Checkpoint for PR #8. Not the combined head.
 Lane B reviewed and merged PR #8 at 21ed711. Independent Before/After,
 plant/model guidance, unknown company targets, v2 equipment/source bindings,
 read-only legacy/UBT history and separate balance/sweep records are retained.
@@ -290,13 +435,15 @@ index/tree and generated bytes unchanged; clean without evidence restoration.
 Standalone SHA256:
 28148b1ffda13dffb1b27e4043cede7d183508578b1c53737137b030d98b8b15.
 
-## A4 imported sweep grading — reviewed Sweep Due integration and render-context follow-up
+## A4 imported sweep grading — historical checkpoint (not the merged head)
+
+Checkpoint only. "Native-input follow-up is not imported" is true of this checkpoint, not of build3 f467e52.
 
 Frozen61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe ordinarily merges production41 with reviewed394179c7ac15ad57d19b654a4427e3b9fa2f54c0. Source, independent delta and fresh whole gate are accepted:80/2072,679.0s +layout554/smoke352. This ordinary metadata publication preserves all tested product bytes and is ready for LaneB same-published-head gate/review/merge. Priorpublicf6d/testedfe74/1701,526.6s +554/346 on3cf is historical. D1 done; A2/A3 mergedf50/394, leaving D2item13 andD3–D5 open.
 
 Explicit offline nativeJSON/gzip/singleJSONZIP/syntheticCSV grading retains originals/SHA/samples, immutable criteria/results/log history, independent balance/sweep facts and four initially-Unknown42/54 or204/258 profiles. No automatic grade/date/done, interpolation/reference correction/company acceptance or new formula/limit/default/key/schema/version. SampledPTV is not normalized continuous-band ripple. Sources remain authorizedA4plan/BUILD_LIST, native-format/core research and reviewed editor/calendar contracts.
 
-CURRENT measured source/frozen/guides:29screens/47features and22/16/15/8/9/7/10. All46 base feature tuples and72 registry rows remain ordered prefixes;42A4 rows total114;38base+3A4 splice entries;21practice cells/47feature markers/20assets/9Jobtabs.80registered suites is static, not a full outcome. Both savedNightLog/savedGrading Example keepers, all3 optional validators/content terms and reviewed interval-drop policy survive. Station exact41; relative394 only existing pure boundRecords helper/export differs. A1 native-input follow-up is not imported.
+Checkpoint measured (this A4 head only): 29screens/47features and22/16/15/8/9/7/10. All46 base feature tuples and72 registry rows remain ordered prefixes;42A4 rows total114;38base+3A4 splice entries;21practice cells/47feature markers/20assets/9Jobtabs.80registered suites is static, not a full outcome. Both savedNightLog/savedGrading Example keepers, all3 optional validators/content terms and reviewed interval-drop policy survive. Station exact41; relative394 only existing pure boundRecords helper/export differs. A1 native-input follow-up is not imported.
 
 Author61:19focused commands pass grading56/56, Due37/37, Log23/23, old/newinterop3/3 each, correct-mode Checklist37/37/registry14/14/names6; native69/core93 single module invocations; rendered88/189 and separate actualbrowser27;680strict clean. Independent61 own56/56/triple3/3/audits6+6/MCP38/680strict accepted. Separate targetedMCP14(7eachwidth) proves saved/autosaved/readView24→due2027-11-11, explicit restore18→2027-05-11, then date edit→2028-05-11. Original38 raw preserved; corrected report sequence/oracle gap, no production defect/change or single52 campaign.
 
@@ -308,11 +455,11 @@ Failed533 staysFAILED71/72,1566 counted;60d default-second-context/jitless diagn
 
 Current compact receipt: handoff_docs/lanes/codex-a4-validation.json; final author/delta/full reports: handoff_docs/reviews/codex-sweep-grading-sweepdue-{integration,review,full-gate}.md. ProofSHA973204faf6550338459adf754e23086bf2b7e69206bee585c626765b2a0c5d09; rawSHA93e1b5a2ee9ff408dcd1dbc72ce39e20e2d2f480889f7e4ca9d676a34cdebd25; manifestSHAbd1509779db8a1754d93aa6fd1aaa8f47f49be835ecc7424487bb7c216e95ad4.
 
-### A2 Night log and shift handoff — current reviewed Outage base
+### A2 Night log — historical checkpoint at 2690 (28 screens / 45 features; merged core is 29 / 47)
 
 Job → Night log keeps personal ticket/window, node/amp actions, ROC/dispatch, fuel/mileage units, as-built and next-shift notes. Explicit Add freezes both saved Station stages, raw values/results and independent balance/sweep facts; later edits never recalculate that capture. Unknown remains unknown. Customer identifiers and legacy address/lead fields are excluded; TXT and safe rectangular per-stage CSV use existing offline file preparation, and full project JSON retains exact raw/capture/original data. No new key/schema/version/package, RF formula, company default or runtime dependency. Existing200-entry guard remains Unknown. Route example preserves optional nightLog; deliberate blank windows remain unknown, partial text does not replace saved values, blur/return restores last saved text, and validated edits invalidate stale preview.
 
-Current source2690a46e51b8e20cd9841d11a1850a8de92c170c starts from public9b77213/source35f and ordinarily integrates reviewed Safetyccf and Outage3cf. Product NightLog/App/jobs/fixture/QA stays exact35f; reviewed Safety/Outage/checklist/Station stays exact3cf. All44 base feature tuples/rows survive, with Safety43/Outage44/Night log45. CURRENT runtime/guides: **28screens,45features**, complete22/six-active15/custom14/OEM8/DSIM9/manual7/GS7K10. Final guide-only corrections fixed two Coverage43→45 claims and two mirrored main Custom12→14 cells; product/QA/standalone stayed exact. Earlier guide audits did not check every table value; final2690 independently checks every current table and20 PWA hashes.
+Current source2690a46e51b8e20cd9841d11a1850a8de92c170c starts from public9b77213/source35f and ordinarily integrates reviewed Safetyccf and Outage3cf. Product NightLog/App/jobs/fixture/QA stays exact35f; reviewed Safety/Outage/checklist/Station stays exact3cf. All44 base feature tuples/rows survive, with Safety43/Outage44/Night log45. Checkpoint runtime/guides at 2690 (not the merged head): **28screens,45features**, complete22/six-active15/custom14/OEM8/DSIM9/manual7/GS7K10. Final guide-only corrections fixed two Coverage43→45 claims and two mirrored main Custom12→14 cells; product/QA/standalone stayed exact. Earlier guide audits did not check every table value; final2690 independently checks every current table and20 PWA hashes.
 
 Current own exact2690 verification: `python3 night-sweep/build.py`; `python3 build-pwa.py`; `GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py`; separate build3-layout and browser-smoke with the same Chromium/GIT_OPTIONAL_LOCKS. Actual **72/1534,524.9s +layout554/smoke346**, all5commands0/fresh/raw-source-equal,23:11:46–23:21:01UTC. All593 tracked/570source/23generated hashes, semantic staged/tree, README/lock and40dependencies unchanged/clean without restoration;12sealedmanifest hashes verified. Raw index cache bytes diagnostic only. App899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883; PWA7ec73c8a1fa09c798d4d. ProofSHA6b562cd16ec11260cbf55a848434d4de95ef6dfa33a3be8b82dae277f1d12ad5; manifestSHA3b5ff246bb38d282298a5be8d67d6ba45f6bfcc4cd72aaf6805c7c435fde0468. Current receipt: handoff_docs/lanes/codex-a2-validation.json; exact author Safety/Outage integration, final independent delta and current gate reports are preserved under handoff_docs/reviews/codex-night-log-*.
 
@@ -333,7 +480,9 @@ Historical35f receipt and older chain are immutable at https://github.com/Goodst
 Known Gaps is unchanged: no Remove/Undo, blank Add consumes a slot, no implemented new-window action, existing sample/provenance classification and multiline TXT indentation remain explicit. Stored log/raw/results/dates remain exact; derived current-context TXT/CSV headers/warnings can change after Route example. The separate A1 native-input fix is PR23, not silently imported in A2. Safety/Outage still need supervisor review before coworker release. No emulator, physical phone/Safari/WebView/screen reader/native provider dialog/RF hardware/field/APK/signing/deployment result. Lane B must review/gate the final published PR17 head and merge; Lane A cannot self-merge. D1 complete; D2–D5 open.
 
 
-A3 — CURRENT SWEEP-REMINDER INTEGRATION (November12,2026)
+A3 — HISTORICAL SWEEP-REMINDER CHECKPOINT (November 12, 2026; 29 screens / 46 features on that head)
+
+This checkpoint's guides were 29 screens and 46 features. The merged core is 29 and 47.
 
 Exactsource `072eb0ec193e7cd621e9f76c4024ecd02de1288d` ordinarily integrates reviewed Night Log base `f50a7445a8c5254b0db4db5d9e4309569345c12c`. Current source/frozen runtime and all current guides: **29screens/46features; steps22/16/14/8/9/7/10**. All45 base feature objects remain prefix, SweepDue46 appends; exact nine Job tabs retain NightLog eighth/SweepDue ninth in both Checklist and naming QA. Both optional import/content terms and the NightLog example keeper remain; both implementation modules preserve reviewed bytes. Route example retains NightLog and keeps the existing interval-drop behavior. No A1 native-input/A4 parser code is silently imported.
 
@@ -343,9 +492,11 @@ Own072 focused source/frozen NightLog23/23, SweepDue37/37, Checklist37/37, regis
 
 Full-result attribution stays exact: original52fac69070/1482 +374/340 historical; c6 realFAILED71/72,1592,480.3s (only stale inherited expected7 versus rendered8 tabs), separate554/346passed; one-line QA successor26f freshPASS72/1629,474.1s +554/346, all574hashes unchanged, historical on3cf. The fresh exact072 whole gate **PASSED74/74 suites,1760 checks,630.0s reported suite time** (command wall630.763s), started2026-11-12T00:16:02UTC and finished00:27:08UTC. Separate actual rendered layout554/smoke349 passed. Both builders and all five commands exited0; all610 tracked hashes (587source/23generated), HEAD/tree, semantic staged entries, README/lock and40 installed locked packages stayed unchanged/clean without restoration. Fresh raw/source equality, actual registered identities/count sum and all12 sealed manifest artifacts were independently verified by the root. Raw index stat-cache refresh is diagnostic, not a content change. Exact commands and compact/raw results are in codex-a3-validation.json and codex-sweep-due-nightlog-gate.md. Independent072 scoped delta **PASS**: own Due37/37, NightLog23/23, Checklist37frozen,14 integration groups and47 actual Chrome DevTools MCP checks. All610 tracked hashes and exact HEAD blobs/semantic guards stayed unchanged/clean. The initial reopened-original-ID assumption probe is preserved separately; expected import UUID remapping is not a product failure and its17 preliminary checks are not added to47. This reviewer ran no broad gate; LaneB final-head review/gate remains required. Prior failures stay immutable; the current full PASS is a separate execution on the new base.
 
-Sources/commands/files/own timings: `handoff_docs/reviews/codex-sweep-due-nightlog-integration.md`, peer-fix/review and historical gate reports; focused machine proof `handoff_docs/lanes/codex-a3-nightlog-focused-validation.json`. Exact focused commands are the dedicated Node suites in source/frozen modes, the two rendered Python suites with NIGHTSWEEP_CHROMIUM=/usr/bin/chromium, existing three guide renders and both normal builders. No new formula or source verification claimed. Large-library synchronous typing, overlay chronology diagnostics and historical external-exploration reproducibility remain explicitly deferred. No device/emulator/WebView/Safari/native-provider/RF/field/APK/signing/deployment claim. LaneB same-final-head review/gate/merge remains; D2items10/13 andD3–D5 open. This A3 section supersedes stale A3 CURRENT26/43 or28/45 prose. Counts in preceding A1/A2 sections describe their historical source scopes; current combined runtime is29/46. Historical receipts remain source-attributed.
+Sources/commands/files/own timings: `handoff_docs/reviews/codex-sweep-due-nightlog-integration.md`, peer-fix/review and historical gate reports; focused machine proof `handoff_docs/lanes/codex-a3-nightlog-focused-validation.json`. Exact focused commands are the dedicated Node suites in source/frozen modes, the two rendered Python suites with NIGHTSWEEP_CHROMIUM=/usr/bin/chromium, existing three guide renders and both normal builders. No new formula or source verification claimed. Large-library synchronous typing, overlay chronology diagnostics and historical external-exploration reproducibility remain explicitly deferred. No device/emulator/WebView/Safari/native-provider/RF/field/APK/signing/deployment claim. LaneB same-final-head review/gate/merge remains; D2items10/13 andD3–D5 open. This checkpoint's combined runtime was 29/46. The merged core is 29 screens and 47 features. Historical receipts remain source-attributed.
 
-## A1 native-input retention — reviewed grading-base integration
+## A1 native-input retention — historical checkpoint (Lane A's run on 2d95e04; PR #23 is merged on build3)
+
+Lane A's counts below are that run, not Grok's, and not the post-paperwork gate. "PR23 merge remains required" was true when this paragraph was written; the merge commit is f467e52.
 
 Tested2d95e04e908eba822c2789787e0fa9ec9285f269 ordinarily merges807 with actual reviewed grading/build3 merge0e67660c530047d292b7838d892b1ae74862affb. Current author/independent scoped reviews and fresh full PASS are accepted:82/2174,683.7s +layout554/smoke352. Metadata-only publication preserves tested product bytes; Lane B same-published-head gate/review/actual PR23 merge remains required. D1/D2 complete;D3–D5 pending.
 

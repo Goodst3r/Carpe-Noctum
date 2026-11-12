@@ -2,10 +2,10 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — All Functions Reference: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — All Functions Reference — Technician guide</title>
 <style>
 :root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
-</style></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#leakage">Leakage</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#pre-work-safety">Pre-work safety</a><a href="#outage-first-response">Outage first response</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#station-worksheet">Station worksheet</a><a href="#night-log-and-shift-handoff">Night log and shift handoff</a><a href="#sweep-due">Sweep due</a><a href="#47-feature-coverage-index">47-feature coverage index</a><a href="#build-3-attached-sweep-grading-aid">Build 3 attached sweep grading aid</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
+</style></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#leakage">Leakage</a><a href="#impairments">Impairments</a><a href="#fiber">Fiber</a><a href="#high-split">High split</a><a href="#why-cards">Why cards</a><a href="#proof-of-performance">Proof of performance</a><a href="#study-mode">Study mode</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#pre-work-safety">Pre-work safety</a><a href="#outage-first-response">Outage first response</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#station-worksheet">Station worksheet</a><a href="#night-log-and-shift-handoff">Night log and shift handoff</a><a href="#sweep-due">Sweep due</a><a href="#53-feature-coverage-index">53-feature coverage index</a><a href="#build-3-attached-sweep-grading-aid">Build 3 attached sweep grading aid</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
 <p><strong>Technician README · Updated November 11, 2026</strong></p>
-<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 47 entries in the Practice library&#39;s feature index.</p>
-<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> adds four Test screens, <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a>, the <a href="#docsis-health-card">DOCSIS health card</a> and <a href="#leakage">Leakage</a>. The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds <a href="#pre-work-safety">Pre-work safety</a>, feature 43, and a fifth custom-curves guide step. Job → Outage adds <a href="#outage-first-response">Outage first response</a>, feature 44, and a sixth custom-curves guide step. Job → Night log adds <a href="#night-log-and-shift-handoff">Night log and shift handoff</a>, feature 45, and a five-station handoff practice step. Job → Sweep due adds <a href="#sweep-due">Personal sweep reminders</a>, feature 46, and the six-active exercise now has 16 steps. Job → ONX files adds <a href="#build-3-attached-sweep-grading-aid">Attached sweep grading</a>, feature 47; the custom-curves exercise now has 15 steps.</p>
+<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library&#39;s feature index.</p>
+<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> current source is <strong>35 task screens</strong> and <strong>53</strong> Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves <strong>21</strong>, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → <a href="#study-mode">Study mode</a> is feature 53 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a>, the <a href="#docsis-health-card">DOCSIS health card</a> and <a href="#leakage">Leakage</a> were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds <a href="#pre-work-safety">Pre-work safety</a>, feature 43, and was a fifth custom-curves guide step. Job → Outage adds <a href="#outage-first-response">Outage first response</a>, feature 44, and was a sixth. Job → Night log adds <a href="#night-log-and-shift-handoff">Night log and shift handoff</a>, feature 45, and a five-station handoff practice step. Job → Sweep due adds <a href="#sweep-due">Personal sweep reminders</a>, feature 46, and the six-active exercise has 16 steps. Job → ONX files adds <a href="#build-3-attached-sweep-grading-aid">Attached sweep grading</a>, feature 47; custom curves had 15 steps before Impairments. Test → <a href="#impairments">Impairments</a> then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → <a href="#fiber">Fiber</a> adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which was the nineteenth custom-curves guide step. Test → Proof of performance adds the FCC proof-of-performance reference card as feature 52, which was the twentieth custom-curves guide step. Test → Study adds the study-mode questions as feature 53, which is the twenty-first custom-curves guide step.</p>
 <p>For installation, use the separate <a href="NightSweep_1.8_Alpha_Android_iOS_Installation.md">Android and iOS installation guide</a>. This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android&#39;s native save/share/print dialogs appear when using the APK.</p>
 <h2 id="guide-contents">Guide contents</h2>
 <ol>
@@ -28,6 +28,12 @@
 <li><a href="#limits-and-sources">Limits and sources</a></li>
 <li><a href="#docsis-health-card">DOCSIS health card</a></li>
 <li><a href="#leakage">Leakage</a></li>
+<li><a href="#impairments">Impairments</a></li>
+<li><a href="#fiber">Fiber</a></li>
+<li><a href="#high-split">High split</a></li>
+<li><a href="#why-cards">Why cards</a></li>
+<li><a href="#proof-of-performance">Proof of performance</a></li>
+<li><a href="#study-mode">Study mode</a></li>
 <li><a href="#power-supply-load">Power-supply load</a></li>
 <li><a href="#power-what-if">Power what-if</a></li>
 <li><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a></li>
@@ -41,7 +47,7 @@
 <li><a href="#station-worksheet">Station worksheet</a></li>
 <li><a href="#night-log-and-shift-handoff">Night log and shift handoff</a></li>
 <li><a href="#sweep-due">Sweep due</a></li>
-<li><a href="#47-feature-coverage-index">47-feature coverage index</a></li>
+<li><a href="#53-feature-coverage-index">53-feature coverage index</a></li>
 <li><a href="#build-3-attached-sweep-grading-aid">Attached sweep grading aid</a></li>
 <li><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></li>
 </ol>
@@ -67,7 +73,7 @@
 </tr>
 <tr>
 <td>Test</td>
-<td>Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage</td>
+<td>Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance; Study</td>
 <td>Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit</td>
 </tr>
 <tr>
@@ -195,8 +201,8 @@
 </tr>
 <tr>
 <td><strong>Custom curves and reverse TDR</strong></td>
-<td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, attached sweep grading, DOCSIS health, leakage, pre-work safety and outage first response</td>
-<td>15 steps; no supplied meter captures</td>
+<td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode</td>
+<td>21 steps; no supplied meter captures</td>
 </tr>
 <tr>
 <td><strong>GainMaker OEM AGC</strong></td>
@@ -1077,6 +1083,102 @@
 <p><strong>If this browser will not save.</strong> A change this browser would not store stays on the screen until the page closes and is written with the next change that does save. If the saved notebook cannot be read, a copy of it is kept on this device and the screen says so before the next change replaces it. If a newer version of the app saved it, this version will not overwrite it.</p>
 <p>Checked worked numbers: 25 µV/m analog at 3 m and 121.2625 MHz is <strong>5 µV/m over</strong> the 20 µV/m limit; leaks of 100, 60 and 50 µV/m with 0.8 of the plant examined give a sum of squares of <strong>16,100</strong>, an index of 16,100 ÷ 0.8 = 20,125, which is <strong>43.04 dB</strong>, 21.0 dB at or below 64; leaks of 120, 85, 60, 250 and 50 µV/m at 0.8 give <strong>50.52 dB</strong>; 40 µV/m at 10 m is <strong>133.3 µV/m</strong> at 3 m.</p>
 <p>What this screen leaves out on purpose: the airspace measurement alternative, the correction for a test frequency outside 108–137 MHz, tracking of the quarterly aeronautical-band monitoring, the half-wave dipole voltage to field-strength conversion, per-job leak logs and live detector or GPS data.</p>
+<h2 id="impairments">Impairments</h2>
+<p><strong>Where:</strong> Test → Impairments. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Find an impairment from what the meter shows.</p>
+<p>Pick what the meter or spectrum display shows, from ten pictures, and read the matching card: <strong>what it looks like</strong>, <strong>what usually causes it</strong>, <strong>what it is easily mistaken for</strong> and <strong>five steps: analyze, localize, prioritize, repair, validate</strong>. It is your own aid and <strong>not your company&#39;s procedure</strong>, nothing is read from a meter or modem, and nothing is saved in the job or on the device. What a card says about the look and the causes follows SCTE 280 2022, paraphrased and cited by section; the five-step order is the workflow of SCTE&#39;s April 2026 PNM course series; the steps under each are general practice, labeled Expert.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>You see</th>
+<th>Card</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A regular ripple repeating across the spectrum</td>
+<td>Standing wave</td>
+<td>SCTE 280 §9.7 to §9.7.3</td>
+</tr>
+<tr>
+<td>One notch spanning a few channels</td>
+<td>Suckout</td>
+<td>SCTE 280 §9.3</td>
+</tr>
+<tr>
+<td>One hump that rises and falls, sometimes with a dip</td>
+<td>Resonant peaking</td>
+<td>SCTE 280 §9.5</td>
+</tr>
+<tr>
+<td>Levels falling away gradually toward the top of the band</td>
+<td>Roll-off</td>
+<td>SCTE 280 §9.6</td>
+</tr>
+<tr>
+<td>A steady slope across the band</td>
+<td>Tilt</td>
+<td>SCTE 280 §9.8 heading only; SCTE PNM series (body not read, so the card says so)</td>
+</tr>
+<tr>
+<td>Every frequency lower by about the same amount</td>
+<td>Excessive flat loss</td>
+<td>SCTE 280 §9.9 heading only; SCTE PNM series (body not read, so the card says so)</td>
+</tr>
+<tr>
+<td>Narrow spikes at fixed frequencies, such as FM or VHF</td>
+<td>Ingress</td>
+<td>SCTE 280 §9.4.2, §9.4.4; SCTE 294 2024r1</td>
+</tr>
+<tr>
+<td>Interference high in the downstream, above about 600 MHz</td>
+<td>Cellular (LTE) ingress</td>
+<td>SCTE 280 §9.4.3</td>
+</tr>
+<tr>
+<td>A raised upstream floor or haystacks that go with the downstream signals</td>
+<td>Common path distortion</td>
+<td>SCTE 280 §9.4.7; SCTE 294 2024r1</td>
+</tr>
+<tr>
+<td>Short wide-band bursts in the upstream</td>
+<td>Impulse and burst noise, such as power-line gap noise</td>
+<td>SCTE 280 §9.4.6; SCTE 294 2024r1</td>
+</tr>
+</tbody></table></div>
+<p><strong>The standing-wave card finds two mismatches on your saved route.</strong> Enter the ripple spacing between neighbouring peaks (MHz) and the cable&#39;s velocity of propagation. The distance between the two mismatches is 492 × VP ÷ spacing, in feet; the card shows it with the same calculator as Test → Calculators and lists the pairs of points on the saved route whose cable distance is within a search width of it (10 percent unless you change it for that search). A pair is the launch point or a point&#39;s far end of a span and a later point on the same path, so a candidate can span several cables; parallel branches are never added. Each candidate is a place to look at both ends, not a finding: a mismatch can be a connector, splitter, tap, amplifier input or the cable itself, and the real pair may lie outside the saved route. The search width is registered in Test → Limits as an Expert value; no source sets it.</p>
+<p>Checked worked numbers: a 1.7 MHz ripple on 0.87 VP cable is <strong>251.7 ft</strong> and, on the sample route, points to the 250 ft span from Tap 1 to Tap 2; a 4.3 MHz ripple on 0.87 VP cable is <strong>99.5 ft</strong> and, on the custom-curves practice route, points to its two 100 ft spans.</p>
+<p><strong>The list follows the working job.</strong> It is recomputed whenever the route or job changes while this screen is open, including Files → Open project and switching to another job; opening a project that has no route clears the old places and says the route has no point with a valid distance. Each number box has its own label, and the two Expert tags beside the heading and the search width are separate 44 px controls.</p>
+<p>What this screen leaves out on purpose: reading peaks off a sweep, any live capture, amplitude or depth limits (those are your company&#39;s), PNM data from modems, impairments of the node or headend, and the cards for amplifier distortion noise, HPNA, OBI, filters and missing channels, pullout and adjacent-channel alignment (named in the SCTE series but not built here).</p>
+<h2 id="fiber">Fiber</h2>
+<p><strong>Where:</strong> Test → Fiber. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Find a fiber and estimate a link loss.</p>
+<p>Two small fiber tools. Offline; nothing is read from a meter and nothing is saved. A blank entry is never read as zero.</p>
+<p><strong>Fiber color finder.</strong> Counting from 1 across the cable with 12 fibers in each tube, enter a fiber number (1 to 288), or a tube (1 to 24) and a position inside it (1 to 12). It shows the fiber&#39;s color and position and the tube&#39;s color, using the TIA-598 order for both fibers and tubes: blue, orange, green, brown, slate, white, red, black, yellow, violet, rose, aqua. Past tube 12 the colors repeat with a stripe or dashes and makers differ (tube 20 is the black position, and makers mark the repeat differently: a white tracer in one maker&#39;s note, a yellow stripe in another&#39;s), so the cable print legend and the construction sheet decide. Cables with 24 fibers in a tube, ribbons and other color schemes are not covered. The source is a secondary summary of ANSI/TIA-598: the standard itself was not read.</p>
+<p><strong>Link loss budget.</strong> Estimated loss = length × attenuation + mated connector pairs × loss per pair + splices × loss per splice + other loss (a splitter or WDM, from its data sheet). A count of 0 needs no loss; a blank count, or a blank loss for a counted item, gives a reason and no number. Add the safety margin to get the budget the link must fit in. With the transmitter output power and the receiver sensitivity (the weakest signal it accepts, both in dBm) it also shows the optics budget (transmit power minus sensitivity) and how many dB are left, or the shortfall. Without them it says it is the loss to expect, not a pass or fail. It does not include measurement uncertainty and does not judge a link against your company&#39;s pass limit, which the app does not know.</p>
+<p><strong>The standard&#39;s allowances are shown, never filled in silently.</strong> A table lists TIA-568.3-D&#39;s worst-case design values: 0.75 dB per mated connector pair, 0.3 dB per splice, and for single-mode cable 0.5 dB/km outside plant or 1.0 dB/km inside plant at both 1310 and 1550 nm. Each has a source tag; they are labeled Spec and flagged secondary, because they were read in vendor and association summaries and not in the standard, and TIA-568.3-E (2022) replaced the -D edition and was not checked. Real glass and connectors measure better (about 0.35 dB/km at 1310 nm, 0.2 to 0.5 dB per pair), and your cable maker&#39;s datasheet is the better number. <strong>Copy the outside-plant allowances into the fields</strong> and <strong>Copy the inside-plant allowances into the fields</strong> put the standard&#39;s values in the boxes when you ask; nothing starts with a default.</p>
+<p><strong>An unfinished number is reported where you typed it.</strong> A number box that holds only a minus sign or an unfinished exponent is never read as blank and never replaced by another way of entering the same thing. The box turns red, a message directly under that box names it and says to finish the number or clear the box, the box points at the message for a screen reader, and the result below says it is not calculated.</p>
+<p>Checked worked numbers: fiber 30 is white (position 6) in tube 3, which is green; fiber 240 is aqua in tube 20 (black, with the marking noted); a 12.4 km link at 0.35 dB/km with 4 connector pairs at 0.3 dB, 6 splices at 0.1 dB and 3.5 dB of other loss is <strong>9.64 dB</strong>, <strong>12.64 dB</strong> with a 3 dB margin, and with a 3 dBm transmitter and a −24 dBm receiver the optics budget is <strong>27 dB</strong> with <strong>14.36 dB</strong> left.</p>
+<p>What this screen leaves out on purpose: OTDR events, multimode budgets by wavelength, a bandwidth or dispersion budget, PON split budgets, polarity and MPO fiber maps, fiber-count conventions with more than 12 per tube, and any company pass limit.</p>
+<h2 id="high-split">High split</h2>
+<p><strong>Where:</strong> Test → High split. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Read the band plans and the Remote PHY bring-up steps.</p>
+<p>A reading aid for the 204/258 MHz plant and for what is public about Remote PHY (R-PHY) bring-up. It takes no input, reads nothing from a node, meter or core, and stores nothing. <strong>Every statement names its document, the issue it was read in and where in it.</strong> It is not a procedure and does not replace your node maker&#39;s guide or your company&#39;s.</p>
+<p><strong>Band plans.</strong> A table of the DOCSIS 4.0 frequency-division-duplex band edges, in MHz: sub-split and extended sub-split (upstream 5 to 42, downstream starts 50 to 54 and ends 1584 to 1590), mid-split (5 to 85, 108 to 1644), high-split (5 to 204, 258 to 1794) and the ultra-high splits (upstream to 300, 396, 492 or 684, downstream from 300 to 372, 396 to 492, 492 to 606 or 684 to 834, all ending at 1794). The source is CableLabs CM-SP-PHYv4.0 issue I08 (September 28, 2026), Table 29 and Table 31. The 42/54 and 204/258 plants are different plans and stay separate. A second table gives the gap between the two directions (8 to 12 MHz, 23 MHz and 54 MHz): it is our subtraction of the printed edges, labeled derived, and the specification calls such spans transition bands, not guard bands. A short list gives what a DOCSIS 3.1 modem must support (CM-SP-PHYv3.1 issue I20, April 19, 2023): upstream edges from 42, 65, 85, 117 and 204 MHz, a 258 MHz downstream lower edge, demodulation to 1218 MHz, and 1794 MHz only as an option. No document read gives 102 MHz as a mid-split downstream edge; the specification says 108. SCTE 300 2024 (Best Practices for Migrating to DOCSIS 4.0) covers readiness and says it does not define band edges; SCTE 294 2024r1 was found only as a catalog entry. Passing a sweep to 993 MHz does not certify a plant for 1.8 GHz. The table assumes a contiguous occupied downstream spectrum, as its caption in the specification says; that is not a requirement, a device can leave a hole, and the downstream lower edge of the newer splits can sit anywhere from the upstream upper edge to the edge printed.</p>
+<p><strong>The aeronautical band and leakage.</strong> A table says which direction 108 to 137 MHz is in for each plan: downstream on the 42/54 plant and on a mid-split, <strong>upstream on the 204/258 plant</strong>, where it carries subscribers&#39; modem signals (strongest at the home, weakest at the node), so a downstream test tone no longer stands for that band. The approach two SCTE papers (2020 and 2021) describe is a test burst the modems send on request (an OFDMA upstream data profile, OUDP) in a region the operator chooses just above the band, with the field detector set to match what operations configured on the CCAP; a maker&#39;s page and CableLabs&#39; OSSI section 9.4 are named as pointers. The screen gives no detector setting, test frequency or pilot code, and it says no document read tells a technician whether to inject a downstream tag into that band on a 204 MHz node: ask your leakage group. The rules are in plain words with their sections: 47 CFR 76.610 (which operators the rules reach), 76.611 (a cumulative leakage index of 64 or less, or an airspace measurement not above 10 µV/m at 450 m), 76.614 (monitoring every three months, finding a 20 µV/m leak at 3 m, repairing within a reasonable time) and 76.616 (no strong carrier within 100 kHz of 121.5 MHz and 50 kHz of 156.8 and 243.0 MHz). Official leakage results belong to your engineering group.</p>
+<p><strong>Remote PHY bring-up.</strong> Eight steps the CableLabs specifications give for an RPD after power-up, listed in the order each is first needed (they are not one strict sequence: timing is synchronized in parallel with the principal and auxiliary cores’ configuration, and has to be started before the core moves the RPD to operational), each with who does it and its document and issue: local initialization, network authentication, address assignment, time of day, the control connection to the principal core, the data tunnels, timing, and the move to operational. It is automatic and most of it is done with the network and the core, so none of it is a meter check at the node. <strong>Vecima nodes:</strong> Vecima keeps its installation and configuration guides in its Customer Portal (a login), and only product briefs are public, so the screen does not describe a Vecima procedure and does not borrow another maker&#39;s steps or lights. Cisco, Teleste and Harmonic public guides are listed so you know they exist; their lights and steps are for their own hardware. When you have the Vecima guide your company holds, write its title and revision on your run sheet.</p>
+<p>What this screen leaves out on purpose: a Vecima commissioning checklist (no public document), optical receive levels and timing-lock indicators (no public figure or display found), leakage detector and OUDP settings, pilot patterns, timers and event numbers, and a procedure for converting a node to high split.</p>
+<h2 id="why-cards">Why cards</h2>
+<p><strong>Where:</strong> Test → Why cards. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Read a why card and follow its link.</p>
+<p>Fourteen short cards on the basics behind the numbers in this app, one for each &quot;What is …?&quot; monograph in SCTE&#39;s 293 series. <strong>Each card is our own short summary, not a copy</strong>, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card&#39;s name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A <strong>Route → Station</strong>, <strong>Test → Calculators</strong>, <strong>Test → TDR</strong>, <strong>Test → Leakage</strong> or other button under <em>In the app</em> takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.</p>
+<p>The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in <strong>Test → Limits</strong>). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read, so check the monograph itself.</p>
+<h2 id="proof-of-performance">Proof of performance</h2>
+<p><strong>Where:</strong> Test → Proof of performance. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Read the FCC proof-of-performance limits.</p>
+<p>A reference for the technical requirements of the FCC&#39;s cable rules (47 CFR Part 76) and how an operator&#39;s proof-of-performance tests are measured against them. <strong>It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.</strong> The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section, the 16 rows that state a limit or a method also have a source tag (the three rows about QAM channels, test conditions and the test report name their rule section but have no tag), and the limits are registered in <strong>Test → Limits</strong>.</p>
+<p>Four cards. <strong>How often, where and on what</strong> (76.601): tests at least twice each calendar year at intervals of no more than seven months; six widely separated test points for a system of 1,000 to 12,500 subscribers and one more for each further 12,500 or fraction, with at least a third at the most distant terminals; five channels below 550 MHz of activated capacity and ten at 550 MHz or more (the visual level, its variation and the aural level on every analog channel); systems under 1,000 subscribers are outside the performance-test paragraphs but, if they use spectrum beyond over-the-air TV and FM, must still do the leakage tests and monitoring, with the log kept five years. <strong>The analog-channel limits</strong> (76.605(b)): visual level not less than 0 dBmV at the terminal and +3 dBmV at the end of a 100 ft drop; level variation of at most 8 dB over six months with the adjacent-carrier and any-other-channel limits; aural carrier 4.5 MHz ± 5 kHz above the visual and 10 to 17 dB below it; frequency response within ± 2 dB; carrier to noise not less than 43 dB; coherent disturbances not less than 51 dB (47 dB); terminal isolation not less than 18 dB; hum at most 3 percent; and, every third year at the headend, chroma delay, differential gain and differential phase. <strong>Digital channels and leakage:</strong> QAM video follows ANSI/SCTE 40 2016, which is not read or listed here, and leakage is measured by the half-wave-dipole method of 76.609(h) against the table in 76.605(c) (see <strong>Test → Leakage</strong>). <strong>How it is measured and kept</strong> (76.609 and 76.1704): the system-noise method over a 4 MHz band, the test conditions, what the report must include and the five-year record.</p>
+<p>These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, <em>FCC Proof-of-Performance Checklist for Analog and Digital Signals</em>, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and <strong>not read</strong>.</p>
+<h2 id="study-mode">Study mode</h2>
+<p><strong>Where:</strong> Test → Study. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Answer a practice question.</p>
+<p>Practice questions made from this app&#39;s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains: <strong>architectures; distribution components; signal types; maintenance and troubleshooting; safety and construction</strong>. <strong>They are original, not SCTE or NCTI questions, and not an exam.</strong> Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the two checklists), so the question and the answer cannot disagree with the screen it practices.</p>
+<p>Choose a domain (or all five), read the question, type a number or pick an answer and tap <strong>Check my answer</strong>. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. <strong>Next question</strong> moves on and <strong>New numbers</strong> asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: <strong>nothing is saved</strong>, in the job or anywhere else, and a score here is not a test result.</p>
+<p>The safety and construction questions only ask which section of this app&#39;s own pre-work safety or outage card a reminder belongs to. They test the card, not safe practice, and follow company policy first. The domains are the build list&#39;s grouping; the questions do not follow any exam blueprint.</p>
 <h2 id="power-supply-load">Power-supply load</h2>
 <p><strong>Where:</strong> Power → Load. <strong>Practice:</strong> Complete → Power; Six actives → explicit power topology.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
@@ -1728,7 +1830,7 @@
 <p>Dates use exact Gregorian <code>YYYY-MM-DD</code>, years 0001–9999. Future, invalid or unavailable dates remain neutral. Only a currently bound, writable Station record with Swept recorded and a valid nonfuture sweep date supplies a current reminder. Unchecked-with-date and recorded-without-date states stay distinct. Binding-unconfirmed historical and read-only UBT worksheets preserve dates, completed ages, validity and done facts with a historical reason, without current-service reminder wording or colors. Binding confirmation retains the original actual event date. Metadata, training progress, captured history and calculator results never supply work dates.</p>
 <p>The interval belongs to the open job, including in an empty list. <strong>Not saved</strong> feedback appears directly below the interval if autosave fails; export a project backup before closing. Feedback belongs only to that job and raw interval.</p>
 <p>Edit actual dates in <strong>Route → Station</strong> and manage jobs in <strong>Job → Details</strong>; this view does not open a saved job or edit work dates. The six-active <strong>Personal sweep reminders</strong> step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.</p>
-<h2 id="47-feature-coverage-index">47-feature coverage index</h2>
+<h2 id="53-feature-coverage-index">53-feature coverage index</h2>
 <p>This index follows the feature choices in the app. Choose the same label in Home&#39;s feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
@@ -1855,129 +1957,129 @@
 </tr>
 <tr>
 <td align="right">20</td>
+<td>Station balance, return worksheet and separate sweep dates <!-- feature:station --></td>
+<td><a href="#station-worksheet">Station worksheet</a></td>
+<td>Complete and six-active (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">21</td>
 <td>Run sheet, share, print and CSV exports <!-- feature:runsheet --></td>
 <td><a href="#run-sheet-exports-and-full-backups">Exports</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">21</td>
+<td align="right">22</td>
 <td>Six serial active devices <!-- feature:six-active-cascade --></td>
 <td><a href="#practice-library-and-example-selection">Practice library</a>, <a href="#checked-example-answers">checked answers</a></td>
 <td>Six actives</td>
 </tr>
 <tr>
-<td align="right">22</td>
+<td align="right">23</td>
 <td>Entered amplifier gain table <!-- feature:gain-table --></td>
 <td><a href="#amplifier-gain-and-test-point-helper">Gain</a></td>
 <td>Six actives</td>
 </tr>
 <tr>
-<td align="right">23</td>
+<td align="right">24</td>
 <td>Derive gain from two corrected readings <!-- feature:gain-test-points --></td>
 <td><a href="#amplifier-gain-and-test-point-helper">Gain helper</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">24</td>
+<td align="right">25</td>
 <td>Tap faces and RG-6 drop splitter <!-- feature:tap-drop --></td>
 <td><a href="#cable-route-branches-and-point-tools">Point tools</a></td>
 <td>Complete; explicit custom loss</td>
 </tr>
 <tr>
-<td align="right">25</td>
+<td align="right">26</td>
 <td>Map note and step-by-step arithmetic <!-- feature:map-arithmetic --></td>
 <td><a href="#cable-route-branches-and-point-tools">Point tools</a></td>
 <td>Custom curves</td>
 </tr>
 <tr>
-<td align="right">26</td>
+<td align="right">27</td>
 <td>Custom cable and passive loss tables <!-- feature:custom-tables --></td>
 <td><a href="#cable-route-branches-and-point-tools">Cable route</a></td>
 <td>Custom curves</td>
 </tr>
 <tr>
-<td align="right">27</td>
+<td align="right">28</td>
 <td>Manual source and launch table <!-- feature:launch-table --></td>
 <td><a href="#rf-setup-and-launch-source">RF setup</a></td>
 <td>Custom curves</td>
 </tr>
 <tr>
-<td align="right">28</td>
+<td align="right">29</td>
 <td>Reverse TDR and velocity correction <!-- feature:reverse-tdr --></td>
 <td><a href="#tdr-distance-locator">TDR</a></td>
 <td>Custom curves</td>
 </tr>
 <tr>
-<td align="right">29</td>
+<td align="right">30</td>
 <td>Available carriers and local targets <!-- feature:available-carriers --></td>
 <td><a href="#field-references-and-target-conversions">References</a></td>
 <td>DSIM</td>
 </tr>
 <tr>
-<td align="right">30</td>
+<td align="right">31</td>
 <td>OEM AGC installed control path <!-- feature:oem-agc --></td>
 <td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
 <td>OEM AGC</td>
 </tr>
 <tr>
-<td align="right">31</td>
+<td align="right">32</td>
 <td>DSIM and historical pilot-code lookup <!-- feature:dsim-pilot --></td>
 <td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
 <td>DSIM</td>
 </tr>
 <tr>
-<td align="right">32</td>
+<td align="right">33</td>
 <td>Manual / thermal installed control path <!-- feature:manual-thermal --></td>
 <td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
 <td>Manual / thermal</td>
 </tr>
 <tr>
-<td align="right">33</td>
+<td align="right">34</td>
 <td>Conventional GS7K procedure <!-- feature:gs7k-setup --></td>
 <td><a href="#installed-equipment-manuals-and-control-paths">Equipment controls</a></td>
 <td>GS7K node</td>
 </tr>
 <tr>
-<td align="right">34</td>
+<td align="right">35</td>
 <td>dBµV ↔ dBmV conversion <!-- feature:db-units --></td>
 <td><a href="#field-checklists-and-unit-conversion">Unit conversion</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">35</td>
+<td align="right">36</td>
 <td>Return injection and receiver records <!-- feature:return-injection --></td>
 <td><a href="#project-records-and-closeout">Records</a>, <a href="#forward-and-return-sweep-setup">sweep setup</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">36</td>
+<td align="right">37</td>
 <td>Before / after evidence comparison <!-- feature:evidence-comparison --></td>
 <td><a href="#onx-files-original-evidence-and-comparisons">Evidence</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">37</td>
+<td align="right">38</td>
 <td>Portable backup and recovery <!-- feature:backup-roundtrip --></td>
 <td><a href="#run-sheet-exports-and-full-backups">Full backups</a></td>
 <td>Complete</td>
 </tr>
 <tr>
-<td align="right">38</td>
+<td align="right">39</td>
 <td>Field calculators and source tags <!-- feature:calculators --></td>
 <td><a href="#field-calculators">Field calculators</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">39</td>
+<td align="right">40</td>
 <td>Limits, labels and sources <!-- feature:limits --></td>
 <td><a href="#limits-and-sources">Limits and sources</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
-</tr>
-<tr>
-<td align="right">40</td>
-<td>Station balance, return worksheet and separate sweep dates <!-- feature:station --></td>
-<td><a href="#station-worksheet">Station worksheet</a></td>
-<td>Complete and six-active (2.0 Alpha build 3)</td>
 </tr>
 <tr>
 <td align="right">41</td>
@@ -2019,6 +2121,42 @@
 <td align="right">47</td>
 <td>Attached sweep grading aid <!-- feature:sweep-grading --></td>
 <td><a href="#build-3-attached-sweep-grading-aid">Sweep grading aid</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">48</td>
+<td>Impairment cards and standing-wave search <!-- feature:impairments --></td>
+<td><a href="#impairments">Impairments</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">49</td>
+<td>Fiber color finder and link loss budget <!-- feature:fiber --></td>
+<td><a href="#fiber">Fiber</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">50</td>
+<td>High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --></td>
+<td><a href="#high-split">High split</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">51</td>
+<td>Why cards: the SCTE 293 basics <!-- feature:why --></td>
+<td><a href="#why-cards">Why cards</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">52</td>
+<td>FCC proof-of-performance limits and test rules <!-- feature:pop --></td>
+<td><a href="#proof-of-performance">Proof of performance</a></td>
+<td>Custom curves (2.0 Alpha build 3)</td>
+</tr>
+<tr>
+<td align="right">53</td>
+<td>Study mode: practice questions in five domains <!-- feature:study --></td>
+<td><a href="#study-mode">Study mode</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 </tbody></table></div>

@@ -1,0 +1,1475 @@
+{
+ "generated_by": "research/build3/fiber-reference.py",
+ "precision_digits": 50,
+ "colors": [
+  "Blue",
+  "Orange",
+  "Green",
+  "Brown",
+  "Slate",
+  "White",
+  "Red",
+  "Black",
+  "Yellow",
+  "Violet",
+  "Rose",
+  "Aqua"
+ ],
+ "cases": {
+  "locate": [
+   {
+    "input": {
+     "fiber": 1
+    },
+    "expected": {
+     "tube": 1,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 2
+    },
+    "expected": {
+     "tube": 1,
+     "position": 2,
+     "fiberColor": "Orange",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 3
+    },
+    "expected": {
+     "tube": 1,
+     "position": 3,
+     "fiberColor": "Green",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 4
+    },
+    "expected": {
+     "tube": 1,
+     "position": 4,
+     "fiberColor": "Brown",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 5
+    },
+    "expected": {
+     "tube": 1,
+     "position": 5,
+     "fiberColor": "Slate",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 6
+    },
+    "expected": {
+     "tube": 1,
+     "position": 6,
+     "fiberColor": "White",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 7
+    },
+    "expected": {
+     "tube": 1,
+     "position": 7,
+     "fiberColor": "Red",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 8
+    },
+    "expected": {
+     "tube": 1,
+     "position": 8,
+     "fiberColor": "Black",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 9
+    },
+    "expected": {
+     "tube": 1,
+     "position": 9,
+     "fiberColor": "Yellow",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 10
+    },
+    "expected": {
+     "tube": 1,
+     "position": 10,
+     "fiberColor": "Violet",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 11
+    },
+    "expected": {
+     "tube": 1,
+     "position": 11,
+     "fiberColor": "Rose",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 12
+    },
+    "expected": {
+     "tube": 1,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 13
+    },
+    "expected": {
+     "tube": 2,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 14
+    },
+    "expected": {
+     "tube": 2,
+     "position": 2,
+     "fiberColor": "Orange",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 15
+    },
+    "expected": {
+     "tube": 2,
+     "position": 3,
+     "fiberColor": "Green",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 16
+    },
+    "expected": {
+     "tube": 2,
+     "position": 4,
+     "fiberColor": "Brown",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 17
+    },
+    "expected": {
+     "tube": 2,
+     "position": 5,
+     "fiberColor": "Slate",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 18
+    },
+    "expected": {
+     "tube": 2,
+     "position": 6,
+     "fiberColor": "White",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 19
+    },
+    "expected": {
+     "tube": 2,
+     "position": 7,
+     "fiberColor": "Red",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 20
+    },
+    "expected": {
+     "tube": 2,
+     "position": 8,
+     "fiberColor": "Black",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 21
+    },
+    "expected": {
+     "tube": 2,
+     "position": 9,
+     "fiberColor": "Yellow",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 22
+    },
+    "expected": {
+     "tube": 2,
+     "position": 10,
+     "fiberColor": "Violet",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 23
+    },
+    "expected": {
+     "tube": 2,
+     "position": 11,
+     "fiberColor": "Rose",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 24
+    },
+    "expected": {
+     "tube": 2,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 25
+    },
+    "expected": {
+     "tube": 3,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 26
+    },
+    "expected": {
+     "tube": 3,
+     "position": 2,
+     "fiberColor": "Orange",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 27
+    },
+    "expected": {
+     "tube": 3,
+     "position": 3,
+     "fiberColor": "Green",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 28
+    },
+    "expected": {
+     "tube": 3,
+     "position": 4,
+     "fiberColor": "Brown",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 29
+    },
+    "expected": {
+     "tube": 3,
+     "position": 5,
+     "fiberColor": "Slate",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 35
+    },
+    "expected": {
+     "tube": 3,
+     "position": 11,
+     "fiberColor": "Rose",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 36
+    },
+    "expected": {
+     "tube": 3,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 37
+    },
+    "expected": {
+     "tube": 4,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Brown",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 48
+    },
+    "expected": {
+     "tube": 4,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Brown",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 49
+    },
+    "expected": {
+     "tube": 5,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Slate",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 60
+    },
+    "expected": {
+     "tube": 5,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Slate",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 72
+    },
+    "expected": {
+     "tube": 6,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "White",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 100
+    },
+    "expected": {
+     "tube": 9,
+     "position": 4,
+     "fiberColor": "Brown",
+     "tubeColor": "Yellow",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 143
+    },
+    "expected": {
+     "tube": 12,
+     "position": 11,
+     "fiberColor": "Rose",
+     "tubeColor": "Aqua",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 144
+    },
+    "expected": {
+     "tube": 12,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Aqua",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "fiber": 145
+    },
+    "expected": {
+     "tube": 13,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Blue",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "fiber": 156
+    },
+    "expected": {
+     "tube": 13,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Blue",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "fiber": 240
+    },
+    "expected": {
+     "tube": 20,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Black",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "fiber": 276
+    },
+    "expected": {
+     "tube": 23,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Rose",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "fiber": 287
+    },
+    "expected": {
+     "tube": 24,
+     "position": 11,
+     "fiberColor": "Rose",
+     "tubeColor": "Aqua",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "fiber": 288
+    },
+    "expected": {
+     "tube": 24,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Aqua",
+     "marked": true
+    }
+   }
+  ],
+  "fromTube": [
+   {
+    "input": {
+     "tube": 1,
+     "position": 1
+    },
+    "expected": {
+     "fiber": 1,
+     "tube": 1,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "tube": 1,
+     "position": 12
+    },
+    "expected": {
+     "fiber": 12,
+     "tube": 1,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Blue",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "tube": 2,
+     "position": 1
+    },
+    "expected": {
+     "fiber": 13,
+     "tube": 2,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Orange",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "tube": 3,
+     "position": 6
+    },
+    "expected": {
+     "fiber": 30,
+     "tube": 3,
+     "position": 6,
+     "fiberColor": "White",
+     "tubeColor": "Green",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "tube": 12,
+     "position": 12
+    },
+    "expected": {
+     "fiber": 144,
+     "tube": 12,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Aqua",
+     "marked": false
+    }
+   },
+   {
+    "input": {
+     "tube": 13,
+     "position": 1
+    },
+    "expected": {
+     "fiber": 145,
+     "tube": 13,
+     "position": 1,
+     "fiberColor": "Blue",
+     "tubeColor": "Blue",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "tube": 20,
+     "position": 8
+    },
+    "expected": {
+     "fiber": 236,
+     "tube": 20,
+     "position": 8,
+     "fiberColor": "Black",
+     "tubeColor": "Black",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "tube": 24,
+     "position": 12
+    },
+    "expected": {
+     "fiber": 288,
+     "tube": 24,
+     "position": 12,
+     "fiberColor": "Aqua",
+     "tubeColor": "Aqua",
+     "marked": true
+    }
+   },
+   {
+    "input": {
+     "tube": 7,
+     "position": 7
+    },
+    "expected": {
+     "fiber": 79,
+     "tube": 7,
+     "position": 7,
+     "fiberColor": "Red",
+     "tubeColor": "Red",
+     "marked": false
+    }
+   }
+  ],
+  "budget": [
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    },
+    "expected": {
+     "fiber": "4.340",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "3.5",
+     "estimated": "9.640",
+     "required": "12.640",
+     "available": "27",
+     "headroom": "14.360",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "",
+     "margin": "3",
+     "tx": "",
+     "rx": ""
+    },
+    "expected": {
+     "fiber": "4.340",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "0",
+     "estimated": "6.140",
+     "required": "9.140"
+    }
+   },
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "0",
+     "connectorLoss": "",
+     "splices": "0",
+     "spliceLoss": "",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    },
+    "expected": {
+     "fiber": "4.340",
+     "connectors": "0",
+     "splices": "0",
+     "other": "3.5",
+     "estimated": "7.840",
+     "required": "10.840",
+     "available": "27",
+     "headroom": "16.160",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "0",
+     "attenuation": "0.5",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "0",
+     "tx": "3",
+     "rx": "-24"
+    },
+    "expected": {
+     "fiber": "0.0",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "3.5",
+     "estimated": "5.3",
+     "required": "5.3",
+     "available": "27",
+     "headroom": "21.7",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "80",
+     "attenuation": "0.25",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "10",
+     "rx": "-28"
+    },
+    "expected": {
+     "fiber": "20.00",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "3.5",
+     "estimated": "25.30",
+     "required": "28.30",
+     "available": "38",
+     "headroom": "9.70",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "100",
+     "attenuation": "0.5",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    },
+    "expected": {
+     "fiber": "50.0",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "3.5",
+     "estimated": "55.3",
+     "required": "58.3",
+     "available": "27",
+     "headroom": "-31.3",
+     "status": "short"
+    }
+   },
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.5",
+     "connectors": "2",
+     "connectorLoss": "0.75",
+     "splices": "10",
+     "spliceLoss": "0.3",
+     "other": "",
+     "margin": "3",
+     "tx": "0",
+     "rx": "-14"
+    },
+    "expected": {
+     "fiber": "6.20",
+     "connectors": "1.50",
+     "splices": "3.0",
+     "other": "0",
+     "estimated": "10.70",
+     "required": "13.70",
+     "available": "14",
+     "headroom": "0.30",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "1.25",
+     "tx": "-3",
+     "rx": "-18.5"
+    },
+    "expected": {
+     "fiber": "4.340",
+     "connectors": "1.2",
+     "splices": "0.6",
+     "other": "3.5",
+     "estimated": "9.640",
+     "required": "10.890",
+     "available": "15.5",
+     "headroom": "4.610",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "0.001",
+     "attenuation": "5",
+     "connectors": "500",
+     "connectorLoss": "0.001",
+     "splices": "1",
+     "spliceLoss": "0",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    },
+    "expected": {
+     "fiber": "0.005",
+     "connectors": "0.500",
+     "splices": "0",
+     "other": "3.5",
+     "estimated": "4.005",
+     "required": "7.005",
+     "available": "27",
+     "headroom": "19.995",
+     "status": "within"
+    }
+   },
+   {
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "1",
+     "connectorLoss": "0.75",
+     "splices": "0",
+     "spliceLoss": "",
+     "other": "0",
+     "margin": "0",
+     "tx": "1",
+     "rx": "-5.304"
+    },
+    "expected": {
+     "fiber": "4.340",
+     "connectors": "0.75",
+     "splices": "0",
+     "other": "0",
+     "estimated": "5.090",
+     "required": "5.090",
+     "available": "6.304",
+     "headroom": "1.214",
+     "status": "within"
+    }
+   }
+  ],
+  "errors": [
+   {
+    "fn": "budget",
+    "input": {
+     "length": "",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "abc",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "-1",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "501",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "0x10",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "-0.1",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "5.1",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "1.5",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "-1",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "501",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "-0.1",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "5.1",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "2.5",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "-1",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "51",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "-1",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "31",
+     "tx": "3",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "41",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": ""
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "-81"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "3",
+     "rx": "21"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "-30",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "budget",
+    "input": {
+     "length": "12.4",
+     "attenuation": "0.35",
+     "connectors": "4",
+     "connectorLoss": "0.3",
+     "splices": "6",
+     "spliceLoss": "0.1",
+     "other": "3.5",
+     "margin": "3",
+     "tx": "-24",
+     "rx": "-24"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": ""
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "0"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "289"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "1.5"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "abc"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "-3"
+    }
+   },
+   {
+    "fn": "locate",
+    "input": {
+     "fiber": "0x10"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "0",
+     "position": "1"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "25",
+     "position": "1"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "1",
+     "position": "0"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "1",
+     "position": "13"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "",
+     "position": "1"
+    }
+   },
+   {
+    "fn": "fromTube",
+    "input": {
+     "tube": "2",
+     "position": ""
+    }
+   }
+  ]
+ }
+}

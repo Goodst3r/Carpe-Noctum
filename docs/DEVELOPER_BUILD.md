@@ -1,6 +1,8 @@
-# NightSweep 1.8 Alpha build 2 — Developer build notes
+# Carpe Noctum 2.0 Alpha build 3 — Developer build notes
 
-This is the build 2 source workspace. The earlier 1.8 Alpha workspace/delivery remains frozen. Current filenames under `docs/NightSweep_1.8_*` stay stable; their titles/content identify **1.8 Alpha build 2**. Preserve schema-one storage and historical migration fixtures.
+This is the **2.0 Alpha build 3** source workspace on branch `build3` (Android source code 27, no build 3 APK). The signed installer in the repository is still 2.0 Alpha build 2, Android code 26. The Android section later in this file describes the **historical 1.8 Alpha build 2** package (code 24) and its delivery script. Do not treat code 24 or code 27 as an installer you can download from this tree.
+
+Current filenames under `docs/NightSweep_1.8_*` stay stable; their titles still say 1.8 where that was the original guide name. A third assistant (Grok) updated the build 3 orientation on November 12, 2026. Preserve schema-one storage and historical migration fixtures.
 
 ## Responsibilities and generated files
 
@@ -53,11 +55,11 @@ node docs/render_readme.cjs NightSweep_1.8_Training_Coverage.md NightSweep_1.8_T
 node docs/render_readme.cjs NightSweep_1.8_Equipment_Coverage.md NightSweep_1.8_Equipment_Coverage.html
 ```
 
-The existing development runtime supplies `marked`; output HTML has no internet/runtime dependency on it. Check unique IDs, local fragment links, relative asset links, phone overflow and printable content. Preserve historical 1.6/1.7 guides and audit records as historical material.
+The existing development runtime supplies `marked` 18.2.0 for these renders; output HTML has no internet/runtime dependency on it. Grok rendered with `marked` 18.2.0 from a local install that is not committed (`NODE_PATH` pointed at that install). Check unique IDs, local fragment links, relative asset links, phone overflow and printable content. Preserve historical 1.6/1.7 guides and audit records as historical material.
 
-## Android build 2
+## Android build 2 (historical package, not the current source identity)
 
-Native source identity is **1.8 Alpha build 2**, version code **24**, Preview launcher **NightSweep 1.8 Preview build 2**, package `com.spencerwilliams.nightsweep.preview`. The private document origin/provider identity stays compatible with prior Preview. The original authorized signer and official SDK/compiler have been verified in the build environment; private material stays outside source and all delivery files.
+The notes in this section describe **1.8 Alpha build 2**, version code **24**, Preview launcher **NightSweep 1.8 Preview build 2**, package `com.spencerwilliams.nightsweep.preview`. They are not the 2.0 Alpha build 3 source identity (code 27, no APK) and they are not the signed 2.0 Alpha build 2 installer (code 26). Nobody working on `build3` builds or signs an APK. The private document origin/provider identity stays compatible with prior Preview. The original authorized signer stays outside source and all delivery files.
 
 Freeze `outputs/Night_Sweep.html` after app checks and pin its SHA-256 before the real Preview build. `android-build/build.py` stages the supplied standalone in disposable sources; the old canonical embedded HTML is historical input, not the final app. Read `android-build/README.md` for exact toolchain, external signer arguments and commands. Never generate a replacement key to bypass identity failure.
 
