@@ -4,9 +4,9 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts) |
 | --- | --- | --- | --- | --- | --- |
-| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) merged `6a28951` | `aadb612` | merged after local gate and hosted CI | 82/2174, 698.1 s, layout 554, smoke 352 |
-| Stretch #13 item 11 | `claude/b11-impairments` | #13 draft | this commit, contains `origin/build3` `6a28951` | guide sentences fixed; focused 56/14/6; full gate not run yet | not a full gate |
-| Stretch #15 item 15 | `claude/b15-fiber` | #15 draft | `f2f7e02` | waiting | not run by Grok |
+| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) merged `6a28951` | `aadb612` | merged | 82/2174, 698.1 s, layout 554, smoke 352 |
+| Stretch #13 item 11 | `claude/b11-impairments` | [#13](https://github.com/Goodst3r/Carpe-Noctum/pull/13) merged `e7313cf` | `a1bc16f` | merged before this session resumed | 84/2230, 715.1 s, layout 634, smoke 355 (AUDIT on #13; not re-run here) |
+| Stretch #15 item 15 | `claude/b15-fiber` | [#15](https://github.com/Goodst3r/Carpe-Noctum/pull/15) draft | `5b33079` gated; record commit follows | local gate and hosted CI green on `5b33079`; AUDIT not posted | 86/2269, 736.7 s, layout 714, smoke 358, SHA `44801b66…fa62` |
 | Stretch #16 item 17 | `claude/b17-highsplit` | #16 draft | `c639ea8` | waiting | not run by Grok |
 | Stretch #18 item 18 | `claude/b18-why-cards` | #18 draft | `ed7f29c` | waiting | not run by Grok |
 | Stretch #19 item 20 | `claude/b20-pop` | #19 draft | `a66d313` | waiting; Minor on `POP_SOURCES.md` | not run by Grok |
@@ -17,7 +17,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 ## Next
 
-Hosted CI on `6f8512c` is green ([run 43157602918](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43157602918)). The commit that adds `grok-gate-6f8512c.md` is a new head and needs its own local gate and hosted CI before merge. **D3: one run (Grok).** Spencer accepts or rejects D3.
+The commit that adds `grok-gate-5b33079.md` is a new head. It needs its own local gate and hosted CI before the AUDIT and the merge. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
 ## Blocked
 

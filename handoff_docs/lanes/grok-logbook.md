@@ -2,7 +2,31 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · own gate on fiber `5b33079` is green
+
+Merged `origin/build3` (`e7313cf`, which already contains merged #24 and merged #13) into `claude/b15-fiber`. No source conflict. Guide conflicts were resolved by keeping item 15 on top of item 11: **31 screens, 49 features, custom curves 17**. Counted from source before the commit: `thresholds.js` 118 rows alone, 121 with the three evidence-archive guards, six of them `fiber.*`; `build.py` 43 module lines. Rendered the main README, Functions, Training Coverage and the installation guide with `marked` 18.2.0, then `python3 night-sweep/build.py` and `python3 build-pwa.py`. Merge commit `5b33079981bac37e793c38b7abbb070a7d960e39`. PWA content id `ebe9b831091a7c85b587`.
+
+Focused checks before the gate, all exit 0: `qa/sweep-grading-ui.test.cjs` 56, `qa/build3-fiber.test.cjs` 9 / 132 comparisons, `qa/build3-impairments.test.cjs` 14 / 1940, `qa/ui-names.test.cjs` 6, `qa/build3-registry.test.cjs` 14.
+
+Full gate on that exact head, 2026-11-12T05:44:27Z–05:57:12Z. Chromium `/opt/pw-browsers/chromium-1254/chrome-linux64/chrome`. `NIGHTSWEEP_SUITE_TIMEOUT=3600`. Log `/tmp/grok-gate-5b33079.log`.
+
+| Command | Exit |
+| --- | --- |
+| `python3 night-sweep/build.py` | 0 |
+| `python3 build-pwa.py` | 0 |
+| `python3 qa/run-pwa.py` | 0 |
+| `python3 qa/build3-layout.test.py` | 0 |
+| `python3 qa/browser-smoke.py` | 0 |
+| `git status --porcelain` | 0; only `?? qa/runtime/node_modules` |
+
+**86/2,269, 736.7 s, layout 714, smoke 358.** Standalone SHA-256 `44801b66e935fedd578e692fd4072f33fbc16c9f5c278a64d03925141b33fa62`. Record: `handoff_docs/reviews/grok-gate-5b33079.md`. Hosted CI on `5b33079`: https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43163371615. The smoke log printed a `ConnectionResetError` after a client closed a socket. The suite still exited 0 with 358 passed.
+
+This commit adds that record. It is not the gated head. AUDIT and the merge wait until this new head is gated and hosted CI on it is green.
+
+Not run: an APK, an emulator, a phone, Safari, WebView, a screen reader, a meter, or a field check.
+
 ## November 12, 2026 · close-out merged
+
 
 Pull request #24 merged at 2026-11-12T05:19:08Z. Merge commit `6a28951122e2197211d569150b6d9f721df31f43`. Head that was gated and reviewed: `aadb612`. Local gate 82/2,174, 698.1 s, layout 554, smoke 352, clean, standalone `b1591b4d…e4de`. Hosted CI [run 43159076654](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43159076654). AUDIT comment says clean, ready to merge, and that it is not a second lane. **D3: one run (Grok).**
 
