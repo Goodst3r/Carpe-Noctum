@@ -1,6 +1,6 @@
 # PR #34 independent math and checklist review
 
-**Latest technical APPROVE — `df857d06b3f8cfa241b49781278247d07dd88ee8`.** The malformed trailing-input defect is fixed and the unchanged keyboard reproducer now passes. Author and hosted full-gate readiness remain separate requirements before merge; no immediate merge is authorized by this report. A later commit voids this approval.
+**Latest technical APPROVE — `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`.** The malformed trailing-input defect is fixed and the unchanged keyboard reproducer now passes. Author and hosted full-gate readiness remain separate requirements before merge; no immediate merge is authorized by this report. A later commit voids this approval.
 
 The prior failing reviews below are historical receipts. The corrected-head section at the end contains the current scoped review and commands.
 
@@ -229,3 +229,41 @@ Committed hashes personally read on df857d0:
 No application edits, commits, pushes, comments or merges were made by this subreviewer. No APK/build signing, emulator, physical phone, Safari/WebView, meter or field test was run. **Technical APPROVE — `df857d06b3f8cfa241b49781278247d07dd88ee8`; merge blocked on the separate readiness requirements above.**
 
 Root independently repeated the Decimal oracle, original keyboard reproducer and author suite on `df857d06b3f8cfa241b49781278247d07dd88ee8`, confirming the same head before and after: 510 checks exit 0; 41 rendered checks exit 0; 49 author checks exit 0. Logs: `/workspace/scratch/root-pr34/independent-df857.log`, `rendered-df857.log`, `author-df857.log`. The prior failed browser run was not counted as passing.
+
+
+## Re-review of PR #34 at 73b6ab4 — 12 November 2026 UTC
+
+**Technical APPROVE — `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`. Merge readiness is pending.** This is a new review on the moved head; the approval of df857d0 is historical and is not being silently transferred.
+
+Pinned isolated detached worktree: `/workspace/Carpe-Noctum-pr34`, exact full SHA above. GitHub PR metadata was checked before and after testing and still reports this head. Current PR base/fetched `origin/build3` is `7dfddf70112d281c2a43f6dec506147686f8f63f`, which the reviewed head contains. The diff from df857d0 is **one line in `handoff_docs/lanes/grok-status.md` only**, recording the author's gate on the parent df857d0. `git diff --quiet df857d06..HEAD -- . ':!handoff_docs/lanes/grok-status.md'` exited 0. Application source, built artifacts, tests, references, numerical bounds, labels, storage/identity and version are unchanged. No new technical issue was found in the status delta.
+
+All requested checks were nevertheless run afresh on **73b6ab4**, with the reviewer-owned scripts unchanged and **without widening any tolerance**. The original independent derivation and Decimal bound, including binary64 input quantization near PX06, remain as documented in the initial review. Exact UI six-figure strings are separately checked, so a normalized Decimal log such as `40` is not substituted for the required display `40.0000`.
+
+| Command | Exit | Actual result on 73b6ab4 |
+| --- | --- | --- |
+| `python3 /workspace/scratch/pr34/independent_power_reference.py /workspace/Carpe-Noctum-pr34` | 0 | **510 checks**, source + standalone + PWA, 28 numeric / 27 refusal cases per artifact, 0 failures |
+| `node /workspace/scratch/pr34/scope_check.cjs /workspace/Carpe-Noctum-pr34` | 0 | **26 checks passed**, including all 16 shared numeric cases' exact six-figure UI text/trailing zeroes and unchanged job/localStorage/registry |
+| `node qa/build3-power-sum.test.cjs` | 0 | **49 checks passed** |
+| `NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-power-sum-real.test.py` | 0 | **20 checks passed**, author's new standalone real-keyboard regression independently run |
+| `python3 /workspace/scratch/pr34/rendered_power_check.py /workspace/Carpe-Noctum-pr34` | 0 | **41 passed / 0 failed / 41 total**, unchanged independent PWA keyboard/phone-width reproducer |
+| `git diff --check 7dfddf7...HEAD` | 0 | No whitespace errors |
+| `git status --porcelain` | 0 | Empty after testing |
+| `git merge-base --is-ancestor origin/build3 HEAD` | 0 | Contains current fetched integration base |
+| `git diff --quiet df857d06..HEAD -- . ':!handoff_docs/lanes/grok-status.md'` | 0 | Only the stated status receipt changed |
+
+The fixed `badInput` guard still refuses both a lone minus and incomplete exponent in a trailing level, and the old two-level total disappears until corrected or deliberately cleared. Both keyboard suites cover **320, 375, 390 and 430 px**. The independent PWA suite also verifies no page errors or horizontal overflow, control sizing, N=1, negative SNR and equal-total/noise refusal. All shared numerical and semantic refusal results remain correct in authored source, committed standalone and committed PWA.
+
+Fresh logs/results are under `/workspace/scratch/pr34/`: `independent-validator.log`, `independent-results.json`, `scope-check.log`, `author-suite.log`, `author-real-suite.log`, `rendered-validator.log`, `rendered-results.json` and screenshots. Previous df857d0 receipts were preserved separately under `/workspace/scratch/pr34-df857d0/` before updating current logs. No reviewer script/assertion was changed for this run.
+
+Committed hashes on the reviewed head remain:
+
+- `outputs/Night_Sweep.html`: `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`.
+- `dist/index.html`: `3fff2f86854737e0001e0ee1ac16584ce06da654d648d3977747d713abdf92a8`.
+
+**Readiness observations, separate from reviewer test results:** the author status now records **df857d0** as 93 suites / 2371 checks, 820.7 s, layout 1054 and smoke 373, exit 0. Those are the author's reported parent-head results, **not** a reviewer full-gate run or an author full gate on 73b6ab4. The PR remains open, draft and unmerged; its body still names a9cb48c and says the full gate is running. The current-head hosted `QA gate` [43200952825](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43200952825) was **in progress**, with no conclusion, when checked. Its first-page PR-triggered workflow response does not establish any other trigger's status. Exact-head author receipts, updated PR readiness/body and hosted-green QA are still required before merge under WORKFLOW. A further head move voids this technical approval.
+
+Not run in this re-review: another full `qa/run-pwa.py` gate, generic full layout/smoke suites, a generated rebuild, additional source retrieval, a full backup/legacy-job round-trip, APK build/signing, emulator, physical phone, Safari/WebView or meter/field testing. The previous field-calculator 10/123 result on df857d0 is historical, not claimed as a new 73b6ab4 run. No physical-device test was run. No Grok source, report branch, upstream comment or merge was changed by this subreviewer.
+
+**Technical APPROVE — `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`; merge remains blocked on author/host/readiness requirements.**
+
+Root independently reran the unchanged Decimal oracle on the pinned 73b6ab4 head: 510 checks, 0 failures, exit 0; receipt `/workspace/scratch/root-pr34/independent-73b6ab4.log`.
