@@ -1,6 +1,6 @@
 # Tools and setup
 
-Updated November 11, 2026 by Lane B (task B3). How to get a machine ready to build and test Carpe Noctum, which tools a session may find, and what the repo's environment variables do. Commands come from `docs/DEVELOPER_BUILD.md` and `android-build/README.md`; the environment details below were checked in a Linux cloud container (4 CPUs, 15 GB, Python 3.13, Node 22) and are marked "not checked" where they were not.
+Updated November 12, 2026 by Grok (third assistant; Lane A and Lane B have stopped). How to get a machine ready to build and test Carpe Noctum, which tools a session may find, and what the repo's environment variables do. Commands come from `docs/DEVELOPER_BUILD.md` and `android-build/README.md`. The environment details below were checked by Lane B in a Linux cloud container (4 CPUs, 15 GB, Python 3.13, Node 22) and are marked "not checked" where they were not. Grok's own machine for the close-out gate is recorded in `handoff_docs/FINAL_HANDOFF.md`, not copied from Lane B.
 
 ## What you need
 
@@ -36,12 +36,12 @@ After a change to `outputs/Night_Sweep.html` or `dist/`, rebuild with the two bu
 | `NIGHTSWEEP_CHROMIUM` | Path of the Chromium executable for the rendered suites. | build 2 |
 | `NIGHTSWEEP_RELEASE_TEST` | Set to `1` by the runner: suites test the frozen `outputs/Night_Sweep.html` instead of re-assembling the source. | build 2 |
 | `NIGHTSWEEP_TRAINING_SOURCE_TEST`, `NIGHTSWEEP_BUILD2_SOURCE_TEST` | Development switches used by specific training and migration suites (source candidate instead of the committed practice backups). Leave them unset for the gate. | build 2 |
-| `NIGHTSWEEP_SUITE_TIMEOUT` | Seconds each suite may run, default 150. An invalid value stops the runner with exit code 2. | task B1 (when merged) |
-| `NIGHTSWEEP_WRITE_EVIDENCE` | `1` lets the suites rewrite the tracked evidence files under `release/`, `research/` and `night-sweep/research/`. By default they write to the untracked `qa/evidence-out/`, so a gate run leaves `git status` clean. | task B1 (when merged) |
+| `NIGHTSWEEP_SUITE_TIMEOUT` | Seconds each suite may run, default 150. An invalid value stops the runner with exit code 2. | task B1 (merged) |
+| `NIGHTSWEEP_WRITE_EVIDENCE` | `1` lets the suites rewrite the tracked evidence files under `release/`, `research/` and `night-sweep/research/`. By default they write to the untracked `qa/evidence-out/`, so a normal gate run leaves `git status` clean. | task B1 (merged) |
 
 ## Keeping the working tree clean
 
-Until task B1 is merged, some suites rewrite tracked evidence files with new timings and IDs on every run (8 files from the automated gate and 12 from the browser smoke, 19 distinct, counted on the build3 head). Do not commit that: `git checkout -- release research` before committing. After B1, a clean `git status` after a full gate is part of the definition of done. Test results and logs (`qa/*results.json`, `qa/pwa-testlogs/`) are already git-ignored.
+Task B1 is merged. Suites write evidence to the untracked `qa/evidence-out/` unless `NIGHTSWEEP_WRITE_EVIDENCE=1`. A clean `git status` after a full gate is part of the definition of done. If a suite still changes a tracked file, do not commit that change and do not hide it: record it. `git checkout -- release research` is only for a run that was started with evidence writing turned on. Test results and logs (`qa/*results.json`, `qa/pwa-testlogs/`) are git-ignored.
 
 ## Tools a session may have
 
@@ -49,7 +49,7 @@ This is what a Claude Code cloud session had; Codex or ChatGPT sessions differ. 
 
 | Tool | Use here | Caveat |
 | --- | --- | --- |
-| GitHub (MCP tools) | branches, pull requests, reviews, merges | No `gh` CLI for writes. The session's access was limited to `Goodst3r/Carpe-Noctum`. Pushing a workflow file under `.github/workflows/` worked. |
+| GitHub (`gh` as Goodst3r in Grok's session; earlier sessions used MCP tools) | branches, pull requests, reviews, merges | Grok's session had `gh` and could push. Earlier Lane B notes said that session had no `gh` CLI for writes. Check your own access. Never force-push. |
 | Shell, Git, Node, Python, local Chromium via Playwright | builds, all tests, rendered checks | The only way to run the app. A tool opinion or mockup is not a test. |
 | Firecrawl (search, scrape, PDF parsing) | manufacturer documents and standards | Credits ran out once during the build 3 research; unverified items are marked "not re-verified". Not re-checked in the session that wrote this file. |
 | Context7, Exa and other web search/fetch | library documentation, discovery | Context7 is not an authority on HFC specifications. Different search engines repeating one source are not independent corroboration. |
