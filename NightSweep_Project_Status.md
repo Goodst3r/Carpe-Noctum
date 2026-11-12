@@ -8,14 +8,14 @@ Grok and ChatGPT build and review each other’s pull requests; Claude is the ga
 
 ### Counts on this branch
 
-Counted on November 12, 2026 from the combined B1/B2 source assembled by `qa/build2-source-harness.cjs` and loaded in JSDOM; these are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
+Counted on November 12, 2026 from the rebuilt standalone `outputs/Night_Sweep.html` after merging #36 and #42, loaded in JSDOM through `qa/build2-source-harness.cjs`. These are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
 
 | Count | What |
 | --- | --- |
 | 35 | task screens (`WorkflowUI.screens`, including Help) |
 | 53 | Practice library feature choices (`TrainingJob.features`) |
 | 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 153 | registry rows in the running app: `thresholds.js` has 150 alone and `EvidenceArchive.limits` adds 3; includes three B2 derived/software rows |
+| 159 | registry rows in the running app: `Thresholds.rows.length` is 159; `thresholds.js` loaded without `EvidenceArchive` has 156 and `EvidenceArchive.limits` adds 3. #36 adds the three manual-ingress text bounds. #42 adds no row |
 | 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 4 / 18 | Study domains / question generators |
 | 22 / 7 | Outage prompts / sections |
@@ -24,7 +24,11 @@ Counted on November 12, 2026 from the combined B1/B2 source assembled by `qa/bui
 
 **B2 product note:** The existing upstream result compares an actual simultaneous CM F-connector total with the declared comparable Pmax reference. Blank 65 is only an assumed Spec minimum/default in declared DOCSIS 3.1 CM/CMTS MTC operation, not known modem capability. The existing converter adds measured-in 6.4 MHz and requires confirmed flat PSD/MHz/restatement context. Per-channel/DRW room and instantaneous OFDMA total remain Unknown; no new screen, converter, job field, key, version or APK. Full exact-head gates are reported in PR #37, separately from this source count.
 
-**NAV-1 (this pull request):** the same screens are regrouped. Bottom tabs are Home, Plan, Field, Tools and Closeout. Screen ids are unchanged, so old jobs and backups do not store a screen and do not need a new field. Home is Home and Outage (Safety stays removed). Plan is a list of ten: Details, Setup, Cable route, Amp gain, Amp / node setup, Predicted levels, Load, What-if, Supply PM, Sweep due. Supply PM was a Power tab; the determination named Load and What-if, and this pull request puts Supply PM in Plan with them because that is where Power folded. Field is a list of eight. Tools is a searchable list (Calculators, Limits and sources, Cards, Learn) with no sub-tab row. Closeout is Acceptance and Run sheet. Help stays in the header. The regroup does not change the counts above. Filtering a list does not change the selected screen, and the visible result stays in the tab order. The existing Functions and Installation PDFs match the current guides.
+**B4 product note:** The existing **Field → Night log** now requires a meaningful note or selected saved Station worksheet before Add uses a slot. Remove and last-removal Undo preserve the original entry, capture and draft notes; Undo ends on a job change/reload, is replaced by another removal and cannot exceed the existing 200-entry cap. Manual intermittent-ingress observations add optional `type` / `ingress` data within `nightLog.entries`: conditions, technician-observed time and weather, with attempted work in the existing Actions field. Observed time is typed text, separate from Added; blank manual fields stay Unknown and weather is not collected automatically. The text caps 2,000 / 200 / 500 UTF-16 code units are Unknown software guards. General-only TXT/CSV and old job shapes stay compatible; mixed CSV and full JSON retain the manual notes. This extends the existing step/feature without a new screen, key, version or RF/company rule. Final exact-head gates are recorded in PR #36. Historical Night log checkpoints below predate this B4 change.
+
+**B3 product note:** The existing standing-wave search width is labeled app-chosen and its existing registry row is Unknown, with its software default and guard stated. The default stays 10 percent; the input still requires above 0 through 50 percent. Candidate calculations, separate Expert distance formula and no-save behavior are unchanged. No new screen, feature, row, stored field or version. The existing Functions guide and PDF match the wording. Exact-head gates are recorded separately in the B3 PR.
+
+**NAV-1 (merged):** the same screens are regrouped. Bottom tabs are Home, Plan, Field, Tools and Closeout. Screen ids are unchanged, so old jobs and backups do not store a screen and do not need a new field. Home is Home and Outage (Safety stays removed). Plan is a list of ten: Details, Setup, Cable route, Amp gain, Amp / node setup, Predicted levels, Load, What-if, Supply PM, Sweep due. Supply PM was a Power tab; the determination named Load and What-if, and this pull request puts Supply PM in Plan with them because that is where Power folded. Field is a list of eight. Tools is a searchable list (Calculators, Limits and sources, Cards, Learn) with no sub-tab row. Closeout is Acceptance and Run sheet. Help stays in the header. The regroup does not change the counts above. Filtering a list does not change the selected screen, and the visible result stays in the tab order. The existing Functions and Installation PDFs match the current guides.
 
 `docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
 

@@ -1,5 +1,8 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
+B4, November 12, 2026: existing Field → Night log gains meaningful Add, Remove and temporary last-removal Undo before the manual intermittent-ingress entry type. Optional conditions, technician-observed time and typed weather stay with the existing job; Actions records attempted work. Blank manual fields are Unknown, and Added remains the device recording timestamp. Undo retains the original capture/ID/time/order and unadded draft, ends on job change/reload, is replaced by another removal and cannot exceed the existing 200-entry cap. Text bounds 2000/200/500 UTF-16 code units are Unknown software guards. General-only TXT/CSV stay compatible; mixed CSV adds eight consistent type/manual/status columns and project JSON retains raw observations and originals. No new screen, feature, practice step, store/key, version, forecast, RF formula or company rule. Exact-head author/host/reviewer gate receipts belong to PR #36; no new gate count is asserted here.
+B3, November 12, 2026: standing-wave candidate-search width is app-chosen and registered Unknown, separate from the Expert ripple-distance formula. Existing 10 percent default, above-0-through-50-percent guard and candidate math are unchanged. The tool, source dialog, Functions guide and reprinted PDF agree. No screen, feature, stored field, key or version added. Exact-head gates are in the B3 pull request.
+
 NAV-1, November 12, 2026: screens are regrouped under Home, Plan, Field, Tools and Closeout. Screen ids, storage keys and the job format are unchanged. Plan, Field and Tools are lists (the old rows wrap at 320 px). Supply PM is in Plan with Load and What-if. Safety stays removed. No new screen or version. A filtered list result stays reachable from the keyboard. The main guide names Home, Plan, Field, Tools and Closeout. The existing Functions and Installation PDFs were reprinted from the current guides.
 
 Thermal CNR, November 12, 2026: Tools → Calculators has a thermal-noise and CNR card (noise floor, one amplifier, N equal contributions, optional optical CNR, and a combination of CNR values). Fixed 290 K. No CTB/CSO, MER, ordered Friis chain or editable temperature. No new screen, storage key or version.
@@ -15,7 +18,12 @@ The shared checklist engine stays for Outage. Legacy device data is left
 untouched; safety fields in legacy jobs/backups remain opaque and preserved
 on re-export. No new field, storage key, version or APK is introduced.
 
-Counted from current assembled source in JSDOM after B1/B2 (not a full gate):
+Recounted November 12, 2026 from the rebuilt standalone after merging #36 and #42 (not a full gate):
+35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
+159 live registry rows (156 in thresholds.js alone plus 3 EvidenceArchive).
+#36 adds the three ingress text bounds. #42 adds no row. The B1/B2 count below is that earlier checkpoint.
+
+Counted from the assembled source in JSDOM after B1/B2 (not a full gate):
 35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
 153 live registry rows (150 in thresholds.js alone plus 3 EvidenceArchive),
 47 module splices plus DSIM insertion, Study 4 domains/18 generators,

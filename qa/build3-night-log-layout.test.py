@@ -4,12 +4,16 @@ from pathlib import Path
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
-import os,tempfile
+import os,re,tempfile,subprocess
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parent.parent
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*args): pass
-server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT/'outputs')))
+source_dir=tempfile.TemporaryDirectory() if os.environ.get('NIGHTSWEEP_NIGHTLOG_SOURCE_TEST')=='1' else None
+serve_dir=Path(source_dir.name) if source_dir else ROOT/'outputs'
+if source_dir:
+    (serve_dir/'Night_Sweep.html').write_bytes(subprocess.check_output(['node','-e',"process.stdout.write(require('./qa/build2-source-harness.cjs').assembleHtml())"],cwd=ROOT))
+server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(serve_dir)))
 Thread(target=server.serve_forever,daemon=True).start()
 checks=[]; errors=[]
 def check(name,value):
@@ -26,6 +30,15 @@ try:
             check(f'{width}px empty state offers general note and Station',page.locator('[data-night-draft="stationIdentity"]').input_value()=='' and page.locator('#nightLogPanel [data-task="station"]').is_visible())
             fixture=page.evaluate((ROOT/'qa/night-log-fixture.js').read_text())
             check(f'{width}px five actual-handler captures',fixture['entries']==5 and all(f'{i}. A{i}' in fixture['preview'] for i in range(1,6)))
+            captured=page.evaluate('JSON.stringify(state.nightLog.entries[0])')
+            page.locator('[data-night-draft="action"]').fill('Unadded draft Ω')
+            page.locator('[data-night-entry-id]').first.locator('summary').click()
+            page.locator('[data-night-remove]').first.click()
+            check(f'{width}px Remove frees one slot and keeps the draft',page.evaluate('state.nightLog.entries.length===4') and page.locator('[data-night-draft="action"]').input_value()=='Unadded draft Ω')
+            page.locator('[data-night-action="undo"]').click()
+            check(f'{width}px Undo restores exact first snapshot and draft',page.evaluate('JSON.stringify(state.nightLog.entries[0])')==captured and page.locator('[data-night-draft="action"]').input_value()=='Unadded draft Ω')
+            page.locator('[data-night-draft="action"]').fill('')
+            page.locator('[data-night-action="generate"]').click()
             for theme in ['night','sun']:
                 page.evaluate('(theme)=>document.documentElement.dataset.theme=theme',theme)
                 check(f'{width}px {theme} no horizontal overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1 && document.querySelector("#nightHandoffPreview").scrollWidth<=document.querySelector("#nightHandoffPreview").clientWidth+1'))
@@ -72,8 +85,71 @@ try:
             page.evaluate('loadState({version:1,example:true,setup:{},rows:[]});NightLog.addEntry({action:"Only notes",gas:"2 L",mileage:"123 km"});WorkflowUI.go("route")');notes=page.evaluate('JSON.stringify(state.nightLog)');page.locator('#example').click()
             check(f'{width}px an empty-route example retains a notes-only log',page.evaluate('JSON.stringify(state.nightLog)')==notes and page.evaluate('state.rows.length===3'))
             check(f'{width}px all Home summary counts match real steps',page.evaluate('TrainingJob.exercises.every(x=>Number(/^([0-9]+) steps/.exec(x.summary)?.[1])===TrainingJob.stepsFor(x.id).length)'))
+            page.evaluate('WorkflowUI.go("nightLog")')
+            page.locator('[data-night-draft="type"]').select_option('intermittent-ingress')
+            page.locator('[data-night-ingress-draft="conditions"]').fill('Synthetic bursts Ω, <tag> '+('W'*400))
+            page.locator('[data-night-ingress-draft="observedAt"]').fill('About 01:30, date and zone unknown')
+            page.locator('[data-night-ingress-draft="weather"]').fill(' ')
+            page.locator('[data-night-draft="action"]').fill('Tried a synthetic comparison; no conclusion')
+            check(f'{width}px ingress manual fields and large controls fit',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1') and page.locator('[data-night-ingress-fields]').is_visible() and page.locator('[data-night-ingress-draft]').evaluate_all('(els)=>els.every(e=>e.labels.length===1&&e.getBoundingClientRect().height>=44)'))
+            page.locator('[data-night-action="add"]').click()
+            captured=page.evaluate('JSON.stringify(state.nightLog.entries.at(-1))')
+            page.locator('[data-night-entry-id]').last.locator('summary').click()
+            weather=page.locator('[data-night-entry-id]').last.locator('[data-night-ingress-entry="weather"]');weather.fill('Manual drizzle');weather.focus();page.evaluate('renderAll()')
+            check(f'{width}px ingress edit persists with focus',weather.evaluate('(e)=>e===document.activeElement') and page.evaluate('state.nightLog.entries.at(-1).ingress.weather==="Manual drizzle"'))
+            weather.fill(' ');captured=page.evaluate('JSON.stringify(state.nightLog.entries.at(-1))')
+            page.locator('[data-night-draft="type"]').select_option('intermittent-ingress')
+            page.locator('[data-night-ingress-draft="conditions"]').fill('Unadded ingress draft')
+            page.locator('[data-night-remove]').last.click();page.locator('[data-night-action="undo"]').click()
+            check(f'{width}px ingress Undo preserves raw payload and new draft',page.evaluate('JSON.stringify(state.nightLog.entries.at(-1))')==captured and page.locator('[data-night-ingress-draft="conditions"]').input_value()=='Unadded ingress draft' and page.locator('[data-night-ingress-fields]').is_visible())
+            page.locator('[data-night-action="generate"]').click()
+            check(f'{width}px ingress handoff distinguishes observed time, manual weather and attempted work','Technician-observed time: About 01:30' in page.locator('#nightHandoffPreview').input_value() and 'Weather (manual): Unknown' in page.locator('#nightHandoffPreview').input_value() and 'Attempted work: Tried a synthetic comparison' in page.locator('#nightHandoffPreview').input_value())
+            for theme in ['night','sun']:
+                page.evaluate('(theme)=>document.documentElement.dataset.theme=theme',theme)
+                check(f'{width}px {theme} ingress long notes fit',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+            page.evaluate('document.documentElement.dataset.theme="night"')
+            ingress_bounds=[
+                ('conditions','nightLog.ingress.conditions.max',2000),
+                ('observedAt','nightLog.ingress.observedAt.max',200),
+                ('weather','nightLog.ingress.weather.max',500),
+            ]
+            tags=page.locator('[data-night-ingress-fields] [data-threshold]')
+            check(f'{width}px ingress bounds have three reachable Unknown source buttons outside labels',tags.count()==3 and tags.evaluate_all('(els)=>els.every(e=>e.dataset.label==="unknown"&&e.getAttribute("aria-haspopup")==="dialog"&&!e.closest("label")&&e.getBoundingClientRect().width>=44&&e.getBoundingClientRect().height>=44)') and all(page.locator(f'[data-night-ingress-fields] [data-threshold="{source_id}"]').count()==1 for _,source_id,_ in ingress_bounds))
+            draft_before=page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')
+            saved_before=page.evaluate('JSON.stringify(state)')
+            storage_before=page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')
+            for field,source_id,cap in ingress_bounds:
+                tag=page.locator(f'[data-night-ingress-fields] [data-threshold="{source_id}"]')
+                tag.click()
+                sheet=page.locator('dialog#sourceSheet[open]')
+                details=sheet.locator('.source-details').evaluate('(root)=>Object.fromEntries([...root.querySelectorAll("div")].map(row=>[row.querySelector("dt").textContent,row.querySelector("dd").textContent]))')
+                number=re.match(r'[\d,]+(?:\.\d+)?',details.get('Value',''))
+                policy=details.get('Applies when','')+' '+details.get('Source','')
+                check(f'{width}px {field} source explains the actual UTF-16 software text bound',sheet.get_attribute('data-sheet-for')==source_id and number is not None and float(number.group().replace(',',''))==cap and page.locator(f'[data-night-ingress-draft="{field}"]').get_attribute('maxlength')==str(cap) and page.locator('[data-night-entry-id]').last.locator(f'[data-night-ingress-entry="{field}"]').get_attribute('maxlength')==str(cap) and re.search(r'UTF\W*16.*code\W*units?',details.get('Units',''),re.I) is not None and re.search(r'software|application',policy,re.I) is not None and re.search(r'not .*?(?:RF|company)',policy,re.I) is not None)
+                check(f'{width}px {field} source dialog fits the narrow screen',sheet.evaluate('(e)=>{const r=e.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&e.scrollWidth<=e.clientWidth+1}') and page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                sheet.locator('[data-source-close]').click()
+                page.wait_for_function('!document.getElementById("sourceSheet")')
+                check(f'{width}px {field} source close returns focus without saving or losing a draft',tag.evaluate('(e)=>document.activeElement===e') and page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')==draft_before and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            last_entry=page.locator('[data-night-entry-id]').last
+            last_entry.evaluate('(e)=>e.open=true')
+            saved_weather=last_entry.locator('[data-night-ingress-entry="weather"]')
+            valid_weather=saved_weather.input_value()
+            invalid_weather='W'*501
+            saved_weather.evaluate('(e,value)=>{e.value=value;e.dispatchEvent(new Event("input",{bubbles:true}))}',invalid_weather)
+            invalid_feedback=page.locator('[data-night-status]').inner_text()
+            check(f'{width}px oversized saved ingress edit stays visible with feedback without entering storage',saved_weather.input_value()==invalid_weather and re.search(r'invalid|too long|length|limit',invalid_feedback,re.I) is not None and 'visible' in invalid_feedback.lower() and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            page.evaluate('NightLog.render(true)')
+            source=page.locator('[data-night-ingress-fields] [data-threshold="nightLog.ingress.weather.max"]')
+            source.click()
+            page.locator('dialog#sourceSheet[open] [data-source-close]').click()
+            page.wait_for_function('!document.getElementById("sourceSheet")')
+            check(f'{width}px source details and same-owner render retain the rejected edit and unadded draft',saved_weather.input_value()==invalid_weather and source.evaluate('(e)=>document.activeElement===e') and page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')==draft_before and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            saved_weather.fill(valid_weather)
+            stored_log=page.evaluate('JSON.stringify(state.nightLog)');page.reload();page.evaluate('WorkflowUI.go("nightLog")')
+            check(f'{width}px real page reload retains ingress bytes',page.evaluate('JSON.stringify(state.nightLog)')==stored_log)
             context.close()
         check('no application runtime errors',not errors);browser.close()
 finally:
     server.shutdown();server.server_close()
+    if source_dir: source_dir.cleanup()
 print(f'Build3 night log layout: {len(checks)} checks passed')
