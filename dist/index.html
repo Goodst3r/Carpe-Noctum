@@ -6349,6 +6349,10 @@ const DocsisHealthUI=(()=>{
    are our own. Missing or invalid input gives no result and a reason; it is never shown as zero. */
 const Leakage=(()=>{
  const STORAGE_KEY='nightsweep-leakage-v1';
+ /* The one leakage detector this app names: the unit the crew carries, as printed on its label.
+    Display text only. It is not stored, so the leak log, saved checks and jobs are unchanged.
+    Do not add other makes or models here without Spencer's say-so. */
+ const DETECTOR=Object.freeze({maker:'Arcom Digital',model:'QS-NAVPLUS-OUDP'});
  const FT_PER_M=1/0.3048;                // exact: 1 ft = 0.3048 m
  const CLI_LIMIT=64;                      // 10·log10(I∞) must be equal to or less than 64
  const CLI_MIN_LEAK=50;                   // µV/m at 3 m; only leaks at or above this are counted
@@ -6692,7 +6696,7 @@ const Leakage=(()=>{
   }
   return rows.map(r=>r.map(csvCell).join(',')).join('\r\n')+'\r\n';
  }
- return {STORAGE_KEY,SIDE_KEY,NEWER,LIMITS,CLI_LIMIT,CLI_MIN_LEAK,CLI_SAMPLING,CLI_BAND,MIN_THETA,MIN_REPAIR,MAX_LOG,MAX_CHECKS,FT_PER_M,rule,checkLimit,normalize,restate,nearFieldMetres,cliStatus,parseLeaks,cli,detector,toleranceCheck,
+ return {STORAGE_KEY,DETECTOR,SIDE_KEY,NEWER,LIMITS,CLI_LIMIT,CLI_MIN_LEAK,CLI_SAMPLING,CLI_BAND,MIN_THETA,MIN_REPAIR,MAX_LOG,MAX_CHECKS,FT_PER_M,rule,checkLimit,normalize,restate,nearFieldMetres,cliStatus,parseLeaks,cli,detector,toleranceCheck,
   validateLeak,validDate,load,status,snapshot,addLeak,markRepaired,reopenLeak,removeLeak,addCheck,removeCheck,setCompany,clearAll,registryValue,leaksCsv,csvCell,sanitizeStore};
 })();
 
@@ -6732,7 +6736,7 @@ const LeakageUI=(()=>{
    fields:()=>`<label class="calc-wide">Leak field strengths at 3 m (µV/m), separated by spaces or new lines (a comma and a space also works)<textarea data-leak="cli" data-field="leaks" rows="3" placeholder="e.g. 120, 85, 60, 250, 50"></textarea></label>`+field('cli','theta','Fraction of the plant examined','e.g. 0.8')+field('cli','tested','Or strand miles tested (not both)','e.g. 160')+field('cli','total','Total strand miles','e.g. 200'),
    conditions:'10·log10 of (1 ÷ fraction examined) × the sum of each leak’s field strength squared, counting only leaks of 50 µV/m or more at 3 m. The rule asks for at least 75% of the strand and a test every calendar year. Strengths must already be on the 108–137 MHz basis: this card does not do the FCC’s frequency correlation.'},
   detector:{title:'Detector check',ref:'leak.detector.methods',context:'detector check methods',
-   lead:'Record what your leakage detector read against what a calibrated source should give.',
+   lead:`Record what your ${Leakage.DETECTOR.maker} ${Leakage.DETECTOR.model} read against what a calibrated source should give.`,
    fields:()=>`<label>Check method<select data-leak="detector" data-field="method"><option value="">Choose</option><option value="direct">Directly connected RF source</option><option value="dipole">Calibrated leak with a half-wave dipole</option></select></label>`+field('detector','expected','Expected reading (µV/m)','e.g. 20')+field('detector','read','Detector read (µV/m)','e.g. 22')+`<label>Date of the check<input type="date" data-leak="detector" data-field="date"></label>`,
    conditions:'The two methods are the ones SCTE 289 describes: a directly connected source sets general accuracy, and a calibrated leak shows the detector measuring a known field outdoors. Your company’s tolerance starts unknown. Detector checks are kept on this device only.'}
  });
@@ -6749,7 +6753,7 @@ const LeakageUI=(()=>{
   return `<section class="calc-card leak-card leak-log" data-leak-card="log" aria-labelledby="leak-log-title"><div class="calc-card-head"><h3 id="leak-log-title">Leak log</h3>${tag('leak.log.fields','leak log fields')}</div><p class="note tight">Your own notebook of leaks: where, when found, probable cause and when repaired, the fields 47 CFR 76.1706 asks an operator to keep. It is not the company’s official record. Describe the place by pole, tap or cross street; do not enter customer names, addresses or account numbers.</p><div class="calc-fields"><label>Date found<input type="date" data-leak="log" data-field="found"></label><label>Where (pole, tap or cross street; no customer details)<input type="text" maxlength="120" data-leak="log" data-field="location"></label><label>Probable cause<input type="text" maxlength="120" data-leak="log" data-field="cause" placeholder="e.g. loose drop connector"></label><label>Date repaired (blank while open)<input type="date" data-leak="log" data-field="repaired"></label>${field('log','field','Field strength (µV/m)','optional')}${field('log','distance','Distance (m)','optional')}${field('log','frequency','Test frequency (MHz)','optional')}<label class="calc-wide">Notes (no customer names, addresses or account numbers)<input type="text" maxlength="300" data-leak="log" data-field="notes"></label></div><div class="toolbar"><button type="button" id="leakAdd" class="primary">Add to log</button><button type="button" id="leakExport">Export log (CSV)</button><button type="button" id="leakClear" class="danger">Clear everything on this device</button></div><p class="status warning" id="leak-store-note" role="status" hidden></p><p class="note" id="leak-log-note" role="status" aria-live="polite"></p><div id="leakList"></div><p class="note calc-conditions">Kept in this browser on this device only, not in a job or its backups. Only the log can be exported (CSV); the saved checks and company settings cannot. The rule asks operators to keep their log for two years, longer for some small systems; clearing browser data erases this one.</p></section>`;
  }
  function markup(){
-  return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
+  return `<div class="sectionhead"><div><h2>Leakage</h2><p class="note tight">FCC limits, distance and CLI math, a detector check and a personal leak log. Offline; nothing is sent anywhere. This is your notebook and calculator, not the company’s official leak record, and results are not filings.</p><p class="note tight" id="leakDetectorModel">Leak detector: <strong>${Leakage.DETECTOR.maker} ${Leakage.DETECTOR.model}</strong>. It is the only leak detector this app names; enter what it reads.</p></div></div><div class="calc-grid">${['limit','normalize','cli','detector'].map(card).join('')}${logCard()}</div>${companyBox()}`;
  }
  /* A number box whose text is not a number (a lone "-", "1e", "5.5.5") reports an empty value but is
     marked badInput. It must not read as a blank: a blank can mean "not given" or "clear the setting".
@@ -8386,6 +8390,6 @@ const StudyModeUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"3c1eee032ccf052df214","worker":"sw.3c1eee032ccf052df214.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"a98aa4a0363aa345628a","worker":"sw.a98aa4a0363aa345628a.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
