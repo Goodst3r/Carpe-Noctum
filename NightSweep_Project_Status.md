@@ -2,22 +2,24 @@
 
 ## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for items 11 and 15. On this branch they also cover items 17, 18, 20 and 19 (Test → Study). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
+Integration branch **`build3`**. This B2 source includes the merged work through Study, Supply PM and Power sum. Safety removal is separate PR #35 and is not yet included at this checkpoint; its merged changes must be retained on later integration. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
 From the night of November 12, 2026 Grok and ChatGPT both build, run the long gates and cross-review each other, and Claude is the gatekeeper (`handoff_docs/WORKFLOW.md`). Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/chatgpt-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
 ### Counts on this branch
 
-Counted from source on this branch (Node, reading `workflow.js`, `training.js`, `thresholds.js` and `build.py`). The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. This branch is that core plus items 11, 15, 17, 18, 20 and 19.
+Counted from the actual source-assembled app for B2 on November 12 (Node, real WorkflowUI/TrainingJob/Thresholds APIs plus build.py splice list; no runtime errors). Safety removal is still separate PR #35 at this checkpoint. The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. The counts below include Supply PM and Power sum. B2 changes existing tools and adds no screen or Practice feature.
 
 | Count | What |
 | --- | --- |
-| 35 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
-| 53 | Practice library feature choices, counted from `training.js` `features` |
-| 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 142 | registry rows in the running app: `thresholds.js` returns 139 when loaded alone, and `EvidenceArchive.limits` adds 3 when the full app has loaded. Study mode adds no registry row. The proof-of-performance branch was 142 |
-| 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
+| 36 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
+| 54 | Practice library feature choices, counted from `training.js` `features` |
+| 22 / 16 / 22 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
+| 153 | registry rows in the running app: `thresholds.js` returns 150 alone and `EvidenceArchive.limits` adds 3. Includes merged Supply PM/Power sum and the three B2 derived/software rows. |
+| 48 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 33 | default Safety reminders, counted by reading the `ITEMS` array in `night-sweep/safety.js` |
+
+**B2 product note:** The existing upstream result compares an actual simultaneous CM F-connector total with the declared comparable Pmax reference. Blank 65 is only an assumed Spec minimum/default in declared DOCSIS 3.1 CM/CMTS MTC operation, not known modem capability. The existing converter adds measured-in 6.4 MHz and requires confirmed flat PSD/MHz/restatement context. Per-channel/DRW room and instantaneous OFDMA total remain Unknown; no new screen, converter, job field, key, version or APK. Full exact-head gates are reported in PR #37, separately from this source count.
 
 `docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
 
@@ -27,7 +29,7 @@ Counted from source on this branch (Node, reading `workflow.js`, `training.js`, 
 | 2. Tilt/EQ/pad solver | **On the branch.** Test → Calculators → Pad / EQ balance. |
 | 3. Station view and unity-gain worksheet | **On the branch** (Lane A, PR #8, native-input follow-up PR #23). Route → Station. |
 | 4. Calculator bundle | **On the branch.** Test → Calculators. |
-| 5. DOCSIS health card | **On the branch** (Lane B). Test → DOCSIS health. Open question: a 3.1 modem that receives only SC-QAM, total input 33 or 40 dBmV. |
+| 5. DOCSIS health card | **On the branch** (Lane B). B2 clarifies the existing upstream composite margin and bandwidth restatement. Published downstream 33/40 limits and their applicability stay unchanged; Spencer dropped that question. |
 | 6. Night log | **On the branch** (Lane A). Job → Night log. |
 | 7. Leakage | **On the branch** (Lane B). Test → Leakage. **Supervisor review needed** before coworkers use it. Personal notebook, not the company record. |
 | 8. Outage | **On the branch** (Lane B). Job → Outage. **Supervisor review needed** against the local outage procedure before coworkers use it. |
