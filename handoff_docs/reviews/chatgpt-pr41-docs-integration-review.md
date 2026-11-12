@@ -12,4 +12,3 @@ Fresh own exact-head verification (all exit 0):
 The earlier rendered evidence (20 + 24 + 88 checks) belongs to cd433a2; it was not rerun for this docs-only delta. No full gate, merge, device, emulator, field or APK work performed. Hosted `QA gate` run 43257209472 is IN_PROGRESS on 81e2e02; green on this exact head remains required before merge.
 
 APPROVE — `81e2e02400b179d77a0ad03533079631c59238be`.
-
