@@ -1,0 +1,99 @@
+{
+ "source": "CM-SP-PHYv4.0-I08-260928 Table 29 and Table 31; CM-SP-PHYv3.1-I20-230419 Section 7.2 and Table 4",
+ "plans": {
+  "sub": {
+   "upper": [
+    42
+   ],
+   "dsLow": [
+    50,
+    54
+   ],
+   "dsHigh": [
+    1584,
+    1590
+   ],
+   "gapMin": 8,
+   "gapMax": 12,
+   "width": null,
+   "aeroSide": "downstream"
+  },
+  "mid": {
+   "upper": [
+    85
+   ],
+   "dsLow": [
+    108
+   ],
+   "dsHigh": [
+    1644
+   ],
+   "gapMin": 23,
+   "gapMax": 23,
+   "width": 1536,
+   "aeroSide": "downstream"
+  },
+  "high": {
+   "upper": [
+    204
+   ],
+   "dsLow": [
+    258
+   ],
+   "dsHigh": [
+    1794
+   ],
+   "gapMin": 54,
+   "gapMax": 54,
+   "width": 1536,
+   "aeroSide": "upstream"
+  }
+ },
+ "ultra": [
+  {
+   "upper": 300,
+   "dsLow": [
+    300,
+    372
+   ]
+  },
+  {
+   "upper": 396,
+   "dsLow": [
+    396,
+    492
+   ]
+  },
+  {
+   "upper": 492,
+   "dsLow": [
+    492,
+    606
+   ]
+  },
+  {
+   "upper": 684,
+   "dsLow": [
+    684,
+    834
+   ]
+  }
+ ],
+ "ultraTop": 1794,
+ "d31": {
+  "upstreamEdges": [
+   42,
+   65,
+   85,
+   117,
+   204
+  ],
+  "downstreamLowMust": 258,
+  "downstreamDemodulateTo": 1218,
+  "downstreamOptionalTo": 1794
+ },
+ "aeroBand": [
+  108,
+  137
+ ]
+}

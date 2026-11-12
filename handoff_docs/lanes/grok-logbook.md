@@ -2,7 +2,14 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 15 merged; item 17 merge started
+
+Pull request #15 merged at 2026-11-12T06:28:56Z. Merge commit `9df485720d0e13192364be4cf8e3255b36b4bbbf`. Head that was gated and reviewed: `b2d6f91`. Local gate 86/2,269, 739.4 s, layout 714, smoke 358, standalone `44801b66…fa62`. Hosted CI [run 43166448499](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43166448499). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-b2d6f91.md`, added on this branch after the merge so `b2d6f91` did not move.
+
+This commit merges `origin/build3` into `claude/b17-highsplit`. Guide totals intended here: 32 screens, 50 features, custom curves 18. The gate on this head is not run yet.
+
 ## November 12, 2026 · own gate on fiber record `e9e0473` is green
+
 
 Docs-only child of `5b33079`. Same Chromium and `NIGHTSWEEP_SUITE_TIMEOUT=3600`. Clock 2026-11-12T05:58:26Z–06:11:03Z. Log `/tmp/grok-gate-e9e0473.log`.
 

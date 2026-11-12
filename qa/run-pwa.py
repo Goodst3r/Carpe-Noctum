@@ -19,6 +19,7 @@ suites=[
  ('Build 3 shared checklist engine, pre-work safety card and outage first-response card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
  ('Build 3 impairment cards and standing-wave candidate search against an independent reference','build3-impairments.test.cjs',r'Build3 impairments: (\d+) checks passed'),
  ('Build 3 fiber color code and link loss budget against an independent reference','build3-fiber.test.cjs',r'Build3 fiber: (\d+) checks passed'),
+ ('Build 3 high split band plans, aeronautical band and Remote PHY reference','build3-highsplit.test.cjs',r'Build3 high split: (\d+) checks passed'),
  ('Build 3 fiber tools in a real browser: unfinished number boxes','build3-fiber-real.test.py',r'Build3 fiber real browser: (\d+) checks passed'),
  ('Build 3 impairment route search in a real browser: stale candidates and unfinished number boxes','build3-impairments-real.test.py',r'Build3 impairments real browser: (\d+) checks passed'),
  ('Build 3 checklist cards in a real browser: half-edited time box and a full storage quota','build3-checklist-real.test.py',r'Build3 checklist real browser: (\d+) checks passed'),

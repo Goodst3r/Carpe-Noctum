@@ -2,21 +2,21 @@
 
 ## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for item 11. On this branch they also cover item 15 (Test → Fiber). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
+Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for items 11 and 15. On this branch they also cover item 17 (Test → High split). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
 A third assistant, Grok, took over on November 12, 2026 after Lane A (ChatGPT) and Lane B (Claude) stopped. Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md`, `handoff_docs/lanes/codex-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
 ### Counts on this branch
 
-Counted from source on this branch (Node, reading `workflow.js`, `training.js`, `thresholds.js` and `build.py`). The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. This branch is that core plus item 11 and item 15.
+Counted from source on this branch (Node, reading `workflow.js`, `training.js`, `thresholds.js` and `build.py`). The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. This branch is that core plus items 11, 15 and 17.
 
 | Count | What |
 | --- | --- |
-| 31 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
-| 49 | Practice library feature choices, counted from `training.js` `features` |
-| 22 / 16 / 17 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 121 | registry rows in the running app: `thresholds.js` returns 118 when loaded alone, and `EvidenceArchive.limits` adds 3 (input bytes, decoded bytes, ZIP entries) when the full app has loaded. The required-core close-out's jsdom count of 114 is that core, before the one impairment row and these six fiber rows |
-| 43 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
+| 32 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
+| 50 | Practice library feature choices, counted from `training.js` `features` |
+| 22 / 16 / 18 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
+| 127 | registry rows in the running app: `thresholds.js` returns 124 when loaded alone, and `EvidenceArchive.limits` adds 3 (input bytes, decoded bytes, ZIP entries) when the full app has loaded. The fiber branch was 121 with those three guards. This branch adds six high-split rows |
+| 44 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 33 | default Safety reminders, counted by reading the `ITEMS` array in `night-sweep/safety.js` |
 
 `docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
@@ -35,10 +35,11 @@ Counted from source on this branch (Node, reading `workflow.js`, `training.js`, 
 | 10. Sweep due | **On the branch** (Lane A). Job → Sweep due. The interval starts unknown. |
 | 11. Impairment decision tree | **On this branch** (Lane B stretch, merged pull request #13). Test → Impairments. Ten cards, five steps each, standing-wave distance from the calculators formula. Tilt and flat loss say the source text was not read. |
 | 13. Imported sweep grading | **On the branch** (Lane A). Job → ONX files → Grading aid. Synthetic fixtures only. |
-| 15. Fiber tools (first part) | **On this branch** (Lane B stretch, pull request #15). Test → Fiber. TIA-598 color finder and a simple link loss budget. Six registry rows. Not an OTDR. |
-| 12, 14, 16–20 | **Not on this branch.** Draft pull requests #16, #18, #19 and #20 cover items 17, 18, 20 and 19. Items 12, 14 and 16 are not started. |
+| 15. Fiber tools (first part) | **On this branch** (merged pull request #15). Test → Fiber. TIA-598 color finder and a simple link loss budget. Six registry rows. Not an OTDR. |
+| 17. High split and Remote PHY reading aid | **On this branch** (Lane B stretch, pull request #16). Test → High split. DOCSIS band edges and the aeronautical-band side. No Vecima commissioning checklist. |
+| 12, 14, 16, 18–20 | **Not on this branch.** Draft pull requests #18, #19 and #20 cover items 18, 20 and 19. Items 12, 14 and 16 are not started. |
 
-The required core without items 11 and 15 is `f467e52` (29 screens, 47 features, custom curves 15). Item 11 is merged. This branch adds item 15. D3 for the core close-out is one Grok run and is for Spencer to accept. This feature branch still needs its own gate.
+The required core without items 11 and 15 is `f467e52` (29 screens, 47 features, custom curves 15). Item 11 is merged. This branch adds item 17 on top of merged items 11 and 15. D3 for the core close-out is one Grok run and is for Spencer to accept. This feature branch still needs its own gate.
 
 
 ### What changed
@@ -49,7 +50,7 @@ The bullets below are the feature notes from the sessions that built them. They 
 - **Registry (`night-sweep/thresholds.js`):** every row is labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile, the 42/54 meter-setup TX reference, station worksheets, the grading aid, sweep-due interval, DOCSIS windows, leakage settings, or the built-in 31/43/38 local preset). Blank is unknown and never zero. The first registry pass described 27 rows. The merged core's live list is **114** rows (counted above). Two existing app approximations stay labeled Unknown: the 0.1 %/°F cable temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). Example targets on older screens (Test → References workbook and sample targets, plant-picker starting levels) are not registered yet.
 - **Calculators (`night-sweep/field-calcs.js`):** offline, deterministic, no job or storage writes. Invalid or missing input gives a reason, never a number. VP comes from catalog cables that list one (four today) or is typed in.
 - **Tilt/EQ/pad solver (`night-sweep/alignment.js`):** level error at each pilot, tilt error and the direction to move each control for any model. For GainMaker 1 GHz system amplifiers and line extenders it picks the input EQ for tilt, then the input pad for level at the high pilot, from Cisco's published values (pads 0–20.5 dB in 0.5 dB steps; 1 GHz cable EQs 1.5–30 dB with their loss chart at 52–1000 MHz), and predicts the levels after the change. It never offers a value outside that list, never interpolates across the chart's 86–550 MHz gap, and leaves out the uncharted 0 dB jumper, inverse EQs and 870 MHz EQs. Quantum18 HGD and HGBT align electronically in AOI's QuantumLink Local app and the LE has no public procedure or pad/EQ list, so all three get a note instead of picks; the BA gives pad direction in its sourced 2 dB steps. Advice is worded from the pick, with the GainMaker procedure's ±0.5 dB window, and pilots must sit inside the model's forward band. Sources: `research/build3/PAD_EQ_SOURCES.md`.
-- **Practice:** seven exercises, 22 / 16 / 17 / 8 / 9 / 7 / 10 steps, and 49 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage, the grading aid, the impairment cards and the fiber color finder. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
+- **Practice:** seven exercises, 22 / 16 / 18 / 8 / 9 / 7 / 10 steps, and 50 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage, the grading aid, the impairment cards, the fiber color finder and the high-split reading aid. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
 - **QA:** `qa/build2-layout.test.py` now honors `NIGHTSWEEP_CHROMIUM`. New suites: `build3-registry.test.cjs`, `build3-field-calcs.test.cjs` (app output against independent 50-digit decimal references in `research/build3/field-calcs-reference.json`) and `build3-layout.test.py` (rendered Chromium, run separately like `browser-smoke.py`).
 
 - **DOCSIS health card (`night-sweep/docsis-health.js`, Test → DOCSIS health):** four cards compare a reading with what a cable modem must accept or transmit: downstream SC-QAM level (−15 to +15 dBmV per 6 MHz, PHYv3.0 C01 Table 6–22), downstream OFDM level (−15 to +15 per 6 MHz and −9 to +21 per 24 MHz as printed, PHYv3.1 I20 Table 45; other widths derived and tagged Expert), total input power (strictly below 40 dBmV for a 3.1 modem, 33 for a 3.0-only modem) and upstream headroom to Pmax (65 dBmV default, PHYv3.1 I20 7.4.12.2). These are capability limits, not targets. Company windows start unknown, blank is never zero, and they are kept on this device only under the new key `nightsweep-docsis-windows-v1`, separately for the 42/54 and 204/258 plants, outside the job and its backups. Ten registry rows. Not covered: MER and SNR, per-channel upstream power, the 10 dB channel-spread rule, DOCSIS 4.0, EuroDOCSIS.
@@ -62,6 +63,8 @@ The bullets below are the feature notes from the sessions that built them. They 
 
 - **Impairment cards (`night-sweep/impairments.js`, Test → Impairments):** ten pictures lead to ten cards (standing wave, suckout, resonant peaking, roll-off, tilt, flat loss, ingress, LTE ingress, CPD, impulse), each with what it looks like, causes, look-alikes and the five-step workflow (analyze, localize, prioritize, repair, validate). Looks and causes follow SCTE 280 2022, paraphrased; the steps are general practice labeled Expert; tilt and flat loss say the source text was not read. The standing-wave card turns a ripple spacing and VP into a distance (the Calculators formula) and lists candidate pairs of points on the saved route within a ±10% search width (a registered Expert value). Nothing is read from a meter or stored; no job-format or storage-key change.
 - **Fiber tools (`night-sweep/fiber-tools.js`, Test → Fiber):** a TIA-598 color finder (fiber number, or tube and position) and a simple single-mode link loss budget. Six registry rows. Standard connector, splice and cable allowances are shown and not filled in. Tube 20 is the black position; makers mark the repeat differently. Nothing is read from a meter or stored. Not an OTDR, a PON budget or a company pass limit.
+
+- **High split and Remote PHY reference (`night-sweep/highsplit.js`, Test → High split):** band plans from CM-SP-PHYv4.0 I08 (Table 29 and 31), a derived gap table, the DOCSIS 3.1 modem edges (I20), which direction 108–137 MHz is in on each plant, the aeronautical-band rules in plain words (76.610, 76.611, 76.614, 76.616) and eight Remote PHY bring-up steps from the CableLabs R-PHY, R-DEPI, R-DTI, R-OOB and R-OSSI documents. Six registry rows (spec, expert, derived). No Vecima procedure is described because none is public; no detector setting, pilot code or timer is given. Nothing is read from a node or stored.
 
 ### Independent review
 
