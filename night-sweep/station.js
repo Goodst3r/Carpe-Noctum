@@ -32,7 +32,8 @@ const StationView=(()=>{
  const returnFields=['referencePointTarget','insertionLoss','actualInjection','receiverReading','receiverReference','pad','eq','tolerance','referencePoint','receiverPlane','referenceId'];
  const safeKey=x=>typeof x==='string'&&/^[a-zA-Z0-9_.:-]{1,100}$/.test(x)&&!['__proto__','prototype','constructor'].includes(x);
  const selections=new WeakMap();
- let initialized=false,lastOwner=null,lastSignature='',message='';
+ const drafts=new Map();
+ let initialized=false,lastOwner=null,lastSignature='',message='',renderedContext=null,draftMessage=false;
  const blankStage=()=>({forward:Object.fromEntries(forwardFields.map(f=>[f,''])),returns:Object.fromEntries(returnFields.map(f=>[f,''])),updatedAt:''});
  const blankRecord=t=>({pointId:t?.key||'',equipmentId:t?.id||'',bindingVersion:2,equipmentContext:t?.context||'',stage:'before',stages:{before:blankStage(),after:blankStage()},balanced:{done:false,date:''},swept:{done:false,date:''}});
  function validate(value){
@@ -107,13 +108,13 @@ const StationView=(()=>{
   else{const keys=scope==='forward'?forwardFields:scope==='returns'?returnFields:[];if(!keys.includes(field))return false;stage[scope][field]=String(value).slice(0,500);stage.updatedAt=new Date().toISOString();}
   const existing=stored(t),id=existing?t.holder.stationIdentity:newIdentity(owner),next={...data(),selected:t.key,stations:{...data().stations,[id]:r}};
   validate(next);t.holder.stationIdentity=id;owner.stationView=next;
-  const saved=typeof saveLocal==='function'&&saveLocal()!==false;message=saved?'Station worksheet saved on this device.':'Autosave failed. Export a project backup before closing.';
+  draftMessage=false;const saved=typeof saveLocal==='function'&&saveLocal()!==false;message=saved?'Station worksheet saved on this device.':'Autosave failed. Export a project backup before closing.';
   return true;
  }
  function confirmBinding(){
   const owner=own(),t=target(),original=stored(t,owner);if(!t||t.readOnly||!legacy(t,owner)||!original)return false;
   const id=newIdentity(owner),r={...normalized(clone(original),t),bindingVersion:2,equipmentContext:t.context},next={...data(),selected:t.key,stations:{...data().stations,[id]:r}};
-  try{validate(next);}catch(error){message=error.message;return false;}
+  draftMessage=false;try{validate(next);}catch(error){message=error.message;return false;}
   t.holder.stationIdentity=id;owner.stationView=next;
   message=typeof saveLocal==='function'&&saveLocal()!==false?'Saved confirmed binding. The original legacy worksheet remains in this job backup.':'Binding retained in memory; export a project backup before closing.';
   return true;
@@ -122,7 +123,8 @@ const StationView=(()=>{
  const signed=(x,d=2)=>Number.isFinite(x)?(x>0?'+':'')+(x===0?0:x).toFixed(d):'—';
  function field(scope,key,label,value,source='',type='text'){
   const id='station-'+scope+'-'+key,canBeNegative=scope==='forward'?['targetLow','targetHigh','measuredLow','measuredHigh'].includes(key):scope==='returns'&&['referencePointTarget','actualInjection','receiverReading','receiverReference','eq'].includes(key);
-  return `<div class="station-field"><div class="station-field-heading"><label for="${id}">${label}</label>${source?tag(source):''}</div><input id="${id}" type="${type}"${type==='number'?' step="any"'+(canBeNegative?'':' inputmode="decimal"'):''} data-station-scope="${scope}" data-station-field="${key}" value="${escape(value)}"${type==='text'?' maxlength="500"':''}${type==='number'?' placeholder="Unknown"':''}></div>`;
+  const native=type==='number'||type==='date';
+  return `<div class="station-field"><div class="station-field-heading"><label for="${id}">${label}</label>${source?tag(source):''}</div><input id="${id}" type="${type}"${type==='number'?' step="any"'+(canBeNegative?'':' inputmode="decimal"'):''} data-station-scope="${scope}" data-station-field="${key}" value="${escape(value)}"${type==='text'?' maxlength="500"':''}${type==='number'?' placeholder="Unknown"':''}${native?` aria-invalid="false" aria-describedby="${id}-feedback"`:''}>${native?`<p id="${id}-feedback" class="note station-input-feedback" data-station-input-feedback role="status" aria-live="polite" hidden></p>`:''}</div>`;
  }
  function forwardMarkup(t,r){
   const p=Alignment.profileFor(t.id),f=r.stages[r.stage].forward;
@@ -165,27 +167,63 @@ const StationView=(()=>{
   if(done)done.innerHTML=['balanced','swept'].map(key=>{const status=r[key];return `<p>${key==='balanced'?'Balanced':'Swept'}: ${status.done?'recorded by technician':'not recorded'} · ${escape(status.date||'date unknown')}${status.date&&!StationMath.validDate(status.date)||status.done&&!StationMath.validDate(status.date)?' — enter a valid calendar date (YYYY-MM-DD).':''}</p>`;}).join('');
   const status=document.querySelector('[data-station-status]');if(status)status.textContent=message;
  }
- function render(){
+ function render(force=false){
   // app.js restores autosave before the later calculator/registry scripts initialize.
   if(typeof Alignment==='undefined'||typeof Thresholds==='undefined')return;
   const panel=typeof document!=='undefined'?document.getElementById('stationPanel'):null;if(!panel)return;
+  if(force)for(const input of [...drafts.keys()])reconcile(input);
   const owner=own(),t=target(),raw=currentRecord(),r=normalized(raw,t),locked=readOnly(t,owner),oldBinding=legacy(t,owner),signature=renderSignature(owner,t,r);
   if(lastOwner===owner&&lastSignature===signature)return;
-  lastOwner=owner;lastSignature=signature;
+  const nextContext=viewContext();if(draftMessage&&!sameContext(renderedContext,nextContext)){message='';draftMessage=false;}
+  drafts.clear();renderedContext=nextContext;lastOwner=owner;lastSignature=signature;
   if(!t){panel.innerHTML='<h2>Station worksheet</h2><p class="status warning">Select a launch node / active or add an amplifier on Cable route to record a station.</p><button type="button" data-task="setup">Launch setup</button><button type="button" data-task="route">Cable route</button>';return;}
   const banner=t.split==='42'?'42/54 MHz · Forward Sweepless Sweep · Return Sweepless Sweep':t.split==='204'?'204/258 MHz · Forward Sweepless Sweep · Return XPERTrak':`Split ${t.returnCeiling??'unknown'}/${t.forwardBand?.[0]??'unknown'} MHz · workflow unconfigured; confirm the installed procedure`;
   panel.innerHTML=`<div class="sectionhead"><h2>Station worksheet</h2></div><label>Installed station<select data-station-target>${targets().map(x=>`<option value="${escape(x.key)}"${x.key===t.key?' selected':''}>${escape((x.readOnly?'Legacy · ':'')+x.label)}</option>`).join('')}</select></label><p class="status" data-station-split>${escape(banner)}</p>${t.readOnly?'<p class="status warning">Legacy UBT station — read-only. Its saved data remain in backups.</p>':''}${oldBinding?'<div class="status warning" data-station-binding-notice><strong>Legacy worksheet — station binding unconfirmed.</strong><p>Measurements and dates are preserved for review. The original binding used catalog bands and did not save every station choice. Confirm the selected model, installed split, asset, port and module before continuing. Confirmation makes a new bound copy and retains the original worksheet.</p>'+(!t.readOnly?'<button type="button" data-station-confirm-binding>Confirm saved worksheet belongs to this station</button>':'')+'</div>':''}${owner.job?.training?'<p class="status warning">Synthetic practice job. Entered examples and reviewed records are not field acceptance.</p>':''}<fieldset class="station-editor"${locked?' disabled':''}><legend>${escape(t.label)}</legend><label>Measurement stage<select data-station-scope="record" data-station-field="stage"><option value="before"${r.stage==='before'?' selected':''}>Before adjustments</option><option value="after"${r.stage==='after'?' selected':''}>After adjustments</option></select></label><p class="note">Each stage keeps its own targets, readings and last edit time. ${escape(r.stages[r.stage].updatedAt?'Last edited '+r.stages[r.stage].updatedAt:'No measurements recorded in this stage.')}</p><div class="station-grid">${forwardMarkup(t,r)}${returnMarkup(t,r)}</div><section class="calc-card"><h3>Done check ${tag('station.done.separate')}</h3><p class="note">Record actual work separately. Matching two pilots does not establish a sweep, and no result checks these boxes automatically.</p><div class="calc-fields">${['balanced','swept'].map(key=>`<div><label class="check"><input type="checkbox" data-station-scope="${key}" data-station-field="done"${r[key].done?' checked':''}> ${key==='balanced'?'Balanced':'Swept'} recorded</label>${field(key,'date',(key==='balanced'?'Balance':'Sweep')+' date',r[key].date,'','date')}</div>`).join('')}</div><div data-station-done-result role="status"></div></section></fieldset><p class="note" data-station-status role="status">${escape(message)}</p><p class="note">Worksheet entries and removed-station history stay in this job and its JSON backup. Targets start unknown. ${tag('station.input.range')}</p><div class="toolbar"><button type="button" data-task="equipmentSetup">Equipment procedure</button><button type="button" data-task="sweepSetup">Meter setup</button><button type="button" data-task="evidence">ONX files / backup</button></div>`;
   if(locked)panel.querySelectorAll('.station-editor input,.station-editor select,.station-editor textarea').forEach(el=>{el.disabled=true;});
   refreshResults();
  }
+ function viewContext(){const owner=own(),t=target(owner),r=stored(t,owner);return {owner,target:t,key:t?.key,context:t?.context,identity:t?.holder?.stationIdentity,stage:r?.stage||'before',locked:readOnly(t,owner)};}
+ const sameContext=(a,b)=>!!a&&!!b&&a.owner===b.owner&&a.key===b.key&&a.context===b.context&&a.identity===b.identity&&a.stage===b.stage&&a.locked===b.locked;
+ const native=el=>el.tagName==='INPUT'&&(el.type==='number'||el.type==='date');
+ function storedValue(context,el){const r=normalized(stored(context.target,context.owner)||blankRecord(context.target),context.target),scope=el.dataset.stationScope,field=el.dataset.stationField;return (scope==='balanced'||scope==='swept'?r[scope]?.[field]:r.stages[context.stage]?.[scope]?.[field])??'';}
+ function feedback(el,invalid,text=''){
+  if(!native(el))return;el.setAttribute('aria-invalid',String(invalid));const f=el.parentElement?.querySelector('[data-station-input-feedback]');
+  if(f){f.textContent=text;f.hidden=!text;if(invalid)el.setAttribute('aria-errormessage',f.id);else el.removeAttribute('aria-errormessage');}
+ }
+ function reject(el,context){
+  drafts.set(el,context);draftMessage=true;const name=el.labels?.[0]?.textContent.trim()||'Station entry';
+  message=`Error: ${name} is incomplete and was not saved. ${el.type==='date'?'Finish a calendar date (YYYY-MM-DD)':'Finish a decimal number'}, or clear every part to leave it unknown. The recorded entry is unchanged.`;
+  feedback(el,true,message);refreshResults();
+ }
+ function saveControl(el,context){
+  const scope=el.dataset.stationScope,field=el.dataset.stationField;
+  if(!persist(scope,field,el.type==='checkbox'?el.checked:el.value))return;
+  drafts.delete(el);feedback(el,false);
+  if(scope==='record'){lastSignature='';render();}else{renderedContext={...context,identity:context.target?.holder?.stationIdentity};lastSignature=renderSignature(own(),target(),normalized(currentRecord(),target()));refreshResults();}
+ }
+ function reconcile(el){
+  const draft=drafts.get(el);if(!draft)return;drafts.delete(el);const current=viewContext();
+  if(!el.isConnected||!sameContext(draft,current)||!sameContext(renderedContext,current)||current.locked||el.disabled){feedback(el,false);return;}
+  const raw=storedValue(current,el);
+  if(el.validity.badInput){
+   el.value=raw;draftMessage=true;message=el.value===String(raw)?`Incomplete entry was not saved. Restored ${raw===''?'blank (unknown)':'the recorded value'}.`:'Incomplete entry was not saved. The recorded entry is retained but cannot be displayed by this control.';
+   feedback(el,false,message);refreshResults();
+  }else if(el.value!==String(raw))saveControl(el,current);
+  else{feedback(el,false);if(draftMessage){message='';draftMessage=false;refreshResults();}}
+ }
  function edit(event){const el=event.target;if(!el?.closest?.('#stationPanel'))return;
   if(el.hasAttribute('data-station-target')){if(event.type!=='change'||!targets().some(t=>t.key===el.value))return;selections.set(own(),el.value);lastSignature='';render();return;}
-  const scope=el.dataset.stationScope,field=el.dataset.stationField;if(!scope||!field||readOnly()||el.disabled)return;
+  const scope=el.dataset.stationScope,field=el.dataset.stationField;if(!scope||!field||el.disabled)return;
+  const context=viewContext();if(context.locked)return;if(!sameContext(renderedContext,context)){lastSignature='';render();return;}
+  if(native(el)){
+   if(el.validity.badInput){reject(el,context);return;}
+   // A date can clear all its native segments without another change event.
+   if(el.type==='date'&&event.type==='input'){drafts.set(el,context);feedback(el,false);return;}
+  }
   if((el.tagName==='SELECT'||el.type==='checkbox'||el.type==='date')&&event.type!=='change')return;
-  if(!persist(scope,field,el.type==='checkbox'?el.checked:el.value))return;
-  if(scope==='record'){lastSignature='';render();}else{lastSignature=renderSignature(own(),target(),normalized(currentRecord(),target()));refreshResults();}
+  saveControl(el,context);
  }
- function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
+ function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('focusout',event=>{if(event.target?.closest?.('#stationPanel'))reconcile(event.target);});document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
  return {init,render,validate,targets,currentRecord,currentStage,results,records,boundRecords};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports={StationMath,StationView};

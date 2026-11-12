@@ -21,7 +21,7 @@
 <li>Follow <strong>Test → Meter setup</strong> for the actual plant split and approved method. Attach original meter files under <strong>Job → ONX files</strong>, then review <strong>Job → Run sheet</strong>.</li>
 <li>Use <strong>Files → Back up project</strong>, finish the phone&#39;s save action, and confirm the portable backup exists outside NightSweep.</li>
 </ol>
-<p>Home offers an organized <strong>Practice library</strong> with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Choose the complete example for every tool, or a focused node/amplifier exercise for its exact setup path. Follow the <a href="#practice-every-tool-with-the-training-job">guided training walkthrough</a>. The initial three-tap sample and <strong>3-tap route example</strong> in <strong>Route → Cable route</strong> remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.</p>
+<p>Home offers an organized <strong>Practice library</strong> with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use <strong>Custom curves and reverse TDR</strong> for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Safety, Job → Outage and the sweep grading aid. Use <strong>Six active devices in series</strong> for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the <a href="#practice-every-tool-with-the-training-job">guided training walkthrough</a>. The initial three-tap sample and <strong>3-tap route example</strong> in <strong>Route → Cable route</strong> remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.</p>
 <h2 id="find-the-right-tool">Find the right tool</h2>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
@@ -102,6 +102,26 @@
 <td>Matching equipment or route tap as needed</td>
 </tr>
 <tr>
+<td>Run a quick dB, ripple, OFDM, echo or pad/EQ calculation</td>
+<td><strong>Test → Calculators</strong></td>
+<td>The frequencies and levels that formula asks for. Nothing on this screen is saved with the job</td>
+</tr>
+<tr>
+<td>Check a limit and where it came from</td>
+<td><strong>Test → Limits</strong></td>
+<td>Nothing first. Company values stay unknown until someone enters them</td>
+</tr>
+<tr>
+<td>Compare a modem or meter reading with a DOCSIS range</td>
+<td><strong>Test → DOCSIS health</strong></td>
+<td>The reading you type. The card does not talk to a modem</td>
+</tr>
+<tr>
+<td>Check a leak, estimate CLI, or keep a personal leak log</td>
+<td><strong>Test → Leakage</strong></td>
+<td>Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup</td>
+</tr>
+<tr>
 <td>Estimate supply draw and equipment voltage</td>
 <td><strong>Power → Load</strong></td>
 <td>Actual power circuit and equipment loads</td>
@@ -127,6 +147,16 @@
 <td>Work actually performed</td>
 </tr>
 <tr>
+<td>Tick pre-work safety reminders</td>
+<td><strong>Job → Safety</strong></td>
+<td>Follow company policy first. Ticks stay on this phone and are not in the job backup. A supervisor should review the list before coworkers use it</td>
+</tr>
+<tr>
+<td>Walk through outage first-response prompts</td>
+<td><strong>Job → Outage</strong></td>
+<td>Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it</td>
+</tr>
+<tr>
 <td>Maintain measurement and acceptance records</td>
 <td><strong>Job → Acceptance</strong></td>
 <td>Approved procedure, criteria, readings, and traces</td>
@@ -149,7 +179,9 @@
 </tbody></table></div>
 <p>Main tabs choose the work area. The smaller task tabs choose a function within that area. The point selector chooses which route location you are editing. Use <strong>Previous</strong> and <strong>Next</strong> when working down the route instead of scrolling past every point.</p>
 <h2 id="install-and-update">Install and update</h2>
-<p>Use the separate <a href="phone-installation.html">Android/iOS installation guide</a> for full phone steps. The single delivery is <strong>NightSweep 1.8 Alpha build 2.zip</strong>, with one clearly named folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.</p>
+<p>Use the separate <a href="phone-installation.html">Android/iOS installation guide</a> for the phone steps written for the 1.8 package. The table in this section describes that <strong>historical</strong> delivery, <strong>NightSweep 1.8 Alpha build 2.zip</strong> (Preview APK <strong>1.8 Alpha build 2</strong>, code <strong>24</strong>). It is not the current installer.</p>
+<p>The signed installer in this repository is <strong>2.0 Alpha build 2</strong>, Android code <strong>26</strong> (<code>apk/CarpeNoctum-2.0-build2-preview.apk</code>). <strong>2.0 Alpha build 3</strong> is source only (Android source code <strong>27</strong>). No build 3 APK is in the repository. Code 27 is not an installer you can download. Build and sign that APK only outside the repository, with the original key, after the owner accepts the source.</p>
+<p>The historical 1.8 ZIP is one folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -183,7 +215,7 @@
 <p>The known site address is <strong><a href="https://nightsweep-field.goodst3r.chatgpt.site/">https://nightsweep-field.goodst3r.chatgpt.site/</a></strong>. It has not been deployed by this local build. Local copies under Android/Web and iOS/Web do not silently update that site or transfer its jobs. An iPhone/iPad cannot install an Android APK; no IPA or App Store submission is provided.</p>
 <h3 id="protect-work-and-verify-offline-use">Protect work and verify offline use</h3>
 <ol>
-<li>Open each important job and choose <strong>Files → Back up project</strong>. Finish the save/share picker and confirm its JSON exists outside NightSweep. Build 2 exports use the <strong>NightSweep_1.8_Alpha_build_2_</strong> filename prefix.</li>
+<li>Open each important job and choose <strong>Files → Back up project</strong>. Finish the save/share picker and confirm its JSON exists outside NightSweep. Exports from this 2.0 Alpha build 3 source use the <strong>CarpeNoctum_2.0_Alpha_build_3_</strong> filename prefix. Older 1.8 build 2 files used <strong>NightSweep_1.8_Alpha_build_2_</strong>.</li>
 <li>Use <strong>Files → Open project</strong> at the destination, then verify route, notes, readings, records and original evidence. Save a named copy and retain the external backup.</li>
 <li>In a supported hosted browser/Home Screen app, wait for <strong>Ready for offline use</strong>. Use one editing window, enable Airplane Mode with Wi-Fi off, close/reopen the same app/icon and check a practice calculation plus a saved original.</li>
 <li>For a hosted update, export first, then choose <strong>Check for updates → Install update → Reload app</strong>. Check the actual displayed version, jobs and offline readiness afterward.</li>
@@ -238,14 +270,14 @@
 </tr>
 <tr>
 <td><strong>Six active devices in series</strong></td>
-<td>Vecima source followed by six serial AOI route actives on 204/258 MHz</td>
+<td>Vecima source followed by six serial AOI route actives on 204/258 MHz; Night log and Sweep due practice (2.0 Alpha build 3)</td>
 <td align="right">16</td>
 <td>Synthetic teaching data; no physical acceptance</td>
 </tr>
 <tr>
 <td><strong>Custom curves and reverse TDR</strong></td>
-<td>Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety and Outage (2.0 Alpha build 3)</td>
-<td align="right">15</td>
+<td>Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety, Outage, Impairments, Fiber, High split, Why cards and Proof of performance (2.0 Alpha build 3)</td>
+<td align="right">20</td>
 <td>Synthetic table and calculator inputs; no field captures</td>
 </tr>
 </tbody></table></div>
@@ -254,7 +286,7 @@
 <ol>
 <li>If a real job is open, use <strong>Files → Back up project</strong> and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.</li>
 <li>Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.</li>
-<li>Confirm the job name begins with <strong>TRAINING</strong>. Home shows <strong>Guided practice</strong> for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 15 and manual/thermal 7. Choose <strong>Open step</strong> to reveal the destination controls, try them, then mark <strong>Reviewed</strong>. The <strong>Practice guide</strong> button in the training banner returns you to the checklist.</li>
+<li>Confirm the job name begins with <strong>TRAINING</strong>. Home shows <strong>Guided practice</strong> for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 20 and manual/thermal 7. Choose <strong>Open step</strong> to reveal the destination controls, try them, then mark <strong>Reviewed</strong>. The <strong>Practice guide</strong> button in the training banner returns you to the checklist.</li>
 <li>Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.</li>
 </ol>
 <p>While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.</p>
@@ -1249,6 +1281,7 @@
 <p>The return worksheet uses <strong>required physical injection = reference-point target + net insertion loss to that point</strong> (SCTE 180 2025 §13.2.2.2). Include applicable test point, lead, path and EQ losses once. Actual injection is a separate reading; its delta is actual minus required. Receiver delta is the reading minus the saved reference at the same identified receiver plane and power convention. Record that plane and reference ID. Referenced dB response from Return Sweepless Sweep cannot fill absolute dBmV receiver fields. This physical budget does not program an ONX setting or add compensated losses again. Return pad/attenuation and EQ/tilt are recorded settings, without automatic return-part selection. No universal return tolerance is supplied.</p>
 <p>On <strong>42/54 MHz</strong>, the reminder shows this job’s editable operator return TX entry; it starts unknown in a fresh job. A local 38 dBmV value applies only when entered and approved at its transmitter plane. On an exact <strong>204/258 MHz Quantum18 HGD</strong>, the separately tagged preliminary sheet’s 9 dBmV per 6.4 MHz input recommendation is shown; it is not transferred to other models or splits. Receiver reference details separately identify the SCU-1800 recommendation and configurable CMTS receive set point. Their source tags disclose each document and any unverified issued revision. None pre-fills injection or receiver targets.</p>
 <p>Record <strong>Balanced</strong> and <strong>Swept</strong> separately with their own dates. Neither matching two pilots nor checking Balanced records a sweep. These are technician records, not automatic RF acceptance. Legacy UBT stations remain readable with disabled worksheet controls. Removed or replaced stations retain their history in JSON backups; a new station starts blank even when a route point ID is reused. Changing the launch asset, output port or installed node module also starts a blank worksheet and retains prior observations. Imported numeric text that the number fields cannot show produces no result; its original text stays in the backup. Named-job switching and project backups retain both measurement stages and the separate dates. Correcting catalog band information keeps saved observations available. Older saved worksheets with incomplete station-binding information remain visible and read-only with a notice. Confirm the actual selected model, installed split, asset, port and module before using <strong>Confirm saved worksheet belongs to this station</strong>; it creates a bound copy and preserves the original worksheet in the job backup.</p>
+<p>Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Route → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.</p>
 <p>For practice, open the complete GS7K/GainMaker exercise’s <strong>Station balance and separate sweep record</strong> step. Synthetic 54/860 MHz pilots, targets 39/49, readings 36.4/49.6 dBmV, installed pad 6 and EQ 9 dB give an input EQ pick of 4.5 dB and pad 7 dB. A return reference-point target of 19 dBmV plus 20 dB net insertion loss gives 39 dBmV required injection; receiver −1.25 minus reference −3.5 dBmV gives +2.25 dB. Back up, restore and compare the station worksheet. The six-active Vecima/AOI exercise has a separate electronic-alignment station step. Practice values never establish real operating targets.</p>
 <h2 id="night-log-job-night-log">Night log: Job → Night log</h2>
 <p>The <strong>Unknown</strong> source tag beside <strong>Recorded entries</strong> documents the existing <strong>200 entries/job</strong> application guard. The same row appears in <strong>Test → Limits</strong> under <strong>Night log application guards</strong>. This software storage/display bound is not an RF limit, equipment capability or company acceptance criterion; device storage can fill sooner.</p>
@@ -1264,5 +1297,5 @@
 <p>Anniversaries add months to the original civil date and clamp its day to the target month&#39;s last day. Age counts completed anniversaries. Dates must be exact <code>YYYY-MM-DD</code>, Gregorian years 0001–9999; future/invalid dates and derived dates beyond year 9999 remain unavailable. A recorded checkbox without a date, an unchecked record with a date, and an unknown date are distinct. Historical binding-unconfirmed and read-only UBT worksheets show recorded dates, completed ages, validity and done facts with their historical reason; they do not use current-service reminder colors or wording. SYNTHETIC TRAINING and SAMPLE badges stay visible, with practice counts separate from work reminders.</p>
 <p>The interval belongs to the open job; the empty state says so explicitly. If autosave fails, <strong>Not saved</strong> appears directly below its field and stays visible for that same job/interval until a later edit succeeds. Export a project backup before closing. Opening another job clears the old field feedback.</p>
 <p>Use <strong>Refresh list</strong> after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays <strong>As of YYYY-MM-DD (device date)</strong>. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit <strong>Route → Station</strong> to record actual work and <strong>Job → Details</strong> to manage jobs. Export a project backup if autosave fails.</p>
-<p>The six-active practice now has <strong>16 steps</strong>; its <strong>Personal sweep reminders</strong> step asks you to enter <strong>18</strong> for a synthetic demonstration and then clear it to restore unknown. The current source has <strong>29 task screens</strong> and <strong>47 feature choices</strong>. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.</p>
+<p>The six-active practice now has <strong>16 steps</strong>; its <strong>Personal sweep reminders</strong> step asks you to enter <strong>18</strong> for a synthetic demonstration and then clear it to restore unknown. The current source has <strong>34 task screens</strong> and <strong>52 feature choices</strong>. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.</p>
 </article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>
