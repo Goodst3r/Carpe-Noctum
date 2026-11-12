@@ -7,7 +7,7 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 | A0 workflow docs | `build3` | #33 `7dfddf7` | `7dfddf7` | merged | docs only, 2026-11-12 |
 | A1 power-sum calculator | `grok/a1-power-sum` | #34 merged `d631109` | product `df857d0` | merged. Do not reopen | 2026-11-12 exact `df857d0`: 93 suites / 2371 checks, 816.5 s; layout 1054; smoke 373; standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. Hosted QA on `73b6ab4` run 43200952825 passed |
 | A2 cascade thermal/CNR | not started | — | — | blocked while #37 owns `field-calcs.js` | not run |
-| A3 NAV-1 | `grok/a3-nav1` | draft opening | this commit | in progress. Safety stays removed. Screen ids unchanged. Supply PM is in Plan with Load and What-if | not a full gate yet |
+| A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) draft | status commit on this branch | draft. Safety stays removed. Screen ids unchanged. Supply PM is in Plan with Load and What-if | not a full gate yet |
 | A4 context strip | not started | — | — | after A3 is marked ready | not run |
 | A4b Supply PM notebook export/import | not started | — | — | after A4. Device key `nightsweep-power-pm-v1` | not run |
 | A5 tonight list | not started | — | — | add open temporary repairs after B5 merges | not run |
