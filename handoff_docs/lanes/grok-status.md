@@ -1,6 +1,6 @@
 # Grok status
 
-Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and Lane B have stopped. This review is not a second lane.
+Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatGPT's PRs) from the night of November 12, 2026. Rules and queue: `handoff_docs/WORKFLOW.md`. Merged rows below are history; the live queue is under "Next".
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts) |
 | --- | --- | --- | --- | --- | --- |
@@ -17,26 +17,27 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | A5 item 14 (supply PM, span voltage drop) | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) merged `61069f4` | `e83cafa` | merged after local gate, hosted CI [43189377721](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43189377721) and AUDIT on that SHA (Grok's report; not re-checked by Claude's gate) | 91/2302, 788.9 s, layout 1054, smoke 373. Standalone `ac987a33…3a8b` |
 | Build-list item 16 (connector checklist) | not started | | | BLOCKED on sources: catalog manuals hold no torque or pin length | |
 | Build-list item 12 (return path toolkit) | not started | | | BLOCKED on sources: funneling example not checked against SCTE 293-11, 293-13 or 270 | |
-| A0 merge #31, #29 and `ccr-026a9e4b-35w77r` | | | | first in the live queue | |
+| A0 merge #31, #29, then `ccr-026a9e4b-35w77r` | `build3` / this branch | #31 `3a7b25b`, #29 `fdf4ea3` | #31 head `b9c6cc7` (vectors identical to approved `2493cf8`); #29 head `ed2826c` | #31 and #29 merged. This commit brings the workflow branch onto that `build3`. Docs only. | not a full gate |
 | A1 power-sum calculator (cases P1-P6) | not started | | | | |
 | A2 cascade thermal/CNR calculator (cases C1-C4) | not started | | | | |
 | A3 NAV-1 | not started | | | waits for ChatGPT's Safety removal (B1) to merge | |
 | A4 context strip (P0-3) | not started | | | | |
-| A5b tonight list (P0-1) | not started | | | | |
-| A6b exact resume (P0-8) | not started | | | BLOCKED on Spencer unless his phone interruption checks are recorded | |
-| A7b final gate and `grok-debug-handoff.md` (draft #32 exists; do not merge it, rewrite it at the end) | not started | | | | |
+| A4b Supply PM notebook export/import | not started | | | after A4 | |
+| A5 tonight list (P0-1) | not started | | | | |
+| A6 exact resume (P0-8) | not started | | | BLOCKED on Spencer unless his phone interruption checks are recorded | |
+| A7 final gate and `grok-debug-handoff.md` | not started | | | draft #32 stays a draft; rewrite it at the end, do not merge it now | |
 
 ## Next
 
-Live queue: items A0 to A7b in `handoff_docs/WORKFLOW.md`, in order. No deadline: work until the queue is finished. Build-list items 16 and 12 stay blocked on sources. Review and merge ChatGPT's PRs before starting each new item. Never merge your own PR. The headroom wording, Night log and temporary-repair items belong to ChatGPT.
+Live queue: A1 next, then A2, A3, A4, A4b, A5, A6, A7 in `handoff_docs/WORKFLOW.md`. No deadline. Build-list items 16 and 12 stay blocked on sources. PR #30 stays merged (`61069f4`); do not rework it. Draft #32 stays a draft. Review and merge ChatGPT's open PRs before each new item. Never merge your own PR. Headroom wording, Night log and temporary repairs belong to ChatGPT.
 
-(Historical note from Grok's earlier session.) The chat that started that session said finish #20, then A5, A6 and A7, and ignore #25. `build3` already has #25 and #26. `handoff_docs/ROADMAP_PROMPTS.md` says do not start A5 to A7 and do NAV-1 next. This session follows the chat: finish A5, then A6 and A7. NAV-1 is not started.
+#31 merged at `3a7b25b`. I approved `2493cf8`. The merged parent was `b9c6cc7`: the vectors file is byte-identical to `2493cf8`; the extra commit only ends the wait log and adds `chatgpt-status.md`. #29 merged at `fdf4ea3` from the approved head `ed2826c`. GitHub would not take a formal Approve review because this token opened the pull requests; the review comments are the record.
 
-Screens on `f2641a2`, from the other session's recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139.
+Screens on `f2641a2`, from an earlier recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. Supply PM (#30) added a Power screen after that recount. Not re-counted on `fdf4ea3`.
 
 ## Blocked
 
-Nothing yet. D3 is not met: one Grok run is not both lanes. Spencer accepts or rejects D3.
+Build-list items 16 and 12: missing sources, recorded in the table. A6 exact resume: blocked until Spencer's phone interruption checks are recorded. D3 (one Grok run is not both lanes) is unchanged and is not a stop under WORKFLOW.md.
 
 ## Questions for Spencer
 
