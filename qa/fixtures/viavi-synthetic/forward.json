@@ -1,0 +1,1 @@
+{"testGroup":{"tests":[{"id":"sweeplessSweep","resultGroups":[{"id":"sweep","resultSeries":[{"id":"Levels","independent":{"label":"Frequency","type":"set","units":"MHz","values":[510,270,390]},"dependent":[{"label":"Absolute","type":"set","units":"dBmV","values":[13,12,14.5]},{"label":"Referenced","type":"set","units":"dB","values":[]}]}]}]}]}}

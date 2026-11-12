@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 46 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 47 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds personal reminders and feature 46, with an interval that starts unknown.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise now has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; the custom-curves exercise now has 15 steps.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -42,8 +42,9 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 30. [Station worksheet](#station-worksheet)
 31. [Night log and shift handoff](#night-log-and-shift-handoff)
 32. [Sweep due](#sweep-due)
-33. [46-feature coverage index](#46-feature-coverage-index)
-34. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+33. [47-feature coverage index](#47-feature-coverage-index)
+34. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
+35. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -99,7 +100,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety and outage first response | 14 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, attached sweep grading, DOCSIS health, leakage, pre-work safety and outage first response | 15 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -488,7 +489,7 @@ Complete's trial adds **300 ft P3 .625 and 0.75 A after GaN A2**. The independen
 | Evidence classification | Choose Sweep, Ingress, OneCheck or supported attachment context; stage Before, After or Reference; asset/station and notes | Labels the original file and makes before/after comparisons interpretable |
 | Add meter files or photos | Choose available files and wait for completion | Stores original bytes with the job; does not control a meter or read an image's numbers automatically |
 | Supported CSV preview | Supply explicit frequency and level/response/channel columns | Decodes supported interchange data; proprietary ONX JSON/XML/ZIP/PDF and other native schemas remain originals unless supported |
-| View decoded CSV measurements | Expand the parsed trace/channel table | Inspect values, units and source context; previewing applies no silent TP correction |
+| View decoded measurements | Expand the parsed trace/channel table | Inspect values, units and source context; previewing applies no silent TP correction |
 | Sweep / ingress before-after | Match compatible asset, kind, units and frequencies/stages | Compares entered file data; does not invent values or operator acceptance thresholds |
 | OneCheck/channel table | Review supported channel, frequency, level and MER columns | Preserves discrete channel data; SC-QAM and OFDM PLC/block quantities are not interchangeable |
 | Original-only attachments | Retain unsupported formats or photos | Preserves evidence without pretending it has measurement decoding or OCR |
@@ -736,7 +737,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 46-feature coverage index
+## 47-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -788,6 +789,25 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 44 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
 | 45 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
 | 46 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
+| 47 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
+
+## Build 3 attached sweep grading aid
+
+In **Job → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
+
+Supported native previews cover the inspected VIAVI **TestGroup** and **CDM2** sweep JSON layouts, directly or inside gzip (including `.json-1.gz`) or a ZIP with one eligible JSON. Only one unambiguous explicit trace is decoded; unsupported or ambiguous files stay attached with a reason. These narrow adapters are not a general VIAVI decoder. Native direction and reference state are shown separately: unknown direction remains unknown, even when you explicitly select a grading direction. A known native direction conflict blocks grading. Native limits never become company criteria. The included interchange CSV practice traces are invented and are not native ONX captures.
+
+**Grade selected sweep** reads the saved original again and checks its size and SHA-256 before parsing. The result shows raw PTV (maximum minus minimum), low/high values, signed high-minus-low tilt, and each comparison's pass/fail/unknown reason. Raw absolute measurements use **dBmV**; differences, PTV and tilt use **dB**. Relative dB response cannot establish absolute dBmV levels. An empty referenced trace does not become a zero line or a flatness pass. Unreferenced absolute PTV is not normalized ripple.
+
+A criterion that cannot be saved stays in this session with **Not saved** beside the named field and an autosave-failure status. Use **Back up project** to keep these changes outside the app; the warning clears after a successful whole-job autosave. Invalid text keeps its named error and is refused by **Grade selected sweep**, including repeated taps. Correct it or deliberately clear it for unknown. If the panel refreshes, it restores the last valid in-session criterion and clears the invalid draft; an unsaved-value warning remains until saving succeeds.
+
+Read-only numbers use up to 12 significant digits for readability. **≈0** identifies a computed difference within the existing machine-roundoff allowance; it adds no measurement tolerance. Editable criteria, stored raw numbers, exported history and pass/fail decisions are unchanged by display formatting. Very small entered targets and limits remain nonzero, using scientific notation when needed.
+
+No TPC/test-point addback, lead correction, reference subtraction, normalization or detrending is applied. Verify that the selected targets and original share the same measurement plane. Application entry/decoding bounds are software resource guards, not OEM specifications. A grading result is your technician aid, never official acceptance; it does not set balanced/swept status or a sweep date.
+
+Each compact historical snapshot saves its criteria, plant/direction, original evidence identity and SHA, job/source/record context and calculation time. New snapshots retain a SHA-256 digest of the relevant bound Station identities and saved records, including binding version, both Before/After worksheets and separate balance/sweep records. Archived bindings stay in the job backup and do not enlarge grading history. Legacy-unconfirmed worksheets remain unconfirmed. Earlier raw-context grading snapshots open and round-trip unchanged; they remain historical and require a new grade for the current context. Measurement time stays unknown unless you enter a verified time; calculation time is not the meter's measurement time. Changes make the current display stale/unknown. Old snapshots keep their original labels and values. Removing an attachment preserves its grading history with an unavailable-original message. A full **Back up project** includes the unchanged compressed/archive original and grading snapshots; restore remaps each evidence identity, including duplicate-byte attachments. Browser autosave and named-job duplication also preserve history. Keep external backups before clearing app data.
+
+The **Custom curves and reverse TDR** exercise adds an explicit grading step and a feature-index link. It supplies instructions for a three-point invented interchange CSV (270/390/510 MHz, 0/2.5/0 dBmV). Enter the illustrative 3 dB PTV limit yourself: PTV is 2.5 dB and the other blank criteria stay unknown. These practice values are not shipped company defaults.
 
 ## Known limits and unresolved information
 

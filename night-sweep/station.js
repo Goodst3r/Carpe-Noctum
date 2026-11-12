@@ -93,6 +93,11 @@ const StationView=(()=>{
  function records(owner=own()){
   return targets(owner).flatMap(t=>{const raw=stored(t,owner);if(!raw)return [];const r=normalized(raw,t);return [{identity:t.holder.stationIdentity,pointId:t.key,equipmentId:t.id,label:t.label,split:t.split,readOnly:readOnly(t,owner),bindingStatus:legacy(t,owner)?'legacy-unconfirmed':'current',...clone(r),results:{before:StationMath.results(r.stages.before,t),after:StationMath.results(r.stages.after,t)}}];});
  }
+ // Raw binding context is needed while autosave boots, before calculators load.
+ // Share ownership checks with records(), without normalization or RF evaluation.
+ function boundRecords(owner=own()){
+  return targets(owner).flatMap(t=>{const raw=stored(t,owner);return raw?[{identity:t.holder.stationIdentity,bindingStatus:legacy(t,owner)?'legacy-unconfirmed':'current',readOnly:readOnly(t,owner),record:clone(raw)}]:[];});
+ }
  function newIdentity(owner){let id;const used=new Set([...Object.keys(data(owner).stations||{}),...targets(owner).map(t=>t.holder.stationIdentity)]);do{id='station_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,12);}while(used.has(id));return id;}
  function persist(scope,field,value){
   const owner=own(),t=target();if(!t||readOnly(t,owner))return false;
@@ -181,6 +186,6 @@ const StationView=(()=>{
   if(scope==='record'){lastSignature='';render();}else{lastSignature=renderSignature(own(),target(),normalized(currentRecord(),target()));refreshResults();}
  }
  function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
- return {init,render,validate,targets,currentRecord,currentStage,results,records};
+ return {init,render,validate,targets,currentRecord,currentStage,results,records,boundRecords};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports={StationMath,StationView};

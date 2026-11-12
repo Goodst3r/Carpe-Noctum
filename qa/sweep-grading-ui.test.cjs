@@ -1,0 +1,295 @@
+/* Invented interchange traces, real app/core, DOM, SHA and IndexedDB. */
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),{createHash}=require('node:crypto');
+const {bootApp}=require('./build2-source-harness.cjs');
+const a=bootApp({beforeParse(w){w.DecompressionStream=DecompressionStream;w.ReadableStream=ReadableStream;}}),{w,d,ev,json}=a;const cases=[];
+const plain=x=>JSON.parse(JSON.stringify(x));
+function digestContext(record){const v=JSON.parse(record.context.recordSnapshot);assert.equal(v.format,'bound-context-sha256-v1');assert.match(v.sha256,/^[a-f0-9]{64}$/);assert(record.context.recordSnapshot.length<200);return v.sha256;}
+const file=(name,text)=>{const bytes=typeof text==='string'?new TextEncoder().encode(text):new Uint8Array(text);return {name,size:bytes.length,type:'text/csv',arrayBuffer:async()=>bytes.slice().buffer};};
+async function check(name,fn){await fn();assert.deepEqual(a.errors,[]);cases.push(name);console.log('PASS '+name);}
+function set(id,v){const e=d.getElementById(id);assert(e,id);e.value=v;e.dispatchEvent(new w.Event('input',{bubbles:true}));e.dispatchEvent(new w.Event('change',{bubbles:true}));}
+const api=()=>ev('SweepGradingUI');
+const csv='frequency_mhz,level_dbmv\n54,0\n100,2.5\n860,0';
+
+// Wait for actual digest entry, independent of scheduler speed or concurrent load.
+function holdDigest(subtle,call=1){
+ const original=subtle.digest;let entered,release,count=0;
+ const arrived=new Promise(resolve=>entered=resolve),gate=new Promise(resolve=>release=resolve);
+ subtle.digest=async function(...args){if(++count===call){entered();await gate;}return original.apply(this,args);};
+ return {release,wait:pending=>Promise.race([arrived,pending.then(()=>{throw Error('Grade settled before the held digest was reached.');})]),restore(){release();subtle.digest=original;}};
+}
+
+// Current binding-v2 fixture; actual-handler coverage below also creates its own.
+const stationFixture=JSON.parse(fs.readFileSync('qa/fixtures/synthetic-station-grading-context.json','utf8'));
+function installStationContext(){
+ const owner=ev('state'),row=plain(owner.rows[0]),had=Object.prototype.hasOwnProperty.call(owner,'stationView'),old=had?plain(owner.stationView):undefined;
+ owner.rows[0]={...row,device:'active_gm_hgd',stationIdentity:'station_synthetic_grading'};owner.stationView=plain(stationFixture);ev('saveLocal()');
+ return {owner,record:owner.stationView.stations.station_synthetic_grading,restore(){owner.rows[0]=row;if(had)owner.stationView=old;else delete owner.stationView;ev('saveLocal();EvidenceUI.render()');}};
+}
+
+(async()=>{
+await check('Archive resource guards resolve to actual decoder bounds and carry Unknown application provenance',()=>{const limits=json('EvidenceArchive.limits');for(const key of ['inputBytes','decodedBytes','entries']){const row=json('Thresholds.get("app.evidence.'+key+'")');assert(row,key);assert.equal(row.label,'unknown');assert.equal(row.value,limits[key]);assert.match(row.conditions,/application|software/i);}});
+await check('All displayed grading guards are registered Unknown with units and application provenance',()=>{
+ ev('Thresholds.setFilter("all");Thresholds.renderLimits()');assert.deepEqual([...d.querySelectorAll('#limitsList [data-threshold]')].map(e=>e.dataset.threshold).sort(),json('Thresholds.rows').map(r=>r.id).sort(),'every registry group/store is retained in Limits');
+ for(const [key,value,units]of [['minMHz',5,'MHz'],['maxMHz',1800,'MHz'],['maxScalar',1000000,'dB / dBmV'],['minMagnitude',0,'dB'],['minSamples',1,'samples'],['maxSamples',10000,'samples'],['maxHistory',100,'records']]){
+  const row=ev('Thresholds.get')("app.grading."+key);assert(row,key);assert.equal(row.label,'unknown');assert.equal(row.value,value);assert.equal(row.units,units);assert.match(row.source,/application guard/i);assert.match(row.conditions,/software.*not.*(OEM|equipment)/i);assert.deepEqual(plain(ev('Thresholds.checkRow')(row)),[]);
+ }
+});
+await check('Current runtime feature IDs, guide counts, grading contents and rendered anchors agree',()=>{
+ const guide=fs.readFileSync('docs/NightSweep_1.8_Alpha_Functions_README.md','utf8'),coverage=fs.readFileSync('docs/NightSweep_1.8_Training_Coverage.md','utf8'),readme=fs.readFileSync('night-sweep/README.md','utf8');
+ const features=json('TrainingJob.features').map(f=>f.id),markers=[...guide.matchAll(/<!-- feature:([^ ]+) -->/g)].map(m=>m[1]);assert.equal(json('Object.keys(WorkflowUI.screens).length'),29);assert.equal(features.length,47);assert.equal(ev('TrainingJob.stepsFor("custom-curves").length'),15);assert.deepEqual(markers.slice().sort(),features.slice().sort());for(const exercise of json('TrainingJob.exercises'))assert.equal(Number(exercise.summary.match(/^([0-9]+) steps/)[1]),ev('TrainingJob.stepsFor('+JSON.stringify(exercise.id)+').length'),exercise.id+' visible card count');assert.match(guide,/\| 41 \| DOCSIS health card/);assert.match(guide,/\| 42 \| Leakage limits/);assert.match(guide,/\| 47 \| Attached sweep grading aid/);assert.match(guide,/29 task screens and 47 entries/);assert.match(guide,/Custom curves and reverse TDR.*15 steps;/);assert.match(coverage,/\*\*47 choices\*\*/);assert.match(coverage,/\*\*15 steps\*\*/);assert.match(readme,/Custom curves and reverse TDR.*\| 15 \|/);assert.equal(readme,fs.readFileSync('docs/NightSweep_1.8_Alpha_README.md','utf8'));
+ const contents=guide.split('## Guide contents')[1].split('## Working rules')[0];assert.match(contents,/\[Attached sweep grading aid\]\(#build-3-attached-sweep-grading-aid\)/);assert(guide.indexOf('## Build 3 attached sweep grading aid')<guide.indexOf('## Known limits and unresolved information'));
+ for(const file of ['NightSweep_1.8_Alpha_Functions_README.html','NightSweep_1.8_Training_Coverage.html','NightSweep_1.8_Alpha_README.html']){const doc=new w.DOMParser().parseFromString(fs.readFileSync('docs/'+file,'utf8'),'text/html');for(const link of doc.querySelectorAll('a[href^="#"]'))assert(doc.getElementById(link.getAttribute('href').slice(1)),file+' '+link.getAttribute('href'));}
+});
+await check('Criterion autosave failures stay named beside the field through refresh and clear only after a successful whole-job save',async()=>{
+ const h=bootApp();try{
+  const set=(id,value)=>{const el=h.d.getElementById(id);el.value=value;el.dispatchEvent(new h.w.Event('input',{bubbles:true}));el.dispatchEvent(new h.w.Event('change',{bubbles:true}));};
+  h.ev('WorkflowUI.go("evidence")');set('gradingPlant','42');set('gradingDirection','forward');set('grading-ptvLimitDb','3');
+  const saved=h.w.localStorage.getItem('hfc-route-v1'),original=h.w.Storage.prototype.setItem;
+  h.w.Storage.prototype.setItem=function(k,...args){if(k==='hfc-route-v1')throw new h.w.DOMException('Synthetic full storage','QuotaExceededError');return original.call(this,k,...args);};
+  try{
+   set('grading-ptvLimitDb','4');assert.equal(h.ev('state.sweepGrading.profiles["42-forward"].ptvLimitDb'),4);assert.equal(h.w.localStorage.getItem('hfc-route-v1'),saved);
+   const inspect=()=>{const input=h.d.getElementById('grading-ptvLimitDb'),note=h.d.getElementById('grading-error-ptvLimitDb');assert.equal(input.value,'4');assert.equal(input.getAttribute('aria-invalid'),'false');assert.equal(input.getAttribute('data-grading-unsaved'),'true');assert.equal(note.hidden,false);assert.match(note.textContent,/Not saved: Peak-to-valley limit.*autosave failed.*Back up project/i);assert(input.getAttribute('aria-describedby').split(' ').includes(note.id));assert.match(h.d.getElementById('gradingStatus').textContent,/autosave failed/i);};
+   inspect();h.ev('SweepGradingUI.render()');inspect();
+   set('gradingDirection','reverse');assert.equal(h.d.getElementById('grading-error-ptvLimitDb').hidden,true,'no warning leaked into another profile');set('gradingDirection','forward');assert.equal(h.d.getElementById('grading-error-ptvLimitDb').hidden,false);
+  }finally{h.w.Storage.prototype.setItem=original;}
+  h.ev('saveLocal()');assert.equal(h.d.getElementById('grading-error-ptvLimitDb').hidden,true);assert.equal(h.d.getElementById('grading-ptvLimitDb').getAttribute('data-grading-unsaved'),'false');assert.equal(JSON.parse(h.w.localStorage.getItem('hfc-route-v1')).sweepGrading.profiles['42-forward'].ptvLimitDb,4);
+  assert(!/autosave failed/i.test(h.d.getElementById('gradingStatus').textContent));assert.deepEqual(h.errors,[]);
+ }finally{h.close();}
+});
+await check('Actual Grade clicks refuse and retain invalid criterion drafts until correction or an explicit panel refresh',async()=>{
+ const h=bootApp();try{
+  const set=(id,value)=>{const el=h.d.getElementById(id);el.value=value;el.dispatchEvent(new h.w.Event('input',{bubbles:true}));el.dispatchEvent(new h.w.Event('change',{bubbles:true}));};
+  h.ev('WorkflowUI.go("evidence")');set('gradingPlant','42');set('gradingDirection','forward');await h.ev('EvidenceUI').importFiles([file('SYNTHETIC invalid click.csv',csv)],{kind:'Sweep',stage:'Before'});set('gradingEvidence',h.ev('state.evidence[0].id'));set('grading-lowFrequencyMHz','54');set('grading-highFrequencyMHz','860');set('grading-ptvLimitDb','3');set('grading-ptvLimitDb','-1');const input=h.d.getElementById('grading-ptvLimitDb'),before=h.json('state');
+  for(let i=0;i<2;i++){h.d.getElementById('gradingRun').click();await new Promise(r=>setImmediate(r));assert.equal(h.d.getElementById(input.id),input);assert.equal(input.value,'-1');assert.equal(input.getAttribute('aria-invalid'),'true');assert.match(h.d.getElementById('gradingStatus').textContent,/Correct the criterion errors.*before grading/);assert.equal(h.d.getElementById('grading-error-ptvLimitDb').hidden,false);assert.deepEqual(h.json('state'),before);}
+  set('grading-ptvLimitDb','4');assert.equal(input.getAttribute('aria-invalid'),'false');assert.equal(h.ev('state.sweepGrading.profiles["42-forward"].ptvLimitDb'),4);
+  set('grading-ptvLimitDb','-2');h.ev('SweepGradingUI.render()');const restored=h.d.getElementById(input.id);assert.equal(restored.value,'4');assert.equal(restored.getAttribute('aria-invalid'),'false');assert.match(h.d.getElementById('gradingStatus').textContent,/Saved criteria restored/);
+  set('grading-ptvLimitDb','');assert.equal(h.ev('Object.prototype.hasOwnProperty.call(state.sweepGrading.profiles["42-forward"],"ptvLimitDb")'),false);assert.deepEqual(h.errors,[]);
+ }finally{h.close();}
+});
+await check('Read-only grading numbers suppress float tails and computed roundoff while exact raw results and tiny user criteria survive',async()=>{
+ const h=bootApp();try{
+  const set=(id,value)=>{const el=h.d.getElementById(id);el.value=String(value);el.dispatchEvent(new h.w.Event('input',{bubbles:true}));el.dispatchEvent(new h.w.Event('change',{bubbles:true}));};
+  h.ev('WorkflowUI.go("evidence")');set('gradingPlant','42');set('gradingDirection','forward');
+  await h.ev('EvidenceUI').importFiles([file('SYNTHETIC float display.csv','frequency_mhz,level_dbmv\n54,10.1\n100,10.2\n860,10.3')],{kind:'Sweep',stage:'Before'});set('gradingEvidence',h.ev('state.evidence[0].id'));
+  const profile={lowFrequencyMHz:54,highFrequencyMHz:860,ptvLimitDb:1,lowTargetDbmv:10.1,highTargetDbmv:10.3,maxLevelErrorDb:0,tiltTargetDb:0.2,maxTiltErrorDb:0};for(const [key,value]of Object.entries(profile))set('grading-'+key,value);
+  const record=await h.ev('SweepGradingUI').grade(),expected=require('../night-sweep/sweep-grading.js').evaluateSeries({unit:'dBmV',points:[[54,10.1],[100,10.2],[860,10.3]]},profile);
+  assert.deepEqual(plain(record.result),expected);assert.equal(record.result.metrics.measuredTiltDb,10.3-10.1);assert.equal(record.result.metrics.tiltErrorDb,(10.3-10.1)-0.2);assert(record.result.metrics.tiltErrorDb>0);assert.equal(record.result.overall,'pass');
+  const raw=JSON.stringify(h.json('state.sweepGrading')),card=h.d.querySelector('[data-grading-current="true"]');assert.match(card.textContent,/measured tilt: 0\.2 dB/);assert.match(card.querySelector('.grading-checks').textContent,/≈0 dB · limit 0 dB/);assert(!card.textContent.includes('0.20000000000000107'));assert(!card.textContent.includes('1.0547118733938987e-15'));
+  h.ev('SweepGradingUI.render()');assert.equal(JSON.stringify(h.json('state.sweepGrading')),raw);assert.deepEqual(plain((await h.w.evidenceExportProject(h.ev('state'))).sweepGrading.records.at(-1).result),expected);
+  const stored=h.ev('state.sweepGrading.records.at(-1)');stored.result.checks.lowLevel.value=-0;stored.result.metrics.lowLevelErrorDb=-0;h.ev('SweepGradingUI.render()');assert(Object.is(stored.result.checks.lowLevel.value,-0));assert(Object.is(stored.result.metrics.lowLevelErrorDb,-0));assert(!h.d.querySelector('.grading-checks').textContent.includes('-0 dB'));
+  const exact=0.1+0.2;set('grading-lowTargetDbmv',exact);set('grading-tiltTargetDb','1e-15');set('grading-maxTiltErrorDb','1e-15');assert.equal(h.d.getElementById('grading-lowTargetDbmv').value,String(exact));const next=await h.ev('SweepGradingUI').grade();assert.equal(next.criteria.lowTargetDbmv,exact);assert.equal(next.criteria.tiltTargetDb,1e-15);assert.equal(h.d.getElementById('grading-lowTargetDbmv').value,String(exact));const nextCard=h.d.querySelector('[data-grading-current="true"]');assert.match(nextCard.querySelector('ul').textContent,/Low level target: 0\.3 dBmV/);assert.match(nextCard.querySelector('ul').textContent,/Signed tilt target.*1e-15 dB/);assert.match(nextCard.querySelector('.grading-checks').textContent,/limit 1e-15 dB.*target 1e-15 dB/);assert.deepEqual(h.errors,[]);
+ }finally{h.close();}
+});
+await check('Opening legacy job and selecting profiles changes no saved job data',()=>{assert.equal(ev('typeof SweepGradingUI'),'object');const before=ev('JSON.stringify(state)');ev('WorkflowUI.go("evidence")');set('gradingPlant','42');set('gradingDirection','forward');assert.equal(ev('JSON.stringify(state)'),before);assert(!ev('state.sweepGrading'));});
+await check('Grade button displays preflight rejection reasons without saving data',async()=>{set('gradingDirection','');d.getElementById('gradingRun').click();await new Promise(r=>setImmediate(r));assert.match(d.getElementById('gradingStatus').textContent,/Explicitly choose a plant and direction/i);assert(!ev('state.sweepGrading'));set('gradingDirection','forward');});
+await check('Company profile blanks stay unknown while zero is entered explicitly',()=>{for(const [key,v]of Object.entries({lowFrequencyMHz:54,highFrequencyMHz:860,ptvLimitDb:3,lowTargetDbmv:0,highTargetDbmv:0,maxLevelErrorDb:0,tiltTargetDb:0,maxTiltErrorDb:0}))set('grading-'+key,String(v));assert.equal(json('state.sweepGrading.profiles["42-forward"].lowTargetDbmv'),0);assert.deepEqual(json('state.sweepGrading.profiles["204-reverse"]'),{});set('gradingPlant','204');assert.equal(d.getElementById('grading-lowTargetDbmv').value,'');set('gradingPlant','42');});
+await check('Each criterion has exactly one proper label and source buttons sit outside labels',()=>{
+ for(const input of d.querySelectorAll('[data-grading-field]')){assert.equal(input.labels.length,1,input.id);assert.equal(input.labels[0].htmlFor,input.id);assert.equal(input.labels[0].querySelector('[data-threshold]'),null);assert.match(input.labels[0].textContent,/\S/);const tag=input.closest('.grading-field').querySelector('[data-threshold]');assert(tag);assert.equal(tag.closest('label'),null);}
+});
+await check('Grade reparses verified originals and ignores tampered cached preview',async()=>{await ev('EvidenceUI').importFiles([file('invented.csv',csv)],{kind:'Sweep',stage:'Before',asset:'PRACTICE'});set('gradingEvidence',json('state.evidence[0].id'));ev('state.evidence[0].parse.series.points[0][1]=999');const r=await api().grade();assert.equal(r.result.metrics.ptvDb,2.5);assert.equal(r.result.overall,'pass');assert.equal(r.measuredAt,null);assert(r.gradedAt);assert.equal(json('state.sweepGrading.records.length'),1);assert(!JSON.stringify(r).includes('points'));});
+await check('One history render binds Station context once and observes subsequent raw edits and owners',async()=>{
+ const draftIds=['gradingEvidence','gradingPlant','gradingDirection','gradingPlane','gradingMeasuredAt'],savedDraft=Object.fromEntries(draftIds.map(id=>[id,d.getElementById(id).value]));
+ const fixture=installStationContext(),owner=fixture.owner,station=ev('StationView'),bound=station.boundRecords,savedGrading=plain(owner.sweepGrading);
+ let calls=0;
+ try{
+  const original=owner.evidence.find(m=>m.kind==='Sweep'&&m.parse?.series?.unit==='dBmV'&&m.parse.series.points.some(p=>p[0]===54)&&m.parse.series.points.some(p=>p[0]===860));assert(original);
+  set('gradingEvidence',original.id);set('gradingPlant','42');set('gradingDirection','forward');set('grading-lowFrequencyMHz','54');set('grading-highFrequencyMHz','860');
+  const calculated=await api().grade();
+  owner.sweepGrading.records=Array.from({length:100},(_,i)=>({...plain(calculated),id:'grade_render_probe_'+i}));api().validate(owner.sweepGrading);
+  api().render(); // New IDs demote the previous Current row before counting history work.
+  station.boundRecords=function(...args){calls++;return bound.apply(this,args);};
+  const renderOnce=()=>{calls=0;const before=JSON.stringify(ev('state'));api().render();assert.equal(calls,1);assert.equal(JSON.stringify(ev('state')),before);assert.equal(d.querySelectorAll('[data-grading-current]').length,100);};
+  const stale=()=>assert([...d.querySelectorAll('[data-grading-current]')].every(card=>/requires verification/i.test(card.querySelector('p').textContent)));
+  renderOnce();
+  const hadMeters=Object.prototype.hasOwnProperty.call(owner.rows[0],'meters'),meters=hadMeters?plain(owner.rows[0].meters):undefined;
+  owner.rows[0].meters={...(meters||{}),forward:{...(meters?.forward||{}),reading:Number(meters?.forward?.reading)===1?2:1}};
+  renderOnce();stale();
+  if(hadMeters)owner.rows[0].meters=meters;else delete owner.rows[0].meters;
+  renderOnce();assert(!/requires verification/i.test(d.querySelector('[data-grading-current] p').textContent));
+  const beforeStation=plain(fixture.record.stages.before.forward);
+  fixture.record.stages.before.forward.measuredLow=beforeStation.measuredLow==='1'?'2':'1';renderOnce();stale();
+  fixture.record.stages.before.forward=beforeStation;renderOnce();
+  w.__renderContextNextOwner=plain(owner);ev('state=__renderContextNextOwner');api().render(); // Sync intentionally takes its own context snapshot.
+  renderOnce();stale(); // Later render must use the new owner and preserve missing-digest -> unknown.
+ }finally{
+  station.boundRecords=bound;w.__renderContextOriginalOwner=owner;ev('state=__renderContextOriginalOwner');owner.sweepGrading=savedGrading;fixture.restore();
+  // Owner changes intentionally reset the public draft; leave the next case its prior controls.
+  for(const id of draftIds)set(id,savedDraft[id]);
+ }
+});
+await check('Invalid criteria show adjacent human range errors and real evidence rerenders restore saved valid text consistently',async()=>{
+ for(const [field,value,rule]of [['ptvLimitDb','-1',/Peak-to-valley limit.*0 or more.*1,000,000 dB/],['lowFrequencyMHz','2000',/Low measured marker.*between 5 and 1800 MHz/],['highTargetDbmv','1e7',/High level target.*between.*1,000,000.*dBmV/]]){
+  const id='grading-'+field,prior=d.getElementById(id).value;set(id,value);let input=d.getElementById(id);assert.equal(input.value,value);assert.equal(input.getAttribute('aria-invalid'),'true');const error=d.getElementById(input.getAttribute('aria-errormessage'));assert(error);assert(input.getAttribute('aria-describedby').split(' ').includes(error.id));assert.equal(error.parentElement,input.parentElement);assert.match(error.textContent,rule);assert.match(error.textContent,/Error:/);assert(!error.hidden);
+  await assert.rejects(()=>api().grade(),/criterion|criteria/i);await ev('EvidenceUI').reloadPreviews();input=d.getElementById(id);assert.equal(input.value,prior);assert.equal(input.getAttribute('aria-invalid'),'false');assert(d.getElementById(input.getAttribute('aria-describedby')).hidden);assert.equal(input.getAttribute('aria-errormessage'),null);
+ }
+});
+await check('Editing company criteria immediately relabels displayed current results as historical',async()=>{await api().grade();assert.match(d.getElementById('sweepGradingPanel').textContent,/Current verified calculation/);set('grading-ptvLimitDb','2');assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.match(d.getElementById('gradingStatus').textContent,/stale|unknown/);set('grading-ptvLimitDb','3');});
+await check('Backup remaps exact evidence identities even when attachment hashes are duplicated',async()=>{await ev('EvidenceUI').importFiles([file('duplicate.csv',csv)],{kind:'Sweep',stage:'After'});const backup=await w.evidenceExportProject(ev('state'));const original=backup.sweepGrading.records[0].source.evidenceId;const clean=await w.evidencePrepareImport(backup);assert.equal(clean.sweepGrading.records[0].source.evidenceId,clean.evidence[0].id);assert.notEqual(clean.evidence[0].id,clean.evidence[1].id);assert.notEqual(clean.evidence[0].id,original);assert.equal((await w.evidenceExportProject(clean)).evidenceFiles[0].base64,backup.evidenceFiles[0].base64);});
+await check('Invalid additive imported shape cannot replace working state',()=>{const before=ev('JSON.stringify(state)'),bad=json('state');bad.sweepGrading.records[0].result.metrics.ptvDb='pass';assert.throws(()=>ev('loadState') (bad),/grading/i);assert.equal(ev('JSON.stringify(state)'),before);});
+await check('Imported grading snapshots require the complete bounded core result shape',()=>{for(const mutation of [r=>delete r.result.metrics.ptvDb,r=>delete r.result.checks.lowLevel.unit,r=>r.result.source.unit='watts',r=>r.source.kind='Ingress',r=>r.source.native={format:'invented',direction:'forward',referenceState:'referenced'}]){const bad=json('state'),before=ev('JSON.stringify(state)');mutation(bad.sweepGrading.records[0]);assert.throws(()=>ev('loadState')(bad),/grading/i);assert.equal(ev('JSON.stringify(state)'),before);}});
+await check('Browser badInput blocks grading while preserving saved criterion and a reason',async()=>{const e=d.getElementById('grading-ptvLimitDb');Object.defineProperty(e,'validity',{configurable:true,value:{badInput:true,valid:false}});e.value='';e.dispatchEvent(new w.Event('input',{bubbles:true}));assert.equal(json('state.sweepGrading.profiles["42-forward"].ptvLimitDb'),3);await assert.rejects(()=>api().grade(),/criterion|number/i);delete e.validity;set('grading-ptvLimitDb','3');});
+await check('Changes during original verification prevent a saved grade',async()=>{const verifier=ev('EvidenceUI').verifiedParse;let release;ev('EvidenceUI').verifiedParse=async id=>{await new Promise(r=>release=r);return verifier(id);};const count=json('state.sweepGrading.records.length');const pending=api().grade();set('grading-ptvLimitDb','2');release();await assert.rejects(()=>pending,/changed/i);assert.equal(json('state.sweepGrading.records.length'),count);ev('EvidenceUI').verifiedParse=verifier;set('grading-ptvLimitDb','3');});
+await check('Registry edit opens the exact plant and direction profile without changing state',()=>{const before=ev('JSON.stringify(state)');ev('Thresholds.open("company.grading.204-reverse.ptvLimitDb")');const b=d.querySelector('[data-grading-profile="204-reverse"]');assert(b,'profile-specific edit route');b.click();assert.equal(d.getElementById('gradingPlant').value,'204');assert.equal(d.getElementById('gradingDirection').value,'reverse');assert.equal(ev('JSON.stringify(state)'),before);set('gradingPlant','42');set('gradingDirection','forward');});
+await check('Raw PTV 1, 2.5 and 4 dB use the entered 3 dB limit through the real UI action',async()=>{for(const [ptv,status]of [[1,'pass'],[2.5,'pass'],[4,'fail']]){await ev('EvidenceUI').importFiles([file('synthetic-'+ptv+'.csv','frequency_mhz,level_dbmv\n54,0\n100,'+ptv+'\n860,0')],{kind:'Sweep',stage:'After'});set('gradingEvidence',json('state.evidence.at(-1).id'));const r=await api().grade();assert.equal(r.result.metrics.ptvDb,ptv);assert.equal(r.result.checks.ptv.status,status);}});
+await check('Unentered reverse criteria stay unknown and never inherit the forward profile',async()=>{set('gradingDirection','reverse');const r=await api().grade();assert.equal(r.result.overall,'unknown');assert.equal(r.result.checks.ptv.status,'unknown');assert.deepEqual(plain(r.criteria),{});set('gradingDirection','forward');});
+await check('Relative response cannot pass absolute level comparisons',async()=>{await ev('EvidenceUI').importFiles([file('relative.csv','frequency_mhz,response_db\n54,0\n100,1\n860,0')],{kind:'Sweep',stage:'After'});set('gradingEvidence',json('state.evidence.at(-1).id'));const r=await api().grade();assert.equal(r.result.checks.lowLevel.status,'unknown');assert.equal(r.result.checks.highLevel.status,'unknown');assert.equal(r.result.source.unit,'dB');set('gradingEvidence',json('state.evidence[0].id'));});
+await check('Missing exact marker stays unknown without extrapolation',async()=>{set('grading-lowFrequencyMHz','55');const r=await api().grade();assert.equal(r.result.overall,'unknown');assert.equal(r.result.metrics.ptvDb,null);set('grading-lowFrequencyMHz','54');});
+await check('Negative level and signed tilt targets are accepted while negative limits are blocked',()=>{set('grading-lowTargetDbmv','-2');set('grading-tiltTargetDb','-1');assert.equal(json('state.sweepGrading.profiles["42-forward"].lowTargetDbmv'),-2);set('grading-ptvLimitDb','-1');assert.equal(json('state.sweepGrading.profiles["42-forward"].ptvLimitDb'),3);set('grading-ptvLimitDb','3');set('grading-lowTargetDbmv','0');set('grading-tiltTargetDb','0');});
+await check('Saved current grades become historical after actual PR8 Before/After and done edits',async()=>{
+ const fixture=installStationContext();try{for(const [target,key,value]of [[fixture.record.stages.before.forward,'measuredLow','37'],[fixture.record.stages.after.forward,'measuredHigh','50'],[fixture.record,'stage','after'],[fixture.record.balanced,'done',true],[fixture.record.balanced,'date','2026-11-10'],[fixture.record.swept,'done',true],[fixture.record.swept,'date','2026-11-11']]){const graded=await api().grade(),saved=plain(graded);assert.match(d.getElementById('sweepGradingPanel').textContent,/Current verified calculation/);target[key]=value;ev('saveLocal()');assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'),key);assert.deepEqual(json('state.sweepGrading.records.at(-1)'),saved,'historical station snapshot remains immutable');}}finally{fixture.restore();}
+});
+await check('Optional PR8 stations are snapshotted without changing Before/After or done records',async()=>{
+ const fixture=installStationContext();try{const before=plain(fixture.owner.stationView),record=await api().grade();digestContext(record);assert.equal(ev('StationView.records().length'),1);assert.deepEqual(plain(fixture.owner.stationView),before);assert.equal(record.result.overall,'pass','station targets never replace grading criteria');}finally{fixture.restore();}
+});
+await check('PR8 Before/After and done context restored during actual hashing still blocks the grade',async()=>{
+ const fixture=installStationContext();try{for(const [target,key,value]of [[fixture.record.stages.before.forward,'measuredLow','37'],[fixture.record.stages.after.returns,'receiverReading','0'],[fixture.record,'stage','after'],[fixture.record.balanced,'done',true],[fixture.record.swept,'date','2026-11-11']]){
+  const prior=target[key],held=holdDigest(w.crypto.subtle);const count=json('state.sweepGrading.records.length'),pending=api().grade();try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));target[key]=value;ev('saveLocal()');target[key]=prior;ev('saveLocal()');held.release();await assert.rejects(()=>pending,/changed/i,key);assert.equal(json('state.sweepGrading.records.length'),count);}finally{held.restore();await pending.catch(()=>{});}
+ }}finally{fixture.restore();}
+});
+await check('Archived Station records do not expand context or invalidate an otherwise unchanged grade',async()=>{
+ const fixture=installStationContext();try{const saved=await api().grade(),sha=digestContext(saved);for(let i=0;i<900;i++)fixture.owner.stationView.stations['station_synthetic_archive_'+i]=plain(fixture.record);ev('StationView.validate(state.stationView);saveLocal();EvidenceUI.render()');assert.equal(ev('StationView.records().length'),1);assert.equal(d.querySelectorAll('[data-grading-current="true"]').length,1);const next=await api().grade();assert.equal(digestContext(next),sha);assert.deepEqual(json('state.sweepGrading.records.at(-2)'),plain(saved));}finally{fixture.restore();}
+});
+await check('Absent legacy Station data stays absent while compact context records remain bounded',async()=>{
+ assert(!Object.prototype.hasOwnProperty.call(ev('state'),'stationView'));digestContext(await api().grade());assert(!Object.prototype.hasOwnProperty.call(ev('state'),'stationView'));
+});
+await check('Old raw-context histories open, back up and restore without migration and remain conservatively historical',async()=>{
+ const owner=ev('state'),old=plain(owner.sweepGrading.records[0]);old.context.recordSnapshot=JSON.stringify({source:{type:'manual'},stationRecords:null});old.id='grade_legacy_raw_context';owner.sweepGrading.records.push(old);const before=plain(old);assert(api().validate(owner.sweepGrading));const backup=await w.evidenceExportProject(owner),restored=await w.evidencePrepareImport(backup);const saved=restored.sweepGrading.records.find(r=>r.id===old.id);assert.deepEqual(plain(saved.context),before.context);assert.deepEqual(plain(saved.result),before.result);assert.match(api().freshness(old),/stale|historical/i);assert.deepEqual(plain(owner.sweepGrading.records.at(-1)),before);owner.sweepGrading.records.pop();
+});
+await check('Selection, metadata, hardware and station context changes during verification cannot write a grade',async()=>{for(const mutation of ['direction','file','stage','asset','hardware','station','owner']){const original=ev('state'),saved=plain(original);set('gradingEvidence',saved.evidence[0].id);set('gradingPlant','42');set('gradingDirection','forward');const verifier=ev('EvidenceUI').verifiedParse;let release;ev('EvidenceUI').verifiedParse=async id=>{await new Promise(r=>release=r);return verifier(id);};const count=original.sweepGrading.records.length;const pending=api().grade();if(mutation==='direction')set('gradingDirection','reverse');if(mutation==='file')set('gradingEvidence',saved.evidence[1].id);if(mutation==='stage')original.evidence[0].stage='Reference';if(mutation==='asset')original.evidence[0].asset='CHANGED';if(mutation==='hardware')original.setup.sourceModel='CHANGED';if(mutation==='station')original.rows[0].meters={forward:{reading:'99'}};if(mutation==='owner'){w.__next=plain(original);ev('state=__next');}release();await assert.rejects(()=>pending,/changed|found/i,mutation);assert.equal(original.sweepGrading.records.length,count,mutation);ev('EvidenceUI').verifiedParse=verifier;w.__original=original;ev('state=__original');Object.assign(original,saved);ev('EvidenceUI.render()');}set('gradingPlant','42');set('gradingDirection','forward');set('gradingEvidence',json('state.evidence[0].id'));});
+await check('A direction selection changed and restored during verification still blocks saving',async()=>{const verifier=ev('EvidenceUI').verifiedParse;let release;ev('EvidenceUI').verifiedParse=async id=>{await new Promise(r=>release=r);return verifier(id);};const count=json('state.sweepGrading.records.length');const pending=api().grade();set('gradingDirection','reverse');set('gradingDirection','forward');release();await assert.rejects(()=>pending,/changed/i);assert.equal(json('state.sweepGrading.records.length'),count);ev('EvidenceUI').verifiedParse=verifier;});
+await check('Real hardware and route-record edits restored during a busy WebCrypto await cannot save',async()=>{
+ function choose(value){const control=d.querySelector('[data-launch-source="sourceType"]');assert(control);control.value=value;control.dispatchEvent(new w.Event('change',{bubbles:true}));}
+ function pointName(value){const control=d.querySelector('#route [data-field="name"]');assert(control);control.value=value;control.dispatchEvent(new w.Event('input',{bubbles:true}));}
+ choose('manual');
+ for(const mutation of ['hardware','record']){
+  const held=holdDigest(w.crypto.subtle);
+  const count=json('state.sweepGrading.records.length'),prior=ev('state.rows[0].name'),pending=api().grade();
+  try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'),'original-byte verification is busy');if(mutation==='hardware'){choose('active');choose('manual');}else{pointName('TEMPORARY PRACTICE');pointName(prior);}held.release();await assert.rejects(()=>pending,/changed/i,mutation);assert.equal(json('state.sweepGrading.records.length'),count,mutation);}finally{held.restore();await pending.catch(()=>{});}
+ }
+});
+await check('Real Add/Remove point and Acceptance record buttons cannot evade the busy context epoch',async()=>{
+ for(const action of ['route','record']){
+  const held=holdDigest(w.crypto.subtle);
+  const count=json('state.sweepGrading.records.length'),rows=json('state.rows.length'),forward=json('state.project.forward.length'),pending=api().grade();
+  try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));if(action==='route'){ev('WorkflowUI.go("route")');d.getElementById('add').click();const id=json('state.rows.at(-1).id');d.querySelector('[data-delete="'+id+'"]').click();}else{ev('WorkflowUI.go("records")');d.querySelector('[data-project-add="forward"]').click();const index=json('state.project.forward.length')-1;d.querySelector('[data-project-remove="forward"][data-project-index="'+index+'"]').click();}assert.equal(json('state.rows.length'),rows);assert.equal(json('state.project.forward.length'),forward);held.release();await assert.rejects(()=>pending,/changed/i,action);assert.equal(json('state.sweepGrading.records.length'),count,action);}finally{held.restore();await pending.catch(()=>{});}
+ }
+ ev('WorkflowUI.go("evidence")');
+});
+await check('Unchanged autosaves during actual original hashing do not cancel grading',async()=>{const held=holdDigest(w.crypto.subtle);const count=json('state.sweepGrading.records.length'),pending=api().grade();try{await held.wait(pending);assert(ev('EvidenceUI.isBusy()'));ev('saveLocal();saveLocal()');held.release();const record=await pending;assert.equal(record.result.overall,'pass');assert.equal(json('state.sweepGrading.records.length'),count+1);}finally{held.restore();await pending.catch(()=>{});}});
+await check('Direct in-memory alteration of a saved result clears its current calculation badge',async()=>{const r=await api().grade(),stored=ev('state.sweepGrading.records.at(-1)');stored.result.metrics.ptvDb=999;ev('SweepGradingUI.render()');assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));ev('state.sweepGrading.records').splice(-1,1,plain(r));});
+await check('Observed corrupt original reads invalidate current grades and cannot save a new grade',async()=>{await api().grade();assert.match(d.getElementById('sweepGradingPanel').textContent,/Current verified calculation/);const id=json('state.evidence[0].id'),count=json('state.sweepGrading.records.length'),priorHistory=json('state.sweepGrading.records');const request=w.indexedDB.open('nightsweep-evidence-v1',1);const db=await new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});const read=db.transaction('files','readonly').objectStore('files').get(id);const original=await new Promise(resolve=>read.onsuccess=()=>resolve(read.result));async function put(bytes){await new Promise((resolve,reject)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put({id,bytes});tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);});}await put(new TextEncoder().encode(csv.replace('2.5','9.9')).buffer);await ev('EvidenceUI').reloadPreviews();assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.match(d.getElementById('sweepGradingPanel').textContent,/unavailable|verification failed/i);assert.deepEqual(json('state.sweepGrading.records'),priorHistory);await assert.rejects(()=>api().grade(),/verification failed/i);assert.equal(json('state.sweepGrading.records.length'),count);await put(original.bytes);await ev('EvidenceUI').reloadPreviews();assert(!d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.match(d.getElementById('gradingStatus').textContent,/verified again.*unknown/i);db.close();});
+await check('Autosave boot and named-job duplication preserve grades as historical snapshots',async()=>{await api().grade();ev('JobsUI.saveNamed()');const id=ev('state.job.id');ev('JobsUI.duplicate('+JSON.stringify(id)+')');const library=JSON.parse(w.localStorage.getItem('hfc-named-jobs-v1'));assert.deepEqual(library.jobs.at(-1).snapshot.sweepGrading,library.jobs.find(j=>j.id===id).snapshot.sweepGrading);const snapshot=w.localStorage.getItem('hfc-route-v1'),store=w.indexedDB;const b=bootApp({beforeParse(next){next.indexedDB=store;next.localStorage.setItem('hfc-route-v1',snapshot);next.localStorage.setItem('hfc-named-jobs-v1',JSON.stringify(library));}});try{for(let i=0;i<100&&b.ev('EvidenceUI.isBusy()');i++)await new Promise(r=>setTimeout(r,5));assert(!b.ev('EvidenceUI.isBusy()'));assert.deepEqual(b.json('state.sweepGrading'),JSON.parse(snapshot).sweepGrading);assert(!b.d.getElementById('sweepGradingPanel').textContent.includes('Current verified calculation'));assert.deepEqual(b.errors,[]);}finally{b.close();}});
+await check('Grade-only working jobs are retained when switching jobs',()=>{const original=ev('state');w.__gradeOnly={version:1,setup:plain(original.setup),rows:[],sweepGrading:plain(original.sweepGrading)};ev('loadState(__gradeOnly)');const count=ev('JobsUI.snapshots().length');ev('JobsUI.beforeProjectOpen()');assert.equal(ev('JobsUI.snapshots().length'),count+1);assert(ev('JobsUI.snapshots().at(-1).sweepGrading.records.length')>0);w.__original=original;ev('loadState(__original)');set('gradingPlant','42');set('gradingDirection','forward');set('gradingEvidence',json('state.evidence[0].id'));});
+await check('Native gzip originals keep compressed SHA and exact bytes through grading and restore',async()=>{const bytes=fs.readFileSync('qa/fixtures/viavi-synthetic/reverse.json-1.gz');await ev('EvidenceUI').importFiles([file('SYNTHETIC.json-1.gz',bytes)],{kind:'Sweep',stage:'After'});const meta=json('state.evidence.at(-1)');assert.equal(meta.parse.status,'parsed');assert.equal(meta.parse.native.direction,'reverse');set('gradingEvidence',meta.id);set('gradingPlant','42');set('gradingDirection','forward');await assert.rejects(()=>api().grade(),/direction conflicts/i);set('gradingDirection','reverse');set('grading-lowFrequencyMHz','7');set('grading-highFrequencyMHz','15');set('grading-ptvLimitDb','3');const r=await api().grade();assert.equal(r.result.metrics.ptvDb,2);assert.equal(r.source.native.referenceState,'unreferenced');assert.equal(r.result.overall,'unknown');const backup=await w.evidenceExportProject(ev('state')),oldId=meta.id;const attachment=backup.evidenceFiles.find(x=>x.id===oldId);assert.equal(attachment.base64,bytes.toString('base64'));const restored=await w.evidencePrepareImport(backup),mapped=restored.evidence.find(e=>e.name===meta.name);assert.notEqual(mapped.id,oldId);assert.equal(restored.sweepGrading.records.at(-1).source.evidenceId,mapped.id);assert.equal(restored.sweepGrading.records.at(-1).source.sha256,meta.sha256);assert.equal((await w.evidenceExportProject(restored)).evidenceFiles.find(x=>x.id===mapped.id).base64,attachment.base64);set('gradingDirection','forward');set('gradingEvidence',json('state.evidence[0].id'));});
+await check('Historical grades stay readable for a valid 200-point job beyond the former raw-context cap',()=>{const current=ev('state'),prior=current.rows,rows=Array.from({length:200},(_,i)=>({...plain(prior[0]),id:'r'+(i+1),parent:i?'r'+i+'::through':'source',name:'SYNTHETIC '+i+' '+('x'.repeat(100))}));try{current.rows=rows;assert.doesNotThrow(()=>ev('loadState')(plain(current),false,true),'large route remains a valid app job');assert.doesNotThrow(()=>ev('EvidenceUI.render()'));assert.match(d.getElementById('sweepGradingPanel').textContent,/stale|unknown/i);}finally{current.rows=prior;ev('EvidenceUI.render()');}});
+await check('Removed evidence preserves immutable history with unavailable original status',()=>{const record=JSON.stringify(json('state.sweepGrading.records[0]'));const id=json('state.evidence[0].id');d.querySelector('[data-evidence-remove="'+id+'"]').click();assert.equal(JSON.stringify(json('state.sweepGrading.records[0]')),record);assert.match(d.getElementById('sweepGradingPanel').textContent,/unavailable/i);});
+await check('Missing original cannot produce a grade',async()=>{ev('state.evidence[0].id="ev_missing"');ev('EvidenceUI.render()');set('gradingEvidence','ev_missing');await assert.rejects(()=>api().grade(),/missing/i);});
+// Exercise current Station binding v2 through its actual controls as well.
+const combined=bootApp();
+try{
+ const {w:bw,d:bd,ev:be,json:bj}=combined;
+ const go=task=>be(`WorkflowUI.go(${JSON.stringify(task)})`);
+ function edit(selector,value,type='input'){
+  const el=bd.querySelector(selector);assert(el,selector);
+  if(el.type==='checkbox')el.checked=value;else el.value=value;
+  el.dispatchEvent(new bw.Event(type,{bubbles:true}));
+ }
+ const station=(scope,field,value)=>edit(`[data-station-scope="${scope}"][data-station-field="${field}"]`,value,['record','balanced','swept'].includes(scope)?'change':'input');
+ const grade=()=>be('SweepGradingUI').grade();
+ const current=()=>bj('StationView.currentRecord()');
+ const nativeBytes=fs.readFileSync('qa/fixtures/viavi-synthetic/forward-stored.zip');
+ const noCurrent=()=>assert.equal(bd.querySelectorAll('[data-grading-current="true"]').length,0);
+ await check('Merged Station UI creates binding v2 while native import and worksheet edits never grade automatically',async()=>{
+  be('loadState(TrainingJob.makePractice("complete"))');go('station');edit('[data-station-target]','r1','change');
+  for(const [k,v]of Object.entries({lowMHz:'54',highMHz:'860',measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',plane:'SYNTHETIC output plane'}))station('forward',k,v);
+  for(const [k,v]of Object.entries({referencePointTarget:'19',insertionLoss:'20',actualInjection:'39',receiverReading:'-1.25',receiverReference:'-3.5',receiverPlane:'SYNTHETIC receiver plane'}))station('returns',k,v);
+  station('record','stage','after');station('forward','measuredLow','39');station('forward','measuredHigh','49');station('record','stage','before');
+  assert.equal(current().bindingVersion,2);assert.equal(bj('StationView.records()[0]').bindingStatus,'current');
+  assert.deepEqual(current().balanced,{done:false,date:''});assert.deepEqual(current().swept,{done:false,date:''});
+  const acceptance=bj('({forward:state.project.forward,returns:state.project.returns})'),worksheet=bj('state.stationView');
+  go('evidence');await be('EvidenceUI').importFiles([file('SYNTHETIC combined.zip',nativeBytes)],{kind:'Sweep',stage:'Before'});
+  assert(!be('state.sweepGrading'));assert.deepEqual(bj('state.stationView'),worksheet);assert.deepEqual(bj('({forward:state.project.forward,returns:state.project.returns})'),acceptance);
+  edit('#gradingEvidence',bj('state.evidence.at(-1).id'),'change');edit('#gradingPlant','42','change');edit('#gradingDirection','forward','change');
+  for(const [k,v]of Object.entries({lowFrequencyMHz:270,highFrequencyMHz:510,ptvLimitDb:3}))edit('#grading-'+k,String(v));
+  assert.equal(bj('state.sweepGrading.records.length'),0);assert.deepEqual(combined.errors,[]);
+ });
+ await check('A warm saved worksheet reload captures bound raw context before calculators initialize without evaluating RF',async()=>{
+  const saved=bw.localStorage.getItem('hfc-route-v1'),before=bj('state.stationView'),results=bj('StationView.results()');for(let i=0;i<500;i++)be('StationView.results()');
+  const original=process.env.NIGHTSWEEP_RELEASE_TEST==='1'?fs.readFileSync('outputs/Night_Sweep.html','utf8'):require('./build2-source-harness.cjs').assembleHtml();
+  const marker='<script>const catalog=',probe='<script>window.__gradingEarlyMath=0;window.__stationMathResults=StationMath.results;StationMath.results=function(...args){if(typeof Alignment==="undefined")window.__gradingEarlyMath++;return window.__stationMathResults(...args);};window.__gradingEvidenceInit=EvidenceUI.init;EvidenceUI.init=function(...args){const pending=window.__gradingEvidenceInit.apply(this,args);window.__gradingEvidenceReady=Promise.resolve(pending);return pending;};</script>';
+  assert(original.includes(marker));const cold=bootApp({html:original.replace(marker,probe+marker),beforeParse(w){w.indexedDB=bw.indexedDB;w.localStorage.setItem('hfc-route-v1',saved);}});
+  try{assert.equal(cold.ev('typeof window.__gradingEvidenceReady?.then'),'function');await cold.ev('window.__gradingEvidenceReady');assert.equal(cold.ev('window.__gradingEarlyMath'),0,'grading context must not invoke RF before Alignment exists');assert.equal(cold.ev('typeof Alignment'),'object');assert.deepEqual(cold.json('StationView.results()'),results);assert.deepEqual(cold.json('state.stationView'),before);assert.equal(cold.w.localStorage.getItem('hfc-route-v1-unreadable'),null);const bound=cold.json('StationView.boundRecords()');assert.equal(bound.length,1);assert.deepEqual(bound[0].record,Object.values(before.stations)[0]);assert.equal(cold.ev('state.evidence[0].parse.status'),'parsed');assert.deepEqual(cold.json('state.stationView'),before);assert.equal(cold.ev('state.sweepGrading.records.length'),0);assert.deepEqual(cold.errors,[]);}finally{await Promise.resolve(cold.ev('window.__gradingEvidenceReady')).catch(()=>{});cold.close();}
+ });
+ await check('Merged grading snapshots contain exact binding v2 Before/After and independent done records',async()=>{
+  const before=bj('state.stationView'),acceptance=bj('({forward:state.project.forward,returns:state.project.returns})'),r=await grade();
+  digestContext(r);assert.equal(Object.values(before.stations)[0].bindingVersion,2);
+  assert.equal(r.result.metrics.ptvDb,2.5);assert.equal(r.result.checks.ptv.status,'pass');assert.equal(r.result.overall,'unknown');
+  assert.deepEqual(bj('state.stationView'),before);assert.deepEqual(bj('({forward:state.project.forward,returns:state.project.returns})'),acceptance);
+  assert.equal(bd.querySelectorAll('[data-grading-current="true"]').length,1);
+ });
+ await check('Actual merged Before/After readings, stage, balance and sweep controls demote immutable grading history',async()=>{
+  for(const [scope,field,value]of [['forward','measuredLow','37'],['record','stage','after'],['forward','measuredHigh','50'],['returns','receiverReading','0'],['balanced','date','2026-11-10'],['balanced','done',true],['swept','date','2026-11-11'],['swept','done',true]]){
+   const saved=await grade();go('station');station(scope,field,value);noCurrent();assert.deepEqual(bj('state.sweepGrading.records.at(-1)'),plain(saved),scope+'.'+field);
+  }
+  assert.deepEqual(current().balanced,{done:true,date:'2026-11-10'});assert.deepEqual(current().swept,{done:true,date:'2026-11-11'});
+ });
+ await check('Actual merged Station stage and dates changed away and back during original hashing reject pending grades',async()=>{
+  for(const [scope,field,value,prior]of [['record','stage','before','after'],['balanced','date','2026-11-09','2026-11-10'],['swept','done',false,true]]){
+   const held=holdDigest(bw.crypto.subtle);
+   const count=bj('state.sweepGrading.records.length'),pending=grade();
+   try{await held.wait(pending);assert(be('EvidenceUI.isBusy()'));go('station');station(scope,field,value);station(scope,field,prior);held.release();await assert.rejects(()=>pending,/changed/i);assert.equal(bj('state.sweepGrading.records.length'),count);}finally{held.restore();await pending.catch(()=>{});}
+  }
+ });
+ await check('Fourteen current actual-handler worksheets and 900 archived bindings grade within the original compact history bound',async()=>{
+  const owner=be('state'),prior=bj('state');try{
+   const template=plain(owner.rows[0]);owner.rows=Array.from({length:14},(_,i)=>({...plain(template),id:'r'+(i+1),name:'SYNTHETIC active '+(i+1),device:'active_gm_hgd',parent:i?'r'+i+'::through':'source'}));delete owner.stationView;for(const row of owner.rows)delete row.stationIdentity;
+   for(const row of owner.rows){go('station');edit('[data-station-target]',row.id,'change');station('forward','plane','SYNTHETIC verified physical output plane, with the meter and all leads identified for this worksheet. '.repeat(3));}
+   assert.equal(be('StationView.records().length'),14);const raw=JSON.stringify(owner.stationView.stations);assert(raw.length>16000);const first=await grade(),sha=digestContext(first),history=plain(owner.sweepGrading.records);
+   const archived=plain(Object.values(owner.stationView.stations)[0]);for(let i=0;i<900;i++)owner.stationView.stations['station_synthetic_archived_'+i]=plain(archived);be('StationView.validate(state.stationView);saveLocal();EvidenceUI.render()');assert.equal(be('StationView.records().length'),14);assert.equal(bd.querySelectorAll('[data-grading-current="true"]').length,1);const subtle=bw.crypto.subtle,originalDigest=subtle.digest;let digestBytes;subtle.digest=async function(...args){const text=new TextDecoder().decode(args[1]);if(text.startsWith('{')&&text.includes('stationRecords'))digestBytes=new Uint8Array(args[1]);return originalDigest.apply(this,args);};let next;try{next=await grade();}finally{subtle.digest=originalDigest;}assert.equal(digestContext(next),sha);assert.equal(sha,createHash('sha256').update(digestBytes).digest('hex'));const payload=JSON.parse(new TextDecoder().decode(digestBytes));assert.equal(payload.stationRecords.length,14);for(const bound of payload.stationRecords)assert.deepEqual(bound.record,plain(owner.stationView.stations[bound.identity]));assert.deepEqual(plain(owner.sweepGrading.records.slice(0,-1)),history);
+   go('station');edit('[data-station-target]','r14','change');station('forward','measuredHigh','50');noCurrent();assert.notEqual(digestContext(await grade()),sha);
+  }finally{Object.keys(owner).forEach(k=>delete owner[k]);Object.assign(owner,prior);be('saveLocal();EvidenceUI.render()');}
+ });
+ await check('Actual launch asset, port and module handlers cancel pending grades even when restored, preserving original bindings',async()=>{
+  go('station');edit('[data-station-target]','source','change');station('forward','measuredLow','31');const owner=be('state'),identity=owner.setup.stationIdentity,sourceRecord=plain(owner.stationView.stations[identity]);
+  for(const field of ['asset','port','module']){
+   const prior=owner.node[field],held=holdDigest(bw.crypto.subtle);const history=bj('state.sweepGrading.records'),pending=grade();try{await held.wait(pending);go('setup');edit('[data-launch-node="'+field+'"]','SYNTHETIC changed '+field);edit('[data-launch-node="'+field+'"]',prior);held.release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);assert.deepEqual(plain(owner.stationView.stations[identity]),sourceRecord);}finally{held.restore();await pending.catch(()=>{});}
+  }
+ });
+ await check('A change restored during the additional context-digest await still cancels and preserves immutable history',async()=>{
+  const held=holdDigest(bw.crypto.subtle,2);const history=bj('state.sweepGrading.records'),pending=grade();try{await held.wait(pending);go('station');const stage=current().stage;station('record','stage',stage==='before'?'after':'before');station('record','stage',stage);held.release();await assert.rejects(()=>pending,/changed/i);assert.deepEqual(bj('state.sweepGrading.records'),history);}finally{held.restore();await pending.catch(()=>{});}
+ });
+ await check('Named job save, duplicate and reopen retain both actual Station and grading sections',async()=>{
+  be('state.job.name="SYNTHETIC combined Station and grading";JobsUI.saveNamed()');
+  const id=be('state.job.id'),stationBefore=bj('state.stationView'),gradesBefore=bj('state.sweepGrading'),recordsBefore=bj('StationView.records()');
+  const copy=be(`JobsUI.duplicate(${JSON.stringify(id)})`),snapshot=bj(`JobsUI.snapshots().find(s=>s.job.id===${JSON.stringify(copy)})`);
+  assert.deepEqual(snapshot.stationView,stationBefore);assert.deepEqual(snapshot.sweepGrading,gradesBefore);
+  be('loadState(TrainingJob.makePractice("aoi-six-active"))');await be(`JobsUI.open(${JSON.stringify(id)})`);go('station');
+  assert.deepEqual(bj('state.stationView'),stationBefore);assert.deepEqual(bj('state.sweepGrading'),gradesBefore);assert.deepEqual(bj('StationView.records()'),recordsBefore);noCurrent();
+ });
+ await check('Portable native-byte ID remapping preserves both merged optional sections and no automatic grade',async()=>{
+  const owner=be('state'),stationBefore=bj('state.stationView'),gradesBefore=bj('state.sweepGrading'),recordsBefore=bj('StationView.records()');
+  const backup=await bw.evidenceExportProject(owner),oldId=backup.evidence.at(-1).id,restored=await bw.evidencePrepareImport(backup),newId=restored.evidence.at(-1).id;
+  assert.notEqual(newId,oldId);assert.deepEqual(plain(restored.stationView),stationBefore);
+  assert.equal(restored.sweepGrading.records.length,gradesBefore.records.length);
+  const expected=plain(gradesBefore);for(const r of expected.records)if(r.source.evidenceId===oldId)r.source.evidenceId=newId;
+  assert.deepEqual(plain(restored.sweepGrading),expected);
+  const original=backup.evidenceFiles.find(x=>x.id===oldId);assert.equal(original.base64,nativeBytes.toString('base64'));
+  assert.equal((await bw.evidenceExportProject(restored)).evidenceFiles.find(x=>x.id===newId).base64,original.base64);
+  bw.__combinedRestored=restored;be('loadState(__combinedRestored)');go('station');assert.deepEqual(bj('StationView.records()'),recordsBefore);noCurrent();
+ });
+ await check('Both merged additive validators reject malformed imports without replacing the combined working job',()=>{
+  const before=bj('state');
+  for(const section of ['stationView','sweepGrading']){const bad=plain(before);if(section==='stationView')Object.values(bad.stationView.stations)[0].bindingVersion=3;else bad.sweepGrading.records[0].result.metrics.ptvDb='invalid';assert.throws(()=>be('loadState')(bad),section==='stationView'?/station/i:/grading/i);assert.deepEqual(bj('state'),before);}
+ });
+ await check('Merged legacy-unconfirmed and UBT controls remain read-only with historical grading preserved',()=>{
+  const original=bj('state'),legacy=plain(original),identity=legacy.rows[0].stationIdentity;delete legacy.stationView.stations[identity].bindingVersion;
+  bw.__combinedLegacy=legacy;be('loadState(__combinedLegacy)');go('station');edit('[data-station-target]','r1','change');
+  assert.equal(bj('StationView.records().find(r=>r.pointId==="r1")').bindingStatus,'legacy-unconfirmed');assert.equal(bj('StationView.records().find(r=>r.pointId==="r1")').readOnly,true);
+  const before=bj('state');station('forward','measuredLow','99');assert.deepEqual(bj('state'),before);noCurrent();
+  const ubt=plain(original);ubt.rows[0].device='active_gm_ubt_main';bw.__combinedUbt=ubt;be('loadState(__combinedUbt)');go('station');edit('[data-station-target]','r1','change');
+  assert.match(bd.querySelector('#stationPanel').textContent,/Legacy UBT.*read.only/i);const locked=bj('state');station('swept','done',false);assert.deepEqual(bj('state'),locked);assert.deepEqual(bj('state.sweepGrading'),original.sweepGrading);noCurrent();assert.deepEqual(combined.errors,[]);
+ });
+}finally{combined.close();}
+console.log('Sweep grading UI: '+cases.length+' checks passed');a.close();
+})().catch(e=>{console.error(e);a.close();process.exitCode=1;});
