@@ -2,26 +2,67 @@
 
 Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and Lane B have stopped. This review is not a second lane.
 
-| Item | Branch | Pull request | Head | State | Last gate (own counts) |
-| --- | --- | --- | --- | --- | --- |
-| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) merged `6a28951` | `aadb612` | merged | 82/2174, 698.1 s, layout 554, smoke 352 |
-| Stretch #13 item 11 | `claude/b11-impairments` | [#13](https://github.com/Goodst3r/Carpe-Noctum/pull/13) merged `e7313cf` | `a1bc16f` | merged before this session resumed | 84/2230, 715.1 s, layout 634, smoke 355 (AUDIT on #13; not re-run here) |
-| Stretch #15 item 15 | `claude/b15-fiber` | [#15](https://github.com/Goodst3r/Carpe-Noctum/pull/15) draft | `e9e0473` gated; record commit follows | local gate green on `e9e0473`; hosted CI was still running; AUDIT not posted | 86/2269, 729.7 s, layout 714, smoke 358, SHA `44801b66…fa62` |
-| Stretch #16 item 17 | `claude/b17-highsplit` | #16 draft | `c639ea8` | waiting | not run by Grok |
-| Stretch #18 item 18 | `claude/b18-why-cards` | #18 draft | `ed7f29c` | waiting | not run by Grok |
-| Stretch #19 item 20 | `claude/b20-pop` | #19 draft | `a66d313` | waiting; Minor on `POP_SOURCES.md` | not run by Grok |
-| Stretch #20 item 19 | `claude/b19-study` | #20 draft, base is not `build3` | `b1bd4ba` | waiting; no hosted CI until retargeted | not run by Grok |
-| A5 item 14 | not started | | | after stretch stack, one PR | |
-| A6 item 16 | not started | | | after A5 | |
-| A7 item 12 | not started | | | after A6 | |
+Re-check of the live repository, before another feature branch. The determination on `claude/roadmap-determination` (`38a172c`) pinned `origin/build3` at `e7313cf` and listed #15 as open. The repository has moved. Those two facts are stopped. The repository wins.
+
+## Pin
+
+| What | Value |
+| --- | --- |
+| `origin/build3` | `9df485720d0e13192364be4cf8e3255b36b4bbbf` |
+| What it is | Merge of #15, 2026-11-12T06:28:56Z. Parents `e7313cf` and `b2d6f91`. Tree `784dc505` equals the fiber head |
+| Standalone SHA-256 | `44801b66e935fedd578e692fd4072f33fbc16c9f5c278a64d03925141b33fa62` |
+| Own gate | 86 suites, 2,269 checks, 732.0 s; layout 714; smoke 358; exits 0; tree clean. Record: `handoff_docs/reviews/grok-gate-9df4857.md` |
+| Not this run | Headless-shell attempt abandoned. Hosted CI on `b2d6f91` is a different run |
+
+No emulator, phone, or field check. **D3: one run (Grok).** Spencer accepts or rejects D3.
+
+## Recount on `9df4857` (jsdom, this session)
+
+Node 22 loaded `outputs/Night_Sweep.html`. No jsdom error.
+
+| Count | Value |
+| --- | --- |
+| Screens | 31, including `help` |
+| Features | 49 |
+| Registry rows | 121 (company 64, unknown 23, spec 25, expert 9) |
+| Practice steps | 22 / 16 / 17 / 8 / 9 / 7 / 10 (complete, aoi-six-active, custom-curves, gainmaker-oem, gainmaker-dsim, gainmaker-manual, gs7k-node) |
+
+Sub-screens in `WorkflowUI.groups`: Home 0, Route 6, Test 12, Power 2, Job 9. Test’s twelfth tab is Fiber. The determination’s “now 11” was `e7313cf`, before this merge.
+
+Bottom tabs are still Home, Route, Test, Power, Job. I did not re-read the Files menu markup this session.
+
+## Re-check findings
+
+1. **Screen ids in jobs.** Navigating all 31 screens left `JSON.stringify(state)` unchanged. No stored string equaled a screen id. Three job keys share names with screen ids: `setup`, `power`, `frequency`. They are data objects, not the current screen. The current screen is a variable inside `WorkflowUI`, not a saved field. This was the initial sample state plus a read of `go()`. I did not open a 1.6 backup file in a browser.
+
+2. **Home sub-screens.** `groups.home.tabs` is empty, so the sub-tab row is hidden on Home. Filling that array would show sub-tabs. The Home bottom button always calls `go('home')`. It does not restore the last Home sub-screen. `lastGroup` has no `home` entry. The End-key test in `qa/alpha15-ui.test.cjs` uses `WorkflowUI.groups.route.tabs.at(-1)[0]`. That is the last Route sub-tab, currently `station`, not a fixed last bottom tab.
+
+3. **Checklists (`field-work.js`).** Saved on the job as `state.fieldWork`, then `hfc-route-v1` and a project backup. Leakage checks: connectors, shielding, unusedPorts, dropPremises, retest (true or false), plus notes (4,000) and a dBµV/dBmV conversion. Maintenance checks: powerSupply, bonding, endOfLine, amplifierUnity, leakagePatrol, each `{done, notes}` (notes 1,000). No separate repair list, no address field, no station id.
+
+4. **Night log (`night-log.js`).** Saved on the job as `state.nightLog`: ticket, windowStart, windowEnd, nextShift, and up to 200 entries. An entry stores id, addedAt, ticket, asset, action, rocUpdate, gas, mileage, asBuilt, and an optional frozen Station snapshot. No Remove or Undo. TXT/CSV export does not write an export time back into the job.
+
+5. **Backup time.** `exportProject` copies the job. It does not add a backup time. Named jobs store `updatedAt` beside the snapshot in `hfc-named-jobs-v1`. That is a library save time, not a portable-backup time. P0-1 “last backup” and “unexported night log” do not have a stored time today.
+
+## Stretch stack
+
+| PR | Head | State | Hosted CI | My gate |
+| --- | --- | --- | --- | --- |
+| #15 Fiber | `b2d6f91`, merge `9df4857` | merged | success, run 43166448499 | this pin’s gate is that tree |
+| #16 High split | `0436e9a` | draft, mergeable. Grok merge of `build3` onto the branch | success, [run 43168983876](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43168983876) | not run |
+| #18 Why cards | `ed7f29c` | draft, not rebased onto `9df4857` | fail on `c639ea8`-era head, run 43143482442, expected 29 screens actual 33 | not run |
+| #19 Proof | `a66d313` | draft, not rebased | fail, run 43143939017, expected 29 actual 34 | not run |
+| #20 Study | `b1bd4ba` | draft, base is `claude/b20-pop` | no checks | not run |
+| #25 Arcom | `e59d694` | draft, base `6a28951`, conflicting | no run on `claude/leak-detector-arcom` | not run |
+
+#16 has comments from November 11. Neither is an approval of `0436e9a`. I am not merging it. #1 and #2 into `main` were not touched.
 
 ## Next
 
-The commit that adds `grok-gate-e9e0473.md` and the fiber viewport-height gap line is a new head. It needs its own local gate and hosted CI before the AUDIT and the merge. **D3: one run (Grok).** Spencer accepts or rejects D3.
+Local gate on #16 head `0436e9a`. Then #18, #19, retarget #20 after #19, then #25. No A5 to A7. No new math.
 
 ## Blocked
 
-Nothing yet. D3 is not met: one Grok run is not both lanes. Spencer accepts or rejects D3.
+Merge of #16 waits for a review of head `0436e9a`. I will not merge my own head without that review.
 
 ## Questions for Spencer
 
