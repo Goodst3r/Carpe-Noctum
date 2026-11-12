@@ -8,14 +8,14 @@ Grok and ChatGPT build and review each other’s pull requests; Claude is the ga
 
 ### Counts on this branch
 
-Counted on November 12, 2026 from the combined Night log and ripple-width source on the merged B1/B2/NAV baseline, assembled by `qa/build2-source-harness.cjs` and loaded in JSDOM; these are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
+Counted on November 12, 2026 from the rebuilt standalone `outputs/Night_Sweep.html` after merging #36 and #42, loaded in JSDOM through `qa/build2-source-harness.cjs`. These are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
 
 | Count | What |
 | --- | --- |
 | 35 | task screens (`WorkflowUI.screens`, including Help) |
 | 53 | Practice library feature choices (`TrainingJob.features`) |
 | 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 156 | registry rows in the running app: `thresholds.js` has 153 alone and `EvidenceArchive.limits` adds 3; includes the three B4 manual-ingress software bounds |
+| 159 | registry rows in the running app: `Thresholds.rows.length` is 159; `thresholds.js` loaded without `EvidenceArchive` has 156 and `EvidenceArchive.limits` adds 3. #36 adds the three manual-ingress text bounds. #42 adds no row |
 | 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 4 / 18 | Study domains / question generators |
 | 22 / 7 | Outage prompts / sections |

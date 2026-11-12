@@ -18,7 +18,12 @@ The shared checklist engine stays for Outage. Legacy device data is left
 untouched; safety fields in legacy jobs/backups remain opaque and preserved
 on re-export. No new field, storage key, version or APK is introduced.
 
-Counted from current assembled source in JSDOM after B1/B2 (not a full gate):
+Recounted November 12, 2026 from the rebuilt standalone after merging #36 and #42 (not a full gate):
+35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
+159 live registry rows (156 in thresholds.js alone plus 3 EvidenceArchive).
+#36 adds the three ingress text bounds. #42 adds no row. The B1/B2 count below is that earlier checkpoint.
+
+Counted from the assembled source in JSDOM after B1/B2 (not a full gate):
 35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
 153 live registry rows (150 in thresholds.js alone plus 3 EvidenceArchive),
 47 module splices plus DSIM insertion, Study 4 domains/18 generators,
