@@ -2,6 +2,10 @@
 
 November 12, 2026 UTC. **BLOCKED only on PR #40; no final combined-head gate exists.** Latest observed build3: `70703cb4416c0436bf8ab27467dd5d52601dcd93`. User changed the merge order to whichever corrected heads become ready. A5, A6 and B5 were not started.
 
+## Latest gatekeeper-requested recheck
+
+Fresh recheck of exact `d7c0775997d50ba96c9117e982f7ef4b41389b30` confirmed hosted QA SUCCESS, the requested five fix areas, and the merge-only integration delta from d6cf2c7. Own reruns: export 10 checks / 66 comparisons, PM 4 / 40, legacy backup 5, actual browser file/error/cancel checks 12; all commands exited 0. The real 1,001-span own-file restore failure reproduced again, so the verdict remains **CHANGES NEEDED**. [New comment](https://github.com/Goodst3r/Carpe-Noctum/pull/40#issuecomment-6829854765); full evidence in `chatgpt-pr40-gatekeeper-recheck.md`. No merge, final recount, local full gate or device test ran. The post-merge steps remain conditional on approval and are blocked by that same restoration finding.
+
 ## Merges and current review state
 
 - This run merged **#41** with a merge commit as `70703cb` at 16:37:26Z, using expected approved head `81e2e02400b179d77a0ad03533079631c59238be`, after [hosted QA 43257209472](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43257209472) SUCCESS. [Approval](https://github.com/Goodst3r/Carpe-Noctum/pull/41#issuecomment-6829186248).

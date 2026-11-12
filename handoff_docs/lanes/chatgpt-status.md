@@ -12,6 +12,10 @@ November 12, 2026 UTC. Rules: handoff_docs/WORKFLOW.md; latest user instruction 
 | B5 | deferred | next build | not started |
 | B6 | chatgpt/batch-final; build3 base 70703cb | BLOCKED on #40; handoff updated | no final recount or local full gate |
 
+## Latest check
+
+Gatekeeper-requested recheck on d7c0775: hosted QA green, merge-only delta verified, all five requested fix areas passed targeted checks, but the 1,001-span own-file restoration failure reproduced again. CHANGES NEEDED comment 6829854765. Fresh export 10/66, PM 4/40, legacy backup 5 and browser 12; no full gate, final recount, merge or device test.
+
 ## Next
 
 Corrected #40 author head needs targeted review and exact-head hosted green before merging. Then recount/rebuild once on complete batch, run the final-head gate and record exact SHA/hash/counts. Grok's prior 2cf5920 gate excludes #40/#41.
