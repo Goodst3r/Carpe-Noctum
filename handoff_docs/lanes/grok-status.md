@@ -6,20 +6,20 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 | --- | --- | --- | --- | --- | --- |
 | A0 workflow docs | `build3` | #33 `7dfddf7` | `7dfddf7` | merged | docs only, 2026-11-12 |
 | A1 power-sum calculator | `grok/a1-power-sum` | #34 merged `d631109` | product `df857d0` | merged. Do not reopen | 2026-11-12 exact `df857d0`: 93 suites / 2371 checks, 816.5 s; layout 1054; smoke 373; standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. Hosted QA on `73b6ab4` run 43200952825 passed |
-| A2 cascade thermal/CNR | `grok/a2-cascade` | [#39](https://github.com/Goodst3r/Carpe-Noctum/pull/39) draft | `c53207f` | parked. Does not contain NAV-1. No further commits while #38 owns `thresholds.js`, `training.js`, the current guides and `qa/run-pwa.py` | not a gate of `c53207f` |
-| A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) | this commit | corrections for ChatGPT's CHANGES NEEDED on `8a6d99b`. Do not self-merge. The full-gate receipt belongs in the pull request body for this SHA, not a later commit | the `8a6d99b` receipt is void: it recorded `4ccd22a` and did not run `npm ci` |
-| A4 context strip | not started | — | — | after #38 merges. This pull request still owns `workflow.js` and `shell.html` | not run |
+| A2 cascade thermal/CNR | `grok/a2-cascade` | [#39](https://github.com/Goodst3r/Carpe-Noctum/pull/39) draft | this commit | records the gate on parent `265c8f6`, which contains NAV-1 `f9a2060`. Thermal CNR only. Fixed 290 K. No CTB/CSO, MER, Friis or editable temperature | Gate on `265c8f6`: 101 suites / 2728 checks, 856.8 s; layout 1252; smoke 370; all exits 0. Chromium `/opt/pw-browsers/chromium-1254/chrome-linux64/chrome`. Standalone `9cf19f513ac64f49c8116c5f273acc8463d89848455f86e4762b788825aa76b0`. Release `4f6ea3fefd49301eaf6e`. Started 2026-11-12T13:31:04Z, ended 13:45:57Z. This commit only records that gate |
+| A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) merged `f9a2060` | `b34b1db` | merged 2026-11-12. This session did not run the merge command | Confirming gate on `b34b1db`: 99 suites / 2642 checks, 843.8 s; layout 1252; smoke 370; standalone `3d8dd8b27001fa7719d17212115145137fb36de57ec877a8d25025fe0c432a7d`; release `bf2faf5c76375cc0bad8`. Hosted QA run 43219829179 passed |
+| A4 context strip | not started | — | — | after #39 is marked ready | not run |
 | A4b Supply PM notebook export/import | not started | — | — | after A4. Device key `nightsweep-power-pm-v1` | not run |
 | A5 tonight list | not started | — | — | add open temporary repairs after B5 merges | not run |
 | A6 exact resume | not started | — | — | BLOCKED on Spencer: phone interruption checks are not recorded | not run |
 | A7 final gate and `grok-debug-handoff.md` | not started | #32 stays a draft | — | rewrite #32 at the end. Do not merge it now | not run |
-| B1 review | `chatgpt/b1-remove-safety` | #35 merged `bc4762a` | reviewed `0488ea2` | merged. Own gate of the merged tree recorded. Do not merge again | 2026-11-12 exact `0488ea2`: 94 suites / 2372 checks, 803.5 s; layout 1192; smoke 370; standalone `9a2ceea9c5c390310775da133eccf3c2299402c0e05da035c8aad454de78c676`. Hosted QA run 43203898395 passed |
-| B2 review | `chatgpt/b2-composite-margin` | #37 merged `8c0fc17` | `f54d5c2` | merged while A3 was open. This session had not APPROVE'd `f54d5c2`: the body still said the author's full gate was running. Hosted QA on that SHA was green. Math note on the older SHA `58fffd3` was not an approval | not an approval of `f54d5c2` |
-| B4 review | `chatgpt/b4-night-log` | #36 draft | `f9447e1` | changes needed. Does not contain latest `build3`. No author gate | not run |
+| B1 review | `chatgpt/b1-remove-safety` | #35 merged `bc4762a` | reviewed `0488ea2` | merged. Do not merge again | 2026-11-12 exact `0488ea2`: 94 suites / 2372 checks, 803.5 s; layout 1192; smoke 370; standalone `9a2ceea9c5c390310775da133eccf3c2299402c0e05da035c8aad454de78c676`. Hosted QA run 43203898395 passed |
+| B2 review | `chatgpt/b2-composite-margin` | #37 merged `8c0fc17` | `f54d5c2` | merged. Formula check is the comment on #37. Not reopened here | not re-run |
+| B4 review | `chatgpt/b4-night-log` | #36 draft | `f9447e1` | still a draft. Not reviewed this pass | not run |
 
 ## Next
 
-Fix the NAV-1 review on this commit: keyboard entry into a filtered list, the main-guide tab sentence, reprinted Functions and Installation PDFs, and the inventory-only screen-name guard. Run the full gate, including `npm ci`, on this exact head. Put that receipt in the #38 body and do not add a status-only child. Do not merge #38. Leave draft #39 parked until #38 merges, then ordinary-merge `build3` into A2 and re-gate it. A4 waits. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. No APK.
+This commit only records the full gate on `265c8f6` (NAV-1 merged into thermal CNR). Mark #39 ready after that same style of gate is recorded for this commit in the pull request body. Do not merge #39. Then A4. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. #36 is still a draft. No APK.
 
 ## Blocked
 

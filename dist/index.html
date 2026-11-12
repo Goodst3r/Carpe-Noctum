@@ -4952,7 +4952,7 @@ const TrainingJob=(()=>{
   ['arithmetic','Show custom-data arithmetic','route','r1','Expand Show the arithmetic. Custom cable is already at actual temperature, so its factor is 1; do not apply the published-cable temperature correction again. Cable uses square-root-frequency interpolation and passive/launch tables use linear MHz interpolation.'],
   ['tdr','Reverse TDR with a mismatched VF','tdr','','Start at the cable-only end at 200 ft and test toward the source. 100 ft displayed × 0.88 actual VF ÷ 0.80 meter VF − 25 ft physical lead = 85 ft of path. Route coordinate is 200 − 85 = 115 ft, 15 ft into the second span. All VF inputs are synthetic.'],
   ['frequency','Exact frequency overrides','frequency','','At 261 MHz the separate checker uses 100 ft × 1 dB/100 ft plus one 1 dB passive = 2 dB; 34 − 2 = 32 dBmV. Exact cable losses are already at temperature. Blank overrides use available references; missing values remain unavailable.'],
-  ['calculators','Quick calculations with source tags','calculators','','Open Tools → Calculators and type these synthetic inputs. Ripple peaks 6 MHz apart on 0.87 VP cable put the two mismatches about 71.3 ft apart. With the main tap at 8, tap 9 at 5.12 Msym/s and VP 0.87 puts two mismatches about 83.6 ft apart (41.8–125.3 ft); that is a spacing, not the distance from the modem. On OFDM power, set Conversion basis to Confirmed basis below only after confirming flat PSD, both widths in MHz and bandwidth restatement only. 42 dBmV per 6 MHz restated over 192 MHz is 57.0515 dBmV. Try 48 dBmV measured in 1.6 MHz and Restate over bandwidth (MHz) 6.4: 54.0206 dBmV, a +6.02060 dB change. For the reverse, set Measured in (MHz) to 6.4 MHz and restate 54 dBmV over 1.6 MHz: 47.9794 dBmV, a −6.02060 dB change. These restatements do not determine instantaneous OFDMA total or available transmit headroom. On Power sum, add 40, 37 and 34 dBmV: about 42.44 dBmV, uncorrelated only. Eight equal carriers at 40 dBmV are about 49.03 dBmV. A 10 dBmV total with 0 dBmV of noise leaves a signal of about 9.54 dBmV. In Pad / EQ balance, choose GainMaker HGD GaAs, pilots 54 / 860 MHz, readings 36.4 / 49.6 dBmV, targets 39 / 49 dBmV, installed pad 6 dB and EQ 9 dB: the card suggests EQ 4.5 dB and pad 7 dB, from the published Cisco EQ loss chart. Tap each Spec or Expert tag to see the source and its limits. Calculator inputs are not saved with the job.'],
+  ['calculators','Quick calculations with source tags','calculators','','Open Tools → Calculators and type these synthetic inputs. Ripple peaks 6 MHz apart on 0.87 VP cable put the two mismatches about 71.3 ft apart. With the main tap at 8, tap 9 at 5.12 Msym/s and VP 0.87 puts two mismatches about 83.6 ft apart (41.8–125.3 ft); that is a spacing, not the distance from the modem. On OFDM power, set Conversion basis to Confirmed basis below only after confirming flat PSD, both widths in MHz and bandwidth restatement only. 42 dBmV per 6 MHz restated over 192 MHz is 57.0515 dBmV. Try 48 dBmV measured in 1.6 MHz and Restate over bandwidth (MHz) 6.4: 54.0206 dBmV, a +6.02060 dB change. For the reverse, set Measured in (MHz) to 6.4 MHz and restate 54 dBmV over 1.6 MHz: 47.9794 dBmV, a −6.02060 dB change. These restatements do not determine instantaneous OFDMA total or available transmit headroom. On Power sum, add 40, 37 and 34 dBmV: about 42.44 dBmV, uncorrelated only. Eight equal carriers at 40 dBmV are about 49.03 dBmV. A 10 dBmV total with 0 dBmV of noise leaves a signal of about 9.54 dBmV. On Thermal CNR, bandwidth 6400000 Hz, carrier input 15 dBmV, noise figure 8 dB, 10 equal contributions and optical CNR 45 dB combine to about 44.50 dB. In Pad / EQ balance, choose GainMaker HGD GaAs, pilots 54 / 860 MHz, readings 36.4 / 49.6 dBmV, targets 39 / 49 dBmV, installed pad 6 dB and EQ 9 dB: the card suggests EQ 4.5 dB and pad 7 dB, from the published Cisco EQ loss chart. Tap each Spec or Expert tag to see the source and its limits. Calculator inputs are not saved with the job.'],
   ['limits','Check a limit and its source','limits','','Open Tools → Limits and filter by Company. This practice job’s profile 1200 holds synthetic criteria, so they show values. In a new blank job the same entries show Unknown until someone enters them, and an entered 0 stays 0. Your built-in 31 dBmV at 54 MHz / 43 dBmV at 860 MHz and separate 38 dBmV TX reference are listed on their own. Filter by Unknown to see the two built-in approximations whose sources are not verified. Nothing here approves criteria.'],
   ['grading','Grade an invented sweep original','evidence','','Use Field → ONX files. Create a clearly labeled SYNTHETIC CSV with frequency_mhz,level_dbmv and rows 270,0; 390,2.5; 510,0 (one row per line), then attach as Sweep. Open Grading aid, explicitly choose the practice plant and direction, and enter exact markers 270 / 510 MHz and an illustrative 3 dB peak-to-valley limit. All criteria start blank; leave level targets and tilt criteria unknown for this step. Grade selected sweep reports 2.5 dB PTV, with the other checks unknown. This is raw unreferenced PTV, not normalized ripple or official acceptance. Save a project backup and verify the original and historical grading snapshot survive restore.'],
   ['docsis','Check modem levels against the spec','docsisHealth','','Open Tools → DOCSIS health. Type 16 for the SC-QAM channel level: it is 1.0 dB above the −15 to +15 dBmV per 6 MHz range the modem must accept. Type 3.2 and it sits 11.8 dB inside. On the OFDM card set Measured over to 24 MHz and type −8: 1.0 dB inside the −9 to +21 range. Set the total-power card to a DOCSIS 3.1 modem and type 40 for total input power: it is at the limit, because the limit is strictly below 40 (33 for a 3.0-only modem, which you must choose first). On Upstream composite margin to Pmax, set How the modem is working to DOCSIS 3.1 CM + CMTS, MTC enabled. Set Total and reference basis to Confirmed basis below only for a genuine simultaneous total at the CM F-connector and a known applicable comparable total reference. Type 52 for the synthetic simultaneous total and leave Pmax blank: +13.0000 dB, below the explicitly assumed 65 dBmV Spec minimum/default reference; actual modem capability stays Unknown. Type 65 for the total: 0.00000 dB, neutral. Type 66: −1.00000 dB, over the reference. A normalized or per-channel reading is not a simultaneous total. Available per-channel/DRW headroom, channel count, channel width and future full-grant capability remain Unknown; another declared mode gives a generic entered-reference comparison and does not certify DOCSIS 3.0/compatibility per-channel compliance. Each result says Unknown for your company window until you enter one; the spec range is what a modem must accept, not a target. All readings are synthetic.'],
@@ -5025,7 +5025,7 @@ const TrainingJob=(()=>{
   ['return-injection','Return injection and receiver records','Job','complete','records','records','40 + 20 + 1 = 61 dBmV budget; distinct receiver-plane planning record.'],
   ['evidence-comparison','Before / after evidence comparison','Job','complete','files','evidence','Sweep and Ingress before/after CSV pairs contain different synthetic responses.'],
   ['backup-roundtrip','Portable backup and recovery','Start and finish','complete','backup','home','Project export includes all six originals, practice provenance and reviewed steps.'],
-  ['calculators','Field calculators and source tags','Test','custom-curves','calculators','calculators','The guide step lists synthetic ripple, pre-EQ, confirmed flat-PSD bandwidth restatement, power-sum and echo inputs; each formula shows its source tag. Bandwidth restatement does not establish instantaneous OFDMA total or available transmit headroom.'],
+  ['calculators','Field calculators and source tags','Test','custom-curves','calculators','calculators','The guide step lists synthetic ripple, pre-EQ, confirmed flat-PSD bandwidth restatement, power-sum, thermal CNR and echo inputs; each formula shows its source tag. Bandwidth restatement does not establish instantaneous OFDMA total or available transmit headroom.'],
   ['limits','Limits, labels and sources','Test','custom-curves','limits','limits','Synthetic profile criteria, the built-in local preset and unverified approximations, each with its label and source.'],
   ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream range checks and a signed upstream composite margin to a confirmed comparable reference. Blank Pmax is an assumed Spec minimum/default only in declared 3.1 MTC mode; actual capability and per-channel/DRW headroom stay Unknown. Company windows start unknown.'],
   ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.'],
@@ -5452,6 +5452,11 @@ const Thresholds=(()=>{
    conditions:'Uncorrelated contributions only, one impedance and one measurement plane, with compatible bandwidths. Negative dBmV values are valid. There is no coherent (voltage) addition. A blank is unknown, not zero, and an invalid row is not dropped. Noise subtraction refuses a total at or below the noise and does not clamp a negative residual. SNR, when shown, is signal minus noise. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.',date:'2026-11-12',scope:'all',verification:'derived',usedBy:'Tools → Calculators: power sum'},
   {id:'calc.power.minCount',label:'unknown',name:'Power sum: minimum contributions to add',kind:'limit',units:'levels',value:2,source:'Application policy in the written calculator check, not an RF rating',revision:'handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026',locator:'night-sweep/field-calcs.js powerSum power_add',conditions:'General add requires at least two populated contributions. One equal carrier (N = 1) is allowed and returns that carrier. Unknown application policy.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Tools → Calculators: power sum'},
   {id:'calc.power.safeCount',label:'unknown',name:'Power sum: largest carrier count',kind:'limit',units:'count',value:9007199254740991,source:'ECMAScript Number.MAX_SAFE_INTEGER',revision:'ECMA-262, Number.MAX_SAFE_INTEGER',locator:'https://tc39.es/ecma262/#sec-number.max_safe_integer; night-sweep/field-calcs.js carrierCount',conditions:'A software representation ceiling, not an RF rating. Counts above it, and counts that are not positive whole numbers, are refused.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Tools → Calculators: power sum'},
+  {id:'calc.cascade.cnr',label:'expert',name:'Thermal noise floor and CNR',kind:'formula',units:'dB',formula:'Ln = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))',
+   source:'Expert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this row',revision:'handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026',locator:'handoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.json',
+   conditions:'Equivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.',date:'2026-11-12',scope:'all',verification:'derived',usedBy:'Tools → Calculators: thermal CNR'},
+  {id:'calc.cascade.minContributions',label:'unknown',name:'Thermal CNR: minimum CNR values to combine',kind:'limit',units:'values',value:1,source:'Application policy in the written calculator check, not an RF rating',revision:'handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026',locator:'night-sweep/field-calcs.js cascade combine_cnr',conditions:'A CNR combination needs at least one defined contribution. An empty list is refused. One value is returned unchanged. Unknown application policy.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Tools → Calculators: thermal CNR'},
+  {id:'calc.cascade.safeCount',label:'unknown',name:'Thermal CNR: largest contribution count',kind:'limit',units:'count',value:9007199254740991,source:'ECMAScript Number.MAX_SAFE_INTEGER',revision:'ECMA-262, Number.MAX_SAFE_INTEGER',locator:'https://tc39.es/ecma262/#sec-number.max_safe_integer; night-sweep/field-calcs.js contributionCount',conditions:'A software representation ceiling, not an RF rating. Counts above it, and counts that are not positive whole numbers, are refused.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Tools → Calculators: thermal CNR'},
   {id:'docsis.ds.scqam.range',label:'spec',name:'Downstream SC-QAM channel level at the cable modem',kind:'limit',units:'dBmV per 6 MHz channel',rangeText:'−15 to +15 dBmV per 6 MHz channel',
    source:'CableLabs CM-SP-PHYv3.0, DOCSIS 3.0 Physical Layer Specification, Downstream Electrical Input to CM; CM-SP-PHYv3.1 section 6.4.2 applies it to DOCSIS 3.1 modems',revision:'PHYv3.0 C01 (December 7, 2017); PHYv3.1 I20 (April 19, 2023)',locator:'PHYv3.0 C01 section 6.3.2, Table 6–22, row “Level Range (one DOCSIS channel)” (p. 100); PHYv3.1 I20 section 6.4.2 (p. 43)',
    conditions:'North American 6 MHz channels, 64-QAM and 256-QAM, at the modem F connector. A capability limit: the levels a modem must accept. It is not an operating target and says nothing about error rate. The EuroDOCSIS 8 MHz ranges are different and are not used here.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Tools → DOCSIS health'},
@@ -6037,7 +6042,119 @@ const FieldCalc=(()=>{
   }
   return fail('Choose add, equal carriers, or signal minus noise.');
  }
- return {C_FT_PER_US,C_FT_PER_NS,UNITS,IMPEDANCES,SYMBOL_RATES,velocity,convertLevel,rippleDistance,preEqDistance,ofdmPower,echoDelay,powerSum};
+ /* Matched thermal noise and CNR. Fixed 290 K and 75 Ω. No CTB, CSO, MER or Friis chain. */
+ const K_B=1.380649e-23,T_REF=290,R_MATCH=75;
+ function decimalText(raw,blank,incomplete,nonfinite){
+  if(raw===null||raw===undefined)return fail(blank);
+  const s=String(raw).trim();
+  if(s==='')return fail(blank);
+  if(/^[+-]$/.test(s)||/e$/i.test(s)||/e[+-]$/i.test(s))return fail(incomplete);
+  if(/^(?:[+-]?infinity|nan)$/i.test(s))return fail(nonfinite);
+  if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(s))return fail(nonfinite);
+  const n=Number(s);
+  if(!Number.isFinite(n))return fail(nonfinite);
+  return {ok:true,value:n};
+ }
+ function contributionCount(raw){
+  if(raw===null||raw===undefined||String(raw).trim()==='')return fail('Contribution count must be a safe positive integer.');
+  const s=String(raw).trim();
+  if(!/^\d+$/.test(s))return fail('Contribution count must be a safe positive integer.');
+  const digits=s.replace(/^0+/,'')||'0',max='9007199254740991';
+  if(digits.length>max.length||(digits.length===max.length&&digits>max))return fail('Count exceeds safe-integer representation.');
+  const n=Number(digits);
+  if(!Number.isSafeInteger(n)||n<1)return fail('Contribution count must be a safe positive integer.');
+  return {ok:true,value:n};
+ }
+ function noiseBandwidth(raw){
+  if(raw===null||raw===undefined||String(raw).trim()==='')return fail('Enter the equivalent noise bandwidth; blank is unknown.');
+  const s=String(raw).trim();
+  if(/^unknown$/i.test(s))return fail('Noise bandwidth/convention is required.');
+  if(/^(?:[+-]?infinity|nan)$/i.test(s))return fail('Use finite equivalent noise bandwidth.');
+  const n=decimalText(s,'Enter the equivalent noise bandwidth; blank is unknown.','Complete the numeric noise bandwidth.','Noise bandwidth/convention is required.');
+  if(!n.ok)return n;
+  if(!Number.isFinite(n.value))return fail('Use finite equivalent noise bandwidth.');
+  if(!(n.value>0))return fail('Noise bandwidth must be greater than zero.');
+  return n;
+ }
+ function noiseFigure(raw){
+  const n=decimalText(raw,'NF is unknown; use an applicable sourced model input.','Complete the numeric noise figure.','Complete the numeric noise figure.');
+  if(!n.ok)return n;
+  if(n.value<0)return fail('Negative NF is outside this narrowed conventional matched-amplifier model.');
+  return n;
+ }
+ function cnrList(values){
+  let peak=values[0];
+  for(const v of values)if(v<peak)peak=v;
+  let mins=0,extra=0;
+  for(const v of values){if(v===peak)mins++;else extra+=10**(-(v-peak)/10);}
+  const combined=peak-(10/Math.log(10))*Math.log1p((mins-1)+extra);
+  return Number.isFinite(combined)?combined:null;
+ }
+ function cascadeGuards(input){
+  if(input.operation==='CTB_CSO_plant_health')return fail('CTB/CSO plant-health predictions are outside this thermal/CNR approval.');
+  if(input.formula==='k_Tsource_B_times_unchanged_F')return fail('Use equivalent noise temperature or keep the source at the NF reference; this temperature substitution is not the approved model.');
+  if(input.source_K!==undefined&&String(input.source_K).trim()!=='290')return fail('Use equivalent noise temperature or keep the source at the NF reference; this temperature substitution is not the approved model.');
+  if(input.source_reference_K!==undefined&&String(input.source_reference_K).trim()!=='290')return fail('Use equivalent noise temperature or keep the source at the NF reference; this temperature substitution is not the approved model.');
+  if(input.Rsource_ohm!==undefined||input.Rload_ohm!==undefined){
+   const rs=input.Rsource_ohm,rl=input.Rload_ohm;
+   if(rs===undefined||rl===undefined||String(rs).trim()!==String(rl).trim())return fail('This model requires a declared matched impedance, not mismatched source/load values.');
+  }
+  if(input.load_ohm!==undefined&&String(input.load_ohm).trim()!=='75')return fail('This model requires a declared matched impedance, not mismatched source/load values.');
+  if(Object.prototype.hasOwnProperty.call(input,'equal_receiver_referred_noise')&&input.equal_receiver_referred_noise!==true)return fail('Stage count alone does not establish equal receiver-referred noise.');
+  if(Object.prototype.hasOwnProperty.call(input,'return_leg_gains_losses')&&input.return_leg_gains_losses!==true)return fail('Refer/weight return-leg noise at the receiver before using the equal-contribution shortcut.');
+  if(input.NF_datasheet_conditions_match===false)return fail('Use an NF input applicable to the actual frequency/configuration.');
+  return null;
+ }
+ function combineCnr(input){
+  if(Array.isArray(input.kinds)&&input.kinds.some(k=>String(k).toUpperCase()==='MER'))return fail('MER is not an independent thermal CNR contribution.');
+  if(input.correlation==='common_ingress')return fail('Correlated ingress is outside this independent thermal-noise model.');
+  if(Array.isArray(input.contributions)&&input.contributions.some(k=>k==='cumulative_chain'||k==='constituent_of_chain'))return fail('Do not count a cumulative segment and its constituent noise twice.');
+  const unknown=list=>Array.isArray(list)&&list.some(x=>String(x).trim().toLowerCase()==='unknown');
+  if(unknown(input.bandwidths)||(Array.isArray(input.bandwidths)&&new Set(input.bandwidths.map(String)).size>1))return fail('Normalize the same desired carrier, plane and noise bandwidth first.');
+  if(unknown(input.measurement_planes)||(Array.isArray(input.measurement_planes)&&new Set(input.measurement_planes.map(String)).size>1))return fail('Refer all contributions to the same desired carrier and observation plane.');
+  if(input.same_carrier_plane_and_noise_bandwidth!==true)return fail('Normalize the same desired carrier, plane and noise bandwidth first.');
+  if(input.standalone_independent_contributions!==true)return fail('Do not count a cumulative segment and its constituent noise twice.');
+  const list=input.CNR_dB;
+  if(!Array.isArray(list)||!list.length)return fail('Enter at least one defined CNR contribution before computing a finite result.');
+  const values=[];
+  for(const raw of list){
+   const p=decimalText(raw,'Enter every CNR contribution; blank is unknown, not zero.','Complete the numeric CNR.','Use finite numeric CNR.');
+   if(!p.ok)return p;
+   values.push(p.value);
+  }
+  const combined=cnrList(values);
+  if(combined===null)return fail('That calculation is not a finite number.');
+  return {ok:true,operation:'combine_cnr',combined_CNR_dB:combined};
+ }
+ function thermalChain(input){
+  const bandwidth=noiseBandwidth(input.B_Hz);if(!bandwidth.ok)return bandwidth;
+  if(input.equal_independent_receiver_referred_noise!==true)return fail('Stage count alone does not establish equal receiver-referred noise.');
+  const count=contributionCount(input.N);if(!count.ok)return count;
+  const nf=noiseFigure(input.NF_dB);if(!nf.ok)return nf;
+  const carrier=decimalText(input.input_dBmV,'Enter the carrier input; blank is unknown.','Complete the numeric carrier input.','Use finite numeric carrier input.');
+  if(!carrier.ok)return carrier;
+  const floor=10*Math.log10(K_B*T_REF*bandwidth.value*R_MATCH/1e-6);
+  const single=carrier.value-nf.value-floor;
+  const equal=single-10*Math.log10(count.value);
+  if(!Number.isFinite(floor)||!Number.isFinite(single)||!Number.isFinite(equal))return fail('That calculation is not a finite number.');
+  const result={ok:true,operation:'thermal_chain',thermal_floor_dBmV:floor,single_CNR_dB:single,equal_contributions_CNR_dB:equal};
+  if(Object.prototype.hasOwnProperty.call(input,'optical_CNR_dB')){
+   const optical=decimalText(input.optical_CNR_dB,'Enter the optical CNR or leave it out; blank is unknown.','Complete the numeric optical CNR.','Use a finite optical CNR.');
+   if(!optical.ok)return optical;
+   const combined=cnrList([equal,optical.value]);
+   if(combined===null)return fail('That calculation is not a finite number.');
+   result.combined_CNR_dB=combined;
+  }
+  return result;
+ }
+ function cascade(input){
+  if(!input||typeof input!=='object')return fail('Enter the cascade inputs.');
+  const guard=cascadeGuards(input);if(guard)return guard;
+  if(input.operation==='combine_cnr')return combineCnr(input);
+  if(input.operation==='thermal_chain')return thermalChain(input);
+  return fail('Choose a thermal chain or a CNR combination.');
+ }
+ return {C_FT_PER_US,C_FT_PER_NS,UNITS,IMPEDANCES,SYMBOL_RATES,velocity,convertLevel,rippleDistance,preEqDistance,ofdmPower,echoDelay,powerSum,cascade};
 })();
 
 const FieldCalcs=(()=>{
@@ -6069,6 +6186,13 @@ const FieldCalcs=(()=>{
  function powerFields(){
   return `<label class="calc-wide">Operation<select data-calc="power" data-field="operation"><option value="power_add">Add uncorrelated levels</option><option value="equal_carriers">N equal carriers</option><option value="subtract_noise">Signal plus noise, minus noise</option></select></label><div class="calc-wide" data-power-body data-power-op="power_add">${powerBody('power_add')}</div>`;
  }
+ function cascadeBody(op){
+  if(op==='combine_cnr')return `<div data-cascade-cnrs><label>CNR (dB)<input type="number" step="any" inputmode="decimal" data-cascade-cnr placeholder="e.g. 40"></label><label>CNR (dB)<input type="number" step="any" inputmode="decimal" data-cascade-cnr placeholder="e.g. 43"></label></div><button type="button" class="calc-add" data-cascade-add>Add another CNR</button>`;
+  return `<div class="calc-fields"><label>Noise bandwidth (Hz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="cascade" data-field="bandwidth" placeholder="e.g. 6400000"></label><label>Carrier input (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="cascade" data-field="input" placeholder="e.g. 15"></label><label>Noise figure (dB)<input type="number" min="0" step="any" inputmode="decimal" data-calc="cascade" data-field="nf" placeholder="e.g. 8"></label><label>Equal contributions<input type="number" min="1" step="1" inputmode="numeric" data-calc="cascade" data-field="count" placeholder="e.g. 10"></label><label>Optical CNR (dB)<input type="number" step="any" inputmode="decimal" data-calc="cascade" data-field="optical" placeholder="optional"></label></div>`;
+ }
+ function cascadeFields(){
+  return `<label class="calc-wide">Operation<select data-calc="cascade" data-field="operation"><option value="thermal_chain">Thermal chain</option><option value="combine_cnr">Combine CNR values</option></select></label><div class="calc-wide" data-cascade-body data-cascade-op="thermal_chain">${cascadeBody('thermal_chain')}</div>`;
+ }
  function refreshInstalled(){
   const model=document.querySelector('[data-calc="balance"][data-field="model"]')?.value||'',profile=hasAlignment()&&model?Alignment.profileFor(model):null;
   const wrap=document.querySelector('[data-balance-installed]'),source=document.querySelector('[data-balance-source]'),pad=document.querySelector('[data-calc="balance"][data-field="pad"]'),eq=document.querySelector('[data-calc="balance"][data-field="eq"]');
@@ -6091,6 +6215,7 @@ ${card('ripple','Ripple to distance','Spacing between ripple peaks on a sweep gi
 ${card('preeq','Pre-EQ tap to distance','Spacing between two mismatches from a post-main tap in an upstream pre-equalizer reading you already have. Nothing is read from a modem.',`<label>Echo tap (1–24)<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="tap" placeholder="e.g. 10"></label><label>Main tap<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="main" value="8"><span class="note">Tap 8 of 24 is typical, but the CMTS sets it. Use the numbering your tool shows.</span></label><label>Upstream symbol rate<select data-calc="preeq" data-field="rate">${FieldCalc.SYMBOL_RATES.map(r=>`<option value="${r}">${r} Msym/s</option>`).join('')}</select></label>${vpField('preeq')}`,'calc.preeq.tapDistance','pre-EQ tap distance','The result is the spacing between two impedance mismatches, not the distance from the modem or node. DOCSIS 2.0/3.0 single-carrier upstream only, not DOCSIS 3.1 OFDMA. The ±½ tap range is shown because a tap covers one symbol period.')}
 ${card('ofdm','OFDM power','Power in one bandwidth, restated over another bandwidth and per 6, 24 or 1.6 MHz.',`<label>Measured power (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="ofdm" data-field="power" placeholder="e.g. 42"></label><label>Measured in (MHz)<select data-calc="ofdm" data-field="basis"><option value="6">6 MHz</option><option value="24">24 MHz</option><option value="1.6">1.6 MHz</option><option value="6.4">6.4 MHz</option></select></label><label>Restate over bandwidth (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ofdm" data-field="occupied" placeholder="e.g. 192"></label><label class="calc-wide">Conversion basis<select data-calc="ofdm" data-field="context"><option value="">Unknown — confirm below</option><option value="confirmed">Confirmed basis below</option></select><span class="note">Flat PSD across these bandwidths; both widths are in MHz; bandwidth restatement only. This does not determine instantaneous OFDMA total or available transmit headroom.</span></label>`,'calc.ofdm.bandwidth','OFDM power','Assumes flat PSD across the requested bandwidths. A nonflat or unknown spectrum needs an actual total-power method (SCTE 270 section 30.14). For DOCSIS 3.1 downstream only, occupied bandwidth is a whole number of 6 MHz channels (24 MHz minimum), including the edge taper. This downstream convention does not exclude a 6.4 MHz upstream bandwidth restatement. '+tag('calc.ofdm.softwareBounds','converter numeric software bounds'))}
 ${card('power','Power sum','Add uncorrelated levels, N equal carriers, or take noise back out of a total. Not a coherent (voltage) sum.',powerFields(),'calc.power.sum','power sum','Same impedance, same measurement plane and a compatible bandwidth. A blank is unknown, not zero. Add needs at least two levels. The carrier count is a whole number from 1 to 9,007,199,254,740,991, a software limit and not an RF rating. Noise subtraction needs the total above the noise. When those two are close, a small reading error moves the signal a lot; this card sets no minimum gap. No company limit. It does not use 42/54 or 204/258.')}
+${card('cascade','Thermal CNR','Noise floor, one amplifier and N equal contributions, plus an optional optical CNR. Or combine CNR numbers you already have.',cascadeFields(),'calc.cascade.cnr','thermal CNR','Fixed 290 K and a matched 75 ohm load. Those are not editable. Bandwidth is the equivalent noise bandwidth in hertz, not a channel-width label. Equal contributions means the same receiver-referred noise, not the same model name. A noise figure below 0 is outside this model. A blank is unknown, not zero. The count is a whole number from 1 to 9,007,199,254,740,991, a software limit and not an RF rating. Combined CNR values must share one carrier, one plane and one noise bandwidth, and they must be independent. No CTB, CSO, MER or ordered Friis chain. No company limit. It does not use 42/54 or 204/258.')}
 ${card('balance','Pad / EQ balance','Two pilot readings and the station’s targets give the level and tilt errors, then the input EQ and pad to change.',balanceFields(),'calc.alignment.balance','pad / EQ balance','Readings and targets at the same pilots and measurement plane. Put the station in the manual or backoff state its procedure requires first; an active AGC or ALSC loop can hide the change. Re-measure after each change. Balancing on two pilots does not replace a sweep.')}
 ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a known cable length apart.',`<label>Cable length between mismatches (ft)<input type="number" min="0" step="any" inputmode="decimal" data-calc="echo" data-field="length" placeholder="e.g. 100"></label>${vpField('echo')}`,'calc.microreflection.delay','echo delay','The echo travels the length twice. Speed of light '+tag('const.speedOfLight','speed of light')+'.')}
 </div>`;
@@ -6136,6 +6261,28 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
    if(op==='subtract_noise')out(id,r,`<div class="calc-stats">${stat('Signal',six(r.signal_dBmV),'dBmV')}${stat('Signal / noise',six(r.SNR_dB),'dB')}</div><p class="note">SNR is the signal minus the noise, not the total minus the noise.</p>`);
    else out(id,r,`<div class="calc-stats">${stat('Total',six(r.level_dBmV),'dBmV')}</div><p class="note">${op==='equal_carriers'?'Equal uncorrelated carriers. N = 1 leaves the level unchanged.':'Uncorrelated power sum. Not a voltage (coherent) sum.'}</p>`);
   }
+  if(id==='cascade'){
+   const op=v.operation||'thermal_chain';
+   const body=document.querySelector('[data-cascade-body]');
+   if(body&&body.dataset.cascadeOp!==op){body.dataset.cascadeOp=op;body.innerHTML=cascadeBody(op);}
+   const unfinished=[...document.querySelectorAll('[data-cascade-body] input')].some(el=>el.validity&&el.validity.badInput);
+   if(unfinished)return out(id,{ok:false,error:'Finish the number. A half-typed value is not a blank.'});
+   let input=null;
+   if(op==='combine_cnr'){
+    const values=[...document.querySelectorAll('[data-cascade-cnr]')].map(el=>el.value);
+    while(values.length&&String(values[values.length-1]).trim()==='')values.pop();
+    if(!values.length)return out(id,{ok:false,error:null});
+    input={operation:'combine_cnr',CNR_dB:values,same_carrier_plane_and_noise_bandwidth:true,standalone_independent_contributions:true};
+   }else{
+    if(blank(v,['bandwidth','input','nf','count'])&&String(v.optical??'').trim()==='')return out(id,{ok:false,error:null});
+    input={operation:'thermal_chain',B_Hz:v.bandwidth,input_dBmV:v.input,NF_dB:v.nf,N:v.count,source_reference_K:'290',load_ohm:'75',equal_independent_receiver_referred_noise:true};
+    if(String(v.optical??'').trim()!=='')input.optical_CNR_dB=v.optical;
+   }
+   const r=FieldCalc.cascade(input);
+   if(!r.ok)return out(id,r);
+   if(op==='combine_cnr')out(id,r,`<div class="calc-stats">${stat('Combined CNR',six(r.combined_CNR_dB),'dB')}</div><p class="note">Independent CNR values, same carrier, plane and noise bandwidth. One value is unchanged.</p>`);
+   else out(id,r,`<div class="calc-stats">${stat('Noise floor',six(r.thermal_floor_dBmV),'dBmV')}${stat('One amplifier',six(r.single_CNR_dB),'dB')}${stat('N equal',six(r.equal_contributions_CNR_dB),'dB')}${r.combined_CNR_dB===undefined?'':stat('With optical',six(r.combined_CNR_dB),'dB')}</div><p class="note">290 K, 75 ohm matched load. Thermal CNR only, not MER or distortion.</p>`);
+  }
   if(id==='balance'){
    if(blank(v,['lowMHz','highMHz','measuredLow','measuredHigh','targetLow','targetHigh']))return out(id,{ok:false,error:null});
    if(!hasAlignment())return out(id,{ok:false,error:'The balance engine is unavailable in this build.'});
@@ -6166,20 +6313,29 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
   const onEdit=event=>{const t=event.target;if(!panel.contains(t))return;
    if(t.dataset.calcVpSource!==undefined){if(event.type==='change')chooseCable(t.dataset.calcVpSource,t.value);return;}
    if(t.dataset.powerLevel!==undefined){update('power');return;}
+   if(t.dataset.cascadeCnr!==undefined){update('cascade');return;}
    if(t.dataset.calc==='balance'&&t.dataset.field==='model'&&event.type==='change')refreshInstalled();
    if(t.dataset.calc){if(t.dataset.field==='vp'&&event.type==='input'){const source=panel.querySelector(`[data-calc-vp-source="${t.dataset.calc}"]`),cable=vpCables().find(c=>c.id===source?.value);if(cable&&Number(t.value)!==Number(cable.nvpPercent)/100){source.value='';const note=panel.querySelector(`[data-calc-vp-note="${t.dataset.calc}"]`);if(note)note.textContent='Entered VP.';}}update(t.dataset.calc);}
   };
   panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
   panel.addEventListener('click',event=>{
-   const button=event.target.closest('[data-power-add]');
-   if(!button||!panel.contains(button))return;
-   const box=panel.querySelector('[data-power-levels]');
+   const powerButton=event.target.closest('[data-power-add]');
+   if(powerButton&&panel.contains(powerButton)){
+    const box=panel.querySelector('[data-power-levels]');
+    const label=document.createElement('label');
+    label.innerHTML='Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="dBmV">';
+    box.appendChild(label);
+    return;
+   }
+   const cnrButton=event.target.closest('[data-cascade-add]');
+   if(!cnrButton||!panel.contains(cnrButton))return;
+   const box=panel.querySelector('[data-cascade-cnrs]');
    const label=document.createElement('label');
-   label.innerHTML='Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="dBmV">';
+   label.innerHTML='CNR (dB)<input type="number" step="any" inputmode="decimal" data-cascade-cnr placeholder="dB">';
    box.appendChild(label);
   });
   refreshInstalled();
-  ['db','ripple','preeq','ofdm','power','balance','echo'].forEach(update);
+  ['db','ripple','preeq','ofdm','power','cascade','balance','echo'].forEach(update);
  }
  return {init,update,markup};
 })();
@@ -8872,6 +9028,6 @@ const PowerPMUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"bf2faf5c76375cc0bad8","worker":"sw.bf2faf5c76375cc0bad8.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"4f6ea3fefd49301eaf6e","worker":"sw.4f6ea3fefd49301eaf6e.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

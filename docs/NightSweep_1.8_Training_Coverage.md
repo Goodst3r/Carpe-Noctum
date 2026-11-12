@@ -37,7 +37,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Tools → Frequency | Complete, custom curves | Exact-frequency loss budget, table interpolation and unavailable ranges |
 | Field → Readings | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
 | Tools → References | Complete, OEM AGC, DSIM | Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates |
-| Tools → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum and echo delay, each with its source tag (2.0 Alpha build 3) |
+| Tools → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum, thermal CNR and echo delay, each with its source tag (2.0 Alpha build 3) |
 | Field → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |
 | Tools → Limits | Custom curves | Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3) |
 | Tools → DOCSIS health | Custom curves | Synthetic downstream capability comparisons and upstream composite margin to a declared comparable total reference; company windows start Unknown (2.0 Alpha build 3) |
