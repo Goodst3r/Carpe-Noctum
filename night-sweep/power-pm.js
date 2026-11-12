@@ -81,7 +81,8 @@ const PowerPM=(()=>{
  /* Export and import of the device-only notebook (so it survives the uninstall that a new-key APK needs).
     Import is all-or-nothing: one bad field refuses the whole file and nothing on the device changes. */
  const FILE_KIND='carpe-noctum-supply-pm-notebook';
- const MAX_FILE_BYTES=2*1024*1024;
+ const MAX_FILE_BYTES=10*1024*1024;
+ const MAX_SPANS_IMPORTED=1000; /* The screen has never capped spans per visit, so a saved notebook can hold more than the 40 one chain keeps. Import must take back anything the app could save. */
  const isObj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
  function optNum(value,label){
   if(value===''||value===undefined||value===null)return {ok:true,value:''};
@@ -126,7 +127,7 @@ const PowerPM=(()=>{
    out.batteries.push({slot:b.slot,volts});
   }
   const spans=v.spans===undefined?[]:v.spans;
-  if(!Array.isArray(spans)||spans.length>40)return fail(where+': too many spans in one visit.');
+  if(!Array.isArray(spans)||spans.length>MAX_SPANS_IMPORTED)return fail(where+': too many spans in one visit.');
   out.spans=[];
   for(const span of spans){const r=cleanSpan(span,where);if(!r.ok)return r;out.spans.push(r.value);}
   return {ok:true,value:out};
@@ -134,7 +135,7 @@ const PowerPM=(()=>{
  /* Turns file text into clean supplies with fresh ids, or says why not. */
  function parseExport(text,newId){
   if(typeof text!=='string'||!text.trim())return fail('The file is empty.');
-  if(text.length>MAX_FILE_BYTES)return fail('The file is larger than 2 MiB, so it is not a Supply PM notebook from this app.');
+  if(text.length>MAX_FILE_BYTES)return fail('The file is larger than 10 MiB, so it is not a Supply PM notebook from this app.');
   let data;try{data=JSON.parse(text);}catch(_){return fail('The file is not readable as a Supply PM notebook.');}
   if(!isObj(data)||data.kind!==FILE_KIND)return fail('This file is not a Supply PM notebook exported from this app.');
   if(data.version!==1)return fail('This notebook file has a version this app does not know.');
@@ -154,7 +155,10 @@ const PowerPM=(()=>{
  function exportText(supplies){
   return JSON.stringify({kind:FILE_KIND,version:1,note:'Personal Supply PM notebook from one device. It is not a company power record.',supplies:supplies.map(s=>({name:s.name,visits:s.visits}))},null,1);
  }
- const sameContent=(a,b)=>a.name===b.name&&JSON.stringify(a.visits.map(({id,...rest})=>rest))===JSON.stringify(b.visits.map(({id,...rest})=>rest));
+ /* Compare what was recorded, not how the object keys happen to be ordered. Visit order and reading order still matter. */
+ const canon=v=>Array.isArray(v)?v.map(canon):(v!==null&&typeof v==='object')?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
+ const stripIds=visits=>visits.map(({id,...rest})=>rest);
+ const sameContent=(a,b)=>a.name===b.name&&JSON.stringify(canon(stripIds(a.visits)))===JSON.stringify(canon(stripIds(b.visits)));
  /* Adds imported supplies the device does not already have. A copy that matches by name and content is skipped. */
  function mergeImport(existing,incoming){
   const out=existing.slice();let added=0,skipped=0;
@@ -169,7 +173,7 @@ const PowerPM=(()=>{
 })();
 
 const PowerPMUI=(()=>{
- const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const number=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
  const fmt=n=>{if(!Number.isFinite(n))return '';const r=Math.round(n*1000)/1000;return String(r);};
  const tag=id=>typeof Thresholds!=='undefined'?Thresholds.tag(id,'Span voltage drop'):'';
@@ -383,22 +387,26 @@ const PowerPMUI=(()=>{
   statusText='Deleted the supply notebook on this device. The job was not changed.';
   paint();
  }
- function exportNotebook(){
+ async function exportNotebook(){
   const data=read();
   if(data.blocked){statusText='This browser would not open its storage. Nothing was exported.';paint();return;}
   if(!data.supplies.length){statusText='There is no saved supply on this device, so there is nothing to export.';paint();return;}
-  const text=PowerPM.exportText(data.supplies),name='CarpeNoctum_Supply_PM_notebook.json';
+  const text=PowerPM.exportText(data.supplies),name='CarpeNoctum_Supply_PM_notebook.json',count=data.supplies.length;
+  if(text.length>PowerPM.MAX_FILE_BYTES){statusText='This notebook is larger than the 10 MiB this app can restore, so it was not exported. Nothing was changed.';paint();return;}
+  let result;
   try{
-   if(typeof download==='function')download(name,text,'application/json');
-   else if(window.BrowserFiles)window.BrowserFiles.prepare(name,text,'application/json');
+   if(typeof download==='function')result=await download(name,text,'application/json');
+   else if(window.BrowserFiles)result=await window.BrowserFiles.prepare(name,text,'application/json');
    else{statusText='This browser cannot save a file here. Nothing was exported.';paint();return;}
-   statusText='Exported '+data.supplies.length+' supply'+(data.supplies.length===1?'':'s')+'. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.';
-  }catch(err){statusText='Could not export: '+(err&&err.message?err.message:'unknown error')+'. Nothing was changed.';}
+  }catch(err){statusText='Could not export: '+(err&&err.message?err.message:'unknown error')+'. Nothing was changed.';paint();return;}
+  const state=result&&typeof result==='object'?result.status:'';
+  if(state==='error'||state==='busy'||state==='empty'||state==='aborted'||state==='cancelled'){statusText='The file was not saved ('+(result.error||state)+'). Nothing was exported. Your notebook on this device is unchanged.';paint();return;}
+  statusText='A file with '+count+(count===1?' supply':' supplies')+' was handed to your browser or device. Open your downloads or Files and check that it is there before you uninstall. This is your own notebook, not a company record.';
   paint();
  }
  async function importNotebook(file){
   if(!file)return;
-  if(file.size>PowerPM.MAX_FILE_BYTES){statusText='That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported.';paint();return;}
+  if(file.size>PowerPM.MAX_FILE_BYTES){statusText='That file is larger than 10 MiB, so it is not a Supply PM notebook from this app. Nothing was imported.';paint();return;}
   let text;try{text=await file.text();}catch(_){statusText='That file could not be read. Nothing was imported.';paint();return;}
   const parsed=PowerPM.parseExport(text,nid);
   if(!parsed.ok){statusText=parsed.error+' Nothing was imported.';paint();return;}
@@ -409,7 +417,7 @@ const PowerPMUI=(()=>{
   if(!merged.added){statusText='Nothing new to import: this device already has every supply in that file.';paint();return;}
   data.supplies=merged.supplies;
   if(!write(data)){statusText='Not imported: this device could not store the notebook. Nothing was changed.';paint();return;}
-  statusText='Imported '+merged.added+' supply'+(merged.added===1?'':'s')+(merged.skipped?' and skipped '+merged.skipped+' you already had':'')+'. Pick one from the list to see its visits.';
+  statusText='Imported '+merged.added+(merged.added===1?' supply':' supplies')+(merged.skipped?' and skipped '+merged.skipped+' you already had':'')+'. Pick one from the list to see its visits.';
   paint();
  }
  function loadSupply(id){

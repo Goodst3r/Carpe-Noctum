@@ -103,7 +103,7 @@ const visit = (over = {}) => ({ date: '2026-11-11', chemistry: 'vrla', inverter:
       'nested span value': goodFile([{ name: 'A', visits: [visit({ spans: [{ drop: { x: 1 } }] })] }]),
       'proto span key': '{"kind":"carpe-noctum-supply-pm-notebook","version":1,"supplies":[{"name":"A","visits":[{"date":"2026-11-11","spans":[{"__proto__":1}]}]}]}',
       'text instead of number': goodFile([{ name: 'A', visits: [visit({ outputVolts: 'lots' })] }]),
-      'oversized': ' '.repeat(2 * 1024 * 1024 + 1)
+      'oversized': ' '.repeat(10 * 1024 * 1024 + 1)
     };
     for (const [name, text] of Object.entries(bad)) {
       await u.importText(text);
@@ -124,11 +124,73 @@ const visit = (over = {}) => ({ date: '2026-11-11', chemistry: 'vrla', inverter:
     assert.equal(seen.size, 8); comparisons++;
   });
 
+  await check('Importing the notebook the screen just saved adds nothing (key order does not matter)', async () => {
+    const h = bootApp(); await flush(); const u = ui(h);
+    let exported = null; h.w.download = (name, text) => { exported = text; };
+    u.saveVisit('PRACTICE supply', '2026-11-11', '13.2');
+    u.click('powerPmExport'); await flush();
+    const before = stored(h);
+    await u.importText(exported);
+    assert.match(u.status(), /Nothing new to import/);
+    assert.equal(stored(h), before);
+    comparisons += 2;
+  });
+
+  await check('Imported text stays text: a markup-looking battery name or supply name creates no element and runs nothing', async () => {
+    const h = bootApp(); await flush(); const u = ui(h);
+    const evil = '<img src=x onerror=window.p=1>';
+    await u.importText(goodFile([{ name: evil, visits: [visit({ batteries: [{ slot: evil, volts: 13 }] })] }]));
+    const pick = h.d.getElementById('powerPmSupplyPick');
+    assert.equal(pick.querySelectorAll('img').length, 0);
+    pick.value = pick.options[1].value; pick.dispatchEvent(new h.w.Event('change', { bubbles: true })); await flush();
+    assert.equal(h.d.getElementById('powerPmVisits').querySelectorAll('img').length, 0);
+    assert.equal(h.d.getElementById('powerPmPanel').querySelectorAll('img').length, 0);
+    assert.equal(h.w.p, undefined);
+    assert.ok(h.d.getElementById('powerPmVisits').textContent.includes(evil), 'the literal text is shown');
+    assert.ok(pick.options[1].textContent.includes(evil));
+    assert.equal(JSON.parse(stored(h)).supplies[0].visits[0].batteries[0].slot, evil, 'the saved value is unchanged');
+    comparisons += 7;
+  });
+
+  await check('A notebook the screen could save, including 41 spans in one visit and over 2 MiB in all, exports and restores whole', async () => {
+    const h = bootApp(); await flush(); const u = ui(h);
+    const span = i => ({ cableId: 'commscope_rg6', cableLabel: 'RG6 PRACTICE ' + i, lengthFt: 1000 + i, currentA: 5, temperatureF: 68, alphaPerC: 0.004, supplyVolts: 90, drop: 5.5, atActive: 84.5, minText: 'x'.repeat(120) });
+    const spans41 = Array.from({ length: 41 }, (_, i) => span(i));
+    const many = Array.from({ length: 2 }, (_, s) => ({ id: 'pmS' + s, name: 'PRACTICE big ' + s, visits: Array.from({ length: 80 }, (_, v) => ({ id: 'v' + s + '_' + v, date: '2026-01-' + String((v % 28) + 1).padStart(2, '0'), chemistry: 'vrla', inputVolts: 120, outputVolts: 89, loadAmps: 4, inverter: 'ran', alarms: '', batteries: [{ slot: 'String A', volts: 13.1 + v / 1000 }], spans: Array.from({ length: 41 }, (_, i) => span(i)) })) }));
+    h.w.localStorage.setItem(KEY, JSON.stringify({ version: 1, supplies: many }));
+    let exported = null; h.w.download = (name, text) => { exported = text; };
+    u.click('powerPmExport'); await flush();
+    assert.ok(exported && exported.length > 2 * 1024 * 1024, 'the exported file is larger than 2 MiB: ' + (exported && exported.length));
+    const original = JSON.parse(stored(h)).supplies;
+    h.w.localStorage.removeItem(KEY);
+    await u.importText(exported);
+    assert.match(u.status(), /Imported 2 supplies/);
+    const restored = JSON.parse(stored(h)).supplies;
+    const strip = ss => ss.map(x => ({ name: x.name, visits: x.visits.map(({ id, ...r }) => r) }));
+    assert.deepEqual(strip(restored), strip(original)); assert.equal(restored[0].visits[0].spans.length, 41);
+    comparisons += 5;
+  });
+
+  await check('The export message says a file was handed over and does not claim it is safe; a refused or failed hand-off says nothing was exported', async () => {
+    const h = bootApp(); await flush(); const u = ui(h);
+    u.saveVisit('PRACTICE supply', '2026-11-11', '13.2');
+    h.w.download = () => Promise.resolve({ status: 'ready', name: 'x', size: 1 });
+    u.click('powerPmExport'); await flush(); await flush();
+    assert.match(u.status(), /handed to your browser or device/); assert.match(u.status(), /check that it is there before you uninstall/i); assert.doesNotMatch(u.status(), /^Exported/);
+    h.w.download = () => Promise.resolve({ status: 'error', error: 'blob_denied' });
+    u.click('powerPmExport'); await flush(); await flush();
+    assert.match(u.status(), /not saved/i); assert.match(u.status(), /Nothing was exported/);
+    h.w.download = () => { throw new Error('disk full'); };
+    u.click('powerPmExport'); await flush(); await flush();
+    assert.match(u.status(), /Could not export: disk full/);
+    comparisons += 6;
+  });
+
   await check('The new limit is registered and the screen says to export before uninstalling', async () => {
     const h = bootApp(); await flush();
     assert.deepEqual(h.json('Thresholds.checkRow(Thresholds.get("power.pm.file.max"))'), []);
     assert.equal(h.ev('Thresholds.get("power.pm.file.max").label'), 'unknown');
-    assert.match(h.d.getElementById('powerPmPanel').textContent, /Export the whole notebook to a file before you uninstall/);
+    assert.match(h.d.getElementById('powerPmPanel').textContent, /Export the whole notebook to a file before you uninstall/); assert.equal(h.json('Thresholds.get("power.pm.file.max").value'), 10485760);
     comparisons += 3;
   });
 
