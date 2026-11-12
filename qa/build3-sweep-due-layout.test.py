@@ -44,7 +44,7 @@ try:
             page.on('dialog', lambda dialog: dialog.accept())
             page.goto(f'http://127.0.0.1:{server.server_port}/outputs/Night_Sweep.html')
             page.evaluate(FIXTURE)
-            check(f'{width}px Sweep due visible as final Job tab', page.locator('#sweepDuePanel').is_visible() and page.locator('#taskTabs [data-task]').last.get_attribute('data-task') == 'sweepDue')
+            check(f'{width}px Sweep due visible as final Plan screen', page.locator('#sweepDuePanel').is_visible() and page.locator('#taskTabs [data-task]').last.get_attribute('data-task') == 'sweepDue')
             check(f'{width}px all named synthetic jobs/rows visible', page.locator('.sweep-due-job').count() == 3 and page.locator('[data-sweep-due-row]').count() == 21)
             check(f'{width}px 0/12/19 reminder words and colors', all(page.locator(f'.sweep-due-{color}').count() == 7 for color in ['green', 'yellow', 'red']) and all(text in page.locator('#sweepDueList').inner_text() for text in ['Before reminder window', 'Reminder window', 'Due / overdue']))
             check(f'{width}px separate sweep and balance labels/dates', page.locator('.sweep-due-event h4').all_text_contents().count('Last recorded sweep') == 21 and page.locator('.sweep-due-event h4').all_text_contents().count('Last recorded balance') == 21)

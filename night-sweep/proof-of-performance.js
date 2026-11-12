@@ -32,7 +32,7 @@ const ProofOfPerformance=(()=>{
   ])},
   {id:'digital',title:'Digital channels and leakage',items:Object.freeze([
    {id:'qam',what:'QAM channels',limit:'A system that carries video on QAM channels follows ANSI/SCTE 40 2016. Its requirements are not listed here',rule:'s605',loc:'76.605(a)',registry:null},
-   {id:'leakage',what:'Signal leakage',limit:'Measured with a half-wave dipole 3 m from the leak and limited by the table in 76.605(c); see Test → Leakage',rule:'s605',loc:'76.605(c) and 76.609(h)',registry:'leak.fcc.analog.near'}
+   {id:'leakage',what:'Signal leakage',limit:'Measured with a half-wave dipole 3 m from the leak and limited by the table in 76.605(c); see Field → Leakage',rule:'s605',loc:'76.605(c) and 76.609(h)',registry:'leak.fcc.analog.near'}
   ])},
   {id:'how',title:'How it is measured and kept',items:Object.freeze([
    {id:'noise',what:'Noise',limit:'Measured with a calibrated field-strength meter on a matched termination in successive steps over a 4 MHz band centered in the channel. One reading corrected by the ratio of 4 MHz to the meter’s noise bandwidth may be used only if it has been established that the noise level is constant within that band',rule:'s609',loc:'76.609(e)',registry:'fcc.pop.noise'},

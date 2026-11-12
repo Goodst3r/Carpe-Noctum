@@ -37,12 +37,14 @@ async function newJobWith(choice) {
 
   await check('Renamed tabs, version-free screen headers and an icon theme toggle', () => {
     ev("WorkflowUI.go('route')");
-    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Setup', 'Cable route', 'Amp gain', 'Amp / node setup', 'Catalog', 'Station']);
-    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Route');
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Details', 'Setup', 'Cable route', 'Amp gain', 'Amp / node setup', 'Predicted levels', 'Load', 'What-if', 'Supply PM', 'Sweep due']);
+    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Plan');
     ev("WorkflowUI.go('sweepSetup')");
-    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'TDR', 'Predicted levels', 'Frequency', 'Readings', 'References', 'Calculators', 'Limits', 'DOCSIS health', 'Leakage', 'Impairments', 'Fiber', 'High split', 'Why cards', 'Proof of performance', 'Study']);
-    ev("WorkflowUI.go('projects')");
-    assert([...d.querySelectorAll('#taskTabs button')].some(b => b.textContent === 'Acceptance'));
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
+    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Field');
+    ev("WorkflowUI.go('records')");
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Acceptance', 'Run sheet']);
+    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Closeout');
     const toggle = d.getElementById('themeToggle');
     assert(toggle.querySelector('svg'), 'theme icon');
     assert.match(toggle.getAttribute('aria-label'), /Switch to (Sun|Night) palette/);

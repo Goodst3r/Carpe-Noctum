@@ -180,7 +180,7 @@ const DocsisHealth=(()=>{
     browser would not store it, so it lasts until the page closes. */
  function setWindow(id,min,max,storage,plant){
   if(!MEASUREMENTS.includes(id))return fail('Unknown measurement.');
-  if(!PLANTS.includes(plant))return fail('Choose the plant (42/54 MHz or 204/258 MHz) in Test → Meter setup first. Company windows are kept separately for each plant.');
+  if(!PLANTS.includes(plant))return fail('Choose the plant (42/54 MHz or 204/258 MHz) in Field → Meter setup first. Company windows are kept separately for each plant.');
   const parsed=parseWindow(min,max);if(!parsed.ok)return parsed;
   ensureLoaded();
   let base=windows;
@@ -262,7 +262,7 @@ const DocsisHealthUI=(()=>{
   if(id==='upstream'&&v.basis==='confirmed')v.context={actualSimultaneousTotal:true,measurementPlane:'cm-f-connector',comparableReference:true,mtcEnabled:v.mode==='3.1'};
   return v;
  }
- /* The plant comes from the job: Test → Meter setup keeps one choice, 42/54 or 204/258 MHz. */
+ /* The plant comes from the job: Field → Meter setup keeps one choice, 42/54 or 204/258 MHz. */
  function plantNow(){
   try{const p=typeof SweepSetup!=='undefined'?SweepSetup.draft().selected:null;return DocsisHealth.PLANTS.includes(p)?p:null;}catch(_){return null;}
  }
@@ -301,7 +301,7 @@ const DocsisHealthUI=(()=>{
   const c=CARDS[id],w=DocsisHealth.getWindow(id,plantNow()),res=DocsisHealth.againstWindow(r.compare,w);
   const unit=id==='ofdm'?'dBmV per 6 MHz':'dBmV';
   const head=`<span>Company window ${tag(c.company,c.title+' company window')}</span>`;
-  if(res.status==='unknown')return `<div class="health-row">${head}<strong>Unknown — not entered${plantNow()?' for the '+DocsisHealth.PLANT_NAMES[plantNow()]+' plant':''}</strong></div><p class="note tight">${plantNow()?'Enter your target in the company window box below to compare.':'Choose the plant in Test → Meter setup, then enter your target in the company window box below.'}</p>`;
+  if(res.status==='unknown')return `<div class="health-row">${head}<strong>Unknown — not entered${plantNow()?' for the '+DocsisHealth.PLANT_NAMES[plantNow()]+' plant':''}</strong></div><p class="note tight">${plantNow()?'Enter your target in the company window box below to compare.':'Choose the plant in Field → Meter setup, then enter your target in the company window box below.'}</p>`;
   const range=res.min!==null&&res.max!==null?`${level(res.min)} to ${level(res.max)}`:res.min!==null?`at least ${level(res.min)}`:`at most ${level(res.max)}`;
   const line=res.status==='inside'?`<p class="health-status ok">✓ Inside your window${Number.isFinite(res.margin)?`, ${dB(res.margin)} from the nearest edge`:''}.</p>`:`<p class="health-status warn">⚠ ${dB(res.margin)} ${res.status} your window.</p>`;
   const extra=id==='ofdm'?` (reading restated: ${level(r.compare)} dBmV per 6 MHz)`:'';
@@ -331,7 +331,7 @@ const DocsisHealthUI=(()=>{
   }
   document.querySelectorAll('[data-health-plant]').forEach(el=>{el.textContent=shownPlant?'· '+DocsisHealth.PLANT_NAMES[shownPlant]+' plant':'· choose the plant first';});
  }
- /* The job's plant can change while this screen is closed (Test → Meter setup, a new or opened job). */
+ /* The job's plant can change while this screen is closed (Field → Meter setup, a new or opened job). */
  function refresh(){
   if(!document.getElementById('docsisHealthPanel')?.firstChild)return;
   syncWindowFields();DocsisHealth.MEASUREMENTS.forEach(id=>{note(id,'',false);update(id);});

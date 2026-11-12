@@ -391,7 +391,7 @@ function fakeStorage(initial = {}) {
     const x = boot(); await flush();
     const rows = x.json("Thresholds.rows.filter(r=>r.id.startsWith('checklist.')).map(r=>({id:r.id,label:r.label,value:r.value,units:r.units,source:r.source,conditions:r.conditions,usedBy:r.usedBy,kind:r.kind}))");
     assert.deepEqual(rows.map(r => [r.id, r.value, r.units]), [['checklist.items.max', 40, 'items per checklist'], ['checklist.itemText.max', 160, 'characters per item'], ['checklist.note.max', 120, 'characters per note box']]);
-    for (const r of rows) { assert.equal(r.label, 'unknown'); assert.equal(r.kind, 'limit'); assert.match(r.source, /application guard/i); assert(r.conditions.length > 60 && /not|only/i.test(r.conditions)); assert.match(r.usedBy, /^Job → Outage/); }
+    for (const r of rows) { assert.equal(r.label, 'unknown'); assert.equal(r.kind, 'limit'); assert.match(r.source, /application guard/i); assert(r.conditions.length > 60 && /not|only/i.test(r.conditions)); assert.match(r.usedBy, /^Home → Outage/); }
     assert.match(rows.find(r => r.id === 'checklist.note.max').conditions, /who was told 80/); assert.match(rows.find(r => r.id === 'checklist.note.max').conditions, /what was found and done 120/);
     // the numbers the code really enforces are the registered ones
     assert.equal(x.json('Checklist.MAX_CUSTOM'), 40); assert.equal(x.json('Checklist.MAX_TEXT'), 160); assert.equal(x.json('Checklist.MAX_NOTE'), 120);
@@ -425,9 +425,9 @@ function fakeStorage(initial = {}) {
   /* ---- The outage first-response card ---- */
   await goto(h, 'outage');
 
-  await check('Job has an Outage tab; the screen opens with the company-procedure line, says it is not the procedure, and that a supervisor review is still needed', () => {
+  await check('Home has an Outage tab; the screen opens with the company-procedure line, says it is not the procedure, and that a supervisor review is still needed', () => {
     const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs, ['Details', 'ONX files', 'Checklists', 'Outage', 'Acceptance', 'Run sheet', 'Night log', 'Sweep due']);
+    assert.deepEqual(tabs, ['Home', 'Outage']);
     const panel = h.d.getElementById('outagePanel');
     assert.equal(panel.hidden, false); assert.equal(h.d.getElementById('safetyPanel'), null);
     const policy = panel.querySelector('.check-policy');

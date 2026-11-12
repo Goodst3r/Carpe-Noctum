@@ -61,7 +61,7 @@ function numbersIn(text) {
   await check('The screen is Test → Proof of performance after Why cards, shows only there, names the four rule sections, is a reference only and says official results belong to engineering', async () => {
     await goto(h, 'projects'); assert.equal(h.d.getElementById('popPanel').hidden, true);
     await goto(h, 'pop');
-    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-4, -1), ['High split', 'Why cards', 'Proof of performance']);
+    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(9, 12), ['Why cards', 'Proof of performance', 'Study']);
     assert.equal(h.d.getElementById('popPanel').hidden, false); assert.match(h.d.getElementById('screenTitle').textContent, /FCC proof of performance/);
     const text = words(h.d.getElementById('popPanel'));
     for (const rule of ['76.601', '76.605', '76.609', '76.1704']) assert(text.includes(rule), rule);

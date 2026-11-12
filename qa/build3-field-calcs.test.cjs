@@ -83,9 +83,9 @@ let comparisons = 0;
   await check('Calculators live under Test, each card carries a resolving source tag, and the panel starts with prompts', () => {
     ev("WorkflowUI.go('calculators')");
     const tabs = [...d.querySelectorAll('#taskTabs button')].map(b => b.textContent);
-    assert.equal(tabs[tabs.indexOf('Calculators') + 1], 'Limits', 'Calculators and Limits are neighbours under Test');
+    assert.equal(tabs[tabs.indexOf('Calculators') + 1], 'Frequency', 'Calculators and Frequency are neighbours in Tools');
     assert.equal(d.querySelector('#taskTabs [aria-selected="true"]').textContent, 'Calculators');
-    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Test');
+    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Tools');
     assert.equal(d.getElementById('calculatorPanel').hidden, false);
     const cards = [...d.querySelectorAll('[data-calc-card]')].map(c => c.dataset.calcCard);
     assert.deepEqual(cards, ['db', 'ripple', 'preeq', 'ofdm', 'power', 'cascade', 'balance', 'echo']);
