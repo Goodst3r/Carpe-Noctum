@@ -126,6 +126,31 @@ A1 correction source commit: `10b4105`; latest planning/paperwork merged at `51d
 
 These are synthetic and desktop Chromium checks only. No A1 native/emulator, Safari, physical phone, meter/hardware or field test is claimed. Three minor review items are deferred: source-sheet location text can follow the saved selection after a temporary picker change; the visible last-edit paragraph refreshes on station render while stored timestamps update on every edit; unusually long heavily escaped source labels can exceed the encoded-context guard. These are recorded in the review handoff. D1–D5 are not yet complete.
 
+### A2 Night log and shift handoff — current reviewed Outage base
+
+Job → Night log keeps personal ticket/window, node/amp actions, ROC/dispatch, fuel/mileage units, as-built and next-shift notes. Explicit Add freezes both saved Station stages, raw values/results and independent balance/sweep facts; later edits never recalculate that capture. Unknown remains unknown. Customer identifiers and legacy address/lead fields are excluded; TXT and safe rectangular per-stage CSV use existing offline file preparation, and full project JSON retains exact raw/capture/original data. No new key/schema/version/package, RF formula, company default or runtime dependency. Existing200-entry guard remains Unknown. Route example preserves optional nightLog; deliberate blank windows remain unknown, partial text does not replace saved values, blur/return restores last saved text, and validated edits invalidate stale preview.
+
+Current source2690a46e51b8e20cd9841d11a1850a8de92c170c starts from public9b77213/source35f and ordinarily integrates reviewed Safetyccf and Outage3cf. Product NightLog/App/jobs/fixture/QA stays exact35f; reviewed Safety/Outage/checklist/Station stays exact3cf. All44 base feature tuples/rows survive, with Safety43/Outage44/Night log45. CURRENT runtime/guides: **28screens,45features**, complete22/six-active15/custom14/OEM8/DSIM9/manual7/GS7K10. Final guide-only corrections fixed two Coverage43→45 claims and two mirrored main Custom12→14 cells; product/QA/standalone stayed exact. Earlier guide audits did not check every table value; final2690 independently checks every current table and20 PWA hashes.
+
+Current own exact2690 verification: `python3 night-sweep/build.py`; `python3 build-pwa.py`; `GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py`; separate build3-layout and browser-smoke with the same Chromium/GIT_OPTIONAL_LOCKS. Actual **72/1534,524.9s +layout554/smoke346**, all5commands0/fresh/raw-source-equal,23:11:46–23:21:01UTC. All593 tracked/570source/23generated hashes, semantic staged/tree, README/lock and40dependencies unchanged/clean without restoration;12sealedmanifest hashes verified. Raw index cache bytes diagnostic only. App899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883; PWA7ec73c8a1fa09c798d4d. ProofSHA6b562cd16ec11260cbf55a848434d4de95ef6dfa33a3be8b82dae277f1d12ad5; manifestSHA3b5ff246bb38d282298a5be8d67d6ba45f6bfcc4cd72aaf6805c7c435fde0468. Current receipt: handoff_docs/lanes/codex-a2-validation.json; exact author Safety/Outage integration, final independent delta and current gate reports are preserved under handoff_docs/reviews/codex-night-log-*.
+
+Scoped author0c23/23, checklist37/37, registry14/14, names6/6, training11 and actual native38/107/45 remain separate from independent0c23/23+37/14, f6 audit16/MCP33 and final2690 doc audit6. Existing partial-time/preview/capture/Route-example/portable regressions remain. No counts are transferred between0c/f6/2690 merely because product bytes match. Sources: authorized A2 plan/BUILD_LIST and research/build3/NIGHT_LOG_SOURCES.md, existing Station/Jobs/App/export contracts, exact reviewed Safety/Outage source and their existing source notes; no new RF derivation or source-limit claim.
+
+Historical A2 results (superseded; not current-base totals):
+
+| Exact source/checkpoint | Historical result |
+| --- | --- |
+| d6f8bb6, code57bea9d/guide3372403, basebc69 |69/1377,473.4s +255/337|
+| b0d1643, base5588, guard provenance |70/1410,509.1s +374/340|
+| cd79a846, base5588, time/preview correction |70/1444,468.0s +374/340|
+| 3af0134 CI-only merge, base14bf |No new A2 full gate at that checkpoint; oldcd79 result retained|
+| 35f25f0, base14bf, required addendum/Route-example fix |70/1459,489.9s +374/340|
+
+Historical35f receipt and older chain are immutable at https://github.com/Goodst3r/Carpe-Noctum/blob/9b77213fe332186a142e8af2d147b6f4dccf1cfa/handoff_docs/lanes/codex-a2-validation.json . The previous receipt-path preflight refusal belongs only to the historicalcd79 phase; no current2690 collision/failure is implied. Old screen/feature/step snapshots in previous receipts are historical and do not replace CURRENT28/45/22-15-14.
+
+Known Gaps is unchanged: no Remove/Undo, blank Add consumes a slot, no implemented new-window action, existing sample/provenance classification and multiline TXT indentation remain explicit. Stored log/raw/results/dates remain exact; derived current-context TXT/CSV headers/warnings can change after Route example. The separate A1 native-input fix is PR23, not silently imported in A2. Safety/Outage still need supervisor review before coworker release. No emulator, physical phone/Safari/WebView/screen reader/native provider dialog/RF hardware/field/APK/signing/deployment result. Lane B must review/gate the final published PR17 head and merge; Lane A cannot self-merge. D1 complete; D2–D5 open.
+
+
 ## Build 3 A3 — personal sweep reminders (November 11, 2026)
 
 **Job → Sweep due** reads the installed launch node/active and route amplifiers from saved named-job Station worksheets and the current working job. The pure collector requires an explicit civil today; only the UI adapter reads the device clock. Only one uniquely matching nonempty saved job ID is overlaid by current work; copies and ambiguous identities remain separate. Missing worksheets, unreadable sources, historical binding-unconfirmed records and read-only UBT records stay visible with neutral reasons. Balance and sweep dates, validity and completed calendar-month ages are independent. This view never writes work dates or opens a saved job.

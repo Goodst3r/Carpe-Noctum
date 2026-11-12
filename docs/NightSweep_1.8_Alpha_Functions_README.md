@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 28 task screens and 45 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 46 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains six guide steps for these screens and the device-only Safety and Outage prompts, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Safety and Job → Outage add features 43 and 44; Job → Sweep due adds personal reminders and feature 45, with an interval that starts unknown.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds personal reminders and feature 46, with an interval that starts unknown.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -40,9 +40,10 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 28. [Offline use, updates and Help](#offline-use-updates-and-help)
 29. [Checked example answers](#checked-example-answers)
 30. [Station worksheet](#station-worksheet)
-31. [Sweep due](#sweep-due)
-32. [45-feature coverage index](#45-feature-coverage-index)
-33. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+31. [Night log and shift handoff](#night-log-and-shift-handoff)
+32. [Sweep due](#sweep-due)
+33. [46-feature coverage index](#46-feature-coverage-index)
+34. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -54,7 +55,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -97,8 +98,8 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators and limit sources | 14 steps; no supplied meter captures |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety and outage first response | 14 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -389,6 +390,7 @@ What the list holds:
 - The calculator formulas and the speed of light they use.
 - Your built-in local preset: **31 dBmV at 54 MHz**, **43 dBmV at 860 MHz** and the separate **38 dBmV return TX reference** (42/54 plant).
 - This job's project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX reference of the 42/54 workflow. The 204/258 workflow has no TX reference. Blank entries show **Unknown — not entered**; an entered 0 stays 0. New jobs start blank, except the 750 MHz example profile's labeled 32 / 43 dBmV launch levels. A company sheet links to the screen where you edit the value.
+- The Night-log **200 entries/job** application guard, labeled **Unknown** under **Night log application guards**. Its source is the existing `night-log.js` software bound, not an RF or company acceptance limit.
 - Two built-in approximations labeled **Unknown** because their sources are not verified: the 0.1 % per °F cable-loss temperature correction, traced only to an indexed copy of CommScope's MX0398 pocket guide, and the 0.004 per °C default power-cable resistance coefficient, which has no recorded source.
 - Three software caps of the checklist cards (Pre-work safety, and the Outage card that shares the engine), labeled **Unknown** and listed under **Checklist cards application guards**: up to **40 items** you add, **160 characters** in one item and **120 characters** in a note box (some boxes are shorter). Each has a tag beside the **Add an item** and **Notes for this job** headings. They are storage and display bounds, not safety, company or RF limits.
 
@@ -693,7 +695,24 @@ Open **Route → Station**, choose the installed node or active and select **Bef
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
-Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **15 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **16 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+
+## Night log and shift handoff
+
+**Where:** Job → Night log. **Practice:** Six active devices in series → Five-station night handoff.
+
+The **Unknown** source tag beside **Recorded entries** documents the existing **200 entries/job** application guard. The same row appears in **Test → Limits** under **Night log application guards**. This software storage/display bound is not an RF limit, equipment capability or company acceptance criterion; device storage can fill sooner.
+
+Keep personal ticket/change, node/amp label, actions, ROC/dispatch updates, gas/fuel, mileage, as-built discrepancies and next-shift/open-issues notes with this job. Keep customer names, addresses and account numbers out. Window start/end are optional typed `YYYY-MM-DDTHH:mm` device-local wall times; the zone is not recorded and blanks stay unknown. **Added** is the device timestamp when you press **Add entry**, not when the field work necessarily occurred. Enter fuel and mileage as text with your own amount, reading/distance and units; no conversion, total or reimbursement rule is assumed.
+
+Incomplete or invalid window text shows a named format message beside that field and is never saved over the previous value. Leaving the field or returning to Night log restores its saved value (blank means unknown) and explains the restoration beside the field. Enter a complete valid time to replace it, or clear the entire field deliberately to record unknown.
+
+The selector starts at **General update / no Station snapshot**. To capture readings, first save the worksheet under **Route → Station**, then explicitly select it in Night log and press **Add entry**. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit entry notes; later Station edits never refresh the capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
+
+**Generate handoff** creates a selectable full-text preview above the entry editors. Editing saved log content clears that preview and asks you to generate it again; exports always use the current saved log. **Export TXT** and **Export CSV** prepare files through the existing offline save/share path; finish the dialog and check the external file. CSV has one rectangular header, separate Before/After rows per captured entry and a blank-stage row for a general update. It retains raw values/planes/context and independent work dates alongside formatted values. Levels and derived deltas show two decimals, pilot MHz up to three; rounded zero has no sign. Formula-like text receives the existing spreadsheet-safe apostrophe prefix in CSV. Text exports exclude legacy address/lead/project-note fields and attachments.
+
+**Files → Back up project** remains the full-fidelity portable backup: exact saved text, unrounded captured results and original attachments. Restore the JSON to recover the log and both stages. For practice, manually record invented A1–A5 Station worksheets in the six-active exercise, capture each explicitly, generate the handoff and reopen TXT/CSV. The short five-station example fits the defined phone preview; longer notes can scroll without truncation. Practice exports keep the synthetic warning.
+
 
 ## Sweep due
 
@@ -717,7 +736,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 45-feature coverage index
+## 46-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -767,7 +786,8 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
 | 43 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
 | 44 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
-| 45 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
+| 45 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
+| 46 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

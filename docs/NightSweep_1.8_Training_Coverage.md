@@ -6,6 +6,8 @@ All example values and findings remain synthetic. Opening/resetting an example f
 
 ## Loadable exercises
 
+For the current 2.0 Alpha build 3 Night log branch, the library covers 29 task screens and 46 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 14, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
+
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
 | Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
@@ -13,7 +15,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 | GainMaker / DSIM | Separate 42/54 ACI DSIM lookup/manual/record path; nine steps | None |
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
-| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 15 steps | Synthetic entered teaching data |
+| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 16 steps | Synthetic entered teaching data |
 | Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders and the outage first-response prompts (added in 2.0 Alpha build 3); fourteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
@@ -100,10 +102,16 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**15 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **45 choices**, including Station, Calculators, Limits, DOCSIS health, Leakage, Safety, Outage and Sweep due.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **46 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
+
+
+### Build 3 Night log handoff practice
+
+The six-active exercise adds **Five-station night handoff** under **Job → Night log**, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 46 choices.
+
 
 ## Build 3 sweep-due practice
 
-The current source has **28 task screens**, **45 feature choices**, and **15 steps** in the six-active Vecima/AOI exercise. Its **Personal sweep reminders** step opens **Job → Sweep due**, starts with an unknown interval, and asks the technician to enter **18** only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an **Unknown / unverified app policy**; the older Hranac attribution for 18 months remains unverified.
+The current source has **29 task screens**, **46 feature choices**, and **16 steps** in the six-active Vecima/AOI exercise. Its **Personal sweep reminders** step opens **Job → Sweep due**, starts with an unknown interval, and asks the technician to enter **18** only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an **Unknown / unverified app policy**; the older Hranac attribution for 18 months remains unverified.
 
 The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **14**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.

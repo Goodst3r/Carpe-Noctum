@@ -82,6 +82,20 @@ Evidence: PR #8, the original Lane B review, handoff_docs/reviews/codex-station-
 - A separate audit found closed evidence previews still build all charts (legal 30 × 10,000-sample workload: 142.9ms/~4.59MB markup). Lazy rendering remains a separate follow-up requiring open/toggle/print review. It is not included in this CRC change.
 - No earlier correctness/nonblocking gap is implicitly closed by performance changes. Current source, methods, independent scoped reviews and final gate receipts are on PR #8 and PR #14.
 
+## A2 Night log peer-addendum dispositions (Lane A, Nov 11)
+
+Lane B's addendum to the review at de5459d required three corrections. Adjacent partial-time feedback/restoration and stale-preview invalidation were corrected at cd79a846. The follow-up reconciles the main README copies/Home complete-exercise summary with the actual guide arrays (22 complete, 15 six-active, 12 custom, 8 OEM, 9 DSIM, 7 manual and 10 GS7K); no exercise array is changed. It also fixes recommended item 5: the actual **3-tap route example** keep-list now retains an existing optional Night log exactly. Jobs without a log still have no log field. Replacing the route can still change the live historical warnings around retained captures and its example/synthetic classification; that is not a recalculation or alteration of stored capture history.
+
+The following recommended observations remain open, separately from those fixes:
+
+- **Item 4 — entry lifecycle and blank adds:** there is no Remove/Undo for a captured entry, and an all-blank general Add can consume one of the 200 slots. Entry note fields remain editable; a wrong captured worksheet is permanent within that log. The capacity message's “start another window” wording does not name an implemented window/reset control. Back up the job and use a separate new blank job when needed; no destructive history control or altered cap was added in this follow-up.
+- **Item 6 — synthetic classification:** the banner/TXT/CSV marker still follows `state.example` or the job's sample/training marker. A notes-only log on the initial sample state can therefore be labeled synthetic and archived as “Sample route”; the route-example action intentionally sets the sample flag even when a retained log originated elsewhere. This follow-up preserves data without changing the global job/provenance policy. Start real work through a new blank job and review provenance before sharing; deciding a finer capture/job-level classification remains a follow-up.
+- **Item 7 — multiline TXT:** Actions and the ROC/Fuel/Mileage/As-built text retain entered newlines in TXT without indentation of continuation lines. A continuation can visually resemble another entry or field. Review the generated note before sharing; CSV quotes multiline cells and full project JSON retains the exact strings. TXT continuation layout remains deferred.
+- **Item 8 — upstream Station badInput:** Lane B reported that a native number input's lone minus can be saved as blank by the existing Station edit path, then copied as blank by Night log. This A2 correction does not edit A1's Station module or recover input text the upstream module already discarded. The report remains an A1 follow-up; no new claim of an independent real-keyboard reproduction or closure is made here.
+
+The readonly 14px handoff preview was accepted in the review and is unchanged. No physical phone, screen reader, Safari/WebView, hardware or field verification is implied by these source/browser dispositions.
+
+
 
 ## A3 Sweep due: Lane B review dispositions (Lane A, Nov 11)
 
