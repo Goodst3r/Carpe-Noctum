@@ -1,0 +1,110 @@
+/* Wholly invented native-layout fixtures; no private meter exports are test assets. */
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const E=require('../night-sweep/evidence.js');
+const fixture=n=>fs.readFileSync(path.join(__dirname,'fixtures/viavi-synthetic',n));
+const source=n=>JSON.parse(fixture(n).toString('utf8'));
+const f=()=>source('forward.json'),r=()=>source('reverse.json');
+const forwardSeries=x=>x.testGroup.tests[0].resultGroups[0].resultSeries[0];
+const chart=x=>x.tests[0].results.data.invented_chart;
+const parse=x=>E.parseText(JSON.stringify(x),'invented.json','Sweep');
+const cases=[];let count=0,failures=0;
+const test=(name,fn)=>cases.push([name,fn]);
+const attachment=(p,pattern)=>{assert.equal(p.status,'attachment');assert.equal(p.series,undefined);if(pattern)assert.match(p.message,pattern);E.validateParse(p);};
+const badForward=(change,pattern)=>{const x=f();change(forwardSeries(x),x);attachment(parse(x),pattern);};
+const badReverse=(change,pattern)=>{const x=r();change(chart(x),x);attachment(parse(x),pattern);};
+const bytes=b=>new Uint8Array(b);
+const A=()=>require('../night-sweep/evidence-archive.js');
+const archive=(name,filename=name)=>A().parseBytes(bytes(fixture(name)),filename,'Sweep');
+const central=b=>b.indexOf(Buffer.from([0x50,0x4b,0x01,0x02]));
+const eocd=b=>b.lastIndexOf(Buffer.from([0x50,0x4b,0x05,0x06]));
+const mutateZip=async(change,pattern)=>{const b=Buffer.from(fixture('forward-stored.zip'));change(b,central(b),eocd(b));attachment(await A().parseBytes(bytes(b),'invented.zip','Sweep'),pattern);};
+
+test('Testgroup absolute sweep preserves explicit sorted values and skips empty referenced',()=>{const p=parse(f());assert.equal(p.status,'parsed');assert.deepEqual(p.series.points,[[270,12],[390,14.5],[510,13]]);assert.equal(p.series.unit,'dBmV');assert.deepEqual(p.native,{format:'viavi-testgroup',direction:'unknown',referenceState:'unreferenced',warnings:['Empty Referenced trace skipped; no response samples are available.','Sweep direction is not explicit in supported metadata.']});E.validateParse(p);});
+test('CDM2 reverse unreferenced trace preserves irregular frequency intervals',()=>{const p=parse(r());assert.equal(p.status,'parsed');assert.deepEqual(p.series.points,[[7,-3],[10,-2.5],[10.75,-1],[15,-2.25]]);assert.equal(p.series.unit,'dBmV');assert.equal(p.native.format,'viavi-cdm2');assert.equal(p.native.direction,'reverse');assert.equal(p.native.referenceState,'unreferenced');E.validateParse(p);});
+test('Neither filename nor unrelated metadata infers sweep direction',()=>{const x=r();chart(x).label='Sweep';x.workflow={label:'Forward Sweep'};const p=E.parseText(JSON.stringify(x),'reverse-sweep.json','Sweep');assert.equal(p.native.direction,'unknown');});
+test('Conflicting chart direction stays unknown',()=>{const x=r();chart(x).label='Forward Reverse Sweep';assert.equal(parse(x).native.direction,'unknown');});
+test('Chart direction requires sweep word',()=>{const x=r();chart(x).label='Reverse';assert.equal(parse(x).native.direction,'unknown');});
+test('Forward direction is explicit in CDM chart label',()=>{const x=r();chart(x).label='Forward Sweep';assert.equal(parse(x).native.direction,'forward');});
+test('Mixed recognized native envelopes reject before either trace is selected',()=>{attachment(parse({...f(),...r()}),/ambiguous|multiple.*envelope/i);});
+test('Mixed native envelopes remain ambiguous when either branch is invalid',()=>{const badF=f();forwardSeries(badF).dependent[0].values=[null,null,null];attachment(parse({...badF,...r()}),/ambiguous|multiple.*envelope/i);const badR=r();chart(badR).Unreferenced.data=[[7,null]];attachment(parse({...f(),...badR}),/ambiguous|multiple.*envelope/i);});
+test('Malformed or unsupported mixed envelope markers cannot be ignored',()=>{for(const change of [x=>x.testGroup=null,x=>x.testGroup.tests=null,x=>x.tests=null,x=>x.cdmVersion='3.0',x=>delete x.cdmVersion]){const x={...f(),...r()};change(x);attachment(parse(x),/ambiguous|multiple.*envelope/i);}});
+test('Opposing explicit enclosing test direction downgrades chart direction only',()=>{for(const [testLabel,chartLabel]of [['Forward Sweep','Reverse Sweep'],['Reverse Sweep','Forward Sweep']]){const x=r();x.tests[0].label=testLabel;chart(x).label=chartLabel;const p=parse(x);assert.equal(p.status,'parsed');assert.equal(p.native.direction,'unknown');assert.deepEqual(p.series.points,parse(r()).series.points);assert.equal(p.series.unit,'dBmV');assert.equal(p.native.referenceState,'unreferenced');assert.ok(p.native.warnings.some(w=>/direction.*conflict|conflict.*direction/i.test(w)));E.validateParse(p);}});
+test('Consistent enclosing and chart labels preserve chart direction',()=>{for(const direction of ['Forward','Reverse']){const x=r();x.tests[0].label=direction+' Sweep';chart(x).label=direction+' Sweep';const p=parse(x);assert.equal(p.native.direction,direction.toLowerCase());assert.equal(p.native.warnings,undefined);}});
+test('Unknown or unrelated enclosing labels do not invalidate chart direction',()=>{for(const label of ['Invented work order','Forward','Sweep','',null]){const x=r();x.tests[0].label=label;assert.equal(parse(x).native.direction,'reverse');}});
+test('Enclosing direction never supplies fallback for unknown chart direction',()=>{for(const label of ['Sweep','Invented chart','Forward Reverse Sweep']){const x=r();x.tests[0].label='Forward Sweep';chart(x).label=label;assert.equal(parse(x).native.direction,'unknown');}});
+test('Conflicting direction words within enclosing test remain unknown',()=>{const x=r();x.tests[0].label='Forward Reverse Sweep';const p=parse(x);assert.equal(p.status,'parsed');assert.equal(p.native.direction,'unknown');assert.deepEqual(p.series.points,parse(r()).series.points);assert.ok(p.native.warnings.some(w=>/direction.*conflict|conflict.*direction/i.test(w)));});
+test('Configuration corrections, limits and statuses never alter samples',()=>{const x=r();x.tests[0].configuration={networkConfig:{forwardTPC:{units:'dB',value:77},reverseTPC:{units:'dB',value:-23},limitPlan:{value:0}}};x.tests[0].results.status='pass';assert.deepEqual(parse(x).series.points,parse(r()).series.points);assert.doesNotMatch(JSON.stringify(parse(x)),/networkConfig|forwardTPC|limitPlan/);});
+test('Private-style arbitrary metadata is never propagated to parse results or errors',()=>{const x=f();x.testGroup.infoGroup={label:'INVENTED_PRIVATE_TOKEN'};const p=parse(x);assert.doesNotMatch(JSON.stringify(p),/INVENTED_PRIVATE_TOKEN|infoGroup/);forwardSeries(x).independent.units='INVENTED_PRIVATE_TOKEN';assert.doesNotMatch(JSON.stringify(parse(x)),/INVENTED_PRIVATE_TOKEN/);});
+test('Selected reference conflicting with Unreferenced stays unknown without corrections',()=>{const x=r();x.tests[0].results.data.invented_reference_table.tableData[0][1].value='Invented selected reference';const p=parse(x);assert.equal(p.status,'parsed');assert.equal(p.native.referenceState,'unknown');assert.deepEqual(p.series.points,parse(r()).series.points);assert.ok(p.native.warnings.length);});
+test('Explicit testgroup referenced dB samples are kept as relative response',()=>{const x=f(),s=forwardSeries(x);s.dependent[0].values=[];s.dependent[1].values=[1,-1,.5];const p=parse(x);assert.equal(p.series.unit,'dB');assert.equal(p.native.referenceState,'referenced');assert.deepEqual(p.series.points,[[270,-1],[390,.5],[510,1]]);});
+test('Two nonempty testgroup traces attach with an ambiguity reason',()=>badForward(s=>s.dependent[1].values=[0,0,0],/ambiguous|multiple/i));
+test('Two nonempty CDM traces attach with an ambiguity reason',()=>badReverse(c=>c.second={...c.Unreferenced,data:[[7,1],[15,2]]},/ambiguous|multiple/i));
+test('Two valid charts are ambiguous instead of picking the first',()=>badReverse((c,x)=>x.tests[0].results.data.second=JSON.parse(JSON.stringify(c)),/ambiguous|multiple/i));
+test('All empty traces stay attachments',()=>{badForward(s=>s.dependent[0].values=[],/empty|no .*samples/i);badReverse(c=>c.Unreferenced.data=[],/empty|no .*samples/i);});
+test('Native import requires Sweep classification',()=>{for(const kind of ['Ingress','OneCheck','other'])attachment(E.parseText(JSON.stringify(f()),'a.json',kind));});
+test('Unsupported JSON and application backup JSON remain inert attachments',()=>{for(const x of [{points:[[100,1],[200,2]]},{schema:1,state:{name:'Invented backup'}},{cdmVersion:'3.0',tests:r().tests}])attachment(parse(x),/supported|schema|version/i);});
+test('No guessed aliases for typed native structures',()=>{badForward(s=>s.independent.type='list');badForward(s=>s.id='Other');badReverse(c=>c.eType='chart');badReverse(c=>c.type='scatter');badReverse(c=>c.Unreferenced.name='Other');badReverse(c=>c.Unreferenced.dimensions=3);});
+test('Mismatched vector lengths rejected',()=>badForward(s=>s.dependent[0].values=[1,2],/length|match/i));
+test('Explicit source units required and consistent',()=>{for(const u of ['Hz','mhz','',null])badForward(s=>s.independent.units=u,/unit/i);for(const u of ['dB','dBm','',null])badForward(s=>s.dependent[0].units=u,/unit/i);badReverse(c=>c.xAxisLabel='Hz',/unit/i);badReverse(c=>c.Unreferenced.units=['MHz','dB'],/unit/i);});
+test('Native numeric strings, nulls and booleans are never coerced into readings',()=>{for(const value of ['12',null,true,false,{},[]]){badForward(s=>s.dependent[0].values[0]=value,/number|sample/i);badReverse(c=>c.Unreferenced.data[0][0]=value,/number|sample/i);}});
+test('Nonfinite JSON number and incomplete pairs rejected',()=>{attachment(E.parseText(JSON.stringify(f()).replace('[13,12,14.5]','[1e309,12,14.5]'),'a.json','Sweep'));badReverse(c=>c.Unreferenced.data[0]=[7],/pair|sample/i);badReverse(c=>c.Unreferenced.data[0]=[7,1,2],/pair|sample/i);});
+test('Duplicate frequencies and frequencies outside evidence bounds rejected',()=>{badForward(s=>s.independent.values=[270,270,390],/duplicate/i);badReverse(c=>c.Unreferenced.data[0][0]=4.9,/5.*1800|outside/i);badReverse(c=>c.Unreferenced.data[0][0]=1801,/5.*1800|outside/i);});
+test('Native sample cap and text cap enforced',()=>{badReverse(c=>c.Unreferenced.data=Array.from({length:10001},(_,i)=>[5+i/10,1]),/10000/);attachment(E.parseText(' '.repeat(E.limits.textBytes+1),'a.json','Sweep'),/2 MiB/);});
+test('One explicit native sample can preview without fabricated second point',()=>{const x=f(),s=forwardSeries(x);s.independent.values=[270];s.dependent[0].values=[12];assert.deepEqual(parse(x).series.points,[[270,12]]);});
+test('Parse does not mutate supplied source text or its encoded bytes',()=>{const b=fixture('forward.json'),copy=Buffer.from(b),text=b.toString('utf8');E.parseText(text,'a.json','Sweep');assert.equal(text,b.toString('utf8'));assert.deepEqual(b,copy);});
+test('Native descriptor remains strict and backwards compatible',()=>{E.validateParse(E.parseText('frequency_mhz,response_db\n100,0\n200,1','a.csv','Sweep'));E.validateParse({status:'attachment',message:'Retained.',native:{format:'viavi-cdm2',direction:'unknown',referenceState:'unknown'}});for(const native of [{format:'generic',direction:'unknown',referenceState:'unknown'},{format:'viavi-cdm2',direction:'return',referenceState:'unknown'},{format:'viavi-cdm2',direction:'reverse',referenceState:'pass'},{format:'viavi-cdm2',direction:'reverse',referenceState:'unknown',device:'unsafe'},{format:'viavi-cdm2',direction:'reverse',referenceState:'unknown',warnings:['x'.repeat(201)]},{format:'viavi-cdm2',direction:'reverse',referenceState:'unknown',warnings:Array(9).fill('warning')},{format:'viavi-cdm2',direction:'reverse',referenceState:'unknown',warnings:['bad\nline']}])assert.throws(()=>E.validateParse({status:'attachment',message:'Retained.',native}));});
+
+test('Persisted native parses require Sweep attachment classification',()=>{const p=parse(f());const item={id:'invented_evidence',name:'invented.json',size:100,type:'application/json',kind:'Sweep',stage:'Before',importedAt:'2000-01-01T00:00:00.000Z',sha256:'a'.repeat(64),parse:p};assert.equal(E.validateEvidence([item]),true);for(const kind of ['Ingress','OneCheck'])assert.throws(()=>E.validateEvidence([{...item,kind}]),/Sweep/);});
+
+test('Archive limits are frozen and share EvidenceCore byte caps',()=>{assert.deepEqual(A().limits,{inputBytes:E.limits.fileBytes,decodedBytes:E.limits.textBytes,entries:32});assert.equal(Object.isFrozen(A().limits),true);assert.throws(()=>{A().limits.entries=99;},TypeError);});
+test('Archive module accepts plain JSON and CSV bytes',async()=>{assert.equal((await archive('forward.json')).status,'parsed');const p=await A().parseBytes(new TextEncoder().encode('frequency_mhz,response_db\n100,0\n200,1'),'a.csv','Sweep');assert.deepEqual(p.series.points,[[100,0],[200,1]]);});
+test('Platform gzip decode handles json-1.gz without filename direction',async()=>{const p=await archive('reverse.json-1.gz');assert.equal(p.status,'parsed');assert.equal(p.native.direction,'reverse');assert.equal(p.series.points.length,4);});
+test('Python standard-library stored ZIP CRC and declared sizes validate',async()=>assert.deepEqual((await archive('forward-stored.zip')).series.points,parse(f()).series.points));
+test('ZIP ancillary payload CRC uses the independent standard check vector',async()=>{const b=Buffer.from(fixture('forward-ancillary.zip'));const check=b.indexOf(Buffer.from('123456789'));assert.ok(check>0);assert.equal((await A().parseBytes(bytes(b),'a.zip','Sweep')).status,'parsed');b[check]^=1;attachment(await A().parseBytes(bytes(b),'a.zip','Sweep'),/CRC/);});
+test('ZIP CRC checks all byte values and empty members through offset byte views',async()=>{
+ const b=fixture('forward-all-bytes.zip'),expected=parse(f());
+ for(const offset of [0,1,17]){
+  const storage=new Uint8Array(offset+b.length+13).fill(255);storage.set(b,offset);const before=Uint8Array.from(storage);
+  const p=await A().parseBytes(storage.subarray(offset,offset+b.length),'invented.zip','Sweep');
+  assert.deepEqual(p,expected);assert.deepEqual(storage,before);
+ }
+});
+test('Every byte in an ancillary all-byte payload is protected by ZIP CRC',async()=>{
+ const original=fixture('forward-all-bytes.zip'),payload=original.indexOf(Buffer.from(Array.from({length:256},(_,i)=>i)));
+ assert.ok(payload>0);
+ for(let i=0;i<256;i++){
+  const changed=Uint8Array.from(original);changed[payload+i]^=1;
+  attachment(await A().parseBytes(changed,'invented.zip','Sweep'),/CRC/);
+ }
+});
+test('Platform deflate-raw decodes Python standard-library deflated ZIP',async()=>assert.deepEqual((await archive('forward-deflated.zip')).series.points,parse(f()).series.points));
+test('ZIP data descriptors use central sizes and validate descriptor',async()=>{assert.equal((await archive('forward-descriptor.zip')).status,'parsed');const b=Buffer.from(fixture('forward-descriptor.zip'));const d=b.indexOf(Buffer.from([0x50,0x4b,0x07,0x08]));b[d+4]^=1;attachment(await A().parseBytes(bytes(b),'a.zip','Sweep'),/CRC|descriptor/i);});
+test('Unsigned ZIP data descriptor uses central-directory sizes',async()=>{const signed=Buffer.from(fixture('forward-descriptor.zip')),d=signed.indexOf(Buffer.from([0x50,0x4b,0x07,0x08]));const unsigned=Buffer.concat([signed.subarray(0,d),signed.subarray(d+4)]);const e=eocd(unsigned);unsigned.writeUInt32LE(unsigned.readUInt32LE(e+16)-4,e+16);assert.equal((await A().parseBytes(bytes(unsigned),'a.zip','Sweep')).status,'parsed');});
+test('ZIP ambiguity, traversal, entry cap and nested archives attach',async()=>{for(const n of ['multiple-json.zip','traversal.zip','too-many.zip','nested.zip'])attachment(await archive(n));});
+test('ZIP path validation rejects backslashes and absolute paths',async()=>{for(const value of [92,47])await mutateZip((b,c)=>{b[30]=value;b[c+46]=value;},/path|traversal/i);});
+test('ZIP unsupported compression and flags cannot reach samples',async()=>{await mutateZip((b,c)=>{b.writeUInt16LE(99,8);b.writeUInt16LE(99,c+10);},/compression/i);await mutateZip((b,c)=>{b.writeUInt16LE(16,6);b.writeUInt16LE(16,c+8);},/flags/i);});
+test('ZIP CRC mismatches reject instead of producing a gradeable trace',async()=>mutateZip((b,c)=>{b.writeUInt32LE(123,14);b.writeUInt32LE(123,c+16);},/CRC/i));
+test('ZIP local and central size mismatches reject',async()=>mutateZip(b=>b.writeUInt32LE(1,22),/size|local/i));
+test('ZIP declared uncompressed size must equal actual decoded size',async()=>mutateZip((b,c)=>{b.writeUInt32LE(1,22);b.writeUInt32LE(1,c+24);},/size/i));
+test('ZIP compressed size cannot cross central-directory boundary',async()=>mutateZip((b,c)=>{b.writeUInt32LE(0xffffff,18);b.writeUInt32LE(0xffffff,c+20);},/size|bounds|truncated/i));
+test('ZIP encryption rejected',async()=>mutateZip((b,c)=>{b.writeUInt16LE(1,6);b.writeUInt16LE(1,c+8);},/encrypt/i));
+test('ZIP64 rejected',async()=>mutateZip((b,c)=>b.writeUInt32LE(0xffffffff,c+24),/ZIP64/i));
+test('Multidisk ZIP rejected',async()=>mutateZip((b,c,e)=>b.writeUInt16LE(1,e+4),/disk/i));
+test('ZIP local offsets and member names must match central directory',async()=>{await mutateZip((b,c)=>b.writeUInt32LE(1,c+42),/local|header/i);await mutateZip(b=>b[30]^=1,/name|local/i);});
+test('Truncated and malformed ZIPs stay attachments',async()=>{for(const n of [0,10,50,fixture('forward-stored.zip').length-1])attachment(await A().parseBytes(bytes(fixture('forward-stored.zip').subarray(0,n)),'a.zip','Sweep'));});
+test('GZIP corruption and truncation stay attachments',async()=>{const b=Buffer.from(fixture('reverse.json-1.gz'));b[b.length-8]^=1;attachment(await A().parseBytes(bytes(b),'a.gz','Sweep'));attachment(await A().parseBytes(bytes(b.subarray(0,b.length-5)),'a.gz','Sweep'));});
+test('Decoded gzip and ZIP limits prevent compressed bombs',async()=>{attachment(await archive('bomb.json.gz'),/2 MiB|limit/i);attachment(await archive('bomb.zip'),/2 MiB|limit/i);});
+test('Streamed ZIP output is bounded even when declared decoded size lies',async()=>{const b=Buffer.from(fixture('bomb.zip')),c=central(b);b.writeUInt32LE(1,22);b.writeUInt32LE(1,c+24);attachment(await A().parseBytes(bytes(b),'a.zip','Sweep'),/2 MiB|limit/i);});
+test('Input byte limit applies before decoding',async()=>attachment(await A().parseBytes(new Uint8Array(E.limits.fileBytes+1),'a.gz','Sweep'),/8 MiB/));
+test('Fatal UTF8 rejects corrupt text instead of replacing bytes',async()=>attachment(await A().parseBytes(Uint8Array.from([0xc3,0x28]),'a.json','Sweep'),/UTF-8/i));
+test('No recursion into a gzip of another gzip',async()=>{const z=require('node:zlib');attachment(await A().parseBytes(bytes(z.gzipSync(fixture('reverse.json-1.gz'))),'a.gz','Sweep'));});
+test('Original archive bytes are untouched by decompression',async()=>{for(const n of ['forward-stored.zip','forward-deflated.zip','reverse.json-1.gz']){const b=bytes(fixture(n)),before=Uint8Array.from(b);await A().parseBytes(b,n,'Sweep');assert.deepEqual(b,before);}});
+test('ArrayBuffer input is accepted',async()=>{const b=bytes(fixture('forward.json'));assert.equal((await A().parseBytes(b.buffer,'a.json','Sweep')).status,'parsed');});
+test('Browser UMD offline exports work with native platform streams',async()=>{const ctx={EvidenceCore:E,Uint8Array,ArrayBuffer,TextDecoder,ReadableStream,DecompressionStream};vm.createContext(ctx);vm.runInContext(fs.readFileSync(require.resolve('../night-sweep/evidence-archive.js'),'utf8'),ctx);assert.equal((await ctx.EvidenceArchive.parseBytes(bytes(fixture('forward-deflated.zip')),'a.zip','Sweep')).status,'parsed');});
+test('Missing decompression preserves attachment and gives a clear reason',async()=>{const ctx={EvidenceCore:E,Uint8Array,ArrayBuffer,TextDecoder,ReadableStream};vm.createContext(ctx);vm.runInContext(fs.readFileSync(require.resolve('../night-sweep/evidence-archive.js'),'utf8'),ctx);for(const n of ['reverse.json-1.gz','forward-deflated.zip'])attachment(await ctx.EvidenceArchive.parseBytes(bytes(fixture(n)),n,'Sweep'),/decompression.*unavailable|unavailable.*decompression/i);assert.equal((await ctx.EvidenceArchive.parseBytes(bytes(fixture('forward-stored.zip')),'a.zip','Sweep')).status,'parsed');});
+test('Unavailable deflate-raw feature preserves gzip support and ZIP attachment reason',async()=>{const ctx={EvidenceCore:E,Uint8Array,ArrayBuffer,TextDecoder,ReadableStream,DecompressionStream:function(format){if(format==='deflate-raw')throw Error('Feature unavailable');return new DecompressionStream(format);}};vm.createContext(ctx);vm.runInContext(fs.readFileSync(require.resolve('../night-sweep/evidence-archive.js'),'utf8'),ctx);attachment(await ctx.EvidenceArchive.parseBytes(bytes(fixture('forward-deflated.zip')),'a.zip','Sweep'),/unavailable/i);assert.equal((await ctx.EvidenceArchive.parseBytes(bytes(fixture('reverse.json-1.gz')),'a.gz','Sweep')).status,'parsed');});
+test('Unsupported legacy files remain original attachments',async()=>attachment(await A().parseBytes(new TextEncoder().encode('arbitrary'),'a.pdf','Sweep')));
+
+(async()=>{for(const [name,fn]of cases){try{await fn();count++;console.log('PASS '+name);}catch(e){failures++;console.error('FAIL '+name+'\n'+e.stack);}}console.log('Native evidence QA: '+count+' passed, '+failures+' failed; synthetic fixtures only.');if(failures)process.exitCode=1;})();

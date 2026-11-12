@@ -1,0 +1,14 @@
+{
+  "head": "61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe",
+  "tracked_count": 680,
+  "all_tracked_unchanged_and_equal_HEAD_blobs": true,
+  "unstaged_staged_status_clean": true,
+  "original38_script_raw_json_log_sha256_unchanged": {
+    "/tmp/carpe-a4-sweepdue-delta-mcp.py": "a3759314bf63ce9e403944e131dede53f568ce8769f8cf171fd63fc995537a5f",
+    "/tmp/carpe-a4-sweepdue-delta-mcp.json": "44bbc9c5c021740d3836999e718c7f29b0155b89cc09ed414095b25419f25a6d",
+    "/tmp/carpe-a4-sweepdue-delta-mcp.log": "9976414cabb03244280e217b5bebf520ea4ce20ccc167be5f56a300731d29a79"
+  },
+  "additional_targeted_browser_checks": 14,
+  "standalone_sha256": "8caf8ff1e9ccccc701a3f8e27e88c46f8331bdf9747946ccc97d1e05bdc9cb24",
+  "pwa_index_sha256": "9cb8ed05b8ffec98bd115f76360195bb07bc3e0bc94b3247cb517072bd0db943"
+}

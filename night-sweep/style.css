@@ -125,6 +125,13 @@ html[data-theme=sun] .measured-gain{color:#255c31}
 .catalogfilter{grid-template-columns:1fr 1fr 1.5fr}.catalog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.catalog-heading .pill{flex-shrink:0}.catalogrow .source-status{font-size:12px;color:var(--muted)}.catalog-use{font-size:13px;margin-top:4px}.catalogrow .tablewrap{max-width:100%}@media(max-width:600px){.catalogfilter{grid-template-columns:1fr 1fr}.catalogfilter label:last-child{grid-column:1/-1}.catalog-heading{display:block}.catalog-heading .pill{display:inline-block;margin:6px 0}}
 
 .sweep-sheet{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.55;}
+.grading-field{min-width:0;display:flex;flex-direction:column;gap:6px;}
+.grading-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.grading-heading label{min-width:0;}
+#sweepGradingPanel .source-tag{min-height:44px;min-width:44px;}
+#sweepGradingPanel input[aria-invalid="true"]{border:3px double var(--danger,#ff8d8d);outline:2px solid currentColor;outline-offset:2px;}
+.grading-field-error{margin:4px 0;font-weight:700;overflow-wrap:anywhere;}
+.grading-field-error[hidden]{display:none;}
 
 /* Equipment setup: literal pilot codes and field touch targets. */
 #equipmentSetupPanel [data-equipment-pilot-code]{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:1.35rem;font-weight:700;letter-spacing:.08em}
