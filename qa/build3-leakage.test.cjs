@@ -124,12 +124,13 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     }
   });
 
-  await check('The Leakage tab sits under Test after DOCSIS health; its panel shows only there and the page has the five cards', async () => {
+  await check('The Leakage screen sits in Field; its panel shows only there and the page has the five cards', async () => {
     await goto(h, 'projects');
     assert.equal(h.d.getElementById('leakagePanel').hidden, true);
     await goto(h, 'leakage');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs.slice(-9, -6), ['Limits', 'DOCSIS health', 'Leakage']);
+    assert.deepEqual(tabs, ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
+    assert.equal(h.d.querySelector('#screenTitle .eyebrow').textContent, 'Field');
     assert.equal(h.d.getElementById('leakagePanel').hidden, false); assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check and log signal leakage/);
     assert.equal(h.d.querySelectorAll('#leakagePanel .leak-card').length, 5);

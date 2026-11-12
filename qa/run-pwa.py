@@ -108,6 +108,8 @@ suites=[
  ('Build 3 upstream composite margin and context refusals','build3-composite-upstream.test.cjs',r'Build3 composite upstream: (\d+) checks passed'),
  ('Build 3 rendered upstream composite margin and reference context','build3-composite-upstream-layout.test.py',r'Build3 upstream composite Chromium: (\d+) checks passed'),
  ('Build 3 headroom and bandwidth reference vectors against real functions','build3-composite-margin.test.cjs',r'Build3 composite margin: (\d+) checks passed'),
+ ('Build 3 navigation regroup','build3-nav1.test.cjs',r'Build3 navigation regroup: (\d+) checks passed'),
+ ('Build 3 filtered list keyboard entry','build3-nav1-keyboard.test.py',r'Build3 navigation keyboard: (\d+) checks passed'),
 ]
 import sys,time
 sys.path.insert(0,str(root/'qa'))

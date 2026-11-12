@@ -122,12 +122,13 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(call(h, 'nothing', {}).ok, false);
   });
 
-  await check('The DOCSIS health tab sits under Test after Limits and its panel shows only there', async () => {
+  await check('The DOCSIS health screen sits in Tools; its panel shows only there', async () => {
     await goto(h, 'projects');
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     await goto(h, 'docsisHealth');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs.slice(-10, -7), ['Calculators', 'Limits', 'DOCSIS health']);
+    assert.ok(tabs.includes('DOCSIS health'));
+    assert.equal(h.d.querySelector('#screenTitle .eyebrow').textContent, 'Tools');
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, false);
     assert.equal(h.d.getElementById('calculatorPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check DOCSIS levels/);
