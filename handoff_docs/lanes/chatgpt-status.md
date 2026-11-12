@@ -5,22 +5,24 @@ Only ChatGPT edits this file. Lane B builds, checks calculator math and reviews 
 | Item | Branch | Pull request | Head | State | Last gate (own counts, date) |
 | --- | --- | --- | --- | --- | --- |
 | B0 calculator vectors and written check | `chatgpt/calculator-math-reviews`; `chatgpt/roadmap-critique` | #31; #29 | merged as `3a7b25b`; `fdf4ea3` | merged; B0 complete | 2026-11-12, exact `b9c6cc7`: 91 suites / 2,302 checks; layout 1,054; smoke 373; all 8 commands exit 0; hosted QA `43192378275` success |
-| B1 remove Safety completely | `chatgpt/b1-remove-safety` | [#35](https://github.com/Goodst3r/Carpe-Noctum/pull/35) | `504efbf7e7dabc4776ec2310250764d8ff74c018` | prior head passed; integrating merged power-sum d631109 and rerunning exact-head gates; NAV-1 waits for merge | 2026-11-12: 92 suites / 2,303 checks, layout 1,192, smoke 370; hosted 43196063176 success; exact-head full gate clean |
-| B2 existing DOCSIS headroom wording/conversion and H1–H5 regression | `chatgpt/b2-composite-margin` | #37 draft | upstream90c6808 + ordinary integration20960df | upstream focused-green; converter implementation resumed after PR #34 merge | not run |
-| B3 ripple-search width label | not started | — | — | queued after B2; PR #34 ownership cleared | not run |
-| B4 Night log fixes, then intermittent-ingress entry | `chatgpt/b4-night-log` | #36 draft | core `1c5b3ce`; reviewed wording correction | lifecycle then ingress implemented in unique module/tests; shared integration queued after B2/B3 | focused source 30 lifecycle + 9 ingress; rendered 143 at 320–430 px; not a full gate |
-| B5 temporary-repair follow-up | `chatgpt/b5-temporary-repairs` | not opened | starts `7dfddf7` | in progress in unique FieldWork/report/tests while B4 shared files are blocked; full `field-work.js` read first | not run |
+| B1 remove Safety completely | `chatgpt/b1-remove-safety` | #35 merged | author0488ea2; mergebc4762a | merged; author post-merge gate passed; Grok0488ea2 review has npm-ci/dirty-link exceptions pending | 2026-11-12 exact0488ea2:94 suites/2,372 checks,1109.2s;layout1,192;smoke370;all8commands0/clean;host43203898395success |
+| B2 existing DOCSIS headroom wording/conversion and H1–H5 regression | `chatgpt/b2-composite-margin` | #37 merged as8c0fc17 | f54d5c2bbcf0f97f42ef87c7233012fd1a4fccab | merged by Grok after current-head independent formula review6822746263 | 2026-11-12:97 suites/2,590 checks,930.8s;layout1,236;smoke370;all8commands0/clean;host43208500661success |
+| B3 ripple-search width label | `chatgpt/b3-ripple-label` | not opened | startsbc4762a; local source changes | BLOCKED on NAV #38 file ownership; label/registry/real-test change parked | own source14 groups/1,940 independent comparisons pass after expected RED; no full gate yet |
+| B4 Night log fixes, then intermittent-ingress entry | `chatgpt/b4-night-log` | #36 draft | core `1c5b3ce`; reviewed wording correction | core complete; paused after B2/B3; NAV may update navigation labels in its module/tests before integration | focused source 30 lifecycle + 9 ingress; rendered 143 at 320–430 px; not a full gate |
+| B5 temporary-repair follow-up | `chatgpt/b5-temporary-repairs` | not opened | core435eff7 from7dfddf7 | core/review complete; paused after B4; NAV may update navigation labels in its module/report/tests | not run |
 | B6 final gate and handoff for Claude | not started | — | — | queued | not run |
 
 ## Next
 
-PR #34 power sum was independently reviewed and merged normally as `d63110942b0483f993c7d34616efebaa15b3bfcc` from approved head `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`. Report `5c95bf3`, final approval comment `6821489545`; hosted QA43200952825 success and author exact-head full gate recorded. This clears shared-file ownership. Return to B2, then B3, then finalize B4 draft36 and B5. Unique B5 core/tests are underway under the earlier ownership exception; its full field-work module was read first. No wait-log heartbeat is running.
+Review Grok NAV-1 PR #38 first. Initial b3420c9 omitted newly merged B2; current head is being repinned after its ordinary integration. Run ChatGPT's own full gate on the exact final NAV head and all checklist criteria before approving/merging. Preserve current B2 physical declarations and new suites/rows, plus Safety removal.
 
-B1 must now contain the newer integration head and get fresh author/host gates before Grok's same-head full gate/review and merge. The old504efbf result remains historical, not a gate on the integration child. No own PR is merged by ChatGPT.
+B3 source changes were made before NAV opened and pass the real impairment tests. They are now parked; NAV has exclusive access to the overlapping module, registry, guide and QA paths. ChatGPT makes no concurrent product edits there. After NAV merges, ordinary-merge latest build3 into B3, retain both navigation and Unknown app-chosen wording, rebuild/gate and open its one PR. Then B4 and B5 integrate their existing local cores. Their module/report/test paths also remain released to NAV for navigation wording only. Do not edit workflow.js or shell.html while NAV is open.
+
+PR #34 Power sum was independently reviewed and merged normally asd631109 from73b6ab4; required report/checks are preserved on own evidence branch. B2 report/checks were added there atc8e5c52; no calculator reference number was changed. No wait-log heartbeat is running.
 
 ## Blocked
 
-No current source-ownership block. B1 review/merge and both lanes' final integration remain pending. B4 capacity-Undo wording was corrected with an actual-control RED/GREEN regression; 30 lifecycle checks pass. No required instruction, critique or vector file was unreadable. No physical-device test is claimed. Exact resume remains Grok's blocked item absent the required phone checks; Supply PM export/import remains Grok A4b.
+B3: overlapping source/registry/guide/QA ownership by open NAV #38 (0 failed fix attempts; own source checks are green). B4/B5 integration also waits for NAV's relevant shared files. B1 same-head reviewer APPROVE0488ea2 is recorded, but the stated gate skipped npm ci and ended with an untracked dependency symlink; complete locked-install/clean-status receipt was requested in6822468360. Author post-merge94/2372 receipt remains distinct. No required repository document was unreadable; no physical-device test is claimed. Exact resume remains Grok's blocked item absent the required phone checks; Supply PM export/import remains Grok A4b.
 
 ## Questions for Spencer
 

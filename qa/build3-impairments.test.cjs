@@ -142,11 +142,19 @@ const title = h => h.d.getElementById('impCardTitle')?.textContent;
     f.close();
   });
 
-  await check('The search width is a registered Expert constant, unverified, with a source tag on the tool; it adds no other registry row', async () => {
+  await check('The app-chosen search width is registered Unknown with its unchanged bounds and a real source dialog', async () => {
     const row = h.json('Thresholds.rows').find(r => r.id === 'app.impairment.rippleSearchWidth');
-    assert(row); assert.equal(row.label, 'expert'); assert.equal(row.verification, 'unverified'); assert.equal(row.value, 10); assert.equal(h.json('Impairments.SEARCH_WIDTH_PERCENT'), 10);
+    assert(row); assert.equal(row.label, 'unknown'); assert.equal(row.verification, 'unverified'); assert.equal(row.value, 10); assert.equal(h.json('Impairments.SEARCH_WIDTH_PERCENT'), 10);
     assert.match(row.conditions, /not saved/); assert.equal(h.json('Thresholds.rows').filter(r => /impairment/i.test(r.id)).length, 1);
+    assert.match(row.name, /app.chosen/i); assert.match(row.conditions, /above 0.*at most 50/i);
     pick(h, 'ripple'); assert(h.d.querySelectorAll('#impairmentsPanel [data-threshold]').length >= 2, 'ripple distance and search width tags');
+    assert.match(words(h.d.querySelector('label[for="impWidth"]')), /app.chosen/i); assert.equal(h.d.getElementById('impWidth').value, '10');
+    const widthTag = h.d.querySelector('#impRipple [data-threshold="app.impairment.rippleSearchWidth"]');
+    assert.equal(widthTag.dataset.label, 'unknown'); assert.equal(widthTag.textContent.trim(), 'Unknown');
+    assert.equal(h.d.querySelector('#impRipple [data-threshold="calc.ripple.distance"]').dataset.label, 'expert', 'the distance formula keeps its separate Expert source');
+    widthTag.click(); await flush(); const sheet = h.d.querySelector('dialog.source-sheet'); assert(sheet); assert.equal(sheet.dataset.sheetFor, row.id);
+    for (const text of [row.source, row.revision, row.locator, row.conditions]) assert(sheet.textContent.includes(text), 'actual source dialog shows '+text);
+    h.ev('Thresholds.close()'); await flush(); assert.equal(h.d.querySelector('dialog.source-sheet'), null);
     for (const t of h.d.querySelectorAll('#impairmentsPanel [data-threshold]')) assert.equal(h.json(`Thresholds.matches(${JSON.stringify(t.dataset.threshold)})`), 1, t.dataset.threshold);
   });
 
