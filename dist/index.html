@@ -5024,7 +5024,7 @@ const TrainingJob=(()=>{
   ['why','Read a why card and follow its link','why','','Open Tools → Why cards. Open the decibel card (SCTE 293-1 2024): a bare dB is only ever a ratio, and a level needs a reference such as dBmV. Open the unity gain card, read why it matters and tap Field → Station to go to the screen that uses it. The cards are our own short summaries and each names the SCTE monograph to read in full. Nothing is typed or stored.'],
   ['pop','Read the FCC proof-of-performance limits','pop','','Open Tools → Proof of performance. In the second table read the visual carrier to noise row: not less than 43 dB, 76.605(b)(7). In the first table read how often the tests are made: at least twice each calendar year, no more than seven months apart, and how many points: six for a system of 1,000 to 12,500 subscribers. Every row names its rule section and has a source tag. It is a reference only; official results belong to your engineering group. Nothing is typed or stored.'],
   ['study','Answer a practice question','study','','Open Tools → Study and choose Signal types. The first question asks for a level in dBm: the answer is the dBmV reading minus 48.75 dB at 75 ohms. Type your answer and tap Check my answer; a wrong answer shows the right one with its working and a button to the calculator that does it. Tap New numbers for the same kind of question with different values. The questions are original, made from this app’s own calculators, and a score is kept for this visit only: nothing is saved.'],
-  ['powerPm','Record a supply check and a span drop','powerPm','','Open Plan → Supply PM. Type 1000 for the length, 5 for the current, 90 for the voltage at the start of the span, 68 for the temperature and 0.004 for the coefficient. The cable is P3 .625 and the active is the catalog’s GainMaker LE thermal model: the drop is 5.5 V and the voltage at the end is 84.5 V, above that model’s published minimum of 35 V. Type the name PRACTICE supply and the date 2026-11-11, add one battery at 13.2 V, then tap Save this visit. The notebook stays on this device and is not in the job backup. Tap Delete this supply before you leave. All values are synthetic.'],
+  ['powerPm','Record a supply check and a span drop','powerPm','','Open Plan → Supply PM. Type 1000 for the length, 5 for the current, 90 for the voltage at the start of the span, 68 for the temperature and 0.004 for the coefficient. The cable is P3 .625 and the active is the catalog’s GainMaker LE thermal model: the drop is 5.5 V and the voltage at the end is 84.5 V, above that model’s published minimum of 35 V. Type the name PRACTICE supply and the date 2026-11-11, add one battery at 13.2 V, then tap Save this visit. The notebook stays on this device and is not in the job backup. Tap Export notebook, check that the file was saved in your downloads or Files, then tap Delete this supply, and tap Import notebook to bring the practice supply back. Tap Delete this supply to clear it before you leave. All values are synthetic.'],
   ['help','Read the calculation methods','help','','Read how launch tables, custom loss tables, temperature, missing data, branch ports and one-way TDR distance are handled. Try the palette button in the header and run the build self-check.'],
   ['backup','Export and recover custom inputs','home','','Export this project and open its JSON backup. Verify launch, cable and passive tables plus reverse-TDR settings survive. The previous working job stays in named jobs.']
  ];
@@ -5434,6 +5434,7 @@ const Thresholds=(()=>{
   {id:'nightLog.ingress.weather.max',label:'unknown',name:'Manual weather text',kind:'limit',units:'UTF-16 code units',value:500,source:'night-log.js application text guard; not an equipment specification, company criterion or RF acceptance limit',revision:'2.0 Alpha build 3 manual intermittent ingress',locator:'night-sweep/night-log.js ingressCaps, validateIngress(), addEntry(), editIngress() and control() maxlength',conditions:'Software storage and display bound for each weather string, counted as UTF-16 code units. Weather typed by the technician, with no forecast or automatic collection. Blank remains Unknown. Not an RF precision, measurement uncertainty or company requirement.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Field → Night log → Intermittent ingress: draft and recorded fields, Add/edit and optional log import validation'},
   {id:'power.span.drop',label:'unknown',name:'Span voltage drop from catalog loop resistance',kind:'formula',units:'V',formula:'drop = current × published loop ohms per 1,000 ft × (length + slack) / 1,000 × (1 + coefficient per °C × (temperature °F − 68) × 5/9); voltage at the end = voltage at the start − drop',source:'Ohm’s law for current times resistance. The loop ohms are the cable catalog’s published value at 68 °F. The temperature factor is the same engineering approximation already used by Plan → Load (HFC.dcSegment). The coefficient is typed; 0.004 per °C is not filled in. SCTE 238 and the 2025 outside-plant powering project were not read.',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js spanDrop(); engine.js dcSegment()',conditions:'One span at a time, then the next span can start at the previous end. The active comparison uses that model’s published minimum input from the catalog and no company minimum. A cable with no published loop resistance is not calculated. Not an RF 42/54 or 204/258 value, and not an acceptance limit.',date:'2026-11-12',scope:'all',verification:'derived',usedBy:'Plan → Supply PM'},
   {id:'power.pm.supplies.max',label:'unknown',name:'Supply PM notebook: supplies kept on this device',kind:'limit',units:'supplies',value:40,source:'power-pm.js application guard; not a manufacturer specification or a company power record',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js LIMITS.supplies and saveVisit()',conditions:'Software storage bound for the personal notebook. It is not in the job and not in a project backup.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Plan → Supply PM'},
+  {id:'power.pm.file.max',label:'unknown',name:'Supply PM notebook: size of an imported notebook file',kind:'limit',units:'bytes',value:10485760,source:'power-pm.js application guard; not a manufacturer specification or a company power record',revision:'2.0 Alpha build 3 supply PM export',locator:'power-pm.js MAX_FILE_BYTES and parseExport()',conditions:'Software bound on a file the Import notebook button will read, set above what this device can store so a notebook the app saved can always be restored. A larger file is refused whole and nothing on the device changes. Import also reuses the supplies, visits, battery, name and alarm bounds above and places no separate limit on spans in a visit, because the screen never capped them; the file-size bound limits them.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Plan → Supply PM'},
   {id:'power.pm.visits.max',label:'unknown',name:'Supply PM notebook: visits per supply',kind:'limit',units:'visits',value:80,source:'power-pm.js application guard; not a manufacturer specification or a company power record',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js LIMITS.visits and saveVisit()',conditions:'Software storage bound. Battery trend is the difference between saved readings of the same string. No pass or fail voltage is supplied.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Plan → Supply PM'},
   {id:'power.pm.batteries.max',label:'unknown',name:'Supply PM notebook: battery readings per visit',kind:'limit',units:'readings',value:8,source:'power-pm.js application guard; not a battery specification',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js LIMITS.batteries and addBattery()',conditions:'Software display bound. Chemistry is only the label you pick (VRLA, lithium, other, or not recorded). No chemistry has a voltage window.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Plan → Supply PM'},
   {id:'power.pm.text.max',label:'unknown',name:'Supply PM notebook: text length',kind:'limit',units:'characters',value:160,source:'power-pm.js application guard; not a company form',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js LIMITS.name, LIMITS.alarms and LIMITS.slot',conditions:'A supply name is at most 80 characters, an alarm note at most 160 and a battery string name at most 40. Software display bound only. Do not type customer names or addresses.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Plan → Supply PM'},
@@ -8846,11 +8847,103 @@ const PowerPM=(()=>{
   if(compareMin(84.5,null).status!=='unknown')problems.push('unknown minimum invented');
   return problems;
  }
- return {KEY,SIDE,LIMITS,CHEM,INVERTER,spanDrop,chain,compareMin,cableLoop,activeMin,validDate,selfCheck};
+
+ /* Export and import of the device-only notebook (so it survives the uninstall that a new-key APK needs).
+    Import is all-or-nothing: one bad field refuses the whole file and nothing on the device changes. */
+ const FILE_KIND='carpe-noctum-supply-pm-notebook';
+ const MAX_FILE_BYTES=10*1024*1024;
+ /* The screen has never capped spans per visit, so a saved notebook can hold any number. Import takes back anything the app could save; the file-size bound is what limits it. */
+ const isObj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
+ function optNum(value,label){
+  if(value===''||value===undefined||value===null)return {ok:true,value:''};
+  const n=number(value);
+  if(n===null||n<0)return {ok:false,error:label+' is not a blank or a number of 0 or more.'};
+  return {ok:true,value:n};
+ }
+ function cleanSpan(span,where){
+  if(!isObj(span))return fail(where+': a span is not an object.');
+  const keys=Object.keys(span);
+  if(keys.length>24)return fail(where+': a span has too many fields.');
+  const out={};
+  for(const key of keys){
+   const v=span[key];
+   if(key.length>40||key==='__proto__'||key==='constructor'||key==='prototype')return fail(where+': a span field name is not allowed.');
+   if(typeof v==='number'){if(!Number.isFinite(v))return fail(where+': a span number is not finite.');out[key]=v;}
+   else if(typeof v==='string'){if(v.length>400)return fail(where+': a span text is too long.');out[key]=v;}
+   else if(typeof v==='boolean'||v===null)out[key]=v;
+   else return fail(where+': a span field holds something other than text, a number or yes/no.');
+  }
+  return {ok:true,value:out};
+ }
+ function cleanVisit(v,where,newId){
+  if(!isObj(v))return fail(where+': a visit is not an object.');
+  if(!validDate(v.date))return fail(where+': a visit date is not a real calendar date.');
+  const chem=v.chemistry===undefined?'':v.chemistry,inv=v.inverter===undefined?'':v.inverter;
+  if(typeof chem!=='string'||!Object.prototype.hasOwnProperty.call(CHEM,chem))return fail(where+': a chemistry value is not recognized.');
+  if(typeof inv!=='string'||!Object.prototype.hasOwnProperty.call(INVERTER,inv))return fail(where+': an inverter value is not recognized.');
+  const alarms=v.alarms===undefined?'':v.alarms;
+  if(typeof alarms!=='string'||alarms.length>LIMITS.alarms)return fail(where+': the alarms text is missing or too long.');
+  const out={id:newId('v'),date:v.date,chemistry:chem,inverter:inv,alarms};
+  for(const [key,label] of [['inputVolts','Input volts'],['outputVolts','Output volts'],['loadAmps','Load amps']]){
+   const r=optNum(v[key],where+': '+label);if(!r.ok)return fail(r.error);out[key]=r.value;
+  }
+  const batteries=v.batteries===undefined?[]:v.batteries;
+  if(!Array.isArray(batteries)||batteries.length>LIMITS.batteries)return fail(where+': too many battery readings.');
+  out.batteries=[];
+  for(const b of batteries){
+   if(!isObj(b)||typeof b.slot!=='string'||!b.slot.trim()||b.slot.length>LIMITS.slot)return fail(where+': a battery string name is missing or too long.');
+   const volts=number(b.volts);
+   if(volts===null||volts<0)return fail(where+': a battery volts value is not a number of 0 or more.');
+   out.batteries.push({slot:b.slot,volts});
+  }
+  const spans=v.spans===undefined?[]:v.spans;
+  if(!Array.isArray(spans))return fail(where+': spans must be a list.');
+  out.spans=[];
+  for(const span of spans){const r=cleanSpan(span,where);if(!r.ok)return r;out.spans.push(r.value);}
+  return {ok:true,value:out};
+ }
+ /* Turns file text into clean supplies with fresh ids, or says why not. */
+ function parseExport(text,newId){
+  if(typeof text!=='string'||!text.trim())return fail('The file is empty.');
+  if(text.length>MAX_FILE_BYTES)return fail('The file is larger than 10 MiB, so it is not a Supply PM notebook from this app.');
+  let data;try{data=JSON.parse(text);}catch(_){return fail('The file is not readable as a Supply PM notebook.');}
+  if(!isObj(data)||data.kind!==FILE_KIND)return fail('This file is not a Supply PM notebook exported from this app.');
+  if(data.version!==1)return fail('This notebook file has a version this app does not know.');
+  if(!Array.isArray(data.supplies))return fail('The notebook file has no list of supplies.');
+  if(data.supplies.length>LIMITS.supplies)return fail('The notebook file holds more than '+LIMITS.supplies+' supplies.');
+  const supplies=[];
+  for(const [i,supply] of data.supplies.entries()){
+   const where='Supply '+(i+1);
+   if(!isObj(supply)||typeof supply.name!=='string'||!supply.name.trim()||supply.name.length>LIMITS.name)return fail(where+': the name is missing or too long.');
+   if(!Array.isArray(supply.visits)||supply.visits.length>LIMITS.visits)return fail(where+': the visits are missing or there are too many.');
+   const visits=[];
+   for(const visit of supply.visits){const r=cleanVisit(visit,where,newId);if(!r.ok)return r;visits.push(r.value);}
+   supplies.push({id:newId('pm'),name:supply.name,visits});
+  }
+  return {ok:true,error:'',supplies};
+ }
+ function exportText(supplies){
+  return JSON.stringify({kind:FILE_KIND,version:1,note:'Personal Supply PM notebook from one device. It is not a company power record.',supplies:supplies.map(s=>({name:s.name,visits:s.visits}))},null,1);
+ }
+ /* Compare what was recorded, not how the object keys happen to be ordered. Visit order and reading order still matter. */
+ const canon=v=>Array.isArray(v)?v.map(canon):(v!==null&&typeof v==='object')?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
+ const stripIds=visits=>visits.map(({id,...rest})=>rest);
+ const sameContent=(a,b)=>a.name===b.name&&JSON.stringify(canon(stripIds(a.visits)))===JSON.stringify(canon(stripIds(b.visits)));
+ /* Adds imported supplies the device does not already have. A copy that matches by name and content is skipped. */
+ function mergeImport(existing,incoming){
+  const out=existing.slice();let added=0,skipped=0;
+  for(const s of incoming){
+   if(existing.some(e=>sameContent(e,s))){skipped+=1;continue;}
+   out.push(s);added+=1;
+  }
+  if(out.length>LIMITS.supplies)return fail('Importing would put more than '+LIMITS.supplies+' supplies on this device. Delete one first. Nothing was imported.');
+  return {ok:true,error:'',supplies:out,added,skipped};
+ }
+ return {KEY,SIDE,LIMITS,CHEM,INVERTER,FILE_KIND,MAX_FILE_BYTES,spanDrop,chain,compareMin,cableLoop,activeMin,validDate,parseExport,exportText,mergeImport,selfCheck};
 })();
 
 const PowerPMUI=(()=>{
- const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+ const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const number=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
  const fmt=n=>{if(!Number.isFinite(n))return '';const r=Math.round(n*1000)/1000;return String(r);};
  const tag=id=>typeof Thresholds!=='undefined'?Thresholds.tag(id,'Span voltage drop'):'';
@@ -8874,7 +8967,8 @@ const PowerPMUI=(()=>{
   const store=storage();if(!store)return false;
   try{store.setItem(PowerPM.KEY,JSON.stringify({version:1,supplies:data.supplies}));return true;}catch(_){return false;}
  }
- function nid(prefix){seq+=1;return prefix+seq.toString(36);}
+ /* Ids must not repeat between page loads or devices, or a new supply can collide with an older one. */
+ function nid(prefix){seq+=1;return prefix+Date.now().toString(36)+seq.toString(36)+Math.floor(Math.random()*1679616).toString(36);}
  function cables(){return typeof catalog!=='undefined'&&Array.isArray(catalog.cables)?catalog.cables:[];}
  function actives(){return typeof catalog!=='undefined'&&Array.isArray(catalog.powerEquipment)?catalog.powerEquipment.filter(e=>!e.retired):[];}
  function currentCalc(){
@@ -8941,6 +9035,8 @@ const PowerPMUI=(()=>{
 <label>Battery volts<input id="powerPmBatteryVolts" type="number" min="0" step="any" inputmode="decimal"></label></div>
 <label>Alarms, as shown on the supply<textarea id="powerPmAlarms" maxlength="160" rows="2"></textarea></label>
 <div class="toolbar"><button type="button" id="powerPmAddBattery">Add battery reading</button><button type="button" class="primary" id="powerPmSave">Save this visit</button><button type="button" id="powerPmDelete">Delete this supply</button></div>
+<div class="toolbar"><button type="button" id="powerPmExport">Export notebook</button><button type="button" id="powerPmImport">Import notebook</button><input type="file" id="powerPmImportFile" accept=".json,application/json" hidden></div>
+<p class="note tight">Export the whole notebook to a file before you uninstall the app or clear its data. The notebook lives only on this device, so an uninstall erases it. Import adds supplies from an exported file and skips copies you already have.</p>
 <p class="note" id="powerPmBatteries"></p>
 <p class="note" id="powerPmStatus" aria-live="polite"></p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Saved visits and battery trend"><table class="hs-table"><thead><tr><th scope="col">Date</th><th scope="col">What was recorded</th><th scope="col">Battery change from the previous date</th></tr></thead><tbody id="powerPmVisits"></tbody></table></div>
@@ -9048,7 +9144,7 @@ const PowerPMUI=(()=>{
   supply.visits.push({id:nid('v'),date:draft.date,chemistry:draft.chemistry,inputVolts:draft.inputVolts,outputVolts:draft.outputVolts,loadAmps:draft.loadAmps,inverter:draft.inverter,alarms:draft.alarms,batteries:draft.batteries.map(b=>({slot:b.slot,volts:b.volts})),spans:draft.spans.map(s=>({...s}))});
   if(!write(data)){statusText='Not saved: this device could not store the supply notebook. The job was not changed.';paint();return;}
   draft.batteries=[];draft.spans=[];draft.alarms='';
-  statusText='Saved on this device only. It is not in the job and not in a project backup.';
+  statusText='Saved on this device only. It is not in the job and not in a project backup. Use Export notebook before you uninstall.';
   paint();
  }
  function deleteSupply(){
@@ -9059,6 +9155,39 @@ const PowerPMUI=(()=>{
   if(!write(data)){statusText='Not deleted: this device could not change the supply notebook.';paint();return;}
   const keepName=draft.name;draft=blank();draft.name=keepName;
   statusText='Deleted the supply notebook on this device. The job was not changed.';
+  paint();
+ }
+ async function exportNotebook(){
+  const data=read();
+  if(data.blocked){statusText='This browser would not open its storage. Nothing was exported.';paint();return;}
+  if(!data.supplies.length){statusText='There is no saved supply on this device, so there is nothing to export.';paint();return;}
+  const text=PowerPM.exportText(data.supplies),name='CarpeNoctum_Supply_PM_notebook.json',count=data.supplies.length;
+  if(text.length>PowerPM.MAX_FILE_BYTES){statusText='This notebook is larger than the 10 MiB this app can restore, so it was not exported. Nothing was changed.';paint();return;}
+  let result;
+  try{
+   if(typeof download==='function')result=await download(name,text,'application/json');
+   else if(window.BrowserFiles)result=await window.BrowserFiles.prepare(name,text,'application/json');
+   else{statusText='This browser cannot save a file here. Nothing was exported.';paint();return;}
+  }catch(err){statusText='Could not export: '+(err&&err.message?err.message:'unknown error')+'. Nothing was changed.';paint();return;}
+  const state=result&&typeof result==='object'?result.status:'';
+  if(state==='error'||state==='busy'||state==='empty'||state==='aborted'||state==='cancelled'){statusText='The file was not saved ('+(result.error||state)+'). Nothing was exported. Your notebook on this device is unchanged.';paint();return;}
+  statusText='A file with '+count+(count===1?' supply':' supplies')+' was handed to your browser or device. Open your downloads or Files and check that it is there before you uninstall. This is your own notebook, not a company record.';
+  paint();
+ }
+ async function importNotebook(file){
+  if(!file)return;
+  if(file.size>PowerPM.MAX_FILE_BYTES){statusText='That file is larger than 10 MiB, so it is not a Supply PM notebook from this app. Nothing was imported.';paint();return;}
+  let text;try{text=await file.text();}catch(_){statusText='That file could not be read. Nothing was imported.';paint();return;}
+  const parsed=PowerPM.parseExport(text,nid);
+  if(!parsed.ok){statusText=parsed.error+' Nothing was imported.';paint();return;}
+  const data=read();
+  if(data.blocked){statusText='This browser would not open its storage. Nothing was imported.';paint();return;}
+  const merged=PowerPM.mergeImport(data.supplies,parsed.supplies);
+  if(!merged.ok){statusText=merged.error;paint();return;}
+  if(!merged.added){statusText='Nothing new to import: this device already has every supply in that file.';paint();return;}
+  data.supplies=merged.supplies;
+  if(!write(data)){statusText='Not imported: this device could not store the notebook. Nothing was changed.';paint();return;}
+  statusText='Imported '+merged.added+(merged.added===1?' supply':' supplies')+(merged.skipped?' and skipped '+merged.skipped+' you already had':'')+'. Pick one from the list to see its visits.';
   paint();
  }
  function loadSupply(id){
@@ -9075,6 +9204,7 @@ const PowerPMUI=(()=>{
   panel.innerHTML=markup();
   panel.addEventListener('input',()=>{syncFromDom();const result=panel.querySelector('#powerPmResult');if(result)result.textContent=resultText();});
   panel.addEventListener('change',event=>{
+   if(event.target.id==='powerPmImportFile'){const f=event.target.files&&event.target.files[0];event.target.value='';importNotebook(f);return;}
    if(event.target.id==='powerPmSupplyPick'){loadSupply(event.target.value);return;}
    syncFromDom();paint();
   });
@@ -9085,6 +9215,8 @@ const PowerPMUI=(()=>{
    else if(b.id==='powerPmAddBattery')addBattery();
    else if(b.id==='powerPmSave')saveVisit();
    else if(b.id==='powerPmDelete')deleteSupply();
+   else if(b.id==='powerPmExport')exportNotebook();
+   else if(b.id==='powerPmImport'){const input=panel.querySelector('#powerPmImportFile');if(input)input.click();}
   });
   paint();
  }
@@ -9092,6 +9224,6 @@ const PowerPMUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"0db99aceb691a54f5f00","worker":"sw.0db99aceb691a54f5f00.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"b38fa222907d5203824b","worker":"sw.b38fa222907d5203824b.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

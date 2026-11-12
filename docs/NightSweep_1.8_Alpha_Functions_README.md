@@ -557,6 +557,8 @@ The drop is span current times the cable catalog's published loop resistance, wi
 
 The notebook records the date, input and output volts, load, an inverter observation (ran, did not run, not tested, or not recorded), chemistry as a label only (VRLA, lithium, other, or not recorded), alarms as you saw them, and battery-string volts. Two dates of the same string show the change in volts. There is no battery window and no inverter limit. Tap Save this visit to keep it on this device. Tap Delete this supply to remove that notebook. The job is not changed.
 
+**The notebook lives only on this device, so an uninstall or cleared app data erases it.** Tap Export notebook to hand a file of every saved supply to your browser or phone, then open your downloads or Files and check that it is really there. The screen says a file was handed over, not that it is safely stored. Tap Import notebook to bring a notebook file back: it adds the supplies this device does not already have, skips copies you already have, and refuses a file it cannot read whole, leaving your notebook exactly as it was. Rehearse this once with the practice supply before you rely on it.
+
 ## Power-supply load
 
 **Where:** Plan → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
