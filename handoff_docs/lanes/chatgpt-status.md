@@ -1,29 +1,37 @@
 # ChatGPT status
 
-Only ChatGPT edits this file. Lane B builds, checks calculator math and reviews Grok's pull requests. Rules and queue: `handoff_docs/WORKFLOW.md`.
+Only ChatGPT edits this file. Lane B builds, checks calculator math and reviews Grok's PRs. Rules and queue: `handoff_docs/WORKFLOW.md`.
 
-| Item | Branch | Pull request | Head | State | Last gate (own counts, date) |
+| Item | Branch | Pull request | Head | State | Last gate (own counts, 2026-11-12) |
 | --- | --- | --- | --- | --- | --- |
-| B0 calculator vectors and written check | `chatgpt/calculator-math-reviews`; `chatgpt/roadmap-critique` | #31; #29 | merged as `3a7b25b`; `fdf4ea3` | merged; B0 complete | 2026-11-12, exact `b9c6cc7`: 91 suites / 2,302 checks; layout 1,054; smoke 373; all 8 commands exit 0; hosted QA `43192378275` success |
-| B1 remove Safety completely | `chatgpt/b1-remove-safety` | [#35](https://github.com/Goodst3r/Carpe-Noctum/pull/35) | author0488ea2; mergedbc4762a | merged externally; author post-merge gate passed; same-head Grok review requested | 2026-11-12 exact0488ea2:94suites/2,372checks,1109.2s;layout1,192;smoke370;all8commands0/clean;host43203898395success |
-| B2 existing DOCSIS headroom wording/conversion and H1–H5 regression | `chatgpt/b2-composite-margin` | #37 draft | core bda7008 after ordinary integration20960df | all H/HX/HR focused-green; correcting unintended new converter text cap, then fresh exact-head gates | not run |
-| B3 ripple-search width label | not started | — | — | queued after B2; PR #34 ownership cleared | not run |
-| B4 Night log fixes, then intermittent-ingress entry | `chatgpt/b4-night-log` | #36 draft | core `1c5b3ce`; reviewed wording correction | core complete; paused after B2/B3; NAV may update navigation labels in its module/tests before integration | focused source 30 lifecycle + 9 ingress; rendered 143 at 320–430 px; not a full gate |
-| B5 temporary-repair follow-up | `chatgpt/b5-temporary-repairs` | not opened | core435eff7 from7dfddf7 | core/review complete; paused after B4; NAV may update navigation labels in its module/report/tests | not run |
-| B6 final gate and handoff for Claude | not started | — | — | queued | not run |
+| B0 vectors and critique | `chatgpt/calculator-math-reviews`; `chatgpt/roadmap-critique` | #31; #29 | merged3a7b25b; fdf4ea3 | complete | exactb9c6cc7:91 suites/2,302 checks; layout1,054; smoke373; all8commands0/clean; host43192378275success |
+| B1 remove Safety | `chatgpt/b1-remove-safety` | #35 merged | author0488ea2; mergebc4762a | merged; author post-merge gate passed; reviewer locked-install/clean-status exceptions pending | exact0488ea2:94/2,372,1109.2s; layout1,192; smoke370; all8commands0/clean; host43203898395success |
+| B2 existing DOCSIS composite margin/conversion, H1–H5 | `chatgpt/b2-composite-margin` | #37 merged as8c0fc17 | f54d5c2bbcf0f97f42ef87c7233012fd1a4fccab | merged by Grok after independent formula review6822746263 | 97/2,590,930.8s; layout1,236; smoke370; all8commands0/clean; host43208500661success |
+| B3 ripple-search width label | `chatgpt/b3-ripple-label` | not opened | sourceccc0e50; startsbc4762a | queued after B4; source changes preserved | source14 groups/1,940 comparisons after expected RED; independent source7; no full gate |
+| B4 Night log fixes, then intermittent-ingress entry | `chatgpt/b4-night-log` | #36 draft | coref9447e1 | complete source; exact-head author/host gates next; Grok same-head stored-data gate required | complete tested artifact:30 lifecycle/11 ingress/191 rendered/names7; identical-source coauthor legacybytes2/policy9/docs57; full actual-head gate pending |
+| B5 temporary-repair follow-up | `chatgpt/b5-temporary-repairs` | not opened | core435eff7 from7dfddf7 | queued after B4 then B3; reviewed second fix succeeded | focused15 repair+13 existing suites/290 checks; rendered105; independent draft probe0; no full gate |
+| B6 final gate/handoff for Claude | scratch preparation only | — | final build3 not established | queued after remaining work; final shared head pending | not run; both builders must gate the same final build3 SHA |
 
 ## Next
 
-PR #34 power sum was independently reviewed and merged normally as `d63110942b0483f993c7d34616efebaa15b3bfcc` from approved head `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`. Report `5c95bf3`, final approval comment `6821489545`; hosted QA43200952825 success and author exact-head full gate recorded. This clears shared-file ownership. Finish B2 PR37 full gates, then B3, then finalize B4 draft36 and B5. Unique B5 core/tests are underway under the earlier ownership exception; its full field-work module was read first. No wait-log heartbeat is running.
+Spencer's latest order supersedes the old blocked snapshot: review/merge NAV #38, review/merge cascade #39, then build B4 Night log → B3 ripple label → B5 temporary repairs → B6 final gate/handoff. Review other-lane PRs before each new item.
 
-B1 was externally merged by Grok from0488ea2 while its fresh author gate was still running. Grok's approval/full gate covered prior504efbf; Grok acknowledged the head mismatch and is now gating merge bc4762a. These are historical facts, not a same-head pre-merge review claim. The author0488ea2 gate passed after merge (94/2372,layout1192,smoke370); body and comment6821998179 record this and request Grok’s own0488ea2 receipt. No own PR was merged by ChatGPT.
+NAV #38 exactb34b1db was re-reviewed with all five findings closed. Own full gate99/2642,953.8s;layout1252;smoke370;all8commands0/clean/unchanged. APPROVE6824711598, then ordinary-merged asf9a2060ee51899c073f121408be79d15cb05ca35 with expected-head guard.
 
-While B4/B5 are paused, their module/report/test paths are released to NAV-1 for navigation wording only. ChatGPT will not edit those paths concurrently; after NAV merges, ordinary integration will retain both navigation changes and the local feature cores before their full gates. If NAV is not open when B4 resumes, reclaim those paths in status first. B2 retains its calculator files through PR #37.
+Cascade #39 first reviewed59ddf48986f9498b574fc1cb67081f3eb0df7dee, then rechecked223867e3d495a1375c4374c4ba4b008c0ef29112: required math review/current-head recheck committed/pushed38c620ea40d8af286c1712e01fd4315f6a0fd27f; current CHANGES NEEDED6825965584. New223 integrates NAV but leaves calculator source byte-identical; fresh guard39 again18pass/21fail and metadata gaps persist. Own162real calls/1246strict checks0; actual6sfDOM extension1354/0; independent browser824/0. Recognized model-context regression18pass/21fail across39: non75 matched pairs, non290 NF reference and correlated thermal declarations are wrongly accepted. Constant/source units also need correction. Grok must ordinary-integrate NAV, fix these findings, rebuild and gate the new exact head; only changed focused checks will be rerun. No merge approval.
+
+B4 Night log draft #36 now takes latest build3 by ordinary merge, preserving lifecycle→ingress core and NAV's Field→Station wording. Night log module/tests are reclaimed for B4; Spencer's latest instruction to continue B4 after NAV is being carried out on this own branch: apply the completed, independently checked patch to the existing Night log rows/guide sections and freeze it for its exact-head gate. Calculator #39's functions/rows are untouched. Any subsequent build3 merge is integrated normally, preserving both lanes, with required gates rerun on the resulting head. No whole-queue wait log or stale NAV block.
+
+Next: run the complete author/host gates on this frozen B4 source head, record exact receipts in PR #36 and mark ready. Review corrected #39 as soon as it arrives; its current223 findings remain uncorrected. Next B3 ripple label, B5 temporary repairs, B6 final shared-head gate/handoff. Preserve existing reviewed B3/B5 cores; ordinary latest-base merges, no self-merge/rebase/force-push. The user explicitly changed B4 to precede B3.
+
+PR #34 was independently reviewed and merged normally asd631109 from73b6ab4. Required report/checks are on own evidence branch `chatgpt/math-review-pr34`; it also contains B2 coauthor evidence and NAV review/reproductions through38c620ea40d8af286c1712e01fd4315f6a0fd27f. Ordinary-merge that own branch into B6 later. No shared calculator reference number changed. No wait-log heartbeat runs.
 
 ## Blocked
 
-No current source-ownership block. Both lanes' final integration remains pending. B4 capacity-Undo wording was corrected with an actual-control RED/GREEN regression; 30 lifecycle checks pass. No required instruction, critique or vector file was unreadable. No physical-device test is claimed. Exact resume remains Grok's blocked item absent the required phone checks; Supply PM export/import remains Grok A4b.
+None from the old NAV findings: fixed NAV is merged. B4 complete source integration is active under Spencer's latest continued-work order; its shared edits are limited to Night log rows/sections and will be frozen for the exact-head gate. #39 remains CHANGES NEEDED on223867e for the same uncorrected model/source findings. Ordinary integration preserves both lanes. No whole-queue block is declared. B6's final shared head depends on the remaining queue and is pending, not declared complete. The wait log remains ended.
+
+B1 reviewer APPROVE0488ea2 is recorded, but that receipt skipped npm ci and ended with an untracked dependency symlink; complete locked-install/clean-status closure requested in6822468360 remains outstanding. Author post-merge94/2372 receipt is distinct; the premature external merge is not relabeled compliant. No requested repository document was unreadable. No physical-device test is claimed. Exact resume remains Grok's blocked item absent required phone checks; Supply PM export/import remains Grok A4b. B6 scratch handoff preparation identifies old signing-paperwork reconciliation for Claude; no APK step ran.
 
 ## Questions for Spencer
 
-None. Safety removal is decided. Vecima setup is plug and play; no Vecima guide is needed. The 33 versus 40 dBmV question is dropped; the existing DOCSIS card stays as it is in B1.
+None. Safety removal is decided. Vecima setup is plug and play; no Vecima guide is needed. The 33 versus 40 dBmV question is dropped; both existing downstream limits remain unchanged.

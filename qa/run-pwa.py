@@ -112,6 +112,7 @@ suites=[
  ('Build 3 headroom and bandwidth reference vectors against real functions','build3-composite-margin.test.cjs',r'Build3 composite margin: (\d+) checks passed'),
  ('Build 3 navigation regroup','build3-nav1.test.cjs',r'Build3 navigation regroup: (\d+) checks passed'),
  ('Build 3 filtered list keyboard entry','build3-nav1-keyboard.test.py',r'Build3 navigation keyboard: (\d+) checks passed'),
+ ('Build 3 manual intermittent ingress and saved-job compatibility','build3-night-log-ingress.test.cjs',r'Build3 night log ingress: (\d+) checks passed'),
 ]
 import sys,time
 sys.path.insert(0,str(root/'qa'))
