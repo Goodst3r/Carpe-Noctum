@@ -1,0 +1,154 @@
+{
+  "at_utc": "2026-11-12T01:29:31.007140+00:00",
+  "head": "61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe",
+  "standalone_sha256": "8caf8ff1e9ccccc701a3f8e27e88c46f8331bdf9747946ccc97d1e05bdc9cb24",
+  "index_sha256": "9cb8ed05b8ffec98bd115f76360195bb07bc3e0bc94b3247cb517072bd0db943",
+  "all_five_stages_passed": true,
+  "actual_suites": 80,
+  "actual_checks": 2072,
+  "suite_seconds": 679.0,
+  "total_command_seconds": 709.189,
+  "separate_layout_checks": 554,
+  "separate_smoke_checks": 352,
+  "feature_suites_inside_gate": [
+    {
+      "name": "Build 3 night-log capture and handoff contracts",
+      "script": "build3-night-log.test.cjs",
+      "passed": true,
+      "checks": 23,
+      "seconds": 47.6
+    },
+    {
+      "name": "Build 3 rendered night-log phone layout",
+      "script": "build3-night-log-layout.test.py",
+      "passed": true,
+      "checks": 107,
+      "seconds": 8.9
+    },
+    {
+      "name": "Build 3 sweep-due calendar and saved-job reminders",
+      "script": "build3-sweep-due.test.cjs",
+      "passed": true,
+      "checks": 37,
+      "seconds": 20.3
+    },
+    {
+      "name": "Build 3 rendered sweep-due phone layout",
+      "script": "build3-sweep-due-layout.test.py",
+      "passed": true,
+      "checks": 189,
+      "seconds": 8.4
+    },
+    {
+      "name": "Build 3 format-independent sweep grading",
+      "script": "build3-sweep-grading-core.test.cjs",
+      "passed": true,
+      "checks": 93,
+      "seconds": 0.1
+    },
+    {
+      "name": "Build 3 grading UI and original identity integration",
+      "script": "sweep-grading-ui.test.cjs",
+      "passed": true,
+      "checks": 56,
+      "seconds": 46.8
+    },
+    {
+      "name": "Build 3 rendered grading controls",
+      "script": "sweep-grading-layout.test.py",
+      "passed": true,
+      "checks": 88,
+      "seconds": 7.8
+    },
+    {
+      "name": "Build 3 combined night-log and grading persistence",
+      "script": "build3-night-log-grading.test.cjs",
+      "passed": true,
+      "checks": 3,
+      "seconds": 20.1
+    },
+    {
+      "name": "Build 3 combined sweep-due, night-log and grading persistence",
+      "script": "build3-sweep-due-grading.test.cjs",
+      "passed": true,
+      "checks": 3,
+      "seconds": 19.1
+    }
+  ],
+  "tracked_files_rehashed": 680,
+  "source_files": 657,
+  "generated_files": 23,
+  "all_tracked_hashes_match_initial": true,
+  "tracked_manifest_sha256": "0957877d96ac1d43ce15f67679f38a4bfe4770989ff4093d324ceadc5ec2a01e",
+  "all_raw_reports_still_match_sources": true,
+  "all_manifest_hash_size_mtime_entries_verified": 12,
+  "all_40_dependencies_still_match": true,
+  "strict_final_comparison": {
+    "head_same": true,
+    "branch_same": true,
+    "head_tree_same": true,
+    "staged_entries_same": true,
+    "staged_entries_digest_same": true,
+    "tracked_hashes_same": true,
+    "source_hashes_same": true,
+    "generated_hashes_same": true,
+    "readme_hashes_same": true,
+    "technician_readmes_identical": true,
+    "lock_hash_same": true,
+    "lock_matches_head": true,
+    "clean": true,
+    "changed_tracked_files": [],
+    "changed_generated_files": []
+  },
+  "raw_index_diagnostic": {
+    "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
+    "raw_index_bytes_changed": true,
+    "distinct_raw_sha256": [
+      "6f1283f4651a88192db41fadd01d49243e09d181149c82828c9ee429fd257e5b",
+      "b03b109cea26d49ba9fd094bf2eb07fc93a41952fbea2639f60b7db70b5140d2",
+      "c13c2aace3349afa757de56060d1fd5c332904afedd8edfcd044a3de97974b35",
+      "d22b547a6967e918a7e2e5c7776e24afcb8578c994287fc6b30043a3d0c6a641"
+    ],
+    "semantic_and_source_guards_matched": true,
+    "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion."
+  },
+  "live_A4_full_gate_descendants": [],
+  "launch_base": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+  "last_observed_remote_build3": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+  "upstream_advance_observed": false,
+  "upstream_observations": [
+    {
+      "at_utc": "2026-11-12T01:15:59.032374+00:00",
+      "phase": "preflight",
+      "expected_base": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+      "actual_remote_build3": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+      "advanced_from_launch_base": false,
+      "source_revision": "61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe"
+    },
+    {
+      "at_utc": "2026-11-12T01:29:30.915546+00:00",
+      "phase": "after-all-five-stages",
+      "expected_base": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+      "actual_remote_build3": "394179c7ac15ad57d19b654a4427e3b9fa2f54c0",
+      "remote_read_exit_code": 0,
+      "advanced_from_launch_base": false,
+      "source_revision": "61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe",
+      "frozen_source_run_completed": true
+    }
+  ],
+  "raw_proof_report_summary_manifest_rewritten": false,
+  "post_check_remote_read_only_no_fetch": true,
+  "child_agents_used": false,
+  "artifact_sha256": {
+    "/tmp/carpe-a4-sweepdue-full-proof.json": "973204faf6550338459adf754e23086bf2b7e69206bee585c626765b2a0c5d09",
+    "/tmp/carpe-a4-sweepdue-full-gate.json": "93e1b5a2ee9ff408dcd1dbc72ce39e20e2d2f480889f7e4ca9d676a34cdebd25",
+    "/tmp/carpe-a4-sweepdue-full-layout.json": "4bb1cb6a22869d33ad73f0a652c56c139f776ba6e80538df3daa1f0eca290bbc",
+    "/tmp/carpe-a4-sweepdue-full-smoke.json": "fc1f58a73ca4c8da95921c1555b9ca9da6ba6004685a7fcae98e3a620594c3b9",
+    "/tmp/carpe-a4-sweepdue-full-gate.md": "03c14f21d18916ff9011bef2395755bd2c69b1f37363918c11a2c5bc3dce7cd3",
+    "/tmp/carpe-a4-sweepdue-full-manifest.json": "bd1509779db8a1754d93aa6fd1aaa8f47f49be835ecc7424487bb7c216e95ad4",
+    "/tmp/carpe-a4-sweepdue-full-preflight.json": "5fdd91c56df49c788457243d28ab66ec2c28ff2cf1f5eb5d2994ca4d1d8ea363",
+    "/tmp/carpe-a4-sweepdue-full-launch-proof.json": "c9a0fd570e557ed18bdd74a02cb909c62df6d71067f96bdb2060f81020741705",
+    "/tmp/carpe-a4-sweepdue-full-base-observations.jsonl": "ea31ce6c785e992a270de1e86925e5d970bee10466a20a6545884bb6bef48b64"
+  },
+  "A4_sealed_and_no_further_A4_repo_reads_pending": true
+}
