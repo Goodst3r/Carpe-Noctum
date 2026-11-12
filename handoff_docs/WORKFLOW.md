@@ -29,7 +29,7 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 | A2 | Cascade calculator: thermal noise and CNR estimates only. | Cases C1-C4 plus edges and refusals. Fixed 290 K. No CTB/CSO score, no MER prediction, no ordered Friis chain or editable temperature (those need new cases first). |
 | A3 | NAV-1, the navigation regroup, exactly as the determination maps it. **Starts only after the Safety removal (B1) has merged**, so it regroups the screens that remain. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
 | A4 | Context strip (P0-3). | |
-| A4b | Supply PM notebook export/import (see "Known follow-ups"). | Additive; no new storage key. |
+| A4b | **Taken by Claude: PR #40 (Supply PM notebook export/import and unique ids).** Grok skips this item. ChatGPT reviews and merges it. | Additive; no new storage key. |
 | A5 | Tonight list (P0-1). | Add open temporary repairs once B5 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
 | A6 | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
 | A7 | Final: full gate on the final `build3`, then `handoff_docs/lanes/grok-debug-handoff.md`. | See "Done". |
