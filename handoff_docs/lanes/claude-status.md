@@ -1,37 +1,47 @@
-# Lane B status (Claude, Sonnet 5.5 Ultracode)
+# Lane B status (Claude)
 
-Only Lane B edits this file. Updated November 11, 2026 16:00 UTC on branch `claude/b8-outage`. This file is rewritten whole in each Lane B pull request: if merging two of them conflicts here, take the version from the pull request with the higher number.
+Only Lane B edits this file. Updated November 12, 2026, 03:35 UTC on branch `claude/logbook`, when Spencer asked Lane B to stop. What happened and exactly where work stopped is in `handoff_docs/lanes/claude-logbook.md`; the helper scripts are in `handoff_docs/lanes/claude-tools/`. This file is rewritten whole in each Lane B pull request: if two of them conflict here, take the newer one.
+
+**`build3` = `f467e52`.** D1 and D2 are met. My D3 gate on that tree: 82 PASS lines / 2,174 checks / 0 failed; layout 554; smoke 352; clean; standalone SHA-256 `b1591b4d…e4de`. D4 and D5 (B9) are not done yet.
 
 | Item | Branch | Pull request | Head commit | State | Last gate (date, own counts) |
 | --- | --- | --- | --- | --- | --- |
-| B0 registration refactor | claude/b0-build-registration | [#3](https://github.com/Goodst3r/Carpe-Noctum/pull/3) | | **merged** | |
-| B1 reliable test gate | claude/b1-reliable-gate | [#4](https://github.com/Goodst3r/Carpe-Noctum/pull/4) | 8b71edd | **merged** after one requested change (the suite failed without `.git`) | Lane A: 62 suites / 1,116 checks |
-| B3 paperwork | claude/b3-paperwork | [#5](https://github.com/Goodst3r/Carpe-Noctum/pull/5) | | **merged** | |
-| B4 training and guide sync | claude/b4-training-sync | [#6](https://github.com/Goodst3r/Carpe-Noctum/pull/6) | 5a370c1 | **merged** after one requested change (lowercase control verbs slipped past the name check) | Lane A: 62 suites / 1,115 checks |
-| B2 CI | claude/b2-ci | [#11](https://github.com/Goodst3r/Carpe-Noctum/pull/11) draft | ce55e69 | open; **its first hosted run is the first test of the workflow** (cannot be run here) | YAML parsed locally |
-| B5 item 5 DOCSIS health card | claude/b5-docsis-health | [#7](https://github.com/Goodst3r/Carpe-Noctum/pull/7) draft | 4d35286 | open, independently reviewed, all confirmed defects fixed; waiting for Lane A | Nov 11 on ede0ae5: 63 suites / 1,133 checks; layout 241; smoke 331. Head 4d35286 adds a merge of build3 and one test-line change |
-| B6 item 7 leakage tools | claude/b6-leakage | [#9](https://github.com/Goodst3r/Carpe-Noctum/pull/9) draft | e7ed9d6 | open, independently reviewed (40 agents; all 35 confirmed findings fixed) | Nov 11 on 169c01e: 64 suites / 1,163 checks; layout 351; smoke 334 |
-| B7 item 9 pre-work safety card | claude/b7-safety | [#10](https://github.com/Goodst3r/Carpe-Noctum/pull/10) draft | 8381b00 | open; wording not reviewed by a supervisor or safety officer | Nov 11 on bd42dfe: 65 suites / 1,189 checks; layout 441; smoke 337 |
-| B8 item 8 outage first-response card | claude/b8-outage | [#12](https://github.com/Goodst3r/Carpe-Noctum/pull/12) draft | see PR | open; **needs a supervisor's review against the local outage procedure before coworkers use it** | Nov 11 on 582c867: 65 suites / 1,195 checks; layout 531; smoke 340 (not rerun after merging B7's latest) |
-| B9 D4/D5 close-out and FINAL_HANDOFF.md | | | | not started: waits for Lane A's A1 to A4 | |
+| B0 registration refactor | claude/b0-build-registration | [#3](https://github.com/Goodst3r/Carpe-Noctum/pull/3) | 320854c | **merged** | |
+| B1 reliable test gate | claude/b1-reliable-gate | [#4](https://github.com/Goodst3r/Carpe-Noctum/pull/4) | 8b71edd | **merged** | |
+| B2 CI | claude/b2-ci | [#11](https://github.com/Goodst3r/Carpe-Noctum/pull/11) | e77ef24 | **merged** (14bfc06); one hosted 768 px layout failure (run 2) stays unexplained | |
+| B3 paperwork | claude/b3-paperwork | [#5](https://github.com/Goodst3r/Carpe-Noctum/pull/5) | 5544651 | **merged** | |
+| B4 training and guide sync | claude/b4-training-sync | [#6](https://github.com/Goodst3r/Carpe-Noctum/pull/6) | 5a370c1 | **merged** | |
+| B5 item 5 DOCSIS health | claude/b5-docsis-health | [#7](https://github.com/Goodst3r/Carpe-Noctum/pull/7) | 1f239b6 | **merged** (bc69bb4) | |
+| B6 item 7 leakage tools | claude/b6-leakage | [#9](https://github.com/Goodst3r/Carpe-Noctum/pull/9) | 418e086 | **merged** (5588a49) | |
+| B7 item 9 pre-work safety | claude/b7-safety | [#10](https://github.com/Goodst3r/Carpe-Noctum/pull/10) | 1c9012b | **merged** (ccf2f5e); **supervisor or safety officer review needed before coworkers use it** | |
+| B8 item 8 outage first response | claude/b8-outage | [#12](https://github.com/Goodst3r/Carpe-Noctum/pull/12) | 77b9c2b | **merged** (3cfb9c2); **supervisor review against the local outage procedure needed before coworkers use it** | |
+| B10 item 11 impairments | claude/b11-impairments | [#13](https://github.com/Goodst3r/Carpe-Noctum/pull/13) draft | 920c8a7 | open; contains final `build3`; all Lane A findings answered; ready for re-review | node suites by exit code all pass; real-browser 42; no full gate on this head |
+| B10 item 15 fiber | claude/b15-fiber | [#15](https://github.com/Goodst3r/Carpe-Noctum/pull/15) draft | f2f7e02 | open; **hosted CI red** (pinned-count test, fixed on #13); needs merge of #13's head | last full gate: stack top 2cd06fd (pre-A4) 82 / 1,883, layout 1,004, smoke 367 |
+| B10 item 17 high split | claude/b17-highsplit | [#16](https://github.com/Goodst3r/Carpe-Noctum/pull/16) draft | c639ea8 | open; **hosted CI red**, same cause; needs merge after #15 | as above |
+| B10 item 18 why cards | claude/b18-why-cards | [#18](https://github.com/Goodst3r/Carpe-Noctum/pull/18) draft | ed7f29c | open; needs merge after #16 | as above |
+| B10 item 20 proof of performance | claude/b20-pop | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) draft | a66d313 | open; needs merge after #18 | as above |
+| B10 item 19 study mode | claude/b19-study | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) draft (base claude/b20-pop) | b1bd4ba | open; needs merge after #19 | as above |
+| Station typed-input fix | claude/station-typed-input | [#22](https://github.com/Goodst3r/Carpe-Noctum/pull/22) | 34b831a | **closed** in favour of Lane A's #23 | |
+| B9 D4/D5 close-out and FINAL_HANDOFF.md | | | | **not started**; Lane A's queue is merged, so it can start | |
+
+Lane A pull requests I reviewed and merged: #8 A1 (21ed711), #17 A2 (f50a744), #21 A3 (394179c), #14 A4 (0e67660), #23 Station follow-up (f467e52). Reviews are on each pull request.
 
 ## For Lane A
 
-- **Lane A's A1 (pull request #8, head 895503b):** my independent review (four lenses, each finding checked by a skeptic) is running against a00fe9e, and I will run the exact-head gate on 895503b myself, then post the review.
-- **Merge order for my stack:** #7 (B5), #9 (B6), #10 (B7), #12 (B8); each shows the earlier ones' commits until they merge. #11 (CI) is independent. Thank you for the quick reviews of #3 to #6.
-- **Overlap with A1 you should expect:** both lanes edit `night-sweep/shell.html`, `workflow.js`, `thresholds.js`, `training.js`, `build.py`, `style.css`, the guides and `qa/run-pwa.py`. Whoever merges second rebuilds the generated files (`python3 night-sweep/build.py && python3 build-pwa.py`) instead of hand-merging them, and re-adds a one-line module entry in `build.py`.
-- **New device-local storage keys** (all outside jobs and their backups, all read defensively, none changes the job format): `nightsweep-docsis-windows-v1` (B5), `nightsweep-leakage-v1` (B6), `nightsweep-safety-v1` (B7), `nightsweep-outage-v1` (B8). A browser that will not store a change keeps it for the page; unreadable data is copied to `<key>-unreadable` before it is replaced; data from a newer version is never overwritten.
-- **Naming:** use the 2.0 screen and button names in text (`qa/ui-names.test.cjs` fails on a name that does not exist, in any letter case after a control verb). New in my stack: Test → DOCSIS health, Test → Leakage, Job → Safety, Job → Outage.
-- SHA-256 of `outputs/Night_Sweep.html`: B5 `49849bb6…78499de` (ede0ae5), B6 `dc796590…41bed` (169c01e), B7 `280e4244…17487` (bd42dfe), B8 `476a3748…4885f` (582c867).
-- Tooling notes: Python Playwright (`pip install playwright`) and `NIGHTSWEEP_CHROMIUM` for the rendered suites; guide HTML is rendered with `marked` 18.2.0 and `CODEX_PRIMARY_RUNTIME_NODE_MODULES`; do not `git add` a symlinked `qa/runtime/node_modules` (I removed one I had committed by mistake from unpushed history).
+- Please re-review #13 at `920c8a7`. It changes your `qa/sweep-grading-ui.test.cjs` so it measures the screen, feature and custom-curves totals and the row numbers from the app instead of pinning 29 / 47 / 15; the same sentences are still required, with the measured numbers. Without that change every later feature fails the suite.
+- #15 to #20 will be merged up from #13 next; until then their hosted CI is red for that reason only.
 
 ## Next
-Review and merge-test Lane A's A1 (#8) and post the review; keep my stack's heads current with `build3` (merge, never rebase; generated files rebuilt); answer any review on #7, #9, #10, #11, #12; after A1 to A4 have merged and the gates are green, B9 (status file, update log, `KNOWN_GAPS.md`, `FINAL_HANDOFF.md`), then the stretch items.
+
+See "Next steps" in `claude-logbook.md`: finish the stack resync and gate the top; then B9 (status file, update log, `KNOWN_GAPS.md`, `FINAL_HANDOFF.md`) as a docs-only draft PR.
 
 ## Blocked
-Nothing blocks the work. Firecrawl is out of credits until about 23:09 UTC on Nov 11; research continues with Exa, and anything only Firecrawl could verify is marked "not re-verified".
+
+Nothing. Work is stopped at Spencer's request.
 
 ## Questions for Spencer
-1. **Where should company settings live?** The DOCSIS windows, the leak repair threshold and detector tolerance, and the safety and outage notes are saved in the browser on each phone, outside jobs and backups. That is simple and private, but a technician who clears browser data loses them, and coworkers each enter their own. A shared company profile would need an import or export design and your decision on sharing company values.
-2. **Who can review the safety and outage cards?** Both are written in the app's own words, say they are not a company procedure, and need a supervisor or safety officer to read them (the outage card against the local outage procedure) before coworkers use them. Questions to ask are in `research/build3/SAFETY_SOURCES.md`.
-3. **A DOCSIS 3.1 modem that receives only SC-QAM channels:** is its total input limit 33 or 40 dBmV? The specification text can be read either way (`research/build3/DOCSIS_HEALTH_SOURCES.md`); an engineer's answer would settle it.
+
+0. **Item 17:** Vecima's EN9000 and RFAM/RPD installation and commissioning guides are behind its customer portal, so the screen describes only what the CableLabs specifications say and invents no steps. Which guide title and revision does your company hold, or which checks do you want built from it?
+1. **Where should company settings live?** The DOCSIS windows, the leak repair threshold and detector tolerance, and the safety and outage notes are saved in each phone's browser, outside jobs and backups. A shared company profile would need an import or export design and your decision on sharing company values.
+2. **Who can review the Safety and Outage cards** (a supervisor or safety officer; the outage card against the local outage procedure) before coworkers use them? Questions to ask are in `research/build3/SAFETY_SOURCES.md` and `OUTAGE_SOURCES.md`.
+3. **A DOCSIS 3.1 modem that receives only SC-QAM channels:** is its total input limit 33 or 40 dBmV? (`research/build3/DOCSIS_HEALTH_SOURCES.md`)
