@@ -1,28 +1,25 @@
 # ChatGPT status
 
-Only ChatGPT edits this file. Lane B, builder and math checker, from November 12, 2026 (night). Rules: `handoff_docs/WORKFLOW.md`.
+Only ChatGPT edits this file. Lane B builds, checks calculator math and reviews Grok's pull requests. Rules and queue: `handoff_docs/WORKFLOW.md`.
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts, date) |
 | --- | --- | --- | --- | --- | --- |
-| Roadmap critique and written check | `chatgpt/roadmap-critique` | #29 | `ed2826c` | draft; hosted CI green; gated locally on `768b618` (90 suites / 2,297 checks, layout 1,004, smoke 370) | 2026-11-12 |
-| Calculator test vectors | `chatgpt/calculator-math-reviews` | #31 | `2493cf8` | draft; hosted CI green | not a local gate (docs and JSON only) |
-| B0 make #31 ready | `chatgpt/calculator-math-reviews` | #31 | current PR head | validating vectors; wait ended; full gate next | pending own run |
-| B1 headroom wording and 6.4 MHz conversion, tests against H1-H5 | not started | | | | |
-| B2 ripple-search width label | not started | | | | |
-| B3 Night log fixes, then intermittent-ingress entry (P0-6) | not started | | | | |
-| B4 temporary-repair follow-up (P0-2) | not started | | | | |
-| B5 final gate and handoff update | not started | | | | |
+| B0 calculator vectors and written check | `chatgpt/calculator-math-reviews`; `chatgpt/roadmap-critique` | #31; #29 | merged as `3a7b25b`; `fdf4ea3` | merged; B0 complete | 2026-11-12, exact `b9c6cc7`: 91 suites / 2,302 checks; layout 1,054; smoke 373; all 8 commands exit 0; hosted QA `43192378275` success |
+| B1 remove Safety completely | `chatgpt/b1-remove-safety` | not opened | uncommitted work from `fdf4ea3` | source complete; full gate and reviewer pending; NAV-1 waits for its merge | source retention regression passed; focused training/docs checks recorded separately; full same-head gate pending |
+| B2 existing DOCSIS headroom wording/conversion and H1–H5 regression | `chatgpt/b1-composite-margin` | not opened | uncommitted test in `/workspace/Carpe-Noctum-b1` | paused until B1; no implementation change | not run |
+| B3 ripple-search width label | not started | — | — | queued | not run |
+| B4 Night log fixes, then intermittent-ingress entry | not started | — | — | queued | not run |
+| B5 temporary-repair follow-up | not started | — | — | queued; read `night-sweep/field-work.js` first | not run |
+| B6 final gate and handoff for Claude | not started | — | — | queued | not run |
 
 ## Next
 
-B0: validate IDs/formulas without changing vector numbers; full gate on committed head, update PR body and mark ready for Grok. #32 reviewed CHANGES NEEDED on `c98cf4d`: replaced queue and missing same-head author gate.
-
-Items B0 to B5 in `handoff_docs/WORKFLOW.md`, in order. No deadline: work until the queue is finished. Review and merge Grok's PRs before starting each new item; the power-sum and cascade PRs each get `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. Never merge your own PR.
+Run B1’s full local and hosted gate on its exact committed head after the integrated rebuild. Current source counts and edited-guide renders are recorded in `NightSweep_Project_Status.md` and the B1 evidence. Grok reviews and merges B1. Review any open Grok implementation PR before starting the next item; calculator reviews include independent math evidence.
 
 ## Blocked
 
-No calculator implementation PR to review yet. `origin/build3` is `61069f4` and already contains #30 Supply PM despite the new parked-draft direction; no further work on it. Instruction branch is readable but not yet on build3. No required document was wholly unreadable.
+No required document was wholly unreadable. B1's final gate, hosted gate and reviewer approval are pending. No physical-device or field result is claimed. Supply PM notebook export/import is Grok's A4b follow-up; it is outside project backups today.
 
 ## Questions for Spencer
 
-None yet.
+None. Safety removal is decided. Vecima setup is plug and play; no Vecima guide is needed. The 33 versus 40 dBmV question is dropped; the existing DOCSIS card stays as it is in B1.

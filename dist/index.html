@@ -250,7 +250,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel,#powerPmPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel,#powerPmPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 .pm-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px}#powerPmPanel input,#powerPmPanel select,#powerPmPanel textarea,#powerPmPanel button{min-height:44px}.pm-chart{display:block;width:100%;max-width:280px;height:auto}#powerPmPanel .table-scroll{overflow:auto;max-width:100%}#powerPmPanel .hs-table{width:100%;min-width:0;table-layout:fixed}#powerPmPanel th,#powerPmPanel td{white-space:normal;overflow-wrap:anywhere}
@@ -296,6 +296,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .check-edit{display:grid;gap:4px;font-size:13px;color:var(--muted)}
 .check-edit input{font:inherit;color:var(--ink,inherit);min-width:0;width:100%}
 .check-notes,.check-add,.check-hidden{margin:14px 0}
+#outagePanel .check-notes .calc-fields>label{justify-content:flex-end}
 .check-row .toolbar{display:flex;gap:8px;flex-wrap:wrap}
 .check-panel button.danger{border-color:var(--bad);color:var(--bad)}
 .check-panel input[aria-invalid=true]{border:3px solid var(--bad)}
@@ -510,7 +511,6 @@ html[data-theme=sun] .sweep-due-green{color:#22613b}
 <section class="panel calculator-panel pop-panel" data-screen="test" hidden="" id="popPanel"></section>
 <section class="panel calculator-panel study-panel" data-screen="test" hidden="" id="studyPanel"></section>
 <section class="panel calculator-panel pm-panel" data-screen="power" hidden="" id="powerPmPanel"></section>
-<section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
@@ -4616,7 +4616,7 @@ const WorkflowUI=(()=>{
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance'],['study','Study']]},
   power:{label:'Power',tabs:[['power','Load'],['trial','What-if'],['powerPm','Supply PM']]},
-  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log'],['sweepDue','Sweep due']]}
+  job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log'],['sweepDue','Sweep due']]}
  };
  const screens={
   nightLog:['job','Night log and shift handoff','Keep personal window notes and explicitly capture both saved Station stages for the next shift.'],
@@ -4636,7 +4636,7 @@ const WorkflowUI=(()=>{
   references:['test','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['test','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
   fiber:['test','Fiber color code and loss budget','Find a fiber by number, tube and color, and estimate a link\'s loss from length, connectors and splices. Nothing is read from a meter.'],
-  study:['test','Study mode: practice questions','Original practice questions made from this app\'s calculators and reference screens, grouped by the five SCTE BDS domains, with working shown. Practice only: a score is kept for this visit and nothing is saved.'],
+  study:['test','Study mode: practice questions','Original practice questions made from this app\'s calculators and reference screens, grouped by four SCTE BDS domains, with working shown. Practice only: a score is kept for this visit and nothing is saved.'],
   pop:['test','FCC proof of performance','The FCC technical limits and test rules an operator\'s proof-of-performance tests are measured against, with their rule sections. A reference only: official results belong to engineering. Nothing is typed, stored or read from a meter.'],
   why:['test','Why cards: the basics in plain words','Fourteen short cards on the basics behind the numbers in this app, one for each SCTE 293 "What is …?" monograph, each linking to the screen that uses it. A summary, not a copy. Nothing is typed, stored or read from a meter.'],
   highSplit:['test','High split and Remote PHY','Band plans for the 204/258 MHz plant, where the aeronautical band falls, and what is public about Remote PHY bring-up. Each statement names its document and issue. A reading aid: nothing is read from a node or stored.'],
@@ -4650,7 +4650,6 @@ const WorkflowUI=(()=>{
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],
   outage:['job','Respond to an outage','First-response prompts: scope, power, node, actives in order, who to tell and the times. Not your company’s procedure; follow it first.'],
-  safety:['job','Check safety before you work','Reminders to tick before you climb or open plant. They are not your company’s procedure; follow company policy.'],
   checklists:['job','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['job','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
   runsheet:['job','Review and share the run sheet','Review predictions, measurements and field notes before printing or exporting.'],
@@ -4667,7 +4666,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],powerPm:['powerPmPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],powerPm:['powerPmPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -4922,7 +4921,6 @@ const TrainingJob=(()=>{
   ['grading','Grade an invented sweep original','evidence','','Use Job → ONX files. Create a clearly labeled SYNTHETIC CSV with frequency_mhz,level_dbmv and rows 270,0; 390,2.5; 510,0 (one row per line), then attach as Sweep. Open Grading aid, explicitly choose the practice plant and direction, and enter exact markers 270 / 510 MHz and an illustrative 3 dB peak-to-valley limit. All criteria start blank; leave level targets and tilt criteria unknown for this step. Grade selected sweep reports 2.5 dB PTV, with the other checks unknown. This is raw unreferenced PTV, not normalized ripple or official acceptance. Save a project backup and verify the original and historical grading snapshot survive restore.'],
   ['docsis','Check modem levels against the spec','docsisHealth','','Open Test → DOCSIS health. Type 16 for the SC-QAM channel level: it is 1.0 dB above the −15 to +15 dBmV per 6 MHz range the modem must accept. Type 3.2 and it sits 11.8 dB inside. On the OFDM card set Measured over to 24 MHz and type −8: 1.0 dB inside the −9 to +21 range. Set the total-power card to a DOCSIS 3.1 modem and type 40 for total input power: it is at the limit, because the limit is strictly below 40 (33 for a 3.0-only modem, which you must choose first). For upstream, choose a 3.1 modem on a 3.1 CMTS and type 52 for total transmit power: the headroom to the 65 dBmV minimum Pmax is 13.0 dB. Each result says Unknown for your company window until you enter one; the spec range is what a modem must accept, not a target. All readings are synthetic.'],
   ['leakage','Check and log signal leakage','leakage','','Open Test → Leakage. In the limit check use 121.2625 MHz, an analog signal and 25 µV/m at 3 m: the limit that applies is 20 µV/m at 3 m, and the reading is 5 µV/m over it. In the CLI card type the leaks 100, 60, 50 with 0.8 of the plant examined: all three count, the sum of squares is 16,100, the index is 43.04 dB and it sits 21.0 dB at or below the printed value of 64. In the distance card 40 µV/m measured at 10 m is 133.3 µV/m at 3 m. Add one practice leak to the leak log by pole and date, type PRACTICE in the notes and use no customer names, mark it repaired, export the log, then use Delete on the practice entry so it never reaches a real export. The log, saved detector checks and company settings stay on this device and are not in the job backup. All readings are synthetic.'],
-  ['safety','Tick off pre-work safety reminders','safety','','Open Job → Safety. The screen opens with “Follow company policy”: the list is a set of reminders written for this app, not your company’s procedure. Tick two or three reminders, then type who knows where you are as a role (for example crew lead), a check-in time on a 24-hour clock and where your company keeps its safety policy. Choose Change this list to reword an item, hide one or add your own, then choose the same button again to finish. Ticks, notes and changes stay on this device and are not in the job backup. All entries are practice values: do not type customer names or addresses.'],
   ['outage','Walk through an outage first response','outage','','Open Job → Outage. The screen opens with “Follow your company’s outage procedure first”: the list is a set of prompts written for this app, not your company’s procedure. Tick the prompts for scope, power and the node, then type a plant place such as node leg 3 or amp 2, the time you arrived and what you found, all on a 24-hour clock. Fill in the optional damage or theft notes only if you suspect it, using roles and never names. Enter no customer names, addresses, phone numbers or account numbers. Choose Start a new call to clear the ticks and notes for the next one. Everything stays on this device and is not in the job backup. All entries are practice values.'],
   ['impairments','Find an impairment from what the meter shows','impairments','','Open Test → Impairments. Pick the picture of a regular up-and-down ripple. In the standing-wave card type a ripple spacing of 4.3 MHz and a cable velocity of 0.87: the distance between the two mismatches is 99.5 ft, and the saved practice route has two places about that far apart, each 100 ft: the launch to TRAIN Custom cable and passive, and that point to TRAIN Cable-only reverse-TDR origin. Each is a place to look at both ends, not a finding. Then pick the picture of a single notch and read the suckout card: its causes name loose seizure screws, and its five steps are analyze, localize, prioritize, repair and validate. Nothing is read from a meter and nothing is stored. All values are synthetic.'],
   ['fiber','Find a fiber and estimate a link loss','fiber','','Open Test → Fiber. In the color finder type fiber 30: it is white, position 6 in tube 3, which is green. In the loss budget type a 12.4 km link at 0.35 dB/km, 4 mated connector pairs at 0.3 dB, 6 splices at 0.1 dB, 3.5 dB of other loss and a 3 dB margin: the estimated loss is 9.64 dB and 12.64 dB with the margin. Add a transmitter power of 3 dBm and a receiver sensitivity of −24 dBm: the optics budget is 27 dB and 14.36 dB is left. The TIA allowances in the table are worst-case values, copied into the fields only when you choose, and your company\'s limits are not known to the app. All values are synthetic and nothing is stored.'],
@@ -4946,7 +4944,7 @@ const TrainingJob=(()=>{
  const exercises=[
   {id:'complete',button:'openTrainingJob',label:'Complete field workflow',group:'Route and calculations',summary:'22 steps · GS7K / GainMaker GaN · mixed Scientific-Atlanta / GigaXtend / Technetix passives · six practice meter files',scope:'Complete example: GS7K / two GainMaker HGD GaN actives, 42 / 54 MHz, with Scientific-Atlanta, GigaXtend and Technetix passives. Source hardware: 1218 MHz, entered path upper: 1000 MHz and live spectrum: 860 MHz remain distinct.'},
   {id:'aoi-six-active',button:'openDeepTrainingJob',label:'Six active devices in series',group:'Route and calculations',summary:'16 steps · A1 → A2 → A3 → A4 → A5 → A6 · practice level math on 204/258',scope:'Six-active example: six AOI amplifiers in ONE serial path after a Vecima source, 204 / 258 MHz. Entered cable, gain and power loads are synthetic teaching data; no captures supplied.'},
-  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'22 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
+  {id:'custom-curves',button:'openCustomTrainingJob',label:'Custom curves and reverse TDR',group:'Route and calculations',summary:'21 steps · manual launch table · custom cable / passive · reverse TDR and VF · calculators and sources',scope:'Custom-data example: editable synthetic launch, cable and passive tables, reverse TDR and exact frequency overrides. No physical measurements or captures supplied.'},
   {id:'gainmaker-oem',button:'openOemTrainingJob',label:'GainMaker OEM AGC',group:'Equipment and setup',summary:'8 steps · 42 / 54 MHz · exact OEM procedure and pilot module review',scope:'GainMaker OEM AGC practice: 42 / 54 MHz; pilot module and frequency/type deliberately unverified. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-dsim',button:'openDsimTrainingJob',label:'GainMaker / DSIM',group:'Equipment and setup',summary:'9 steps · 42 / 54 MHz · historical pilot lookup and separate DSIM path',scope:'GainMaker / DSIM practice: 42 / 54 MHz; no meter captures supplied. Attach clearly labeled practice evidence under Files.'},
   {id:'gainmaker-manual',button:'openManualTrainingJob',label:'GainMaker manual / thermal',group:'Equipment and setup',summary:'7 steps · 42 / 54 MHz · installed manual / thermal control path',scope:'GainMaker manual / thermal practice: 42 / 54 MHz, control path explicitly selected; exact settings remain unverified. No meter captures supplied.'},
@@ -4995,7 +4993,6 @@ const TrainingJob=(()=>{
   ['limits','Limits, labels and sources','Test','custom-curves','limits','limits','Synthetic profile criteria, the built-in local preset and unverified approximations, each with its label and source.'],
   ['docsisHealth','DOCSIS health card','Test','custom-curves','docsis','docsisHealth','Synthetic downstream and upstream readings that land inside, outside and exactly on the spec range, with a company window that starts unknown.'],
   ['leakage','Leakage limits, CLI and leak log','Test','custom-curves','leakage','leakage','Synthetic leaks against the 3 m limits, the CLI worked example (100, 60 and 50 µV/m with 0.8 examined) and a leak log kept on this device.'],
-  ['safety','Pre-work safety reminders','Job','custom-curves','safety','safety','A few reminders ticked, a role and a check-in time typed, and the list reworded, hidden and added to, all kept on this device and not in the job backup.'],
   ['outage','Outage first-response prompts','Job','custom-curves','outage','outage','Prompts ticked for scope, power and the node, a plant place and times typed, and a new call started, all kept on this device with no customer identifiers.'],
   ['nightLog','Night log and shift handoff','Job','aoi-six-active','nightLog','nightLog','Manually record invented A1–A5 Station stages, capture each worksheet explicitly and export a compact synthetic handoff; no field measurements are prefilled.'],
   ['sweepDue','Personal sweep reminders and independent balance dates','Job','aoi-six-active','sweepDue','sweepDue','Read saved Station work dates; explicitly enter 18 only for synthetic practice, then clear it to restore unknown.'],
@@ -5008,7 +5005,7 @@ const TrainingJob=(()=>{
   ['study','Study mode: practice questions','Test','custom-curves','study','study','A level conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only.'],
   ['powerPm','Supply PM notebook and span voltage drop','Power','custom-curves','powerPm','powerPm','A synthetic 1,000 ft P3 .625 span at 5 A and 68 °F drops 5.5 V from 90 V, which is above that model’s published 35 V minimum; the supply notebook stays on this device and not in the job.']
  ].map(([id,label,group,variant,step,task,seed])=>({id,label,group,variant,step,task,seed}));
- const featureControls={powerPm:'#powerPmCurrent',study:'#studyDomain',pop:'#popPanel .pop-table',why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',fiber:'[data-fiber="finder"][data-field="fiber"]','sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',safety:'[data-check="brief-job"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
+ const featureControls={powerPm:'#powerPmCurrent',study:'#studyDomain',pop:'#popPanel .pop-table',why:'#whyPanel .why-list',highSplit:'#highSplitPanel .hs-table',fiber:'[data-fiber="finder"][data-field="fiber"]','sweep-grading':'#gradingRun',sweepDue:'#sweepDueInterval',impairments:'input[name="impShape"]',outage:'[data-check="scope-what"]',leakage:'[data-leak="limit"][data-field="frequency"]',docsisHealth:'[data-health="scqam"][data-field="level"]',nightLog:'[data-night-draft="stationIdentity"]',station:'[data-station-target]',calculators:'[data-calc="ripple"][data-field="spacing"]',limits:'[data-limits-filter="company"]',home:'#homeBackup',help:'#runSelfCheck',setup:'[data-setup="lowF"]',route:'[data-row="r4"] [data-field="parent"]',gain:'[data-row="r1"] [data-field="gainLow"]',equipmentSetup:'#equipmentSetupPanel [data-equipment-target]',parts:'#catalogSearch',sweepSetup:'#sweepSetupPanel',tdr:'[data-route-tool="distance"]',sweep:'#plot',frequency:'[data-frequency="quickF"]',readings:'[data-row="r1"] [data-meter-field="reading"]',references:'[data-reference-target="lowMin"]',power:'#powerCurrent',trial:'#keepPowerTrial',projects:'[data-job-field="workOrder"]',evidence:'#evidenceFiles',checklists:'[data-leakage-value]',records:'[data-project-add="forward"]',runsheet:'#runSheetPanel','six-active-cascade':'[data-row="r6"] [data-field="parent"]','gain-table':'[data-row="r2"] [data-field="activeGainTable"]','gain-test-points':'[data-row="r1"] [data-field="measureIn"]','tap-drop':'[data-row="r6"] [data-drop-field="length"]','map-arithmetic':'[data-row="r1"] .arithmetic-results','custom-tables':'[data-row="r1"] [data-field="customCable"]','launch-table':'[data-setup="launchTable"]','reverse-tdr':'[data-route-tool="setVF"]','available-carriers':'[data-reference-local-marker="low"]','oem-agc':'[data-equipment-field="gainControl"]','dsim-pilot':'[data-equipment-field="pilot"]','manual-thermal':'[data-equipment-field="gainControl"]','gs7k-setup':'#equipmentSetupPanel [data-equipment-target]','db-units':'[data-leakage-value]','return-injection':'[data-project-add="returns"]','evidence-comparison':'#evidencePanel','backup-roundtrip':'#homeBackup'};
  for(const feature of features)feature.control=featureControls[feature.id];
  const variant=(owner=state)=>isTraining(owner)?String(owner.job?.trainingVariant||'complete'):'complete';
  const guideLists=new Map([['complete',steps],['gainmaker-dsim',dsimSteps],['gainmaker-oem',oemSteps],['gs7k-node',gs7kSteps],['aoi-six-active',deepSteps],['custom-curves',customSteps],['gainmaker-manual',manualSteps]]);
@@ -5331,9 +5328,9 @@ const Thresholds=(()=>{
   {id:'station.return.cmtsSetPoint',label:'spec',name:'Configurable CMTS receive set point',kind:'target',units:'dBmV',value:0,source:'SCTE 293-7, What is … Long Loop Automatic Level Control?',revision:'2025; release history February 17, 2025',locator:'Sections 4.2 and 5; section 5.1 examples',conditions:'The documented default CMTS receive set point is 0 dBmV and is configurable. DOCSIS long-loop ALC is not amplifier alignment. This does not populate a station injection target or an absolute receiver reference.',date:CHECKED,scope:'all',verification:'primary',usedBy:'Route → Station: receiver reference-plane reminder'},
   {id:'station.return.aoiHgdInput',label:'unknown',name:'Quantum18 HGD preliminary upstream input recommendation',kind:'target',units:'dBmV per 6.4 MHz channel',value:9,source:'AOI, Quantum18 HGD System Amplifier data sheet, QB18-HGD-SA-Datasheet.pdf',revision:'Preliminary; revision/date not printed in the saved extraction; archive snapshot November 7, 2024',locator:'Page 1, Reverse Station Performance table and note 4',conditions:'Published preliminary recommendation for the HGD 204 MHz split only. Does not establish a value for HGBT, LE, other splits, station injection or receiver reference. Current issued revision remains unverified. Manufacturer-authored file was read from its archived primary copy.',date:CHECKED,scope:'204/258',verification:'unverified',usedBy:'Route → Station: exact HGD 204/258 reference reminder'},
   {id:'station.input.range',label:'unknown',name:'Station worksheet numeric range',kind:'limit',units:'dB or dBmV',value:200,source:'Application input guard, not an equipment capability or company acceptance limit',revision:'Build 3 station worksheet',locator:'station.js level() and loss(); alignment.js readings()',conditions:'Levels within ±200 dBmV; recorded EQ / tilt within ±200 dB; net insertion loss, recorded pad and optional tolerances from 0 to 200 dB. Finite decimal notation must remain visible in HTML number fields. Guard prevents overflow / unsupported arithmetic. It must not be treated as a safe operating range.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Route → Station'},
-  {id:'checklist.items.max',label:'unknown',name:'Checklist cards: items you can add',kind:'limit',units:'items per checklist',value:40,source:'checklist.js application guard (MAX_CUSTOM); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_CUSTOM and addItem()',conditions:'Each checklist card (Pre-work safety, and the Outage first-response card that shares the engine) accepts up to 40 items you add yourself, on top of its original list. A software storage and display bound only. It does not limit hiding or rewording the original items, and it says nothing about how many checks a job needs.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: Add an item'},
-  {id:'checklist.itemText.max',label:'unknown',name:'Checklist cards: characters in one item',kind:'limit',units:'characters per item',value:160,source:'checklist.js application guard (MAX_TEXT); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_TEXT, editItem() and addItem()',conditions:'The wording of an item you reword or add is cut after 160 characters. A software display bound only; the original wording of the built-in items is shorter.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: reword or add an item'},
-  {id:'checklist.note.max',label:'unknown',name:'Checklist cards: characters in a note box',kind:'limit',units:'characters per note box',value:120,source:'checklist.js application guard (MAX_NOTE); not a safety, company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_NOTE and setField(); each card sets the limit of its own boxes',conditions:'No note box takes more than 120 characters, and each box can have a lower limit set by its card (for example, in Pre-work safety: who knows where you are 80, where your company keeps its safety policy 120). A software bound only. Enter no customer names, addresses or account numbers.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Safety: Notes for this job'},
+  {id:'checklist.items.max',label:'unknown',name:'Checklist cards: items you can add',kind:'limit',units:'items per checklist',value:40,source:'checklist.js application guard (MAX_CUSTOM); not a company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_CUSTOM and addItem()',conditions:'The Outage first-response card accepts up to 40 items you add yourself, on top of its original list. A software storage and display bound only. It does not limit hiding or rewording the original items, and it says nothing about how many checks a job needs.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Outage: Add an item'},
+  {id:'checklist.itemText.max',label:'unknown',name:'Checklist cards: characters in one item',kind:'limit',units:'characters per item',value:160,source:'checklist.js application guard (MAX_TEXT); not a company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_TEXT, editItem() and addItem()',conditions:'The wording of an item you reword or add is cut after 160 characters. A software display bound only; the original wording of the built-in items is shorter.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Outage: reword or add an item'},
+  {id:'checklist.note.max',label:'unknown',name:'Checklist cards: characters in a note box',kind:'limit',units:'characters per note box',value:120,source:'checklist.js application guard (MAX_NOTE); not a company or RF requirement',revision:'2.0 Alpha build 3 shared checklist engine',locator:'checklist.js MAX_NOTE and setField(); each card sets the limit of its own boxes',conditions:'No note box takes more than 120 characters, and each box can have a lower limit set by its card (for example, in Outage: who was told 80, what was found and done 120). A software bound only. Enter no customer names, addresses or account numbers.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Outage: Notes for this job'},
   {id:'nightLog.entries.max',label:'unknown',name:'Night-log entry cap',kind:'limit',units:'entries/job',value:200,source:'night-log.js application guard; not a manufacturer specification or company acceptance criterion',revision:'2.0 Alpha build 3 night log',locator:'night-log.js validate() entry-count check and addEntry() maximum check',conditions:'Existing maximum of 200 general or captured-Station entries in one job. Software storage and display bound, not an RF limit, equipment capability or company target. Device storage can fill sooner; keep a project backup.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → Night log: entry count, Add entry and optional log import validation'},
   {id:'power.span.drop',label:'unknown',name:'Span voltage drop from catalog loop resistance',kind:'formula',units:'V',formula:'drop = current × published loop ohms per 1,000 ft × (length + slack) / 1,000 × (1 + coefficient per °C × (temperature °F − 68) × 5/9); voltage at the end = voltage at the start − drop',source:'Ohm’s law for current times resistance. The loop ohms are the cable catalog’s published value at 68 °F. The temperature factor is the same engineering approximation already used by Power → Load (HFC.dcSegment). The coefficient is typed; 0.004 per °C is not filled in. SCTE 238 and the 2025 outside-plant powering project were not read.',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js spanDrop(); engine.js dcSegment()',conditions:'One span at a time, then the next span can start at the previous end. The active comparison uses that model’s published minimum input from the catalog and no company minimum. A cable with no published loop resistance is not calculated. Not an RF 42/54 or 204/258 value, and not an acceptance limit.',date:'2026-11-12',scope:'all',verification:'derived',usedBy:'Power → Supply PM'},
   {id:'power.pm.supplies.max',label:'unknown',name:'Supply PM notebook: supplies kept on this device',kind:'limit',units:'supplies',value:40,source:'power-pm.js application guard; not a manufacturer specification or a company power record',revision:'2.0 Alpha build 3 supply PM',locator:'power-pm.js LIMITS.supplies and saveVisit()',conditions:'Software storage bound for the personal notebook. It is not in the job and not in a project backup.',date:'2026-11-12',scope:'all',verification:'unverified',usedBy:'Power → Supply PM'},
@@ -6943,7 +6940,7 @@ const LeakageUI=(()=>{
  return {init,markup,refreshAll,renderLists,CARDS};
 })();
 </script>
-<script>/* Build 3 shared checklist engine, used by the pre-work safety card and the outage first-response card.
+<script>/* Build 3 shared checklist engine, used by the outage first-response card.
    A checklist is a list of prompts the technician ticks off, rewords, hides or adds to, plus a few short
    notes (a person's name or role, a time). Everything is kept on this device only, under one versioned
    key per checklist, outside jobs and job backups. Nothing here is a company procedure; the cards that use
@@ -7070,8 +7067,8 @@ const Checklist=(()=>{
    },storage);
   }
   function uncheckAll(storage){return commit(s=>{s.checked=[];},storage);}
-  /* A new pass or a new call: ticks go and so do the notes for this job. Notes marked keep (such as where the
-     company's policy is kept) stay, and so do the technician's changes to the list. */
+  /* A new pass or a new call: ticks go and so do the notes for this job. Notes marked keep stay,
+     and so do the technician's changes to the list. */
   function startOver(storage){
    return commit(s=>{
     s.checked=[];
@@ -7281,69 +7278,6 @@ const ChecklistUI=(()=>{
  return {mount};
 })();
 </script>
-<script>/* Build 3 pre-work safety card (build list item 9). A reminder list to tick before climbing, opening plant or
-   working near a road. The wording was written for this app from general field-safety practice. It is not
-   copied from NCTI or SCTE material and it is not any company's procedure: the card opens by saying so.
-   The list has no safety limits, numbers or targets; its only numbers are the engine's software caps (items you can add,
-   characters per item and per note box), registered as Unknown application guards. A company policy reference and the
-   person who knows where you are are notes the technician types in. Kept on this device only. */
-const Safety=(()=>{
- const ITEMS=[
-  {id:'brief-job',group:'Before you leave',text:'Read the work order and know what you will open, climb or dig.'},
-  {id:'brief-hazards',group:'Before you leave',text:'Think through the hazards at this site: traffic, power lines, weather, animals and people.'},
-  {id:'brief-weather',group:'Before you leave',text:'Check the weather. Do not climb or open plant in lightning, ice or high wind.'},
-  {id:'brief-checkin',group:'Before you leave',text:'Tell someone where you are working and when you will check in. Fill in the notes below.'},
-  {id:'brief-phone',group:'Before you leave',text:'Carry a charged phone. Know the emergency number and your company’s safety line.'},
-  {id:'ppe-required',group:'Protective equipment',text:'Wear the protective equipment your company requires for this task.'},
-  {id:'ppe-head-eye',group:'Protective equipment',text:'Hard hat and eye protection on, fitted and in good condition.'},
-  {id:'ppe-hivis',group:'Protective equipment',text:'High-visibility clothing on when you work near a road or moving vehicles.'},
-  {id:'ppe-hands-feet',group:'Protective equipment',text:'Gloves and footwear suited to the task, as your company requires.'},
-  {id:'ppe-inspect',group:'Protective equipment',text:'Look over each item for damage or wear before you use it.'},
-  {id:'veh-park',group:'Vehicle and traffic',text:'Park so the vehicle and work area can be seen, with warning devices out as your company requires.'},
-  {id:'veh-traffic',group:'Vehicle and traffic',text:'Set up traffic control as your company and the road authority require before working near moving traffic.'},
-  {id:'veh-ground',group:'Vehicle and traffic',text:'Check the ground around the work area for holes, slopes and loose material.'},
-  {id:'lad-inspect',group:'Ladders and climbing',text:'Inspect the ladder: rating, rungs, feet and locks. Do not use a damaged ladder.'},
-  {id:'lad-set',group:'Ladders and climbing',text:'Set the ladder on firm, stable ground and secure it as your company requires.'},
-  {id:'lad-gear',group:'Ladders and climbing',text:'Inspect the harness, lanyard, hooks and climbing gear before every climb. Retire anything that fails.'},
-  {id:'lad-structure',group:'Ladders and climbing',text:'Check the pole or structure and the strand before you climb. Do not climb one that looks unsafe.'},
-  {id:'lad-powerlines',group:'Ladders and climbing',text:'Find overhead power lines before you raise a ladder or climb, and stay clear of them.'},
-  {id:'lad-zone',group:'Ladders and climbing',text:'On a pole, stay in the communications space and keep clear of the power space, as your company’s rules define them.'},
-  {id:'elec-assume',group:'Electrical',text:'Treat cable plant, pedestals and housings as possibly energized. AC power can ride on the coax.'},
-  {id:'elec-ground',group:'Electrical',text:'Check the bonding and grounding at the housing or pole. Report a missing or damaged ground and do not work around it.'},
-  {id:'elec-voltage',group:'Electrical',text:'Check for stray voltage with your approved tester before you touch metal housings, strand or grounds.'},
-  {id:'elec-procedure',group:'Electrical',text:'Follow your company’s procedure before opening an active, a power supply or a power inserter.'},
-  {id:'elec-wet',group:'Electrical',text:'Do not work on plant in standing water or during a thunderstorm.'},
-  {id:'dig-locate',group:'Digging and underground',text:'Confirm that underground utilities are located and marked before anyone digs.'},
-  {id:'dig-vault',group:'Digging and underground',text:'Test the air and follow your company’s confined-space rules before entering a vault.'},
-  {id:'fiber-lit',group:'Fiber and laser',text:'Never look into a fiber end, connector or port. Treat it as lit until your approved power meter shows otherwise.'},
-  {id:'fiber-scraps',group:'Fiber and laser',text:'Keep fiber scraps in a closed container, away from skin, eyes and clothing.'},
-  {id:'fiber-scope',group:'Fiber and laser',text:'Inspect connectors only with approved, filtered equipment, and never while the fiber may be lit.'},
-  {id:'fiber-hygiene',group:'Fiber and laser',text:'No food or drink at the fiber work area. Wash your hands afterwards.'},
-  {id:'end-tools',group:'Before you leave the site',text:'Count your tools, take your waste and close and lock every enclosure.'},
-  {id:'end-checkin',group:'Before you leave the site',text:'Tell the person you checked in with that you are finished.'},
-  {id:'end-report',group:'Before you leave the site',text:'Report any hazard, damaged equipment or near miss to your supervisor.'}
- ];
- const FIELDS=[
-  {id:'who',label:'Who knows where I am (a name or role)',type:'text',max:80,hint:'e.g. dispatcher or crew lead'},
-  {id:'checkin',label:'Check in with them by (24-hour time)',type:'time'},
-  {id:'policy',label:'Where to find my company’s safety policy or safety line',type:'text',max:120,hint:'document name or phone line',keep:true}
- ];
- const list=Checklist.create({key:'nightsweep-safety-v1',items:ITEMS,fields:FIELDS});
- const OPTIONS={panelId:'safetyPanel',prefix:'safety',title:'Pre-work safety',
-  lead:'Reminders to tick before you climb, open plant or work near a road. Change the list to match your company’s own.',
-  policy:'Follow company policy first, and your supervisor’s direction. This list is a set of reminders written for this app. It is not your company’s procedure and does not replace training, permits or any rule that applies to you.',
-  source:'Wording written for this app from general field-safety practice; no NCTI or SCTE course text is copied. Course headings consulted only: NCTI Field Safety and Fiber-Optic Installation I: Safety; the SCTE safety and construction domain.',
-  reviewNote:'A supervisor or safety officer has not reviewed it yet.',
-  startLabel:'Start a new pass',exportName:'CarpeNoctum_2.0_Alpha_build_3_Pre-work_Safety.txt',exportTitle:'Pre-work safety reminders (not a company procedure)'};
- let ui=null;
- function init(){
-  if(ui||typeof document==='undefined')return;
-  let st=null;try{st=window.localStorage;}catch(_){}
-  list.load(st);ui=ChecklistUI.mount(OPTIONS,list);
- }
- return {ITEMS,FIELDS,list,OPTIONS,init};
-})();
-</script>
 <script>/* Build 3 outage first-response card (build list item 8). Prompts for the first steps of an outage call:
    confirm the scope, check power, check the node, work through the actives in order, tell the right people,
    write down the times. The wording is original and is not any company's outage procedure: the card says
@@ -7357,8 +7291,6 @@ const Outage=(()=>{
   {id:'scope-nearby',group:'Confirm the scope',text:'Check whether nearby nodes or services are also affected.'},
   {id:'scope-planned',group:'Confirm the scope',text:'Check for planned work, a utility power outage or severe weather in the area.'},
   {id:'scope-notes',group:'Confirm the scope',text:'Read the dispatch notes for the area. Do not copy customer names or addresses into this card.'},
-  {id:'safe-scene',group:'Safety on arrival',text:'Look over the site before you get out: traffic, downed lines, fire, flooding, people or animals. Leave and call it in if it is not safe.'},
-  {id:'safe-checklist',group:'Safety on arrival',text:'Complete your company’s pre-work safety steps. Job → Safety has reminders.'},
   {id:'power-ac',group:'Power',text:'Check whether utility AC power is present at the power supply.'},
   {id:'power-status',group:'Power',text:'Check the power supply’s status: on utility power or on battery, and any alarm lights. Note what you see.'},
   {id:'power-report',group:'Power',text:'If the supply is on battery or off, tell your supervisor or the ROC and note how long it has been out, if you know.'},
@@ -8162,8 +8094,8 @@ const ProofOfPerformanceUI=(()=>{
 })();
 </script>
 <script>/* Study mode (build list item 19, 2.0 Alpha build 3): original practice questions built from this app's own calculators
-   and reference screens, tagged by the five SCTE BDS domains (architectures; distribution components; signal types;
-   maintenance and troubleshooting; safety and construction). Nothing here is taken from an SCTE or NCTI exam or question
+   and reference screens, tagged by four SCTE BDS domains (architectures; distribution components; signal types;
+   maintenance and troubleshooting). Nothing here is taken from an SCTE or NCTI exam or question
    bank: every question is generated from a calculator or a screen of this app, with numbers chosen on a fixed grid from a
    seed, and its answer is computed by the same function the app uses. Practice only: a score is kept for this visit,
    never saved, and it is not a test result. */
@@ -8172,8 +8104,7 @@ const StudyMode=(()=>{
   {id:'architectures',name:'Architectures'},
   {id:'components',name:'Distribution components'},
   {id:'signals',name:'Signal types'},
-  {id:'troubleshooting',name:'Maintenance and troubleshooting'},
-  {id:'safety',name:'Safety and construction'}
+  {id:'troubleshooting',name:'Maintenance and troubleshooting'}
  ].map(Object.freeze));
  /* A small seeded generator, so a question can be reproduced from its number and seed. */
  function rng(seed){
@@ -8187,7 +8118,7 @@ const StudyMode=(()=>{
  const app=()=>({
   calc:typeof FieldCalc!=='undefined'?FieldCalc:null,leak:typeof Leakage!=='undefined'?Leakage:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
   docsis:typeof DocsisHealth!=='undefined'?DocsisHealth:null,split:typeof HighSplit!=='undefined'?HighSplit:null,imp:typeof Impairments!=='undefined'?Impairments:null,
-  safety:typeof Safety!=='undefined'?Safety:null,outage:typeof Outage!=='undefined'?Outage:null
+  outage:typeof Outage!=='undefined'?Outage:null
  });
  /* Choices: the right answer is placed at a random position among the others, never repeated. */
  function choice(r,right,others){
@@ -8295,13 +8226,7 @@ const StudyMode=(()=>{
    const c=choice(r,right,['Not less than 51 dB','Not less than 18 dB','Not less than 30 dB','Not less than 60 dB']);
    return {kind:'choice',prompt:'What is the FCC minimum ratio of visual carrier to system noise for an analog channel?',choices:c.choices,correct:c.correct,working:['47 CFR 76.605(b)(7): the ratio of RF visual signal level to system noise shall not be less than 43 dB.','51 dB is the coherent-disturbance figure and 18 dB the terminal isolation.'],source:'47 CFR 76.605(b)(7)'};
   }},
-  {id:'safetysection',domain:'safety',tool:{task:'safety',label:'Job → Safety'},make:r=>{
-   const a=app(),items=a.safety.ITEMS,item=pick(r,items);
-   const groups=[...new Set(items.map(i=>i.group))];
-   const c=choice(r,item.group,groups);
-   return {kind:'choice',prompt:`In which section of the pre-work safety card does this reminder appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of reminders written for this app. It is not your company’s procedure; follow company policy first.'],source:'This app’s Job → Safety card'};
-  }},
-  {id:'outagesection',domain:'safety',tool:{task:'outage',label:'Job → Outage'},make:r=>{
+  {id:'outagesection',domain:'troubleshooting',tool:{task:'outage',label:'Job → Outage'},make:r=>{
    const a=app(),items=a.outage.ITEMS,item=pick(r,items);
    const groups=[...new Set(items.map(i=>i.group))];
    const c=choice(r,item.group,groups);
@@ -8365,7 +8290,7 @@ const StudyModeUI=(()=>{
   const score=panel.querySelector('#studyScore');if(score)score.textContent=state.asked?`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`:'Nothing is saved, and a score here is not a test result.';
  }
  function markup(){
-  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All five domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
+  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
  }
  function showResult(q,res,panel){
   const out=panel.querySelector('#studyFeedback');
@@ -8723,7 +8648,7 @@ const PowerPMUI=(()=>{
  return {init,paint,read,draft:()=>draft,resultText};
 })();
 </script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"bfdcea59539bb88b92f5","worker":"sw.bfdcea59539bb88b92f5.js","appVersion":"2.0 Alpha build 3"}</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"17142509b0a211a99f89","worker":"sw.17142509b0a211a99f89.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>

@@ -1,4 +1,4 @@
-/* Build 3 Study mode (build list item 19): original practice questions from the app's own calculators, tagged by the five BDS
+/* Build 3 Study mode (build list item 19): original practice questions from the app's own calculators, tagged by four remaining BDS
    domains. Checks that every numeric answer equals an independent Python decimal recomputation from the question's parameters,
    that choice questions have exactly one right answer drawn from the app's own data, how an answer is checked (a blank or a
    lone minus sign is never an answer), the rendered screen, and that nothing is stored. */
@@ -20,11 +20,11 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
   await flush();
   const gens = h.json('StudyMode.GENERATORS.map(g=>({id:g.id,domain:g.domain,task:g.tool.task}))');
 
-  await check('There are original questions in all five BDS domains, and every generator practices a screen that exists', async () => {
+  await check('There are original questions in all four remaining BDS domains, and every generator practices a screen that exists', async () => {
     const ids = h.json('StudyMode.DOMAINS.map(d=>d.id)');
-    assert.deepEqual(ids, ['architectures', 'components', 'signals', 'troubleshooting', 'safety']);
+    assert.deepEqual(ids, ['architectures', 'components', 'signals', 'troubleshooting']);
     for (const d of ids) assert(gens.filter(g => g.domain === d).length >= 2, d + ' has at least two question types');
-    assert.equal(gens.length, 19); assert.equal(new Set(gens.map(g => g.id)).size, 19);
+    assert.equal(gens.length, 18); assert.equal(new Set(gens.map(g => g.id)).size, 18);
     for (const g of gens) { await goto(h, 'projects'); await goto(h, g.task); assert.equal(h.ev('WorkflowUI.current()'), g.task, g.id + ' links to ' + g.task); comparisons++; }
   });
 
@@ -68,8 +68,10 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     assert.equal(aero.choices[aero.correct].toLowerCase(), h.json(`HighSplit.aeroBandSide(HighSplit.PLANS.find(p=>p.id==="${aero.params.plan}"))`));
     const cnr = h.json('StudyMode.question("troubleshooting",4,9)'); assert.equal(cnr.id, 'popcnr');
     assert.match(h.json('Thresholds.get("fcc.pop.cnr")').rangeText.replace(/^n/, 'N'), /^Not less than 43 dB$/); assert.equal(cnr.choices[cnr.correct], 'Not less than 43 dB');
-    const sec = h.json('StudyMode.question("safety",0,11)'); assert.equal(sec.id, 'safetysection');
-    const item = h.json(`Safety.ITEMS.find(i=>i.id===${JSON.stringify(sec.params.item)})`); assert.equal(sec.choices[sec.correct], item.group);
+    const outageIndex = h.json('StudyMode.list("troubleshooting").findIndex(g=>g.id==="outagesection")');
+    assert(outageIndex >= 0, 'the Outage question remains in troubleshooting');
+    const sec = h.json(`StudyMode.question("troubleshooting",${outageIndex},11)`); assert.equal(sec.id, 'outagesection');
+    const item = h.json(`Outage.ITEMS.find(i=>i.id===${JSON.stringify(sec.params.item)})`); assert.equal(sec.choices[sec.correct], item.group);
     assert(sec.prompt.includes(item.text));
   });
 
@@ -145,7 +147,7 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
       const want = q.relative ? new RegExp('within ' + String(Number((q.tol * 100).toFixed(2))).replace('.', '\\.') + ' percent') : q.tol === 0 ? /exact whole number/ : new RegExp('within ' + String(q.tol).replace('.', '\\.'));
       assert.match(text, want, q.prompt.slice(0, 40)); seen++; comparisons++;
     }
-    assert(seen >= 10 && seen < 19, 'every number generator was checked (' + seen + ')'); assert.equal(seen, h.json("StudyMode.DOMAINS.reduce((n,d)=>n+StudyMode.list(d.id).filter((g,i)=>StudyMode.question(d.id,i,3).kind==='number').length,0)"));
+    assert(seen >= 10 && seen < 18, 'every number generator was checked (' + seen + ')'); assert.equal(seen, h.json("StudyMode.DOMAINS.reduce((n,d)=>n+StudyMode.list(d.id).filter((g,i)=>StudyMode.question(d.id,i,3).kind==='number').length,0)"));
     h.ev("StudyModeUI.render&&StudyModeUI.render()");
     const box = h.d.getElementById('studyNumber'); if (box) { assert.equal(box.getAttribute('aria-describedby'), 'studyTolerance'); assert.match(h.d.getElementById('studyTolerance').textContent, /Counts as right within|exact whole number/); }
   });

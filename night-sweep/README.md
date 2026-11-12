@@ -1,7 +1,7 @@
 # NightSweep 1.8 Alpha build 2
 
 **Technician guide and README**  
-**Spencer Williams · Updated November 11, 2026**
+**Spencer Williams · Updated November 12, 2026**
 
 NightSweep is an offline field calculator and job notebook for HFC maintenance technicians, team leaders, and supervisors. Use it to follow cable and equipment losses, check amplifier gain, locate a TDR distance along a route, estimate power loading, and keep measurements, notes, and meter files together.
 
@@ -27,7 +27,7 @@ For a new field job:
 6. Follow **Test → Meter setup** for the actual plant split and approved method. Attach original meter files under **Job → ONX files**, then review **Job → Run sheet**.
 7. Use **Files → Back up project**, finish the phone's save action, and confirm the portable backup exists outside NightSweep.
 
-Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Safety, Job → Outage and the sweep grading aid. Use **Six active devices in series** for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Route → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
+Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Outage and the sweep grading aid. Use **Six active devices in series** for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Route → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
 
 ## Find the right tool
 
@@ -56,7 +56,6 @@ Home offers an organized **Practice library** with the complete training job, Ga
 | Save/open named jobs and record node details | **Job → Details** | Job and installed equipment information |
 | Attach Sweep, Ingress, or OneCheck files | **Job → ONX files** | Files already available on your phone |
 | Record inspection and repair work | **Job → Checklists** | Work actually performed |
-| Tick pre-work safety reminders | **Job → Safety** | Follow company policy first. Ticks stay on this phone and are not in the job backup. A supervisor should review the list before coworkers use it |
 | Walk through outage first-response prompts | **Job → Outage** | Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it |
 | Maintain measurement and acceptance records | **Job → Acceptance** | Approved procedure, criteria, readings, and traces |
 | Review personal sweep reminders across device jobs | **Job → Sweep due** | Actual Station work dates and your entered interval, initially unknown |
@@ -117,7 +116,7 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
 | **Open GS7K node practice** | Standard GS7000 1.2 GHz launch, starting at 42/54 MHz; separate node-only setup exercise | 10 | None; launch/TP correction unverified, no RF route or captured traces |
 | **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz; Night log and Sweep due practice (2.0 Alpha build 3) | 16 | Synthetic teaching data; no physical acceptance |
-| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety, Outage, Impairments, Fiber, High split, Why cards, Proof of performance, Study mode and Supply PM (2.0 Alpha build 3) | 22 | Synthetic table and calculator inputs; no field captures |
+| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Outage, Impairments, Fiber, High split, Why cards, Proof of performance, Study mode and Supply PM (2.0 Alpha build 3) | 21 | Synthetic table and calculator inputs; no field captures |
 
 The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 
@@ -125,7 +124,7 @@ The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exa
 
 1. If a real job is open, use **Files → Back up project** and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.
 2. Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.
-3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 22 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
+3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 21 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
 4. Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.
 
 While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.
@@ -989,4 +988,4 @@ The interval belongs to the open job; the empty state says so explicitly. If aut
 
 Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Route → Station** to record actual work and **Job → Details** to manage jobs. Export a project backup if autosave fails.
 
-The six-active practice now has **16 steps**; its **Personal sweep reminders** step asks you to enter **18** for a synthetic demonstration and then clear it to restore unknown. The current source has **36 task screens** and **54 feature choices**. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.
+The six-active practice now has **16 steps**; its **Personal sweep reminders** step asks you to enter **18** for a synthetic demonstration and then clear it to restore unknown. The current source has **35 task screens** and **53 feature choices**. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.
