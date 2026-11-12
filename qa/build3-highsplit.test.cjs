@@ -72,7 +72,7 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   await check('The screen is Test → High split after Fiber, shows only there, and its tables carry the plan numbers, the gaps and which direction 108–137 MHz is in', async () => {
     await goto(h, 'projects'); assert.equal(h.d.getElementById('highSplitPanel').hidden, true);
     await goto(h, 'highSplit');
-    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-3), ['Impairments', 'Fiber', 'High split']);
+    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-5, -2), ['Impairments', 'Fiber', 'High split']);
     assert.equal(h.d.getElementById('highSplitPanel').hidden, false); assert.match(h.d.getElementById('screenTitle').textContent, /High split and Remote PHY/);
     const rows = [...h.d.querySelectorAll('#highSplitPanel table')].map(t => [...t.querySelectorAll('tbody tr')].map(r => [...r.children].map(c => c.textContent.trim().replace(/\s+/g, ' '))));
     assert.equal(rows.length, 3);
