@@ -62,6 +62,50 @@ def route_checks(browser, width):
     check(f'{width}px route search: after another job is opened the places are recomputed for that job', shown and again != first)
     context.close()
 
+def import_checks(browser, width):
+    """The header Open project picker replaces the working job while this screen stays open: the places must follow."""
+    context = browser.new_context(viewport={'width': width, 'height': 844}, is_mobile=True, has_touch=True)
+    page = context.new_page()
+    page.on('pageerror', lambda e: errors.append(str(e)))
+    page.on('dialog', lambda d: d.accept())
+    page.goto(f'http://127.0.0.1:{server.server_port}/index.html')
+    page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof ImpairmentsUI!=="undefined"')
+    page.evaluate("WorkflowUI.go('impairments')")
+    shape = page.evaluate("Impairments.SHAPES.find(s=>Impairments.cardForShape(s.id)&&Impairments.cardForShape(s.id).id==='standing-wave').id")
+    page.locator(f'input[name="impShape"][value="{shape}"]').check()
+    page.wait_for_selector(OUT)
+    page.locator('[data-imp="spacing"]').fill('1.7'); page.locator('[data-imp="vp"]').fill('0.87'); page.wait_for_timeout(150)
+    first = text(page)
+    check(f'{width}px header import: the starting route shows candidate places', 'candidate place' in first and 'Tap 1' in first)
+    tmp = Path(tempfile.mkdtemp(prefix='cn-imp-file-'))
+    empty = tmp / 'empty-route.json'
+    empty.write_text(page.evaluate("JSON.stringify({...JSON.parse(JSON.stringify(state)),rows:[]})"))
+    page.set_input_files('#load', str(empty)); page.wait_for_timeout(500)
+    after = text(page)
+    check(f'{width}px header import: opening a project with no route on this screen removes the old places and says the route has no point', page.evaluate('state.rows.length') == 0 and 'candidate place' not in after and 'Tap 1' not in after and 'no point with a valid distance' in after)
+    check(f'{width}px header import: the screen did not change', page.evaluate("WorkflowUI.current()") == 'impairments' )
+    other = tmp / 'other-route.json'
+    other.write_text(page.evaluate("JSON.stringify(TrainingJob.makePractice('aoi-six-active'))"))
+    page.set_input_files('#load', str(other)); page.wait_for_timeout(500)
+    expected = page.evaluate("(()=>{const r=FieldCalc.rippleDistance('1.7','0.87');const f=Impairments.candidates(state,catalog,r.feet,undefined);return f.ok?f.total:-1})()")
+    again = text(page)
+    check(f'{width}px header import: a second project with another route shows that route\'s places', page.evaluate('state.rows.length') > 0 and ((expected > 0 and f'{expected} candidate' in again) or (expected == 0 and 'No pair of points' in again)) and again != after)
+    page.evaluate("window.NightSweep.openProject(JSON.stringify({...JSON.parse(JSON.stringify(state)),rows:[]}))"); page.wait_for_timeout(500)
+    check(f'{width}px header import: the app\'s own native open-project call also refreshes the places', page.evaluate('state.rows.length') == 0 and 'candidate place' not in text(page))
+    check(f'{width}px header import: no sideways scroll and no page errors', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1') and not errors)
+    context.close()
+
+def label_checks(browser, width):
+    """Every number box has its own label (a source tag inside a label replaced the box's name) and 44 px tags."""
+    context, page = open_card(browser, width)
+    boxes = page.evaluate("[...document.querySelectorAll('[data-imp]')].map(e=>({k:e.dataset.imp,labels:e.labels.length,name:e.labels[0]?e.labels[0].textContent.trim():'',tagInLabel:!!(e.labels[0]&&e.labels[0].querySelector('[data-threshold]')),h:Math.round(e.getBoundingClientRect().height)}))")
+    check(f'{width}px labels: three boxes, each with exactly one label that does not contain a source tag', len(boxes) == 3 and all(b['labels'] == 1 and not b['tagInLabel'] and b['name'] for b in boxes))
+    check(f'{width}px labels: the names are the visible words (spacing, velocity, search width)', [b['name'].split(' ')[0] for b in boxes] == ['Ripple', 'Cable', 'Search'] and 'Search width' in boxes[2]['name'])
+    tags = page.evaluate("[...document.querySelectorAll('#impRipple [data-threshold]')].map(e=>{const r=e.getBoundingClientRect();return {w:Math.round(r.width),h:Math.round(r.height),name:e.getAttribute('aria-label')||e.textContent.trim()}})")
+    check(f'{width}px labels: both source tags are at least 44 px high and wide and have a name', len(tags) == 2 and all(t['h'] >= 44 and t['w'] >= 44 and t['name'] for t in tags))
+    check(f'{width}px labels: no sideways scroll and no page errors', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1') and not errors)
+    context.close()
+
 def box_checks(browser, width):
     context, page = open_card(browser, width)
     page.locator('[data-imp="spacing"]').fill('1.7'); page.locator('[data-imp="vp"]').fill('0.87'); page.wait_for_timeout(150)
@@ -88,6 +132,8 @@ with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
     for width in (360, 390):
         route_checks(browser, width)
+        import_checks(browser, width)
+        label_checks(browser, width)
         box_checks(browser, width)
     browser.close()
 server.shutdown()
