@@ -2,6 +2,14 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 19 merged; item 14 started
+
+Pull request #20 merged at 2026-11-12T08:00:06Z. Merge commit `7107f27481c6479e5ee2de087f008060bdbbd03d`. Head that was gated and reviewed: `f2641a2`. Local gate 90/2,297, 802.7 s, layout 1004, smoke 370, standalone `d4b05c39…a9d6`. Hosted CI [run 43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-f2641a2.md`, added on this branch after the merge so `f2641a2` did not move.
+
+This branch is `grok/a5-power-pm`. Item 14 adds Power → Supply PM. Span drop is current times the catalog loop resistance, with the same temperature factor as Power → Load. The coefficient is typed; 0.004 is not filled in. The comparison uses the active’s published minimum from the catalog. No company minimum, battery window or inverter limit is invented. The notebook uses a new storage key, `nightsweep-power-pm-v1`, and is not in the job. SCTE 238 was not read. Guide totals intended here: 36 screens, 54 features, custom curves 22. The gate on this head is not run yet.
+
+The merged prompts file says the next work after #20 is #25, then #26, then NAV-1. The chat for this session says A5, then A6, then A7, and to ignore #25. This session follows the chat.
+
 ## November 12, 2026 · item 20 merged; item 19 merge started
 
 Pull request #19 merged at 2026-11-12T07:27:18Z. Merge commit `6d684b681985b4c64053db7bd34ea8a81469bc25`. Head that was gated and reviewed: `b78868b`. Local gate 89/2,289, 787.4 s, layout 944, smoke 367, standalone `9a9da29f…9081`. Hosted CI [run 43173621524](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43173621524). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-b78868b.md`, added on this branch after the merge so `b78868b` did not move.
