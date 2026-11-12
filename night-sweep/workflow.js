@@ -69,7 +69,7 @@ const WorkflowUI=(()=>{
   if(tab==='setup')renderSetup();
   if(tab==='nightLog'&&typeof NightLog!=='undefined')NightLog.render(true);
   if(tab==='sweepDue'&&typeof SweepDue!=='undefined')SweepDue.render();
-  if(tab==='station'&&typeof StationView!=='undefined')StationView.render();
+  if(tab==='station'&&typeof StationView!=='undefined')StationView.render(true);
   if(tab==='equipmentSetup'&&typeof EquipmentSetup!=='undefined')EquipmentSetup.render();
   if(tab==='runsheet'&&typeof FieldReport!=='undefined')FieldReport.renderSheet();
   if(tab==='limits'&&typeof Thresholds!=='undefined')Thresholds.renderLimits();
