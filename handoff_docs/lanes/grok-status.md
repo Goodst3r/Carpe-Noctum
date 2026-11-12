@@ -17,10 +17,10 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 | Supply PM (build-list item 14) | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) merged `61069f4` | `e83cafa` | already merged before this queue. Do not rework it. A4b will add an export | earlier session: 91/2302, 788.9 s, layout 1054, smoke 373. Not re-run here |
 | Build-list item 16 | not started | | | BLOCKED on sources: no torque or pin length in the catalog manuals | |
 | Build-list item 12 | not started | | | BLOCKED on sources: funneling example not checked against SCTE 293-11, 293-13 or 270 | |
-| A0 docs | `build3` and `ccr-026a9e4b-35w77r` | #31 `3a7b25b`, #29 `fdf4ea3`, #33 open | #31 `b9c6cc7` (vectors identical to approved `2493cf8`); #29 `ed2826c` | #31 and #29 merged. Workflow PR #33 is the third A0 merge | not a full gate |
-| A1 power-sum calculator | `grok/a1-power-sum` | opening | this commit | in progress. Cases P1–P6, edges and refusals. No correlated add | focused power-sum suite 49 checks, field-calcs 10/123. Full gate not finished |
+| A0 docs | `build3` and `ccr-026a9e4b-35w77r` | #31 `3a7b25b`, #29 `fdf4ea3`, #33 open | #31 `b9c6cc7` (vectors identical to approved `2493cf8`); #29 `ed2826c`; #33 head `bf5782f` | #31 and #29 merged. Workflow PR #33 is the third A0 merge. Do not merge #33 until its hosted gate is green | not a full gate |
+| A1 power-sum calculator | `grok/a1-power-sum` | [#34](https://github.com/Goodst3r/Carpe-Noctum/pull/34) draft | this commit | in progress. Cases P1–P6, edges and refusals. No correlated add. Hosted gate on `a9cb48c` failed: `dist/` was stale (run 43194623653). This commit rebuilds `dist/` | focused power-sum suite 49 checks, field-calcs 10/123. Full gate not finished |
 | A2 cascade thermal/CNR | not started | | | | |
-| A3 NAV-1 | not started | | | | |
+| A3 NAV-1 | not started | | | waits for ChatGPT's Safety removal (B1) to merge | |
 | A4 context strip | not started | | | | |
 | A4b Supply PM export/import | not started | | | after A4 | |
 | A5 tonight list | not started | | | | |
@@ -29,7 +29,7 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 
 ## Next
 
-A1 is this branch. After its gate, A2. Then A3, A4, A4b, A5, A6, A7. No deadline. Items 16 and 12 stay blocked. PR #30 stays merged. Draft #32 stays a draft. Review ChatGPT's open PRs before each new item. Never merge your own PR.
+A1 is this branch. The committed PWA had the naive power sum; this commit rebuilds `dist/` from `outputs/Night_Sweep.html`. After this head's gate, A2. A3 waits until ChatGPT's Safety removal (B1) has merged. Then A4, A4b, A5, A6, A7. No deadline. Items 16 and 12 stay blocked. PR #30 stays merged. Draft #32 stays a draft. Review ChatGPT's open PRs before each new item. Never merge your own PR.
 
 #31 merged at `3a7b25b`. I approved `2493cf8`. The merged parent was `b9c6cc7`: the vectors file is byte-identical to `2493cf8`; the extra commit only ends the wait log and adds `chatgpt-status.md`. #29 merged at `fdf4ea3` from the approved head `ed2826c`. GitHub would not take a formal Approve review because this token opened those pull requests. The review comments are the record.
 
@@ -41,7 +41,7 @@ Build-list items 16 and 12, missing sources. A6 exact resume, until Spencer's ph
 
 ## Questions for Spencer
 
-0. Which Vecima installation and commissioning guide title and revision does the company hold (item 17)? No steps will be invented.
 1. Where should company settings live: each phone's browser (today, outside jobs and backups), or a shared company profile?
-2. Who reviews the Safety, Outage and Leakage cards before coworkers use them?
-3. A DOCSIS 3.1 modem that receives only SC-QAM channels: is its total input limit 33 or 40 dBmV?
+2. Who reviews the Outage and Leakage cards before coworkers use them?
+
+Settled on November 12, from `WORKFLOW.md` on `ccr-026a9e4b-35w77r` (`bf5782f`): Safety is removed (ChatGPT B1), so it is not in question 2. Vecima setup is plug-and-play; no guide will be sought. 33 vs 40 dBmV stays on the DOCSIS card; it is not a question.
