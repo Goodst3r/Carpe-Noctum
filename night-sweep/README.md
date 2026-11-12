@@ -107,7 +107,7 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
 | **Open GS7K node practice** | Standard GS7000 1.2 GHz launch, starting at 42/54 MHz; separate node-only setup exercise | 10 | None; launch/TP correction unverified, no RF route or captured traces |
 | **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 16 | Synthetic teaching data; no physical acceptance |
-| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety and Outage (2.0 Alpha build 3) | 15 | Synthetic table and calculator inputs; no field captures |
+| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety and Outage (2.0 Alpha build 3) | 16 | Synthetic table and calculator inputs; no field captures |
 
 The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 

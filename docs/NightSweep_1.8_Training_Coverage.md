@@ -104,7 +104,7 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **47 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **48 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
 
 
 ### Build 3 Night log handoff practice
@@ -118,4 +118,4 @@ The current source has **30 task screens**, **48 feature choices**, and **16 ste
 
 The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **15**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.
 
-The custom-curves exercise has **15 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
+The custom-curves exercise has **16 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
