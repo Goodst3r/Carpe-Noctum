@@ -47,6 +47,7 @@ MODULES = [
     ('<!--WHYCARDS-->', 'why-cards.js'),
     ('<!--POP-->', 'proof-of-performance.js'),
     ('<!--STUDY-->', 'study-mode.js'),
+    ('<!--POWERPM-->', 'power-pm.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
     ('<!--NIGHTLOG-->', 'night-log.js'),

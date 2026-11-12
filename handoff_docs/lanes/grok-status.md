@@ -11,17 +11,20 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #18 item 18 | `claude/b18-why-cards` | [#18](https://github.com/Goodst3r/Carpe-Noctum/pull/18) merged `cb3c3b2` | `7d18b9a` | merged after local gate and hosted CI | 88/2283, 781.8 s, layout 854, smoke 364 |
 | Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
 | Re-pin after #28 | `build3` | [#28](https://github.com/Goodst3r/Carpe-Noctum/pull/28) merged `93acbac` | `93acbac` | merged, docs only; local re-pin gate recorded | 89/2289, 776.7 s, layout 944, smoke 367. Standalone `9a9da29f…9081`. See `handoff_docs/reviews/grok-gate-93acbac.md` |
-| Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | 90/2297, 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
-| Leak detector wording | `claude/leak-detector-arcom` | #25 | this commit's parent is the merge of `build3` `7107f27`; this commit is the gate record only | full gate not run on this head yet | not a full gate |
-| A5 item 14 | not started | | | after NAV-1, not before | |
+| Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | Two own runs, both green: 90/2297, 802.7 s and 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
+| Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | on `build3`. The gate file on that branch is not this session's run | `handoff_docs/reviews/grok-gate-54d5bee.md` says 90/2298, 872.5 s, layout 1004, smoke 370, standalone `8dcd277e…4035` |
+| Roadmap determination | `claude/roadmap-determination` | [#26](https://github.com/Goodst3r/Carpe-Noctum/pull/26) merged `6414668` | `6414668` | docs only, already on `build3`. Not gated by this session | not a full gate |
+| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | this merge | `023653f` was green and contains `304cb77`, not `6414668`. This merge is not gated yet | `023653f`: 91/2302, 791.5 s, layout 1054, smoke 373. CI [43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) pass. `3c9d3a4` layout failed |
 | A6 item 16 | not started | | | after A5 | |
 | A7 item 12 | not started | | | after A6 | |
 
 ## Next
 
-Item 19 (study) is merged. This commit records the re-pin and study gates. It does not change the app. The next gate is this leak-detector head. **D3: one run (Grok).** Spencer accepts or rejects D3.
+This branch is A5, item 14, after merging `origin/build3` at `6414668` (pull request #26, roadmap docs only). `023653f` was a green local gate and a green hosted CI run, and it contains the Arcom wording, but it does not contain `6414668`. This merge is not gated yet. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
-Screens on `f2641a2`: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. The status note that claims 142 includes three evidence guards only when that script is already loaded. Not re-counted in a full boot.
+The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. `build3` already has #25 and #26. `handoff_docs/ROADMAP_PROMPTS.md` says do not start A5 to A7 and do NAV-1 next. This session follows the chat: finish A5, then A6 and A7. NAV-1 is not started.
+
+Screens on `f2641a2`, from the other session's recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139.
 
 ## Blocked
 

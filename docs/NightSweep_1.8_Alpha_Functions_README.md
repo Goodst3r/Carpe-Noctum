@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 36 task screens and 54 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **35 task screens** and **53** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **21**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [Study mode](#study-mode) is feature 53 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → [Impairments](#impairments) then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → [Fiber](#fiber) adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which was the nineteenth custom-curves guide step. Test → Proof of performance adds the FCC proof-of-performance reference card as feature 52, which was the twentieth custom-curves guide step. Test → Study adds the study-mode questions as feature 53, which is the twenty-first custom-curves guide step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **36 task screens** and **54** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **22**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Power → [Supply PM](#supply-pm) is feature 54 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → [Impairments](#impairments) then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → [Fiber](#fiber) adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which was the nineteenth custom-curves guide step. Test → Proof of performance adds the FCC proof-of-performance reference card as feature 52, which was the twentieth custom-curves guide step. Test → Study adds the study-mode questions as feature 53, which was the twenty-first custom-curves guide step. Power → Supply PM adds the standby-supply notebook and the span voltage drop as feature 54, which is the twenty-second custom-curves guide step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -35,6 +35,7 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 23. [Why cards](#why-cards)
 24. [Proof of performance](#proof-of-performance)
 25. [Study mode](#study-mode)
+26. [Supply PM](#supply-pm)
 26. [Power-supply load](#power-supply-load)
 27. [Power what-if](#power-what-if)
 28. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
@@ -48,7 +49,7 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 36. [Station worksheet](#station-worksheet)
 37. [Night log and shift handoff](#night-log-and-shift-handoff)
 38. [Sweep due](#sweep-due)
-39. [53-feature coverage index](#53-feature-coverage-index)
+39. [54-feature coverage index](#54-feature-coverage-index)
 40. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
 40. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
@@ -61,7 +62,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards; Proof of performance; Study | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
-| Power | Load; What-if | Independently entered power circuit and an added-load trial |
+| Power | Load; What-if; Supply PM | Independently entered power circuit, an added-load trial, and a personal supply notebook with span voltage drop |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
@@ -106,7 +107,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode | 21 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook | 22 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -539,6 +540,16 @@ Choose a domain (or all five), read the question, type a number or pick an answe
 
 The safety and construction questions only ask which section of this app's own pre-work safety or outage card a reminder belongs to. They test the card, not safe practice, and follow company policy first. The domains are the build list's grouping; the questions do not follow any exam blueprint.
 
+## Supply PM
+
+**Where:** Power → Supply PM. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Record a supply check and a span drop.
+
+A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. **It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.**
+
+The drop is span current times the cable catalog's published loop resistance, with the same temperature factor Power → Load already uses. You type the coefficient. **0.004 per °C is not filled in**; it is the engineering approximation named on Power → Load, and you type it only when you mean to use it. A cable with no published loop resistance is not calculated. The voltage at the end of the span is compared with the published minimum input of the active you pick from the catalog. If that model has no published minimum, the screen says so. **No company minimum is filled in.** Adding a span sets the next span's start to the previous end, so a chain walks span by span. SCTE 238 and the 2025 and 2026 SCTE powering projects named in the build list were not read.
+
+The notebook records the date, input and output volts, load, an inverter observation (ran, did not run, not tested, or not recorded), chemistry as a label only (VRLA, lithium, other, or not recorded), alarms as you saw them, and battery-string volts. Two dates of the same string show the change in volts. There is no battery window and no inverter limit. Tap Save this visit to keep it on this device. Tap Delete this supply to remove that notebook. The job is not changed.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -832,7 +843,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 53-feature coverage index
+## 54-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -891,6 +902,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 51 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
 | 52 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
 | 53 | Study mode: practice questions in five domains <!-- feature:study --> | [Study mode](#study-mode) | Custom curves (2.0 Alpha build 3) |
+| 54 | Supply PM notebook and span voltage drop <!-- feature:powerPm --> | [Supply PM](#supply-pm) | Custom curves (2.0 Alpha build 3) |
 
 ## Build 3 attached sweep grading aid
 

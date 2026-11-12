@@ -4,7 +4,7 @@ const WorkflowUI=(()=>{
   home:{label:'Home',tabs:[]},
   route:{label:'Route',tabs:[['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['parts','Catalog'],['station','Station']]},
   test:{label:'Test',tabs:[['sweepSetup','Meter setup'],['tdr','TDR'],['sweep','Predicted levels'],['frequency','Frequency'],['readings','Readings'],['references','References'],['calculators','Calculators'],['limits','Limits'],['docsisHealth','DOCSIS health'],['leakage','Leakage'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance'],['study','Study']]},
-  power:{label:'Power',tabs:[['power','Load'],['trial','What-if']]},
+  power:{label:'Power',tabs:[['power','Load'],['trial','What-if'],['powerPm','Supply PM']]},
   job:{label:'Job',tabs:[['projects','Details'],['evidence','ONX files'],['checklists','Checklists'],['safety','Safety'],['outage','Outage'],['records','Acceptance'],['runsheet','Run sheet'],['nightLog','Night log'],['sweepDue','Sweep due']]}
  };
  const screens={
@@ -34,6 +34,7 @@ const WorkflowUI=(()=>{
   docsisHealth:['test','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
   limits:['test','Check a limit or its source','Limits, targets and formulas behind the field tools and job criteria, labeled spec, expert, company or unknown.'],
   power:['power','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
+  powerPm:['power','Record a supply PM check','Record what you saw at a standby supply and estimate span voltage drop from the cable catalog. A notebook on this device, not the company record and not part of the job.'],
   trial:['power','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['job','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['job','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],
@@ -55,7 +56,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],powerPm:['powerPmPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],safety:['safetyPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}

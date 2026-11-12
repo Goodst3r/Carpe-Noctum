@@ -2,6 +2,34 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 14 merge gate green; build3 moved again
+
+Head `023653f` (merge of `a467418` and `304cb77`) local gate 2026-11-12T08:56:26Z–09:10:10Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2302 checks, 791.5 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `ac987a33f4008a62f8195599b0755219a6e5f7b46f44680ff1622b69461e3a8b`. Porcelain afterwards only `?? qa/runtime/node_modules`. Hosted CI [run 43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) passed. Record: `handoff_docs/reviews/grok-gate-023653f.md`.
+
+Not merged. `origin/build3` moved to `6414668` during that run (pull request #26, roadmap docs, no app source). This commit merges that. The gate on this merge is not run yet.
+
+The chat for this session still says A5, then A6, then A7. `handoff_docs/ROADMAP_PROMPTS.md` says not to start A5 to A7. This session follows the chat.
+
+## November 12, 2026 · item 14 layout fix gated; build3 moved
+
+Head `a467418` local gate 2026-11-12T08:40:23Z–08:54:09Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 792.3 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `96d6dde661d84da592f93766ecce077704289021590edcfc6b8bb933bdae9083`. Porcelain afterwards only `?? qa/runtime/node_modules`. Log `/tmp/grok-gate-a467418.log`. That head does not contain `origin/build3` `304cb77`, so it is not merged.
+
+`origin/build3` moved to `304cb77` (pull request #25, Arcom detector name). This commit merges it. Generated HTML and the service worker are rebuilt from the merged source, not hand-merged. The gate on this merge is not run yet.
+
+## November 12, 2026 · item 14 layout failed; first fix
+
+Head `3c9d3a4` is not green. Local gate 2026-11-12T08:18:15Z–08:32:01Z: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 807.7 s, all_passed true), layout 1, smoke 0 (373). Standalone `c48d3b7650f2dc1b456330e374ee3850e092a1e661bbf8ac74ef934fdc96dc00`. Porcelain afterwards only `?? qa/runtime/node_modules`. The wrapper shell exited 0; that does not make the gate green. Record: `handoff_docs/reviews/grok-gate-3c9d3a4.md`. Hosted CI [run 43181842081](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43181842081) failed on the same check.
+
+The failing check was `night 320px Supply PM keeps the added span inside a focusable region`. A probe showed the chain text `5.5 V drop`, `tabIndex` 0 and `role` `region`, with the region `scrollWidth` 300 and `clientWidth` 240 because `.hs-table` has `min-width:300px`. This commit sets `#powerPmPanel .hs-table` to `min-width:0` and `table-layout:fixed`. A probe after the rebuild, not a full gate, fit both Supply PM regions at 320, 360 and 390 px. This is the first fix. The gate on this head is not run yet.
+
+## November 12, 2026 · item 19 merged; item 14 started
+
+Pull request #20 merged at 2026-11-12T08:00:06Z. Merge commit `7107f27481c6479e5ee2de087f008060bdbbd03d`. Head that was gated and reviewed: `f2641a2`. Local gate 90/2,297, 802.7 s, layout 1004, smoke 370, standalone `d4b05c39…a9d6`. Hosted CI [run 43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-f2641a2.md`, added on this branch after the merge so `f2641a2` did not move.
+
+This branch is `grok/a5-power-pm`. Item 14 adds Power → Supply PM. Span drop is current times the catalog loop resistance, with the same temperature factor as Power → Load. The coefficient is typed; 0.004 is not filled in. The comparison uses the active’s published minimum from the catalog. No company minimum, battery window or inverter limit is invented. The notebook uses a new storage key, `nightsweep-power-pm-v1`, and is not in the job. SCTE 238 was not read. Guide totals intended here: 36 screens, 54 features, custom curves 22. The gate on this head is not run yet.
+
+The merged prompts file says the next work after #20 is #25, then #26, then NAV-1. The chat for this session says A5, then A6, then A7, and to ignore #25. This session follows the chat.
+
 ## November 12, 2026 · item 20 merged; item 19 merge started
 
 Pull request #19 merged at 2026-11-12T07:27:18Z. Merge commit `6d684b681985b4c64053db7bd34ea8a81469bc25`. Head that was gated and reviewed: `b78868b`. Local gate 89/2,289, 787.4 s, layout 944, smoke 367, standalone `9a9da29f…9081`. Hosted CI [run 43173621524](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43173621524). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-b78868b.md`, added on this branch after the merge so `b78868b` did not move.
