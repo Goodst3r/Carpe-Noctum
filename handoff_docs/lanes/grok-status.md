@@ -12,14 +12,15 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
 | Re-pin after #28 | `build3` | [#28](https://github.com/Goodst3r/Carpe-Noctum/pull/28) merged `93acbac` | `93acbac` | merged, docs only; local re-pin gate recorded | 89/2289, 776.7 s, layout 944, smoke 367. Standalone `9a9da29f…9081`. See `handoff_docs/reviews/grok-gate-93acbac.md` |
 | Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | 90/2297, 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
-| Leak detector wording | `claude/leak-detector-arcom` | #25 | this commit's parent is the merge of `build3` `7107f27`; this commit is the gate record only | full gate not run on this head yet | not a full gate |
-| A5 item 14 | not started | | | after NAV-1, not before | |
+| Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | merged after local gate, hosted CI SUCCESS, and AUDIT on that SHA | 90/2298, 872.5 s, layout 1004, smoke 370. Standalone `8dcd277e…4035`. See `handoff_docs/reviews/grok-gate-54d5bee.md` |
+| Roadmap determination | `claude/roadmap-determination` | #26 | this commit merges `build3` `304cb77` and records the leak gate | full gate not run on this head yet | not a full gate |
+| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | `3c9d3a4` | opened before NAV-1. Do not merge until NAV-1 is on `build3` and this branch is brought up to that head. Not gated by me in this pass. | not a full gate |
 | A6 item 16 | not started | | | after A5 | |
 | A7 item 12 | not started | | | after A6 | |
 
 ## Next
 
-Item 19 (study) is merged. This commit records the re-pin and study gates. It does not change the app. The next gate is this leak-detector head. **D3: one run (Grok).** Spencer accepts or rejects D3.
+Item 25 (Arcom detector wording) is merged. This commit merges that `build3` into the roadmap determination and records the leak gate. It does not change the app. The next gate is this determination head. NAV-1 is next after this merges. Pull request #30 (A5) is already open and is out of order; it waits. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
 Screens on `f2641a2`: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. The status note that claims 142 includes three evidence guards only when that script is already loaded. Not re-counted in a full boot.
 
