@@ -2,6 +2,16 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 14 merged; items 16 and 12 blocked
+
+Pull request #30 merged as `61069f4d6b714e75772325819e0d3710e808d94f`. Gated head `e83cafa`. Local gate 2026-11-12T09:12:14Z–09:25:56Z: 91 suites, 2302 checks, 788.9 s, layout 1054, smoke 373, standalone `ac987a33f4008a62f8195599b0755219a6e5f7b46f44680ff1622b69461e3a8b`. Hosted CI [run 43189377721](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43189377721) passed. AUDIT is not a second lane. Record: `handoff_docs/reviews/grok-gate-e83cafa.md`.
+
+A6 is BLOCKED. I looked in `night-sweep/research/alpha17-manuals/node-manuals.json` and the station-view SCTE 180 notes. No torque value and no pin length are stored. I did not invent either, and I did not copy connector steps from a document I did not open.
+
+A7 is BLOCKED. `docs/BUILD_LIST.md` gives a funneling example and says to verify it against SCTE 293-11, 293-13 and 270. I did not open those, so the calculator was not built.
+
+NAV-1 was not started. `handoff_docs/ROADMAP_PROMPTS.md` says to do NAV-1 and not A5–A7. The chat for this session said A5 then A6 then A7. A5 is merged. A6 and A7 stopped on missing sources.
+
 ## November 12, 2026 · item 14 merge gate green; build3 moved again
 
 Head `023653f` (merge of `a467418` and `304cb77`) local gate 2026-11-12T08:56:26Z–09:10:10Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2302 checks, 791.5 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `ac987a33f4008a62f8195599b0755219a6e5f7b46f44680ff1622b69461e3a8b`. Porcelain afterwards only `?? qa/runtime/node_modules`. Hosted CI [run 43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) passed. Record: `handoff_docs/reviews/grok-gate-023653f.md`.

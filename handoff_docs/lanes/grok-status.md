@@ -14,21 +14,21 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | Two own runs, both green: 90/2297, 802.7 s and 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
 | Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | on `build3`. The gate file on that branch is not this session's run | `handoff_docs/reviews/grok-gate-54d5bee.md` says 90/2298, 872.5 s, layout 1004, smoke 370, standalone `8dcd277e…4035` |
 | Roadmap determination | `claude/roadmap-determination` | [#26](https://github.com/Goodst3r/Carpe-Noctum/pull/26) merged `6414668` | `6414668` | docs only, already on `build3`. Not gated by this session | not a full gate |
-| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | this merge | `023653f` was green and contains `304cb77`, not `6414668`. This merge is not gated yet | `023653f`: 91/2302, 791.5 s, layout 1054, smoke 373. CI [43187078965](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43187078965) pass. `3c9d3a4` layout failed |
-| A6 item 16 | not started | | | after A5 | |
-| A7 item 12 | not started | | | after A6 | |
+| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) merged `61069f4` | `e83cafa` | merged after local gate, hosted CI pass, and AUDIT on that SHA | 91/2302, 788.9 s, layout 1054, smoke 373. Standalone `ac987a33…3a8b`. CI [43189377721](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43189377721). `3c9d3a4` layout failed and was fixed before this |
+| A6 item 16 | not built | | | BLOCKED on sources | catalog manuals in the repo have no torque or pin length; SCTE 180 connector steps were not opened |
+| A7 item 12 | not built | | | BLOCKED on sources | funneling example in the build list was not checked against SCTE 293-11, 293-13 or 270 |
 
 ## Next
 
-This branch is A5, item 14, after merging `origin/build3` at `6414668` (pull request #26, roadmap docs only). `023653f` was a green local gate and a green hosted CI run, and it contains the Arcom wording, but it does not contain `6414668`. This merge is not gated yet. **D3: one run (Grok).** Spencer accepts or rejects D3.
+A5 is merged. Pull request #30 merged at `61069f4`. The gated head was `e83cafa`. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
-The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. `build3` already has #25 and #26. `handoff_docs/ROADMAP_PROMPTS.md` says do not start A5 to A7 and do NAV-1 next. This session follows the chat: finish A5, then A6 and A7. NAV-1 is not started.
+A6 and A7 are BLOCKED. The catalog installation notes in this repo do not contain a torque or a pin length, and the stored SCTE 180 notes are about balance, sweep and injection, not a connector checklist. I did not invent those numbers or steps. The return-path funneling example in `docs/BUILD_LIST.md` was not checked against SCTE 293-11, 293-13 or 270, so it was not shipped.
 
-Screens on `f2641a2`, from the other session's recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139.
+The chat that started this session says A5, then A6, then A7, and ignore #25. `build3` already had #25 and #26 before A5 merged. `handoff_docs/ROADMAP_PROMPTS.md` says not to start A5 to A7 and to do NAV-1 next. This session followed the chat through A5. NAV-1 is not started. Debug notes for Claude are in `handoff_docs/lanes/grok-debug-handoff.md`.
 
 ## Blocked
 
-Nothing yet. D3 is not met: one Grok run is not both lanes. Spencer accepts or rejects D3.
+A6 item 16 and A7 item 12, both for missing primary numbers, not for a failing test. D3 is not met: one Grok run is not both lanes. Spencer accepts or rejects D3.
 
 ## Questions for Spencer
 
