@@ -2,21 +2,21 @@
 
 ## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for items 11 and 15. On this branch they also cover item 17 (Test → High split), item 18 (Test → Why cards) and item 20 (Test → Proof of performance). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
+Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for items 11 and 15. On this branch they also cover items 17, 18, 20 and 19 (Test → Study). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
 A third assistant, Grok, took over on November 12, 2026 after Lane A (ChatGPT) and Lane B (Claude) stopped. Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md`, `handoff_docs/lanes/codex-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
 ### Counts on this branch
 
-Counted from source on this branch (Node, reading `workflow.js`, `training.js`, `thresholds.js` and `build.py`). The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. This branch is that core plus items 11, 15, 17, 18 and 20.
+Counted from source on this branch (Node, reading `workflow.js`, `training.js`, `thresholds.js` and `build.py`). The required-core standalone on `f467e52` was 29 screens, 47 features, 114 registry rows and steps 22/16/15/8/9/7/10. This branch is that core plus items 11, 15, 17, 18, 20 and 19.
 
 | Count | What |
 | --- | --- |
-| 34 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
-| 52 | Practice library feature choices, counted from `training.js` `features` |
-| 22 / 16 / 20 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 142 | registry rows in the running app: `thresholds.js` returns 139 when loaded alone, and `EvidenceArchive.limits` adds 3 (input bytes, decoded bytes, ZIP entries) when the full app has loaded. The why-cards branch was 128 with those three guards. This branch adds fourteen proof-of-performance rows (`fcc.pop.*`) |
-| 46 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
+| 35 | task screens (`WorkflowUI.screens`, including Help), counted from `night-sweep/workflow.js` on this branch |
+| 53 | Practice library feature choices, counted from `training.js` `features` |
+| 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
+| 142 | registry rows in the running app: `thresholds.js` returns 139 when loaded alone, and `EvidenceArchive.limits` adds 3 when the full app has loaded. Study mode adds no registry row. The proof-of-performance branch was 142 |
+| 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 33 | default Safety reminders, counted by reading the `ITEMS` array in `night-sweep/safety.js` |
 
 `docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
@@ -33,15 +33,16 @@ Counted from source on this branch (Node, reading `workflow.js`, `training.js`, 
 | 8. Outage | **On the branch** (Lane B). Job → Outage. **Supervisor review needed** against the local outage procedure before coworkers use it. |
 | 9. Safety | **On the branch** (Lane B). Job → Safety. **Supervisor or safety officer review needed** before coworkers use it. |
 | 10. Sweep due | **On the branch** (Lane A). Job → Sweep due. The interval starts unknown. |
-| 11. Impairment decision tree | **On this branch** (Lane B stretch, merged pull request #13). Test → Impairments. Ten cards, five steps each, standing-wave distance from the calculators formula. Tilt and flat loss say the source text was not read. |
+| 11. Impairment decision tree | **On this branch** (Lane B stretch, merged pull request #13). Test → Impairments. |
 | 13. Imported sweep grading | **On the branch** (Lane A). Job → ONX files → Grading aid. Synthetic fixtures only. |
-| 15. Fiber tools (first part) | **On this branch** (merged pull request #15). Test → Fiber. TIA-598 color finder and a simple link loss budget. Six registry rows. Not an OTDR. |
-| 17. High split and Remote PHY reading aid | **On this branch** (merged pull request #16). Test → High split. DOCSIS band edges and the aeronautical-band side. No Vecima commissioning checklist. |
-| 18. Why cards (SCTE 293 series) | **On this branch** (merged pull request #18). Test → Why cards. Fourteen short cards. One registry row: nominal 75 Ω impedance, labeled secondary. |
-| 20. FCC proof of performance | **On this branch** (Lane B stretch, pull request #19). Test → Proof of performance. Fourteen spec rows from 47 CFR 76.601, 76.605, 76.609 and 76.1704. Reference only. SCTE 204 2025 was not read. |
-| 12, 14, 16, 19 | **Not on this branch.** Draft pull request #20 covers item 19. Items 12, 14 and 16 are not started. |
+| 15. Fiber tools (first part) | **On this branch** (merged pull request #15). Test → Fiber. |
+| 17. High split and Remote PHY reading aid | **On this branch** (merged pull request #16). Test → High split. No Vecima commissioning checklist. |
+| 18. Why cards (SCTE 293 series) | **On this branch** (merged pull request #18). Test → Why cards. |
+| 20. FCC proof of performance | **On this branch** (merged pull request #19). Test → Proof of performance. Fourteen spec rows. Reference only. SCTE 204 2025 was not read. |
+| 19. Study mode | **On this branch** (Lane B stretch, pull request #20). Test → Study. Practice questions from this app's calculators. A score for this visit only. Nothing stored. |
+| 12, 14, 16 | **Not on this branch.** Items 12, 14 and 16 are not started. |
 
-The required core without items 11 and 15 is `f467e52` (29 screens, 47 features, custom curves 15). Items 11, 15, 17 and 18 are merged. This branch adds item 20 on top of them. D3 for the core close-out is one Grok run and is for Spencer to accept. This feature branch still needs its own gate.
+The required core without items 11 and 15 is `f467e52` (29 screens, 47 features, custom curves 15). Items 11, 15, 17, 18 and 20 are merged. This branch adds item 19 on top of them. D3 for the core close-out is one Grok run and is for Spencer to accept. This feature branch still needs its own gate.
 
 
 ### What changed
@@ -52,7 +53,7 @@ The bullets below are the feature notes from the sessions that built them. They 
 - **Registry (`night-sweep/thresholds.js`):** every row is labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile, the 42/54 meter-setup TX reference, station worksheets, the grading aid, sweep-due interval, DOCSIS windows, leakage settings, or the built-in 31/43/38 local preset). Blank is unknown and never zero. The first registry pass described 27 rows. The merged core's live list is **114** rows (counted above). Two existing app approximations stay labeled Unknown: the 0.1 %/°F cable temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). Example targets on older screens (Test → References workbook and sample targets, plant-picker starting levels) are not registered yet.
 - **Calculators (`night-sweep/field-calcs.js`):** offline, deterministic, no job or storage writes. Invalid or missing input gives a reason, never a number. VP comes from catalog cables that list one (four today) or is typed in.
 - **Tilt/EQ/pad solver (`night-sweep/alignment.js`):** level error at each pilot, tilt error and the direction to move each control for any model. For GainMaker 1 GHz system amplifiers and line extenders it picks the input EQ for tilt, then the input pad for level at the high pilot, from Cisco's published values (pads 0–20.5 dB in 0.5 dB steps; 1 GHz cable EQs 1.5–30 dB with their loss chart at 52–1000 MHz), and predicts the levels after the change. It never offers a value outside that list, never interpolates across the chart's 86–550 MHz gap, and leaves out the uncharted 0 dB jumper, inverse EQs and 870 MHz EQs. Quantum18 HGD and HGBT align electronically in AOI's QuantumLink Local app and the LE has no public procedure or pad/EQ list, so all three get a note instead of picks; the BA gives pad direction in its sourced 2 dB steps. Advice is worded from the pick, with the GainMaker procedure's ±0.5 dB window, and pilots must sit inside the model's forward band. Sources: `research/build3/PAD_EQ_SOURCES.md`.
-- **Practice:** seven exercises, 22 / 16 / 20 / 8 / 9 / 7 / 10 steps, and 52 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage, the grading aid, the impairment cards, the fiber color finder, the high-split reading aid, the why cards and the FCC proof-of-performance card. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
+- **Practice:** seven exercises, 22 / 16 / 21 / 8 / 9 / 7 / 10 steps, and 53 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage, the grading aid, the impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
 - **QA:** `qa/build2-layout.test.py` now honors `NIGHTSWEEP_CHROMIUM`. New suites: `build3-registry.test.cjs`, `build3-field-calcs.test.cjs` (app output against independent 50-digit decimal references in `research/build3/field-calcs-reference.json`) and `build3-layout.test.py` (rendered Chromium, run separately like `browser-smoke.py`).
 
 - **DOCSIS health card (`night-sweep/docsis-health.js`, Test → DOCSIS health):** four cards compare a reading with what a cable modem must accept or transmit: downstream SC-QAM level (−15 to +15 dBmV per 6 MHz, PHYv3.0 C01 Table 6–22), downstream OFDM level (−15 to +15 per 6 MHz and −9 to +21 per 24 MHz as printed, PHYv3.1 I20 Table 45; other widths derived and tagged Expert), total input power (strictly below 40 dBmV for a 3.1 modem, 33 for a 3.0-only modem) and upstream headroom to Pmax (65 dBmV default, PHYv3.1 I20 7.4.12.2). These are capability limits, not targets. Company windows start unknown, blank is never zero, and they are kept on this device only under the new key `nightsweep-docsis-windows-v1`, separately for the 42/54 and 204/258 plants, outside the job and its backups. Ten registry rows. Not covered: MER and SNR, per-channel upstream power, the 10 dB channel-spread rule, DOCSIS 4.0, EuroDOCSIS.
@@ -71,6 +72,8 @@ The bullets below are the feature notes from the sessions that built them. They 
 - **Why cards (`night-sweep/why-cards.js`, Test → Why cards):** fourteen cards for SCTE 293-1 to 293-14 (titles and years from the SCTE catalog), each with what, why it matters in the field, links to the app screens that use the topic and its citation; no figure except definitions and registered rows (one new row: 75 Ω nominal impedance, secondary). A summary, not a copy; nothing typed, stored or read from a meter.
 
 - **FCC proof-of-performance card (`night-sweep/proof-of-performance.js`, Test → Proof of performance):** a reference table of the FCC's proof-of-performance test rules and analog-channel limits (47 CFR 76.601, 76.605, 76.609, 76.1704), fourteen spec/primary registry rows, an independent clause parser that checks every number. Reference only; official results belong to engineering. SCTE 204 2025 was not read.
+
+- **Study mode (`night-sweep/study-mode.js`, Test → Study):** original practice questions from the app's own calculators and screens, tagged by five BDS domains (nineteen generators), answers computed by the functions the screens use, shown with working, checked against an independent decimal recomputation (296 comparisons). A score is kept for the visit only. No SCTE or NCTI question was used.
 
 ### Independent review
 
@@ -103,7 +106,7 @@ The baseline before any change was 1,013 checks across 55 passing suites; two su
 - DOCSIS and leakage are built. Remaining source limits are in `research/build3/DOCSIS_HEALTH_SOURCES.md` and `LEAKAGE_SOURCES.md` (unread SCTE 289 and 293-12 bodies, secondary normalizer and detector methods, the unrepeated I20 section 6.4.2 pointer, and the 33-versus-40 dBmV question). Do not read the old "not built" sentence as current.
 - Safety (item 9), Outage (item 8) and Leakage (item 7) need a supervisor's review before coworkers use them.
 - Pull requests #1 (roadmap) and #2 (build list) are still open into `main`. The files are already on `build3`. The owner decides those pull requests.
-- Stretch items 12, 14, 16 and 19 are not on this branch. Items 11, 15, 17, 18 and 20 are.
+- Stretch items 12, 14 and 16 are not on this branch. Items 11, 15, 17, 18, 19 and 20 are.
 
 ---
 
