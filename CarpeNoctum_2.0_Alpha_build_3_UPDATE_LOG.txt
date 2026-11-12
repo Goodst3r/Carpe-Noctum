@@ -1,5 +1,6 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
+Power sum, November 12, 2026: Test → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
 Close-out note added November 12, 2026 UTC by Grok.
 The November 11 body below is the early session. Later lane sections are
 historical checkpoints. The current summary is this block.
