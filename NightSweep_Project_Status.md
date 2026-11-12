@@ -4,7 +4,7 @@
 
 Integration branch **`build3`**. The paragraphs that follow were written for the required core, then for items 11 and 15. On this branch they also cover items 17, 18, 20 and 19 (Test → Study). Later stretch pull requests are not in this tree. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
-A third assistant, Grok, took over on November 12, 2026 after Lane A (ChatGPT) and Lane B (Claude) stopped. Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md`, `handoff_docs/lanes/codex-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
+From the night of November 12, 2026 Grok and ChatGPT both build, run the long gates and cross-review each other, and Claude is the gatekeeper (`handoff_docs/WORKFLOW.md`). Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/chatgpt-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
 ### Counts on this branch
 

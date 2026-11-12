@@ -55,7 +55,7 @@ This is what a Claude Code cloud session had; Codex or ChatGPT sessions differ. 
 | Context7, Exa and other web search/fetch | library documentation, discovery | Context7 is not an authority on HFC specifications. Different search engines repeating one source are not independent corroboration. |
 | Wolfram, Figma, Notion | named in the plugin policy | Not present in the session that wrote this file. Independent math checks were done with Python decimal arithmetic and a LibreOffice-recalculated spreadsheet instead; see `research/build3/field-calcs-reference.py` and `alignment-spreadsheet.py`. |
 
-Every new formula still needs a worked reference computed outside the app and a regression test against the app's real output (`PARALLEL_TASKS.md` rule 8).
+Every new formula still needs a worked reference computed outside the app and a regression test against the app's real output (`WORKFLOW.md` rule 8).
 
 ## Privacy and secrets
 
