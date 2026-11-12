@@ -73,7 +73,7 @@ const NightLog=(()=>{
   currentOwner(owner);if(!lastRemoval||lastRemoval.owner!==owner)throw Error('No removal to undo for this job.');
   const next=clone(owner.nightLog||blank()),removed=lastRemoval;
   if(next.entries.some(e=>e.id===removed.entry.id))throw Error('Cannot undo: this entry ID is already in the log.');
-  if(next.entries.length>=200)throw Error('Cannot undo: night-log maximum is 200 entries. Free a slot and try Undo again.');
+  if(next.entries.length>=200)throw Error('Cannot undo: night-log maximum is 200 entries. The log is full. Another removal replaces this Undo.');
   const following=next.entries.findIndex(e=>e.id===removed.following),previous=next.entries.findIndex(e=>e.id===removed.previous),index=following>=0?following:previous>=0?previous+1:Math.min(removed.index,next.entries.length);
   next.entries.splice(index,0,clone(removed.entry));validate(next);owner.nightLog=next;lastRemoval=null;saved(owner);return clone(removed.entry);
  }
