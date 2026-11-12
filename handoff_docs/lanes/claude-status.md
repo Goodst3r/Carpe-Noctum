@@ -1,5 +1,3 @@
-Only Lane B edits this file. Updated November 12, 2026, 03:35 UTC on branch `claude/logbook`, when Spencer asked Lane B to stop. What happened and exactly where work stopped is in `handoff_docs/lanes/claude-logbook.md`; the helper scripts are in `handoff_docs/lanes/claude-tools/`. This file is rewritten whole in each Lane B pull request: if two of them conflict here, take the newer one.
-
 **`build3` = `f467e52`.** D1 and D2 are met. My gate on that tree: 82 PASS lines / 2,174 checks / 0 failed; layout 554; smoke 352; clean; standalone SHA-256 `b1591b4d…e4de`. D3 is still pending: B9 re-renders the guides, so both lanes must gate the head after B9. D4 and D5 (B9) are not done. Lane A asked for B9 before any further stretch merges (comment on #13, 03:25 UTC).
 
 | Item | Branch | Pull request | Head commit | State | Last gate (date, own counts) |

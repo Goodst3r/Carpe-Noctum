@@ -2,6 +2,12 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 18 merged; item 20 merge started
+
+Pull request #18 merged at 2026-11-12T07:09:47Z. Merge commit `cb3c3b20dd90dcaedd9294eceaf77c8b1f844781`. Head that was gated and reviewed: `7d18b9a`. Local gate 88/2,283, 781.8 s, layout 854, smoke 364, standalone `544a87e4…afc2`. Hosted CI [run 43171499570](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43171499570). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-7d18b9a.md`, added on this branch after the merge so `7d18b9a` did not move.
+
+This commit merges `origin/build3` into `claude/b20-pop`. Guide totals intended here: 34 screens, 52 features, custom curves 20. Lane A's remaining Minor on `research/build3/POP_SOURCES.md` (review 5867867045): the amplifier and NCTA provisions are attributed to the source dialog and registry, not the main card. The constant-noise condition stays on the card and the registry row. The gate on this head is not run yet.
+
 ## November 12, 2026 · item 17 merged; item 18 merge started
 
 Pull request #16 merged at 2026-11-12T06:47:18Z. Merge commit `b4cb832d2bdcf18a81d855f1a7acae6699ac8015`. Head that was gated and reviewed: `0436e9a`. Local gate 87/2,276, 745.4 s, layout 784, smoke 361, standalone `0bd53b6a…e725`. Hosted CI [run 43168983876](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43168983876). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-0436e9a.md`, added on this branch after the merge so `0436e9a` did not move.

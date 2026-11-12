@@ -331,6 +331,21 @@ EARLY-SESSION CHANGES (items 1, 2 and 4; later items are in the lane sections)
    - Practice: the custom-curves exercise gains a step (eighteen in total)
      and the feature index gains entry 48.
 
+14. FCC proof-of-performance reference card (build list item 20), Test -> Proof of performance
+   - A reference only: how often and where proof-of-performance tests are
+     made, the analog-channel limits (47 CFR 76.605(b)), how the main
+     measurements are made (76.609) and how long the records are kept
+     (76.1704), each row with its rule section and a source tag. No input,
+     nothing stored; it makes or records no test and is not a filing.
+     Official results belong to engineering.
+   - Fourteen registry rows (spec, primary): the rule text was read on the
+     eCFR on November 11, 2026. SCTE 204 2025 (FCC Proof-of-Performance
+     Checklist for Analog and Digital Signals) was found in the catalog and
+     not read; QAM video follows ANSI/SCTE 40 2016, which is not read here.
+   - Practice: the custom-curves exercise gains a step (nineteen in total)
+     and the feature index gains entry 49. Sources and gaps:
+     research/build3/POP_SOURCES.md.
+
 INDEPENDENT REVIEW OF THE LEAKAGE TOOLS
 Three reviewers (sources, math and storage, UI and product rules), each
 finding checked by a skeptic, confirmed 35 findings in the first draft; all
