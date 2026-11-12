@@ -21,6 +21,8 @@ suites=[
  ('Build 3 station worksheet arithmetic and saved jobs','build3-station.test.cjs',r'Build3 station: (\d+) checks passed'),
  ('Build 3 rendered station phone layout','build3-station-layout.test.py',r'Build3 station layout: (\d+) checks passed'),
  ('Build 3 station field-review regressions','build3-station-review.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Build 3 station native-input retention','build3-station-native.test.cjs',r'Build3 station native inputs: (\d+) checks passed'),
+ ('Build 3 rendered station native editing','build3-station-native-layout.test.py',r'Build3 station native layout: (\d+) checks passed'),
  ('Build 3 night-log capture and handoff contracts','build3-night-log.test.cjs',r'Build3 night log: (\d+) checks passed'),
  ('Build 3 rendered night-log phone layout','build3-night-log-layout.test.py',r'Build3 night log layout: (\d+) checks passed'),
  ('Build 3 sweep-due calendar and saved-job reminders','build3-sweep-due.test.cjs',r'Build3 sweep due: (\d+) checks passed'),

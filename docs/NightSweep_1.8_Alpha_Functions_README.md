@@ -696,6 +696,8 @@ Open **Route → Station**, choose the installed node or active and select **Bef
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
+Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Route → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
+
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **16 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
 ## Night log and shift handoff
