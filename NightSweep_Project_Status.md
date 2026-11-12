@@ -2,29 +2,29 @@
 
 ## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Integration branch **`build3`**. This source includes the merged build-list items through Study and Supply PM (item 14, PR #30). B1 removes Safety by Spencer’s November 12 decision; the remaining build queue and roles are in `handoff_docs/WORKFLOW.md`. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. The finishing session builds and signs it under `handoff_docs/APK_PLAN.md`, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
+Integration branch **`build3`**. This source includes the merged build-list items through Study, Supply PM (item 14, PR #30) and Power sum. B1 removes Safety by Spencer’s November 12 decision; the remaining build queue and roles are in `handoff_docs/WORKFLOW.md`. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. The finishing session builds and signs it under `handoff_docs/APK_PLAN.md`, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
 Grok and ChatGPT build and review each other’s pull requests; Claude is the gatekeeper and handles the finishing APK session. Current lane status files are `handoff_docs/lanes/grok-status.md` and `handoff_docs/lanes/chatgpt-status.md`. `handoff_docs/WORKFLOW.md` supersedes older role and queue descriptions.
 
 ### Counts on this branch
 
-Counted on November 12, 2026 from the current B1 source assembled by `qa/build2-source-harness.cjs` and loaded in JSDOM; these are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
+Counted on November 12, 2026 from the combined B1/B2 source assembled by `qa/build2-source-harness.cjs` and loaded in JSDOM; these are product counts, not a full-gate result. Supply PM is included. Historical counts below remain tied to their named heads.
 
 | Count | What |
 | --- | --- |
 | 35 | task screens (`WorkflowUI.screens`, including Help) |
 | 53 | Practice library feature choices (`TrainingJob.features`) |
 | 22 / 16 / 21 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
-| 150 | registry rows in the running app: `thresholds.js` has 147 when loaded alone, and `EvidenceArchive.limits` adds 3 |
+| 153 | registry rows in the running app: `thresholds.js` has 150 alone and `EvidenceArchive.limits` adds 3; includes three B2 derived/software rows |
 | 47 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
 | 4 / 18 | Study domains / question generators |
 | 22 / 7 | Outage prompts / sections |
 
 **B1 product note:** Safety is removed from navigation, practice, Study and the current guides, including the Outage arrival group. The shared checklist engine remains for Outage. Existing device data is left untouched; safety fields in legacy jobs and backups remain opaque data preserved on re-export. B1 adds no field, storage key, version or APK.
 
+**B2 product note:** The existing upstream result compares an actual simultaneous CM F-connector total with the declared comparable Pmax reference. Blank 65 is only an assumed Spec minimum/default in declared DOCSIS 3.1 CM/CMTS MTC operation, not known modem capability. The existing converter adds measured-in 6.4 MHz and requires confirmed flat PSD/MHz/restatement context. Per-channel/DRW room and instantaneous OFDMA total remain Unknown; no new screen, converter, job field, key, version or APK. Full exact-head gates are reported in PR #37, separately from this source count.
 
-**NAV-1 (this pull request):** the same screens are regrouped. Bottom tabs are Home, Plan, Field, Tools and Closeout. Screen ids are unchanged, so old jobs and backups do not store a screen and do not need a new field. Home is Home and Outage (Safety stays removed). Plan is a list of ten: Details, Setup, Cable route, Amp gain, Amp / node setup, Predicted levels, Load, What-if, Supply PM, Sweep due. Supply PM was a Power tab; the determination named Load and What-if, and this pull request puts Supply PM in Plan with them because that is where Power folded. Field is a list of eight. Tools is a searchable list (Calculators, Limits and sources, Cards, Learn) with no sub-tab row. Closeout is Acceptance and Run sheet. Help stays in the header. Counts above are unchanged by the regroup.
-
+**NAV-1 (this pull request):** the same screens are regrouped. Bottom tabs are Home, Plan, Field, Tools and Closeout. Screen ids are unchanged, so old jobs and backups do not store a screen and do not need a new field. Home is Home and Outage (Safety stays removed). Plan is a list of ten: Details, Setup, Cable route, Amp gain, Amp / node setup, Predicted levels, Load, What-if, Supply PM, Sweep due. Supply PM was a Power tab; the determination named Load and What-if, and this pull request puts Supply PM in Plan with them because that is where Power folded. Field is a list of eight. Tools is a searchable list (Calculators, Limits and sources, Cards, Learn) with no sub-tab row. Closeout is Acceptance and Run sheet. Help stays in the header. The regroup does not change the counts above.
 
 `docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This branch does not merge them.
 
@@ -34,7 +34,7 @@ Counted on November 12, 2026 from the current B1 source assembled by `qa/build2-
 | 2. Tilt/EQ/pad solver | **On the branch.** Tools → Calculators → Pad / EQ balance. |
 | 3. Station view and unity-gain worksheet | **On the branch** (Lane A, PR #8, native-input follow-up PR #23). Field → Station. |
 | 4. Calculator bundle | **On the branch.** Tools → Calculators. |
-| 5. DOCSIS health card | **On the branch** (Lane B). Tools → DOCSIS health. The existing card distinguishes its published 33 and 40 dBmV limits; that is no longer an open question for Spencer. |
+| 5. DOCSIS health card | **On the branch** (Lane B). Tools → DOCSIS health. B2 clarifies the existing upstream composite margin and bandwidth restatement. Published downstream 33/40 limits and their applicability stay unchanged; Spencer dropped that question. |
 | 6. Night log | **On the branch** (Lane A). Field → Night log. |
 | 7. Leakage | **On the branch** (Lane B). Field → Leakage. **Supervisor review needed** before coworkers use it. Personal notebook, not the company record. |
 | 8. Outage | **On the branch** (Lane B). Home → Outage. **Supervisor review needed** against the local outage procedure before coworkers use it. |

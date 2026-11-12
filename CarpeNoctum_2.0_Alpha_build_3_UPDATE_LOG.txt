@@ -2,6 +2,8 @@ CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
 NAV-1, November 12, 2026: screens are regrouped under Home, Plan, Field, Tools and Closeout. Screen ids, storage keys and the job format are unchanged. Plan, Field and Tools are lists (the old rows wrap at 320 px). Supply PM is in Plan with Load and What-if. Safety stays removed. No new screen or version.
 
+B2, November 12, 2026: existing DOCSIS upstream headroom is composite margin to a declared comparable total Pmax; blank 65 is assumed only in declared 3.1 MTC mode, never actual capability. The existing flat-PSD converter accepts measured-in 6.4 MHz and requires declared MHz/restatement context. Per-channel/DRW room and instantaneous OFDMA total remain Unknown. No new screen/store/key/version/APK. Exact-head gate receipts are in PR #37.
+
 Power sum, November 12, 2026: Tools → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
 
 CURRENT B1 PRODUCT NOTE - November 12, 2026 UTC
@@ -11,9 +13,9 @@ The shared checklist engine stays for Outage. Legacy device data is left
 untouched; safety fields in legacy jobs/backups remain opaque and preserved
 on re-export. No new field, storage key, version or APK is introduced.
 
-Counted from current assembled source in JSDOM after B1 (not a full gate):
+Counted from current assembled source in JSDOM after B1/B2 (not a full gate):
 35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
-150 live registry rows (147 in thresholds.js alone plus 3 EvidenceArchive),
+153 live registry rows (150 in thresholds.js alone plus 3 EvidenceArchive),
 47 module splices plus DSIM insertion, Study 4 domains/18 generators,
 Outage 22 prompts/7 sections. Full same-head gates are recorded separately.
 
