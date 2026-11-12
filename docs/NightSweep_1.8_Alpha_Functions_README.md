@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 28 task screens and 45 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 46 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 15 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** adds four Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds personal reminders and feature 46, with an interval that starts unknown.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -41,8 +41,9 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 29. [Checked example answers](#checked-example-answers)
 30. [Station worksheet](#station-worksheet)
 31. [Night log and shift handoff](#night-log-and-shift-handoff)
-32. [45-feature coverage index](#45-feature-coverage-index)
-33. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+32. [Sweep due](#sweep-due)
+33. [46-feature coverage index](#46-feature-coverage-index)
+34. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -51,10 +52,10 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
-| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog | Starting signal, RF topology, active gain and exact-model references |
+| Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
 | Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
-| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log | Local jobs, original evidence, work notes, acceptance records and reports |
+| Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
 
 The small task tabs choose a function within the main area. The point selector and **Previous/Next** choose the route location; they do not change its feed parent. **More at this point** exposes tap faces, drop, map notes and arithmetic.
@@ -97,7 +98,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
-| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 15 steps; no supplied meter captures |
+| **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety and outage first response | 14 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
@@ -696,7 +697,7 @@ The return worksheet keeps reference-point target plus applicable net insertion 
 
 Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Route → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
 
-Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **15 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
+Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **16 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
 ## Night log and shift handoff
 
@@ -714,7 +715,30 @@ The selector starts at **General update / no Station snapshot**. To capture read
 
 **Files → Back up project** remains the full-fidelity portable backup: exact saved text, unrounded captured results and original attachments. Restore the JSON to recover the log and both stages. For practice, manually record invented A1–A5 Station worksheets in the six-active exercise, capture each explicitly, generate the handoff and reopen TXT/CSV. The short five-station example fits the defined phone preview; longer notes can scroll without truncation. Practice exports keep the synthetic warning.
 
-## 45-feature coverage index
+
+## Sweep due
+
+Open **Job → Sweep due** for personal reminders from saved Station work dates across this device's jobs, including the current working job. It shows the installed launch node/active and route amplifiers, with separate sweep and balance dates, date validity and completed calendar-month ages. A missing worksheet stays visible as unknown. A uniquely matching saved job ID is overlaid with current unsaved dates; duplicates have independent job histories. Ambiguous IDs and unreadable sources produce visible diagnostics.
+
+| Control / result | Meaning |
+| --- | --- |
+| Sweep reminder interval (whole calendar months) | Starts unknown. Enter digits only, 1–1200 months; the range is an Unknown app input guard. Raw invalid text remains visible. |
+| Saved preference | Saved with the current working job; used for this view of all jobs. Loading a different job can change it. Autosave, named duplicate and full JSON backup preserve this optional preference. |
+| Refresh list | Read actual Station/library changes and today's local device date. Entering/resuming the visible tab also refreshes. No background monitoring. |
+| Before reminder window / Reminder window / Due / overdue | Green / yellow / red reminders, with words and icons; never RF acceptance. Practice/sample counts stay separate from work reminders. |
+| Chosen sweep due date | Original recorded sweep date plus entered calendar months, clamped to the target month's final day; no 30-day-month arithmetic. |
+| Last recorded balance | Independent technician event/date/age. It does not reset sweep age or receive a balance cadence. |
+| Previous / Next | Pages of at most 25 entries; the full source and station counts remain visible. |
+
+Yellow starts at `ceil(2 × interval / 3)` calendar months, tagged **Unknown** as an unverified application policy implementing the build-list 12-of-18-month example. Due / overdue wins when warning and due dates coincide. An older plan mentions 18 months; its Hranac attribution remains unverified. Confirm your company's interval. This is a personal reminder setting, not a company specification supplied by the app.
+
+Dates use exact Gregorian `YYYY-MM-DD`, years 0001–9999. Future, invalid or unavailable dates remain neutral. Only a currently bound, writable Station record with Swept recorded and a valid nonfuture sweep date supplies a current reminder. Unchecked-with-date and recorded-without-date states stay distinct. Binding-unconfirmed historical and read-only UBT worksheets preserve dates, completed ages, validity and done facts with a historical reason, without current-service reminder wording or colors. Binding confirmation retains the original actual event date. Metadata, training progress, captured history and calculator results never supply work dates.
+
+The interval belongs to the open job, including in an empty list. **Not saved** feedback appears directly below the interval if autosave fails; export a project backup before closing. Feedback belongs only to that job and raw interval.
+
+Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
+
+## 46-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -765,6 +789,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 43 | Pre-work safety reminders <!-- feature:safety --> | [Pre-work safety](#pre-work-safety) | Custom curves (2.0 Alpha build 3) |
 | 44 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
 | 45 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
+| 46 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
 
 ## Known limits and unresolved information
 

@@ -486,7 +486,7 @@ function fakeStorage(initial = {}) {
 
   await check('Job has an Outage tab; the screen opens with the company-procedure line, says it is not the procedure, and that a supervisor review is still needed', () => {
     const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs, ['Details', 'ONX files', 'Checklists', 'Safety', 'Outage', 'Acceptance', 'Run sheet', 'Night log']);
+    assert.deepEqual(tabs, ['Details', 'ONX files', 'Checklists', 'Safety', 'Outage', 'Acceptance', 'Run sheet', 'Night log', 'Sweep due']);
     const panel = h.d.getElementById('outagePanel');
     assert.equal(panel.hidden, false); assert.equal(h.d.getElementById('safetyPanel').hidden, true);
     const policy = panel.querySelector('.check-policy');
