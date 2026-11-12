@@ -1,0 +1,13 @@
+FAIL {"width": 320, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": null, "selectedBeforeActivation": "projects", "pass": false}
+FAIL {"width": 320, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": null, "selectedBeforeActivation": "sweepSetup", "pass": false}
+FAIL {"width": 320, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": null, "selectedBeforeActivation": "calculators", "pass": false}
+FAIL {"width": 360, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": null, "selectedBeforeActivation": "projects", "pass": false}
+FAIL {"width": 360, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": null, "selectedBeforeActivation": "sweepSetup", "pass": false}
+FAIL {"width": 360, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": null, "selectedBeforeActivation": "calculators", "pass": false}
+FAIL {"width": 390, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": null, "selectedBeforeActivation": "projects", "pass": false}
+FAIL {"width": 390, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": null, "selectedBeforeActivation": "sweepSetup", "pass": false}
+FAIL {"width": 390, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": null, "selectedBeforeActivation": "calculators", "pass": false}
+FAIL {"width": 430, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": null, "selectedBeforeActivation": "projects", "pass": false}
+FAIL {"width": 430, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": null, "selectedBeforeActivation": "sweepSetup", "pass": false}
+FAIL {"width": 430, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": null, "selectedBeforeActivation": "calculators", "pass": false}
+Searchable lists real-keyboard entry: 0 passed, 12 failed; 0 runtime errors.

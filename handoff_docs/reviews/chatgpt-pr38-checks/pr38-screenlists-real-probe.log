@@ -1,0 +1,30 @@
+{
+  "head": "4ccd22a28c66ca8739425fdabe79ea505aafea89",
+  "probes": [
+    {
+      "cell": "Nonexistent screen",
+      "failures": []
+    },
+    {
+      "cell": "Meter setup",
+      "failures": []
+    },
+    {
+      "cell": "Bogus",
+      "failures": [
+        "probe: table row \"Tools\" lists \"bogus\", which is not a Tools tab (tabs: calculators, fiber, why cards)"
+      ]
+    },
+    {
+      "cell": "Why cards",
+      "failures": []
+    },
+    {
+      "cell": "Calculators; Nonexistent screen",
+      "failures": [
+        "probe: table row \"Tools\" lists \"nonexistent screen\", which is not a Tools tab (tabs: calculators, fiber, why cards)"
+      ]
+    }
+  ]
+}
+Actual committed screenLists: 5 diagnostic assertions passed; two real detection gaps reproduced.

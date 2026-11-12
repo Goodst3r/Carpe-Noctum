@@ -1,0 +1,9 @@
+{"width": 320, "visible": [{"id": "fiber", "tabIndex": -1}], "afterTab": "Spec", "afterEnter": "calculators", "afterArrowDown": "INPUT"}
+{"width": 360, "visible": [{"id": "fiber", "tabIndex": -1}], "afterTab": "Spec", "afterEnter": "calculators", "afterArrowDown": "INPUT"}
+{"width": 390, "visible": [{"id": "fiber", "tabIndex": -1}], "afterTab": "Spec", "afterEnter": "calculators", "afterArrowDown": "INPUT"}
+{"width": 430, "visible": [{"id": "fiber", "tabIndex": -1}], "afterTab": "Spec", "afterEnter": "calculators", "afterArrowDown": "INPUT"}
+Traceback (most recent call last):
+  File "/workspace/scratch/pr38-keyboard-repro.py", line 32, in <module>
+    assert not bad,'Filtered Fiber is unreachable by Tab/Enter/ArrowDown at widths '+str(bad)
+           ^^^^^^^
+AssertionError: Filtered Fiber is unreachable by Tab/Enter/ArrowDown at widths [320, 360, 390, 430]
