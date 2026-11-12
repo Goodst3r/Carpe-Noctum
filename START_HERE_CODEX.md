@@ -11,7 +11,7 @@ Carpe Noctum (formerly NightSweep) is an offline HFC field app for maintenance t
 5. `handoff_docs/PARALLEL_TASKS.md`: the two-lane plan, the rules both lanes follow, the work loop and the definition of done. It is the source of truth for who does what.
 6. `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md` and `handoff_docs/lanes/codex-status.md`: what each assistant last recorded. Never rely on memory of an earlier chat; the repository is the record.
 7. `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`: what is not done or not verified, and how to set up a machine.
-8. `docs/BUILD_LIST.md`: the 20 planned features with sources, labels and acceptance tests. `handoff_docs/CHATGPT_HANDOFF.md` is the record of what the first build 3 session delivered.
+8. `docs/BUILD_LIST.md`: the 20 planned features with sources, labels and acceptance tests. `handoff_docs/FINAL_HANDOFF.md` is the record of what was delivered, and `handoff_docs/APK_PLAN.md` says how the APK is built.
 
 ## Where the work lives
 
