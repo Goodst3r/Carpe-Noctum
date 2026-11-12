@@ -2,9 +2,9 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 32 task screens and 50 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 33 task screens and 51 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **32 task screens** and **50** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **18**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [High split](#high-split) is feature 50 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → [Impairments](#impairments) then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → [Fiber](#fiber) adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which is the eighteenth custom-curves guide step.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** current source is **33 task screens** and **51** Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves **19**, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Test → [Why cards](#why-cards) is feature 51 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card) and [Leakage](#leakage) were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and was a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and was a sixth. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds [Personal sweep reminders](#sweep-due), feature 46, and the six-active exercise has 16 steps. Job → ONX files adds [Attached sweep grading](#build-3-attached-sweep-grading-aid), feature 47; custom curves had 15 steps before Impairments. Test → [Impairments](#impairments) then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → [Fiber](#fiber) adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which is the nineteenth custom-curves guide step.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -32,22 +32,23 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 20. [Impairments](#impairments)
 21. [Fiber](#fiber)
 22. [High split](#high-split)
-23. [Power-supply load](#power-supply-load)
-24. [Power what-if](#power-what-if)
-25. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
-26. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
-27. [Pre-work safety](#pre-work-safety)
-28. [Outage first response](#outage-first-response)
-29. [Project records and closeout](#project-records-and-closeout)
-30. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
-31. [Offline use, updates and Help](#offline-use-updates-and-help)
-32. [Checked example answers](#checked-example-answers)
-33. [Station worksheet](#station-worksheet)
-34. [Night log and shift handoff](#night-log-and-shift-handoff)
-35. [Sweep due](#sweep-due)
-36. [50-feature coverage index](#50-feature-coverage-index)
-37. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
-37. [Known limits and unresolved information](#known-limits-and-unresolved-information)
+23. [Why cards](#why-cards)
+24. [Power-supply load](#power-supply-load)
+25. [Power what-if](#power-what-if)
+26. [ONX files, original evidence and comparisons](#onx-files-original-evidence-and-comparisons)
+27. [Field checklists and unit conversion](#field-checklists-and-unit-conversion)
+28. [Pre-work safety](#pre-work-safety)
+29. [Outage first response](#outage-first-response)
+30. [Project records and closeout](#project-records-and-closeout)
+31. [Run sheet, exports and full backups](#run-sheet-exports-and-full-backups)
+32. [Offline use, updates and Help](#offline-use-updates-and-help)
+33. [Checked example answers](#checked-example-answers)
+34. [Station worksheet](#station-worksheet)
+35. [Night log and shift handoff](#night-log-and-shift-handoff)
+36. [Sweep due](#sweep-due)
+37. [51-feature coverage index](#51-feature-coverage-index)
+38. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
+38. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
@@ -57,7 +58,7 @@ Start a real job with **Job → Details → + New blank job**. Identify the actu
 | --- | --- | --- |
 | Home | Home | Current job, task shortcuts, practice, backup and browser offline status |
 | Route | Setup; Cable route; Amp gain; Amp / node setup; Catalog; Station | Starting signal, RF topology, active gain and exact-model references |
-| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
+| Test | Meter setup; TDR; Predicted levels; Frequency; Readings; References; Calculators; Limits; DOCSIS health; Leakage; Impairments; Fiber; High split; Why cards | Guided test records, predicted response, distance and measurement comparisons, quick calculations and the source of every limit |
 | Power | Load; What-if | Independently entered power circuit and an added-load trial |
 | Job | Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due | Local jobs, original evidence, work notes, acceptance records and reports |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -103,7 +104,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder and the high-split reading aid | 18 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid and the why cards | 19 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -508,6 +509,14 @@ A reading aid for the 204/258 MHz plant and for what is public about Remote PHY 
 
 What this screen leaves out on purpose: a Vecima commissioning checklist (no public document), optical receive levels and timing-lock indicators (no public figure or display found), leakage detector and OUDP settings, pilot patterns, timers and event numbers, and a procedure for converting a node to high split.
 
+## Why cards
+
+**Where:** Test → Why cards. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read a why card and follow its link.
+
+Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Route → Station**, **Test → Calculators**, **Test → TDR**, **Test → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
+
+The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Test → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read, so check the monograph itself.
+
 ## Power-supply load
 
 **Where:** Power → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
@@ -801,7 +810,7 @@ The interval belongs to the open job, including in an empty list. **Not saved** 
 
 Edit actual dates in **Route → Station** and manage jobs in **Job → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 50-feature coverage index
+## 51-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -857,6 +866,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 48 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
 | 49 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
 | 50 | High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
+| 51 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
 
 ## Build 3 attached sweep grading aid
 

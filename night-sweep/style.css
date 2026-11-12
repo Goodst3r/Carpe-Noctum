@@ -247,7 +247,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .calc-stats strong{display:block;font-size:21px;margin-top:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .calc-stats small{font-size:12px;font-weight:500}
 .calc-conditions{margin-bottom:0}
-@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel{display:none!important}}
+@media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
 /* DOCSIS health card (build list item 5) */
@@ -336,3 +336,12 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .hs-list li,.hs-steps li{margin:8px 0;overflow-wrap:anywhere}
 .hs-source{display:block;margin-top:2px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
 .hs-panel .calc-card button{min-height:44px}
+.why-list{display:grid;gap:10px;margin-top:12px}
+.why-card{border:1px solid var(--line);border-radius:12px;padding:0;min-width:0}
+.why-card>summary{cursor:pointer;min-height:44px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;font-weight:700}
+.why-cite{font-weight:400;font-size:13px;color:var(--muted)}
+.why-card .source-tag{min-height:44px;min-width:44px}
+.why-body{padding:0 14px 12px}
+.why-body p{margin:8px 0;overflow-wrap:anywhere}
+.why-go{min-height:44px;margin:2px 6px 2px 0}
+.why-tags .source-tag{margin-right:6px}

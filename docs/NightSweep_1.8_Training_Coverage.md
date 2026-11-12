@@ -6,7 +6,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 
 ## Loadable exercises
 
-For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 32 task screens and 50 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 18, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
+For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 33 task screens and 51 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 19, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
 
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the l
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
 | Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 16 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools and the high-split reading aid (added in 2.0 Alpha build 3); eighteen steps | Synthetic entered teaching tables and calculator inputs |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid and the why cards (added in 2.0 Alpha build 3); nineteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -45,6 +45,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → Impairments | Custom curves | A synthetic 4.3 MHz ripple that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored (2.0 Alpha build 3) |
 | Test → Fiber | Custom curves | Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored (2.0 Alpha build 3) |
 | Test → High split | Custom curves | The 204/258 high-split row and gap read from the band table, the side of 108 to 137 MHz on each plant, and the eight Remote PHY steps with their sources; nothing is typed, read from a node or stored (2.0 Alpha build 3) |
+| Test → Why cards | Custom curves | The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored (2.0 Alpha build 3) |
 | Job → Safety | Custom curves | Synthetic practice of the pre-work reminder list: ticks, a role and check-in time, and rewording, hiding and adding items; kept on this device and not in the job backup (2.0 Alpha build 3) |
 | Job → Outage | Custom curves | Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3) |
 | Power → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |
@@ -107,7 +108,7 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **50 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **51 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
 
 
 ### Build 3 Night log handoff practice
@@ -117,8 +118,8 @@ The six-active exercise adds **Five-station night handoff** under **Job → Nigh
 
 ## Build 3 sweep-due practice
 
-The current source has **32 task screens**, **50 feature choices**, and **16 steps** in the six-active Vecima/AOI exercise. Its **Personal sweep reminders** step opens **Job → Sweep due**, starts with an unknown interval, and asks the technician to enter **18** only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an **Unknown / unverified app policy**; the older Hranac attribution for 18 months remains unverified.
+The current source has **33 task screens**, **51 feature choices**, and **16 steps** in the six-active Vecima/AOI exercise. Its **Personal sweep reminders** step opens **Job → Sweep due**, starts with an unknown interval, and asks the technician to enter **18** only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an **Unknown / unverified app policy**; the older Hranac attribution for 18 months remains unverified.
 
-The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **18**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.
+The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **19**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.
 
-The custom-curves exercise has **18 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
+The custom-curves exercise has **19 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
