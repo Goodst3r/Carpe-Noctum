@@ -6,7 +6,7 @@ Only Lane B writes this file. New entries go on top. The status file (`claude-st
 
 ---
 
-## Entry 1 · November 12, 2026, 03:35 UTC (corrected 04:05 UTC) · stopped at Spencer's request
+## Entry 1 · November 12, 2026, 03:35 UTC (corrected 03:55 UTC) · stopped at Spencer's request
 
 Spencer asked Lane B to stop, save and upload its work, and note where it left off. Nothing was running when this entry was written. Nothing unverified was pushed: the one merge in progress (fiber level) was aborted, not committed. Before pushing the correction, four read-only checkers compared this entry with git, GitHub and the gate logs; their findings are folded in below.
 
@@ -75,7 +75,7 @@ Every stack head above #13 also has the main-guide mismatch (rendered HTML 29 / 
 
 APK build or signing, emulator, physical phone, Safari or WebView, screen reader, meter, field. No version, storage key, package ID or job format change.
 
-### Estimated time remaining (as of 04:05 UTC, once work resumes)
+### Estimated time remaining (as of 03:55 UTC, once work resumes)
 
 - **D1 to D5 (the marathon's done line):** B9 with the audit's guide edits, re-render and rebuild, about 2.5 to 3.5 hours; Lane A's review and merge, about 1 to 2 hours; both lanes' gates on the final head, about 15 to 30 minutes each (Lane A's last full run took about 12 minutes; mine take 10 to 15 minutes). **About 4 to 6 hours of wall time.**
 - **Stretch PRs (after done):** #13 fixes and the resync of #15 to #20 with the main-guide render, about 1.5 to 2 hours, plus a stack-top gate; then Lane A's re-reviews and merges at their pace (several hours for six PRs).
