@@ -1,0 +1,2747 @@
+{
+  "schema": "carpe-noctum.calculator-test-vectors.v1",
+  "created_utc": "2026-11-12T08:51:11.127848+00:00",
+  "document_policy": {
+    "label": "unknown",
+    "six_significant_figures": "Expected numbers are strings to preserve significant trailing zeros; this is a numerical presentation policy, not an RF/company tolerance.",
+    "reason_text_policy": "Equivalent meaning is acceptable; refusal reasons are independently written.",
+    "no_app_test_claim": true
+  },
+  "source_written_check": {
+    "commit": "ed2826c73865af6a887ba147ba8b3bf0ef3d98e0",
+    "path": "handoff_docs/reviews/chatgpt-roadmap-critique.md",
+    "section": "Written check for Grok"
+  },
+  "shared_context": {
+    "all_case_inputs": "expert synthetic examples, not company targets or real equipment ratings",
+    "plant_profiles": "42/54 and 204/258 remain separate; each company ceiling/target/tolerance/pilot code stays Unknown",
+    "limits": [
+      {
+        "value": "65 dBmV",
+        "label": "spec",
+        "source": "CableLabs CM-SP-PHYv3.1-I20-230419 (2023), 7.4.12.2 and 7.4.12.2.1",
+        "conditions": "Applicable 3.1 mode only; blank field permits an explicitly assumed reference, not verified capability."
+      },
+      {
+        "value": "1.380649e-23 J/K",
+        "label": "spec",
+        "source": "BIPM SI Brochure 9th edition (2019, updated 2026), 2.2"
+      },
+      {
+        "value": "290 K",
+        "label": "spec",
+        "source": "SCTE 293-11 2025, 5.2-5.5",
+        "conditions": "NF source reference convention."
+      },
+      {
+        "value": "75 ohm",
+        "label": "expert",
+        "source": "Declared matched cable-model assumption; SCTE 270 2021r1, 12-14"
+      },
+      {
+        "value": "N >= 1 integer",
+        "label": "expert",
+        "source": "Count domain of the equal-contribution derivation."
+      },
+      {
+        "value": "N <= 9007199254740991",
+        "label": "unknown",
+        "source": "ECMAScript Number.MAX_SAFE_INTEGER; software representation, not RF rating."
+      },
+      {
+        "value": "General Add requires >=2 inputs",
+        "label": "unknown",
+        "source": "Written check, application minimum-count policy."
+      },
+      {
+        "value": "existing OFDM converter +/-200 dBmV and 0<B<=2000 MHz",
+        "label": "unknown",
+        "source": "field-calcs.js ofdmPower at build3 304cb77; not automatically a new calculator limit."
+      }
+    ]
+  },
+  "verification": {
+    "decimal_precision_digits": 180,
+    "method_A": "Python Decimal direct linear powers / direct thermal product, then logarithm",
+    "method_B": "Independent binary64 stable max-shift/log1p add, expm1 subtraction, min-shift/log1p CNR, sum-of-log thermal formula and power-ratio comparison; no app helper used.",
+    "all_numeric_outputs_agree_6sf": true,
+    "numeric_output_comparisons": 77,
+    "implementation_calls_made": false,
+    "command": "python3 /tmp/carpe-wait-task/make-vectors.py",
+    "exit_code": 0
+  },
+  "calculators": {
+    "power_sum": {
+      "worked_cases": [
+        {
+          "id": "P1",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "37",
+              "34"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "42.4363"
+          },
+          "decimal_reference": {
+            "level_dBmV": "42.4362726604562058616153223542539437208170301947808307448275792779193255857446983063227705322069995071270605287071921154955091158827631544197699561625630185826597570867072584564850"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "42.4363"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "P2",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "40"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "43.0103"
+          },
+          "decimal_reference": {
+            "level_dBmV": "43.0102999566398119521373889472449302676818988146210854131042746112710818927442450948692725211818617204068447719143099537909476788113352350599969233370469557506450296425419340266182"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "43.0103"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "P3",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "8"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "49.0309"
+          },
+          "decimal_reference": {
+            "level_dBmV": "49.0308998699194358564121668417347908030456964438632562393128238338132456782327352846078175635455851612205343157429298613728430364340057051799907700111408672519350889276258020798546"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "49.0309"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "P4",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "-20",
+              "-30"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-19.5861"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-19.5860731484177495924980002875697575829329780953354690540346098132024696776675065242870521361426882099652518700778381840582742148028499256423141065677820722088025986943147056316241"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-19.5861"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "P5",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "10",
+            "noise_dBmV": "0"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "signal_dBmV": "9.54243",
+            "SNR_dB": "9.54243"
+          },
+          "decimal_reference": {
+            "signal_dBmV": "9.54242509439324874590055806510230618400257728381391729659731280610458305567322246085936711295232603020929385536504091787125938284450454702580687412143058819866485903706342714979570",
+            "SNR_dB": "9.54242509439324874590055806510230618400257728381391729659731280610458305567322246085936711295232603020929385536504091787125938284450454702580687412143058819866485903706342714979570"
+          },
+          "stable_formula_6sf": {
+            "signal_dBmV": "9.54243",
+            "SNR_dB": "9.54243"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "P6",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "50",
+            "noise_dBmV": "49"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "signal_dBmV": "43.1317",
+            "SNR_dB": "-5.86825"
+          },
+          "decimal_reference": {
+            "signal_dBmV": "43.1317467561988449094500169223054465483304311818196639111084309841181200391283722126322651453464119953464272761196305225596858024318126195576644760972706399937700958171257214343942",
+            "SNR_dB": "-5.8682532438011550905499830776945534516695688181803360888915690158818799608716277873677348546535880046535727238803694774403141975681873804423355239027293600062299041828742785656058"
+          },
+          "stable_formula_6sf": {
+            "signal_dBmV": "43.1317",
+            "SNR_dB": "-5.86825"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        }
+      ],
+      "extra_edge_cases": [
+        {
+          "id": "PX01",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "1"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "40.0000"
+          },
+          "decimal_reference": {
+            "level_dBmV": "40"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "40.0000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "PX02",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "-200",
+              "-200"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-196.990"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-196.989700043360188047862611052755069732318101185378914586895725388728918107255754905130727478818138279593155228085690046209052321188664764940003076662953044249354970357458065973382"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-196.990"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "PX03",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "2000",
+              "2000"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "2003.01"
+          },
+          "decimal_reference": {
+            "level_dBmV": "2003.01029995663981195213738894724493026768189881462108541310427461127108189274424509486927252118186172040684477191430995379094767881133523505999692333704695575064502964254193402662"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "2003.01"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+        },
+        {
+          "id": "PX04",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "-2000",
+              "-2000"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-1996.99"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-1996.98970004336018804786261105275506973231810118537891458689572538872891810725575490513072747881813827959315522808569004620905232118866476494000307666295304424935497035745806597338"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-1996.99"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+        },
+        {
+          "id": "PX05",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "-100",
+            "N": "9007199254740991"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "59.5459"
+          },
+          "decimal_reference": {
+            "level_dBmV": "59.545897701910032981117880927337722061603132519479817847290573475201977738116894303753839272749687271706107835369008176743828708005055556099490054420481506319171260442577516870942"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "59.5459"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "Mathematical safe-integer boundary; an explicitly registered smaller count cap may refuse it."
+        },
+        {
+          "id": "PX06",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "10.000001",
+            "noise_dBmV": "10"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "signal_dBmV": "-56.3778",
+            "SNR_dB": "-66.3778"
+          },
+          "decimal_reference": {
+            "signal_dBmV": "-56.3778426130053582971251208445983160809197128738781571537066803960503528972932888482018516935081144445243979600523829877882523072975804649318840536379889173272864262905039390046597",
+            "SNR_dB": "-66.3778426130053582971251208445983160809197128738781571537066803960503528972932888482018516935081144445243979600523829877882523072975804649318840536379889173272864262905039390046597"
+          },
+          "stable_formula_6sf": {
+            "signal_dBmV": "-56.3778",
+            "SNR_dB": "-66.3778"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "note": "Numerically valid but sensitive to measurement uncertainty; no invented minimum separation."
+        },
+        {
+          "id": "PX07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "-20",
+            "noise_dBmV": "-30"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "signal_dBmV": "-20.4576",
+            "SNR_dB": "9.54243"
+          },
+          "decimal_reference": {
+            "signal_dBmV": "-20.4575749056067512540994419348976938159974227161860827034026871938954169443267775391406328870476739697907061446349590821287406171554954529741931258785694118013351409629365728502043",
+            "SNR_dB": "9.5424250943932487459005580651023061840025772838139172965973128061045830556732224608593671129523260302092938553650409178712593828445045470258068741214305881986648590370634271497957"
+          },
+          "stable_formula_6sf": {
+            "signal_dBmV": "-20.4576",
+            "SNR_dB": "9.54243"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "PX08",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "PX09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "0",
+              "-200"
+            ]
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "4.34294E-20"
+          },
+          "decimal_reference": {
+            "level_dBmV": "4.34294481903251827648957446507088823156155837691813649097236727193856394068084740466614982966490957933600323037895546199097236479817147108816140920863642835121949586316994164281328E-20"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "4.34294E-20"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "note": "log1p form preserves a very small positive level rather than rounding intermediate 1+epsilon to 1."
+        },
+        {
+          "id": "PX10",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "-100",
+            "N": "1000000"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-40.0000"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-40"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-40.0000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        }
+      ],
+      "refusal_cases": [
+        {
+          "id": "PR01",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter every contribution; blank is unknown, not zero.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR02",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "-",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Complete the numeric level; a lone sign is not a number.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR03",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "1e",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Complete the exponent before calculating.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR04",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "NaN",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use finite numeric levels.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR05",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "Infinity",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use finite numeric levels.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR06",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "General Add needs at least two contributions.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "10",
+            "noise_dBmV": "10"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Total must exceed noise to resolve positive residual signal power.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR08",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "9",
+            "noise_dBmV": "10"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Total below noise would imply negative residual signal power.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "0"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Carrier count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR10",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "-1"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Carrier count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR11",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "1.5"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Carrier count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR12",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": "9007199254740992"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Count exceeds JavaScript safe-integer representation.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR13",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels": [
+              "40 dBmV",
+              "0 dBm"
+            ],
+            "common_unit_conversion": false
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Convert all levels to a common reference and impedance before adding.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR14",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "40"
+            ],
+            "correlation": "coherent_copies"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Levels alone cannot determine coherent addition; phase/correlation information is missing.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR15",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "37"
+            ],
+            "overlapping_measurements": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Summation would double-count overlapping contributions.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR16",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "10",
+            "noise_dBmV": "0",
+            "noise_bandwidth": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Declare compatible total/noise bandwidths and averaging before subtraction.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR17",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "37"
+            ],
+            "impedances_ohm": [
+              "75",
+              "50"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Reconcile impedances and measurement planes before power addition.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR18",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "equal_carriers",
+            "level_dBmV": "40",
+            "N": ""
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter the carrier count; blank is unknown.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR19",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "1x",
+              "40"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use complete decimal notation, not partially parsed text.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR20",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "",
+            "noise_dBmV": "0"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter total and noise levels; blank is unknown.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR21",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "40",
+              "37"
+            ],
+            "measurement_plane": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Declare a common observation plane before adding powers.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR22",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "subtract_noise",
+            "total_dBmV": "10",
+            "noise_dBmV": "0",
+            "detector_and_averaging_compatible": false
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use representative noise with compatible RMS/power averaging and unchanged settings.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR23",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": []
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "General Add needs at least two contributions.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "PR24",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "power_add",
+            "levels_dBmV": [
+              "201",
+              "201"
+            ],
+            "registered_input_envelope_dBmV": [
+              "-200",
+              "200"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Input is outside this explicitly declared software envelope; this is not an equipment rating.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null,
+          "conditional": "Only when this is the registered new-calculator envelope; mathematical stress cases remain valid outside it."
+        }
+      ]
+    },
+    "headroom": {
+      "worked_cases": [
+        {
+          "id": "H1",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "54.0206",
+            "delta_dB": "6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "54.0205999132796239042747778944898605353637976292421708262085492225421637854884901897385450423637234408136895438286199075818953576226704701199938466740939115012900592850838680532364",
+            "delta_dB": "6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "54.0206",
+            "delta_dB": "6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "available_headroom": "unknown"
+        },
+        {
+          "id": "H2",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "54",
+            "from_MHz": "6.4",
+            "to_MHz": "1.6",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "47.9794",
+            "delta_dB": "-6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "47.9794000867203760957252221055101394646362023707578291737914507774578362145115098102614549576362765591863104561713800924181046423773295298800061533259060884987099407149161319467636",
+            "delta_dB": "-6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "47.9794",
+            "delta_dB": "-6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "available_headroom": "unknown"
+        },
+        {
+          "id": "H3",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "reference_Pmax_dBmV": "68",
+            "entered_Pmax_dBmV": "68",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "8.00000"
+          },
+          "decimal_reference": {
+            "margin_dB": "8"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "8.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "H4",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "reference_Pmax_dBmV": "65",
+            "entered_Pmax_dBmV": null,
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "assumed_spec_minimum_not_reported_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "5.00000"
+          },
+          "decimal_reference": {
+            "margin_dB": "5"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "5.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "H5",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "66",
+            "reference_Pmax_dBmV": "65",
+            "entered_Pmax_dBmV": "65",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "-1.00000"
+          },
+          "decimal_reference": {
+            "margin_dB": "-1"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "-1.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        }
+      ],
+      "extra_edge_cases": [
+        {
+          "id": "HX01",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "-20",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-13.9794",
+            "delta_dB": "6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-13.9794000867203760957252221055101394646362023707578291737914507774578362145115098102614549576362765591863104561713800924181046423773295298800061533259060884987099407149161319467636",
+            "delta_dB": "6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-13.9794",
+            "delta_dB": "6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX02",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "0",
+            "from_MHz": "6.4",
+            "to_MHz": "1.6",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-6.02060",
+            "delta_dB": "-6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639",
+            "delta_dB": "-6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-6.02060",
+            "delta_dB": "-6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX03",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "1.6",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "48.0000",
+            "delta_dB": "0.00000"
+          },
+          "decimal_reference": {
+            "level_dBmV": "48.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "delta_dB": "0"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "48.0000",
+            "delta_dB": "0.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX04",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "6.4",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "48.0000",
+            "delta_dB": "0.00000"
+          },
+          "decimal_reference": {
+            "level_dBmV": "48.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "delta_dB": "0"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "48.0000",
+            "delta_dB": "0.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX05",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "-100",
+            "from_MHz": "0.000001",
+            "to_MHz": "1.6",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-37.9588",
+            "delta_dB": "62.0412"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-37.9588001734407521914504442110202789292724047415156583475829015549156724290230196205229099152725531183726209123427601848362092847546590597600123066518121769974198814298322638935272",
+            "delta_dB": "62.0411998265592478085495557889797210707275952584843416524170984450843275709769803794770900847274468816273790876572398151637907152453409402399876933481878230025801185701677361064728"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-37.9588",
+            "delta_dB": "62.0412"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX06",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "-200",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "-193.979",
+            "delta_dB": "6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "-193.979400086720376095725222105510139464636202370757829173791450777457836214511509810261454957636276559186310456171380092418104642377329529880006153325906088498709940714916131946764",
+            "delta_dB": "6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "-193.979",
+            "delta_dB": "6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "200",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "level_dBmV": "206.021",
+            "delta_dB": "6.02060"
+          },
+          "decimal_reference": {
+            "level_dBmV": "206.020599913279623904274777894489860535363797629242170826208549222542163785488490189738545042363723440813689543828619907581895357622670470119993846674093911501290059285083868053236",
+            "delta_dB": "6.02059991327962390427477789448986053536379762924217082620854922254216378548849018973854504236372344081368954382861990758189535762267047011999384667409391150129005928508386805323639"
+          },
+          "stable_formula_6sf": {
+            "level_dBmV": "206.021",
+            "delta_dB": "6.02060"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+        },
+        {
+          "id": "HX08",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "65",
+            "reference_Pmax_dBmV": "65",
+            "entered_Pmax_dBmV": "65",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "0.00000"
+          },
+          "decimal_reference": {
+            "margin_dB": "0"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "0.00000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "65.000001",
+            "reference_Pmax_dBmV": "65",
+            "entered_Pmax_dBmV": "65",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "-1.00000E-6"
+          },
+          "decimal_reference": {
+            "margin_dB": "-0.000001"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "-1.00000E-6"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "HX10",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "-10",
+            "reference_Pmax_dBmV": "65",
+            "entered_Pmax_dBmV": "65",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "margin_dB": "75.0000"
+          },
+          "decimal_reference": {
+            "margin_dB": "75"
+          },
+          "stable_formula_6sf": {
+            "margin_dB": "75.0000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        }
+      ],
+      "refusal_cases": [
+        {
+          "id": "HR01",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter the measured level; blank is unknown.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR02",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "-",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Complete the numeric level.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR03",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "Infinity",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use finite numeric input.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR04",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "0",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Bandwidth must be known and greater than zero.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR05",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "-6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Bandwidth must be known and greater than zero.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR06",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "unknown",
+            "to_MHz": "6.4",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "A bandwidth label is required before normalization.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "entered_Pmax_dBmV": null,
+            "mode": "other"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "A blank Pmax has no supported reference in this mode.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR08",
+          "label": "spec",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "reference_Pmax_dBmV": "64",
+            "entered_Pmax_dBmV": "64",
+            "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+            "actual_simultaneous_total_confirmed": true,
+            "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+            "available_per_channel_headroom": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Pmax below 65 dBmV is incompatible with the declared applicable 3.1 context.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "48",
+            "basis": "per_1_6_MHz"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "A normalized or per-channel reading is not a simultaneous composite total.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR10",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "reference_Pmax_dBmV": "65",
+            "mode": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Declare the applicable modem/CMTS/transmit mode before using the reference.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR11",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "reference_Pmax_dBmV": "65",
+            "measurement_plane": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Total and reference must share the comparable CM F-connector plane.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR12",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "flat_PSD": false
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Flat-PSD conversion cannot reconstruct this nonflat or unknown spectrum total.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR13",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_value": "1.6",
+            "from_units": "MHz",
+            "to_value": "6400000",
+            "to_units": "Hz",
+            "units_normalized": false
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Normalize declared bandwidth units before applying the ratio.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR14",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "available_per_channel_headroom",
+            "composite_total_dBmV": "60",
+            "Pmax_dBmV": "65",
+            "TCS": "unknown",
+            "DRW": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Composite margin alone cannot determine available per-channel/DRW headroom.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR15",
+          "label": "company",
+          "synthetic": true,
+          "inputs": {
+            "operation": "company_ceiling_margin",
+            "local_ceiling_dBmV": null,
+            "plant": "42/54"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Local ceiling is Unknown; do not infer a company target.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR16",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "entered_Pmax_dBmV": "-"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Complete the numeric Pmax reference.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR17",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "composite_margin",
+            "simultaneous_total_dBmV": "60",
+            "entered_Pmax_dBmV": "NaN"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use a finite Pmax reference.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "HR18",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "2001",
+            "flat_PSD": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "This width exceeds the existing converter software envelope of 2000 MHz.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null,
+          "conditional": "Applies to reuse of the currently declared existing converter envelope."
+        },
+        {
+          "id": "HR19",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "bandwidth",
+            "level_dBmV": "48",
+            "from_MHz": "1.6",
+            "to_MHz": "6.4",
+            "instantaneous_OFDMA_total_requested": true,
+            "grant_and_pilot_allocation": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "A bandwidth restatement does not determine instantaneous OFDMA total power.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        }
+      ]
+    },
+    "cascade": {
+      "worked_cases": [
+        {
+          "id": "C1",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "54.1628",
+            "combined_CNR_dB": "44.5029"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-57.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "single_CNR_dB": "64.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "equal_contributions_CNR_dB": "54.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "combined_CNR_dB": "44.5029313489392235528595805059981125100185098193537478471881914755184094676029896517991054183767438954760744538496152116823987892933304916403196669397620176078996104243834869244593"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "54.1628",
+            "combined_CNR_dB": "44.5029"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "C2",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "5120000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-58.1319",
+            "single_CNR_dB": "65.1319",
+            "equal_contributions_CNR_dB": "55.1319",
+            "combined_CNR_dB": "44.5979"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-58.1318749505527963789090540701246352463287241157079016757162635959180435958662659847518016878849429355882816938166047781084932757377998062774458818376932400625650562948525357476261",
+            "single_CNR_dB": "65.1318749505527963789090540701246352463287241157079016757162635959180435958662659847518016878849429355882816938166047781084932757377998062774458818376932400625650562948525357476261",
+            "equal_contributions_CNR_dB": "55.1318749505527963789090540701246352463287241157079016757162635959180435958662659847518016878849429355882816938166047781084932757377998062774458818376932400625650562948525357476261",
+            "combined_CNR_dB": "44.5978976720647890432632493103000071576591095724700647634644288793040654383672733681931510636753526951094947060399690635511609340913975142023959226618199363499778245738872737220574"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-58.1319",
+            "single_CNR_dB": "65.1319",
+            "equal_contributions_CNR_dB": "55.1319",
+            "combined_CNR_dB": "44.5979"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "C3",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43",
+              "46"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "37.5637"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "37.5637273395437941383846776457460562791829698052191692551724207220806744142553016936772294677930004928729394712928078845044908841172368455802300438374369814173402429132927415435150"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "37.5637"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "C4",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "40"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "36.9897"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "36.9897000433601880478626110527550697323181011853789145868957253887289181072557549051307274788181382795931552280856900462090523211886647649400030766629530442493549703574580659733818"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "36.9897"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        }
+      ],
+      "extra_edge_cases": [
+        {
+          "id": "CX01",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "1600000",
+            "input_dBmV": "-10",
+            "NF_dB": "0",
+            "N": "1",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-63.1834",
+            "single_CNR_dB": "53.1834",
+            "equal_contributions_CNR_dB": "53.1834"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-63.1833747337518561395959988063492865847382181888133287412376366522734530595874914590981642937942515376225055533881545470632316697944759815774304985229280188157902045075622058807171",
+            "single_CNR_dB": "53.1833747337518561395959988063492865847382181888133287412376366522734530595874914590981642937942515376225055533881545470632316697944759815774304985229280188157902045075622058807171",
+            "equal_contributions_CNR_dB": "53.1833747337518561395959988063492865847382181888133287412376366522734530595874914590981642937942515376225055533881545470632316697944759815774304985229280188157902045075622058807171"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-63.1834",
+            "single_CNR_dB": "53.1834",
+            "equal_contributions_CNR_dB": "53.1834"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX02",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "1",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "64.1628"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-57.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "single_CNR_dB": "64.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "equal_contributions_CNR_dB": "64.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "64.1628"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX03",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "2",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "61.1525",
+            "combined_CNR_dB": "44.8959"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-57.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "single_CNR_dB": "64.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "equal_contributions_CNR_dB": "61.1524748638324202831838319646144957816925217449500725019248128184602073813547561744903467302486663764019712376452246856903886333604702763974397285117871515638551155799364038008625",
+            "combined_CNR_dB": "44.8959306204969078259292373895490612987511731678691402366830851869761530637577283213180761583514268942695527580053822754363673544219640027056969976301706002279840334236002052639528"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "61.1525",
+            "combined_CNR_dB": "44.8959"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX04",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "1000",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "34.1628"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-57.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "single_CNR_dB": "64.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807",
+            "equal_contributions_CNR_dB": "34.1627748204722322353212209118594260493744205595711579150290874297312892740990012693596192514305280968088160095595346394813363121718055114574366518488341073145001452224783378274807"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-57.1628",
+            "single_CNR_dB": "64.1628",
+            "equal_contributions_CNR_dB": "34.1628"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX05",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "-10",
+              "-20"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "-20.4139"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "-20.4139268515822504075019997124302424170670219046645309459653901867975303223324934757129478638573117900347481299221618159417257851971500743576858934322179277911974013056852943683759"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "-20.4139"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX06",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "1000",
+              "1000"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "996.990"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "996.989700043360188047862611052755069732318101185378914586895725388728918107255754905130727478818138279593155228085690046209052321188664764940003076662953044249354970357458065973382"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "996.990"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+        },
+        {
+          "id": "CX07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "-1000",
+              "-1000"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "-1003.01"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "-1003.01029995663981195213738894724493026768189881462108541310427461127108189274424509486927252118186172040684477191430995379094767881133523505999692333704695575064502964254193402662"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "-1003.01"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "A mathematical stress reference; calculate only if the registered software envelope supports it, otherwise refuse explicitly. It is not a plausible plant level or equipment limit."
+        },
+        {
+          "id": "CX08",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "1",
+            "input_dBmV": "-100",
+            "NF_dB": "0",
+            "N": "2",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-125.225",
+            "single_CNR_dB": "25.2246",
+            "equal_contributions_CNR_dB": "22.2143"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-125.224574560311103948145554595329007655465813447297670393654735097357780630564471838575254378521698419249884641045394362227022385039816921817418191871115841818370323077729941987190",
+            "single_CNR_dB": "25.224574560311103948145554595329007655465813447297670393654735097357780630564471838575254378521698419249884641045394362227022385039816921817418191871115841818370323077729941987190",
+            "equal_contributions_CNR_dB": "22.2142746036712919960081656480840773877839146326765849805504604860866987378202267437059818573398366988430398691310844084360747062284816867574212685340688860677252934351880079605718"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-125.225",
+            "single_CNR_dB": "25.2246",
+            "equal_contributions_CNR_dB": "22.2143"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "1000000000",
+            "input_dBmV": "20",
+            "NF_dB": "2",
+            "N": "1",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "thermal_floor_dBmV": "-35.2246",
+            "single_CNR_dB": "53.2246",
+            "equal_contributions_CNR_dB": "53.2246"
+          },
+          "decimal_reference": {
+            "thermal_floor_dBmV": "-35.2245745603111039481455545953290076554658134472976703936547350973577806305644718385752543785216984192498846410453943622270223850398169218174181918711158418183703230777299419871899",
+            "single_CNR_dB": "53.2245745603111039481455545953290076554658134472976703936547350973577806305644718385752543785216984192498846410453943622270223850398169218174181918711158418183703230777299419871899",
+            "equal_contributions_CNR_dB": "53.2245745603111039481455545953290076554658134472976703936547350973577806305644718385752543785216984192498846410453943622270223850398169218174181918711158418183703230777299419871899"
+          },
+          "stable_formula_6sf": {
+            "thermal_floor_dBmV": "-35.2246",
+            "single_CNR_dB": "53.2246",
+            "equal_contributions_CNR_dB": "53.2246"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null
+        },
+        {
+          "id": "CX10",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40"
+            ],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "context": {
+            "impedance_ohm": "75",
+            "measurement_plane": "same_declared_matched_plane",
+            "level_reference": "dBmV",
+            "distinct_uncorrelated_contributions": true,
+            "bandwidth_convention": "known_and_compatible"
+          },
+          "expected_6sf": {
+            "combined_CNR_dB": "40.0000"
+          },
+          "decimal_reference": {
+            "combined_CNR_dB": "40"
+          },
+          "stable_formula_6sf": {
+            "combined_CNR_dB": "40.0000"
+          },
+          "agreement": "all numeric outputs agree at six significant figures",
+          "expected_reason_text": null,
+          "application_disposition": "One-contribution identity is valid; a documented UI minimum of two would be Unknown/application policy, not physics."
+        }
+      ],
+      "refusal_cases": [
+        {
+          "id": "CR01",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter the equivalent noise bandwidth; blank is unknown.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR02",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "unknown",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Noise bandwidth/convention is required.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR03",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "0",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Noise bandwidth must be greater than zero.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR04",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "-1",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Noise bandwidth must be greater than zero.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR05",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "0",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Contribution count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR06",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "-1",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Contribution count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR07",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "1.5",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Contribution count must be a safe positive integer.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR08",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "8",
+            "N": "9007199254740992",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Count exceeds safe-integer representation.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR09",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "NF is unknown; use an applicable sourced model input.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR10",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "-",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Complete the numeric noise figure.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR11",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "15",
+            "NF_dB": "-1",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Negative NF is outside this narrowed conventional matched-amplifier model.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR12",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "6400000",
+            "input_dBmV": "Infinity",
+            "NF_dB": "8",
+            "N": "10",
+            "source_reference_K": "290",
+            "load_ohm": "75",
+            "equal_independent_receiver_referred_noise": true,
+            "optical_CNR_dB": "45"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use finite numeric carrier input.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR13",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43"
+            ],
+            "kinds": [
+              "CNR",
+              "MER"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "MER is not an independent thermal CNR contribution.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR14",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43"
+            ],
+            "contributions": [
+              "cumulative_chain",
+              "constituent_of_chain"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Do not count a cumulative segment and its constituent noise twice.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR15",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43"
+            ],
+            "correlation": "common_ingress"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Correlated ingress is outside this independent thermal-noise model.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR16",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "N": "4",
+            "equal_receiver_referred_noise": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Stage count alone does not establish equal receiver-referred noise.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR17",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43"
+            ],
+            "bandwidths": [
+              "6.4_MHz",
+              "unknown"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Normalize the same desired carrier, plane and noise bandwidth first.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR18",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "NF_ref_K": "290",
+            "source_K": "300",
+            "formula": "k_Tsource_B_times_unchanged_F"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use equivalent noise temperature or keep the source at the NF reference; this temperature substitution is not the approved model.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR19",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "Rsource_ohm": "75",
+            "Rload_ohm": "50"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "This model requires a declared matched impedance, not mismatched source/load values.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR20",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "CTB_CSO_plant_health",
+            "CTB_dBc": "-60"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "CTB/CSO plant-health predictions are outside this thermal/CNR approval.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR21",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [],
+            "same_carrier_plane_and_noise_bandwidth": true,
+            "standalone_independent_contributions": true
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Enter at least one defined CNR contribution before computing a finite result.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR22",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "NF_dB": "8",
+            "NF_datasheet_conditions_match": false
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use an NF input applicable to the actual frequency/configuration.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR23",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "combine_cnr",
+            "CNR_dB": [
+              "40",
+              "43"
+            ],
+            "measurement_planes": [
+              "receiver",
+              "unknown"
+            ]
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Refer all contributions to the same desired carrier and observation plane.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR24",
+          "label": "unknown",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "B_Hz": "Infinity"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Use finite equivalent noise bandwidth.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        },
+        {
+          "id": "CR25",
+          "label": "expert",
+          "synthetic": true,
+          "inputs": {
+            "operation": "thermal_chain",
+            "N": "4",
+            "return_leg_gains_losses": "unknown"
+          },
+          "expected": "refuse_or_unavailable",
+          "expected_reason_text": "Refer/weight return-leg noise at the receiver before using the equal-contribution shortcut.",
+          "reason_match": "equivalent meaning, not mandatory exact UI wording",
+          "numeric_output": null
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "label": "spec",
+      "reference": "NIST SP 811 (2008), chapter 5 logarithmic definitions",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-5-units-outside-si"
+    },
+    {
+      "label": "expert",
+      "reference": "SCTE 270 2021r1, 12-14 and 30.14; independently expressed math and assumptions",
+      "url": "https://account.scte.org/documents/5880/SCTE_270_2021r1.pdf"
+    },
+    {
+      "label": "expert",
+      "reference": "SCTE 293-11 2025, 5.5 and thermal/Friis appendix",
+      "url": "https://account.scte.org/documents/8267/SCTE_293-11_2025.pdf"
+    },
+    {
+      "label": "spec",
+      "reference": "CableLabs CM-SP-PHYv3.1-I20-230419 (2023), 7.4.12 and subordinate sections",
+      "url": "https://account.cablelabs.com/server/alfresco/4eb470eb-aca3-4e64-af88-773b8c594fbd"
+    }
+  ],
+  "not_reverified": "These vectors are independent references, not an app, browser, emulator, phone, meter or field result. Primary technical sources were opened in the preceding critique continuation; their full bodies/latest issues are not newly reverified by generating this JSON."
+}

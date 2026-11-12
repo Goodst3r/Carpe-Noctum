@@ -12,7 +12,7 @@ Written November 12, 2026 for Spencer; revised the same night. This is the only 
 | **ChatGPT** (lane B) | Builds. Runs the long gates. Does the independent math check on every calculator PR. Reviews Grok's PRs. Merges Grok's PRs. | Merge its own PR. Edit a file lane A owns for an open item. |
 | **Claude** (gatekeeper) | Reads PR diffs and comments APPROVE or CHANGES NEEDED. Audits merged work. Builds and signs the APK in the finishing session (`APK_PLAN.md`). | Build features. Re-run the full gate on every PR. Block a merge by being absent (see "Review and merge"). |
 
-Spencer answers the "Questions for Spencer" lists and does the phone checks. Nobody sees another assistant's chat: they talk through the files and pull requests in this repository.
+Spencer answers the "Questions for Spencer" lists, installs the APK and does the phone checks. Nobody sees another assistant's chat: they talk through the files and pull requests in this repository.
 
 ## Queues
 
@@ -24,13 +24,13 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 
 | # | Item | Notes |
 | --- | --- | --- |
-| A0 | Merge the docs that both lanes read: PR #31 (vectors), PR #29 (written check), and the instruction branch `ccr-026a9e4b-35w77r` (this file). | All three are docs only and merge cleanly into `build3` `6414668`. Claude's check of #29 and #31 is in `handoff_docs/reviews/claude-gatekeeper-log.md`. Hosted CI is green on both. Do this first. |
+| A0 | Merge the instruction branch `ccr-026a9e4b-35w77r` (this file) into `build3`. PR #31 and #29 are already merged. | Docs only. Claude's check of #29 and #31 is in `handoff_docs/reviews/claude-gatekeeper-log.md`. Do this first. |
 | A1 | Power-sum calculator (P0-4): uncorrelated add, N equal carriers, signal-plus-noise minus noise. | Cases P1-P6 plus the edge and refusal cases. No correlated add. |
 | A2 | Cascade calculator: thermal noise and CNR estimates only. | Cases C1-C4 plus edges and refusals. Fixed 290 K. No CTB/CSO score, no MER prediction, no ordered Friis chain or editable temperature (those need new cases first). |
-| A3 | NAV-1, the navigation regroup, exactly as the determination maps it. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
+| A3 | NAV-1, the navigation regroup, exactly as the determination maps it. **Starts only after the Safety removal (B1) has merged**, so it regroups the screens that remain. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
 | A4 | Context strip (P0-3). | |
 | A4b | Supply PM notebook export/import (see "Known follow-ups"). | Additive; no new storage key. |
-| A5 | Tonight list (P0-1). | Add open temporary repairs once B4 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
+| A5 | Tonight list (P0-1). | Add open temporary repairs once B5 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
 | A6 | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
 | A7 | Final: full gate on the final `build3`, then `handoff_docs/lanes/grok-debug-handoff.md`. | See "Done". |
 
@@ -38,16 +38,31 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 
 | # | Item | Notes |
 | --- | --- | --- |
-| B0 | Make PR #31 ready: JSON loads, IDs unique and matching the #29 labels. End the wait log with one final entry. | Do not change a number Grok may be using; if you must, name the case. Grok merges it. |
-| B1 | Headroom wording and conversion (determination build-order items 1 and 8, P0-5). Relabel the existing DOCSIS health result as composite margin to the entered Pmax, with the caveats the determination and your written check require. At most, also offer 6.4 MHz as a measured-in width. Add regression tests that run the app's real functions against H1-H5 and the headroom edge and refusal cases. | No new converter and no new screen. Per-channel/DRW headroom stays NO-GO. |
-| B2 | Ripple-search width label: it is app-chosen, not Expert. Fix the label and its `thresholds.js` registration. | Small PR. |
-| B3 | Night log fixes, then the intermittent-ingress entry (P0-6). | Remove/Undo and no slot used by a blank entry first. An entry type in Job → Night log, not a new screen or store. |
-| B4 | Temporary-repair follow-up (P0-2). | Read `night-sweep/field-work.js` first; extend the existing Checklists notes. Say which key or additive job field it uses and prove old jobs and backups round-trip. |
-| B5 | Final: full gate on the final `build3`, then update `handoff_docs/reviews/chatgpt-handoff-for-claude.md`. | See "Done". |
+| B0 | Finish PR #31 (vectors). #29 and #31 may already be merged; if so, record that and move on. | Do not change a number Grok may be using; if you must, name the case. |
+| B1 | **Remove the Safety part of the app completely** (Spencer's order, Nov 12). Do this before anything else in `workflow.js` or `shell.html` changes, because NAV-1 (A3) waits for it. | See "Safety removal" below. |
+| B2 | Headroom wording and conversion (determination build-order items 1 and 8, P0-5). Relabel the existing DOCSIS health result as composite margin to the entered Pmax, with the caveats the determination and your written check require. At most, also offer 6.4 MHz as a measured-in width. Add regression tests that run the app's real functions against H1-H5 and the headroom edge and refusal cases. | No new converter and no new screen. Per-channel/DRW headroom stays NO-GO. |
+| B3 | Ripple-search width label: it is app-chosen, not Expert. Fix the label and its `thresholds.js` registration. | Small PR. |
+| B4 | Night log fixes, then the intermittent-ingress entry (P0-6). | Remove/Undo and no slot used by a blank entry first. An entry type in Job → Night log, not a new screen or store. |
+| B5 | Temporary-repair follow-up (P0-2). | Read `night-sweep/field-work.js` first; extend the existing Checklists notes. Say which key or additive job field it uses and prove old jobs and backups round-trip. |
+| B6 | Final: full gate on the final `build3`, then update `handoff_docs/reviews/chatgpt-handoff-for-claude.md`. | See "Done". |
+
+#### Safety removal (B1)
+
+Remove Job → Safety (`night-sweep/safety.js`) and everything that exists only for it, in one PR:
+
+- Delete the module and its `<!--SAFETY-->` token in `build.py`, its panel and script placeholder in `shell.html`, its tab and description in `workflow.js`, its training steps and practice-job parts, its `thresholds.js` rows and its guide text. Update the practice library, feature index, `qa/ui-names.test.cjs` and the screen and feature counts, and delete or rewrite the tests that exist only for Safety.
+- Study mode: drop the "Safety and construction" domain and the pre-work safety question. Keep the outage question under a remaining domain. Do not invent replacement questions.
+- Outage first-response card (`outage.js`): remove the "Safety on arrival" group, including the pointer to Job → Safety.
+- The shared checklist engine (`checklist.js`) stays: the Outage card still uses it. Update its comments.
+- Saved data: do not delete the device key `nightsweep-safety-v1` from anyone's phone and do not write it. Old jobs, backups and exports must still open unchanged and round-trip with identical results; any safety field in an old file is ignored but preserved on re-export. Add a regression test for that.
+- Names stay: no storage-key, package or other screen-id change.
+- The gate must pass on the PR; then the other builder reviews it. This PR needs a rendered check that no empty tab or dead link is left at 320 to 430 px.
 
 Reviewing the other lane's open PR always comes before starting your own next item.
 
 ### Not to be built
+
+- **Safety:** Spencer removed the Safety part of the app. Do not add any pre-work safety card, reminder or checklist.
 
 - Per-channel/DRW headroom tool, CTB/CSO plant-health scores, MER predictions: NO-GO.
 - Leakage-method pointer (P0-3b) and evidence handoff (P0-7): deferred until Spencer supplies the method or the definition.
@@ -109,8 +124,8 @@ Do not wait on a review. After marking a PR ready, start your next item. If your
 
 ### Review checklist (on the head the author named)
 
-1. **Math** (calculators and any changed formula): derive it independently of the author's code and reference script. Run the app's real functions against the vectors. Check units, signs, edge inputs, bounds and every refusal. For A1 and A2 ChatGPT commits `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. For B1 Grok derives the two formulas itself, because ChatGPT wrote both the vectors and the code.
-2. **Your own full gate** on that head for NAV-1 and for anything that changes what is stored (A3, A5, A6, B3, B4). For other PRs, hosted CI plus the suites the PR adds are enough. Report your counts, not the author's.
+1. **Math** (calculators and any changed formula): derive it independently of the author's code and reference script. Run the app's real functions against the vectors. Check units, signs, edge inputs, bounds and every refusal. For A1 and A2 ChatGPT commits `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. For B2 Grok derives the two formulas itself, because ChatGPT wrote both the vectors and the code.
+2. **Your own full gate** on that head for NAV-1 and for anything that changes what is stored (B1, A3, A4b, A5, A6, B4, B5). For other PRs, hosted CI plus the suites the PR adds are enough. Report your counts, not the author's.
 3. **Labels and sources:** every new value is registered with a label and a source you can open. Company values start Unknown.
 4. **Plants:** 42/54 and 204/258 stay separate; the 31/43/38 values are not hard-coded as specs.
 5. **Job format:** old jobs and backups open unchanged; a backup round-trip gives identical results; no storage-key change.
@@ -122,6 +137,13 @@ Do not wait on a review. After marking a PR ready, start your next item. If your
 ## Gatekeeper check (Claude)
 
 CI green on the exact head; diff contains only the stated files; no `outputs/` or `dist/` delta the PR did not rebuild; every new value labelled and sourced; company values Unknown; 42/54 and 204/258 separate; no storage-key, package or version change; no secrets or real meter files; the PR body's commands and counts are specific; nothing from "Not to be built". Results go in a PR comment and in `handoff_docs/reviews/claude-gatekeeper-log.md`.
+
+## Decisions from Spencer (Nov 12)
+
+- **Safety is removed from the app** (item B1). Decided; do not ask again.
+- **Vecima setup is plug and play.** No Vecima installation or commissioning guide is needed and none will be sought. The High split screen's Remote PHY bring-up text, which asked the tech to record a Vecima guide revision, stays as a general reference for now; do not add Vecima steps, and do not keep asking which guide the company holds.
+- **33 vs 40 dBmV** (modem total input limit) is not a question for Spencer. The DOCSIS health card already shows both published limits and which modem each applies to; leave it as is. Anything not covered stays Unknown.
+- **Goal:** a signed APK Spencer can install and test when both lanes are done.
 
 ## Known follow-ups
 
@@ -137,7 +159,7 @@ The build work is done when all of these are true:
 3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
 4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
 
-Then both lanes stop and Spencer starts Claude's finishing session, which audits, freezes and builds the APK under `APK_PLAN.md`. Emulator, phone and field tests are Spencer's and are not part of done.
+Then both lanes stop and Spencer starts Claude's finishing session. **The goal is an APK Spencer can install and start testing:** the finishing session audits, freezes `build3`, builds and signs the APK under `APK_PLAN.md`, records its SHA-256, attaches it outside the repository, and writes `APK_STEPS.md` (back up first, including the Supply PM notebook, then uninstall, install, restore, and the phone checks in order). Emulator, phone and field tests are Spencer's and are not part of done.
 
 ## Status files
 

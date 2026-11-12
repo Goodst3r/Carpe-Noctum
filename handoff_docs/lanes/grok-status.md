@@ -20,7 +20,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | A0 merge #31, #29 and `ccr-026a9e4b-35w77r` | | | | first in the live queue | |
 | A1 power-sum calculator (cases P1-P6) | not started | | | | |
 | A2 cascade thermal/CNR calculator (cases C1-C4) | not started | | | | |
-| A3 NAV-1 | not started | | | | |
+| A3 NAV-1 | not started | | | waits for ChatGPT's Safety removal (B1) to merge | |
 | A4 context strip (P0-3) | not started | | | | |
 | A5b tonight list (P0-1) | not started | | | | |
 | A6b exact resume (P0-8) | not started | | | BLOCKED on Spencer unless his phone interruption checks are recorded | |
@@ -40,7 +40,6 @@ Nothing yet. D3 is not met: one Grok run is not both lanes. Spencer accepts or r
 
 ## Questions for Spencer
 
-0. Which Vecima installation and commissioning guide title and revision does the company hold (item 17)? No steps will be invented.
+None open. Settled by Spencer, Nov 12: Safety is removed from the app; the Vecima setup is plug and play (no guide needed); the 33 vs 40 dBmV question is dropped.
 1. Where should company settings live: each phone's browser (today, outside jobs and backups), or a shared company profile?
-2. Who reviews the Safety, Outage and Leakage cards before coworkers use them?
-3. A DOCSIS 3.1 modem that receives only SC-QAM channels: is its total input limit 33 or 40 dBmV?
+2. Who reviews the Outage and Leakage cards before coworkers use them? (Safety no longer exists.)
