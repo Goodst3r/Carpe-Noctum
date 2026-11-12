@@ -81,6 +81,6 @@ A third assistant, Grok, took over after Lane A (ChatGPT) and Lane B (Claude) st
 
 Counted by Grok in jsdom on that standalone HTML: **29 screens, 47 features, 114 registry rows**, practice steps **22/16/15/8/9/7/10**. D1 and D2 are met on that commit. D4 is the paperwork on the close-out branch. D5 is `handoff_docs/FINAL_HANDOFF.md`. D3 is a full gate on the post-paperwork head. Grok's run is one run. Lane A and Lane B are not here to rerun it, so D3 stays for Spencer to accept.
 
-Stretch items 11, 12 and 14–20 are not on `f467e52`. Items 11, 15, 17 and 18 are merged. This branch, `claude/b20-pop`, adds item 20: 34 screens, 52 features, custom curves 20 steps. Draft pull requests #19 and #20 are still open. Items 12, 14 and 16 are not started. Pull requests #1 and #2 into `main` are Spencer's decision.
+Stretch items 11, 12 and 14–20 are not on `f467e52`. Items 11, 15, 17, 18 and 20 are merged. This branch, `claude/b19-study`, adds item 19: 35 screens, 53 features, custom curves 21 steps. Draft pull request #20 is still open. Items 12, 14 and 16 are not started. Pull requests #1 and #2 into `main` are Spencer's decision.
 
 No build 3 APK exists. No emulator, phone or field test has been done for any 2.0 build. Export and verify full project backups before any update, rollback or transfer. Read `handoff_docs/lanes/grok-status.md` for what this assistant is doing now.

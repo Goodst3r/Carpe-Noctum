@@ -2,6 +2,12 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 20 merged; item 19 merge started
+
+Pull request #19 merged at 2026-11-12T07:27:18Z. Merge commit `6d684b681985b4c64053db7bd34ea8a81469bc25`. Head that was gated and reviewed: `b78868b`. Local gate 89/2,289, 787.4 s, layout 944, smoke 367, standalone `9a9da29f…9081`. Hosted CI [run 43173621524](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43173621524). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-b78868b.md`, added on this branch after the merge so `b78868b` did not move.
+
+This commit merges `origin/build3` into `claude/b19-study`. Guide totals intended here: 35 screens, 53 features, custom curves 21. Counted from the built app: 35 screens, 53 features, custom curves 21, 142 registry rows (study mode adds none), 47 module splice lines. Focused checks before the commit, all exit 0: `qa/sweep-grading-ui.test.cjs` 56, `qa/build3-study.test.cjs` 8 / 336 comparisons, `qa/ui-names.test.cjs` 6, `qa/build3-pop.test.cjs` 6 / 145. The gate on this head is not run yet. Pull request #20's base is still `claude/b20-pop` until it is retargeted to `build3`.
+
 ## November 12, 2026 · item 18 merged; item 20 merge started
 
 Pull request #18 merged at 2026-11-12T07:09:47Z. Merge commit `cb3c3b20dd90dcaedd9294eceaf77c8b1f844781`. Head that was gated and reviewed: `7d18b9a`. Local gate 88/2,283, 781.8 s, layout 854, smoke 364, standalone `544a87e4…afc2`. Hosted CI [run 43171499570](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43171499570). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-7d18b9a.md`, added on this branch after the merge so `7d18b9a` did not move.
