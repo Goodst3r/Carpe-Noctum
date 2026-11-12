@@ -164,7 +164,7 @@ Phase 0 comes first, in this order, and must not change app behavior: the rebuil
 - **Item 13 (imported sweep grading) is approved** (Spencer, Nov 11) for files he exported himself. Anything beyond that, such as company systems or other people's files, is still off limits. Real meter files are never committed.
 - **Company targets and tolerances** (forward levels, return injection and receiver, tilt, sweep peak-to-valley, leak repair threshold, sweep interval) start unknown everywhere. Never fill them in. The open questions for the supervisor are at the end of `docs/BUILD_LIST.md`.
 - **Items 8, 9, 7:** the safety, outage and leak cards are for a supervisor to review before coworkers use them. Mark each "review needed" in the final handoff.
-- **APK, emulator, phone and field tests:** only Spencer can do these. They aren't part of done.
+- **APK, emulator, phone and field tests:** the APK may be built and signed only by the finishing session, under `handoff_docs/APK_PLAN.md` (Spencer's authorisation, Nov 12, 2026). Emulator, phone and field tests only Spencer can do. They aren't part of done.
 
 ## No-push mode (when a session can't write to GitHub)
 
