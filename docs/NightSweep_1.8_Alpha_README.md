@@ -47,7 +47,7 @@ Home offers an organized **Practice library** with the complete training job, Ga
 | Check a single cable/passive combination | **Test → Frequency** | Cable length, passive path, frequency |
 | Compare a meter reading with a prediction | **Test → Readings** | Route point, frequency, reading, remaining TP coupling |
 | Look up cable loss, tap faces, or frequency references | **Test → References** | Matching equipment or route tap as needed |
-| Run a quick dB, ripple, OFDM, power-sum, echo or pad/EQ calculation | **Test → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
+| Run a quick dB, ripple, OFDM, power-sum, thermal CNR, echo or pad/EQ calculation | **Test → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
 | Check a limit and where it came from | **Test → Limits** | Nothing first. Company values stay unknown until someone enters them |
 | Compare a modem or meter reading with a DOCSIS range | **Test → DOCSIS health** | The reading you type. The card does not talk to a modem |
 | Check a leak, estimate CLI, or keep a personal leak log | **Test → Leakage** | Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup |

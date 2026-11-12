@@ -18,22 +18,24 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 | Build-list item 16 (connector checklist) | not started | | | BLOCKED on sources: catalog manuals hold no torque or pin length | |
 | Build-list item 12 (return path toolkit) | not started | | | BLOCKED on sources: funneling example not checked against SCTE 293-11, 293-13 or 270 | |
 | A0 merge #31, #29, then the workflow branch | `build3` | #31 `3a7b25b`, #29 `fdf4ea3`, #33 `7dfddf7` | #31 parent `b9c6cc7` (vectors identical to approved `2493cf8`); #29 `ed2826c`; #33 `bf5782f` | merged. #33 hosted gate on `bf5782f` was green ([43193224835](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43193224835)) | docs only, not a feature gate |
-| A1 power-sum calculator (cases P1–P6) | `grok/a1-power-sum` | [#34](https://github.com/Goodst3r/Carpe-Noctum/pull/34) draft | this commit | in progress. No correlated add. Contains `build3` `7dfddf7`. Half-typed levels are refused. ChatGPT's review of `785ca6e` found that defect; the fix is in `df857d0` | Gate on `df857d0`: 93 suites / 2371 checks, 820.7 s, layout 1054, smoke 373, exit 0. Power sum 49 and real-keyboard 20. Standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. This commit only records that gate |
-| A2 cascade thermal/CNR calculator (cases C1–C4) | not started | | | after A1 is marked ready | |
-| A3 NAV-1 | not started | | | waits for ChatGPT's Safety removal (B1) to merge | |
+| A1 power-sum calculator (cases P1–P6) | `grok/a1-power-sum` | [#34](https://github.com/Goodst3r/Carpe-Noctum/pull/34) merged `d631109` | `73b6ab4` | merged. This session did not run the merge command. Combined with B1 on `build3` | Gate on `73b6ab4`: 93 suites / 2371 checks, 810.9 s, layout 1054, smoke 373. Standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. Hosted QA [43200952825](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43200952825) |
+| A2 cascade thermal/CNR calculator (cases C1–C4) | `grok/a2-cascade` | not opened yet | this commit | in progress. Thermal noise and CNR only. Fixed 290 K. No CTB/CSO, MER, Friis or editable temperature | not gated yet |
+| A3 NAV-1 | not started | | | B1 has merged, so the wait is over. Starts after A2 | |
 | A4 context strip (P0-3) | not started | | | | |
 | A4b Supply PM notebook export/import | not started | | | after A4 | |
-| A5 tonight list (P0-1) | not started | | | | |
+| A5 tonight list (P0-1) | not started | | | open temporary repairs only after B4/B5 merge | |
 | A6 exact resume (P0-8) | not started | | | BLOCKED on Spencer unless his phone interruption checks are recorded | |
 | A7 final gate and `grok-debug-handoff.md` | not started | | | draft #32 stays a draft; rewrite it at the end, do not merge it now | |
 
 ## Next
 
-Finish the full gate on this head, then mark #34 ready and start A2. Do not merge #34. A3 waits until ChatGPT's Safety removal (B1) has merged. Then A4, A4b, A5, A6, A7. No deadline. Items 16 and 12 stay blocked. PR #30 stays merged. Draft #32 stays a draft. Review ChatGPT's open PRs before each new item. Never merge your own PR.
+A2 is the open item: thermal/CNR only, then mark that PR ready and do not merge it. Then A3 (B1 is already on `build3`), A4, A4b, A5, A6, A7. No deadline. Items 16 and 12 stay blocked. PR #30 stays merged. Draft #32 stays a draft. #36 and #37 were still drafts at the start of A2, so they were not reviewed. Review ChatGPT's open non-draft PRs before each new item. Never merge your own PR.
 
 #31 merged at `3a7b25b`. I approved `2493cf8`. The merged parent was `b9c6cc7`: the vectors file is byte-identical; the extra commit only ends the wait log and adds `chatgpt-status.md`. #29 merged at `fdf4ea3` from `ed2826c`. GitHub would not take a formal Approve review from this token. #33 is on `build3` at `7dfddf7`.
 
-Screens on `f2641a2`, from an earlier recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. Supply PM (#30) added a Power screen after that recount. Not re-counted on this commit.
+#35 merged at `bc4762a` from `0488ea2`, not from the approved `504efbf`. This session ran `gh pr ready 35` and `gh pr merge 35 --merge`. The extra commits were the already-gated power sum. Safety stayed removed. Own full gate on the merged `build3` `bc4762a`: 94 suites / 2372 checks, 815.7 s, layout 1192, smoke 370, exit 0. Standalone `9a2ceea9c5c390310775da133eccf3c2299402c0e05da035c8aad454de78c676`. Release `adc4b2a758e4169a77f1`. That gate was local only. Hosted CI of the merge commit was not run.
+
+Screens on `f2641a2`, from an earlier recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. Supply PM (#30) added a Power screen after that recount. B1 removed Safety. A1 added three power-sum rows. A2 adds three thermal-CNR rows. Not re-counted on this commit.
 
 ## Blocked
 

@@ -233,7 +233,7 @@ try:
                 page.evaluate(FILL)
                 check(f'{label} calculators fit without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 cards = page.evaluate("[...document.querySelectorAll('#calculatorPanel .calc-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
-                check(f'{label} every calculator card stays inside the viewport', len(cards) == 7 and all(l >= -1 and r <= width + 1 for l, r in cards))
+                check(f'{label} every calculator card stays inside the viewport', len(cards) == 8 and all(l >= -1 and r <= width + 1 for l, r in cards))
                 check(f'{label} long results wrap inside their cards', page.evaluate("[...document.querySelectorAll('.calc-stats strong')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
                 sizes = page.evaluate("[...document.querySelectorAll('#calculatorPanel .source-tag')].map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
                 check(f'{label} calculator source tags are at least 24 px tap targets', sizes and all(w >= 24 and h >= 24 for w, h in sizes))
