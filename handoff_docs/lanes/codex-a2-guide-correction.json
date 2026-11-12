@@ -1,0 +1,36 @@
+{
+  "previous_behavior_freeze": "57bea9d4a7dba92e3a73b673effe6ea649004aed",
+  "head": "33724030173cef6969742bd81a1b5dcd70cd9f1e",
+  "scope": "A2 Functions guide section, feature marker and affected counts only; generated documentation/PWA rebuild",
+  "source_and_tests_unchanged": true,
+  "standalone_sha256": "531e9aeb442585c5594a297ab131e249f875dc8af2eb05730fca591059357be1",
+  "pwa_index_sha256": "067d3114b2d58918073aae611d0f59ed53e8254a4b3ce27ab2c6f69504961acb",
+  "functions_markdown_sha256": "ba1ff9a848bae5b98771670e72044db31169368a3e4d663a52628cae11ca190f",
+  "functions_html_sha256": "91c6e590ad6c416bb819232e64a010b6dee25e1714847096b508862e93616858",
+  "offline_functions_sha256": "99d34f02af23908c374f3128134b6e42cf5181b47b4fa78bf709f9ec66bfea05",
+  "pwa_content_version": "4230c53ffc782bb051c9",
+  "checks": [
+    {
+      "command": "node /tmp/carpe-a2-guide-map.cjs",
+      "checks": 6,
+      "exit": 0
+    },
+    {
+      "command": "NIGHTSWEEP_RELEASE_TEST=1 node qa/ui-names.test.cjs",
+      "checks": 6,
+      "exit": 0
+    },
+    {
+      "command": "python3 qa/alpha18-release.test.py",
+      "checks": 6,
+      "exit": 0
+    }
+  ],
+  "build_commands": [
+    "CODEX_PRIMARY_RUNTIME_NODE_MODULES=/tmp/carpe-station-doc-runtime/node_modules node docs/render_readme.cjs NightSweep_1.8_Alpha_Functions_README.md NightSweep_1.8_Alpha_Functions_README.html",
+    "python3 night-sweep/build.py",
+    "python3 build-pwa.py"
+  ],
+  "build_exit": 0,
+  "git_status": ""
+}
