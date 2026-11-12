@@ -88,12 +88,25 @@ check('An in-range mixed-unit declaration refuses for normalization rather than 
 check('Narrow converter parsing refuses booleans, hex and partial decimal text',()=>{
  for(const value of [true,'0x30','48abc','1e']){const r=fc.ofdmPower(value,'1.6','6.4',conversion);assert.equal(r.ok,false);assert.match(r.error,/measured power|decimal|finite/i);}
 });
+check('Converter preserves legacy valid long decimals; upstream retains its existing text bound',()=>{
+ const reference=fc.ofdmPower('48','1.6','6.4',conversion);
+ for(const length of [50,51,128]){
+  const level='0'.repeat(length-2)+'48',basis='0'.repeat(length-3)+'1.6',width='0'.repeat(length-3)+'6.4';
+  for(const args of [[level,'1.6','6.4'],['48',basis,'6.4'],['48','1.6',width]])assert.deepEqual(fc.ofdmPower(...args,conversion),reference,'supported decimal length '+length);
+ }
+ const declared=compositeInput(vectors.worked_cases.find(c=>c.id==='H3'));
+ assert.equal(dh.upstream({...declared,total:'0'.repeat(48)+'60'}).compositeMargin,8);
+ const refused=dh.upstream({...declared,total:'0'.repeat(49)+'60'});assert.equal(refused.ok,false);assert.equal(refused.compositeMargin,undefined);assert.match(refused.error,/number/i);
+});
 (async()=>{
  const h=bootApp();await new Promise(r=>setImmediate(r));h.ev("WorkflowUI.go('calculators')");
  const set=(field,value,type='input')=>{const el=h.d.querySelector(`[data-calc="ofdm"][data-field="${field}"]`);assert(el,field);el.value=value;el.dispatchEvent(new h.w.Event(type,{bubbles:true}));return el;};
  const text=()=>h.d.getElementById('calc-ofdm-result').textContent.replace(/\s+/g,' ').trim();
  const first=()=>h.d.querySelector('#calc-ofdm-result .calc-stats strong')?.textContent.replace(/\s+/g,' ').trim();
  try{
+  check('The existing upstream numeric-text bound is registered as Unknown software policy',()=>{
+   const row=h.json("Thresholds.get('docsis.us.softwareBounds')");assert.equal(row.label,'unknown');assert.match(row.conditions,/50 UTF-16 code units/);assert.match(row.source,/application validation/i);
+  });
   check('Existing converter waits for explicit flat-PSD/MHz/restatement confirmation',()=>{
    assert.equal(h.d.querySelector('[data-calc="ofdm"][data-field="context"]').value,'');
    set('power','48');set('basis','1.6','change');set('occupied','6.4');assert.equal(first(),undefined);assert.match(text(),/flat.*PSD|confirm/i);

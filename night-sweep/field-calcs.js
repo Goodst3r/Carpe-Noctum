@@ -59,7 +59,7 @@ const FieldCalc=(()=>{
   // Narrow decimal parsing here leaves all other calculators' input contracts intact.
   const decimal=x=>{
    if(typeof x==='number')return Number.isFinite(x)?x:null;
-   if(typeof x!=='string'||x.length>50||!(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i).test(x.trim()))return null;
+   if(typeof x!=='string'||!(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i).test(x.trim()))return null;
    const n=Number(x.trim());return Number.isFinite(n)?n:null;
   };
   const p=decimal(power),a=decimal(basisMHz),b=decimal(occupiedMHz);
