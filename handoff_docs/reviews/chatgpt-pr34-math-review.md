@@ -1,5 +1,11 @@
 # PR #34 independent math and checklist review
 
+**Latest technical APPROVE — `df857d06b3f8cfa241b49781278247d07dd88ee8`.** The malformed trailing-input defect is fixed and the unchanged keyboard reproducer now passes. Author and hosted full-gate readiness remain separate requirements before merge; no immediate merge is authorized by this report. A later commit voids this approval.
+
+The prior failing reviews below are historical receipts. The corrected-head section at the end contains the current scoped review and commands.
+
+# Original independent review: 785ca6e
+
 **CHANGES NEEDED — head `785ca6e4010202d9baf55e1771ea4b38e43f7ff4`.** The three power formulas and all shared numerical/refusal vectors pass the independent checks below. A rendered input-validation defect still shows a plausible composite sum while a contribution contains a malformed number. Numerical correctness and merge readiness are separate findings.
 
 Review date: 12 November 2026 UTC. Reviewed in the isolated detached worktree `/workspace/Carpe-Noctum-pr34`; no application edits, commits, pushes, PR comments or merges were made by the reviewing subagent. Root ChatGPT separately reproduced the rendered failure on this same head: exit 1, 33 passed / 8 failed / 41 total (`/workspace/scratch/root-pr34/rendered.log`).
@@ -148,3 +154,78 @@ python3 handoff_docs/reviews/chatgpt-pr34-checks/rendered_power_check.py /path/t
 ```
 
 The browser command exits 1 on the reviewed defective head. This report commit is documentation/review evidence, not a change to Grok’s branch or approval of that implementation.
+
+
+## Re-review: 35583ff, 12 November 2026 UTC
+
+**CHANGES NEEDED — `35583ff1104f080f9505f78105c5200a4b674ec8`.** The original 785ca6e finding remains reproducible. This section supplements the original review and preserves its failing result as history; it does not replace that record with an approval.
+
+Review pin: detached `/workspace/Carpe-Noctum-pr34` at the full head above, fetched and independently checked through GitHub PR metadata. Current PR base remains `7dfddf70112d281c2a43f6dec506147686f8f63f`; `git merge-base --is-ancestor origin/build3 HEAD` exited 0. No application/source edits, commits, comments, pushes or merges were made by the reviewer.
+
+Delta from 785ca6e: `powerBody(op)` now renders only the selected operation's fields, with corresponding standalone/PWA rebuilds, content hash/worker changes and author-status updates. This addresses the separate hidden-fields layout problem. The numerical function, shared vectors and author's 49-check suite are unchanged. The active-operation rewrite does not address malformed trailing input. No additional scope, storage, version, plant or source-label changes were found in this delta.
+
+**Medium — `night-sweep/field-calcs.js:235` and `:236`: malformed trailing level is still dropped.** Enter `40`, `37`, tap Add another level and type `-` or `1e` in the third row with an actual keyboard. Chromium reports `{value:"",badInput:true}`, yet the card still shows **Total 41.7643 dBmV**. Mapping only `.value` and trimming empty trailing strings still erases the malformed contribution before the validated numerical function receives it. The expected refusal/unavailable result and meaningful incomplete-input reason remain absent. This was repeated on the committed PWA at **320, 375, 390 and 430 px**, dark theme; completing the third value as `34` computes the valid total again.
+
+All following commands were actually rerun on **35583ff**, using the same independent Decimal oracle and original real-keyboard reproducer. The oracle retains its quantization-inclusive numerical bound explained above; the scope suite separately verifies every shared numeric case's exact six-significant-figure UI text, including trailing zeroes. Prior 785ca6e scratch receipts were preserved in `/workspace/scratch/pr34-785ca6e/` before updating current logs.
+
+| Command | Exit | Actual result |
+| --- | --- | --- |
+| `python3 /workspace/scratch/pr34/independent_power_reference.py /workspace/Carpe-Noctum-pr34` | 0 | **510 checks**, three artifacts, 28 numeric and 27 refusal cases per artifact, 0 failures |
+| `node /workspace/scratch/pr34/scope_check.cjs /workspace/Carpe-Noctum-pr34` | 0 | **26 checks passed**, including all 16 shared numeric cases' exact UI text |
+| `node qa/build3-power-sum.test.cjs` | 0 | **49 checks passed**; author's suite independently run, still lacks a real-keyboard badInput regression |
+| `python3 /workspace/scratch/pr34/rendered_power_check.py /workspace/Carpe-Noctum-pr34` | **1** | **33 passed / 8 failed / 41 total**; two malformed strings at each of four widths reproduce the same defect |
+| `git diff --check 7dfddf7...HEAD` | 0 | No whitespace errors |
+| `git status --porcelain` | 0 | Empty after tests |
+| `git merge-base --is-ancestor origin/build3 HEAD` | 0 | Contains fetched current integration base |
+
+No page errors or horizontal overflow occurred in the targeted rendered checks; numeric/select/add controls fit the four phone widths. The three operations, N=1, negative SNR and equal-total/noise refusal still render correctly. The original 785ca6e field-calculator-suite result is historical and is not claimed as a new run here. No new source retrieval was necessary for this UI-only delta; the original reference derivation and separately attributed root source reads remain the basis of the numerical review.
+
+Current-head evidence is under `/workspace/scratch/pr34/`: `independent-validator.log`, `independent-results.json`, `scope-check.log`, `author-suite.log`, `rendered-validator.log`, `rendered-results.json` and the malformed/valid screenshots. The scripts are unchanged from the previous validated reviewer versions.
+
+Committed hashes personally read on 35583ff:
+
+- Standalone: `82844863aba9c40a82b606913bc10a1be8f238224cbb66978a2d1ad50c093b86`.
+- PWA index: `94256b224e01ff552f5d9686d237d9d571c523d67df428ccb5cee5986bcf255a`.
+
+**Readiness is independently blocked as well.** GitHub PR metadata reports #34 open, draft and unmerged; its body still names a9cb48c and says the local full gate is running. Current author status says this head's full gate is unfinished and cites a layout pass on an earlier correction. Those are author statements, not new reviewer gate runs. GitHub's commit-workflow API returned current-head `QA gate` run [43198396778](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43198396778), completed with conclusion **cancelled**, not green. The combined-status endpoint returned no statuses; that empty legacy-status response does not establish check success. The workflow wrapper returns only the first page of PR-triggered runs, so this is the visible current-head run rather than a claim about every possible trigger.
+
+The mathematical outputs remain technically verified within the original scope, but the UI finding prevents technical approval. Exact-current-head author full gate, hosted-green QA, readiness metadata and cross-builder approval are still required before merge. No full reviewer gate/rebuild, emulator, APK, phone, Safari/WebView, meter or field test was run in this re-review; no physical-device test was run. Any later head requires another review.
+
+**CHANGES NEEDED — `35583ff1104f080f9505f78105c5200a4b674ec8`.**
+
+## Corrected-head re-review: df857d0, 12 November 2026 UTC
+
+**Technical review: APPROVE — `df857d06b3f8cfa241b49781278247d07dd88ee8`. Merge readiness remains pending.** Final metadata during the previous re-review revealed this additional author commit; the reviewer fetched it, detached the same isolated worktree at its full SHA and repeated the checks below. The preceding 35583ff failure is retained as historical evidence.
+
+The correction at `night-sweep/field-calcs.js:233` checks **all currently active operation inputs for `validity.badInput` before reading or trimming values**, and line 234 replaces the result with “Finish the number. A half-typed value is not a blank.” This addresses the observed cause. In the original independent keyboard reproducer, both `-` and `1e` now produce the refusal instead of the two-level total at every tested width. Complete values still compute, and an intentionally cleared optional trailing box returns to the valid two-level result in the author's new regression. The active-operation rendering prevents inactive fields from participating in this check.
+
+The additional diff contains the two-line production guard, regenerated standalone/PWA/worker metadata, `qa/build3-power-sum-real.test.py`, its appended gate-runner entry and the author's status row. The new suite creates actual keyboard `badInput` states, checks deliberate clearing and completing the third level, and runs at 320/375/390/430 px with touch/mobile viewport emulation. The gate entry's count expression matches its output. No numerical reference, formula, bound, unit, source registration, plant setting, store, version, identity or unrelated feature is changed by this correction. No additional issue was found in that diff.
+
+Fresh receipts on **df857d0** (all commands from the detached worktree unless absolute):
+
+| Command | Exit | Actual result |
+| --- | --- | --- |
+| `python3 /workspace/scratch/pr34/independent_power_reference.py /workspace/Carpe-Noctum-pr34` | 0 | **510 checks**, source + standalone + PWA, 28 numeric / 27 refusal cases per artifact, 0 failures |
+| `node /workspace/scratch/pr34/scope_check.cjs /workspace/Carpe-Noctum-pr34` | 0 | **26 checks passed**, including exact six-figure UI strings and trailing zeroes for all 16 shared numeric cases |
+| `node qa/build3-power-sum.test.cjs` | 0 | **49 checks passed** |
+| `python3 /workspace/scratch/pr34/rendered_power_check.py /workspace/Carpe-Noctum-pr34` | 0 | **41 passed / 0 failed / 41 total**, including the original eight formerly failing keyboard assertions |
+| `NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/build3-power-sum-real.test.py` | 0 | **20 checks passed**, author's new rendered regression independently run |
+| `node qa/build3-field-calcs.test.cjs` | 0 | **10 checks passed / 123 reference comparisons** |
+| `git diff --check 7dfddf7...HEAD` | 0 | No whitespace errors |
+| `git status --porcelain` | 0 | Empty after checks |
+| `git merge-base --is-ancestor origin/build3 HEAD` | 0 | Contains fetched base `7dfddf70112d281c2a43f6dec506147686f8f63f` |
+
+The unchanged Decimal derivation and quantization-inclusive error bound from the original review apply. Targeted PWA rendering now passes across the four widths without page errors or horizontal overflow. The reviewer ran the new author keyboard suite against the committed standalone as well, so both artifact paths exercise the correction. No full reviewer gate or rebuild was required/run for this calculator-only storage-neutral correction.
+
+Current df857d0 logs, detailed JSON and screenshots are under `/workspace/scratch/pr34/`, including `author-real-suite.log`; 35583ff receipts were preserved under `/workspace/scratch/pr34-35583ff/`. The original independent scripts were used unchanged, providing a red result on 35583ff and a green result on df857d0 without modifying their assertions.
+
+Committed hashes personally read on df857d0:
+
+- Standalone: `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`.
+- PWA index: `3fff2f86854737e0001e0ee1ac16584ce06da654d648d3977747d713abdf92a8`.
+
+**Readiness at this review's metadata/CI read:** #34 remains open, draft and unmerged, and its body still names a9cb48c with the author's local full gate running. Author's df857d0 status row likewise says its full gate is unfinished. GitHub reports current-head `QA gate` [43198710591](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43198710591) **in progress**, with no conclusion. These external states are not reviewer test results and do not authorize a merge. The author must publish exact-head full-gate receipts and update readiness; hosted QA must finish green on this exact SHA, and the reviewer must check the latest base/head before merging. A new commit voids this technical approval.
+
+No application edits, commits, pushes, comments or merges were made by this subreviewer. No APK/build signing, emulator, physical phone, Safari/WebView, meter or field test was run. **Technical APPROVE — `df857d06b3f8cfa241b49781278247d07dd88ee8`; merge blocked on the separate readiness requirements above.**
+
+Root independently repeated the Decimal oracle, original keyboard reproducer and author suite on `df857d06b3f8cfa241b49781278247d07dd88ee8`, confirming the same head before and after: 510 checks exit 0; 41 rendered checks exit 0; 49 author checks exit 0. Logs: `/workspace/scratch/root-pr34/independent-df857.log`, `rendered-df857.log`, `author-df857.log`. The prior failed browser run was not counted as passing.
