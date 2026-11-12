@@ -4,7 +4,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 | Item | Branch | Pull request | Head | State | Last gate (own counts) |
 | --- | --- | --- | --- | --- | --- |
-| B9 D4/D5 close-out | `grok/b9-closeout` | not opened yet | this commit, once pushed | paperwork written; own full gate not run yet | not run |
+| B9 D4/D5 close-out | `grok/b9-closeout` | [#24](https://github.com/Goodst3r/Carpe-Noctum/pull/24) draft | `afba6cb` gated; this status commit is not that run | own gate green on `afba6cb`; hosted CI and AUDIT not done yet | 82/2174, 689.3 s, layout 554, smoke 352, clean, SHA `b1591b4d…e4de` |
 | Stretch #13 item 11 | `claude/b11-impairments` | #13 draft | `920c8a7` | waiting until D1–D5 | not run by Grok |
 | Stretch #15 item 15 | `claude/b15-fiber` | #15 draft | `f2f7e02` | waiting | not run by Grok |
 | Stretch #16 item 17 | `claude/b17-highsplit` | #16 draft | `c639ea8` | waiting | not run by Grok |
@@ -17,7 +17,7 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 
 ## Next
 
-Run Grok's full gate on the close-out head. Record the counts in `handoff_docs/FINAL_HANDOFF.md`. Open a draft pull request into `build3`. Post an AUDIT review that says it is not a second lane. Merge only if the conditions in the takeover notes all hold, including hosted CI on that exact head.
+Hosted CI ("QA gate") must be green on the pull request head, then an AUDIT review at that SHA, then a merge commit if the local gate on that same head is also green. The run in `handoff_docs/reviews/grok-gate-afba6cb.md` is `afba6cb` only. **D3: one run (Grok).** Spencer accepts or rejects D3. Stretch pull requests stay queued until this close-out merges.
 
 ## Blocked
 

@@ -13,7 +13,7 @@ Written November 12, 2026 by Grok. Lane A (ChatGPT) and Lane B (Claude) had stop
 | App bytes changed by the paperwork? | No. `python3 night-sweep/build.py` rewrote the same SHA-256. |
 | PWA | Changed. Guide HTML is copied into `dist/` by `python3 build-pwa.py`. New content id from that build: `587c6f7c99559a428a45`. |
 | Version | 2.0 Alpha build 3. Android source code 27. No build 3 APK. Signed installer in the repo is still 2.0 Alpha build 2, code 26. |
-| Own full gate on this close-out head | **Not run yet when this paragraph was written.** The follow-up commit on this branch records the run. Until that commit exists, do not treat D3 as run. |
+| Own full gate on `afba6cb` | **D3: one run (Grok).** 82 suites, 2,174 checks, 689.3 s; layout 554; smoke 352; exit codes 0; `git status` clean; standalone SHA-256 unchanged. Record: `handoff_docs/reviews/grok-gate-afba6cb.md`. This is one machine, not both lanes. Spencer accepts or rejects D3. |
 
 `main` was not touched. Pull requests #1 and #2 were not touched.
 
@@ -45,14 +45,14 @@ Items 11, 12 and 14–20 are **not** on this close-out. Do not describe the open
 - jsdom load of `outputs/Night_Sweep.html`: 114 rows, 29 screens, 47 features, steps as above.
 - Guide render with `marked` 18.2.0. Fragment links in the four rendered HTML files: 0 missing ids (local node script). The two main README Markdown copies compared equal.
 - `python3 night-sweep/build.py` and `python3 build-pwa.py`. Standalone SHA-256 unchanged (command: `sha256sum`).
-- Full gate (`qa/run-pwa.py`, `qa/build3-layout.test.py`, `qa/browser-smoke.py`): **not run yet** at the time of this paragraph.
+- Full gate on `afba6cb21c79a5ce85ba4a344c813367a0723fa8`, 2026-11-12T04:38:17Z–04:50:13Z. Chromium `/opt/pw-browsers/chromium-1254/chrome-linux64/chrome`, `NIGHTSWEEP_SUITE_TIMEOUT=3600`. `python3 night-sweep/build.py` exit 0, `python3 build-pwa.py` exit 0, `python3 qa/run-pwa.py` exit 0 (**82/2,174**, 689.3 s), `python3 qa/build3-layout.test.py` exit 0 (**554**), `python3 qa/browser-smoke.py` exit 0 (**352**). `git status --porcelain` empty. Standalone SHA-256 `b1591b4d1bfb639eec5a39014c2cbd4ab9f72871bdeb90cc90af41d67aa6e4de`. **D3: one run (Grok).**
 
 **Reported by others. Not re-run by Grok. Not my counts:**
 
 - Lane B on the `f467e52` tree (review 5868370766): 82 suites, 2,174 checks, layout 554, smoke 352, clean, standalone SHA-256 `b1591b4d…e4de`.
 - Lane A on `f467e52` (`handoff_docs/reviews/codex-d3-f467-gate.md`): 82 suites / 2,174, layout 554, smoke 352. Their clock was about 03:28–03:40 UTC on November 12, 2026.
 
-Those two runs were **before** this paperwork. They do not gate the new `dist/` bytes. D3 still needs a gate on the post-paperwork head.
+Those two runs were **before** this paperwork. They do not gate the new `dist/` bytes. Grok's run above is the post-paperwork head `afba6cb`. **D3: one run (Grok).** It is not both lanes. Spencer accepts or rejects D3.
 
 **Not done by anyone, as far as the repo records:**
 
@@ -74,7 +74,7 @@ Those two runs were **before** this paperwork. They do not gate the new `dist/` 
 4. Test that APK on your own phone only after a full project backup, and check the backup opens.
 5. Then merge `build3` into `main`.
 
-Until the own gate is recorded, do not treat the close-out as ready to merge. Stretch work stays behind that gate.
+Until Spencer accepts D3, do not treat the definition of done as closed. The own gate on `afba6cb` is recorded. Stretch work waits until this close-out is merged.
 
 ## Product rules kept
 

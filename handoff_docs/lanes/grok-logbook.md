@@ -2,6 +2,28 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · own gate on `afba6cb` is green
+
+Draft pull request: https://github.com/Goodst3r/Carpe-Noctum/pull/24 (`grok/b9-closeout` into `build3`). Opened while the gate was still running. A draft does not need gate results. The body is updated with the counts below.
+
+Left the gate that was already running. Did not start a second one and did not cancel it. It was one shell from 2026-11-12T04:38:17Z to 2026-11-12T04:50:13Z, log `/tmp/grok-gate.log`, Chromium `/opt/pw-browsers/chromium-1254/chrome-linux64/chrome`, `NIGHTSWEEP_SUITE_TIMEOUT=3600`. `qa/runtime/node_modules` was already installed.
+
+| Command | Exit |
+| --- | --- |
+| `python3 night-sweep/build.py` | 0 |
+| `python3 build-pwa.py` | 0 |
+| `python3 qa/run-pwa.py` | 0 |
+| `python3 qa/build3-layout.test.py` | 0 |
+| `python3 qa/browser-smoke.py` | 0 |
+| `git status --porcelain` | 0, no lines |
+| `sha256sum outputs/Night_Sweep.html` | 0 |
+
+**D3: one run (Grok).** 82 suites, 2,174 checks, 689.3 s. Layout 554. Smoke 352. Standalone SHA-256 `b1591b4d1bfb639eec5a39014c2cbd4ab9f72871bdeb90cc90af41d67aa6e4de`. Head `afba6cb21c79a5ce85ba4a344c813367a0723fa8`. Record: `handoff_docs/reviews/grok-gate-afba6cb.md`. The layout log printed a `ConnectionResetError` from `http.server` after a client closed a socket. The suite still exited 0 with 554 passed. No failing suite.
+
+This commit adds that record and writes the counts into `FINAL_HANDOFF.md`. It is not itself a gated head. Hosted CI, the AUDIT review and the merge are not done in this entry.
+
+Not run: an APK, an emulator, a phone, Safari, WebView, a screen reader, a meter, or a field check.
+
 ## November 12, 2026 · close-out started
 
 Took over from Lane A and Lane B. Read `AGENTS.md`, `CLAUDE.md`, `START_HERE_CODEX.md`, `docs/DEVELOPER_BUILD.md`, `handoff_docs/TOOLS_AND_SETUP.md`, `handoff_docs/KNOWN_GAPS.md`, `handoff_docs/PARALLEL_TASKS.md`, `handoff_docs/reviews/codex-d4-readiness-audit.md`, and the lane log books on `claude/logbook` (`821650e`) and `codex/work-logbook` (`ea6b5ff`). `codex/core-closeout-status` (`7442451`) is an ancestor of `codex/work-logbook`. Confirmed with `git merge-base`.
