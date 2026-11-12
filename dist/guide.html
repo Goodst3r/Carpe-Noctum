@@ -21,7 +21,7 @@
 <li>Follow <strong>Test → Meter setup</strong> for the actual plant split and approved method. Attach original meter files under <strong>Job → ONX files</strong>, then review <strong>Job → Run sheet</strong>.</li>
 <li>Use <strong>Files → Back up project</strong>, finish the phone&#39;s save action, and confirm the portable backup exists outside NightSweep.</li>
 </ol>
-<p>Home offers an organized <strong>Practice library</strong> with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Choose the complete example for every tool, or a focused node/amplifier exercise for its exact setup path. Follow the <a href="#practice-every-tool-with-the-training-job">guided training walkthrough</a>. The initial three-tap sample and <strong>3-tap route example</strong> in <strong>Route → Cable route</strong> remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.</p>
+<p>Home offers an organized <strong>Practice library</strong> with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use <strong>Custom curves and reverse TDR</strong> for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Safety, Job → Outage and the sweep grading aid. Use <strong>Six active devices in series</strong> for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the <a href="#practice-every-tool-with-the-training-job">guided training walkthrough</a>. The initial three-tap sample and <strong>3-tap route example</strong> in <strong>Route → Cable route</strong> remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.</p>
 <h2 id="find-the-right-tool">Find the right tool</h2>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
@@ -102,6 +102,26 @@
 <td>Matching equipment or route tap as needed</td>
 </tr>
 <tr>
+<td>Run a quick dB, ripple, OFDM, echo or pad/EQ calculation</td>
+<td><strong>Test → Calculators</strong></td>
+<td>The frequencies and levels that formula asks for. Nothing on this screen is saved with the job</td>
+</tr>
+<tr>
+<td>Check a limit and where it came from</td>
+<td><strong>Test → Limits</strong></td>
+<td>Nothing first. Company values stay unknown until someone enters them</td>
+</tr>
+<tr>
+<td>Compare a modem or meter reading with a DOCSIS range</td>
+<td><strong>Test → DOCSIS health</strong></td>
+<td>The reading you type. The card does not talk to a modem</td>
+</tr>
+<tr>
+<td>Check a leak, estimate CLI, or keep a personal leak log</td>
+<td><strong>Test → Leakage</strong></td>
+<td>Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup</td>
+</tr>
+<tr>
 <td>Estimate supply draw and equipment voltage</td>
 <td><strong>Power → Load</strong></td>
 <td>Actual power circuit and equipment loads</td>
@@ -127,6 +147,16 @@
 <td>Work actually performed</td>
 </tr>
 <tr>
+<td>Tick pre-work safety reminders</td>
+<td><strong>Job → Safety</strong></td>
+<td>Follow company policy first. Ticks stay on this phone and are not in the job backup. A supervisor should review the list before coworkers use it</td>
+</tr>
+<tr>
+<td>Walk through outage first-response prompts</td>
+<td><strong>Job → Outage</strong></td>
+<td>Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it</td>
+</tr>
+<tr>
 <td>Maintain measurement and acceptance records</td>
 <td><strong>Job → Acceptance</strong></td>
 <td>Approved procedure, criteria, readings, and traces</td>
@@ -149,7 +179,9 @@
 </tbody></table></div>
 <p>Main tabs choose the work area. The smaller task tabs choose a function within that area. The point selector chooses which route location you are editing. Use <strong>Previous</strong> and <strong>Next</strong> when working down the route instead of scrolling past every point.</p>
 <h2 id="install-and-update">Install and update</h2>
-<p>Use the separate <a href="phone-installation.html">Android/iOS installation guide</a> for full phone steps. The single delivery is <strong>NightSweep 1.8 Alpha build 2.zip</strong>, with one clearly named folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.</p>
+<p>Use the separate <a href="phone-installation.html">Android/iOS installation guide</a> for the phone steps written for the 1.8 package. The table in this section describes that <strong>historical</strong> delivery, <strong>NightSweep 1.8 Alpha build 2.zip</strong> (Preview APK <strong>1.8 Alpha build 2</strong>, code <strong>24</strong>). It is not the current installer.</p>
+<p>The signed installer in this repository is <strong>2.0 Alpha build 2</strong>, Android code <strong>26</strong> (<code>apk/CarpeNoctum-2.0-build2-preview.apk</code>). <strong>2.0 Alpha build 3</strong> is source only (Android source code <strong>27</strong>). No build 3 APK is in the repository. Code 27 is not an installer you can download. Build and sign that APK only outside the repository, with the original key, after the owner accepts the source.</p>
+<p>The historical 1.8 ZIP is one folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -183,7 +215,7 @@
 <p>The known site address is <strong><a href="https://nightsweep-field.goodst3r.chatgpt.site/">https://nightsweep-field.goodst3r.chatgpt.site/</a></strong>. It has not been deployed by this local build. Local copies under Android/Web and iOS/Web do not silently update that site or transfer its jobs. An iPhone/iPad cannot install an Android APK; no IPA or App Store submission is provided.</p>
 <h3 id="protect-work-and-verify-offline-use">Protect work and verify offline use</h3>
 <ol>
-<li>Open each important job and choose <strong>Files → Back up project</strong>. Finish the save/share picker and confirm its JSON exists outside NightSweep. Build 2 exports use the <strong>NightSweep_1.8_Alpha_build_2_</strong> filename prefix.</li>
+<li>Open each important job and choose <strong>Files → Back up project</strong>. Finish the save/share picker and confirm its JSON exists outside NightSweep. Exports from this 2.0 Alpha build 3 source use the <strong>CarpeNoctum_2.0_Alpha_build_3_</strong> filename prefix. Older 1.8 build 2 files used <strong>NightSweep_1.8_Alpha_build_2_</strong>.</li>
 <li>Use <strong>Files → Open project</strong> at the destination, then verify route, notes, readings, records and original evidence. Save a named copy and retain the external backup.</li>
 <li>In a supported hosted browser/Home Screen app, wait for <strong>Ready for offline use</strong>. Use one editing window, enable Airplane Mode with Wi-Fi off, close/reopen the same app/icon and check a practice calculation plus a saved original.</li>
 <li>For a hosted update, export first, then choose <strong>Check for updates → Install update → Reload app</strong>. Check the actual displayed version, jobs and offline readiness afterward.</li>
@@ -238,7 +270,7 @@
 </tr>
 <tr>
 <td><strong>Six active devices in series</strong></td>
-<td>Vecima source followed by six serial AOI route actives on 204/258 MHz</td>
+<td>Vecima source followed by six serial AOI route actives on 204/258 MHz; Night log and Sweep due practice (2.0 Alpha build 3)</td>
 <td align="right">16</td>
 <td>Synthetic teaching data; no physical acceptance</td>
 </tr>

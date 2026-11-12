@@ -8,7 +8,7 @@ Read these project files before each NightSweep development iteration:
 2. `NightSweep_Development_Instructions.txt` for development and engineering practices. The automatic plugin policy takes precedence if routing instructions differ.
 3. `NightSweep_Project_Status.md` for the latest verified baseline, field requirements, and outstanding checks. Follow any newer explicit user direction.
 4. `docs/DEVELOPER_BUILD.md` and, for Android work, `android-build/README.md` for commands and dependencies.
-5. For build 3 work: `handoff_docs/PARALLEL_TASKS.md` (the two-lane plan, rules and loop; it is the source of truth for who does what), both files in `handoff_docs/lanes/`, `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`. `docs/BUILD_LIST.md` has each feature's sources and acceptance test. `CLAUDE.md` points back to this file.
+5. For build 3 work: `handoff_docs/PARALLEL_TASKS.md` (the two-lane plan, rules and loop; it is the source of truth for who does what), the status files in `handoff_docs/lanes/`, `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`. `docs/BUILD_LIST.md` has each feature's sources and acceptance test. `CLAUDE.md` points back to this file. On November 12, 2026 a third assistant (Grok) took over from Lane A (ChatGPT) and Lane B (Claude). Grok's status is `handoff_docs/lanes/grok-status.md`. Grok follows this file and `CLAUDE.md`. Lane A and Lane B have stopped, so there is no second lane to review Grok's pull requests. Grok reviews its own work, says so on the pull request, and does not treat that review as a second lane.
 
 ## Baseline and scope
 

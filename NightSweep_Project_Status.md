@@ -1,30 +1,52 @@
 # Carpe Noctum (formerly NightSweep) project status
 
-## Current: 2.0 Alpha build 3 · in development · Android code 27 (no APK yet) · November 11, 2026 UTC
+## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
 
-Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on GitHub, branch `claude/build-list`). Development happens on branch `ccr-7abea525-rljsni`. The released installer is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, code 26). No build 3 APK exists: it must be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the full QA run. `android-build/build-readiness.json` says so explicitly.
+Integration branch **`build3`**. This section describes the required core on that branch, not the open stretch pull requests. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. It has to be built and signed with the original key outside this repository, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 
-### Build list progress
+A third assistant, Grok, took over on November 12, 2026 after Lane A (ChatGPT) and Lane B (Claude) stopped. Status files: `handoff_docs/lanes/grok-status.md`, `handoff_docs/lanes/claude-status.md`, `handoff_docs/lanes/codex-status.md`. The final handoff is `handoff_docs/FINAL_HANDOFF.md`.
 
-| Build list item | Status in build 3 |
+### Merged core (counted by Grok on the pre-paperwork standalone)
+
+From `outputs/Night_Sweep.html` as committed on `f467e52`, loaded in jsdom (Node 22, `qa/runtime` jsdom). This close-out does not change `thresholds.js`, `workflow.js`, `training.js` or `build.py`.
+
+| Count | What |
 | --- | --- |
-| 1. Threshold and source registry | **Done for the new tools and job criteria.** Test → Limits, plus a source tag on every calculator formula. Older screens' example targets still to register |
-| 2. Tilt/EQ/pad solver | **Done.** Test → Calculators → Pad / EQ balance: GainMaker 1 GHz picks from Cisco's published pads and EQ loss chart; Quantum18 HGD/HGBT show their electronic alignment instead |
-| 3. Station view and unity-gain worksheet | Not started; next in the build order. Sources researched with Firecrawl: `research/build3/STATION_VIEW_SOURCES.md` |
-| 4. Calculator bundle | **Done.** Test → Calculators: dB converter, ripple to distance, pre-EQ tap distance, OFDM power, echo delay |
-| 5. DOCSIS health card | **Done** (Lane B). Test → DOCSIS health: a reading against the CableLabs modem input and output requirements and a company window that starts unknown. Sources: `research/build3/DOCSIS_HEALTH_SOURCES.md` |
-| 7. Leak log, FCC limits, distance, CLI, detector check | **Done** (Lane B). Test → Leakage: a personal notebook and calculator, not the company record. Sources: `research/build3/LEAKAGE_SOURCES.md`. The normalizer and detector-check methods are flagged secondary |
-| 9. Pre-work safety card | **Done** (Lane B), supervisor review pending. Job → Safety: a reminder list that opens with "Follow company policy" and says it is not the company's procedure; editable, kept on this device. Sources and open questions: `research/build3/SAFETY_SOURCES.md` |
-| 8. Outage first-response card | **Done** (Lane B), supervisor review required before coworkers use it. Job → Outage: prompts for scope, power, node, actives in order, who to tell and the times; plant places and roles only, never customer identifiers; not the company's procedure. Sources and open questions: `research/build3/OUTAGE_SOURCES.md` |
-| 6, 10–20 | Not started (items 6, 10 and 13 are Lane A's; see `handoff_docs/PARALLEL_TASKS.md`). The source check for item 7 is in `research/build3/SOURCE_VERIFICATION.md` |
+| 29 | task screens (`WorkflowUI.screens`, including Help) |
+| 47 | Practice library feature choices |
+| 22 / 16 / 15 / 8 / 9 / 7 / 10 | guide steps: complete, six-active, custom curves, OEM AGC, DSIM, manual/thermal, GS7K |
+| 114 | registry rows (`Thresholds.rows.length`) |
+| 41 | module splice lines in `night-sweep/build.py`, plus the separate DSIM pilot-code insertion |
+| 33 | default Safety reminders, counted by reading the `ITEMS` array in `night-sweep/safety.js` |
+
+`docs/BUILD_LIST.md` and `docs/ROADMAP.md` are on `build3`. The same texts are also open as pull requests **#2** and **#1** into `main`. Those two pull requests are the owner's decision. This close-out does not merge them.
+
+| Build list item | Status on this branch |
+| --- | --- |
+| 1. Threshold and source registry | **On the branch.** Test → Limits. |
+| 2. Tilt/EQ/pad solver | **On the branch.** Test → Calculators → Pad / EQ balance. |
+| 3. Station view and unity-gain worksheet | **On the branch** (Lane A, PR #8, native-input follow-up PR #23). Route → Station. |
+| 4. Calculator bundle | **On the branch.** Test → Calculators. |
+| 5. DOCSIS health card | **On the branch** (Lane B). Test → DOCSIS health. Open question: a 3.1 modem that receives only SC-QAM, total input 33 or 40 dBmV. |
+| 6. Night log | **On the branch** (Lane A). Job → Night log. |
+| 7. Leakage | **On the branch** (Lane B). Test → Leakage. **Supervisor review needed** before coworkers use it. Personal notebook, not the company record. |
+| 8. Outage | **On the branch** (Lane B). Job → Outage. **Supervisor review needed** against the local outage procedure before coworkers use it. |
+| 9. Safety | **On the branch** (Lane B). Job → Safety. **Supervisor or safety officer review needed** before coworkers use it. |
+| 10. Sweep due | **On the branch** (Lane A). Job → Sweep due. The interval starts unknown. |
+| 13. Imported sweep grading | **On the branch** (Lane A). Job → ONX files → Grading aid. Synthetic fixtures only. |
+| 11, 12, 14–20 | **Not on this branch.** Draft pull requests #13, #15, #16, #18, #19 and #20 cover items 11, 15, 17, 18, 20 and 19. Items 12, 14 and 16 are not started. |
+
+D1 and D2 are met on `f467e52`. D4 is this paperwork. D5 is the final handoff. D3 needs a full gate on the head after the guides are re-rendered, because `build-pwa.py` copies those guides into `dist/`. Lane A and Lane B each reported a green gate on the pre-paperwork tree `f467e52` (their counts, not mine). Grok's gate is recorded in `handoff_docs/FINAL_HANDOFF.md` and is one run, so D3 stays for the owner to accept.
 
 ### What changed
 
+The bullets below are the feature notes from the sessions that built them. They still describe the merged code. Later sections in this file are **historical checkpoints**. Their "current" counts (28/45, 29/46, and similar) describe the head named in that section, not this branch.
+
 - **Version:** labels, export filenames and PWA identity read 2.0 Alpha build 3; Android source identity is code 27. Package, provider/origin and storage keys are unchanged, so jobs and updates carry over.
-- **Registry (`night-sweep/thresholds.js`):** 27 rows, each labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile, the 42/54 meter-setup TX reference, or the built-in 31/43/38 local preset); blank is unknown and never zero. There is no new storage. Two existing app approximations are labeled Unknown: the 0.1 %/°F cable temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). Example targets on older screens (Test → References workbook and sample targets, plant-picker starting levels) are not registered yet.
+- **Registry (`night-sweep/thresholds.js`):** every row is labeled spec, expert, company or unknown, with source, revision, page or section, units, conditions, plant and checked date. Tapping a tag opens a source sheet. Company values are read from where they already live (the job's project profile, the 42/54 meter-setup TX reference, station worksheets, the grading aid, sweep-due interval, DOCSIS windows, leakage settings, or the built-in 31/43/38 local preset). Blank is unknown and never zero. The first registry pass described 27 rows. The merged core's live list is **114** rows (counted above). Two existing app approximations stay labeled Unknown: the 0.1 %/°F cable temperature correction (traced only to an indexed copy of CommScope MX0398) and the 0.004/°C resistance default (no recorded source). Example targets on older screens (Test → References workbook and sample targets, plant-picker starting levels) are not registered yet.
 - **Calculators (`night-sweep/field-calcs.js`):** offline, deterministic, no job or storage writes. Invalid or missing input gives a reason, never a number. VP comes from catalog cables that list one (four today) or is typed in.
 - **Tilt/EQ/pad solver (`night-sweep/alignment.js`):** level error at each pilot, tilt error and the direction to move each control for any model. For GainMaker 1 GHz system amplifiers and line extenders it picks the input EQ for tilt, then the input pad for level at the high pilot, from Cisco's published values (pads 0–20.5 dB in 0.5 dB steps; 1 GHz cable EQs 1.5–30 dB with their loss chart at 52–1000 MHz), and predicts the levels after the change. It never offers a value outside that list, never interpolates across the chart's 86–550 MHz gap, and leaves out the uncharted 0 dB jumper, inverse EQs and 870 MHz EQs. Quantum18 HGD and HGBT align electronically in AOI's QuantumLink Local app and the LE has no public procedure or pad/EQ list, so all three get a note instead of picks; the BA gives pad direction in its sourced 2 dB steps. Advice is worded from the pick, with the GainMaker procedure's ±0.5 dB window, and pilots must sit inside the model's forward band. Sources: `research/build3/PAD_EQ_SOURCES.md`.
-- **Practice:** the custom-curves exercise gains two guide steps (ten in total) and the feature index gains entries 38 and 39, so every task screen still has a seeded exercise.
+- **Practice:** seven exercises, 22 / 16 / 15 / 8 / 9 / 7 / 10 steps, and 47 feature choices. Custom curves covers calculators, limits, DOCSIS health, leakage, safety, outage and the grading aid. Six-active covers Night log and Sweep due. The complete and six-active exercises both include a Station step.
 - **QA:** `qa/build2-layout.test.py` now honors `NIGHTSWEEP_CHROMIUM`. New suites: `build3-registry.test.cjs`, `build3-field-calcs.test.cjs` (app output against independent 50-digit decimal references in `research/build3/field-calcs-reference.json`) and `build3-layout.test.py` (rendered Chromium, run separately like `browser-smoke.py`).
 
 - **DOCSIS health card (`night-sweep/docsis-health.js`, Test → DOCSIS health):** four cards compare a reading with what a cable modem must accept or transmit: downstream SC-QAM level (−15 to +15 dBmV per 6 MHz, PHYv3.0 C01 Table 6–22), downstream OFDM level (−15 to +15 per 6 MHz and −9 to +21 per 24 MHz as printed, PHYv3.1 I20 Table 45; other widths derived and tagged Expert), total input power (strictly below 40 dBmV for a 3.1 modem, 33 for a 3.0-only modem) and upstream headroom to Pmax (65 dBmV default, PHYv3.1 I20 7.4.12.2). These are capability limits, not targets. Company windows start unknown, blank is never zero, and they are kept on this device only under the new key `nightsweep-docsis-windows-v1`, separately for the 42/54 and 204/258 plants, outside the job and its backups. Ten registry rows. Not covered: MER and SNR, per-channel upstream power, the 10 dB channel-spread rule, DOCSIS 4.0, EuroDOCSIS.
@@ -39,9 +61,11 @@ Build 3 starts the build list in `docs/BUILD_LIST.md` (open pull request #2 on G
 
 An adversarial review (four reviewers on math, provenance, UI and regressions, each checked by a skeptic) confirmed five defects in the first build 3 commit, all fixed: a registered 204/258 TX reference the app forbids; the 750 MHz example profile values described as entered by the user; the pre-EQ result not saying it is the spacing between two mismatches; the Limits list not refreshing after a job change; and the source sheet closing on a tap in its own padding. Lower-risk accuracy items were also applied: bounded calculator outputs, no "-0.00", calculators and registry left out of the printed report, the pre-EQ formula relabeled Expert (derived), and tighter citations. The build 2 and build 1 release records in `build-readiness.json` were restored.
 
-### Current verification
+### Historical verification (early build 3 session, November 11, 2026)
 
-All results below are from runs on November 11, 2026 in this cloud container, against standalone `outputs/Night_Sweep.html` SHA-256 `89b27de366cc25e3939cc163ac221bafec1a12f0ea24fee197d92892d4ae6aa5`.
+Not the current head. These counts are the first build 3 session only. Later lane receipts are in the sections below and in `handoff_docs/lanes/`. Do not treat any of them as the post-paperwork gate.
+
+All results below are from runs on November 11, 2026 in that session's cloud container, against standalone `outputs/Night_Sweep.html` SHA-256 `89b27de366cc25e3939cc163ac221bafec1a12f0ea24fee197d92892d4ae6aa5`.
 
 | Check | Command | Result |
 | --- | --- | --- |
@@ -56,14 +80,15 @@ The baseline before any change was 1,013 checks across 55 passing suites; two su
 
 ### Outstanding checks
 
-- Build and sign the build 3 Preview APK with the original key; verify package, code 27, label, certificate, v2/v3 signatures, alignment and embedded HTML.
-- Physical Android and iPhone checks remain undone for every 2.0 build, including the new screens.
-- Most hardline catalog cables (P3, QR, MC2 .500–.750) do not list a VP yet; add datasheet VP with provenance before relying on catalog VP for them.
-- Quantum18 HGD, HGBT and LE pad and EQ values: none are public (AOI's English data sheets are behind a request form), so no values are offered. The BA's 0/2/4/6 dB pad list comes from a preliminary data sheet. If AOI supplies an accessory list, add it with provenance.
-- The balance card works per calculation; the station view (item 3) will tie it to route actives, their targets and saved readings.
+- Build and sign the build 3 Preview APK with the original key, outside this repository. Then check package, code 27, label, certificate, v2/v3 signatures, alignment and embedded HTML.
+- Physical Android and iPhone checks remain undone for every 2.0 build, including the new screens. Rendered checks are desktop Chromium at phone sizes.
+- Most hardline catalog cables (P3, QR, MC2 .500–.750) do not list a VP yet. Add datasheet VP with provenance before relying on catalog VP for them.
+- Quantum18 HGD, HGBT and LE pad and EQ values: none are public (AOI's English data sheets are behind a request form), so no values are offered. The BA's 0/2/4/6 dB pad list comes from a preliminary data sheet.
 - Register the older screens' example targets (Test → References workbook 32/43 and sample 34/46 dBmV, anchor pairs, plant-picker starting levels) and add tags where they appear.
-- Item 5 and 7 values are source-checked but not built. 47 CFR 76.611 (CLI) and 76.1706 were not checked yet.
-- Pull request #1 (roadmap) and #2 (build list) are still open; this branch does not include their files.
+- DOCSIS and leakage are built. Remaining source limits are in `research/build3/DOCSIS_HEALTH_SOURCES.md` and `LEAKAGE_SOURCES.md` (unread SCTE 289 and 293-12 bodies, secondary normalizer and detector methods, the unrepeated I20 section 6.4.2 pointer, and the 33-versus-40 dBmV question). Do not read the old "not built" sentence as current.
+- Safety (item 9), Outage (item 8) and Leakage (item 7) need a supervisor's review before coworkers use them.
+- Pull requests #1 (roadmap) and #2 (build list) are still open into `main`. The files are already on `build3`. The owner decides those pull requests.
+- Stretch items 11, 12, 14–20 are not on this branch.
 
 ---
 
@@ -115,17 +140,21 @@ Keep external full-project JSON backups before updates, rollback or transfers. A
 
 ## Build 3 A1 — merged Station worksheet (November 11, 2026)
 
+Historical checkpoint for PR #8 at `21ed711`. Not the combined head. Later Night log, Sweep due, grading and the native-input follow-up are separate sections.
+
 Lane B reviewed and merged PR #8 at `21ed711cacbc03359e1418f79b9af6f76888ede5`. Route → Station preserves independent Before/After forward and return worksheets, separate balanced/swept records, company targets that start unknown, exact equipment/source bindings, and read-only legacy/UBT history. It reuses the existing Alignment solver and sourced plant/model guidance. The seven Lane B review corrections and local first-match catalog lookup optimization are retained; RF math and storage identities are unchanged.
 
 Lane A freshly reproduced the merged baseline at 21ed711: both builders, **66 suites / 1,276 checks** (405.0 seconds), separate rendered layout **141** and smoke **331**, all exit 0. All 537 tracked hashes, generated output, Git index/tree, guide copies and QA lock remained unchanged; the worktree stayed clean without restoring evidence. Standalone SHA-256: `28148b1ffda13dffb1b27e4043cede7d183508578b1c53737137b030d98b8b15`. This is a new merged-baseline run; prior source-phase receipts remain historical in `handoff_docs/lanes/codex-a1-validation.json` and the PR #8 review handoff.
 
-## A4 imported sweep grading — reviewed Sweep Due integration and render-context follow-up
+## A4 imported sweep grading — historical Sweep Due integration checkpoint
+
+Historical checkpoint. The sentence below that says the native-input follow-up is not imported describes this checkpoint, not `f467e52`. PR #23 is merged on the current branch. Counts in this section are that checkpoint's counts.
 
 Frozen61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe ordinarily merges production41 with reviewed394179c7ac15ad57d19b654a4427e3b9fa2f54c0. Source, independent delta and fresh whole gate are accepted:80/2072,679.0s +layout554/smoke352. This ordinary metadata publication preserves all tested product bytes and is ready for LaneB same-published-head gate/review/merge. Priorpublicf6d/testedfe74/1701,526.6s +554/346 on3cf is historical. D1 done; A2/A3 mergedf50/394, leaving D2item13 andD3–D5 open.
 
 Explicit offline nativeJSON/gzip/singleJSONZIP/syntheticCSV grading retains originals/SHA/samples, immutable criteria/results/log history, independent balance/sweep facts and four initially-Unknown42/54 or204/258 profiles. No automatic grade/date/done, interpolation/reference correction/company acceptance or new formula/limit/default/key/schema/version. SampledPTV is not normalized continuous-band ripple. Sources remain authorizedA4plan/BUILD_LIST, native-format/core research and reviewed editor/calendar contracts.
 
-CURRENT measured source/frozen/guides:29screens/47features and22/16/15/8/9/7/10. All46 base feature tuples and72 registry rows remain ordered prefixes;42A4 rows total114;38base+3A4 splice entries;21practice cells/47feature markers/20assets/9Jobtabs.80registered suites is static, not a full outcome. Both savedNightLog/savedGrading Example keepers, all3 optional validators/content terms and reviewed interval-drop policy survive. Station exact41; relative394 only existing pure boundRecords helper/export differs. A1 native-input follow-up is not imported.
+Checkpoint measured (this A4 head only, not the merged branch): 29screens/47features and22/16/15/8/9/7/10. All46 base feature tuples and72 registry rows remain ordered prefixes;42A4 rows total114;38base+3A4 splice entries;21practice cells/47feature markers/20assets/9Jobtabs.80registered suites is static, not a full outcome. Both savedNightLog/savedGrading Example keepers, all3 optional validators/content terms and reviewed interval-drop policy survive. Station exact41; relative394 only existing pure boundRecords helper/export differs. A1 native-input follow-up is not imported.
 
 Author61:19focused commands pass grading56/56, Due37/37, Log23/23, old/newinterop3/3 each, correct-mode Checklist37/37/registry14/14/names6; native69/core93 single module invocations; rendered88/189 and separate actualbrowser27;680strict clean. Independent61 own56/56/triple3/3/audits6+6/MCP38/680strict accepted. Separate targetedMCP14(7eachwidth) proves saved/autosaved/readView24→due2027-11-11, explicit restore18→2027-05-11, then date edit→2028-05-11. Original38 raw preserved; corrected report sequence/oracle gap, no production defect/change or single52 campaign.
 
@@ -137,11 +166,13 @@ Failed533 staysFAILED71/72,1566 counted;60d default-second-context/jitless diagn
 
 Current compact receipt: handoff_docs/lanes/codex-a4-validation.json; final author/delta/full reports: handoff_docs/reviews/codex-sweep-grading-sweepdue-{integration,review,full-gate}.md. ProofSHA973204faf6550338459adf754e23086bf2b7e69206bee585c626765b2a0c5d09; rawSHA93e1b5a2ee9ff408dcd1dbc72ce39e20e2d2f480889f7e4ca9d676a34cdebd25; manifestSHAbd1509779db8a1754d93aa6fd1aaa8f47f49be835ecc7424487bb7c216e95ad4.
 
-### A2 Night log and shift handoff — current reviewed Outage base
+### A2 Night log and shift handoff — historical Outage-base checkpoint
+
+Historical checkpoint at source `2690a46`. Its 28-screen / 45-feature figures are that head, not the merged core (29 / 47).
 
 Job → Night log keeps personal ticket/window, node/amp actions, ROC/dispatch, fuel/mileage units, as-built and next-shift notes. Explicit Add freezes both saved Station stages, raw values/results and independent balance/sweep facts; later edits never recalculate that capture. Unknown remains unknown. Customer identifiers and legacy address/lead fields are excluded; TXT and safe rectangular per-stage CSV use existing offline file preparation, and full project JSON retains exact raw/capture/original data. No new key/schema/version/package, RF formula, company default or runtime dependency. Existing200-entry guard remains Unknown. Route example preserves optional nightLog; deliberate blank windows remain unknown, partial text does not replace saved values, blur/return restores last saved text, and validated edits invalidate stale preview.
 
-Current source2690a46e51b8e20cd9841d11a1850a8de92c170c starts from public9b77213/source35f and ordinarily integrates reviewed Safetyccf and Outage3cf. Product NightLog/App/jobs/fixture/QA stays exact35f; reviewed Safety/Outage/checklist/Station stays exact3cf. All44 base feature tuples/rows survive, with Safety43/Outage44/Night log45. CURRENT runtime/guides: **28screens,45features**, complete22/six-active15/custom14/OEM8/DSIM9/manual7/GS7K10. Final guide-only corrections fixed two Coverage43→45 claims and two mirrored main Custom12→14 cells; product/QA/standalone stayed exact. Earlier guide audits did not check every table value; final2690 independently checks every current table and20 PWA hashes.
+Current source2690a46e51b8e20cd9841d11a1850a8de92c170c starts from public9b77213/source35f and ordinarily integrates reviewed Safetyccf and Outage3cf. Product NightLog/App/jobs/fixture/QA stays exact35f; reviewed Safety/Outage/checklist/Station stays exact3cf. All44 base feature tuples/rows survive, with Safety43/Outage44/Night log45. Checkpoint runtime/guides at 2690 (not the merged head): **28screens,45features**, complete22/six-active15/custom14/OEM8/DSIM9/manual7/GS7K10. Final guide-only corrections fixed two Coverage43→45 claims and two mirrored main Custom12→14 cells; product/QA/standalone stayed exact. Earlier guide audits did not check every table value; final2690 independently checks every current table and20 PWA hashes.
 
 Current own exact2690 verification: `python3 night-sweep/build.py`; `python3 build-pwa.py`; `GIT_OPTIONAL_LOCKS=0 NIGHTSWEEP_SUITE_TIMEOUT=3600 NIGHTSWEEP_CHROMIUM=/usr/bin/chromium python3 qa/run-pwa.py`; separate build3-layout and browser-smoke with the same Chromium/GIT_OPTIONAL_LOCKS. Actual **72/1534,524.9s +layout554/smoke346**, all5commands0/fresh/raw-source-equal,23:11:46–23:21:01UTC. All593 tracked/570source/23generated hashes, semantic staged/tree, README/lock and40dependencies unchanged/clean without restoration;12sealedmanifest hashes verified. Raw index cache bytes diagnostic only. App899e6da766e0a315aff97ecb8e1d24183b031452ba68b9b840fe6dea4f326883; PWA7ec73c8a1fa09c798d4d. ProofSHA6b562cd16ec11260cbf55a848434d4de95ef6dfa33a3be8b82dae277f1d12ad5; manifestSHA3b5ff246bb38d282298a5be8d67d6ba45f6bfcc4cd72aaf6805c7c435fde0468. Current receipt: handoff_docs/lanes/codex-a2-validation.json; exact author Safety/Outage integration, final independent delta and current gate reports are preserved under handoff_docs/reviews/codex-night-log-*.
 
@@ -162,7 +193,9 @@ Historical35f receipt and older chain are immutable at https://github.com/Goodst
 Known Gaps is unchanged: no Remove/Undo, blank Add consumes a slot, no implemented new-window action, existing sample/provenance classification and multiline TXT indentation remain explicit. Stored log/raw/results/dates remain exact; derived current-context TXT/CSV headers/warnings can change after Route example. The separate A1 native-input fix is PR23, not silently imported in A2. Safety/Outage still need supervisor review before coworker release. No emulator, physical phone/Safari/WebView/screen reader/native provider dialog/RF hardware/field/APK/signing/deployment result. Lane B must review/gate the final published PR17 head and merge; Lane A cannot self-merge. D1 complete; D2–D5 open.
 
 
-## A3 — current sweep-reminder integration (November12,2026)
+## A3 — historical sweep-reminder integration (November 12, 2026)
+
+Historical checkpoint at `072eb0e`. Its 29-screen / 46-feature figures are that head. The merged core is 29 screens and 47 features.
 
 Exactsource `072eb0ec193e7cd621e9f76c4024ecd02de1288d` ordinarily integrates reviewed Night Log base `f50a7445a8c5254b0db4db5d9e4309569345c12c`. Current source/frozen runtime and all current guides: **29screens/46features; steps22/16/14/8/9/7/10**. All45 base feature objects remain prefix, SweepDue46 appends; exact nine Job tabs retain NightLog eighth/SweepDue ninth in both Checklist and naming QA. Both optional import/content terms and the NightLog example keeper remain; both implementation modules preserve reviewed bytes. Route example retains NightLog and keeps the existing interval-drop behavior. No A1 native-input/A4 parser code is silently imported.
 
@@ -172,9 +205,11 @@ Own072 focused source/frozen NightLog23/23, SweepDue37/37, Checklist37/37, regis
 
 Full-result attribution stays exact: original52fac69070/1482 +374/340 historical; c6 realFAILED71/72,1592,480.3s (only stale inherited expected7 versus rendered8 tabs), separate554/346passed; one-line QA successor26f freshPASS72/1629,474.1s +554/346, all574hashes unchanged, historical on3cf. The fresh exact072 whole gate **PASSED74/74 suites,1760 checks,630.0s reported suite time** (command wall630.763s), started2026-11-12T00:16:02UTC and finished00:27:08UTC. Separate actual rendered layout554/smoke349 passed. Both builders and all five commands exited0; all610 tracked hashes (587source/23generated), HEAD/tree, semantic staged entries, README/lock and40 installed locked packages stayed unchanged/clean without restoration. Fresh raw/source equality, actual registered identities/count sum and all12 sealed manifest artifacts were independently verified by the root. Raw index stat-cache refresh is diagnostic, not a content change. Exact commands and compact/raw results are in codex-a3-validation.json and codex-sweep-due-nightlog-gate.md. Independent072 scoped delta **PASS**: own Due37/37, NightLog23/23, Checklist37frozen,14 integration groups and47 actual Chrome DevTools MCP checks. All610 tracked hashes and exact HEAD blobs/semantic guards stayed unchanged/clean. The initial reopened-original-ID assumption probe is preserved separately; expected import UUID remapping is not a product failure and its17 preliminary checks are not added to47. This reviewer ran no broad gate; LaneB final-head review/gate remains required. Prior failures stay immutable; the current full PASS is a separate execution on the new base.
 
-Sources/commands/files/own timings: `handoff_docs/reviews/codex-sweep-due-nightlog-integration.md`, peer-fix/review and historical gate reports; focused machine proof `handoff_docs/lanes/codex-a3-nightlog-focused-validation.json`. Exact focused commands are the dedicated Node suites in source/frozen modes, the two rendered Python suites with NIGHTSWEEP_CHROMIUM=/usr/bin/chromium, existing three guide renders and both normal builders. No new formula or source verification claimed. Large-library synchronous typing, overlay chronology diagnostics and historical external-exploration reproducibility remain explicitly deferred. No device/emulator/WebView/Safari/native-provider/RF/field/APK/signing/deployment claim. LaneB same-final-head review/gate/merge remains; D2items10/13 andD3–D5 open. This A3 section supersedes stale A3 CURRENT26/43 or28/45 prose. Counts in preceding A1/A2 sections describe their historical source scopes; current combined runtime is29/46. Historical receipts remain source-attributed.
+Sources/commands/files/own timings: `handoff_docs/reviews/codex-sweep-due-nightlog-integration.md`, peer-fix/review and historical gate reports; focused machine proof `handoff_docs/lanes/codex-a3-nightlog-focused-validation.json`. Exact focused commands are the dedicated Node suites in source/frozen modes, the two rendered Python suites with NIGHTSWEEP_CHROMIUM=/usr/bin/chromium, existing three guide renders and both normal builders. No new formula or source verification claimed. Large-library synchronous typing, overlay chronology diagnostics and historical external-exploration reproducibility remain explicitly deferred. No device/emulator/WebView/Safari/native-provider/RF/field/APK/signing/deployment claim. LaneB same-final-head review/gate/merge remains; D2items10/13 andD3–D5 open. This A3 section's own combined runtime was 29/46. The merged core is 29 screens and 47 features. Historical receipts remain source-attributed.
 
-## A1 native-input retention — reviewed grading-base integration
+## A1 native-input retention — historical grading-base integration
+
+Historical checkpoint for the native-input work before PR #23's merge commit. The behavior is on `build3` at `f467e52`. The gate counts in this section are Lane A's run on `2d95e04`, not Grok's, and not the post-paperwork head.
 
 Tested2d95e04e908eba822c2789787e0fa9ec9285f269 ordinarily merges807 with actual reviewed grading/build3 merge0e67660c530047d292b7838d892b1ae74862affb. Current author/independent scoped reviews and fresh full PASS are accepted:82/2174,683.7s +layout554/smoke352. Metadata-only publication preserves tested product bytes; Lane B same-published-head gate/review/actual PR23 merge remains required. D1/D2 complete;D3–D5 pending.
 
