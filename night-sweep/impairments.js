@@ -8,7 +8,7 @@
 const Impairments=(()=>{
  const FLOW=Object.freeze(['analyze','localize','prioritize','repair','validate']);
  const FLOW_LABEL=Object.freeze({analyze:'Analyze',localize:'Localize',prioritize:'Prioritize',repair:'Repair',validate:'Validate'});
- const SEARCH_WIDTH_PERCENT=10;           // default width of the candidate search, ± percent of the distance (Expert, adjustable)
+ const SEARCH_WIDTH_PERCENT=10;           // default width of the candidate search, ± percent of the distance (app-chosen, adjustable)
  const MAX_CANDIDATES=12;
  const SOURCES=Object.freeze({
   scte280:'SCTE 280 2022, Understanding and Troubleshooting Cable RF Spectrum',
@@ -137,7 +137,7 @@ const Impairments=(()=>{
   if(typeof HFC==='undefined'||typeof HFC.routeDistances!=='function')return fail('The route calculation is not available.');
   const distances=HFC.routeDistances(state,catalog);
   const rows=distances.rows.filter(r=>!r.error&&Number.isFinite(r.end));
-  if(!rows.length)return fail('The saved route has no point with a valid distance. Build the route in Route → Cable route first.');
+  if(!rows.length)return fail('The saved route has no point with a valid distance. Build the route in Plan → Cable route first.');
   const byId=new Map(distances.rows.map(r=>[r.id,r]));
   const found=[];
   for(const r of rows){

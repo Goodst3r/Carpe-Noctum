@@ -7,6 +7,9 @@ const { JSDOM, VirtualConsole } = require('./runtime/node_modules/jsdom'), FDB =
 const reference = JSON.parse(fs.readFileSync('research/build3/docsis-health-reference.json', 'utf8'));
 const html = process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST === '1' ? require('./build2-source-harness.cjs').assembleHtml() : fs.readFileSync('outputs/Night_Sweep.html', 'utf8');
 const KEY = 'nightsweep-docsis-windows-v1';
+// Declared synthetic actual-total/reference context for the old upstream arithmetic fixtures.
+// This is supplied at the relevant call sites; missing-context tests call production directly.
+const upstreamContext = { actualSimultaneousTotal: true, measurementPlane: 'cm-f-connector', comparableReference: true, mtcEnabled: true };
 const cases = [];
 let comparisons = 0;
 
@@ -81,15 +84,15 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     assert.equal(typedEdge.status, 'inside', 'typing the printed edge is inside');
   });
 
-  await check('Total input power is strictly below 40 dBmV (3.1) or 33 dBmV (3.0 only); upstream headroom is Pmax minus the reading', () => {
+  await check('Total input power is strictly below 40 dBmV (3.1) or 33 dBmV (3.0 only); upstream composite margin is Pmax minus the reading', () => {
     for (const c of reference.cases.total) {
       const r = call(h, 'total', c.input);
       assert.equal(r.ok, true); assert.equal(r.status, c.expected.status, JSON.stringify(c.input));
       close(r.margin, c.expected.margin, 'total margin'); close(r.limit, c.expected.limit, 'limit');
     }
     for (const c of reference.cases.upstream) {
-      const r = call(h, 'upstream', c.input);
-      assert.equal(r.ok, true, JSON.stringify(c.input)); assert.equal(r.status, c.expected.status, JSON.stringify(c.input));
+      const r = call(h, 'upstream', { ...c.input, context: upstreamContext });
+      assert.equal(r.ok, true, JSON.stringify(c.input)); assert.equal(r.status, Number(c.expected.headroom) === 0 ? 'at-pmax' : c.expected.status, JSON.stringify(c.input));
       close(r.headroom, c.expected.headroom, 'headroom'); close(r.pmax, c.expected.pmax, 'pmax'); close(r.margin, c.expected.margin, 'upstream margin');
       assert.equal(r.specBasis, c.specBasis !== false, 'only a 3.1 modem on a 3.1 CMTS uses the specification Pmax');
     }
@@ -112,19 +115,20 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
 
   await check('Invalid or missing input gives a reason and no number', () => {
     for (const c of reference.cases.errors) {
-      const r = call(h, c.id, c.input);
+      const r = call(h, c.id, c.id === 'upstream' ? { ...c.input, context: upstreamContext } : c.input);
       assert.equal(r.ok, false, JSON.stringify(c)); assert(typeof r.error === 'string' && r.error.length > 10, JSON.stringify(c));
       for (const k of ['status', 'margin', 'headroom', 'low', 'high']) assert.equal(r[k], undefined, `${JSON.stringify(c)} must not return ${k}`);
     }
     assert.equal(call(h, 'nothing', {}).ok, false);
   });
 
-  await check('The DOCSIS health tab sits under Test after Limits and its panel shows only there', async () => {
+  await check('The DOCSIS health screen sits in Tools; its panel shows only there', async () => {
     await goto(h, 'projects');
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     await goto(h, 'docsisHealth');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs.slice(-10, -7), ['Calculators', 'Limits', 'DOCSIS health']);
+    assert.ok(tabs.includes('DOCSIS health'));
+    assert.equal(h.d.querySelector('#screenTitle .eyebrow').textContent, 'Tools');
     assert.equal(h.d.getElementById('docsisHealthPanel').hidden, false);
     assert.equal(h.d.getElementById('calculatorPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check DOCSIS levels/);
@@ -161,19 +165,22 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     set(h, '[data-health="upstream"][data-field="total"]', '52');
     assert.match(result(h, 'upstream'), /Choose how the modem is working first/);
     set(h, '[data-health="upstream"][data-field="mode"]', '3.1', 'change');
-    assert.match(result(h, 'upstream'), /DOCSIS 3\.1 on a 3\.1 CMTS.*65 dBmV, the minimum.*13\.0 dB of headroom below Pmax/);
+    assert.match(result(h, 'upstream'), /Confirm.*simultaneous/);
+    set(h, '[data-health="upstream"][data-field="basis"]', 'confirmed', 'change');
+    assert.match(result(h, 'upstream'), /Assumed Spec minimum\/default reference.*65 dBmV.*\+13\.0000 dB.*Below the reference/);
     set(h, '[data-health="upstream"][data-field="pmax"]', '64');
     assert.match(result(h, 'upstream'), /cannot be below 65 dBmV/);
     set(h, '[data-health="upstream"][data-field="pmax"]', '68');
-    assert.match(result(h, 'upstream'), /68 dBmV.*16\.0 dB of headroom/);
+    assert.match(result(h, 'upstream'), /68 dBmV.*\+16\.0000 dB.*Below the reference/);
     assert.doesNotMatch(result(h, 'upstream'), /the minimum/);
-    set(h, '[data-health="upstream"][data-field="mode"]', 'other', 'change'); set(h, '[data-health="upstream"][data-field="pmax"]', '57');
-    assert.match(result(h, 'upstream'), /Modem maximum \(your entry; not from this specification\).*57 dBmV.*5\.0 dB of headroom/);
+    set(h, '[data-health="upstream"][data-field="mode"]', 'other', 'change'); set(h, '[data-health="upstream"][data-field="basis"]', 'confirmed', 'change'); set(h, '[data-health="upstream"][data-field="pmax"]', '57');
+    assert.match(result(h, 'upstream'), /Entered comparable total Pmax reference.*57 dBmV.*\+5\.00000 dB.*Below the reference/);
     assert.equal(h.d.querySelector('#health-upstream-result [data-threshold="docsis.us.pmax.capability"]'), null, 'no spec tag on a figure the specification does not give');
     set(h, '[data-health="upstream"][data-field="pmax"]', '');
-    assert.match(result(h, 'upstream'), /no figure for a DOCSIS 3\.0 modem/);
+    assert.match(result(h, 'upstream'), /blank Pmax.*no supported.*reference/i);
     set(h, '[data-health="upstream"][data-field="mode"]', '3.1', 'change');
-    assert.match(result(h, 'upstream'), /65 dBmV, the minimum/);
+    set(h, '[data-health="upstream"][data-field="basis"]', 'confirmed', 'change');
+    assert.match(result(h, 'upstream'), /Assumed Spec minimum\/default reference.*65 dBmV/);
     set(h, '[data-health="scqam"][data-field="level"]', '15.004');
     assert.match(result(h, 'scqam'), /less than 0\.01 dB above the spec range/, 'a margin that rounds to zero is not shown as 0.00 dB');
     set(h, '[data-health="scqam"][data-field="level"]', '3.2');
@@ -211,7 +218,7 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
   await check('Registry rows: spec rows are primary-checked, company rows start unknown and are entered values, shown once for each plant', () => {
     const rows = h.json('Thresholds.rows');
     const mine = rows.filter(r => /^(docsis\.|company\.docsis\.)/.test(r.id));
-    assert.equal(mine.length, 10);
+    assert.equal(mine.length, 12);
     for (const r of mine) { assert.equal(r.scope, 'all', r.id); assert(r.usedBy.includes('DOCSIS health'), r.id); }
     for (const r of mine.filter(r => r.id.startsWith('docsis.') && r.label === 'spec')) assert.equal(r.verification, 'primary', r.id);
     assert.equal(mine.find(r => r.id === 'docsis.ds.ofdm.scaling').label, 'expert');
@@ -330,10 +337,10 @@ const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); 
     Object.defineProperty(el, 'validity', { value: { badInput: false }, configurable: true });
     el.value = ''; el.dispatchEvent(new t.w.Event('change', { bubbles: true }));
     assert.deepEqual(JSON.parse(t.w.localStorage.getItem(KEY)).plants['42'].scqam, { min: null, max: null }, 'a genuinely empty box still clears the window');
-    set(t, '[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set(t, '[data-health="upstream"][data-field="total"]', '52');
-    assert.match(result(t, 'upstream'), /13\.0 dB of headroom/, 'a blank Pmax on a 3.1 modem uses the 65 dBmV minimum');
+    set(t, '[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set(t, '[data-health="upstream"][data-field="basis"]', 'confirmed', 'change'); set(t, '[data-health="upstream"][data-field="total"]', '52');
+    assert.match(result(t, 'upstream'), /\+13\.0000 dB/, 'a confirmed applicable 3.1 MTC context uses an assumed 65 dBmV reference');
     const pm = bad('[data-health="upstream"][data-field="pmax"]'); pm.dispatchEvent(new t.w.Event('input', { bubbles: true }));
-    assert.match(result(t, 'upstream'), /Enter the modem’s maximum total power in dBmV as a number/);
+    assert.match(result(t, 'upstream'), /Enter the Pmax reference in dBmV as a number/);
     assert.doesNotMatch(result(t, 'upstream'), /headroom/, 'no headroom is shown for a malformed Pmax');
     set(t, '[data-health="scqam"][data-field="level"]', '3');
     const lv = bad('[data-health="scqam"][data-field="level"]'); lv.dispatchEvent(new t.w.Event('input', { bubbles: true }));

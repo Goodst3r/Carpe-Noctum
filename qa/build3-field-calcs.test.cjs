@@ -23,6 +23,7 @@ function close(actual, expected, label, rel = 1e-12) {
 function set(selector, value, type = 'input') { const el = d.querySelector(selector); assert(el, selector); el.value = value; el.dispatchEvent(new w.Event(type, { bubbles: true })); return el; }
 function words(el) { const out = [], walk = d.createTreeWalker(el, 4); while (walk.nextNode()) { const s = walk.currentNode.nodeValue.trim(); if (s) out.push(s); } return out.join(' ').replace(/\s+/g, ' '); }
 const result = id => words(d.getElementById('calc-' + id + '-result'));
+const conversionContext = { flatPSD: true, bandwidthUnits: 'MHz', restatementOnly: true };
 let comparisons = 0;
 
 (async () => {
@@ -45,14 +46,14 @@ let comparisons = 0;
   await check('Ripple, pre-EQ tap, OFDM power and echo delay match independent decimal references', () => {
     for (const c of reference.cases.ripple) { const r = call('rippleDistance', c.input); assert(r.ok); close(r.feet, c.expected.feet, 'ripple ' + c.input); comparisons++; }
     for (const c of reference.cases.preeq) { const r = call('preEqDistance', c.input); assert(r.ok, JSON.stringify(c.input)); for (const k of ['perTap', 'feet', 'low', 'high']) { close(r[k], c.expected[k], 'preeq ' + c.input + ' ' + k); comparisons++; } }
-    for (const c of reference.cases.ofdm) { const r = call('ofdmPower', c.input); assert(r.ok); for (const k of ['total', 'per6', 'per24', 'per1_6']) { close(r[k], c.expected[k], 'ofdm ' + c.input + ' ' + k, 1e-13); comparisons++; } }
+    for (const c of reference.cases.ofdm) { const r = call('ofdmPower', [...c.input, conversionContext]); assert(r.ok); for (const k of ['total', 'per6', 'per24', 'per1_6']) { close(r[k], c.expected[k], 'ofdm ' + c.input + ' ' + k, 1e-13); comparisons++; } }
     for (const c of reference.cases.echo) { const r = call('echoDelay', c.input); assert(r.ok); close(r.ns, c.expected.ns, 'echo ' + c.input); comparisons++; }
   });
 
   await check('Published worked numbers reproduce at their stated rounding', () => {
     const fns = { ripple: 'rippleDistance', preeq: 'preEqDistance', ofdm: 'ofdmPower', echo: 'echoDelay', level: 'convertLevel' };
     for (const p of reference.published) {
-      const r = call(fns[p.calc], p.input);
+      const r = call(fns[p.calc], p.calc === 'ofdm' ? [...p.input, conversionContext] : p.input);
       assert.equal(Number(r[p.field].toFixed(p.digits)), p.value, `${p.source}: ${p.calc} ${p.input} → ${r[p.field]}`);
       comparisons++;
     }
@@ -71,7 +72,7 @@ let comparisons = 0;
       ['echoDelay', [0, 0.87], /above 0/], ['echoDelay', [100, 1.2], /0\.50 to 1\.00/], ['echoDelay', ['abc', 0.87], /length/],
     ];
     for (const [fn, args, pattern] of bad) {
-      const r = call(fn, args);
+      const r = call(fn, fn === 'ofdmPower' ? [...args, conversionContext] : args);
       assert.equal(r.ok, false, `${fn}(${args}) should fail`);
       assert.match(r.error, pattern, `${fn}(${args})`);
       assert.deepEqual(Object.keys(r).sort(), ['error', 'ok'], 'no partial numbers');
@@ -82,9 +83,9 @@ let comparisons = 0;
   await check('Calculators live under Test, each card carries a resolving source tag, and the panel starts with prompts', () => {
     ev("WorkflowUI.go('calculators')");
     const tabs = [...d.querySelectorAll('#taskTabs button')].map(b => b.textContent);
-    assert.equal(tabs[tabs.indexOf('Calculators') + 1], 'Limits', 'Calculators and Limits are neighbours under Test');
+    assert.equal(tabs[tabs.indexOf('Calculators') + 1], 'Frequency', 'Calculators and Frequency are neighbours in Tools');
     assert.equal(d.querySelector('#taskTabs [aria-selected="true"]').textContent, 'Calculators');
-    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Test');
+    assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Tools');
     assert.equal(d.getElementById('calculatorPanel').hidden, false);
     const cards = [...d.querySelectorAll('[data-calc-card]')].map(c => c.dataset.calcCard);
     assert.deepEqual(cards, ['db', 'ripple', 'preeq', 'ofdm', 'power', 'balance', 'echo']);
@@ -118,8 +119,8 @@ let comparisons = 0;
     assert.match(result('preeq'), /2 taps after the main tap/);
     set('[data-calc="preeq"][data-field="rate"]', '2.56', 'change');
     assert.match(result('preeq'), /Per tap 167\.1 ft/);
-    set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '192');
-    assert.match(result('ofdm'), /Total over 192 MHz 57\.05 dBmV Per 6 MHz 42\.00 dBmV Per 24 MHz 48\.02 dBmV Per 1\.6 MHz 36\.26 dBmV/);
+    set('[data-calc="ofdm"][data-field="context"]', 'confirmed', 'change'); set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '192');
+    assert.match(result('ofdm'), /Restated over 192 MHz 57\.0515 dBmV Per 6 MHz 42\.00 dBmV Per 24 MHz 48\.02 dBmV Per 1\.6 MHz 36\.26 dBmV/);
     set('[data-calc="ofdm"][data-field="basis"]', '24', 'change');
     assert.match(result('ofdm'), /Per 6 MHz 35\.98 dBmV/);
     set('[data-calc="echo"][data-field="length"]', '100'); set('[data-calc="echo"][data-field="vp"]', '0.87');

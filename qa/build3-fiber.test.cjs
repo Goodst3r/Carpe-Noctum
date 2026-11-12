@@ -68,7 +68,7 @@ const call = (h, fn, input) => h.json(`FiberTools.${fn}(${JSON.stringify(input)}
     const before = JSON.stringify(x.json('evidenceExportProject(state)')), keys = JSON.stringify(Object.keys(x.w.localStorage).sort()), values = JSON.stringify(Object.keys(x.w.localStorage).sort().map(k => x.w.localStorage.getItem(k)));
     await goto(x, 'projects'); assert.equal(x.d.getElementById('fiberPanel').hidden, true);
     await goto(x, 'fiber');
-    const tabs = [...x.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-7, -4), ['Leakage', 'Impairments', 'Fiber']);
+    const tabs = [...x.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(6, 9), ['Impairments', 'Fiber', 'High split']);
     assert.equal(x.d.getElementById('fiberPanel').hidden, false); assert.match(x.d.getElementById('screenTitle').textContent, /Fiber color code and loss budget/);
     set(x, f('finder', 'fiber'), '30'); set(x, f('budget', 'length'), '12.4'); set(x, f('budget', 'attenuation'), '0.35'); set(x, f('budget', 'connectors'), '4'); set(x, f('budget', 'connectorLoss'), '0.3');
     assert.equal(JSON.stringify(x.json('evidenceExportProject(state)')), before); assert.equal(JSON.stringify(Object.keys(x.w.localStorage).sort()), keys); assert.equal(JSON.stringify(Object.keys(x.w.localStorage).sort().map(k => x.w.localStorage.getItem(k))), values);
