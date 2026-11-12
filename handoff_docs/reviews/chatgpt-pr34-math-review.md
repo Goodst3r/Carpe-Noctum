@@ -267,3 +267,9 @@ Not run in this re-review: another full `qa/run-pwa.py` gate, generic full layou
 **Technical APPROVE — `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`; merge remains blocked on author/host/readiness requirements.**
 
 Root independently reran the unchanged Decimal oracle on the pinned 73b6ab4 head: 510 checks, 0 failures, exit 0; receipt `/workspace/scratch/root-pr34/independent-73b6ab4.log`.
+
+## Merge-readiness check, 12 November 2026 10:46 UTC
+
+The exact reviewed head remains `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`; GitHub metadata now marks the PR ready and mergeable. Author body now records its full gate on this exact head: all eight commands exit 0, 93 suites / 2,371 checks in 810.9 s, layout 1,054, smoke 373, clean status. These are explicitly the author's receipts, not this reviewer's full-gate counts. The reviewer observed hosted QA run [43200952825](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43200952825) completed **success** on this SHA. Fresh fetch, ancestor check and metadata confirm current `build3` `7dfddf70112d281c2a43f6dec506147686f8f63f` is included. The entire PR timeline was reread: no same-head Claude CHANGES NEEDED is present. Earlier numerical/UI passes above remain the reviewer's own executed evidence.
+
+**APPROVE — `73b6ab413eb2ac8aefdd60497d19a88a93d12b55`.** WORKFLOW's separate author/host/readiness requirements are now met. Merge may proceed using an ordinary merge commit with an expected-head guard. No full reviewer gate was required or run for this storage-neutral calculator. No physical-device test was run. This records the pre-merge decision; it does not itself claim the merge succeeded.
