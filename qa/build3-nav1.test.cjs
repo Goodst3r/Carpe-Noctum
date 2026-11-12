@@ -47,6 +47,29 @@ const expected = {
     box.value = ''; box.dispatchEvent(new w.Event('input', { bubbles: true }));
     assert.deepEqual(buttons(), expected.tools);
   });
+  await check('A filtered list result is reachable from the search box without changing the screen', () => {
+    const probe = (start, query, id, label) => {
+      ev("WorkflowUI.go(" + JSON.stringify(start) + ")");
+      const box = d.querySelector('[data-task-search]');
+      box.value = query; box.dispatchEvent(new w.Event('input', { bubbles: true }));
+      assert.equal(ev('WorkflowUI.current()'), start);
+      const visible = [...d.querySelectorAll('#taskTabs button')].filter(b => !b.hidden);
+      assert.deepEqual(visible.map(b => b.textContent), [label]);
+      assert.equal(visible[0].tabIndex, 0);
+      assert.equal(d.getElementById('task-tab-' + start).tabIndex, -1);
+      box.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      assert.equal(ev('WorkflowUI.current()'), start);
+      assert.equal(d.activeElement, visible[0]);
+      box.focus();
+      box.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      assert.equal(d.activeElement, visible[0]);
+      visible[0].click();
+      assert.equal(ev('WorkflowUI.current()'), id);
+    };
+    probe('projects', 'what-if', 'trial', 'What-if');
+    probe('sweepSetup', 'night log', 'nightLog', 'Night log');
+    probe('calculators', 'fiber', 'fiber', 'Fiber');
+  });
   await check('A bottom tab returns to the last screen in that group', () => {
     ev("WorkflowUI.go('powerPm')");
     d.querySelector('[data-main-tab="home"]').click();

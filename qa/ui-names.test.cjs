@@ -227,17 +227,22 @@ function checkPath(info, segments) {
   return problems;
 }
 
-// Guide tables that list a main tab with its task screens, for example
-// "| Test | Meter setup; TDR; ... | purpose |": every screen must be a sub-tab of that tab.
+// Only the navigation inventory is a screen list. Its header is
+// "Main work area | Task screens | Purpose". A form table such as
+// "| Field | What to enter |" is not one, even though Field is also a group name.
 function screenLists(info, clean, label, failures) {
-  for (const line of clean.split('\n')) {
+  const lines = clean.split('\n');
+  let inventory = false;
+  for (const line of lines) {
+    if (/^\|\s*Main work area\s*\|\s*Task screens\s*\|\s*Purpose\s*\|/.test(line)) { inventory = true; continue; }
+    if (!inventory) continue;
+    if (!line.startsWith('|')) { inventory = false; continue; }
+    if (/^\|\s*-+/.test(line)) continue;
     const row = line.match(/^\|\s*(Home|Plan|Field|Tools|Closeout)\s*\|\s*([^|]+?)\s*\|/);
     if (!row) continue;
     const tabs = info.subTabs.get(norm(row[1]));
-    if (!tabs) continue;
-    const parts = row[2].split(';').map(x => norm(x)).filter(Boolean);
-    if (parts.length === 1 && !tabs.has(parts[0]) && parts[0].includes(' ')) continue;
-    for (const screen of parts) {
+    if (!tabs) { failures.push(`${label}: table row "${row[1]}" is not a main work area`); continue; }
+    for (const screen of row[2].split(';').map(x => norm(x)).filter(Boolean)) {
       if (!tabs.has(screen)) failures.push(`${label}: table row "${row[1]}" lists "${screen}", which is not a ${row[1]} tab (tabs: ${[...tabs].join(', ')})`);
     }
   }
@@ -307,6 +312,31 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     const good = [];
     check('probe', info, 'Use Plan → Details → Save now, then Plan → Amp / node setup, then Files → Back up project.', good);
     assert.deepEqual(good, []);
+  });
+
+  run('A navigation inventory rejects a missing screen and a screen in the wrong group', () => {
+    const header = '| Main work area | Task screens | Purpose |\n| --- | --- | --- |\n';
+    const missing = [];
+    check('probe', info, header + '| Tools | Nonexistent screen | Synthetic |\n', missing);
+    assert(missing.some(f => /nonexistent screen/.test(f)), missing.join('\n'));
+    const wrong = [];
+    check('probe', info, header + '| Tools | Meter setup | Synthetic |\n', wrong);
+    assert(wrong.some(f => /meter setup/.test(f) && /not a Tools tab/.test(f)), wrong.join('\n'));
+    const bogus = [];
+    check('probe', info, header + '| Tools | Bogus | Synthetic |\n', bogus);
+    assert(bogus.some(f => /bogus/.test(f)), bogus.join('\n'));
+    const semi = [];
+    check('probe', info, header + '| Field | Night log; Not a screen | Synthetic |\n', semi);
+    assert(semi.some(f => /lists "not a screen"/.test(f)) && !semi.some(f => /lists "night log"/.test(f)), semi.join('\n'));
+    const valid = [];
+    check('probe', info, header + '| Plan | Details; Amp / node setup; What-if | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n| Field | Meter setup; Night log | ok |\n', valid);
+    assert.deepEqual(valid, []);
+    const form = [];
+    check('probe', info, '| Field | What to enter |\n| --- | --- |\n| Source type | Node output, Amplifier / LE output, or Manual / other output |\n', form);
+    assert.deepEqual(form, []);
+    const outside = [];
+    check('probe', info, '| Tools | Nonexistent screen | Synthetic |\n', outside);
+    assert.deepEqual(outside.filter(f => /table row/.test(f)), []);
   });
 
   run('Practice-job text names only tabs and buttons that exist', () => {

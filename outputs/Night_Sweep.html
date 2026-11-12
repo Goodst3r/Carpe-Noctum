@@ -4671,12 +4671,18 @@ const WorkflowUI=(()=>{
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
  function tabButton([id,label]){return `<button type="button" role="tab" id="task-tab-${id}" data-task="${id}" aria-selected="${id===current}" tabindex="${id===current?'0':'-1'}" aria-controls="${(visibleIds[id]||[]).join(' ')||'helpPanel'}">${label}</button>`;}
+ function syncListEntry(){
+  // One visible result stays in the tab order when the selected screen is filtered out.
+  const buttons=all('#taskTabs [data-task]'),visible=buttons.filter(el=>!el.hidden),entry=visible.find(el=>el.dataset.task===current)||visible[0]||null;
+  buttons.forEach(el=>{el.tabIndex=el===entry?0:-1;});
+ }
  function renderNav(){
   const group=screens[current][0],spec=groups[group],host=$('taskTabs');
   hidden(host,current==='help'||!spec.tabs.length);
   host.classList.toggle('is-list',!!spec.list);
   if(spec.list)host.innerHTML=`<label class="task-search">Search screens<input type="search" data-task-search placeholder="Type a screen name" aria-label="Search ${spec.label} screens"></label>`+spec.sections.map(section=>`<section class="task-list-section"><h3>${section.title}</h3>${section.items.map(tabButton).join('')}</section>`).join('')+'<p class="note task-search-empty" hidden>No matching screen.</p>';
   else host.innerHTML=spec.tabs.map(tabButton).join('');
+  syncListEntry();
   all('[data-main-tab]').forEach(b=>{const active=b.dataset.mainTab===group;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   $('screenTitle').innerHTML=`<span class="eyebrow">${spec.label}</span><h2 tabindex="-1">${screens[current][1]}</h2><p>${screens[current][2]}</p>`;
   document.body.dataset.task=current;
@@ -4825,6 +4831,14 @@ const WorkflowUI=(()=>{
   });
   $('pointSelect').addEventListener('change',event=>setPoint(event.target.value));
   $('taskTabs').addEventListener('keydown',event=>{
+   const box=event.target.closest('[data-task-search]');
+   if(box){
+    if(!['ArrowDown','ArrowUp','Enter'].includes(event.key))return;
+    const visible=all('#taskTabs [data-task]').filter(el=>!el.hidden);if(!visible.length)return;
+    event.preventDefault();
+    (event.key==='ArrowUp'?visible.at(-1):visible.find(el=>el.tabIndex===0)||visible[0]).focus();
+    return;
+   }
    if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;const tabs=all('#taskTabs [data-task]').filter(el=>!el.hidden),index=tabs.indexOf(document.activeElement);if(index<0)return;event.preventDefault();const at=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;const id=tabs[at].dataset.task;go(id,{scroll:false});$('task-tab-'+id)?.focus();
   });
   $('taskTabs').addEventListener('input',event=>{
@@ -4833,6 +4847,7 @@ const WorkflowUI=(()=>{
    all('#taskTabs [data-task]').forEach(button=>hidden(button,!!q&&!button.textContent.toLowerCase().includes(q)));
    all('#taskTabs .task-list-section').forEach(section=>hidden(section,![...section.querySelectorAll('[data-task]')].some(button=>!button.hidden)));
    const empty=$('taskTabs').querySelector('.task-search-empty');hidden(empty,!q||all('#taskTabs [data-task]').some(button=>!button.hidden));
+   syncListEntry();
   });
   document.addEventListener('input',queue);document.addEventListener('change',queue);
   if(typeof MutationObserver!=='undefined')new MutationObserver(queue).observe(document.querySelector('main'),{childList:true,subtree:true});
