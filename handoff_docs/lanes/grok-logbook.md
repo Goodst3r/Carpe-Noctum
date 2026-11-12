@@ -2,6 +2,12 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 14 layout failed; first fix
+
+Head `3c9d3a4` is not green. Local gate 2026-11-12T08:18:15Z–08:32:01Z: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 807.7 s, all_passed true), layout 1, smoke 0 (373). Standalone `c48d3b7650f2dc1b456330e374ee3850e092a1e661bbf8ac74ef934fdc96dc00`. Porcelain afterwards only `?? qa/runtime/node_modules`. The wrapper shell exited 0; that does not make the gate green. Record: `handoff_docs/reviews/grok-gate-3c9d3a4.md`. Hosted CI [run 43181842081](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43181842081) failed on the same check.
+
+The failing check was `night 320px Supply PM keeps the added span inside a focusable region`. A probe showed the chain text `5.5 V drop`, `tabIndex` 0 and `role` `region`, with the region `scrollWidth` 300 and `clientWidth` 240 because `.hs-table` has `min-width:300px`. This commit sets `#powerPmPanel .hs-table` to `min-width:0` and `table-layout:fixed`. A probe after the rebuild, not a full gate, fit both Supply PM regions at 320, 360 and 390 px. This is the first fix. The gate on this head is not run yet.
+
 ## November 12, 2026 · item 19 merged; item 14 started
 
 Pull request #20 merged at 2026-11-12T08:00:06Z. Merge commit `7107f27481c6479e5ee2de087f008060bdbbd03d`. Head that was gated and reviewed: `f2641a2`. Local gate 90/2,297, 802.7 s, layout 1004, smoke 370, standalone `d4b05c39…a9d6`. Hosted CI [run 43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435). AUDIT says clean, ready to merge, and that it is not a second lane. Record of that gate: `handoff_docs/reviews/grok-gate-f2641a2.md`, added on this branch after the merge so `f2641a2` did not move.

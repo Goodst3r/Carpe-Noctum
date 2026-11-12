@@ -250,7 +250,7 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 @media print{.source-tag{border-style:solid;min-height:0;padding:1px 6px}dialog.source-sheet,#calculatorPanel,#limitsPanel,#docsisHealthPanel,#leakagePanel,#safetyPanel,#outagePanel,#impairmentsPanel,#fiberPanel,#highSplitPanel,#whyPanel,#popPanel,#studyPanel,#powerPmPanel{display:none!important}}
 .calc-card .calc-wide{grid-column:1/-1}
 .calc-result h4{font-size:14px;margin:12px 0 6px}
-.pm-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px}#powerPmPanel input,#powerPmPanel select,#powerPmPanel textarea,#powerPmPanel button{min-height:44px}.pm-chart{display:block;width:100%;max-width:280px;height:auto}#powerPmPanel .table-scroll{overflow:auto;max-width:100%}#powerPmPanel th,#powerPmPanel td{white-space:normal;overflow-wrap:anywhere}
+.pm-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px}#powerPmPanel input,#powerPmPanel select,#powerPmPanel textarea,#powerPmPanel button{min-height:44px}.pm-chart{display:block;width:100%;max-width:280px;height:auto}#powerPmPanel .table-scroll{overflow:auto;max-width:100%}#powerPmPanel .hs-table{width:100%;min-width:0;table-layout:fixed}#powerPmPanel th,#powerPmPanel td{white-space:normal;overflow-wrap:anywhere}
 /* DOCSIS health card (build list item 5) */
 .health-rows{display:grid;gap:4px}
 .health-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line)}
