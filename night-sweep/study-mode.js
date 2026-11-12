@@ -48,7 +48,7 @@ const StudyMode=(()=>{
   }},
   {id:'ofdm6',domain:'signals',tool:{task:'calculators',label:'Test → Calculators'},make:r=>{
    const bandwidth=pick(r,[24,48,96,192]),power=grid(r,10,60,0.5),a=app();
-   const x=a.calc.ofdmPower(power,bandwidth,bandwidth);
+   const x=a.calc.ofdmPower(power,bandwidth,bandwidth,{flatPSD:true,bandwidthUnits:'MHz',restatementOnly:true});
    return number({prompt:`A downstream OFDM channel occupies ${bandwidth} MHz, and its power is spread evenly across that occupied bandwidth (flat power spectral density, so every 6 MHz carries the same power). The total power over the ${bandwidth} MHz measures ${power} dBmV. What is the average power per 6 MHz?`,unit:'dBmV per 6 MHz',answer:x.per6,tol:0.05,params:{power,bandwidth},working:['This holds when the power is spread evenly across the occupied bandwidth (flat power spectral density). Then power per 6 MHz = total power − 10·log10(occupied bandwidth ÷ 6 MHz). A channel whose power is not flat has the same average, but its individual 6 MHz segments differ from it.',`${power} − 10·log10(${bandwidth} ÷ 6) = ${round(x.per6)} dBmV average per 6 MHz.`],source:'SCTE 293-10 2025, signal level (the per-6 MHz basis); flat power is the assumption of the Field calculators card'});
   }},
   {id:'scqam',domain:'signals',tool:{task:'docsisHealth',label:'Test → DOCSIS health'},make:r=>{

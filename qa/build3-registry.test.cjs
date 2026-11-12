@@ -53,8 +53,9 @@ function assertResolves(tags) {
 
   await check('Labels follow the build list: spec, expert, company and unknown rows sit where expected', () => {
     const label = id => json(`Thresholds.get(${JSON.stringify(id)}).label`);
-    for (const id of ['calc.ofdm.bandwidth', 'calc.db.dbm', 'calc.db.dbuv', 'const.speedOfLight']) assert.equal(label(id), 'spec', id);
-    for (const id of ['calc.ripple.distance', 'calc.microreflection.delay', 'calc.preeq.tapDistance']) assert.equal(label(id), 'expert', id);
+    for (const id of ['calc.db.dbm', 'calc.db.dbuv', 'const.speedOfLight']) assert.equal(label(id), 'spec', id);
+    for (const id of ['calc.ofdm.bandwidth', 'calc.ripple.distance', 'calc.microreflection.delay', 'calc.preeq.tapDistance']) assert.equal(label(id), 'expert', id);
+    assert.equal(json("Thresholds.get('calc.ofdm.bandwidth').verification"), 'derived', 'flat-PSD restatement is a derived relation, with its assumptions declared');
     assert.equal(json("Thresholds.get('calc.preeq.tapDistance').verification"), 'derived', 'pre-EQ formula combines spec tap spacing with best-practice halving');
     assert.match(json("Thresholds.get('calc.preeq.tapDistance').conditions"), /spacing between two impedance mismatches, not the distance from the modem or node/);
     for (const id of ['app.cable.temperatureCoefficient', 'app.power.resistanceAlpha']) assert.equal(label(id), 'unknown', id);
@@ -147,7 +148,7 @@ function assertResolves(tags) {
     for (const term of ['Formula', 'Units', 'Applies when', 'Plant', 'Source', 'Revision', 'Page, table or section', 'Checked', 'Used by']) assert(terms.includes(term), 'sheet shows ' + term);
     const row = json("Thresholds.get('calc.ofdm.bandwidth')");
     for (const value of [row.source, row.revision, row.locator, row.conditions]) assert(s.textContent.includes(value), 'sheet text includes ' + value.slice(0, 40));
-    assert(s.textContent.includes(json('Thresholds.LABEL_INFO').spec.help), 'label explanation');
+    assert(s.textContent.includes(json('Thresholds.LABEL_INFO').expert.help), 'derived restatement label explanation');
     s.querySelector('button.primary[data-source-close]').click(); await flush();
     assert.equal(sheet(), null, 'closed');
     assert.equal(d.activeElement, tag, 'focus returns to the tag');
