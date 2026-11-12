@@ -56,7 +56,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Field → Checklists | Complete | Inspection notes, maintenance tasks and dBµV/dBmV conversion |
 | Closeout → Acceptance | Complete, OEM AGC, DSIM | Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms |
 | Plan → Sweep due | Six-active | Enter 18 only for the synthetic reminder demonstration, inspect independent work dates, refresh, then clear the interval to unknown |
-| Field → Night log | Six-active | Record invented A1–A5 Station worksheets, capture each one, then generate a handoff and export TXT/CSV. No customer identifiers. Captured stages stay fixed after later Station edits |
+| Field → Night log | Six-active | Reject a blank Add; record/capture invented A1–A5 Station worksheets; Remove and Undo one capture; add manual synthetic ingress conditions, approximate observed time, attempted work and weather/Unknown blanks; reopen TXT/CSV and JSON. No customer identifiers; captured stages stay fixed |
 | Closeout → Run sheet | Complete | Predictions, actual input context, warnings, as-built notes and synthetic export labels |
 | Help & methods / build self-check | Complete | Calculation assumptions, limits and independent reference checks |
 
@@ -114,7 +114,7 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ### Build 3 Night log handoff practice
 
-The six-active exercise adds **Five-station night handoff** under **Field → Night log**, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 48 choices.
+The existing six-active **Five-station night handoff** step remains under **Field → Night log**, with 16 steps in the exercise. Start with a blank Add and confirm no slot is used. Enter the invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then Remove and Undo one capture and compare its original data. Add a synthetic **Intermittent ingress** note: manual conditions, date/time/zone or an honest approximation, attempted work through Actions, and manually typed weather. Leave a manual field blank to see **Unknown**; **Added** is a separate device recording timestamp. Generate and reopen TXT/CSV and a full project JSON backup. No Station measurements or weather are collected automatically. General notes, unknown targets, fixed capture history, independent balance/sweep dates and synthetic provenance remain distinct from field acceptance. This extends the existing step and feature; the exercise and feature counts above are unchanged.
 
 
 ## Build 3 sweep-due practice

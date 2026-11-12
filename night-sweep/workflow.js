@@ -162,6 +162,32 @@ const WorkflowUI=(()=>{
   hidden($('workingSample'),!state.example);
   hidden($('homeGainTip'),state.rows.some(r=>device(r.device)?.active));
  }
+ function updateContextStrip(){
+  const strip=$('contextStrip');if(!strip)return;
+  const tools=screens[current]?.[0]==='tools';
+  hidden(strip,tools);
+  if(tools)return;
+  const name=typeof JobsUI!=='undefined'?JobsUI.metadata().name:'';
+  text(strip.querySelector('[data-context="job"]'),name||'Unnamed working job');
+  const plant=state.sweepSetup&&state.sweepSetup.selected;
+  text(strip.querySelector('[data-context="plant"]'),plant==='42'?'42/54 GS7K / GainMaker':plant==='204'?'204/258 Vecima / AOI':'Plant unknown');
+  const pointEl=strip.querySelector('[data-context="point"]');
+  const planeEl=strip.querySelector('[data-context="plane"]');
+  if(current==='station'&&typeof StationView!=='undefined'&&typeof StationView.currentTarget==='function'){
+   let label='',plane='';
+   try{
+    label=String(StationView.currentTarget(state)?.label||'').trim();
+    plane=String(StationView.currentStage(state)?.forward?.plane||'').trim();
+   }catch(e){label='';plane='';}
+   text(pointEl,label||'No station selected');
+   text(planeEl,plane?('Plane: '+plane):'Measurement plane unknown');
+   hidden(planeEl,false);
+  }else{
+   const row=chosen();
+   text(pointEl,row?(row.name||'Unnamed point'):'No point selected');
+   text(planeEl,'');hidden(planeEl,true);
+  }
+ }
  function apply(){
   if(!ready||applying||rendering||printVisibility||typeof document==='undefined'||!document?.documentElement)return;applying=true;
   try{
@@ -172,6 +198,7 @@ const WorkflowUI=(()=>{
    updateJobViews();
    const power=$('powerPanel');if(power){[...power.children].forEach(child=>hidden(child,current==='trial'?child.id!=='powerWhatIf':child.id==='powerWhatIf'));if(current==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;}
    updateHome();
+   updateContextStrip();
   }finally{applying=false;}
  }
  function queue(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
