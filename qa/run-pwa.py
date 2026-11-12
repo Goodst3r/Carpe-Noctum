@@ -105,6 +105,7 @@ suites=[
  ('Build 3 power sum against the shared calculator vectors','build3-power-sum.test.cjs',r'Build3 power sum: (\d+) checks passed'),
  ('Build 3 power sum in a real browser: a half-typed level is not dropped','build3-power-sum-real.test.py',r'Build3 power sum real browser: (\d+) checks passed'),
  ('Build 3 Safety removal and legacy data retention','build3-safety-removal.test.cjs',r'Build3 Safety removal: (\d+) checks passed'),
+ ('Build 3 navigation regroup','build3-nav1.test.cjs',r'Build3 navigation regroup: (\d+) checks passed'),
 ]
 import sys,time
 sys.path.insert(0,str(root/'qa'))

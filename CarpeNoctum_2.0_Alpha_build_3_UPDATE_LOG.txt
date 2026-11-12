@@ -1,6 +1,8 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
-Power sum, November 12, 2026: Test → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
+NAV-1, November 12, 2026: screens are regrouped under Home, Plan, Field, Tools and Closeout. Screen ids, storage keys and the job format are unchanged. Plan, Field and Tools are lists (the old rows wrap at 320 px). Supply PM is in Plan with Load and What-if. Safety stays removed. No new screen or version.
+
+Power sum, November 12, 2026: Tools → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
 
 CURRENT B1 PRODUCT NOTE - November 12, 2026 UTC
 Safety is removed by Spencer's decision: its screen, practice feature and

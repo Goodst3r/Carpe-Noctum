@@ -7,7 +7,7 @@ NightSweep is an offline field calculator and job notebook for HFC maintenance t
 
 Use the Android APK, open the full web app in Chrome on Android, or add the web app to an iPhone Home Screen through Safari. The web app must finish its first online setup before you rely on it offline. Every version uses the same task layout; jobs stay in the app or browser where you create them until you export and transfer them.
 
-Build 2 retains the organized practice library, six-active serial cascade and custom-curve exercise, and improves render work, TDR boundary handling, project-import limits and named-job reliability. Existing launch and equipment setup stay in the same field sequence. Choose a **Node output**, **Amplifier / LE output**, or **Manual / other output** in **Route → Setup**, then open the matching **Source setup & manual**. Review applicable manual steps under **Route → Amp / node setup**, continue through your cable route and sweep setup, and save readings and evidence with the job. A source choice does not add an artificial gain block, set launch levels from a rating, or apply test-point correction automatically.
+Build 2 retains the organized practice library, six-active serial cascade and custom-curve exercise, and improves render work, TDR boundary handling, project-import limits and named-job reliability. Existing launch and equipment setup stay in the same field sequence. Choose a **Node output**, **Amplifier / LE output**, or **Manual / other output** in **Plan → Setup**, then open the matching **Source setup & manual**. Review applicable manual steps under **Plan → Amp / node setup**, continue through your cable route and sweep setup, and save readings and evidence with the job. A source choice does not add an artificial gain block, set launch levels from a rating, or apply test-point correction automatically.
 
 The five main tabs remain **Home, Route, Test, Power, and Job**. Equipment setup notes and reviewed steps are job records; RF predictions, measured readings and acceptance remain separate. The 42/54 MHz forward and Return Sweepless Sweep workflow stays distinct from the 204/258 MHz forward Sweepless Sweep and XPERTrak return sweep workflow.
 
@@ -19,47 +19,47 @@ The five main tabs remain **Home, Route, Test, Power, and Job**. Equipment setup
 
 For a new field job:
 
-1. Open **Job → Details** and choose **+ New blank job**. Enter a useful name and node or asset. Save a named job when you want it in the local job list.
-2. Open **Route → Setup**. Choose **Node output**, **Amplifier / LE output**, or **Manual / other output**. For a node, select its model, installed split, RF port and operating upper frequency. For an amplifier or LE, select the exact configuration and output port.
+1. Open **Plan → Details** and choose **+ New blank job**. Enter a useful name and node or asset. Save a named job when you want it in the local job list.
+2. Open **Plan → Setup**. Choose **Node output**, **Amplifier / LE output**, or **Manual / other output**. For a node, select its model, installed split, RF port and operating upper frequency. For an amplifier or LE, select the exact configuration and output port.
 3. Enter the actual low/high frequencies, launch levels and cable temperature. If using a test point, enter only the coupling the meter has not already added. Changing the source identity preserves your entered levels; review them for the new physical connection.
-4. Choose **Source setup & manual**, or **Route → Amp / node setup**. Select the source or a route active, read its applicable manual and record the steps actually reviewed. If the exact manual is unavailable, obtain it before applying equipment-specific adjustments.
+4. Choose **Source setup & manual**, or **Plan → Amp / node setup**. Select the source or a route active, read its applicable manual and record the steps actually reviewed. If the exact manual is unavailable, obtain it before applying equipment-specific adjustments.
 5. Continue to **Cable route**. Add spans and ending equipment in feed order, starting directly from the selected source output. Use **Amp gain**, **TDR** or **Readings** when those tasks are needed.
-6. Follow **Test → Meter setup** for the actual plant split and approved method. Attach original meter files under **Job → ONX files**, then review **Job → Run sheet**.
+6. Follow **Field → Meter setup** for the actual plant split and approved method. Attach original meter files under **Field → ONX files**, then review **Closeout → Run sheet**.
 7. Use **Files → Back up project**, finish the phone's save action, and confirm the portable backup exists outside NightSweep.
 
-Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Outage and the sweep grading aid. Use **Six active devices in series** for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Route → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
+Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Tools → Calculators, Tools → Limits, Tools → DOCSIS health, Field → Leakage, Home → Outage and the sweep grading aid. Use **Six active devices in series** for Field → Night log and Plan → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Plan → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
 
 ## Find the right tool
 
 | What you want to do | Where to go | What you need first |
 | --- | --- | --- |
 | Find a task or learn the basic flow | **Home** | Nothing |
-| Choose node / amp / LE launch and enter levels | **Route → Setup** | Exact source output, frequencies, levels and measurement plane |
-| Follow the installed equipment manual | **Route → Amp / node setup** | Exact module, split, firmware and applicable guide |
-| Build cable and passive spans | **Route → Cable route** | Lengths, cable, equipment, actual feeds |
-| Check whether an amp or LE has enough gain | **Route → Amp gain** | Active route point, gain at both markers, output targets |
-| Keep personal night notes and prepare a shift handoff | **Job → Night log** | Ticket, optional local window, actions and explicit saved Station captures; no customer identifiers |
-| Record station balance and separate sweep dates | **Route → Station** | Installed station, actual pilots/readings, approved targets and measurement planes |
-| Look up cable/passive/active equipment | **Route → Catalog** | Manufacturer, model, or part type |
-| Turn a TDR reading into a span location | **Test → TDR** | Route distances and measurement origin |
-| Follow the measured forward/return setup process | **Test → Meter setup** | Split, actual test method, matching reference and approved criteria |
-| See predicted RF levels across frequency | **Test → Predicted levels** | Launch and route |
-| Check a single cable/passive combination | **Test → Frequency** | Cable length, passive path, frequency |
-| Compare a meter reading with a prediction | **Test → Readings** | Route point, frequency, reading, remaining TP coupling |
-| Look up cable loss, tap faces, or frequency references | **Test → References** | Matching equipment or route tap as needed |
-| Run a quick dB, ripple, OFDM, power-sum, echo or pad/EQ calculation | **Test → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
-| Check a limit and where it came from | **Test → Limits** | Nothing first. Company values stay unknown until someone enters them |
-| Compare a modem or meter reading with a DOCSIS range | **Test → DOCSIS health** | The reading you type. The card does not talk to a modem |
-| Check a leak, estimate CLI, or keep a personal leak log | **Test → Leakage** | Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup |
-| Estimate supply draw and equipment voltage | **Power → Load** | Actual power circuit and equipment loads |
-| Try an additional cable/load before keeping it | **Power → What-if** | Existing power plan |
-| Save/open named jobs and record node details | **Job → Details** | Job and installed equipment information |
-| Attach Sweep, Ingress, or OneCheck files | **Job → ONX files** | Files already available on your phone |
-| Record inspection and repair work | **Job → Checklists** | Work actually performed |
-| Walk through outage first-response prompts | **Job → Outage** | Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it |
-| Maintain measurement and acceptance records | **Job → Acceptance** | Approved procedure, criteria, readings, and traces |
-| Review personal sweep reminders across device jobs | **Job → Sweep due** | Actual Station work dates and your entered interval, initially unknown |
-| Review, print, or share the field summary | **Job → Run sheet** | Current job data |
+| Choose node / amp / LE launch and enter levels | **Plan → Setup** | Exact source output, frequencies, levels and measurement plane |
+| Follow the installed equipment manual | **Plan → Amp / node setup** | Exact module, split, firmware and applicable guide |
+| Build cable and passive spans | **Plan → Cable route** | Lengths, cable, equipment, actual feeds |
+| Check whether an amp or LE has enough gain | **Plan → Amp gain** | Active route point, gain at both markers, output targets |
+| Keep personal night notes and prepare a shift handoff | **Field → Night log** | Ticket, optional local window, actions and explicit saved Station captures; no customer identifiers |
+| Record station balance and separate sweep dates | **Field → Station** | Installed station, actual pilots/readings, approved targets and measurement planes |
+| Look up cable/passive/active equipment | **Tools → Catalog** | Manufacturer, model, or part type |
+| Turn a TDR reading into a span location | **Field → TDR** | Route distances and measurement origin |
+| Follow the measured forward/return setup process | **Field → Meter setup** | Split, actual test method, matching reference and approved criteria |
+| See predicted RF levels across frequency | **Plan → Predicted levels** | Launch and route |
+| Check a single cable/passive combination | **Tools → Frequency** | Cable length, passive path, frequency |
+| Compare a meter reading with a prediction | **Field → Readings** | Route point, frequency, reading, remaining TP coupling |
+| Look up cable loss, tap faces, or frequency references | **Tools → References** | Matching equipment or route tap as needed |
+| Run a quick dB, ripple, OFDM, power-sum, echo or pad/EQ calculation | **Tools → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
+| Check a limit and where it came from | **Tools → Limits** | Nothing first. Company values stay unknown until someone enters them |
+| Compare a modem or meter reading with a DOCSIS range | **Tools → DOCSIS health** | The reading you type. The card does not talk to a modem |
+| Check a leak, estimate CLI, or keep a personal leak log | **Field → Leakage** | Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup |
+| Estimate supply draw and equipment voltage | **Plan → Load** | Actual power circuit and equipment loads |
+| Try an additional cable/load before keeping it | **Plan → What-if** | Existing power plan |
+| Save/open named jobs and record node details | **Plan → Details** | Job and installed equipment information |
+| Attach Sweep, Ingress, or OneCheck files | **Field → ONX files** | Files already available on your phone |
+| Record inspection and repair work | **Field → Checklists** | Work actually performed |
+| Walk through outage first-response prompts | **Home → Outage** | Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it |
+| Maintain measurement and acceptance records | **Closeout → Acceptance** | Approved procedure, criteria, readings, and traces |
+| Review personal sweep reminders across device jobs | **Plan → Sweep due** | Actual Station work dates and your entered interval, initially unknown |
+| Review, print, or share the field summary | **Closeout → Run sheet** | Current job data |
 | Read the calculation methods | **Help** from the header or Home | Nothing |
 
 Main tabs choose the work area. The smaller task tabs choose a function within that area. The point selector chooses which route location you are editing. Use **Previous** and **Next** when working down the route instead of scrolling past every point.
@@ -141,13 +141,13 @@ For **ACI DSIM**, identify the HGD and downstream LE, their DSIM variant, firmwa
 
 The focused **OEM AGC and DSIM** exercises use the user’s local non-high-split design anchors: **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. Their synthetic raw readings are **11 / 23 dBmV**, with one explicit **+20 dB** remaining test-point addback, yielding **31 / 43 dBmV**. The **38 dBmV return TX reference** is recorded separately; confirm the transmitter, signal-power convention and measurement plane. It is not forward launch, return injection or CMTS/receiver level. The complete GS7K/GainMaker GaN workflow uses the same local **54 / 860 MHz at 31 / 43 dBmV** anchors; the separate Vecima/AOI six-active exercise uses **261 / 993 MHz at 34 / 46 dBmV**.
 
-The focused OEM AGC, DSIM, manual/thermal and GS7K examples open with zero evidence files. Attach your own labeled practice originals under **Job → ONX files** when rehearsing evidence handling. Opening or resetting another example preserves the previous working copy in named jobs; export it for an external backup.
+The focused OEM AGC, DSIM, manual/thermal and GS7K examples open with zero evidence files. Attach your own labeled practice originals under **Field → ONX files** when rehearsing evidence handling. Opening or resetting another example preserves the previous working copy in named jobs; export it for an external backup.
 
 ### Focused GS7K node practice
 
 Choose **Home → Open GS7K node practice** for a ten-step standard-node exercise. It starts with a **GS7000 1.2 GHz / 42/54 MHz** launch. Launch levels and test-point correction are deliberately unverified; there are no RF route rows, attached evidence files or saved traces. Confirm actual readings and remaining compensation before using predictions. The GS7K design profile carries the user-local **54 / 860 MHz, 31 / 43 dBmV** anchors and separate **38 dBmV return TX reference**. Actual source markers, readings and remaining TP coupling stay blank/unverified; design values are not copied into measured launch. The starter is not a pre-aligned node.
 
-Follow the guide through identity, **Route → Setup → Node output → exact model**, **Source setup & manual**, receiver/routing checks, standard forward pad/EQ setup, return handoff, the applicable sweep workflow, records and backup. The guide explains where standard 1 GHz selection changes the source/manual context. Reviewed steps remain practice records.
+Follow the guide through identity, **Plan → Setup → Node output → exact model**, **Source setup & manual**, receiver/routing checks, standard forward pad/EQ setup, return handoff, the applicable sweep workflow, records and backup. The guide explains where standard 1 GHz selection changes the source/manual context. Reviewed steps remain practice records.
 
 Current Equipment setup launch choices cover **standard GS7000 1 GHz and standard 1.2 GHz**. SHO/Fiber Deep, Intelligent and retrofit-RPD documents are variant references requiring exact installed-module confirmation; they are not additional selectable launch/setup profiles here. Conventional LCM Auto Set-Up discovers modules and does not balance RF. This practice job provides no physical alignment or measured acceptance.
 
@@ -185,15 +185,15 @@ The main endpoint is 2380 ft from the source; the branch cable-only endpoint is 
 
 ### 1. Inspect launch and equipment identity
 
-Open **Route → Setup**. Confirm the GS7K source, 42/54 split, selected output, **54/860 MHz** markers and measurement plane. Synthetic **11/23 dBmV** test-point readings with one remaining **+20 dB** correction give **31/43 dBmV** launch. A meter that already compensates its test point needs no second addback. RF cable temperature and power-cable temperature are separate inputs.
+Open **Plan → Setup**. Confirm the GS7K source, 42/54 split, selected output, **54/860 MHz** markers and measurement plane. Synthetic **11/23 dBmV** test-point readings with one remaining **+20 dB** correction give **31/43 dBmV** launch. A meter that already compensates its test point needs no second addback. RF cable temperature and power-cable temperature are separate inputs.
 
-Open **Source setup & manual**, then select each route GaN HGD under **Route → Amp / node setup**. Identify exact modules, firmware, control hardware and the applicable procedure. Keep unavailable GaN instructions unresolved. The focused OEM AGC, DSIM and manual/thermal exercises teach their own matching control paths; they do not approve applying those instructions to this GaN module.
+Open **Source setup & manual**, then select each route GaN HGD under **Plan → Amp / node setup**. Identify exact modules, firmware, control hardware and the applicable procedure. Keep unavailable GaN instructions unresolved. The focused OEM AGC, DSIM and manual/thermal exercises teach their own matching control paths; they do not approve applying those instructions to this GaN module.
 
 Try the header's palette button (**Switch to Sun palette** or **Switch to Night palette**) and **Help & methods**. Display controls do not change route calculations.
 
 ### 2. Follow branches, passives and the drop
 
-Open **Route → Cable route** and use the point selector or **Previous/Next** to follow the incoming cable and ending device. Identify Scientific Atlanta, GigaXtend and Technetix by the selected exact model and port.
+Open **Plan → Cable route** and use the point selector or **Previous/Next** to follow the incoming cable and ending device. Identify Scientific Atlanta, GigaXtend and Technetix by the selected exact model and port.
 
 At Split S1, follow the low-loss output to Main Tap B and the high-loss output to Branch Tap D. Open **More at this point** to compare tap faces, inspect the **75 ft custom RG-6 drop** and premises splitter, read map notes and expand **Show the arithmetic**. Custom cable tables are already at actual temperature; do not apply the published-cable temperature factor again.
 
@@ -201,49 +201,49 @@ Follow the branch's custom inline-loss and cable-only points. Try adding a point
 
 ### 3. Check both GaN amplifiers
 
-Open **Route → Amp gain** and select GaN A1, then GaN A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
+Open **Plan → Amp gain** and select GaN A1, then GaN A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
 
 Change one marker's gain, review its prediction and restore it. A satisfactory low-frequency result cannot compensate for a high-frequency shortage. In **Calculate gain from test-point readings**, the synthetic 54 MHz pair 7.1/16.1 dBmV with equal +20 dB addbacks gives 27.1/36.1 dBmV, or **9 dB** net gain. Compare corrected output minus corrected input at the same frequency, applying only remaining coupling once. This changes an arithmetic input; it does not align a physical station.
 
 ### 4. Locate a TDR distance after the correct active
 
-Open **Test → TDR**. Select the cable side after **GaN A2** and review endpoint, direction, displayed distance, lead and velocity factors. The example uses 295 ft displayed − 25 ft lead = 270 ft from GaN A2 at route coordinate 1700 ft. The event is at 1970 ft: 160 ft into Main Tap B's 310 ft incoming span, 150 ft before its end. Both VFs are 0.87. This locates an entered distance; it has not detected a physical fault.
+Open **Field → TDR**. Select the cable side after **GaN A2** and review endpoint, direction, displayed distance, lead and velocity factors. The example uses 295 ft displayed − 25 ft lead = 270 ft from GaN A2 at route coordinate 1700 ft. The event is at 1970 ft: 160 ft into Main Tap B's 310 ft incoming span, 150 ft before its end. Both VFs are 0.87. This locates an entered distance; it has not detected a physical fault.
 
 Try the **Launch** origin exercise. A route from the source beyond an amplifier crosses an active boundary and is blocked. Restore the cable-side origin. Route coordinate and distance from the chosen origin are different quantities.
 
 ### 5. Compare sweep views, frequency and references
 
-Open **Test → Predicted levels**. Compare **Signal level**, **Normalized path response** and **Total path loss** for the source, actives and tap ports. Read live/planning limits and unavailable coverage. These calculated curves are separate from the attached synthetic CSVs.
+Open **Plan → Predicted levels**. Compare **Signal level**, **Normalized path response** and **Total path loss** for the source, actives and tap ports. Read live/planning limits and unavailable coverage. These calculated curves are separate from the attached synthetic CSVs.
 
-Open **Test → Frequency**. At **860 MHz**, 200 ft × 2.2 dB/ 100 ft + 1.4 dB through loss = **5.8 dB**, so 43 dBmV launch gives **37.2 dBmV** receive level. These are synthetic exact-frequency entries already at temperature. This is a separate single-path checker; the full-route summary follows the selected route output. An override does not establish loss at every frequency, and clearing launch leaves receive level unavailable even if loss is calculable.
+Open **Tools → Frequency**. At **860 MHz**, 200 ft × 2.2 dB/ 100 ft + 1.4 dB through loss = **5.8 dB**, so 43 dBmV launch gives **37.2 dBmV** receive level. These are synthetic exact-frequency entries already at temperature. This is a separate single-path checker; the full-route summary follows the selected route output. An override does not establish loss at every frequency, and clearing launch leaves receive level unavailable even if loss is calculable.
 
-Use **Test → Meter setup → 42/54 MHz** for forward **Sweepless Sweep** and **Return Sweepless Sweep**. Keep the **38 dBmV return TX** reference separate from receiver and injection settings. The **204/258 MHz XPERTrak return** path belongs to the separate Vecima/AOI six-active example.
+Use **Field → Meter setup → 42/54 MHz** for forward **Sweepless Sweep** and **Return Sweepless Sweep**. Keep the **38 dBmV return TX** reference separate from receiver and injection settings. The **204/258 MHz XPERTrak return** path belongs to the separate Vecima/AOI six-active example.
 
-Open **Test → References** for available-carrier target estimates, anchors, cable loss, tap faces and draft targets. Preserve the original **54/860 MHz** design when estimating at confirmed carriers. Applying a reference changes only its stated fields and never approves criteria.
+Open **Tools → References** for available-carrier target estimates, anchors, cable loss, tap faces and draft targets. Preserve the original **54/860 MHz** design when estimating at confirmed carriers. Applying a reference changes only its stated fields and never approves criteria.
 
 ### 6. Compare synthetic readings
 
-Open **Test → Readings**. Inspect GaN test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
+Open **Field → Readings**. Inspect GaN test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
 
 Change one reading by 1 dB and confirm corrected reading/error move by 1 dB, then restore it. Do not add coupling twice to a meter-compensated reading.
 
 ### 7. Follow the separate power circuit
 
-Open **Power → Load**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and GaN A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
+Open **Plan → Load**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and GaN A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
 
 Review supply current, loading/headroom, branch current, voltage drop and equipment voltage. With unchanged synthetic inputs, the independent reference answer is **2.047 A** supply current, **13.65%** loading and **88.83 V** minimum equipment voltage at GaN A2. RF branches do not define power passing.
 
-Open **Power → What-if** for the additional **300 ft / 0.75 A** candidate after GaN A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
+Open **Plan → What-if** for the additional **300 ft / 0.75 A** candidate after GaN A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
 
 ### 8. Inspect synthetic meter files
 
-Open **Job → ONX files** and compare the five interchange CSVs: Sweep Before/After, Ingress Before/After and OneCheck After. The sixth file is an original-only synthetic SVG diagram. None is a native ONX capture, measured field trace or data extracted from the user's photographs.
+Open **Field → ONX files** and compare the five interchange CSVs: Sweep Before/After, Ingress Before/After and OneCheck After. The sixth file is an original-only synthetic SVG diagram. None is a native ONX capture, measured field trace or data extracted from the user's photographs.
 
 Preview the stages, export an original and confirm it exists outside the app. A filename typed in a record does not contain original bytes. Unsupported photos/files remain attachments and do not automatically populate readings.
 
 ### Build 3: grade an attached sweep
 
-In **Job → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
+In **Field → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
 
 Supported native previews cover the inspected VIAVI **TestGroup** and **CDM2** sweep JSON layouts, directly or inside gzip (including `.json-1.gz`) or a ZIP with one eligible JSON. Only one unambiguous explicit trace is decoded; unsupported or ambiguous files stay attached with a reason. These narrow adapters are not a general VIAVI decoder. Native direction and reference state are shown separately: unknown direction remains unknown, even when you explicitly select a grading direction. A known native direction conflict blocks grading. Native limits never become company criteria. The included interchange CSV practice traces are invented and are not native ONX captures.
 
@@ -261,17 +261,17 @@ The **Custom curves and reverse TDR** exercise adds an explicit grading step and
 
 ### 9. Review checklists and records
 
-Open **Job → Checklists** for inspection, maintenance, repair and retest notes. Try **72 dBµV → 12 dBmV**; this adds no test-point correction. Checkmarks record practice, not acceptance.
+Open **Field → Checklists** for inspection, maintenance, repair and retest notes. Try **72 dBµV → 12 dBmV**; this adds no test-point correction. Checkmarks record practice, not acceptance.
 
-Open **Job → Acceptance**. Review planning-only rows, unapproved criteria, frequencies, measurement planes, corrections, trace references and reviewer fields. The **38 dBmV return TX reference** is not a receiver target or generator setting. Injection-budget arithmetic is a separate form exercise, not the 42 MHz Return Sweepless Sweep method or an instrument limit.
+Open **Closeout → Acceptance**. Review planning-only rows, unapproved criteria, frequencies, measurement planes, corrections, trace references and reviewer fields. The **38 dBmV return TX reference** is not a receiver target or generator setting. Injection-budget arithmetic is a separate form exercise, not the 42 MHz Return Sweepless Sweep method or an instrument limit.
 
 Keep the DSIM form exercise separate from the installed GaN procedure. Reviewed steps cannot establish pilot lock, module compatibility, physical alignment or measured acceptance. Inspect the open punch item and required closeout/retest fields.
 
 ### 10. Export and recover the job
 
-1. Review **Job → Run sheet**, including synthetic label, equipment, frequencies, predictions and notes.
+1. Review **Closeout → Run sheet**, including synthetic label, equipment, frequencies, predictions and notes.
 2. Try report, print/share and CSV actions; complete the phone's save/share step and verify the result. Reports are not full backups.
-3. Try **Job → Details → Save now** and **Duplicate**. Retain TRAINING in practice names.
+3. Try **Plan → Details → Save now** and **Duplicate**. Retain TRAINING in practice names.
 4. Use **Files → Back up project** and confirm the JSON exists outside the app.
 5. Reopen it with **Files → Open project** and verify route, power, records, progress and all six original files.
 6. Return to the preserved real job or **+ New blank job**. Check its name before entering real readings.
@@ -323,7 +323,7 @@ Changing source type or equipment does not silently replace launch levels or ins
 
 ## Equipment setup and manuals
 
-Open **Route → Amp / node setup**, or choose **Source setup & manual** from Launch. Select the launch source or an active point already on the route. The screen brings its model, band, source document, revision or section, applicable steps and missing information together. The read-only **Setup frequencies & job levels** card shows the selected job design profile’s forward anchors/targets, the separate 42 MHz TX reference and return frequencies/service plan, and the recorded pilot context. The card also shows calculated available-carrier targets separately from the base design when a valid conversion draft exists. Confirm these references apply to the selected station and output; they are not meter readings or automatic hardware settings. Use the continuation buttons to return to Launch settings or Cable route, or to continue to Forward / return sweep, Record readings or Attach evidence / backup.
+Open **Plan → Amp / node setup**, or choose **Source setup & manual** from Launch. Select the launch source or an active point already on the route. The screen brings its model, band, source document, revision or section, applicable steps and missing information together. The read-only **Setup frequencies & job levels** card shows the selected job design profile’s forward anchors/targets, the separate 42 MHz TX reference and return frequencies/service plan, and the recorded pilot context. The card also shows calculated available-carrier targets separately from the base design when a valid conversion draft exists. Confirm these references apply to the selected station and output; they are not meter readings or automatic hardware settings. Use the continuation buttons to return to Launch settings or Cable route, or to continue to Forward / return sweep, Record readings or Attach evidence / backup.
 
 For GainMaker stations, first choose **Installed gain control → OEM GainMaker AGC**, **ACI DSIM**, or **Manual / thermal control**. Then choose the **Documented setup method** offered for that exact model. This distinguishes the physical fitted control from the method used to prepare it. A catalog label or previous DSIM note does not prove the currently installed control.
 
@@ -335,8 +335,8 @@ Exact public commissioning guides remain unavailable for **Vecima EN9000/RFAM/RP
 
 ### Set up a GS7000 / GS7K launch node
 
-1. Open **Route → Setup → Node output** and choose the installed **GS7000 1 GHz** or **GS7000 1.2 GHz** model. Confirm its split, asset, RF port, launch/receiver/transmitter modules, routing and actual operating/live limits. Enter approved launch targets or measured levels; the node choice does not set them.
-2. Choose **Source setup & manual**, or open **Route → Amp / node setup** and select the launch source. Read the exact standard-node guide. The selectable launch setup covers standard 1 GHz and standard 1.2 GHz. SHO/Fiber Deep, Intelligent and retrofit-RPD manuals remain variant references; those are not extra launch/setup choices here, and their procedures are not interchangeable.
+1. Open **Plan → Setup → Node output** and choose the installed **GS7000 1 GHz** or **GS7000 1.2 GHz** model. Confirm its split, asset, RF port, launch/receiver/transmitter modules, routing and actual operating/live limits. Enter approved launch targets or measured levels; the node choice does not set them.
+2. Choose **Source setup & manual**, or open **Plan → Amp / node setup** and select the launch source. Read the exact standard-node guide. The selectable launch setup covers standard 1 GHz and standard 1.2 GHz. SHO/Fiber Deep, Intelligent and retrofit-RPD manuals remain variant references; those are not extra launch/setup choices here, and their procedures are not interchangeable.
 3. Following the approved service procedure, verify optical input and the installed receiver’s attenuation table. Record optical receiver type, segmentation and measurement planes; optical work can interrupt service.
 4. For a standard node, set the applicable **OIB receiver pad** for the highest required output in a segment, lower other shared outputs with their individual **FWD PORT OUT pads**, and select the matching path equalizers for design tilt. Recheck both markers and every affected port. The 1 GHz and 1.2 GHz receiver/pad/EQ tables differ.
 5. Apply only test-point coupling the meter has not already added. Keep source launch readings, receiver readings and other RF points distinct. **Conventional LCM Auto Set-Up discovers modules; it does not perform RF level/tilt alignment.** Intelligent LCS Auto Setup is a separate forward OIB procedure and does not align return.
@@ -381,7 +381,7 @@ The **ACI mobile app Rev B** has a separate DSIM-DONGLE-02, Working Mode/MGC and
 
 The offline lookup includes **86 literal rows** transcribed from the **user-supplied ACI iPhone/iPad Pilot Channel Code Guide, Revision A, pp 2–5**: channels **52–94** and **100–142**. These are historical source-table entries, not a universal supervisor password. Inclusion does not establish compatibility with a particular ACI app version, controller firmware or installed module, and no hardware validation is claimed.
 
-1. Open **Route → Amp / node setup**, choose the GainMaker source/route station and its DSIM variant, then open the pilot-code lookup.
+1. Open **Plan → Amp / node setup**, choose the GainMaker source/route station and its DSIM variant, then open the pilot-code lookup.
 2. Choose **Analog** or **Digital** to match the source's signal type. Select the exact channel, or enter its source-listed frequency in **MHz**. Confirm the channel, type and frequency together before using the result.
 3. Read the displayed source/revision and any exception. Use **Copy** for an eligible exact match, then paste the code into the appropriate ACI controller/app field. Preserve every character, including `@`, `?`, `<` and the final letter. Do not calculate a code from an adjacent row.
 4. Confirm the intended live pilot and applicable setup procedure on the real equipment, and record the actual result. A copied table entry is not proof of alignment or acceptance.
@@ -454,7 +454,7 @@ Use custom cable or passive tables only with values that match the actual freque
 
 ## Amp gain
 
-Use **Route → Amp gain** to answer: **Can this amplifier restore the desired output after the preceding route losses?** First add the amplifier in Cable route as **Active amplifier**. Then select that active point in Amp gain.
+Use **Plan → Amp gain** to answer: **Can this amplifier restore the desired output after the preceding route losses?** First add the amplifier in Cable route as **Active amplifier**. Then select that active point in Amp gain.
 
 The catalog includes GainMaker 1 GHz GaAs HGD, GaN HGD, manual LE, thermal LE, AGC LE, and AOI Quantum18 HGD and LE configurations. Match the actual module, split, control mode, and output path.
 
@@ -520,7 +520,7 @@ The photos of an ONX output screen alone cannot establish amplifier gain. Gain r
 
 ## TDR distance locator
 
-Open **Test → TDR** after entering the cable route. The locator relates an already measured one-way TDR distance to that route. It does not interpret a TDR waveform or identify the defect type.
+Open **Field → TDR** after entering the cable route. The locator relates an already measured one-way TDR distance to that route. It does not interpret a TDR waveform or identify the defect type.
 
 1. Select **Path ends at** to choose the branch being tested.
 2. Select **TDR connected at**. Automatic uses the route start for forward testing or the chosen endpoint for reverse testing.
@@ -548,7 +548,7 @@ Use that correction only for a path with one applicable, known velocity factor. 
 
 ## Guided sweep setup
 
-Open **Test → Meter setup**. Choose the plant split independently of the downstream equipment bandwidth:
+Open **Field → Meter setup**. Choose the plant split independently of the downstream equipment bandwidth:
 
 | Plant profile | Forward test | Return test |
 | --- | --- | --- |
@@ -565,11 +565,11 @@ For **204 MHz XPERTrak return sweep**, follow the configured node/port, sweep pl
 
 The comparison helper reports level and tilt differences from the values entered. It does not choose an approved operating target, certify a band, control the ONX or XPERTrak, or change amplifier settings. A completed step means only that the technician marked that step; final RF acceptance requires measured evidence and review.
 
-Use the workflow export for a readable setup record, and **Files → Back up project** for the full portable job backup. Attach the original Before/After/Reference meter files under **Job → ONX files**. A workflow text export does not replace that backup or its original evidence.
+Use the workflow export for a readable setup record, and **Files → Back up project** for the full portable job backup. Attach the original Before/After/Reference meter files under **Field → ONX files**. A workflow text export does not replace that backup or its original evidence.
 
 ## Sweep predictions
 
-Open **Test → Predicted levels** to see the route over frequency and the output-level table. Select only the traces you need; fewer traces are easier to compare.
+Open **Plan → Predicted levels** to see the route over frequency and the output-level table. Select only the traces you need; fewer traces are easier to compare.
 
 | Graph mode | Use it for |
 | --- | --- |
@@ -583,7 +583,7 @@ Solid/dashed styling distinguishes frequencies within and above the stated avail
 
 ## Frequency checker
 
-**Test → Frequency** is a quick calculation for one cable segment plus one passive output path. It does not require rebuilding the full RF route.
+**Tools → Frequency** is a quick calculation for one cable segment plus one passive output path. It does not require rebuilding the full RF route.
 
 1. Select cable, feet, passive, actual output path, and quantity.
 2. Check return, forward, equipment, planned, and live-frequency limits.
@@ -599,7 +599,7 @@ The complete-route summary selects an existing route output and shows its total 
 
 ## Meter readings
 
-Open **Test → Readings**, select the route point, and choose the relevant output. Enter measurement frequency, displayed level, and any remaining test-point coupling.
+Open **Field → Readings**, select the route point, and choose the relevant output. Enter measurement frequency, displayed level, and any remaining test-point coupling.
 
 The comparison shows:
 
@@ -615,7 +615,7 @@ A zero reading is a valid number; a blank means no measurement was entered. A fi
 
 ## References
 
-**Test → References** groups optional shortcuts:
+**Tools → References** groups optional shortcuts:
 
 - **Launch anchor pairs:** Apply an offered frequency pair when it matches the plant. Levels and actual available spectrum still need your input. Table-mode launch keeps its own frequency entries.
 - **Target ranges:** Fill an editable draft from a selected profile or a clearly labeled example. Applying ranges uses their centers and one common tolerance; both ranges must have equal width. It marks the profile criteria unapproved.
@@ -647,9 +647,9 @@ These helpers distinguish manufacturer information, user-local design references
 
 **54 MHz is below the forward passband of the LGD 65/86 configuration and every catalog Quantum18 split.** Use an approved in-band job marker for those stations; never copy the lower-split 54 MHz anchor silently. The OEM thermal-setup branch does not use a manual-backoff test frequency. The actual OEM detector part number and approved live pilot carrier must be identified; a DSIM factory preset (for example CH88 digital 609 MHz) is not approval to use it on your plant.
 
-Choose **Test → References → Your local non-high-split targets → Local non-high-split: 31 @ 54 / 43 @ 860 · TX 38** only for a selected non-high-split design profile whose downstream passband actually includes **54 and 860 MHz**. After confirmation it updates that profile’s forward design frequencies/levels and the separate 42 MHz TX reference to 38 dBmV. Measured Route Setup frequencies/readings, existing forward/return records, tolerances, receiver targets, injection settings, hardware capability and available spectrum remain unchanged. Profile criteria remain unapproved. A return ceiling of **204 MHz or above**, or a downstream band that excludes 54 MHz, blocks applying this preset. A lower return split alone does not establish that 54 MHz is usable.
+Choose **Tools → References → Your local non-high-split targets → Local non-high-split: 31 @ 54 / 43 @ 860 · TX 38** only for a selected non-high-split design profile whose downstream passband actually includes **54 and 860 MHz**. After confirmation it updates that profile’s forward design frequencies/levels and the separate 42 MHz TX reference to 38 dBmV. Measured Route Setup frequencies/readings, existing forward/return records, tolerances, receiver targets, injection settings, hardware capability and available spectrum remain unchanged. Profile criteria remain unapproved. A return ceiling of **204 MHz or above**, or a downstream band that excludes 54 MHz, blocks applying this preset. A lower return split alone does not establish that 54 MHz is usable.
 
-Under **Test → Meter setup → 42 / 54 MHz**, **Operator return TX reference (dBmV)** records the separate **38 dBmV** reference. Fill **Return TX frequencies / service plan** from the verified operator plan; this text is deliberately not inferred from the level or split. It does not set desired network-plane injection, raw generator output, received/CMTS level or relative-return targets. The 42 MHz Return Sweepless Sweep workflow gains no generator calculation from this reference. Confirm the actual measurement plane and channel-power convention before applying any local value.
+Under **Field → Meter setup → 42 / 54 MHz**, **Operator return TX reference (dBmV)** records the separate **38 dBmV** reference. Fill **Return TX frequencies / service plan** from the verified operator plan; this text is deliberately not inferred from the level or split. It does not set desired network-plane injection, raw generator output, received/CMTS level or relative-return targets. The 42 MHz Return Sweepless Sweep workflow gains no generator calculation from this reference. Confirm the actual measurement plane and channel-power convention before applying any local value.
 
 The complete GS7K/GainMaker GaN training job uses the local **54 / 860 MHz, 31 / 43 dBmV** design and separate **38 dBmV return TX** reference. The separate Vecima/AOI six-active job keeps its synthetic **261 / 993 MHz, 34 / 46 dBmV** setup; the lower-split preset cannot overwrite that high-split profile.
 
@@ -657,7 +657,7 @@ The complete GS7K/GainMaker GaN training job uses the local **54 / 860 MHz, 31 /
 
 The base local design remains **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. If the usable carriers are, for example, **57–753 MHz** or **63–550 MHz**, calculate the target at each confirmed setup frequency from those original anchors. The available endpoints do not become new 31/43 dBmV anchors. A spectrum edge is not automatically a channel center; confirm the intended carrier, channel-power convention and measurement plane.
 
-Open **Test → References → Setup targets at available carriers**. Enter **Available low carrier (MHz)** and **Available high carrier (MHz)**, then select **Target curve → Square-root frequency · cable law** or **Linear MHz** as required by the local procedure. Inputs start blank; **Fill example 57 / 753 MHz** and **Fill example 63 / 550 MHz** fill only that calculator draft. Read the resulting calculated targets. Square-root frequency is the initial estimate. Selecting either does not prove that its tilt shape is operator approved or matches the installed node/EQ response. Range examples fill the calculator draft only; they do not change the base profile, measured Route Setup or existing records.
+Open **Tools → References → Setup targets at available carriers**. Enter **Available low carrier (MHz)** and **Available high carrier (MHz)**, then select **Target curve → Square-root frequency · cable law** or **Linear MHz** as required by the local procedure. Inputs start blank; **Fill example 57 / 753 MHz** and **Fill example 63 / 550 MHz** fill only that calculator draft. Read the resulting calculated targets. Square-root frequency is the initial estimate. Selecting either does not prove that its tilt shape is operator approved or matches the installed node/EQ response. Range examples fill the calculator draft only; they do not change the base profile, measured Route Setup or existing records.
 
 The original anchors span **12 dB**. The estimated rise over a shorter available range is different:
 
@@ -672,7 +672,7 @@ The converter requires **54 ≤ low < high ≤ 860 MHz** and a compatible record
 
 Keep calculated estimates separate from actual meter readings. For the 57/753 MHz square-root example, output-plane targets are 31.11/41.97 dBmV; if exactly 20 dB remains uncompensated at the test point, corresponding raw readings would be **11.11/21.97 dBmV**. If the meter already compensates the coupling, do not subtract/add it again. At a test point, use only remaining uncompensated coupling once when comparing the carrier-specific target and reading. Record actual setup frequencies and the curve/approved procedure you followed before physical adjustment.
 
-The conversion draft is retained in the job and full project backup. **Job → Run sheet** and its HTML/text/CSV exports include the entered carrier frequencies, calculated levels, selected curve and original base anchors, clearly labeled as estimates rather than acceptance. Equipment setup’s **Setup frequencies & job levels** card presents these calculated targets separately from the base profile; it never silently writes them into measured launch or records.
+The conversion draft is retained in the job and full project backup. **Closeout → Run sheet** and its HTML/text/CSV exports include the entered carrier frequencies, calculated levels, selected curve and original base anchors, clearly labeled as estimates rather than acceptance. Equipment setup’s **Setup frequencies & job levels** card presents these calculated targets separately from the base profile; it never silently writes them into measured launch or records.
 
 Changing the carrier-conversion draft does not choose an AGC pilot. If actual live spectrum ends at **550 MHz**, the **711 MHz** practice pilot is outside that spectrum; identify an approved compatible live pilot from the exact detector/module procedure. No replacement pilot is guessed.
 
@@ -684,7 +684,7 @@ The power circuit is entered separately from the RF route. RF direction, power d
 
 ### Build the load plan
 
-1. Open **Power → Load**. Replace example supply voltage and current rating with actual operating voltage and nameplate rating.
+1. Open **Plan → Load**. Replace example supply voltage and current rating with actual operating voltage and nameplate rating.
 2. Add each powered device once, with its cable, feet, and real **Fed from** connection.
 3. Add a zero-load junction where one trunk supplies separate branches.
 4. Select the exact equipment configuration or enter a known load.
@@ -706,13 +706,13 @@ If another 1 A load shares that upstream section, its section current becomes 2 
 
 ### Try an addition
 
-Under **Power → What-if**, choose the feed point, added cable, length, constant current load, and minimum equipment voltage. The app tests the addition on a copy of the current power plan and shows predicted end voltage/headroom. Choose **Keep in power circuit** only when you want the trial to become a real planning row.
+Under **Plan → What-if**, choose the feed point, added cable, length, constant current load, and minimum equipment voltage. The app tests the addition on a copy of the current power plan and shows predicted end voltage/headroom. Choose **Keep in power circuit** only when you want the trial to become a real planning row.
 
 RF cable temperature and power cable temperature are separate inputs. Built-in loop resistance uses the entered power temperature and coefficient; custom resistance is already at actual temperature. The scalar RMS model does not simulate the complete quasi-square-wave waveform or verify every passive's current rating. Check actual power-passing arrangements and equipment undervoltage settings.
 
 ## Job Details and named jobs
 
-Use **Job → Details** for job identity, locally saved named jobs, node equipment, and work-order notes.
+Use **Plan → Details** for job identity, locally saved named jobs, node equipment, and work-order notes.
 
 Name the job so another technician can recognize it. Record the ticket, location, symptom, start/end times, weather, parts, and resolution as useful. Work-order, node, and lead fields are linked to their matching record metadata; notes remain separate from numerical acceptance.
 
@@ -738,7 +738,7 @@ Copying hardware limits into a selected profile updates its hardware fields and 
 
 ## ONX files
 
-Open **Job → ONX files**. To add evidence to your current job, choose **Sweep**, **Ingress**, or **OneCheck**, then choose **Before**, **After**, or **Reference**. Enter the asset or station and any relevant notes. Tap **Add meter files or photos**. The original 1.7 Alpha APK labels this button **Upload meter files**.
+Open **Field → ONX files**. To add evidence to your current job, choose **Sweep**, **Ingress**, or **OneCheck**, then choose **Before**, **After**, or **Reference**. Enter the asset or station and any relevant notes. Tap **Add meter files or photos**. The original 1.7 Alpha APK labels this button **Upload meter files**.
 
 Original file bytes are stored offline and checked with a checksum. Supported explicit CSV columns can generate a trace/table preview. Native JSON, ZIP, XML, PDF, HTML, images, and unknown meter formats remain attachments when their measurement schema is not decoded.
 
@@ -748,9 +748,9 @@ A photograph of a meter screen is useful job evidence. Attaching it does not rea
 
 If you received a separate NightSweep reference job, save your current work with **Files → Back up project** before opening it.
 
-1. Choose **Job → ONX files → Open project backup**, then select the supplied project JSON. In the original 1.7 Alpha APK, use **Files → Open project**.
-2. In **Job → ONX files**, expand the SC-QAM CSV and tap **View decoded measurements**. Each dot is one supplied channel reading. Spaces between dots have no supplied readings.
-3. Open the OFDM photo entries to review the PLC and block metrics. Tap **Save original** to retrieve an attached image. Use **Job → Details → Save now** to keep the reference job on that device.
+1. Choose **Field → ONX files → Open project backup**, then select the supplied project JSON. In the original 1.7 Alpha APK, use **Files → Open project**.
+2. In **Field → ONX files**, expand the SC-QAM CSV and tap **View decoded measurements**. Each dot is one supplied channel reading. Spaces between dots have no supplied readings.
+3. Open the OFDM photo entries to review the PLC and block metrics. Tap **Save original** to retrieve an attached image. Use **Plan → Details → Save now** to keep the reference job on that device.
 
 A manually transcribed downstream channel table can use **OneCheck / Reference** to enable the channel-table preview. Record the asset, measurement point, plant split, and any applied test-point correction with the reading. Keep SC-QAM channel levels separate from OFDM PLC and block metrics. Use confirmed readings at the required endpoints for a full-band tilt measurement and the applicable local procedure for acceptance.
 
@@ -778,7 +778,7 @@ A trace filename typed into a record is only a reference. Attach the actual file
 
 ## Checklists and field notes
 
-**Job → Checklists** keeps leakage/ingress checks and preventive-maintenance/end-of-line notes together. Record work actually completed, including connectors, shielding, terminations, affected drops, repairs, retests, supply condition, bonding, end-of-line points, and amplifier unity-gain observations.
+**Field → Checklists** keeps leakage/ingress checks and preventive-maintenance/end-of-line notes together. Record work actually completed, including connectors, shielding, terminations, affected drops, repairs, retests, supply condition, bonding, end-of-line points, and amplifier unity-gain observations.
 
 A checked item means the technician marked the work complete. It does not automatically mark RF acceptance as passed.
 
@@ -791,7 +791,7 @@ For example, 83.1 dBµV is 23.1 dBmV. This is not a field-strength µV/m convers
 
 ## Records and supervisor review
 
-**Job → Acceptance** contains the more detailed measurement and review workflow. Use it when the job requires a formal log rather than a quick prediction.
+**Closeout → Acceptance** contains the more detailed measurement and review workflow. Use it when the job requires a formal log rather than a quick prediction.
 
 ### Profiles and measurements
 
@@ -815,7 +815,7 @@ The DSIM record stores installed model/revision, cable route, control modes, pil
 
 ## Run sheet, export, and backup
 
-**Job → Run sheet** combines current job identity and notes with predicted route values, meter comparisons, as-built notes, and recorded field work. Choose the reporting frequency that matches your task. Predictions and measurements retain their different labels.
+**Closeout → Run sheet** combines current job identity and notes with predicted route values, meter comparisons, as-built notes, and recorded field work. Choose the reporting frequency that matches your task. Predictions and measurements retain their different labels.
 
 Use its print, share, and CSV controls for the field summary. The RF, frequency, power, and record tools also have their relevant CSV exports. Printing depends on the phone/browser print service; choose a PDF destination when available. Android and iPhone show different download, share, and print interfaces, so complete the phone's final save action.
 
@@ -824,7 +824,7 @@ Use its print, share, and CSV controls for the field summary. The RF, frequency,
 | Action | Best use | Includes everything needed to restore the job? |
 | --- | --- | --- |
 | Local autosave | Continue work in the same app on the same device | Not an external backup |
-| Save now (Job → Details) | Switch between jobs on this device | Not an external backup |
+| Save now (Plan → Details) | Switch between jobs on this device | Not an external backup |
 | Files → Back up project | Move or restore the full working job, including original evidence | Yes, within the export limits |
 | Run-sheet text/CSV/PDF or RF/power CSV | Report, review, or share selected results | No |
 
@@ -905,7 +905,7 @@ The earlier build 17 expansion added **33 RF equipment selections** (18 active c
 - **ATX GigaXtend SGP:** standard and AC-continuity directional couplers, two-way, balanced/unbalanced three-way splitters, conditioned coupler and RF path of the power inserter. Installed conditioning plug-ins require their own loss information.
 - **Cable:** legacy MC2 .440 and 1.000; CommScope Series 6 and Series 11 drop cable. These historical guide values stop at their published frequency endpoints. Drop cable has no assumed coax-power resistance. The optional RG6 drop tool still takes an entered cable table; adding catalog cable does not silently change saved drop assumptions.
 
-**Find equipment:** Route → Catalog → choose a category, then family/model. For launch selection use Route → Setup; the node metadata also remains in Job → Details. Power models link to Power → Load. Node optical output is a route launch, not an RF gain block inserted midspan.
+**Find equipment:** Tools → Catalog → choose a category, then family/model. For launch selection use Plan → Setup; the node metadata also remains in Plan → Details. Power models link to Plan → Load. Node optical output is a route launch, not an RF gain block inserted midspan.
 
 **Power corrections:** the previous GaN HGD current table has an unverifiable source/configuration link. It is now measured-load only. A saved job that used its old curve reports missing current data until you choose a documented manual load. The AOI HGD table now covers only the unambiguous 45–90 VAC columns; below 45 VAC no result is extrapolated. This table boundary is not the station’s undervoltage limit. HGBT and BA have separate measured-load entries; neither borrows HGD or LE current.
 
@@ -942,7 +942,7 @@ See **NightSweep_1.8_Training_Coverage.md**, **NightSweep_1.8_Equipment_Coverage
 
 Build 2 rechecks the existing 20 screens, 37 feature choices and seven examples with regression, synthetic replay, property/reference and browser checks. It fixes same-coordinate active-boundary TDR handling without changing the established RF/power formulas. Current calculations retain the independently checked references, and Records rejects inconsistent frequency limits before evaluating acceptance. Read `research/build2/MATH_BACKTEST.md` and the final validation receipts for the exact current scope/results. Exact executed checks and artifact hashes are in the current release-validation record and `research/alpha18/`; historical results above do not imply a new APK, public deployment, physical phone or installed-plant test. See `NightSweep_1.8_Release_Notes.md` for current behavior and outstanding checks.
 
-## Station worksheet: Route → Station
+## Station worksheet: Field → Station
 
 Choose the installed launch node, launch amplifier or a route amplifier. The banner uses that equipment’s actual split: **42/54 MHz** uses forward and return Sweepless Sweep; **204/258 MHz** uses forward Sweepless Sweep and return XPERTrak. Other or unidentified splits require confirmation of their procedure. This screen records measured work separately from route predictions.
 
@@ -954,27 +954,27 @@ On **42/54 MHz**, the reminder shows this job’s editable operator return TX en
 
 Record **Balanced** and **Swept** separately with their own dates. Neither matching two pilots nor checking Balanced records a sweep. These are technician records, not automatic RF acceptance. Legacy UBT stations remain readable with disabled worksheet controls. Removed or replaced stations retain their history in JSON backups; a new station starts blank even when a route point ID is reused. Changing the launch asset, output port or installed node module also starts a blank worksheet and retains prior observations. Imported numeric text that the number fields cannot show produces no result; its original text stays in the backup. Named-job switching and project backups retain both measurement stages and the separate dates. Correcting catalog band information keeps saved observations available. Older saved worksheets with incomplete station-binding information remain visible and read-only with a notice. Confirm the actual selected model, installed split, asset, port and module before using **Confirm saved worksheet belongs to this station**; it creates a bound copy and preserves the original worksheet in the job backup.
 
-Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Route → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
+Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
 
 For practice, open the complete GS7K/GainMaker exercise’s **Station balance and separate sweep record** step. Synthetic 54/860 MHz pilots, targets 39/49, readings 36.4/49.6 dBmV, installed pad 6 and EQ 9 dB give an input EQ pick of 4.5 dB and pad 7 dB. A return reference-point target of 19 dBmV plus 20 dB net insertion loss gives 39 dBmV required injection; receiver −1.25 minus reference −3.5 dBmV gives +2.25 dB. Back up, restore and compare the station worksheet. The six-active Vecima/AOI exercise has a separate electronic-alignment station step. Practice values never establish real operating targets.
 
 
-## Night log: Job → Night log
+## Night log: Field → Night log
 
-The **Unknown** source tag beside **Recorded entries** documents the existing **200 entries/job** application guard. The same row appears in **Test → Limits** under **Night log application guards**. This software storage/display bound is not an RF limit, equipment capability or company acceptance criterion; device storage can fill sooner.
+The **Unknown** source tag beside **Recorded entries** documents the existing **200 entries/job** application guard. The same row appears in **Tools → Limits** under **Night log application guards**. This software storage/display bound is not an RF limit, equipment capability or company acceptance criterion; device storage can fill sooner.
 
 Keep a personal running window record: ticket/change number, node/amp label, actions, ROC/dispatch updates, gas/fuel, mileage, as-built discrepancies and next-shift/open issues. Keep customer names, addresses and account numbers out. Fuel and mileage are recorded text: include the amount, reading/distance and units yourself; there are no totals or assumed reimbursement units. Window dates are optional device-local wall times with no recorded zone. **Added** is the device timestamp when you press **Add entry**, not a claim about when the work occurred. Blank times stay unknown.
 
 Type window times as `YYYY-MM-DDTHH:mm`. Incomplete or invalid text has a named format message beside the field and never replaces its saved value. Leaving the field or returning to Night log restores the saved value and explains the restoration there. Enter a complete valid time to replace it, or clear the entire field deliberately to record unknown. Editing saved log content clears an existing handoff preview; generate it again before copying. Exports always use the current saved log.
 
-The selector starts at **General update / no Station snapshot**. To capture measurements, explicitly choose a saved worksheet from **Route → Station** and press **Add entry**. Both real Before and After stages, raw inputs, recorded planes, frozen results and separate balance/sweep records are copied once. Entry notes remain editable. Later Station changes never refresh a capture; add another entry to capture again. Removed/replaced equipment is labeled **Historical snapshot — station changed or no longer installed**. Read-only and unconfirmed legacy bindings remain historical; their old dates never confirm current equipment work. No new RF target, acceptance limit, test-point correction or RF calculation is added.
+The selector starts at **General update / no Station snapshot**. To capture measurements, explicitly choose a saved worksheet from **Field → Station** and press **Add entry**. Both real Before and After stages, raw inputs, recorded planes, frozen results and separate balance/sweep records are copied once. Entry notes remain editable. Later Station changes never refresh a capture; add another entry to capture again. Removed/replaced equipment is labeled **Historical snapshot — station changed or no longer installed**. Read-only and unconfirmed legacy bindings remain historical; their old dates never confirm current equipment work. No new RF target, acceptance limit, test-point correction or RF calculation is added.
 
 **Generate handoff** prepares a selectable plain-text preview above the entry editors. **Export TXT** and **Export CSV** use the ordinary offline save/share path. A prepared file still needs the save/share dialog completed and the external file checked. CSV has one rectangular header and one Before/After row per captured entry (one blank-stage row for a general update), with raw inputs, planes, context, reason/status columns and separate balance/sweep dates. Levels and derived values show two decimals; pilot MHz show up to three; positive dB deltas have a plus sign, absolute dBmV levels do not. Rounding does not change captured results or comparison decisions. Formula-like text gets the existing spreadsheet-safe apostrophe prefix in CSV. **Files → Back up project** remains the portable full-fidelity record, including exact text, unrounded results and original attachments; handoff exports contain no attachments or legacy address/lead fields.
 
 For practice, the six-active Vecima/AOI exercise has a **Five-station night handoff** step. Manually enter its invented A1–A5 Station readings and capture each station, then reopen the TXT/CSV and compare the two stages. The defined short five-station fixture fits the 390×844 preview; arbitrary long notes or 200 entries can scroll normally and are never truncated. All exercise exports retain the synthetic marker. Personal notes and recorded work do not establish RF acceptance.
 
 
-## Sweep due: Job → Sweep due
+## Sweep due: Plan → Sweep due
 
 Personal sweep reminders read installed launch nodes/actives and route amplifiers from this device's named jobs and current working job. Each card shows separate last recorded sweep and balance dates, validity, completed calendar-month age and the chosen sweep due date. Missing worksheets remain visible as unknown. Current work overlays only a uniquely matching saved job ID; copies keep separate job histories even when Station IDs match. Repeated or missing job IDs remain separate with a diagnostic. Unreadable saved jobs show a warning while readable current work remains available.
 
@@ -986,6 +986,6 @@ Anniversaries add months to the original civil date and clamp its day to the tar
 
 The interval belongs to the open job; the empty state says so explicitly. If autosave fails, **Not saved** appears directly below its field and stays visible for that same job/interval until a later edit succeeds. Export a project backup before closing. Opening another job clears the old field feedback.
 
-Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Route → Station** to record actual work and **Job → Details** to manage jobs. Export a project backup if autosave fails.
+Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Field → Station** to record actual work and **Plan → Details** to manage jobs. Export a project backup if autosave fails.
 
 The six-active practice now has **16 steps**; its **Personal sweep reminders** step asks you to enter **18** for a synthetic demonstration and then clear it to restore unknown. The current source has **35 task screens** and **53 feature choices**. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.

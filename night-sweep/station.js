@@ -136,7 +136,7 @@ const StationView=(()=>{
   let plant='';
   if(t.split==='42'){
    const tx=StationMath.number(own().sweepSetup?.profiles?.['42']?.txReference);
-   plant=`<p><strong>42/54 MHz</strong> · Operator return TX reference: ${tx===null?'Unknown — enter the approved value in Test → Meter setup (42/54)':escape(tx)+' dBmV, entered for this job'}. ${tag('company.sweep42.txReference')} This transmitter-plane entry remains editable and does not supply injection or receiver targets.</p>`;
+   plant=`<p><strong>42/54 MHz</strong> · Operator return TX reference: ${tx===null?'Unknown — enter the approved value in Field → Meter setup (42/54)':escape(tx)+' dBmV, entered for this job'}. ${tag('company.sweep42.txReference')} This transmitter-plane entry remains editable and does not supply injection or receiver targets.</p>`;
   }else if(t.split==='204'){
    plant='<p><strong>204/258 MHz</strong> · Return XPERTrak. Enter the actual system receiver reference; a referenced dB response does not establish an absolute dBmV plane.</p>';
    if(t.id==='active_aoi_hgd')plant+=`<p>The preliminary Quantum18 HGD 204-split sheet recommends 9 dBmV per 6.4 MHz channel at its upstream input. ${tag('station.return.aoiHgdInput')} This exact-model input recommendation does not set injection or receiver targets.</p>`;
