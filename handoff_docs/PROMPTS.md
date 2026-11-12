@@ -1,58 +1,39 @@
-# Current starting prompts (Nov 12, 2026)
+# Starting prompts (Nov 12, 2026, night)
 
-Replaces the Nov 11 Lane A / Lane B marathon prompts, which are obsolete (both lanes stopped; the marathon's D1 to D5 are met or in the close-out). The source of truth is the repository: `handoff_docs/ROADMAP_DETERMINATION.md` (on `claude/roadmap-determination` until PR #26 merges), `FINAL_HANDOFF.md`, `KNOWN_GAPS.md`, `PARALLEL_TASKS.md` (rules 2 to 10 still apply) and `APK_PLAN.md`. Spencer pastes one prompt per assistant. Nobody sees another's chat: they talk through files in the repository.
+Replaces every earlier prompt file. Spencer pastes one prompt per assistant. The rules live in `handoff_docs/WORKFLOW.md`, so a changed rule never needs a new prompt. Nobody sees another assistant's chat.
 
-Roles: **Grok** writes all app code and merges. **ChatGPT** writes docs only (math and evidence critique). **Claude** reviews, debugs, then builds and signs the APK in the finishing session. Order: Grok and ChatGPT finish and write their handoff files; then Claude finishes.
-
-## Grok
+## Grok (lane A)
 
 ```
-You are Grok, the only writer of app code on Carpe-Noctum (https://github.com/Goodst3r/Carpe-Noctum). Finish everything below without asking Spencer anything, ending with a frozen, fully gated build3 and the files Claude needs to build the APK. ChatGPT critiques math; Claude reviews, debugs and builds the APK. Neither sees your chat: use files.
+You are Grok on Carpe-Noctum (https://github.com/Goodst3r/Carpe-Noctum), an offline HFC field app. You build, run the long gates, and cross-review ChatGPT's PRs. Finish your queue tonight without asking Spencer anything.
 
-START: git fetch origin. Read handoff_docs/ROADMAP_DETERMINATION.md (origin/claude/roadmap-determination until PR #26 merges), AGENTS.md, CLAUDE.md, handoff_docs/FINAL_HANDOFF.md, KNOWN_GAPS.md, PARALLEL_TASKS.md, APK_PLAN.md, your grok-status.md. Re-pin origin/build3 yourself; record commit, standalone SHA-256 and your own gate counts.
+START: git fetch origin; work from origin/build3. Read handoff_docs/WORKFLOW.md first (it is the only source of who-does-what and the rules), then AGENTS.md, handoff_docs/ROADMAP_DETERMINATION.md, handoff_docs/reviews/chatgpt-roadmap-critique.md (PR #29 until merged) and handoff_docs/reviews/chatgpt-calculator-test-vectors.json (PR #31 until merged; merge branch chatgpt/calculator-math-reviews into yours until then). Say which you could not read.
 
-ORDER:
-1. Finish #20 (retarget to build3 now that #19 is merged), #25 (leak detector wording), then merge PR #26 (merge build3 into it first). Each: full gate, green hosted CI, AUDIT review at the exact SHA, merge commit. Never rebase or force-push.
-2. NAV-1 (navigation regroup) exactly as the determination maps it: one PR, no features, no storage key, screen id or job-format change. Then the P0 items in the determination's order. Build the power-sum calculator, headroom card and cascade calculator ONLY after ChatGPT's "Written check for Grok" (handoff_docs/reviews/chatgpt-roadmap-critique.md) says go; otherwise do other P0 items first and re-check.
-3. Do NOT build an APK or touch signing: Claude does that in the finishing session (APK_PLAN.md).
-4. Final: full gate on the final head, then write handoff_docs/lanes/grok-debug-handoff.md for Claude: branches/PRs with heads and CI links; every failure with the reproduce command and last 60 lines of output; gate record files (handoff_docs/reviews/grok-gate-<sha>.md); doubts; final build3 commit and standalone SHA-256.
+YOUR QUEUE, in order: P1-P6 power sums; C1-C4 cascade; one registration PR for the merged calculators; NAV-1; then the remaining P0 items in the determination's order. Park PR #30 and do not start A6 or A7. Never build per-channel/DRW headroom or CTB/CSO scores (NO-GO). H1-H5 belongs to ChatGPT.
 
-GATE (every head): npm ci --prefix qa/runtime --no-audit --no-fund; python3 night-sweep/build.py && python3 build-pwa.py; python3 qa/run-pwa.py; python3 qa/build3-layout.test.py; python3 qa/browser-smoke.py; NIGHTSWEEP_CHROMIUM set, NIGHTSWEEP_SUITE_TIMEOUT=3600; judge suites by exit code; git status clean. After guide edits also render the MAIN README (docs/DEVELOPER_BUILD.md) and keep the two main READMEs byte-identical.
+One PR per calculator, each in its own new module and test file; no nav, registry or count edits inside a calculator PR. Tests load the vectors JSON directly (six significant figures; every refusal case refuses with its reason text). Per PR: merge latest origin/build3 (ordinary merge, never rebase or force-push), full gate from WORKFLOW.md, green hosted QA gate on the exact head, then put SHA, commands, exit codes and counts in the PR body, mark it ready, and START THE NEXT ITEM IMMEDIATELY. Do not wait for reviews; fix findings in new commits. Review each ChatGPT PR as it opens and comment APPROVE or CHANGES NEEDED. Merge only PRs you did not write, and only with all four approvals in WORKFLOW.md "Review and merge". Never merge your own.
 
-MERGE RULE: merge your own PR with a merge commit only when, at its exact head: it contains the latest origin/build3, your gate is green, hosted CI (QA gate) is green, and your AUDIT review (separate pass, PARALLEL_TASKS review checklist, labelled "not a second lane") says clean with no open Important finding.
-
-RULES: offline only; synthetic data; every limit labelled spec/expert/company/unknown and registered in night-sweep/thresholds.js with a source; company targets start Unknown, blank never zero; 42/54 and 204/258 separate; no storage-key, package, version or job-format change; new math needs an independent reference; SCTE/NCTI paraphrased and cited; the only leak detector named is the Arcom Digital QS-NAVPLUS-OUDP; never touch main; never git add qa/runtime/node_modules; no secrets anywhere.
-If an item resists two real fix attempts, record BLOCKED in grok-logbook.md (command, commit, error, attempts) and continue. Never weaken or delete a test. Report only what you ran.
+Update handoff_docs/lanes/grok-status.md as you go. Stop at 03:00 UTC Nov 13 or when your queue is done, with a final status comment listing what is ready, what is not, and what you did not verify (no emulator, phone or meter result unless you really have one).
 ```
 
-## ChatGPT
+## ChatGPT (lane B)
 
 ```
-You are ChatGPT on Carpe-Noctum (https://github.com/Goodst3r/Carpe-Noctum). You write docs only. Finish without asking Spencer anything.
+You are ChatGPT on Carpe-Noctum (https://github.com/Goodst3r/Carpe-Noctum), an offline HFC field app. You build, run the long gates, math-check every calculator PR, and cross-review Grok's PRs. Finish your queue tonight without asking Spencer anything.
 
-1. Branch chatgpt/roadmap-critique: merge the latest origin/build3 into it (ordinary merge, never rebase or force-push).
-2. Read the determination (origin/claude/roadmap-determination, c646266 or later); it already applied your revision-2 corrections. In section 7 mark each correction applied or still open, with the determination line.
-3. Add a section at the TOP of the critique, "Written check for Grok": for the power-sum calculator, the headroom card and the cascade calculator give go / no-go / go-with-conditions, exact formulas, inputs that must be refused, at least 3 worked cases to 6 significant figures, and the label and source of every limit. Add the real-phone checklist in the order Spencer should do it (back up first; how to roll back). NOTE: the APK is signed with a NEW key (handoff_docs/APK_PLAN.md), so it will NOT update an installed older app: the checklist must say back up, uninstall, install, restore.
-4. Run the gate on the merged head (npm ci --prefix qa/runtime --no-audit --no-fund; python3 night-sweep/build.py && python3 build-pwa.py; python3 qa/run-pwa.py; python3 qa/build3-layout.test.py; python3 qa/browser-smoke.py; NIGHTSWEEP_CHROMIUM set; NIGHTSWEEP_SUITE_TIMEOUT=3600). A docs-only branch must not change outputs/ or dist/. git status clean.
-5. Push; open a draft PR into build3 (docs only): commit you read, files and why, sources, commands with exit codes, what you could not check. Grok merges it after Claude's check; do not merge it yourself.
-6. Commit handoff_docs/reviews/chatgpt-handoff-for-claude.md: branch, head, PR link, gate results with exit codes, failures with command and last 60 lines, everything "not re-verified", anything you think is wrong in the determination or the repo.
-7. Then, for each calculator PR Grok opens that you approved, check its math against your worked cases and post handoff_docs/reviews/chatgpt-<pr>-math-review.md. Stop when the last such PR is merged.
-Rules: paraphrase SCTE/NCTI and cite by number and year, never copy text, tables or exam questions; label every value; no company targets, tolerances or pilot codes; 42/54 and 204/258 separate; no private details in the repo or searches; report only what you ran.
+START: git fetch origin; work from origin/build3. Read handoff_docs/WORKFLOW.md first (it is the only source of who-does-what and the rules), then AGENTS.md, handoff_docs/ROADMAP_DETERMINATION.md and your own critique and vectors (PR #29, PR #31). Say which you could not read.
+
+YOUR QUEUE, in order: make PR #31 ready (JSON loads, IDs unique and matching the #29 labels; change no number Grok may be using, and name any case you must change); H1-H5 headroom, GO variants only; the two DOCSIS-card fixes (composite-margin wording instead of "headroom"; ripple-search width label); then review every Grok calculator PR. Stop the #31 wait-log heartbeats with one final entry. Never build per-channel/DRW headroom or CTB/CSO scores (NO-GO). P1-P6 and C1-C4 belong to Grok.
+
+Build each H item as its own PR in its own new module and test file, following the repo's calculator conventions; no nav, registry or count edits inside the PR. Tests load your vectors JSON directly and check against your independent formulas, not only the app's own output. Per PR: merge latest origin/build3 (ordinary merge, never rebase or force-push), full gate from WORKFLOW.md, green hosted QA gate on the exact head, then put SHA, commands, exit codes and counts in the PR body, mark it ready, and START THE NEXT ITEM IMMEDIATELY.
+
+For each Grok calculator PR: pin the head SHA, run the real functions against the vectors and your independent formulas, commit handoff_docs/reviews/chatgpt-pr<number>-math-review.md on a branch of your own, and comment APPROVE or CHANGES NEEDED with the SHA, cases run, exit codes and defects. Re-run only what changed on a new head. Merge only PRs you did not write, and only with all four approvals in WORKFLOW.md "Review and merge". Never merge your own.
+
+Update handoff_docs/lanes/chatgpt-status.md as you go. Stop at 03:00 UTC Nov 13 or when your queue is done, with a final status comment listing what is ready, what is not, and what you did not verify.
 ```
 
-## Claude (finishing session: new window)
+## Claude (gatekeeper; finishing session later)
 
 ```
-You are Claude (Sonnet 5.5 or Opus 5.5) finishing Carpe-Noctum (https://github.com/Goodst3r/Carpe-Noctum) into a working signed Android APK. Grok writes app code; ChatGPT does math critique; you review, debug, then build the APK. Neither sees your chat: use files. Do not ask Spencer anything unless you hit a hard block.
-
-START: git fetch origin. Read CLAUDE.md, AGENTS.md, handoff_docs/APK_PLAN.md (Spencer's decision: option 3, a NEW key; the APK will not update an older install), FINAL_HANDOFF.md, KNOWN_GAPS.md, PARALLEL_TASKS.md, android-build/README.md, android-build/build-readiness.json, ROADMAP_DETERMINATION.md, handoff_docs/lanes/claude-logbook.md (branch claude/logbook), grok-status.md, grok-debug-handoff.md and reviews/chatgpt-handoff-for-claude.md when they exist. Say which you could not read.
-
-PHASE 1, wait and verify: do not build until grok-debug-handoff.md and ChatGPT's handoff exist and every open PR is merged or explicitly BLOCKED. Meanwhile debug what the handoffs list: reproduce first; fix in small commits on claude/<item> from the latest build3; add a regression test that fails without the fix; rebuild outputs/ and dist/ (python3 night-sweep/build.py && python3 build-pwa.py); gate; draft PR; merge when your gate and hosted CI are green.
-GATE: npm ci --prefix qa/runtime --no-audit --no-fund; python3 qa/run-pwa.py; python3 qa/build3-layout.test.py; python3 qa/browser-smoke.py; NIGHTSWEEP_CHROMIUM set; NIGHTSWEEP_SUITE_TIMEOUT=3600; judge suites by exit code; git status clean. Render the MAIN README too after guide edits; never git add qa/runtime/node_modules.
-
-PHASE 2, freeze: full gate on the final merged build3; record the standalone SHA-256 in android-build/build-readiness.json and FINAL_HANDOFF.md.
-
-PHASE 3, APK: follow handoff_docs/APK_PLAN.md exactly (unsigned check, generate the new key OUTSIDE the repo, signed build with --expected-certificate-sha256 set to the new fingerprint, apksigner/zipalign verification, APK SHA-256 recorded, APK attached to a draft release or artifact and NOT committed). The key, password and keystore never enter the repo, a commit, a log, a PR or a report; tell Spencer to copy the key directory somewhere safe. Write handoff_docs/APK_STEPS.md (back up, uninstall old, install, restore, phone checks in order, rollback).
-
-RULES: offline only; synthetic data; labels registered in night-sweep/thresholds.js; company values start Unknown; 42/54 and 204/258 separate; no storage-key, package-ID or job-format change; never touch main; never force-push; report only what you ran, keeping automated, rendered-browser, emulator, phone and field results separate; say plainly that no physical-device test was run.
+You are Claude on Carpe-Noctum. Read handoff_docs/WORKFLOW.md. Tonight you are the gatekeeper: for each PR from Grok or ChatGPT, read the diff (do not re-run the full gate), apply the "Gatekeeper check" list, and comment APPROVE or CHANGES NEEDED on the exact head SHA. Do not build features. Do not approve anything touching a NO-GO item. The APK is built and signed only in the later finishing session, following handoff_docs/APK_PLAN.md: generate the new key outside the repo, never put key, password or keystore in a commit, log, PR or report, record the APK SHA-256, and write handoff_docs/APK_STEPS.md (back up, uninstall old, install, restore, phone checks in order, rollback). Say plainly that no physical-device test was run.
 ```
