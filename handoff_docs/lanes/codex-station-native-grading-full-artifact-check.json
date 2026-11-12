@@ -1,0 +1,234 @@
+{
+  "kind": "independent read-only monitor verification of root-launched existing full run",
+  "status": "PASS",
+  "actor": "Lane A Station implementer / root monitor task; no gate rerun",
+  "verification_started_utc": "2026-11-12T02:44:42.393973+00:00",
+  "verification_finished_utc": "2026-11-12T02:44:42.953701+00:00",
+  "run_id": "4b493a45-9108-4e61-8c61-5c7c72be0c66",
+  "expected_head": "2d95e04e908eba822c2789787e0fa9ec9285f269",
+  "reviewed_base": "0e67660c530047d292b7838d892b1ae74862affb",
+  "local_tracking_build3": "0e67660c530047d292b7838d892b1ae74862affb",
+  "pid": 71634,
+  "process_state": "Z",
+  "live_descendants_including_root": [],
+  "all_processes_finished": true,
+  "root_launch_utc": "2026-11-12T02:29:04.630224+00:00",
+  "run_started_utc": "2026-11-12T02:29:04.688782+00:00",
+  "run_finished_utc": "2026-11-12T02:40:59.439362+00:00",
+  "all_five_commands_exit_zero": true,
+  "commands": [
+    {
+      "stage": "standalone_build",
+      "command": [
+        "python3",
+        "night-sweep/build.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 0.214,
+      "checks": null
+    },
+    {
+      "stage": "pwa_build",
+      "command": [
+        "python3",
+        "build-pwa.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 0.102,
+      "checks": null
+    },
+    {
+      "stage": "gate",
+      "command": [
+        "python3",
+        "qa/run-pwa.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 683.973,
+      "checks": 2174
+    },
+    {
+      "stage": "layout",
+      "command": [
+        "python3",
+        "qa/build3-layout.test.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 13.125,
+      "checks": 554
+    },
+    {
+      "stage": "smoke",
+      "command": [
+        "python3",
+        "qa/browser-smoke.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "wall_seconds": 16.394,
+      "checks": 352
+    }
+  ],
+  "gate": {
+    "suite_count": 82,
+    "unique_script_count": 82,
+    "registered_identity_order_matches": true,
+    "checks": 2174,
+    "raw_suite_check_sum": 2174,
+    "all_suites_passed": true,
+    "suite_seconds": 683.7,
+    "suite_timeout_seconds": 3600
+  },
+  "separate_layout_checks": 554,
+  "separate_smoke_checks": 352,
+  "fresh_raw_source_reports": [
+    {
+      "stage": "gate",
+      "source": "qa/pwa-test-results.json",
+      "raw": "/tmp/carpe-a1-grading-full-gate.json",
+      "sha256": "67bff56d9d43270b8e4095460dfaa165b55cf31d23644d1272dcf3034f8d4ecf",
+      "source_mtime_ns": 1794451229488581215,
+      "fresh_within_actual_stage": true,
+      "raw_equals_source": true,
+      "checks": 2174
+    },
+    {
+      "stage": "layout",
+      "source": "qa/build3-layout-results.json",
+      "raw": "/tmp/carpe-a1-grading-full-layout.json",
+      "sha256": "e8e8cf6a53e26e657eff07c243f50be5478e26c3871c2e3007d28289a7473204",
+      "source_mtime_ns": 1794451242463640087,
+      "fresh_within_actual_stage": true,
+      "raw_equals_source": true,
+      "checks": 554
+    },
+    {
+      "stage": "smoke",
+      "source": "qa/evidence-out/research/build2/browser/results.json",
+      "raw": "/tmp/carpe-a1-grading-full-smoke.json",
+      "sha256": "69bccdcf98824057aca07c8ba23eb0466de4c7b76908e7cea3afdd13aeb46c2d",
+      "source_mtime_ns": 1794451258830466247,
+      "fresh_within_actual_stage": true,
+      "raw_equals_source": true,
+      "checks": 352
+    }
+  ],
+  "source_guards": {
+    "tracked_count": 703,
+    "source_count": 680,
+    "generated_count": 23,
+    "all_before_current_and_HEAD_blob_hashes_match": true,
+    "head_tree": "a2aa261349a84481c2060e959d3f16129258dc97",
+    "head_tree_unchanged": true,
+    "semantic_staged_entries_unchanged": true,
+    "semantic_staged_digest": "a049b49a28f6a8c7c6278c7d16dfbf6d4a84293fa497d8238760681470f36902",
+    "worktree_clean": true,
+    "no_restore_commands_used": true,
+    "raw_index_fingerprints_are_diagnostic_only": true
+  },
+  "dependencies": {
+    "count": 40,
+    "before_after_equal": true,
+    "actual_locked_versions_and_package_hashes_match": true,
+    "installs_or_mutations_by_monitor": false
+  },
+  "sealed_hashes_sha256": {
+    "proof": "5d3c54cd83c4ff960769c6a47c99b0e8caecb47b8eef6a8954519ab11b74ad48",
+    "raw_gate": "67bff56d9d43270b8e4095460dfaa165b55cf31d23644d1272dcf3034f8d4ecf",
+    "manifest": "643b603bcb3bf1c488344d6dd04148e75d4792e4b062b4565ac18abb567f7850"
+  },
+  "sealed_artifact_count": 12,
+  "all_manifest_sha256_size_mtime_ns_match": true,
+  "sealed_artifacts": [
+    {
+      "path": "/tmp/carpe-a1-grading-full-done.json",
+      "sha256": "cdcc34219a2d1723c1c7a9bbcbaef220e62b44f9a9fb265d4c9f5c8c437147b6",
+      "size_bytes": 230,
+      "mtime_ns": 1794451259449679241,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-gate-run.py",
+      "sha256": "e83b52f0f294be876ab7caa57066caead3c1ee8f46d4837a5613efec931c39e8",
+      "size_bytes": 26817,
+      "mtime_ns": 1794448071054962274,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-gate.json",
+      "sha256": "67bff56d9d43270b8e4095460dfaa165b55cf31d23644d1272dcf3034f8d4ecf",
+      "size_bytes": 15503,
+      "mtime_ns": 1794451229656587902,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-gate.log",
+      "sha256": "e9563cd4f89420ebc7d59e6e23d3bafd87b22bd97e1ae190263b5dbbc09c7428",
+      "size_bytes": 5728,
+      "mtime_ns": 1794451229464647032,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-gate.md",
+      "sha256": "056d698ceb30d0a2aa20f2831d6decaf2180684e1b4b28b387b4194c9adf94f4",
+      "size_bytes": 4067,
+      "mtime_ns": 1794451259449605722,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-layout.json",
+      "sha256": "e8e8cf6a53e26e657eff07c243f50be5478e26c3871c2e3007d28289a7473204",
+      "size_bytes": 40649,
+      "mtime_ns": 1794451242865193273,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-layout.log",
+      "sha256": "ff2e53e2b5ad195c705d2695677c6ff659ac1e0acbfd5a7f80a5a5d492dda528",
+      "size_bytes": 39279,
+      "mtime_ns": 1794451242767255989,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-proof.json",
+      "sha256": "5d3c54cd83c4ff960769c6a47c99b0e8caecb47b8eef6a8954519ab11b74ad48",
+      "size_bytes": 1737919,
+      "mtime_ns": 1794451259447769653,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-pwa_build.log",
+      "sha256": "2155577713fd29a90560e9d3d34912c228d85b315fb507cb9d68b24ab402553b",
+      "size_bytes": 121,
+      "mtime_ns": 1794450545396278955,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-smoke.json",
+      "sha256": "69bccdcf98824057aca07c8ba23eb0466de4c7b76908e7cea3afdd13aeb46c2d",
+      "size_bytes": 14503,
+      "mtime_ns": 1794451259349303986,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-smoke.log",
+      "sha256": "fedd3250eef22a5407d18881bbb65acc759b513b0581507782896eff203710e5",
+      "size_bytes": 13305,
+      "mtime_ns": 1794451259247171943,
+      "matches_sealed_entry": true
+    },
+    {
+      "path": "/tmp/carpe-a1-grading-full-standalone_build.log",
+      "sha256": "d6229b375b32e81cc26bbea1f4192da396df0757a89e33f200b363fbe43a72bb",
+      "size_bytes": 56,
+      "mtime_ns": 1794450545190514809,
+      "matches_sealed_entry": true
+    }
+  ],
+  "existing_raw_proof_manifest_bytes_unchanged": true,
+  "application_tests_builds_or_publication_by_monitor": false
+}

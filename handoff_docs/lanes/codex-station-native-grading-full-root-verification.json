@@ -1,0 +1,17 @@
+{
+  "verdict": "PASS for specified frozen source; latest-base integration is separate",
+  "checked_at": "2026-11-12T02:41:33.381947+00:00",
+  "tested_head": "2d95e04e908eba822c2789787e0fa9ec9285f269",
+  "actual_remote_base_now": "0e67660c530047d292b7838d892b1ae74862affb",
+  "tracked_direct_rehash": 703,
+  "commands_zero_fresh_raw_equal": 5,
+  "suites": 82,
+  "checks": 2174,
+  "layout": 554,
+  "smoke": 352,
+  "locked_packages_direct_rehash": 40,
+  "manifest_verified": 12,
+  "proof_sha256": "5d3c54cd83c4ff960769c6a47c99b0e8caecb47b8eef6a8954519ab11b74ad48",
+  "raw_sha256": "67bff56d9d43270b8e4095460dfaa165b55cf31d23644d1272dcf3034f8d4ecf",
+  "manifest_sha256": "643b603bcb3bf1c488344d6dd04148e75d4792e4b062b4565ac18abb567f7850"
+}
