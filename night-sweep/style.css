@@ -303,4 +303,11 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-flow li{margin:8px 0}
 .imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
 .imp-tool input[aria-invalid=true]{border:3px solid var(--bad)}
+.imp-tool-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.imp-tool-head h4{margin:0;flex:1 1 200px}
+.imp-tool .source-tag{min-width:44px;min-height:44px}
+.imp-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.imp-field-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px}
+.imp-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
+.imp-field>input{width:100%}
 .imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}

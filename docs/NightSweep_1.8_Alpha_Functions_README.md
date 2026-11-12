@@ -465,6 +465,8 @@ Pick what the meter or spectrum display shows, from ten pictures, and read the m
 
 Checked worked numbers: a 1.7 MHz ripple on 0.87 VP cable is **251.7 ft** and, on the sample route, points to the 250 ft span from Tap 1 to Tap 2; a 4.3 MHz ripple on 0.87 VP cable is **99.5 ft** and, on the custom-curves practice route, points to its two 100 ft spans.
 
+**The list follows the working job.** It is recomputed whenever the route or job changes while this screen is open, including Files → Open project and switching to another job; opening a project that has no route clears the old places and says the route has no point with a valid distance. Each number box has its own label, and the two Expert tags beside the heading and the search width are separate 44 px controls.
+
 What this screen leaves out on purpose: reading peaks off a sweep, any live capture, amplitude or depth limits (those are your company's), PNM data from modems, impairments of the node or headend, and the cards for amplifier distortion noise, HPNA, OBI, filters and missing channels, pullout and adjacent-channel alignment (named in the SCTE series but not built here).
 
 ## Power-supply load
