@@ -1,0 +1,128 @@
+[
+  {
+    "last": "2026-11-11",
+    "asOf": "2026-11-11",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 0,
+    "warning": "2027-11-11",
+    "due": "2028-05-11",
+    "status": "green"
+  },
+  {
+    "last": "2025-11-11",
+    "asOf": "2026-11-11",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 12,
+    "warning": "2026-11-11",
+    "due": "2027-05-11",
+    "status": "yellow"
+  },
+  {
+    "last": "2025-04-11",
+    "asOf": "2026-11-11",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 19,
+    "warning": "2026-04-11",
+    "due": "2026-10-11",
+    "status": "red"
+  },
+  {
+    "last": "2025-01-31",
+    "asOf": "2026-01-30",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 11,
+    "warning": "2026-01-31",
+    "due": "2026-07-31",
+    "status": "green"
+  },
+  {
+    "last": "2025-01-31",
+    "asOf": "2026-01-31",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 12,
+    "warning": "2026-01-31",
+    "due": "2026-07-31",
+    "status": "yellow"
+  },
+  {
+    "last": "2025-01-31",
+    "asOf": "2026-07-30",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 17,
+    "warning": "2026-01-31",
+    "due": "2026-07-31",
+    "status": "yellow"
+  },
+  {
+    "last": "2025-01-31",
+    "asOf": "2026-07-31",
+    "intervalMonths": 18,
+    "ageFullCalendarMonths": 18,
+    "warning": "2026-01-31",
+    "due": "2026-07-31",
+    "status": "red"
+  },
+  {
+    "last": "2024-02-29",
+    "asOf": "2025-02-27",
+    "intervalMonths": 12,
+    "ageFullCalendarMonths": 11,
+    "warning": "2024-10-29",
+    "due": "2025-02-28",
+    "status": "yellow"
+  },
+  {
+    "last": "2024-02-29",
+    "asOf": "2025-02-28",
+    "intervalMonths": 12,
+    "ageFullCalendarMonths": 12,
+    "warning": "2024-10-29",
+    "due": "2025-02-28",
+    "status": "red"
+  },
+  {
+    "last": "2025-08-31",
+    "asOf": "2026-02-27",
+    "intervalMonths": 6,
+    "ageFullCalendarMonths": 5,
+    "warning": "2025-12-31",
+    "due": "2026-02-28",
+    "status": "yellow"
+  },
+  {
+    "last": "2025-08-31",
+    "asOf": "2026-02-28",
+    "intervalMonths": 6,
+    "ageFullCalendarMonths": 6,
+    "warning": "2025-12-31",
+    "due": "2026-02-28",
+    "status": "red"
+  },
+  {
+    "last": "2026-01-31",
+    "asOf": "2026-02-27",
+    "intervalMonths": 1,
+    "ageFullCalendarMonths": 0,
+    "warning": "2026-02-28",
+    "due": "2026-02-28",
+    "status": "green"
+  },
+  {
+    "last": "2026-01-31",
+    "asOf": "2026-02-28",
+    "intervalMonths": 1,
+    "ageFullCalendarMonths": 1,
+    "warning": "2026-02-28",
+    "due": "2026-02-28",
+    "status": "red"
+  },
+  {
+    "last": "2000-02-29",
+    "asOf": "2100-02-28",
+    "intervalMonths": 1200,
+    "ageFullCalendarMonths": 1200,
+    "warning": "2066-10-29",
+    "due": "2100-02-28",
+    "status": "red"
+  }
+]

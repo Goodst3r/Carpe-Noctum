@@ -48,6 +48,10 @@ MODULES = [
     ('<!--POP-->', 'proof-of-performance.js'),
     ('<!--STATION-->', 'station.js'),
     ('<!--STATIONSTYLE-->', 'station.css'),
+    ('<!--NIGHTLOG-->', 'night-log.js'),
+    ('<!--NIGHTLOGSTYLE-->', 'night-log.css'),
+    ('<!--SWEEPDUE-->', 'sweep-due.js'),
+    ('<!--SWEEPDUESTYLE-->', 'sweep-due.css'),
 ]
 for token,name in MODULES:
     if token not in shell:raise ValueError(f'Missing build token {token}')

@@ -1,0 +1,100 @@
+{
+  "at_utc": "2026-11-12T00:29:36.689339+00:00",
+  "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+  "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+  "all_five_stages_passed": true,
+  "actual_suites": 74,
+  "actual_checks": 1760,
+  "suite_seconds": 630.0,
+  "total_command_seconds": 664.127,
+  "separate_layout_checks": 554,
+  "separate_smoke_checks": 349,
+  "integrated_feature_suites_inside_gate": [
+    {
+      "name": "Build 3 night-log capture and handoff contracts",
+      "script": "build3-night-log.test.cjs",
+      "passed": true,
+      "checks": 23,
+      "seconds": 49.2
+    },
+    {
+      "name": "Build 3 rendered night-log phone layout",
+      "script": "build3-night-log-layout.test.py",
+      "passed": true,
+      "checks": 107,
+      "seconds": 15.1
+    },
+    {
+      "name": "Build 3 sweep-due calendar and saved-job reminders",
+      "script": "build3-sweep-due.test.cjs",
+      "passed": true,
+      "checks": 37,
+      "seconds": 23.7
+    },
+    {
+      "name": "Build 3 rendered sweep-due phone layout",
+      "script": "build3-sweep-due-layout.test.py",
+      "passed": true,
+      "checks": 189,
+      "seconds": 9.6
+    }
+  ],
+  "tracked_files_rehashed": 610,
+  "source_files": 587,
+  "generated_files": 23,
+  "all_tracked_hashes_match_initial": true,
+  "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+  "all_raw_reports_still_match_sources": true,
+  "all_manifest_entries_hash_size_mtime_verified": 12,
+  "all_40_dependencies_still_match": true,
+  "strict_final_comparison": {
+    "head_same": true,
+    "branch_same": true,
+    "head_tree_same": true,
+    "staged_entries_same": true,
+    "staged_entries_digest_same": true,
+    "tracked_hashes_same": true,
+    "source_hashes_same": true,
+    "generated_hashes_same": true,
+    "readme_hashes_same": true,
+    "technician_readmes_identical": true,
+    "lock_hash_same": true,
+    "lock_matches_head": true,
+    "clean": true,
+    "changed_tracked_files": [],
+    "changed_generated_files": []
+  },
+  "raw_index_diagnostic": {
+    "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
+    "raw_index_bytes_changed": true,
+    "distinct_raw_sha256": [
+      "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+      "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+      "8f98da133884a048b2cfaf7d4b87d5d606087cfc23f5d51b5b04599dd88a9c9b",
+      "bca544062fd9f5c11fe54dae49ec7fe991458bdfab5c05e6cfda8e48e0972620",
+      "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be"
+    ],
+    "semantic_and_source_guards_matched": true,
+    "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion."
+  },
+  "live_A3_full_gate_descendants": [],
+  "actual_base_fetched_independently_before_launch": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "base_advance_observed_at_launch": false,
+  "base_changed_paths_at_launch": [],
+  "root_confirmed_same_actual_base_at_final_seal": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "root_independent_artifact_check": "/tmp/carpe-a3-nightlog-full-root-artifact-check.json",
+  "root_independent_artifact_check_sha256": "c8a912410892d33ee2853938012312049401635ba72f8e19c03c6140042ed2d7",
+  "raw_proof_report_summary_manifest_rewritten": false,
+  "git_commands_run_for_this_post_check": false,
+  "child_agents_used": false,
+  "artifact_sha256": {
+    "/tmp/carpe-a3-nightlog-full-proof.json": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+    "/tmp/carpe-a3-nightlog-full-gate.json": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+    "/tmp/carpe-a3-nightlog-full-layout.json": "f9c2a2a47d0f062deb5ea97b8f4e766857d6a43a3fa1f80deeebd302b51993be",
+    "/tmp/carpe-a3-nightlog-full-smoke.json": "3554d735b84bd6a7a7b29802bac4630866dea07b7349b18cfb74071b292515be",
+    "/tmp/carpe-a3-nightlog-full-gate.md": "66e1e866aa8eb2ea2be0db61bd5c455c9f55f23f66552f180f161b8c84b023a2",
+    "/tmp/carpe-a3-nightlog-full-manifest.json": "776f6779632f67e7f27f7f507132875b559be6776d1153dc985fd75f865ec61a",
+    "/tmp/carpe-a3-nightlog-full-preflight.json": "274699527505ab294eae7b39feb927eb725d6ed5dea779147f235ffdc45e5e6e"
+  },
+  "A3_sealed_and_no_further_A3_repo_reads_pending": true
+}
