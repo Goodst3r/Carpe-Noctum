@@ -1,5 +1,7 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
+A4, November 12, 2026: a read-only strip under the title shows the job name, the plant (42/54 GS7K / GainMaker or 204/258 Vecima / AOI) and the selected point. Field → Station also shows that worksheet's measurement plane. The strip is hidden on Tools. No new stored value, screen, storage key or version.
+
 NAV-1, November 12, 2026: screens are regrouped under Home, Plan, Field, Tools and Closeout. Screen ids, storage keys and the job format are unchanged. Plan, Field and Tools are lists (the old rows wrap at 320 px). Supply PM is in Plan with Load and What-if. Safety stays removed. No new screen or version. A filtered list result stays reachable from the keyboard. The main guide names Home, Plan, Field, Tools and Closeout. The existing Functions and Installation PDFs were reprinted from the current guides.
 
 B2, November 12, 2026: existing DOCSIS upstream headroom is composite margin to a declared comparable total Pmax; blank 65 is assumed only in declared 3.1 MTC mode, never actual capability. The existing flat-PSD converter accepts measured-in 6.4 MHz and requires declared MHz/restatement context. Per-channel/DRW room and instantaneous OFDMA total remain Unknown. No new screen/store/key/version/APK. Exact-head gate receipts are in PR #37.
