@@ -16,7 +16,7 @@ For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the l
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
 | Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 16 steps | Synthetic entered teaching data |
-| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode (added in 2.0 Alpha build 3); twenty steps | Synthetic entered teaching tables and calculator inputs |
+| Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card and study mode (added in 2.0 Alpha build 3); twenty-one steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
 
@@ -57,6 +57,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Job → Checklists | Complete | Inspection notes, maintenance tasks and dBµV/dBmV conversion |
 | Job → Acceptance | Complete, OEM AGC, DSIM | Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms |
 | Job → Sweep due | Six-active | Enter 18 only for the synthetic reminder demonstration, inspect independent work dates, refresh, then clear the interval to unknown |
+| Job → Night log | Six-active | Record invented A1–A5 Station worksheets, capture each one, then generate a handoff and export TXT/CSV. No customer identifiers. Captured stages stay fixed after later Station edits |
 | Job → Run sheet | Complete | Predictions, actual input context, warnings, as-built notes and synthetic export labels |
 | Help & methods / build self-check | Complete | Calculation assumptions, limits and independent reference checks |
 
@@ -109,18 +110,18 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **47 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **53 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
 
 
 ### Build 3 Night log handoff practice
 
-The six-active exercise adds **Five-station night handoff** under **Job → Night log**, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 47 choices.
+The six-active exercise adds **Five-station night handoff** under **Job → Night log**, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 48 choices.
 
 
 ## Build 3 sweep-due practice
 
 The current source has **35 task screens**, **53 feature choices**, and **16 steps** in the six-active Vecima/AOI exercise. Its **Personal sweep reminders** step opens **Job → Sweep due**, starts with an unknown interval, and asks the technician to enter **18** only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an **Unknown / unverified app policy**; the older Hranac attribution for 18 months remains unverified.
 
-The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **15**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.
+The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains **22 steps**, custom curves **21**, OEM AGC **8**, DSIM **9**, manual/thermal **7**, and GS7K **10**. Historical Build 2 counts above describe its frozen delivery.
 
-The custom-curves exercise has **15 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
+The custom-curves exercise has **21 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
