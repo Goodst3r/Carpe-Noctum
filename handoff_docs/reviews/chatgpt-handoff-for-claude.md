@@ -1,37 +1,34 @@
 # ChatGPT batch handoff for Claude
 
-November 12, 2026 UTC. **BLOCKED before #40; this is not the final gate receipt.** Read the new rules with `git show origin/claude/workflow-batch:handoff_docs/WORKFLOW.md`. A5, A6 and B5 were not started.
+November 12, 2026 UTC. **BLOCKED only on PR #40; no final combined-head gate exists.** Latest observed build3: `70703cb4416c0436bf8ab27467dd5d52601dcd93`. User changed the merge order to whichever corrected heads become ready. A5, A6 and B5 were not started.
 
-## Observed state
+## Merges and current review state
 
-GitHub already showed #43 merged at 15:16:02Z as e5ae109 and #39 at 15:16:26Z as `02b9ca4ec79c371dbc1543e0058f2c9a54ca64ff`. Neither merge was performed here. Latest `git ls-remote origin refs/heads/build3` returned that #39 merge. #40, #41, #36 and #42 remained OPEN; there is no final combined head.
+- This run merged **#41** with a merge commit as `70703cb` at 16:37:26Z, using expected approved head `81e2e02400b179d77a0ad03533079631c59238be`, after [hosted QA 43257209472](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43257209472) SUCCESS. [Approval](https://github.com/Goodst3r/Carpe-Noctum/pull/41#issuecomment-6829186248).
+- #36 and #42 were merged externally at 15:53:23Z as `0878cfbe89b261d61c0b38bb05eba6bf1a64aac0` and `a755fde9dd1878ea2f66cf31b52fb54f7e737c83`. I observed these merges; I did not perform them.
+- #43 and #39 were already merged when the prior review began, as e5ae109 and 02b9ca4. Independent #39 post-merge math approval and its39-case/58-check derivation are preserved in `chatgpt-pr39-math-review.md`.
+- **#40 remains OPEN / CHANGES NEEDED on `d7c0775997d50ba96c9117e982f7ef4b41389b30`.** [Targeted review](https://github.com/Goodst3r/Carpe-Noctum/pull/40#issuecomment-6828951060); hosted QA43255454845 is SUCCESS. No #40 merge was performed.
 
-| PR | Reviewed head | Fresh verdict and evidence |
-| --- | --- | --- |
-| #39 | 223867e3d495a1375c4374c4ba4b008c0ef29112 | Post-merge APPROVE; [comment](https://github.com/Goodst3r/Carpe-Noctum/pull/39#issuecomment-6827675150); chatgpt-pr39-math-review.md |
-| #40 | 1c1e5414a40424d6999fafb105d862a7cf939345 | CHANGES NEEDED; [comment](https://github.com/Goodst3r/Carpe-Noctum/pull/40#issuecomment-6827667191); chatgpt-pr40-batch-review.md |
-| #41 | a1b2af6bc1c1876f0e3ebf35491ccf618ddbfc99 | CHANGES NEEDED; [comment](https://github.com/Goodst3r/Carpe-Noctum/pull/41#issuecomment-6827664535); chatgpt-pr41-batch-review.md |
-| #36 | 92be1e7964aac11843f85e035738f0952403034f | OPEN; Grok merges after preceding blockers |
-| #42 | 2cbd38f8ee5b67c3662c1a92ca0dba9a679704fb | OPEN; Grok merges after preceding blockers |
+## #40 corrected-head targeted review
 
-## Own executed targeted checks
+Claude pushed d6cf2c7 fixing the previously reported issues and using the earlier prepared 87e83b6 merge as its parent. GitHub reported a conflict against then-current build3 2cf5920, which included #36/#42. I ordinary-merged that build3 into the author fix and pushed d7c0775 to the #40 branch. Only generated dist conflicts occurred; source auto-merged. `python3 night-sweep/build.py` and `python3 build-pwa.py` both exited 0; unmerged path list empty, whitespace checks 0, ending status empty. No full local gate.
 
-Three agents reviewed in parallel on detached exact-head worktrees. Full commands, exit codes and initial failed attempts are in the three review files. Each reviewer ran locked npm ci (40 packages), whitespace and clean-head/worktree checks. Root also ran locked npm ci (40 packages, exit 0).
+Fresh own final-head checks from an isolated parallel reviewer: export suite 10 checks / 66 comparisons, PM 4 / 40, legacy job/backup suite 5, real Chromium file controls and BrowserFiles failure/cancel probes 12 assertions at 320/430 px. Commands and initial probe failures are recorded in `chatgpt-pr40-fixed-head-review.md`. Dedupe, literal imported HTML, 41-span/>2MiB round trip, asynchronous export outcome handling, and guide/practice updates passed their targeted checks.
 
-- #39: independent Decimal90 derivation, 39 cases / 58 checks, maximum error 1.195214e-14 dB; separate Wolfram arithmetic agreed. Existing cascade suite62, keyboard24, existing field-calculator regression10/123 comparisons, own rendered16 at320/375/390/430px; all exit0.
-- #40: export6/46 comparisons, PM4/40, legacy backup5, all exit0. Actual Chromium downloads and FileChoosers at320/430px. Eight browser assertions include successful reproductions of duplicate own-file import and imported HTML event-handler execution; these diagnostic successes are product defects.
-- #41: source14, rendered20, own rendered24 at320–430px, all exit0. Two diagnostic assertions reproduce the Station identity/plane mismatch.
+**Remaining Medium, power-pm.js:85,130:** real Add this span controls still allow saving 1001 spans; actual Export produces 496,965 bytes, but a real FileChooser import of that own file after clearing only the notebook key refuses the whole restore as too many spans. The new import-only 1000-span cap moves the old compatibility defect rather than aligning with already saveable records. This was reproduced at 390 px without mutating internal drafts or fabricating an invalid file. The diagnostic probe exited 0 because it successfully reproduced the product defect. Do not discard recorded spans or treat a future UI-only cap as restoration of existing records. No further author head appeared before the final check.
 
-GitHub hosted QA was observed SUCCESS on all three original heads: runs43232955539 (#39),43237744999 (#40),43242961646 (#41). Those are hosted observations, not additional local gates. No local full gate ran.
+## #41 correction, integrations and targeted evidence
 
-## Blockers and conflict preparation
+Grok pushed cb29dbe. I resolved its reported GitHub conflict by ordinary-merging 2cf5920, preserving all runner/update-log additions and rebuilding outputs/dist, producing cd433a2. Both builders and whitespace checks 0; clean ending status. Fresh exact-head targeted review: source 23, layout 20, independent context 24, independent Station 88 checks, all 0. Launch/two-active identity and distinct before/after planes align at 320/375/390/430 px. No stored field or selection change. Details: `chatgpt-pr41-fixed-head-review.md`.
 
-#40 High: imported battery-slot markup executes a handler when selecting the supply (power-pm.js:172,294). Medium: real UI Export then Import duplicates an existing supply because sameContent compares property-order-sensitive JSON (line157). Earlier same-head comments additionally record span bounds, oversized own-export refusal, asynchronous export-result handling and guide/practice gaps; these were read, not freshly reproduced here. #41 Medium: workflow.js:174–181 combines a separately selected route point with the Station worksheet's measurement plane. Launch node can be labelled as another active.
+Hosted QA 43253569219 passed on cd433a2. A merge attempt then failed API 405 because Grok had pushed docs-only receipt de0c77d to build3 during CI, conflicting in his status file. I ordinary-merged it, keeping the incoming newer Grok status plus debug handoff, and rebuilt (both0). New head 81e2e02 differs from cd433a2 only in those two handoff documents. All 270 source/QA/generated blobs remained identical; fresh source suite 23 passed, whitespace 0/status empty. Standalone SHA256 at both reviewed heads: `14590b4b177f1d1d24b53567f1acfcc549d1a976adc1ba8f69d80c41be837e73`; this is reviewed-head evidence, not a final batch hash. Reaffirmation: `chatgpt-pr41-docs-integration-review.md`.
 
-GitHub reported #40 CONFLICTING. Prepared an ordinary merge of build3 into #40's original head on separate branch `chatgpt/pr40-batch-resolution`, commit `87e83b6c72e2ae3103135e892b57e90c5e18ac8a`. Kept build3 WORKFLOW and regenerated outputs/dist with `python3 night-sweep/build.py` and `python3 build-pwa.py` (both0); `git diff --check`0, no unmerged paths before committing. An initial git restore of dist reported unmerged paths; regeneration plus staging resolved them. Pushed that branch and [commented](https://github.com/Goodst3r/Carpe-Noctum/pull/40#issuecomment-6827681727). Original PR branch unchanged; no hosted run exists on this preparation branch. This does not fix the functional findings or approve integration.
+Waited for the new exact-head hosted QA 43257209472 to succeed, then merged #41 through GitHub with expected SHA 81e2e02 and merge method merge. No local full gate was inserted between merges. Posted the integration records and requested further lane receipts stay off build3 until the open merges land.
 
-## Remaining work and limitations
+## Remaining work
 
-Corrected #40/#41 author heads need fresh targeted review and hosted green. Then merge #40,#41 in order; Grok merges #36,#42. Only after the complete batch: recount screens/features/registry rows, update guides/status and rebuild in one commit, run the full gate on that final head and record exact SHA, standalone SHA-256 and hosted green. No final count/hash/pass is claimed.
+Author must fix #40's remaining own-file restoration mismatch, receive targeted re-review and hosted green on the final resolved head, and the reviewer merges it. Then recount screens/features/registry rows on the complete batch, update guides/status and rebuild in one commit; both builders run the full gate on that same final build3 head and record own counts, standalone SHA256 and hosted green. The existing 2cf5920 recount and Grok gate explicitly exclude #40/#41; they are not the final batch result. No final recount or local full gate ran in this continuation.
 
-No PR was merged here. No APK/signing/deployment, physical-device/emulator/Safari/WebView/field test ran. SCTE direct retrieval for #39 returned403; full body not reverified. Initial browser file URLs were blocked by administrator policy; localhost HTTP probes passed. Individual reviews record failures. Tools actually used: GitHub connector/gh, Git/shell, npm/Node/JSDOM, Python Decimal, Wolfram, Playwright Chromium; Superpowers/cloud skills supplied guidance. Independent probes are preserved in batch-targeted/ (original commands used /tmp paths). Historical handoff remains in Git history.
+No APK/signing/deployment, physical phone, emulator, Safari/WebView or field test was performed. Functions PDF is stale for Claude's new export/restore section according to the #40 body; it was not reprinted here. SCTE source HTTP 403 and other earlier limitations remain in the individual original reviews. Root's prepared final-gate script in /tmp was syntax-compiled only, never executed. The evidence branch ordinary-merged latest build3; its only conflict was the ChatGPT status document, resolved by retaining this lane's own status before rewriting it with current facts. No app file was edited in that evidence integration.
+
+Tools used: GitHub connector/gh for source, CI, comments and the #41 merge; Git/shell and the two project builders for integration; Node/JSDOM and Playwright Chromium for targeted checks. Superpowers/cloud skills supplied workflow guidance. Exact commands/counts belong to the pinned individual reviews. Updated independent synthetic probes are preserved in batch-targeted/; original commands used /tmp paths. Prior receipts remain recoverable in Git history.
