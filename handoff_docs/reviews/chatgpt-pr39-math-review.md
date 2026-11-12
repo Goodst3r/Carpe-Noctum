@@ -1,3 +1,5 @@
+Latest re-review: **CHANGES NEEDED on223867e3d495a1375c4374c4ba4b008c0ef29112**. NAV/current-base integration is resolved; the calculator source is byte-identical and both Medium findings remain. [Fresh affected-artifact/context recheck](chatgpt-pr39-checks/223867e/rereview.md): six identity checks pass; unchanged39context regression has18passes/21failures/exit1. Earlier numerical/UI results below remain head-specific to59ddf48 and were not relabeled fresh.
+
 # PR39 independent math review — pinned59ddf48
 
 **CHANGES NEEDED on `59ddf48986f9498b574fc1cb67081f3eb0df7dee`.** The numerical implementation passes the independently prepared reference set, but recognized physical-context contradictions can bypass the fixed290K/matched75ohm/independent-noise guards. This is a real-function/kernel finding, not a claim that the UI exposes editable temperature or impedance controls. NAV38 has separately merged asf9a2060;59ddf48 contains the previous8c0fc17 base and still needs Grok's ordinary latest-base integration/current-head author and hosted gates. No approval transfers to a new head.

@@ -1,0 +1,11 @@
+PASS whole FieldCalc source unchanged59→223 {"name":"whole FieldCalc source unchanged59→223","pass":true,"old_sha256":"b82225fcb528a0ca7830fc9822aa83c375ce99843e259f83956db1b22bd24fa8","new_sha256":"b82225fcb528a0ca7830fc9822aa83c375ce99843e259f83956db1b22bd24fa8"}
+PASS source calculator prefix unchanged59→223 {"name":"source calculator prefix unchanged59→223","pass":true,"sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"}
+PASS standalone rebuilt calculator prefix equals old embedded actual prefix {"name":"standalone rebuilt calculator prefix equals old embedded actual prefix","pass":true,"old_sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27","new_sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"}
+PASS standalone actual embedded prefix equals current source prefix {"name":"standalone actual embedded prefix equals current source prefix","pass":true,"sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"}
+PASS pwa rebuilt calculator prefix equals old embedded actual prefix {"name":"pwa rebuilt calculator prefix equals old embedded actual prefix","pass":true,"old_sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27","new_sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"}
+PASS pwa actual embedded prefix equals current source prefix {"name":"pwa actual embedded prefix equals current source prefix","pass":true,"sha256":"4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"}
+standalone actual rows: calc.cascade.cnr:expert,calc.cascade.minContributions:unknown,calc.cascade.safeCount:unknown
+standalone actual SourceSheet: {"units":"dB","usedBy":"Tools → Calculators: thermal CNR","presence":{"units_only_dB":true,"floor_dBmV_absent":true,"exact_k_absent":true,"spec_k_or_T0_rows_absent":true},"specK":[],"specT":[]}
+pwa actual rows: calc.cascade.cnr:expert,calc.cascade.minContributions:unknown,calc.cascade.safeCount:unknown
+pwa actual SourceSheet: {"units":"dB","usedBy":"Tools → Calculators: thermal CNR","presence":{"units_only_dB":true,"floor_dBmV_absent":true,"exact_k_absent":true,"spec_k_or_T0_rows_absent":true},"specK":[],"specT":[]}
+Actual source-sheet metadata diagnostic: defect content remains on both rebuilt artifacts; this is not an approval.

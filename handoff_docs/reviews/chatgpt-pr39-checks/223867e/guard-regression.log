@@ -1,0 +1,40 @@
+PASS source CONTROL-fixed75 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+PASS source CONTROL-matched75-numberstring {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS source CONTROL-matched75-sameequiv {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS source CONTROL-explicit-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+PASS source CONTROL-source75-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+FAIL source MATCHED50-must-refuse-fixed75-model {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source MATCHED0-must-refuse-invalid-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source MATCHEDNaN-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source MATCHEDunknown-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS source CONTROL-NF-ref290 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source NF-ref300-must-refuse-reference-mismatch {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source THERMAL-common-ingress-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL source THERMAL-optical-MER-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+PASS standalone CONTROL-fixed75 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+PASS standalone CONTROL-matched75-numberstring {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS standalone CONTROL-matched75-sameequiv {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS standalone CONTROL-explicit-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+PASS standalone CONTROL-source75-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+FAIL standalone MATCHED50-must-refuse-fixed75-model {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone MATCHED0-must-refuse-invalid-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone MATCHEDNaN-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone MATCHEDunknown-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS standalone CONTROL-NF-ref290 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone NF-ref300-must-refuse-reference-mismatch {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone THERMAL-common-ingress-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL standalone THERMAL-optical-MER-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+PASS pwa CONTROL-fixed75 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+PASS pwa CONTROL-matched75-numberstring {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS pwa CONTROL-matched75-sameequiv {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS pwa CONTROL-explicit-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+PASS pwa CONTROL-source75-load50-refuses {"ok":false,"error":"This model requires a declared matched impedance, not mismatched source/load values."}
+FAIL pwa MATCHED50-must-refuse-fixed75-model {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa MATCHED0-must-refuse-invalid-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa MATCHEDNaN-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa MATCHEDunknown-must-refuse-unknown-impedance {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+PASS pwa CONTROL-NF-ref290 {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa NF-ref300-must-refuse-reference-mismatch {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa THERMAL-common-ingress-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224}
+FAIL pwa THERMAL-optical-MER-must-refuse {"ok":true,"operation":"thermal_chain","thermal_floor_dBmV":-57.16277482047224,"single_CNR_dB":64.16277482047224,"equal_contributions_CNR_dB":54.16277482047224,"combined_CNR_dB":44.50293134893922}
+Independent actual guard regression: 18 passed; 21 failed; 39 cases; 223867e3d495a1375c4374c4ba4b008c0ef29112.

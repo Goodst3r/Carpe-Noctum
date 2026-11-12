@@ -1,0 +1,193 @@
+{
+  "head_before": "223867e3d495a1375c4374c4ba4b008c0ef29112",
+  "comparison_head": "59ddf48986f9498b574fc1cb67081f3eb0df7dee",
+  "identity": [
+    {
+      "name": "whole FieldCalc source unchanged59→223",
+      "pass": true,
+      "old_sha256": "b82225fcb528a0ca7830fc9822aa83c375ce99843e259f83956db1b22bd24fa8",
+      "new_sha256": "b82225fcb528a0ca7830fc9822aa83c375ce99843e259f83956db1b22bd24fa8"
+    },
+    {
+      "name": "source calculator prefix unchanged59→223",
+      "pass": true,
+      "sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"
+    },
+    {
+      "name": "standalone rebuilt calculator prefix equals old embedded actual prefix",
+      "pass": true,
+      "old_sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27",
+      "new_sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"
+    },
+    {
+      "name": "standalone actual embedded prefix equals current source prefix",
+      "pass": true,
+      "sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"
+    },
+    {
+      "name": "pwa rebuilt calculator prefix equals old embedded actual prefix",
+      "pass": true,
+      "old_sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27",
+      "new_sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"
+    },
+    {
+      "name": "pwa actual embedded prefix equals current source prefix",
+      "pass": true,
+      "sha256": "4ed91c7457b5da9de2f5c32addebc18a7c1ea5b5fd2e8c3acbdab93547ee0e27"
+    }
+  ],
+  "artifacts": {
+    "standalone": {
+      "html_sha256": "9cf19f513ac64f49c8116c5f273acc8463d89848455f86e4762b788825aa76b0",
+      "rows": [
+        {
+          "id": "calc.cascade.cnr",
+          "label": "expert",
+          "name": "Thermal noise floor and CNR",
+          "kind": "formula",
+          "units": "dB",
+          "formula": "Ln = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))",
+          "source": "Expert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this row",
+          "revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+          "locator": "handoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.json",
+          "conditions": "Equivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "derived",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        },
+        {
+          "id": "calc.cascade.minContributions",
+          "label": "unknown",
+          "name": "Thermal CNR: minimum CNR values to combine",
+          "kind": "limit",
+          "units": "values",
+          "value": 1,
+          "source": "Application policy in the written calculator check, not an RF rating",
+          "revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+          "locator": "night-sweep/field-calcs.js cascade combine_cnr",
+          "conditions": "A CNR combination needs at least one defined contribution. An empty list is refused. One value is returned unchanged. Unknown application policy.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "unverified",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        },
+        {
+          "id": "calc.cascade.safeCount",
+          "label": "unknown",
+          "name": "Thermal CNR: largest contribution count",
+          "kind": "limit",
+          "units": "count",
+          "value": 9007199254740991,
+          "source": "ECMAScript Number.MAX_SAFE_INTEGER",
+          "revision": "ECMA-262, Number.MAX_SAFE_INTEGER",
+          "locator": "https://tc39.es/ecma262/#sec-number.max_safe_integer; night-sweep/field-calcs.js contributionCount",
+          "conditions": "A software representation ceiling, not an RF rating. Counts above it, and counts that are not positive whole numbers, are refused.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "unverified",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        }
+      ],
+      "specK": [],
+      "specT": [],
+      "actual_source_sheet_text": "ExpertThermal noise floor and CNRPublished expert guidance. Good practice, but not a standard.FormulaLn = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))UnitsdBApplies whenEquivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.PlantBoth plants (42/54 and 204/258)SourceExpert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this rowRevisionhandoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026Page, table or sectionhandoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.jsonChecked2026-11-12 · Re-derived from first principles and checked with an independent calculation.Used byTools → Calculators: thermal CNRClose",
+      "details": {
+        "Formula": "Ln = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))",
+        "Units": "dB",
+        "Applies when": "Equivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.",
+        "Plant": "Both plants (42/54 and 204/258)",
+        "Source": "Expert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this row",
+        "Revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+        "Page, table or section": "handoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.json",
+        "Checked": "2026-11-12 · Re-derived from first principles and checked with an independent calculation.",
+        "Used by": "Tools → Calculators: thermal CNR"
+      },
+      "known_finding_presence": {
+        "units_only_dB": true,
+        "floor_dBmV_absent": true,
+        "exact_k_absent": true,
+        "spec_k_or_T0_rows_absent": true
+      }
+    },
+    "pwa": {
+      "html_sha256": "e35fea2c72e34b432519295bfb8230004359d46c076accf5205de57e83701cd6",
+      "rows": [
+        {
+          "id": "calc.cascade.cnr",
+          "label": "expert",
+          "name": "Thermal noise floor and CNR",
+          "kind": "formula",
+          "units": "dB",
+          "formula": "Ln = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))",
+          "source": "Expert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this row",
+          "revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+          "locator": "handoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.json",
+          "conditions": "Equivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "derived",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        },
+        {
+          "id": "calc.cascade.minContributions",
+          "label": "unknown",
+          "name": "Thermal CNR: minimum CNR values to combine",
+          "kind": "limit",
+          "units": "values",
+          "value": 1,
+          "source": "Application policy in the written calculator check, not an RF rating",
+          "revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+          "locator": "night-sweep/field-calcs.js cascade combine_cnr",
+          "conditions": "A CNR combination needs at least one defined contribution. An empty list is refused. One value is returned unchanged. Unknown application policy.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "unverified",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        },
+        {
+          "id": "calc.cascade.safeCount",
+          "label": "unknown",
+          "name": "Thermal CNR: largest contribution count",
+          "kind": "limit",
+          "units": "count",
+          "value": 9007199254740991,
+          "source": "ECMAScript Number.MAX_SAFE_INTEGER",
+          "revision": "ECMA-262, Number.MAX_SAFE_INTEGER",
+          "locator": "https://tc39.es/ecma262/#sec-number.max_safe_integer; night-sweep/field-calcs.js contributionCount",
+          "conditions": "A software representation ceiling, not an RF rating. Counts above it, and counts that are not positive whole numbers, are refused.",
+          "date": "2026-11-12",
+          "scope": "all",
+          "verification": "unverified",
+          "usedBy": "Tools → Calculators: thermal CNR"
+        }
+      ],
+      "specK": [],
+      "specT": [],
+      "actual_source_sheet_text": "ExpertThermal noise floor and CNRPublished expert guidance. Good practice, but not a standard.FormulaLn = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))UnitsdBApplies whenEquivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.PlantBoth plants (42/54 and 204/258)SourceExpert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this rowRevisionhandoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026Page, table or sectionhandoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.jsonChecked2026-11-12 · Re-derived from first principles and checked with an independent calculation.Used byTools → Calculators: thermal CNRClose",
+      "details": {
+        "Formula": "Ln = 10·log10(k·T·B·R / 10^−6); single CNR = I − NF − Ln; N equal CNR = single − 10·log10(N); combined = −10·log10(sum(10^(−CNRi/10)))",
+        "Units": "dB",
+        "Applies when": "Equivalent noise bandwidth B in hertz, entered by the user. Fixed 290 K and a matched 75 ohm load; temperature is not editable and a mismatched source and load is refused. Single-amplifier CNR uses the carrier input and a noise figure that applies to that frequency and configuration. NF below 0 is outside this narrowed model, not a claim that a negative noise figure is impossible. N is a count of equal independent receiver-referred noise contributions, not a count of identical model names. Combined CNR is an uncorrelated power combination of CNR values already referred to the same carrier, plane and bandwidth. Optical CNR is optional and is left out when it is not entered. No CTB/CSO score, no MER prediction, no ordered Friis chain and no return-leg shortcut from a stage count alone. No company target. 42/54 and 204/258 are not inputs. The six-significant-figure display is a presentation choice, not an RF tolerance.",
+        "Plant": "Both plants (42/54 and 204/258)",
+        "Source": "Expert matched-load thermal model. k is the SI Boltzmann constant. T is the 290 K noise-figure reference. R is 75 ohms, an expert cable-model assumption. The written check cites the BIPM SI Brochure, 9th edition, section 2.2, SCTE 270 2021r1 sections 12–14 and 15.5, and SCTE 293-11 2025 sections 5.2–5.5. Those PDFs were not opened for this row",
+        "Revision": "handoff_docs/reviews/chatgpt-roadmap-critique.md, written check, 12 November 2026",
+        "Page, table or section": "handoff_docs/reviews/chatgpt-roadmap-critique.md, cascade section and cases C1–C4; night-sweep/field-calcs.js cascade. Checked against handoff_docs/reviews/chatgpt-calculator-test-vectors.json",
+        "Checked": "2026-11-12 · Re-derived from first principles and checked with an independent calculation.",
+        "Used by": "Tools → Calculators: thermal CNR"
+      },
+      "known_finding_presence": {
+        "units_only_dB": true,
+        "floor_dBmV_absent": true,
+        "exact_k_absent": true,
+        "spec_k_or_T0_rows_absent": true
+      }
+    }
+  },
+  "runtime_errors": {
+    "standalone": [],
+    "pwa": []
+  },
+  "head_after": "223867e3d495a1375c4374c4ba4b008c0ef29112",
+  "status_after": ""
+}
