@@ -171,15 +171,22 @@ const WorkflowUI=(()=>{
   text(strip.querySelector('[data-context="job"]'),name||'Unnamed working job');
   const plant=state.sweepSetup&&state.sweepSetup.selected;
   text(strip.querySelector('[data-context="plant"]'),plant==='42'?'42/54 GS7K / GainMaker':plant==='204'?'204/258 Vecima / AOI':'Plant unknown');
-  const row=chosen();
-  text(strip.querySelector('[data-context="point"]'),row?(row.name||'Unnamed point'):'No point selected');
+  const pointEl=strip.querySelector('[data-context="point"]');
   const planeEl=strip.querySelector('[data-context="plane"]');
-  if(current==='station'&&typeof StationView!=='undefined'){
-   let plane='';
-   try{plane=String(StationView.currentStage(state)?.forward?.plane||'').trim();}catch(e){plane='';}
+  if(current==='station'&&typeof StationView!=='undefined'&&typeof StationView.currentTarget==='function'){
+   let label='',plane='';
+   try{
+    label=String(StationView.currentTarget(state)?.label||'').trim();
+    plane=String(StationView.currentStage(state)?.forward?.plane||'').trim();
+   }catch(e){label='';plane='';}
+   text(pointEl,label||'No station selected');
    text(planeEl,plane?('Plane: '+plane):'Measurement plane unknown');
    hidden(planeEl,false);
-  }else{text(planeEl,'');hidden(planeEl,true);}
+  }else{
+   const row=chosen();
+   text(pointEl,row?(row.name||'Unnamed point'):'No point selected');
+   text(planeEl,'');hidden(planeEl,true);
+  }
  }
  function apply(){
   if(!ready||applying||rendering||printVisibility||typeof document==='undefined'||!document?.documentElement)return;applying=true;

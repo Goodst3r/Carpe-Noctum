@@ -3178,6 +3178,7 @@ const StationView=(()=>{
  }
  function normalized(r,t){const b=blankRecord(t),next={...b,...r,stages:Object.fromEntries(['before','after'].map(k=>[k,{...b.stages[k],...r.stages?.[k],forward:{...b.stages[k].forward,...r.stages?.[k]?.forward},returns:{...b.stages[k].returns,...r.stages?.[k]?.returns}}])),balanced:{...b.balanced,...r.balanced},swept:{...b.swept,...r.swept}};if(r.bindingVersion===undefined)delete next.bindingVersion;return next;}
  function currentStage(owner=own()){const t=target(owner),r=normalized(currentRecord(owner),t);return r.stages[r.stage];}
+ function currentTarget(owner=own()){const t=target(owner);return t?{key:t.key,id:t.id,label:t.label}:null;}
  function results(owner=own()){return StationMath.results(currentStage(owner),target(owner)||{});}
  function renderSignature(owner,t,r){return JSON.stringify([data(owner).selected,t?.key,t?.context,t?.forwardBand,t?.returnCeiling,t?.holder?.stationIdentity,targets(owner).map(x=>[x.key,x.label]),r]);}
  function records(owner=own()){
@@ -3313,7 +3314,7 @@ const StationView=(()=>{
   saveControl(el,context);
  }
  function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('focusout',event=>{if(event.target?.closest?.('#stationPanel'))reconcile(event.target);});document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
- return {init,render,validate,targets,currentRecord,currentStage,results,records,boundRecords};
+ return {init,render,validate,targets,currentTarget,currentRecord,currentStage,results,records,boundRecords};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports={StationMath,StationView};
 </script>
@@ -4785,15 +4786,22 @@ const WorkflowUI=(()=>{
   text(strip.querySelector('[data-context="job"]'),name||'Unnamed working job');
   const plant=state.sweepSetup&&state.sweepSetup.selected;
   text(strip.querySelector('[data-context="plant"]'),plant==='42'?'42/54 GS7K / GainMaker':plant==='204'?'204/258 Vecima / AOI':'Plant unknown');
-  const row=chosen();
-  text(strip.querySelector('[data-context="point"]'),row?(row.name||'Unnamed point'):'No point selected');
+  const pointEl=strip.querySelector('[data-context="point"]');
   const planeEl=strip.querySelector('[data-context="plane"]');
-  if(current==='station'&&typeof StationView!=='undefined'){
-   let plane='';
-   try{plane=String(StationView.currentStage(state)?.forward?.plane||'').trim();}catch(e){plane='';}
+  if(current==='station'&&typeof StationView!=='undefined'&&typeof StationView.currentTarget==='function'){
+   let label='',plane='';
+   try{
+    label=String(StationView.currentTarget(state)?.label||'').trim();
+    plane=String(StationView.currentStage(state)?.forward?.plane||'').trim();
+   }catch(e){label='';plane='';}
+   text(pointEl,label||'No station selected');
    text(planeEl,plane?('Plane: '+plane):'Measurement plane unknown');
    hidden(planeEl,false);
-  }else{text(planeEl,'');hidden(planeEl,true);}
+  }else{
+   const row=chosen();
+   text(pointEl,row?(row.name||'Unnamed point'):'No point selected');
+   text(planeEl,'');hidden(planeEl,true);
+  }
  }
  function apply(){
   if(!ready||applying||rendering||printVisibility||typeof document==='undefined'||!document?.documentElement)return;applying=true;
@@ -8892,6 +8900,6 @@ const PowerPMUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"1052b03916e5876aabe5","worker":"sw.1052b03916e5876aabe5.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"02f133aaf13bbb73d7a6","worker":"sw.02f133aaf13bbb73d7a6.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
