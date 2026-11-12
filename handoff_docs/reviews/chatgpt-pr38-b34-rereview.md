@@ -2,7 +2,7 @@
 
 This exact-head focused receipt is preserved on the reviewer evidence branch. Portable replay commands and the copied pass receipts are in [the check bundle](chatgpt-pr38-b34-checks/README.md). Absolute workspace paths below record the commands originally executed. The broader backup/storage harness remains scratch-only; no source HTML, embedded evidence payloads or large diagnostic captures are copied into this bundle.
 
-**The five earlier focused findings are closed on `b34b1db60571e758947ca5b592e14aeaf7f38d73`. No new source finding identified in `8a6d99b..b34b1db`.** This is a focused rereview, not a full-gate receipt or final approval. Root's independent exact-head full gate is running separately; root owns PR actions and merge.
+**The five earlier focused findings are closed on `b34b1db60571e758947ca5b592e14aeaf7f38d73`. No new source finding identified in `8a6d99b..b34b1db`.** The root reviewer full gate has now completed on this same head; its receipt and final checklist appear below. Historical focused results remain separately attributed.
 
 ## Pin and limits
 
@@ -70,3 +70,25 @@ Two initial read commands used the ambiguous shorthand `8a` and exited128; they 
 ## Evidence-branch archival check
 
 The archived CLI variants were replayed read-only against the same pinned app after replacing workspace-specific root/output paths: name validation10/10 and document27/27 passed, both exit0. The copied `pr38-b34-archived-*` logs/JSON preserve that portability check separately from the original executions. No app build or gate was repeated. The broader data/backup harness remains scratch-only, with only its compact final receipt archived.
+
+
+## Root reviewer full gate and final checklist
+
+**APPROVE `b34b1db60571e758947ca5b592e14aeaf7f38d73`.** Root ran the complete required gate from13:00:38.200601Z to13:17:19.246866Z on12November2026, Chromium `/usr/bin/chromium`, `NIGHTSWEEP_SUITE_TIMEOUT=3600`. These are root's own results, not the author's921.1s or843.8s receipts.
+
+| Command | Exit/result |
+| --- | --- |
+| `npm ci --prefix qa/runtime --no-audit --no-fund` |0; normal ignored local dependency directory |
+| `python3 night-sweep/build.py` |0 |
+| `python3 build-pwa.py` |0 |
+| `NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py` |0;99 suites/2,642 checks;953.8s; build/worktree unchanged |
+| `python3 qa/build3-layout.test.py` |0;1,252 checks |
+| `python3 qa/browser-smoke.py` |0;370 checks |
+| `git diff --check` |0 |
+| `git status --porcelain` |0;empty |
+
+Before/after head is exactb34. Standalone SHA256 `3d8dd8b27001fa7719d17212115145137fb36de57ec877a8d25025fe0c432a7d`; release `bf2faf5c76375cc0bad8`. [Machine receipt and actual last60 lines per command](chatgpt-pr38-b34-gate/receipt.json) preserve original-log hashes and the source/standalone/worker checksums. Empty command outputs remain empty.
+
+All five earlier findings are closed by fresh actual-head probes. Mapping/IDs/feature counts remain35/53; current names/practice/feature index match. No new formula/value/source or company default: existing B2 contexts and bounds, Unknown company values and separate42/54 versus204/258 plants remain intact. Fresh historical backup/original-byte/opaqueSafety and zero-write navigation probes pass. No storage-key, job-format, package/version, Safety restoration, secret or deferred feature introduced. Rendered320–430 dark coverage and the wider separate layout/smoke gate pass. Source/guide/PDF/test scope is reviewed; no same-head Claude CHANGES NEEDED was present when readiness was checked. Author full locked-install/clean gate is recorded in the PR body, hosted43219829179isSUCCESS on exactb34, currentbase8c0fc17 is included, and PR is ready/mergeable. Root will ordinary-merge with an expected-head guard; the author does not self-merge.
+
+No emulator, physical-device, native WebView/Safari, meter, field or APK check was run. This approval is specific to the testedb34 head and does not relabel the old4ccd/8a failures or incomplete author receipts as green.

@@ -1,3 +1,5 @@
+Latest final review: **APPROVE exactb34b1db** after root complete same-head gate; see [current review and gate](chatgpt-pr38-b34-rereview.md). All text below remains historical.
+
 # PR38 NAV-1 independent focused review
 
 **Latest focused rereview:** [b34b1db findings closed](chatgpt-pr38-b34-rereview.md) on `b34b1db60571e758947ca5b592e14aeaf7f38d73`. The reviewer full gate is still pending separately; this is not final approval. All earlier findings and failed receipts below are retained as historical evidence for their named heads.

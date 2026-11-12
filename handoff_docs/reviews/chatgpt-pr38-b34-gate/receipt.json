@@ -1,0 +1,126 @@
+{
+  "root": "/workspace/Carpe-Noctum-pr38",
+  "head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "start": "2026-11-12T13:00:38.200601+00:00",
+  "commands": [
+    {
+      "command": "npm ci --prefix qa/runtime --no-audit --no-fund",
+      "exit": 0,
+      "seconds": 1.022,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/0.log"
+    },
+    {
+      "command": "python3 night-sweep/build.py",
+      "exit": 0,
+      "seconds": 0.206,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/1.log"
+    },
+    {
+      "command": "python3 build-pwa.py",
+      "exit": 0,
+      "seconds": 0.073,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/2.log"
+    },
+    {
+      "command": "python3 qa/run-pwa.py",
+      "exit": 0,
+      "seconds": 954.2,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/3.log"
+    },
+    {
+      "command": "python3 qa/build3-layout.test.py",
+      "exit": 0,
+      "seconds": 26.491,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/4.log"
+    },
+    {
+      "command": "python3 qa/browser-smoke.py",
+      "exit": 0,
+      "seconds": 19.029,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/5.log"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "seconds": 0.018,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/6.log"
+    },
+    {
+      "command": "git status --porcelain",
+      "exit": 0,
+      "seconds": 0.004,
+      "log": "/workspace/scratch/pr38-b34-reviewer-gate/7.log"
+    }
+  ],
+  "end": "2026-11-12T13:17:19.246866+00:00",
+  "standalone_sha256": "3d8dd8b27001fa7719d17212115145137fb36de57ec877a8d25025fe0c432a7d",
+  "end_head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "all_passed": true,
+  "gate": {
+    "release": "bf2faf5c76375cc0bad8",
+    "version": "2.0 Alpha build 3",
+    "checks": 2642,
+    "suite_timeout_seconds": 3600,
+    "total_seconds": 953.8,
+    "all_passed": true,
+    "build_unchanged_during_tests": true,
+    "worktree_unchanged_during_tests": true,
+    "html_sha256": "f74807e7739764660737b8a9ce508d47d7b744f417b26730742193524eb651d1",
+    "standalone_sha256": "3d8dd8b27001fa7719d17212115145137fb36de57ec877a8d25025fe0c432a7d",
+    "worker_sha256": "6a3ef5416861ba4de3a666ef02f595b3f7b5f15986bd44959033d6562584e421",
+    "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim.",
+    "suite_count": 99
+  },
+  "layout_checks": 1252,
+  "smoke_checks": 370,
+  "output_tails": [
+    {
+      "command_index": 0,
+      "original_lines": 3,
+      "original_sha256": "46449ebce5a8b9f9f9ea89f89f56c00443a13004d7a992c6d215f48a3105fc2d",
+      "tail": "0-tail.log"
+    },
+    {
+      "command_index": 1,
+      "original_lines": 1,
+      "original_sha256": "032bd550193d7d8fa153dd4ad7275f276e06268658128c960b53d55082906f58",
+      "tail": "1-tail.log"
+    },
+    {
+      "command_index": 2,
+      "original_lines": 1,
+      "original_sha256": "2628de951defed77b3a0573f49358958147bd6ed79a2f6b68d6a7e305f72c8b2",
+      "tail": "2-tail.log"
+    },
+    {
+      "command_index": 3,
+      "original_lines": 101,
+      "original_sha256": "246c3e9949e7ca90dc3d95c79e262c371b8df83b8b2576a57720cf4f688c1e95",
+      "tail": "3-tail.log"
+    },
+    {
+      "command_index": 4,
+      "original_lines": 1253,
+      "original_sha256": "fc8a92d690d311ed5f744dff56816db49c019b9dce4a1546391c0cdaa1fb1966",
+      "tail": "4-tail.log"
+    },
+    {
+      "command_index": 5,
+      "original_lines": 371,
+      "original_sha256": "563fcbb07959a9d0a464f053ce49e7e3970ad8fffb5fb6613d512ed649c07678",
+      "tail": "5-tail.log"
+    },
+    {
+      "command_index": 6,
+      "original_lines": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": "6-tail.log"
+    },
+    {
+      "command_index": 7,
+      "original_lines": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": "7-tail.log"
+    }
+  ]
+}
