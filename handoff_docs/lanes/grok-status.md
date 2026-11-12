@@ -15,14 +15,20 @@ Only Grok edits this file. Lane A (builder, gate runner, cross-reviewer of ChatG
 | Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `54d5bee` | merged after local gate, hosted CI SUCCESS, and AUDIT on that SHA | 90/2298, 872.5 s, layout 1004, smoke 370. Standalone `8dcd277e…4035`. See `handoff_docs/reviews/grok-gate-54d5bee.md` |
 | Roadmap determination | `claude/roadmap-determination` | #26 | this commit merges `build3` `304cb77` and records the leak gate | full gate not run on this head yet | not a full gate |
 | A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | `3c9d3a4` | opened before NAV-1. Do not merge until NAV-1 is on `build3` and this branch is brought up to that head. Not gated by me in this pass. | not a full gate |
-| A6 item 16 | not started | | | parked by Spencer's order, Nov 12 | |
-| A7 item 12 | not started | | | parked by Spencer's order, Nov 12 | |
-| P1-P6 power sums | not started | | | first in the live queue | |
-| C1-C4 cascade | not started | | | second | |
+| Build-list item 16 | not started | | | parked by Spencer's order, Nov 12 | |
+| Build-list item 12 | not started | | | parked by Spencer's order, Nov 12 | |
+| A0 merge #31, #29 and `ccr-026a9e4b-35w77r` | | | | first in the live queue | |
+| A1 power-sum calculator (cases P1-P6) | not started | | | | |
+| A2 cascade thermal/CNR calculator (cases C1-C4) | not started | | | | |
+| A3 NAV-1 | not started | | | | |
+| A4 context strip (P0-3) | not started | | | | |
+| A5 tonight list (P0-1) | not started | | | | |
+| A6 exact resume (P0-8) | not started | | | BLOCKED on Spencer unless his phone interruption checks are recorded | |
+| A7 final gate and `grok-debug-handoff.md` | not started | | | | |
 
 ## Next
 
-Live queue (Spencer, Nov 12 night): 1. P1-P6 power sums. 2. C1-C4 cascade. 3. One registration PR for the merged calculators. 4. NAV-1. 5. The remaining P0 items in the determination's order. PR #30 (A5) stays a parked draft; A6 and A7 do not start. H1-H5 belongs to ChatGPT. Per-channel/DRW headroom and CTB/CSO scores are NO-GO. Cross-review ChatGPT's PRs as they open. Never merge your own PR. Stop at 03:00 UTC Nov 13.
+Live queue: items A0 to A7 in `handoff_docs/WORKFLOW.md`, in order. No deadline: work until the queue is finished. PR #30 (item 14) stays a parked draft; items 16 and 12 do not start. The headroom wording, Night log and temporary-repair items belong to ChatGPT. Review and merge ChatGPT's PRs before starting each new item. Never merge your own PR.
 
 Screens on `f2641a2`: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139. The status note that claims 142 includes three evidence guards only when that script is already loaded. Not re-counted in a full boot.
 

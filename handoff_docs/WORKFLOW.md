@@ -1,46 +1,83 @@
 # Carpe Noctum workflow: three assistants, one integration branch
 
-Written November 12, 2026 for Spencer. This is the only file that says who does what. It replaces `PARALLEL_TASKS.md`, `ROADMAP_PROMPTS.md`, `START_HERE_CODEX.md` and the old `codex-status.md` / `claude-status.md` lane files, which were deleted because they described a two-lane plan that has ended. If anything elsewhere in the repository disagrees with this file, this file wins. The product facts still come from `ROADMAP_DETERMINATION.md`, `docs/BUILD_LIST.md` and `AGENTS.md`.
+Written November 12, 2026 for Spencer; revised the same night. This is the only file that says who does what. It replaces `PARALLEL_TASKS.md`, `ROADMAP_PROMPTS.md`, `START_HERE_CODEX.md` and the old `codex-status.md` / `claude-status.md` lane files, which were deleted because they described a two-lane plan that has ended. If anything elsewhere in the repository disagrees with this file about roles, queues, review or merging, this file wins. Product decisions still come from `ROADMAP_DETERMINATION.md`, `docs/BUILD_LIST.md` and `AGENTS.md`.
+
+**There is no deadline.** Spencer wants the work done correctly and completely, at a steady pace. Nobody stops at a clock time. A lane stops only when its queue is finished (see "Done") or every remaining item is recorded BLOCKED.
 
 ## Roles
 
 | Assistant | Does | Does not |
 | --- | --- | --- |
-| **Grok** (lane A) | Builds. Runs the long gates. Cross-reviews ChatGPT's PRs. | Merge its own PR. Touch lane B files. |
-| **ChatGPT** (lane B) | Builds. Runs the long gates. Math-checks every calculator PR against independent formulas. Cross-reviews Grok's PRs. | Merge its own PR. Touch lane A files. |
-| **Claude** (gatekeeper) | Reads each PR's diff and posts APPROVE or CHANGES NEEDED. Builds and signs the APK in the finishing session only (`APK_PLAN.md`). | Re-run the full gate (hosted CI on the exact head covers it). Build features. |
+| **Grok** (lane A) | Builds. Runs the long gates. Reviews ChatGPT's PRs. Merges ChatGPT's PRs. | Merge its own PR. Edit a file lane B owns for an open item. |
+| **ChatGPT** (lane B) | Builds. Runs the long gates. Does the independent math check on every calculator PR. Reviews Grok's PRs. Merges Grok's PRs. | Merge its own PR. Edit a file lane A owns for an open item. |
+| **Claude** (gatekeeper) | Reads PR diffs and comments APPROVE or CHANGES NEEDED. Audits merged work. Builds and signs the APK in the finishing session (`APK_PLAN.md`). | Build features. Re-run the full gate on every PR. Block a merge by being absent (see "Review and merge"). |
 
-Spencer decides priorities and answers the "Questions for Spencer" lists. Nobody sees another assistant's chat: they talk through the files and pull requests in this repository.
+Spencer answers the "Questions for Spencer" lists and does the phone checks. Nobody sees another assistant's chat: they talk through the files and pull requests in this repository.
 
-## Lanes tonight (Nov 12)
+## Queues
 
-Spencer moved the calculators ahead of NAV-1 so nothing waits. The order in `ROADMAP_DETERMINATION.md` resumes after these queues.
+Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Otherwise the order follows the "Revision 2 build order" in `ROADMAP_DETERMINATION.md`, split so the two lanes touch different files.
 
-| | Lane A: Grok | Lane B: ChatGPT |
+**P1-P6, H1-H5 and C1-C4 are test-case IDs** in ChatGPT's written check (`handoff_docs/reviews/chatgpt-roadmap-critique.md`) and vectors file. They are not separate features. There is one power-sum calculator, one cascade calculator, and no new headroom feature.
+
+### Lane A: Grok (branches `grok/<item>`, status `handoff_docs/lanes/grok-status.md`)
+
+| # | Item | Notes |
 | --- | --- | --- |
-| Queue | 1. P1-P6 power sums. 2. C1-C4 cascade (composite-margin wording, thermal/CNR as estimates only). 3. One registration PR for the merged calculators. 4. NAV-1. 5. The remaining P0 items in the determination's order. | 1. Make PR #31 (test vectors) ready. 2. H1-H5 headroom, GO variants only. 3. The two DOCSIS-card fixes (composite margin wording; ripple-search width label). 4. Review every Grok calculator PR. |
-| Branches | `grok/<item>` | `chatgpt/<item>` |
-| Status file (only this lane edits it) | `handoff_docs/lanes/grok-status.md` | `handoff_docs/lanes/chatgpt-status.md` |
-| Cross-reviews | ChatGPT's PRs | Grok's PRs |
+| A0 | Merge the docs that both lanes read: PR #31 (vectors), PR #29 (written check), and the instruction branch `ccr-026a9e4b-35w77r` (this file). | All three are docs only and merge cleanly into `build3` `6414668`. Claude's check of #29 and #31 is in `handoff_docs/reviews/claude-gatekeeper-log.md`. Hosted CI is green on both. Do this first. |
+| A1 | Power-sum calculator (P0-4): uncorrelated add, N equal carriers, signal-plus-noise minus noise. | Cases P1-P6 plus the edge and refusal cases. No correlated add. |
+| A2 | Cascade calculator: thermal noise and CNR estimates only. | Cases C1-C4 plus edges and refusals. Fixed 290 K. No CTB/CSO score, no MER prediction, no ordered Friis chain or editable temperature (those need new cases first). |
+| A3 | NAV-1, the navigation regroup, exactly as the determination maps it. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
+| A4 | Context strip (P0-3). | |
+| A5 | Tonight list (P0-1). | Add open temporary repairs once B4 has merged. |
+| A6 | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
+| A7 | Final: full gate on the final `build3`, then `handoff_docs/lanes/grok-debug-handoff.md`. | See "Done". |
 
-Parked: PR #30 (A5 supply PM) stays an open draft. A6 and A7 do not start. NO-GO and not to be built: per-channel/DRW headroom and CTB/CSO plant-health scores (determination, ChatGPT's written check in PR #29).
+### Lane B: ChatGPT (branches `chatgpt/<item>`, status `handoff_docs/lanes/chatgpt-status.md`)
 
-Stop time tonight: **03:00 UTC on Nov 13**, or earlier when both queues are done. Then post a final status comment.
+| # | Item | Notes |
+| --- | --- | --- |
+| B0 | Make PR #31 ready: JSON loads, IDs unique and matching the #29 labels. End the wait log with one final entry. | Do not change a number Grok may be using; if you must, name the case. Grok merges it. |
+| B1 | Headroom wording and conversion (determination build-order items 1 and 8, P0-5). Relabel the existing DOCSIS health result as composite margin to the entered Pmax, with the caveats the determination and your written check require. At most, also offer 6.4 MHz as a measured-in width. Add regression tests that run the app's real functions against H1-H5 and the headroom edge and refusal cases. | No new converter and no new screen. Per-channel/DRW headroom stays NO-GO. |
+| B2 | Ripple-search width label: it is app-chosen, not Expert. Fix the label and its `thresholds.js` registration. | Small PR. |
+| B3 | Night log fixes, then the intermittent-ingress entry (P0-6). | Remove/Undo and no slot used by a blank entry first. An entry type in Job → Night log, not a new screen or store. |
+| B4 | Temporary-repair follow-up (P0-2). | Read `night-sweep/field-work.js` first; extend the existing Checklists notes. Say which key or additive job field it uses and prove old jobs and backups round-trip. |
+| B5 | Final: full gate on the final `build3`, then update `handoff_docs/reviews/chatgpt-handoff-for-claude.md`. | See "Done". |
+
+Reviewing the other lane's open PR always comes before starting your own next item.
+
+### Not to be built
+
+- Per-channel/DRW headroom tool, CTB/CSO plant-health scores, MER predictions: NO-GO.
+- Leakage-method pointer (P0-3b) and evidence handoff (P0-7): deferred until Spencer supplies the method or the definition.
+- PR #30 (item 14 supply PM) stays a parked draft. Items 16 and 12 do not start. They wait for NAV-1 and Spencer's go-ahead.
 
 ## Rules (both builders)
 
-1. **One writer per file.** Each calculator is a new module plus its own test file. Do not edit navigation, the screen registry or the screen/feature counts in a calculator PR. List every shared file a PR touches in its body. If the design cannot avoid a shared file, say so in a comment on the first PR.
-2. **Never touch:** `main`, another lane's branches, tags, repository settings, or anything outside `Goodst3r/Carpe-Noctum`. Never force-push or rebase. Integrate with an ordinary merge of the latest `origin/build3`. Never `git add qa/runtime/node_modules`.
-3. **Branch from the latest `build3`.** Keep PRs small enough to merge within hours.
-4. **Generated files** (`outputs/Night_Sweep.html`, `dist/**`) are never hand-merged. On a conflict, take either side, run `python3 night-sweep/build.py` and `python3 build-pwa.py`, and commit the result. Helper scripts that do this are in `handoff_docs/lanes/claude-tools/` (optional).
+1. **One writer per file per item.** Stay inside the files your item needs. If you need a file the other lane is changing in an open PR, say so in your status file and take your next item, or wait for that PR to merge and then merge `build3` in.
+2. **Never touch:** `main`, another assistant's branches, tags, repository settings, or anything outside `Goodst3r/Carpe-Noctum`. Never force-push or rebase. Integrate with an ordinary merge of the latest `origin/build3`. Never `git add qa/runtime/node_modules`. Direct pushes to `build3` are only merges allowed by "Review and merge".
+3. **Branch from the latest `build3`.** One item per PR, small enough to merge within hours.
+4. **Generated files** (`outputs/Night_Sweep.html`, `dist/**`) are never hand-merged. On a conflict, take either side, run `python3 night-sweep/build.py` and `python3 build-pwa.py`, and commit the result. Optional helper scripts are in `handoff_docs/lanes/claude-tools/`.
 5. **Test churn.** Some tests rewrite tracked evidence under `release/` and `research/`. Run `git checkout -- release research` before committing unless you meant to change them. A normal gate leaves `git status` clean.
-6. **Version and identity do not change.** No storage-key, package-ID or job-format change (additive job fields only). No version bump. Nobody builds or signs an APK except the finishing session under `APK_PLAN.md`. No signing key, password or real meter file anywhere in the repository.
-7. **Product rules** (from `AGENTS.md`): offline only; synthetic data only; every limit labelled spec / expert / company / unknown and registered in `night-sweep/thresholds.js` with a source; company values start Unknown and blank never means zero; 42/54 MHz (GS7K, GainMaker) and 204/258 MHz (Vecima, AOI) stay separate; UBT excluded from new selections; the only leak detector the app names is the Arcom Digital QS-NAVPLUS-OUDP; SCTE and NCTI material is paraphrased and cited by number and year, never copied.
-8. **New math** needs an independent reference computed outside the app and a regression test against the app's real output. The shared reference is `handoff_docs/reviews/chatgpt-calculator-test-vectors.json` (PR #31, on `build3` once merged). Numbers in it are strings; compare at six significant figures; every refusal case must refuse with its reason text.
+6. **Version and identity do not change.** No storage-key, package-ID or screen-id change; job-format changes are additive only and old jobs and backups must open unchanged and round-trip. No version bump. Nobody builds or signs an APK except the finishing session under `APK_PLAN.md`. No signing key, password or real meter file anywhere in the repository.
+7. **Product rules** (from `AGENTS.md`): offline only; synthetic data only; no customer names, addresses, account numbers or modem MACs; every limit labelled spec / expert / company / unknown and registered in `night-sweep/thresholds.js` with source, revision, section, units and conditions; company values start Unknown and blank never means zero; 42/54 MHz (GS7K, GainMaker) and 204/258 MHz (Vecima, AOI) stay separate; UBT excluded from new selections; the only leak detector the app names is the Arcom Digital QS-NAVPLUS-OUDP; SCTE and NCTI material is paraphrased and cited by number and year, never copied; phone-first dark UI, plain JavaScript, HTML and CSS.
+8. **New math** needs an independent reference computed outside the app and a regression test against the app's real output. The shared reference is `handoff_docs/reviews/chatgpt-calculator-test-vectors.json`. Numbers in it are strings; compare unrounded results with a documented numerical bound and the printed values at six significant figures; every refusal case must refuse with its reason.
 9. **Honest reports.** Every PR body lists: starting and ending commit, files changed and why, sources, the exact commands run with exit codes and check counts (your own, never copied from another run), and what was not checked. Keep automated, rendered-browser, emulator, phone and field results separate. Say plainly that no physical-device test was run.
-10. **Do not stop to ask Spencer** unless blocked by something only he can decide or provide. Put the question in your status file under "Questions for Spencer" and take the next item. If an item resists two real fix attempts, record BLOCKED in your status file (command, commit, error, attempts) and continue. Never weaken, skip or delete a test.
+10. **Do not stop to ask Spencer.** Put the question in your status file under "Questions for Spencer" and take the next item. If an item resists two real fix attempts, record BLOCKED in your status file (command, commit, error, attempts) and continue. Never weaken, skip or delete a test.
+11. **Existing plans only.** No purchases or upgrades. If a research tool runs out, mark the item "not re-verified" and carry on.
 
-## The gate (run by the builder, on every head)
+### Shared files
+
+| File | Rule |
+| --- | --- |
+| `night-sweep/build.py` (module list) | One entry per line. Add yours on its own line. |
+| `night-sweep/shell.html`, `night-sweep/workflow.js` | Add your entries next to the existing ones without reordering. Keep both lanes' additions on a conflict. While NAV-1 (A3) is open, nobody else edits these two files: wait for it to merge. |
+| `night-sweep/thresholds.js` | Add your rows together as one group. Do not reorder or reformat other rows. |
+| `night-sweep/training.js` and the guides in `docs/` | Add the practice step and guide section for your feature only. Render guides with `docs/render_readme.cjs` and rebuild. |
+| `qa/run-pwa.py` | Add your suites inside the `suites=[...]` list after the last entry. |
+| `NightSweep_Project_Status.md`, the build 3 update log, screen and feature counts | Edit only in the PR that adds the feature. The second PR to merge takes `build3` in and recounts. |
+
+## The gate (run by the author on every head)
 
 ```
 npm ci --prefix qa/runtime --no-audit --no-fund
@@ -56,22 +93,48 @@ Judge suites by exit code. After guide edits, also render the main README (`docs
 
 ## Review and merge
 
-A PR is a draft until it has all of these on the same head SHA:
+A PR is a draft until, on one head SHA that contains the latest `origin/build3`:
 
-1. The author's full gate, green, with the head containing the latest `origin/build3`.
-2. Hosted `QA gate` green on that SHA.
-3. The other builder's review: for calculators, ChatGPT pins the head, runs the real functions against the vectors and its independent formulas, commits `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`, and comments APPROVE or CHANGES NEEDED. For ChatGPT's own PRs, Grok reviews the code against the repo and comments the same way.
-4. Claude's gatekeeper comment (diff read, scope, labels, shared files, 42/54 vs 204/258, CI result). This is not a re-run of the gate.
+1. The author's full gate is green and recorded in the PR body.
+2. Hosted `QA gate` is green.
+3. The other builder has reviewed it with the checklist below and commented APPROVE.
 
-Then the builder who did **not** write the PR merges it with a merge commit (no squash). A new commit after any approval voids it. Authors never merge their own PR. Nobody approves or merges anything touching a NO-GO item.
+Then the reviewer, never the author, merges with a merge commit (no squash). A new commit after an approval voids it.
 
-## Gatekeeper check (Claude's list)
+**Claude's comment does not block.** If Claude has commented CHANGES NEEDED on that head, fix it first. If Claude has not commented, merge anyway; Claude audits after the merge and files anything it finds as a new item for the author.
 
-CI green on the exact head; diff contains only the stated files; no `outputs/` or `dist/` delta unless the PR rebuilt them; every new value has a label and a source; company values Unknown; 42/54 and 204/258 separate; no storage-key, package or version change; no secrets or real meter files; the PR body's counts and commands are specific and not copied; NO-GO list respected.
+Do not wait on a review. After marking a PR ready, start your next item. If your PR has had no review by the time you finish that next item, say so in your status file and keep going.
+
+### Review checklist (on the head the author named)
+
+1. **Math** (calculators and any changed formula): derive it independently of the author's code and reference script. Run the app's real functions against the vectors. Check units, signs, edge inputs, bounds and every refusal. For A1 and A2 ChatGPT commits `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. For B1 Grok derives the two formulas itself, because ChatGPT wrote both the vectors and the code.
+2. **Your own full gate** on that head for NAV-1 and for anything that changes what is stored (A3, A5, A6, B3, B4). For other PRs, hosted CI plus the suites the PR adds are enough. Report your counts, not the author's.
+3. **Labels and sources:** every new value is registered with a label and a source you can open. Company values start Unknown.
+4. **Plants:** 42/54 and 204/258 stay separate; the 31/43/38 values are not hard-coded as specs.
+5. **Job format:** old jobs and backups open unchanged; a backup round-trip gives identical results; no storage-key change.
+6. **UI:** 320 to 430 px in the dark theme; large controls; errors say why.
+7. **Training and guides:** a practice step exists, uses the current screen names and matches the screen.
+8. **Scope:** only the item's files plus the shared-file rules; no version change; no secrets or private identifiers; nothing from "Not to be built".
+9. Write findings as a PR comment with file, line, severity and evidence, ending APPROVE or CHANGES NEEDED and the head SHA.
+
+## Gatekeeper check (Claude)
+
+CI green on the exact head; diff contains only the stated files; no `outputs/` or `dist/` delta the PR did not rebuild; every new value labelled and sourced; company values Unknown; 42/54 and 204/258 separate; no storage-key, package or version change; no secrets or real meter files; the PR body's commands and counts are specific; nothing from "Not to be built". Results go in a PR comment and in `handoff_docs/reviews/claude-gatekeeper-log.md`.
+
+## Done
+
+The build work is done when all of these are true:
+
+1. Every item in both queues is merged, or recorded BLOCKED or deferred with the reason.
+2. Each builder has run the full gate on the same final `build3` head and recorded its own counts and the standalone SHA-256.
+3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
+4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
+
+Then both lanes stop and Spencer starts Claude's finishing session, which audits, freezes and builds the APK under `APK_PLAN.md`. Emulator, phone and field tests are Spencer's and are not part of done.
 
 ## Status files
 
-Each lane edits only its own file in `handoff_docs/lanes/`: one table (item, branch, PR, head SHA, state, own last gate counts with date), then "Next", "Blocked", "Questions for Spencer". Replace stale text; do not let it grow into a log. Reviews and long receipts go in the PR or in `handoff_docs/reviews/`.
+Each lane edits only its own file in `handoff_docs/lanes/`: one table (item, branch, PR, head SHA, state, own last gate counts with date), then "Next", "Blocked", "Questions for Spencer". Replace stale text; do not let it grow into a log.
 
 ## History, not instructions
 

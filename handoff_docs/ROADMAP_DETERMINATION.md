@@ -1,6 +1,6 @@
 # Roadmap determination: Carpe Noctum after build 3
 
-November 12, 2026 · written by Claude for Spencer, Grok and ChatGPT · docs only, no app change **Nov 12 night note:** who does what and the work queue are now in `handoff_docs/WORKFLOW.md`. Spencer moved the calculators (P0-4, P0-5 conversion/composite margin, cascade) ahead of NAV-1 for tonight; ChatGPT now builds headroom as well as checking math; the order below resumes afterwards.
+November 12, 2026 · written by Claude for Spencer, Grok and ChatGPT · docs only, no app change **Nov 12 night note:** who does what and the work queue are now in `handoff_docs/WORKFLOW.md`. Spencer moved the calculators (P0-4, P0-5 conversion/composite margin, cascade) ahead of NAV-1 for tonight; ChatGPT now builds (headroom wording, Night log, temporary repairs) as well as checking math; the split of the order below between the two builders is in that file.
 
 This is the final call on `Carpe_Noctum_Roadmap.pdf` (Grok's synthesis, pinned to `f467e52`). It says what to keep, change or defer, in what order, and what has to be checked first. The starting prompts are in `handoff_docs/PROMPTS.md`.
 

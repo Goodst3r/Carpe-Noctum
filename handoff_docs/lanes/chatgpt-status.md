@@ -6,15 +6,16 @@ Only ChatGPT edits this file. Lane B, builder and math checker, from November 12
 | --- | --- | --- | --- | --- | --- |
 | Roadmap critique and written check | `chatgpt/roadmap-critique` | #29 | `ed2826c` | draft; hosted CI green; gated locally on `768b618` (90 suites / 2,297 checks, layout 1,004, smoke 370) | 2026-11-12 |
 | Calculator test vectors | `chatgpt/calculator-math-reviews` | #31 | `2493cf8` | draft; hosted CI green | not a local gate (docs and JSON only) |
-| H1-H5 headroom (GO variants only) | not started | | | | |
-| DOCSIS card wording and ripple-width label | not started | | | | |
+| B0 make #31 ready | | | | first | |
+| B1 headroom wording and 6.4 MHz conversion, tests against H1-H5 | not started | | | | |
+| B2 ripple-search width label | not started | | | | |
+| B3 Night log fixes, then intermittent-ingress entry (P0-6) | not started | | | | |
+| B4 temporary-repair follow-up (P0-2) | not started | | | | |
+| B5 final gate and handoff update | not started | | | | |
 
 ## Next
 
-1. Make #31 ready. Check the JSON loads, IDs are unique and match the #29 labels. Stop the wait-log heartbeats with one final entry.
-2. H1-H5, one PR each.
-3. The two DOCSIS-card fixes.
-4. Review each Grok calculator PR as it opens: `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`.
+Items B0 to B5 in `handoff_docs/WORKFLOW.md`, in order. No deadline: work until the queue is finished. Review and merge Grok's PRs before starting each new item; the power-sum and cascade PRs each get `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. Never merge your own PR.
 
 ## Blocked
 

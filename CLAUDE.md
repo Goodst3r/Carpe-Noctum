@@ -4,7 +4,7 @@ Everything a Claude session needs to know about this project is in **`AGENTS.md`
 
 ## Role
 
-From the night of November 12, 2026 Grok and ChatGPT build, run the long gates, math-check and cross-review each other. Claude is the gatekeeper: read each pull request's diff, apply the gatekeeper check in `handoff_docs/WORKFLOW.md`, and comment APPROVE or CHANGES NEEDED on the exact head SHA. Do not re-run the full gate (hosted CI on that SHA covers it) and do not build features. The APK is built and signed only by the later finishing session, following `handoff_docs/APK_PLAN.md`.
+From the night of November 12, 2026 Grok and ChatGPT build, run the long gates, math-check and cross-review each other. Claude is the gatekeeper: read each pull request's diff, apply the gatekeeper check in `handoff_docs/WORKFLOW.md`, and comment APPROVE or CHANGES NEEDED on the exact head SHA. Do not re-run the full gate (hosted CI on that SHA covers it) and do not build features. Record each check in `handoff_docs/reviews/claude-gatekeeper-log.md`. A missing Claude comment does not block a merge; audit merged work afterwards. The APK is built and signed only by the later finishing session, following `handoff_docs/APK_PLAN.md`.
 
 ## Before any work
 
