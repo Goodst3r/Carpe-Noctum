@@ -10,16 +10,22 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #16 item 17 | `claude/b17-highsplit` | [#16](https://github.com/Goodst3r/Carpe-Noctum/pull/16) merged `b4cb832` | `0436e9a` | merged after local gate and hosted CI | 87/2276, 745.4 s, layout 784, smoke 361 |
 | Stretch #18 item 18 | `claude/b18-why-cards` | [#18](https://github.com/Goodst3r/Carpe-Noctum/pull/18) merged `cb3c3b2` | `7d18b9a` | merged after local gate and hosted CI | 88/2283, 781.8 s, layout 854, smoke 364 |
 | Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
-| Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate and hosted CI | 90/2297, 802.7 s, layout 1004, smoke 370 |
-| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | layout fix, gate not run on this head | first fix for the 320 px table; not merged | `3c9d3a4` was not green: 91/2301, layout exit 1, smoke 373 |
+| Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
+| Re-pin after #28 | `build3` | [#28](https://github.com/Goodst3r/Carpe-Noctum/pull/28) merged `93acbac` | `93acbac` | merged, docs only; local re-pin gate recorded | 89/2289, 776.7 s, layout 944, smoke 367. Standalone `9a9da29f…9081`. See `handoff_docs/reviews/grok-gate-93acbac.md` |
+| Stretch #20 item 19 | `claude/b19-study` | [#20](https://github.com/Goodst3r/Carpe-Noctum/pull/20) merged `7107f27` | `f2641a2` | merged after local gate, hosted CI SUCCESS [43176666435](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43176666435), and AUDIT on that SHA | Two own runs, both green: 90/2297, 802.7 s and 789.2 s, layout 1004, smoke 370. Standalone `d4b05c39…a9d6`. See `handoff_docs/reviews/grok-gate-f2641a2.md` |
+| Leak detector wording | `claude/leak-detector-arcom` | [#25](https://github.com/Goodst3r/Carpe-Noctum/pull/25) merged `304cb77` | `304cb77` | already on `build3` before this A5 merge. The status written on that branch said the docs head `54d5bee` was not a full gate | not gated by this session |
+| A5 item 14 | `grok/a5-power-pm` | [#30](https://github.com/Goodst3r/Carpe-Noctum/pull/30) draft | this merge | local gate green on `a467418` only; this merge of `304cb77` is a new head and is not gated yet | `a467418`: 91/2301, 792.3 s, layout 1054, smoke 373. `3c9d3a4` layout failed |
+
 | A6 item 16 | not started | | | after A5 | |
 | A7 item 12 | not started | | | after A6 | |
 
 ## Next
 
-Item 19 is merged. This branch is A5, item 14. Head `3c9d3a4` failed layout: the span table’s 300 px minimum was wider than the 240 px region at 320 px. The drop text and the focusable region were already right. This commit only lets those Supply PM tables shrink. The full gate on this head has not run. **D3: one run (Grok).** Spencer accepts or rejects D3.
+This branch is A5, item 14, after merging `origin/build3` at `304cb77` (pull request #25, the Arcom detector name, is already on `build3`). Local gate on `a467418` was green (91/2301, 792.3 s, layout 1054, smoke 373) but that commit does not contain `304cb77`, so it is not the merge head. This merge is not gated yet. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
-The merged `handoff_docs/PROMPTS.md` tells Grok to do #20, then #25, then #26, then NAV-1. The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. This session follows the chat. #25 is not started.
+The chat that started this session says finish #20, then A5, A6 and A7, and ignore #25. Another session had already merged #25 and had written that A5 waits until after NAV-1. This session follows the chat for what to build next, and it keeps #25 because `build3` already has it. #26 and NAV-1 are not started.
+
+Screens on `f2641a2`, from the other session's recount, not re-counted here: 33 sub-tabs (Route 6, Test 16 including Study, Power 2, Job 9) plus Home and Help = 35. Features: 53. Registry rows with `EvidenceArchive` not loaded: 139.
 
 ## Blocked
 

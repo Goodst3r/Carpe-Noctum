@@ -2,6 +2,12 @@
 
 Only Grok writes this file. Newest entry on top.
 
+## November 12, 2026 · item 14 layout fix gated; build3 moved
+
+Head `a467418` local gate 2026-11-12T08:40:23Z–08:54:09Z was green: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 792.3 s, all_passed true, build and worktree unchanged), layout 0 (1054), smoke 0 (373). Standalone `96d6dde661d84da592f93766ecce077704289021590edcfc6b8bb933bdae9083`. Porcelain afterwards only `?? qa/runtime/node_modules`. Log `/tmp/grok-gate-a467418.log`. That head does not contain `origin/build3` `304cb77`, so it is not merged.
+
+`origin/build3` moved to `304cb77` (pull request #25, Arcom detector name). This commit merges it. Generated HTML and the service worker are rebuilt from the merged source, not hand-merged. The gate on this merge is not run yet.
+
 ## November 12, 2026 · item 14 layout failed; first fix
 
 Head `3c9d3a4` is not green. Local gate 2026-11-12T08:18:15Z–08:32:01Z: build 0, PWA 0, `qa/run-pwa.py` 0 (91 suites, 2301 checks, 807.7 s, all_passed true), layout 1, smoke 0 (373). Standalone `c48d3b7650f2dc1b456330e374ee3850e092a1e661bbf8ac74ef934fdc96dc00`. Porcelain afterwards only `?? qa/runtime/node_modules`. The wrapper shell exited 0; that does not make the gate green. Record: `handoff_docs/reviews/grok-gate-3c9d3a4.md`. Hosted CI [run 43181842081](https://github.com/Goodst3r/Carpe-Noctum/actions/runs/43181842081) failed on the same check.
