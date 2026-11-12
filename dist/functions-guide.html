@@ -2,10 +2,10 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — All Functions Reference: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — All Functions Reference — Technician guide</title>
 <style>
 :root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
-</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#leakage">Leakage</a><a href="#impairments">Impairments</a><a href="#fiber">Fiber</a><a href="#high-split">High split</a><a href="#why-cards">Why cards</a><a href="#proof-of-performance">Proof of performance</a><a href="#study-mode">Study mode</a><a href="#supply-pm">Supply PM</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#pre-work-safety">Pre-work safety</a><a href="#outage-first-response">Outage first response</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#station-worksheet">Station worksheet</a><a href="#night-log-and-shift-handoff">Night log and shift handoff</a><a href="#sweep-due">Sweep due</a><a href="#54-feature-coverage-index">54-feature coverage index</a><a href="#build-3-attached-sweep-grading-aid">Build 3 attached sweep grading aid</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
-<p><strong>Technician README · Updated November 11, 2026</strong></p>
-<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 36 task screens and 54 entries in the Practice library&#39;s feature index.</p>
-<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> current source is <strong>36 task screens</strong> and <strong>54</strong> Practice library entries. The seven exercise lengths are complete 22, six-active 16, custom curves <strong>22</strong>, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. Power → <a href="#supply-pm">Supply PM</a> is feature 54 and has its own custom-curves guide step. The rest of this paragraph is the order those entries were added, not a second current total. <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a>, the <a href="#docsis-health-card">DOCSIS health card</a> and <a href="#leakage">Leakage</a> were four Test screens (feature entries 38, 39, 41 and 42) and added four custom-curves guide steps. Route → Station added independent station worksheets and feature 40; complete and six-active practice are 22 and 16 steps. Job → Safety adds <a href="#pre-work-safety">Pre-work safety</a>, feature 43, and was a fifth custom-curves guide step. Job → Outage adds <a href="#outage-first-response">Outage first response</a>, feature 44, and was a sixth. Job → Night log adds <a href="#night-log-and-shift-handoff">Night log and shift handoff</a>, feature 45, and a five-station handoff practice step. Job → Sweep due adds <a href="#sweep-due">Personal sweep reminders</a>, feature 46, and the six-active exercise has 16 steps. Job → ONX files adds <a href="#build-3-attached-sweep-grading-aid">Attached sweep grading</a>, feature 47; custom curves had 15 steps before Impairments. Test → <a href="#impairments">Impairments</a> then adds the impairment cards and feature 48, which was the sixteenth custom-curves guide step. Test → <a href="#fiber">Fiber</a> adds the TIA-598 color finder and a simple link loss budget as feature 49, which was the seventeenth custom-curves guide step. Test → High split adds the 1.8 GHz high-split reading aid with a Remote PHY bring-up list as feature 50, which was the eighteenth custom-curves guide step. Test → Why cards adds fourteen short cards on the basics behind the SCTE 293 series as feature 51, which was the nineteenth custom-curves guide step. Test → Proof of performance adds the FCC proof-of-performance reference card as feature 52, which was the twentieth custom-curves guide step. Test → Study adds the study-mode questions as feature 53, which was the twenty-first custom-curves guide step. Power → Supply PM adds the standby-supply notebook and the span voltage drop as feature 54, which is the twenty-second custom-curves guide step.</p>
+</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#guide-contents">Guide contents</a><a href="#working-rules-and-navigation">Working rules and navigation</a><a href="#header-and-home-controls">Header and Home controls</a><a href="#practice-library-and-example-selection">Practice library and example selection</a><a href="#job-details-and-named-jobs">Job details and named jobs</a><a href="#rf-setup-and-launch-source">RF setup and launch source</a><a href="#cable-route-branches-and-point-tools">Cable route, branches and point tools</a><a href="#amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</a><a href="#installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</a><a href="#equipment-catalog">Equipment catalog</a><a href="#tdr-distance-locator">TDR distance locator</a><a href="#forward-and-return-sweep-setup">Forward and return sweep setup</a><a href="#predicted-sweep-and-output-table">Predicted sweep and output table</a><a href="#single-path-frequency-checker">Single-path frequency checker</a><a href="#meter-readings-and-prediction-error">Meter readings and prediction error</a><a href="#field-references-and-target-conversions">Field references and target conversions</a><a href="#field-calculators">Field calculators</a><a href="#limits-and-sources">Limits and sources</a><a href="#docsis-health-card">DOCSIS health card</a><a href="#leakage">Leakage</a><a href="#impairments">Impairments</a><a href="#fiber">Fiber</a><a href="#high-split">High split</a><a href="#why-cards">Why cards</a><a href="#proof-of-performance">Proof of performance</a><a href="#study-mode">Study mode</a><a href="#supply-pm">Supply PM</a><a href="#power-supply-load">Power-supply load</a><a href="#power-what-if">Power what-if</a><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a><a href="#outage-first-response">Outage first response</a><a href="#project-records-and-closeout">Project records and closeout</a><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a><a href="#offline-use-updates-and-help">Offline use, updates and Help</a><a href="#checked-example-answers">Checked example answers</a><a href="#station-worksheet">Station worksheet</a><a href="#night-log-and-shift-handoff">Night log and shift handoff</a><a href="#sweep-due">Sweep due</a><a href="#53-feature-coverage-index">53-feature coverage index</a><a href="#build-3-attached-sweep-grading-aid">Build 3 attached sweep grading aid</a><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-all-functions-reference">NightSweep 1.8 Alpha build 2 — All Functions Reference</h1>
+<p><strong>Technician README · Updated November 12, 2026</strong></p>
+<p>This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library&#39;s feature index.</p>
+<p><strong>2.0 Alpha build 3 (Carpe Noctum, in development)</strong> includes <a href="#field-calculators">Field calculators</a>, <a href="#limits-and-sources">Limits and sources</a>, the <a href="#docsis-health-card">DOCSIS health card</a>, <a href="#leakage">Leakage</a>, <a href="#station-worksheet">Station worksheets</a>, <a href="#outage-first-response">Outage first response</a>, <a href="#night-log-and-shift-handoff">Night log and shift handoff</a>, <a href="#sweep-due">Personal sweep reminders</a>, <a href="#build-3-attached-sweep-grading-aid">Attached sweep grading</a>, <a href="#impairments">Impairments</a>, <a href="#fiber">Fiber</a>, <a href="#high-split">High split</a>, <a href="#why-cards">Why cards</a>, <a href="#proof-of-performance">Proof of performance</a>, <a href="#study-mode">Study mode</a> and <a href="#supply-pm">Supply PM</a>. The seven exercise lengths are complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. The coverage index lists all 53 feature choices. Safety was removed by Spencer&#39;s decision on November 12, 2026; legacy saved data is left untouched.</p>
 <p>For installation, use the separate <a href="phone-installation.html">Android and iOS installation guide</a>. This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android&#39;s native save/share/print dialogs appear when using the APK.</p>
 <h2 id="guide-contents">Guide contents</h2>
 <ol>
@@ -39,7 +39,6 @@
 <li><a href="#power-what-if">Power what-if</a></li>
 <li><a href="#onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</a></li>
 <li><a href="#field-checklists-and-unit-conversion">Field checklists and unit conversion</a></li>
-<li><a href="#pre-work-safety">Pre-work safety</a></li>
 <li><a href="#outage-first-response">Outage first response</a></li>
 <li><a href="#project-records-and-closeout">Project records and closeout</a></li>
 <li><a href="#run-sheet-exports-and-full-backups">Run sheet, exports and full backups</a></li>
@@ -48,7 +47,7 @@
 <li><a href="#station-worksheet">Station worksheet</a></li>
 <li><a href="#night-log-and-shift-handoff">Night log and shift handoff</a></li>
 <li><a href="#sweep-due">Sweep due</a></li>
-<li><a href="#54-feature-coverage-index">54-feature coverage index</a></li>
+<li><a href="#53-feature-coverage-index">53-feature coverage index</a></li>
 <li><a href="#build-3-attached-sweep-grading-aid">Attached sweep grading aid</a></li>
 <li><a href="#known-limits-and-unresolved-information">Known limits and unresolved information</a></li>
 </ol>
@@ -84,7 +83,7 @@
 </tr>
 <tr>
 <td>Job</td>
-<td>Details; ONX files; Checklists; Safety; Outage; Acceptance; Run sheet; Night log; Sweep due</td>
+<td>Details; ONX files; Checklists; Outage; Acceptance; Run sheet; Night log; Sweep due</td>
 <td>Local jobs, original evidence, work notes, acceptance records and reports</td>
 </tr>
 <tr>
@@ -202,8 +201,8 @@
 </tr>
 <tr>
 <td><strong>Custom curves and reverse TDR</strong></td>
-<td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, pre-work safety, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook</td>
-<td>22 steps; no supplied meter captures</td>
+<td>Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook</td>
+<td>21 steps; no supplied meter captures</td>
 </tr>
 <tr>
 <td><strong>GainMaker OEM AGC</strong></td>
@@ -997,7 +996,7 @@
 <li>This job&#39;s project-profile criteria (design launch, level and tilt tolerances, ripple, MER, receiver and injection targets) and the meter-setup TX reference of the 42/54 workflow. The 204/258 workflow has no TX reference. Blank entries show <strong>Unknown — not entered</strong>; an entered 0 stays 0. New jobs start blank, except the 750 MHz example profile&#39;s labeled 32 / 43 dBmV launch levels. A company sheet links to the screen where you edit the value.</li>
 <li>The Night-log <strong>200 entries/job</strong> application guard, labeled <strong>Unknown</strong> under <strong>Night log application guards</strong>. Its source is the existing <code>night-log.js</code> software bound, not an RF or company acceptance limit.</li>
 <li>Two built-in approximations labeled <strong>Unknown</strong> because their sources are not verified: the 0.1 % per °F cable-loss temperature correction, traced only to an indexed copy of CommScope&#39;s MX0398 pocket guide, and the 0.004 per °C default power-cable resistance coefficient, which has no recorded source.</li>
-<li>Three software caps of the checklist cards (Pre-work safety, and the Outage card that shares the engine), labeled <strong>Unknown</strong> and listed under <strong>Checklist cards application guards</strong>: up to <strong>40 items</strong> you add, <strong>160 characters</strong> in one item and <strong>120 characters</strong> in a note box (some boxes are shorter). Each has a tag beside the <strong>Add an item</strong> and <strong>Notes for this job</strong> headings. They are storage and display bounds, not safety, company or RF limits.</li>
+<li>Three software caps of the Outage card and its shared checklist engine, labeled <strong>Unknown</strong> and listed under <strong>Checklist cards application guards</strong>: up to <strong>40 items</strong> you add, <strong>160 characters</strong> in one item and <strong>120 characters</strong> in a note box (some boxes are shorter). Each has a tag beside the <strong>Add an item</strong> and <strong>Notes for this job</strong> headings. They are storage and display bounds, not company or RF limits.</li>
 </ul>
 <p>The list describes values; it does not approve criteria or change the job. Example targets on older screens, such as the workbook and sample targets in Test → References, are not listed yet, and older screens do not show tags; later build-list tools add them where their values appear.</p>
 <h2 id="docsis-health-card">DOCSIS health card</h2>
@@ -1186,9 +1185,9 @@
 <p>These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, <em>FCC Proof-of-Performance Checklist for Analog and Digital Signals</em>, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and <strong>not read</strong>.</p>
 <h2 id="study-mode">Study mode</h2>
 <p><strong>Where:</strong> Test → Study. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Answer a practice question.</p>
-<p>Practice questions made from this app&#39;s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains: <strong>architectures; distribution components; signal types; maintenance and troubleshooting; safety and construction</strong>. <strong>They are original, not SCTE or NCTI questions, and not an exam.</strong> Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the two checklists), so the question and the answer cannot disagree with the screen it practices.</p>
-<p>Choose a domain (or all five), read the question, type a number or pick an answer and tap <strong>Check my answer</strong>. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. <strong>Next question</strong> moves on and <strong>New numbers</strong> asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: <strong>nothing is saved</strong>, in the job or anywhere else, and a score here is not a test result.</p>
-<p>The safety and construction questions only ask which section of this app&#39;s own pre-work safety or outage card a reminder belongs to. They test the card, not safe practice, and follow company policy first. The domains are the build list&#39;s grouping; the questions do not follow any exam blueprint.</p>
+<p>Practice questions made from this app&#39;s own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains: <strong>architectures; distribution components; signal types; maintenance and troubleshooting</strong>. <strong>They are original, not SCTE or NCTI questions, and not an exam.</strong> Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the Outage checklist), so the question and the answer cannot disagree with the screen it practices.</p>
+<p>The 18 question generators cover the four domains. Choose a domain (or all four), read the question, type a number or pick an answer and tap <strong>Check my answer</strong>. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. <strong>Next question</strong> moves on and <strong>New numbers</strong> asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: <strong>nothing is saved</strong>, in the job or anywhere else, and a score here is not a test result.</p>
+<p>The Outage question is grouped under maintenance and troubleshooting and asks which section of this app&#39;s own card a prompt belongs to. The questions do not follow any exam blueprint.</p>
 <h2 id="supply-pm">Supply PM</h2>
 <p><strong>Where:</strong> Power → Supply PM. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Record a supply check and a span drop.</p>
 <p>A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. <strong>It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.</strong></p>
@@ -1428,53 +1427,6 @@
 </tr>
 </tbody></table></div>
 <p>Practice <strong>72 dBµV =12 dBmV</strong>. This is a voltage-reference conversion, not dBm power, leakage field strength or proof of a measured level.</p>
-<h2 id="pre-work-safety">Pre-work safety</h2>
-<p><strong>Where:</strong> Job → Safety. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Tick off pre-work safety reminders.</p>
-<p>A reminder list to tick before you climb, open plant or work near a road. <strong>It opens with &quot;Follow company policy&quot; and it is not your company&#39;s procedure.</strong> The wording was written for this app from general field-safety practice. No NCTI or SCTE course text is copied; only course headings (NCTI Field Safety and Fiber-Optic Installation I: Safety, and the SCTE safety and construction domain) were consulted. A supervisor or safety officer has not reviewed it yet, so treat it as a prompt and keep to your company&#39;s rules, permits and training.</p>
-<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
-<thead>
-<tr>
-<th>Section</th>
-<th>What it reminds you about</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Before you leave</td>
-<td>The work order, the site&#39;s hazards, weather, telling someone where you are, a charged phone and your company&#39;s safety line</td>
-</tr>
-<tr>
-<td>Protective equipment</td>
-<td>The equipment your company requires, checked before use</td>
-</tr>
-<tr>
-<td>Vehicle and traffic</td>
-<td>Parking and warning devices, traffic control before working near traffic, the ground around the work area</td>
-</tr>
-<tr>
-<td>Ladders and climbing</td>
-<td>Ladder and climbing-gear inspection, a stable set-up, the pole or strand, and overhead power lines</td>
-</tr>
-<tr>
-<td>Electrical</td>
-<td>Treating plant as possibly energized, checking for stray voltage, your company&#39;s procedure for opening actives and power supplies, wet weather</td>
-</tr>
-<tr>
-<td>Digging and underground</td>
-<td>Utility locates and the company&#39;s confined-space rules for vaults</td>
-</tr>
-<tr>
-<td>Fiber and laser</td>
-<td>Never looking into a fiber end, scraps, approved inspection equipment, hygiene</td>
-</tr>
-<tr>
-<td>Before you leave the site</td>
-<td>Tools and enclosures, telling your contact you are done, reporting hazards and near misses</td>
-</tr>
-</tbody></table></div>
-<p><strong>Your notes</strong> (below the list): who knows where you are, written as a name or role, a check-in time on a 24-hour clock, and where your company keeps its safety policy or safety line. Enter no customer names, addresses or account numbers.</p>
-<p><strong>Change this list</strong> opens an editor: reword any item, hide an original item (it moves to a hidden list with a Show again button), add your own item to any section, or Restore the original list. Start a new pass unticks everything and clears the notes for this job (it asks first); the note about where your company keeps its safety policy and your changes to the list stay. Save as text prepares a short note of the list and your notes to check before you share it. Clear everything on this device asks first and cannot be undone.</p>
-<p><strong>Where it is kept:</strong> in this browser on this device only, for every job, under its own storage key. It is not in a job or its backups, and clearing browser data erases it. If this browser would not save a change, the screen says so and keeps it until the page closes. If the saved list cannot be read, the original list is shown and, before your next change replaces the unreadable data, a copy of it is set aside on the device. If that copy cannot be made (for example storage is full), the unreadable data is left exactly as it was, the screen says <strong>Not saved</strong>, and your change lasts only until the page closes; <strong>Clear everything on this device</strong> is the deliberate way to discard it. If the list was saved by a newer version of the app, this version will not overwrite it. A check-in time you only half fill in is not saved as blank: the box is marked, the reason appears right under it with the time that is still saved, and clearing every part of the box is how you leave it blank.</p>
-<p>What this screen leaves out on purpose: any numeric limit, rating or distance (those belong to your company&#39;s rules), regulatory requirements, and anything that would claim to be a complete safety procedure.</p>
 <h2 id="outage-first-response">Outage first response</h2>
 <p><strong>Where:</strong> Job → Outage. <strong>Added in:</strong> 2.0 Alpha build 3 (in development). <strong>Practice:</strong> Custom curves → Walk through an outage first response.</p>
 <p>Prompts for the first steps of an outage call. <strong>It opens with &quot;Follow your company&#39;s outage procedure first&quot; and it is not your company&#39;s procedure.</strong> The wording was written for this app from general field practice, with no NCTI or SCTE text copied. It has <strong>not</strong> been reviewed by a supervisor against the local outage procedure, and that review is needed before coworkers use it.</p>
@@ -1488,10 +1440,6 @@
 <tbody><tr>
 <td>Confirm the scope</td>
 <td>What is down (a tap or leg, an amplifier or node, a wider area), nearby nodes, planned work, utility power or weather, and the dispatch notes, with no customer names or addresses copied in</td>
-</tr>
-<tr>
-<td>Safety on arrival</td>
-<td>Looking the site over before you get out, then your company&#39;s pre-work safety steps (Job → Safety has reminders)</td>
 </tr>
 <tr>
 <td>Power</td>
@@ -1519,8 +1467,8 @@
 </tr>
 </tbody></table></div>
 <p><strong>Your notes</strong> (below the list): a plant place such as node leg 3 or amp 2, four times on a 24-hour clock (arrived, found the cause, told the ROC or dispatch, service restored), what you found and did, who you told as a role, and three optional damage or theft notes (what was found, who was told as a role, and the time it was reported). <strong>Enter plant places and roles only: no customer names, addresses, phone numbers or account numbers.</strong> The card has no field for them and holds no photos or locations. SCTE&#39;s 2026 Critical Infrastructure Protection Subcommittee is still writing an evidence-collection standard for damage and theft; this card does not implement it and only reminds you to follow your company&#39;s procedure.</p>
-<p><strong>Change this list</strong> lets you reword, hide, add and restore items, as on the safety card. <strong>Start a new call</strong> unticks everything and clears all the notes (it asks first); your changes to the list stay. <strong>Save as text</strong> prepares a short note of the ticks and your notes to check before you share it. <strong>Clear everything on this device</strong> asks first and cannot be undone.</p>
-<p><strong>Where it is kept:</strong> in this browser on this device only, under its own storage key, apart from the safety card and outside every job and backup. A change this browser would not store stays on the screen until the page closes and is written with the next change that saves; unreadable data is copied aside before it is replaced, and data saved by a newer version is never overwritten.</p>
+<p><strong>Change this list</strong> lets you reword, hide, add and restore items. <strong>Start a new call</strong> unticks everything and clears all the notes (it asks first); your changes to the list stay. <strong>Save as text</strong> prepares a short note of the ticks and your notes to check before you share it. <strong>Clear everything on this device</strong> asks first and cannot be undone.</p>
+<p><strong>Where it is kept:</strong> in this browser on this device only, under its own storage key, outside every job and backup. A change this browser would not store stays on the screen until the page closes and is written with the next change that saves; unreadable data is copied aside before it is replaced, and data saved by a newer version is never overwritten.</p>
 <p>What this screen leaves out on purpose: numbers, limits and levels (those are your company&#39;s), outage procedures, ticket or customer lookups, photos and locations, and any live read of a node, modem or amplifier.</p>
 <h2 id="project-records-and-closeout">Project records and closeout</h2>
 <p><strong>Where:</strong> Job → Acceptance. <strong>Practice:</strong> Complete → Records; DSIM → findings; focused equipment guides.</p>
@@ -1845,7 +1793,7 @@
 <p>Dates use exact Gregorian <code>YYYY-MM-DD</code>, years 0001–9999. Future, invalid or unavailable dates remain neutral. Only a currently bound, writable Station record with Swept recorded and a valid nonfuture sweep date supplies a current reminder. Unchecked-with-date and recorded-without-date states stay distinct. Binding-unconfirmed historical and read-only UBT worksheets preserve dates, completed ages, validity and done facts with a historical reason, without current-service reminder wording or colors. Binding confirmation retains the original actual event date. Metadata, training progress, captured history and calculator results never supply work dates.</p>
 <p>The interval belongs to the open job, including in an empty list. <strong>Not saved</strong> feedback appears directly below the interval if autosave fails; export a project backup before closing. Feedback belongs only to that job and raw interval.</p>
 <p>Edit actual dates in <strong>Route → Station</strong> and manage jobs in <strong>Job → Details</strong>; this view does not open a saved job or edit work dates. The six-active <strong>Personal sweep reminders</strong> step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.</p>
-<h2 id="54-feature-coverage-index">54-feature coverage index</h2>
+<h2 id="53-feature-coverage-index">53-feature coverage index</h2>
 <p>This index follows the feature choices in the app. Choose the same label in Home&#39;s feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
@@ -2110,72 +2058,66 @@
 </tr>
 <tr>
 <td align="right">43</td>
-<td>Pre-work safety reminders <!-- feature:safety --></td>
-<td><a href="#pre-work-safety">Pre-work safety</a></td>
-<td>Custom curves (2.0 Alpha build 3)</td>
-</tr>
-<tr>
-<td align="right">44</td>
 <td>Outage first-response prompts <!-- feature:outage --></td>
 <td><a href="#outage-first-response">Outage first response</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">45</td>
+<td align="right">44</td>
 <td>Night log and shift handoff <!-- feature:nightLog --></td>
 <td><a href="#night-log-and-shift-handoff">Night log and shift handoff</a></td>
 <td>Six active devices in series (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">46</td>
+<td align="right">45</td>
 <td>Personal sweep reminders and independent balance dates <!-- feature:sweepDue --></td>
 <td><a href="#sweep-due">Sweep due</a></td>
 <td>Six actives (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">47</td>
+<td align="right">46</td>
 <td>Attached sweep grading aid <!-- feature:sweep-grading --></td>
 <td><a href="#build-3-attached-sweep-grading-aid">Sweep grading aid</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">48</td>
+<td align="right">47</td>
 <td>Impairment cards and standing-wave search <!-- feature:impairments --></td>
 <td><a href="#impairments">Impairments</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">49</td>
+<td align="right">48</td>
 <td>Fiber color finder and link loss budget <!-- feature:fiber --></td>
 <td><a href="#fiber">Fiber</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">50</td>
+<td align="right">49</td>
 <td>High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --></td>
 <td><a href="#high-split">High split</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">51</td>
+<td align="right">50</td>
 <td>Why cards: the SCTE 293 basics <!-- feature:why --></td>
 <td><a href="#why-cards">Why cards</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">52</td>
+<td align="right">51</td>
 <td>FCC proof-of-performance limits and test rules <!-- feature:pop --></td>
 <td><a href="#proof-of-performance">Proof of performance</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">53</td>
-<td>Study mode: practice questions in five domains <!-- feature:study --></td>
+<td align="right">52</td>
+<td>Study mode: practice questions in four domains <!-- feature:study --></td>
 <td><a href="#study-mode">Study mode</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td align="right">54</td>
+<td align="right">53</td>
 <td>Supply PM notebook and span voltage drop <!-- feature:powerPm --></td>
 <td><a href="#supply-pm">Supply PM</a></td>
 <td>Custom curves (2.0 Alpha build 3)</td>

@@ -1,6 +1,6 @@
 /* Study mode (build list item 19, 2.0 Alpha build 3): original practice questions built from this app's own calculators
-   and reference screens, tagged by the five SCTE BDS domains (architectures; distribution components; signal types;
-   maintenance and troubleshooting; safety and construction). Nothing here is taken from an SCTE or NCTI exam or question
+   and reference screens, tagged by four SCTE BDS domains (architectures; distribution components; signal types;
+   maintenance and troubleshooting). Nothing here is taken from an SCTE or NCTI exam or question
    bank: every question is generated from a calculator or a screen of this app, with numbers chosen on a fixed grid from a
    seed, and its answer is computed by the same function the app uses. Practice only: a score is kept for this visit,
    never saved, and it is not a test result. */
@@ -9,8 +9,7 @@ const StudyMode=(()=>{
   {id:'architectures',name:'Architectures'},
   {id:'components',name:'Distribution components'},
   {id:'signals',name:'Signal types'},
-  {id:'troubleshooting',name:'Maintenance and troubleshooting'},
-  {id:'safety',name:'Safety and construction'}
+  {id:'troubleshooting',name:'Maintenance and troubleshooting'}
  ].map(Object.freeze));
  /* A small seeded generator, so a question can be reproduced from its number and seed. */
  function rng(seed){
@@ -24,7 +23,7 @@ const StudyMode=(()=>{
  const app=()=>({
   calc:typeof FieldCalc!=='undefined'?FieldCalc:null,leak:typeof Leakage!=='undefined'?Leakage:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
   docsis:typeof DocsisHealth!=='undefined'?DocsisHealth:null,split:typeof HighSplit!=='undefined'?HighSplit:null,imp:typeof Impairments!=='undefined'?Impairments:null,
-  safety:typeof Safety!=='undefined'?Safety:null,outage:typeof Outage!=='undefined'?Outage:null
+  outage:typeof Outage!=='undefined'?Outage:null
  });
  /* Choices: the right answer is placed at a random position among the others, never repeated. */
  function choice(r,right,others){
@@ -132,13 +131,7 @@ const StudyMode=(()=>{
    const c=choice(r,right,['Not less than 51 dB','Not less than 18 dB','Not less than 30 dB','Not less than 60 dB']);
    return {kind:'choice',prompt:'What is the FCC minimum ratio of visual carrier to system noise for an analog channel?',choices:c.choices,correct:c.correct,working:['47 CFR 76.605(b)(7): the ratio of RF visual signal level to system noise shall not be less than 43 dB.','51 dB is the coherent-disturbance figure and 18 dB the terminal isolation.'],source:'47 CFR 76.605(b)(7)'};
   }},
-  {id:'safetysection',domain:'safety',tool:{task:'safety',label:'Job → Safety'},make:r=>{
-   const a=app(),items=a.safety.ITEMS,item=pick(r,items);
-   const groups=[...new Set(items.map(i=>i.group))];
-   const c=choice(r,item.group,groups);
-   return {kind:'choice',prompt:`In which section of the pre-work safety card does this reminder appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of reminders written for this app. It is not your company’s procedure; follow company policy first.'],source:'This app’s Job → Safety card'};
-  }},
-  {id:'outagesection',domain:'safety',tool:{task:'outage',label:'Job → Outage'},make:r=>{
+  {id:'outagesection',domain:'troubleshooting',tool:{task:'outage',label:'Job → Outage'},make:r=>{
    const a=app(),items=a.outage.ITEMS,item=pick(r,items);
    const groups=[...new Set(items.map(i=>i.group))];
    const c=choice(r,item.group,groups);
@@ -202,7 +195,7 @@ const StudyModeUI=(()=>{
   const score=panel.querySelector('#studyScore');if(score)score.textContent=state.asked?`This visit: ${state.right} right of ${state.asked}. Nothing is saved.`:'Nothing is saved, and a score here is not a test result.';
  }
  function markup(){
-  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by the five SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All five domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
+  return `<div class="sectionhead"><div><h2>Study mode</h2><p class="note tight">Practice questions made from this app’s own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains. Every question is original: the numbers come from a seed and the answer comes from the same function the app uses. They are not SCTE or NCTI questions and not an exam. A score is kept for this visit only.</p></div></div><section class="calc-card study-card"><div class="calc-fields"><label>Domain<select id="studyDomain" data-study="domain"><option value="all">All domains</option>${StudyMode.DOMAINS.map(d=>`<option value="${d.id}">${escape(d.name)}</option>`).join('')}</select></label></div><div id="studyBody"></div><p class="note tight" id="studyScore"></p></section>`;
  }
  function showResult(q,res,panel){
   const out=panel.querySelector('#studyFeedback');

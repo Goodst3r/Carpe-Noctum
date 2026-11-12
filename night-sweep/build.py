@@ -39,7 +39,6 @@ MODULES = [
     ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
     ('<!--LEAKAGE-->', 'leakage.js'),
     ('<!--CHECKLIST-->', 'checklist.js'),
-    ('<!--SAFETY-->', 'safety.js'),
     ('<!--OUTAGE-->', 'outage.js'),
     ('<!--IMPAIRMENTS-->', 'impairments.js'),
     ('<!--FIBERTOOLS-->', 'fiber-tools.js'),

@@ -1,4 +1,4 @@
-/* Build 3 shared checklist engine, used by the pre-work safety card and the outage first-response card.
+/* Build 3 shared checklist engine, used by the outage first-response card.
    A checklist is a list of prompts the technician ticks off, rewords, hides or adds to, plus a few short
    notes (a person's name or role, a time). Everything is kept on this device only, under one versioned
    key per checklist, outside jobs and job backups. Nothing here is a company procedure; the cards that use
@@ -125,8 +125,8 @@ const Checklist=(()=>{
    },storage);
   }
   function uncheckAll(storage){return commit(s=>{s.checked=[];},storage);}
-  /* A new pass or a new call: ticks go and so do the notes for this job. Notes marked keep (such as where the
-     company's policy is kept) stay, and so do the technician's changes to the list. */
+  /* A new pass or a new call: ticks go and so do the notes for this job. Notes marked keep stay,
+     and so do the technician's changes to the list. */
   function startOver(storage){
    return commit(s=>{
     s.checked=[];
