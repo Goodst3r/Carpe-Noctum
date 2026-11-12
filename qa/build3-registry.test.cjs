@@ -197,6 +197,18 @@ function assertResolves(tags) {
     assert.equal(sheet(), null, 'a tap on the backdrop closes it');
   });
 
+  await check('Night-log entry cap is an Unknown application guard with a separate source button and unchanged boundary', async () => {
+    const row=json("Thresholds.get('nightLog.entries.max')");assert(row,'night-log cap has a registry row');
+    assert.equal(row.label,'unknown');assert.equal(row.kind,'limit');assert.equal(row.value,200);assert.equal(row.units,'entries/job');assert.equal(row.verification,'unverified');
+    assert.match(row.source,/night-log\.js.*application guard/i);assert.match(row.locator,/validate.*addEntry/);assert.match(row.conditions,/not.*RF.*company/i);assert.match(row.revision,/build 3/i);assert.match(row.date,/^\d{4}-\d{2}-\d{2}$/);
+    const before=json('state'),saved=w.localStorage.getItem('hfc-route-v1');ev("WorkflowUI.go('nightLog')");
+    const source=d.querySelector('#nightLogPanel [data-threshold="nightLog.entries.max"]');assert(source);assert.equal(source.textContent,'Unknown');assert.equal(source.closest('label'),null);assert.equal(d.querySelectorAll('#nightLogPanel label [data-threshold]').length,0);
+    assert.equal(w.getComputedStyle(source).minHeight,'44px');source.click();await flush();assert.equal(sheet().dataset.sheetFor,row.id);assert.match(sheet().textContent,/200 entries\/job/);assert.match(sheet().textContent,/application guard/);ev('Thresholds.close()');
+    ev("WorkflowUI.go('limits');Thresholds.setFilter('unknown')");assert([...d.querySelectorAll('#limitsList h3')].some(el=>el.textContent==='Night log application guards'));assert(d.querySelector('#limitsList [data-threshold="nightLog.entries.max"]'));ev("Thresholds.setFilter('all')");
+    const boundary=json(`(()=>{const owner={setup:{},rows:[]};for(let i=0;i<200;i++)NightLog.addEntry({action:'SYNTH '+i},owner);NightLog.validate(owner.nightLog);const original=JSON.stringify(owner);let error='',importError='';try{NightLog.addEntry({action:'extra'},owner);}catch(e){error=e.message;}const incoming=JSON.parse(JSON.stringify(owner.nightLog));incoming.entries.push({...incoming.entries[0],id:'log_extra'});try{NightLog.validate(incoming);}catch(e){importError=e.message;}return {count:owner.nightLog.entries.length,unchanged:JSON.stringify(owner)===original,error,importError};})()`);
+    assert.equal(boundary.count,row.value);assert.equal(boundary.unchanged,true);assert.match(boundary.error,/maximum is 200 entries/);assert.match(boundary.importError,/maximum 200/);assert.deepEqual(json('state'),before);assert.equal(w.localStorage.getItem('hfc-route-v1'),saved);
+  });
+
   await check('Opening the registry and its sheets does not change the job or write storage', async () => {
     const before = json('state'), saved = w.localStorage.getItem('hfc-route-v1'), keys = Object.keys(w.localStorage).sort();
     ev("WorkflowUI.go('limits')");
