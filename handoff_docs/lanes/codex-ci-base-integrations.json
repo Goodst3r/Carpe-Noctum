@@ -1,0 +1,102 @@
+{
+  "started_utc": "2026-11-11T21:12:15.889967+00:00",
+  "integrated_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
+  "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
+  "ci_only_paths": [
+    ".github/workflows/gate.yml",
+    "qa/ci_layout_diagnose.py"
+  ],
+  "full_gate_rerun": false,
+  "finished_utc": "2026-11-11T21:12:17.811159+00:00",
+  "publication_scope": "Metadata publication follows these ordinary CI-only merges; no new full feature gate was executed at these merge heads.",
+  "reviewed_ci_validation": "codex-ci-upload-validation.json",
+  "items": [
+    {
+      "item": "a2",
+      "workspace": "/workspace/carpe-night-log",
+      "branch": "codex/night-log",
+      "starting_head": "30014ce3a1387594776f8a227dee1e8a28c16a3e",
+      "ending_head": "3af0134ec4f53dfae57a0c0b93aa153630d307a6",
+      "parents": [
+        "30014ce3a1387594776f8a227dee1e8a28c16a3e",
+        "14bfc06ff62e000dc624e46d57cf8d4beda98ce0"
+      ],
+      "changed_paths": [
+        ".github/workflows/gate.yml",
+        "qa/ci_layout_diagnose.py"
+      ],
+      "preexisting_file_hashes_identical": true,
+      "preexisting_staged_entries_identical": true,
+      "clean": true,
+      "historical_feature_gate_source": "cd79a84630ec7fec9f997f9631b5fb5b4a35a287",
+      "historical_feature_gate_results": "70 suites / 1,444 checks; separate layout374 / smoke340",
+      "full_gate_rerun_at_ending_head": false,
+      "proof_sha256": "89919135c9b04b906f4b4f62472095119e3f532ef74f6a610d522aac6efef53c",
+      "preexisting_tracked_count": 574,
+      "ending_tracked_count": 576,
+      "ci_file_sha256": {
+        ".github/workflows/gate.yml": "7a07afcbf8c2044501f5f18da677ca06e632531945448db5cca473c14da46ab5",
+        "qa/ci_layout_diagnose.py": "6251b6f8d9f0bbc35a8520eb7e365591273a733590b72686934872778f3d4a2f"
+      },
+      "no_new_full_gate": true
+    },
+    {
+      "item": "a3",
+      "workspace": "/workspace/carpe-sweep-due",
+      "branch": "codex/sweep-due",
+      "starting_head": "ea2e5deb6a458173bb23058b895542ed0450c73b",
+      "ending_head": "9b40ea0a6ee2d85eef7791feb9ad0cd0ccced7c3",
+      "parents": [
+        "ea2e5deb6a458173bb23058b895542ed0450c73b",
+        "14bfc06ff62e000dc624e46d57cf8d4beda98ce0"
+      ],
+      "changed_paths": [
+        ".github/workflows/gate.yml",
+        "qa/ci_layout_diagnose.py"
+      ],
+      "preexisting_file_hashes_identical": true,
+      "preexisting_staged_entries_identical": true,
+      "clean": true,
+      "historical_feature_gate_source": "52fac6902d2f2872ec28ca42115589df814cf5a3",
+      "historical_feature_gate_results": "70 suites / 1,482 checks; separate layout374 / smoke340",
+      "full_gate_rerun_at_ending_head": false,
+      "proof_sha256": "da1505c5c84ac9a4b793eca13658816fecee2b975e806a59b845291cd53c3432",
+      "preexisting_tracked_count": 559,
+      "ending_tracked_count": 561,
+      "ci_file_sha256": {
+        ".github/workflows/gate.yml": "7a07afcbf8c2044501f5f18da677ca06e632531945448db5cca473c14da46ab5",
+        "qa/ci_layout_diagnose.py": "6251b6f8d9f0bbc35a8520eb7e365591273a733590b72686934872778f3d4a2f"
+      },
+      "no_new_full_gate": true
+    },
+    {
+      "item": "a4",
+      "workspace": "/workspace/carpe-sweep",
+      "branch": "codex/sweep-grading",
+      "starting_head": "45eef1ccb304832576053cb385e88f710dc0def5",
+      "ending_head": "8b28cb6f74acccbe1e9cc62362946b155b8bc8d5",
+      "parents": [
+        "45eef1ccb304832576053cb385e88f710dc0def5",
+        "14bfc06ff62e000dc624e46d57cf8d4beda98ce0"
+      ],
+      "changed_paths": [
+        ".github/workflows/gate.yml",
+        "qa/ci_layout_diagnose.py"
+      ],
+      "preexisting_file_hashes_identical": true,
+      "preexisting_staged_entries_identical": true,
+      "clean": true,
+      "historical_feature_gate_source": "9cad649d1a7fdc511609c2989af0d1043512748a",
+      "historical_feature_gate_results": "72 suites / 1,589 checks; separate layout374 / smoke340",
+      "full_gate_rerun_at_ending_head": false,
+      "proof_sha256": "336d5dbfe3a5b58fe8fd4011abae9b7c5b67711f84be22db24a7c49f81017d4d",
+      "preexisting_tracked_count": 596,
+      "ending_tracked_count": 598,
+      "ci_file_sha256": {
+        ".github/workflows/gate.yml": "7a07afcbf8c2044501f5f18da677ca06e632531945448db5cca473c14da46ab5",
+        "qa/ci_layout_diagnose.py": "6251b6f8d9f0bbc35a8520eb7e365591273a733590b72686934872778f3d4a2f"
+      },
+      "no_new_full_gate": true
+    }
+  ]
+}
