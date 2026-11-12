@@ -1,0 +1,17 @@
+/* Sweep-due cards wrap at phone widths; color always has matching text. */
+#sweepDuePanel{overflow-wrap:anywhere;min-width:0}
+#sweepDuePanel button,#sweepDuePanel input,#sweepDuePanel summary{min-height:44px}
+#sweepDuePanel .source-tag{min-width:44px;margin:4px}
+.sweep-due-setting{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px}
+.sweep-due-setting input,.sweep-due-setting p{grid-column:1/-1;min-width:0;width:100%;box-sizing:border-box}
+.sweep-due-job{border-top:2px solid var(--line);margin-top:24px;padding-top:12px}
+.sweep-due-job h3,.sweep-due-row h4{margin:0 0 8px}
+.sweep-due-row{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;min-width:0}
+.sweep-due-events{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.sweep-due-event p{margin:6px 0}.sweep-due-event h4{font-size:1em}.sweep-due-date{font-weight:700}
+.sweep-due-badge{display:inline-block;border:2px solid currentColor;border-radius:8px;padding:8px 10px;font-weight:700}
+.sweep-due-green{color:var(--good,#71df9b)}.sweep-due-yellow{color:var(--warn,#ffcd63)}.sweep-due-red{color:var(--bad,#ff8c8c)}
+.sweep-due-pages{flex-wrap:wrap;align-items:center}.sweep-due-pages span{flex:1 1 140px;min-width:0}
+@media(max-width:430px){.sweep-due-events{grid-template-columns:minmax(0,1fr)}#sweepDuePanel .sectionhead{flex-wrap:wrap}}
+
+html[data-theme=sun] .sweep-due-green{color:#22613b}

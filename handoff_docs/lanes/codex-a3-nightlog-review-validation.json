@@ -1,0 +1,102 @@
+{
+  "scope": "Independent A3/NightLog scoped integration delta; no broad run",
+  "utc": "2026-11-12T00:25:02.142582+00:00",
+  "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+  "tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+  "base": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "currentActualRemoteBuild3": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "baseStillCurrent": true,
+  "tracked": 610,
+  "allTrackedSHA256Unchanged": true,
+  "allTrackedGitBlobsEqualHEAD": true,
+  "headTreeSemanticIndexUnchangedAndClean": true,
+  "standaloneSHA256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+  "pwa": {
+    "version": "895c3d743a958543a5a5",
+    "worker": "sw.895c3d743a958543a5a5.js",
+    "appVersion": "2.0 Alpha build 3"
+  },
+  "freshOwnCounts": {
+    "sweepDueSource": 37,
+    "sweepDueFrozen": 37,
+    "nightLogSource": 23,
+    "nightLogFrozen": 23,
+    "checklistFrozen": 37,
+    "independentAuditGroups": 14,
+    "actualMCP": 47
+  },
+  "initialProbeDisposition": "One compound reopened-original assertion assumed stable import IDs; decomposition proves new identities with identical original bytes/SHA/name and exact log/cadence. Preserved separately; not included in final47.",
+  "artifacts": {
+    "/tmp/carpe-a3-nightlog-delta-due-source.log": {
+      "sha256": "45efe390eb93352089d96393a464d8ca13700cc27885d6d19607c01b9859eb8d",
+      "bytes": 3386,
+      "mtime_ns": 1794442618666111526
+    },
+    "/tmp/carpe-a3-nightlog-delta-due-frozen.log": {
+      "sha256": "45efe390eb93352089d96393a464d8ca13700cc27885d6d19607c01b9859eb8d",
+      "bytes": 3386,
+      "mtime_ns": 1794442600406194917
+    },
+    "/tmp/carpe-a3-nightlog-delta-night-source.log": {
+      "sha256": "a4f22b11404a5b63902792e264a3de17ce74d2ed7b26440f0f2762050ceac571",
+      "bytes": 2186,
+      "mtime_ns": 1794442646345991706
+    },
+    "/tmp/carpe-a3-nightlog-delta-night-frozen.log": {
+      "sha256": "a4f22b11404a5b63902792e264a3de17ce74d2ed7b26440f0f2762050ceac571",
+      "bytes": 2186,
+      "mtime_ns": 1794442648941980302
+    },
+    "/tmp/carpe-a3-nightlog-delta-checklist-frozen.log": {
+      "sha256": "4b620f39a862b955bd7abe4912047360965de3a59f5626db7f279466941f1ec2",
+      "bytes": 4695,
+      "mtime_ns": 1794442590766240898
+    },
+    "/tmp/carpe-a3-nightlog-delta-audit.cjs": {
+      "sha256": "793d16c99754a8f5089e85be8017d5b201e25e598d076dfd7e2084d8e74cec48",
+      "bytes": 11005,
+      "mtime_ns": 1794443020802226771
+    },
+    "/tmp/carpe-a3-nightlog-delta-audit.log": {
+      "sha256": "8150ec40008056febd6c1525f951b5b8f2a22a065bc2906a77f0f29f1ee4f891",
+      "bytes": 1253,
+      "mtime_ns": 1794443027224249882
+    },
+    "/tmp/carpe-a3-nightlog-delta-audit.json": {
+      "sha256": "3dfa20bc19c071ab790fa868d7857c9ccabcff618ba34dac2b1490e852c48291",
+      "bytes": 4489,
+      "mtime_ns": 1794443027224249882
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp.py": {
+      "sha256": "413c6e978c45e5c0e5e13e3a5140565f688b8cf1b4f91e543d4bfd83cf95a086",
+      "bytes": 13512,
+      "mtime_ns": 1794442904023027389
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp.log": {
+      "sha256": "155addf166aba0e0e610c7c55540eac25cd85c1f4fb4e4fd34b339d7ddf73ed0",
+      "bytes": 3443,
+      "mtime_ns": 1794442935312645571
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp.json": {
+      "sha256": "5ec33f7feeb96fdbdd88703477e84afc4b7d776c8baee6235963c85ea7a00c66",
+      "bytes": 369895,
+      "mtime_ns": 1794442934986790865
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp-reopen-assumption.py": {
+      "sha256": "9f7d0f34bb2501b69b42c37ab7cb8a1b5cfa5ffbb1122fc5368a5e8e962a60c9",
+      "bytes": 12840,
+      "mtime_ns": 1794442904021485958
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp-reopen-assumption.log": {
+      "sha256": "2763e51553939184b44983088fa3a9c211d2a087788cd6552cd30707b36304ac",
+      "bytes": 1965,
+      "mtime_ns": 1794442904021669590
+    },
+    "/tmp/carpe-a3-nightlog-delta-mcp-reopen-assumption.json": {
+      "sha256": "9266553f794f5189a341529fa4030d31da90b9604d3eb4232e271b13cbf03278",
+      "bytes": 178565,
+      "mtime_ns": 1794442904022780965
+    }
+  },
+  "allScopedChecksPassed": true
+}

@@ -1,0 +1,139 @@
+{
+  "source_head": null,
+  "checks": [
+    {
+      "width": 320,
+      "theme": "night",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 320,
+      "theme": "sun",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 360,
+      "theme": "night",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 360,
+      "theme": "sun",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 390,
+      "theme": "night",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 390,
+      "theme": "sun",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 430,
+      "theme": "night",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    },
+    {
+      "width": 430,
+      "theme": "sun",
+      "height": 44,
+      "buttonWidth": 83.3125,
+      "outsideLabel": true,
+      "unknown": true,
+      "sheetCorrect": true,
+      "stateUnchanged": true,
+      "autosaveUnchanged": true,
+      "overflow": false,
+      "focusReturned": true,
+      "inputLabelsClean": true
+    }
+  ],
+  "mcp_tools": [
+    "emulate",
+    "evaluate_script",
+    "list_console_messages",
+    "list_pages",
+    "new_page",
+    "take_screenshot"
+  ],
+  "server": {
+    "name": "chrome_devtools",
+    "title": "Chrome DevTools MCP server",
+    "version": "1.13.0"
+  },
+  "console": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Emulating viewport: {\"deviceScaleFactor\":1,\"isMobile\":true,\"hasTouch\":true,\"isLandscape\":false,\"width\":390,\"height\":844}\n## Console messages\n<no console messages found>"
+      }
+    ]
+  },
+  "standalone_sha256": "348ea3647bbdb9497b7dc5e1827eb054c4f460319321af2c7040f54cade509d1"
+}
