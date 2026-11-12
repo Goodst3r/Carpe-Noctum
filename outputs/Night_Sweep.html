@@ -306,11 +306,21 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .imp-flow li{margin:8px 0}
 .imp-tool{border-top:1px solid var(--line);margin-top:14px;padding-top:6px}
 .imp-tool input[aria-invalid=true]{border:3px solid var(--bad)}
+.imp-tool-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.imp-tool-head h4{margin:0;flex:1 1 200px}
+.imp-tool .source-tag{min-width:44px;min-height:44px}
+.imp-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.imp-field-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:44px}
+.imp-field-heading>label{flex:1 1 130px;overflow-wrap:anywhere}
+.imp-field>input{width:100%}
 .imp-tool [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);margin-right:8px;vertical-align:-2px}
 .fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
 .fiber-reference{margin:10px 0}
 #fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+.fiber-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fiber-field>label{font-size:13px;font-weight:600}
+.fiber-box-error{margin:0;font-size:13px;font-weight:600;color:var(--bad);overflow-wrap:anywhere}
 #fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-panel .calc-card button{min-height:44px}
 .hs-card{min-width:0}
@@ -6651,7 +6661,7 @@ const ImpairmentsUI=(()=>{
   return `<ol class="imp-flow">${Impairments.FLOW.map(k=>`<li><strong>${Impairments.FLOW_LABEL[k]}.</strong> ${escape(c.flow[k])}</li>`).join('')}</ol>`;
  }
  function rippleTool(){
-  return `<div class="imp-tool" id="impRipple"><h4>Find the two mismatches on the saved route ${tag('calc.ripple.distance','ripple to distance')}</h4><div class="calc-fields"><label>Ripple spacing, peak to peak (MHz)<input type="number" step="any" data-imp="spacing" placeholder="e.g. 1.7"></label><label>Cable velocity of propagation (VP)<input type="number" step="any" data-imp="vp" placeholder="e.g. 0.87"></label><label>Search width (± percent) ${tag('app.impairment.rippleSearchWidth','candidate search width')}<input type="number" step="any" data-imp="width" value="${Impairments.SEARCH_WIDTH_PERCENT}"></label></div><div class="calc-result" id="impRippleResult" role="status" aria-live="polite"></div><p class="note calc-conditions">The distance is the cable length between the two mismatches. Either end can be a connector, splitter, tap, amplifier or the cable itself, so a candidate is a place to look first, not a finding. The search only uses the route you saved in this job; it reads nothing from a meter.</p></div>`;
+  return `<div class="imp-tool" id="impRipple"><div class="imp-tool-head"><h4>Find the two mismatches on the saved route</h4>${tag('calc.ripple.distance','ripple to distance')}</div><div class="calc-fields"><div class="imp-field"><div class="imp-field-heading"><label for="impSpacing">Ripple spacing, peak to peak (MHz)</label></div><input id="impSpacing" type="number" step="any" data-imp="spacing" placeholder="e.g. 1.7"></div><div class="imp-field"><div class="imp-field-heading"><label for="impVp">Cable velocity of propagation (VP)</label></div><input id="impVp" type="number" step="any" data-imp="vp" placeholder="e.g. 0.87"></div><div class="imp-field"><div class="imp-field-heading"><label for="impWidth">Search width (± percent)</label>${tag('app.impairment.rippleSearchWidth','candidate search width')}</div><input id="impWidth" type="number" step="any" data-imp="width" value="${Impairments.SEARCH_WIDTH_PERCENT}"></div></div><div class="calc-result" id="impRippleResult" role="status" aria-live="polite"></div><p class="note calc-conditions">The distance is the cable length between the two mismatches. Either end can be a connector, splitter, tap, amplifier or the cable itself, so a candidate is a place to look first, not a finding. The search only uses the route you saved in this job; it reads nothing from a meter.</p></div>`;
  }
  function cardMarkup(c){
   return `<article class="imp-card" aria-labelledby="impCardTitle"><div class="calc-card-head"><h3 id="impCardTitle">${escape(c.name)}</h3><span class="note">${escape(c.group)}</span></div>${c.verified==='unverified'?'<p class="status warning">The body text of the source for this card was not read: the wording is general practice, labeled Expert. Check it against your company\'s procedure.</p>':''}<h4>What it looks like</h4><p>${escape(c.looks)}</p><h4>What usually causes it</h4><ul>${c.causes.map(x=>`<li>${escape(x)}</li>`).join('')}</ul><h4>Easily mistaken for</h4><ul>${c.lookalikes.map(x=>`<li>${escape(x)}</li>`).join('')}</ul><h4>Five steps</h4>${flow(c)}${c.id==='standing-wave'?rippleTool():''}<p class="note calc-conditions">What it looks like and what causes it follow ${escape(c.ref)}, paraphrased and not copied. The five-step order (analyze, localize, prioritize, repair, validate) is the SCTE PNM series workflow; the steps under each are general practice, labeled Expert, and are not your company's procedure.</p></article>`;
@@ -6690,6 +6700,9 @@ const ImpairmentsUI=(()=>{
   if(initialized||typeof document==='undefined')return;initialized=true;
   const panel=document.getElementById('impairmentsPanel');if(!panel)return;
   panel.innerHTML=markup();render();
+  /* the working job can be replaced while this screen stays open (Files -> Open project, a job switch): every
+     replacement ends in renderAll(), so recompute the candidate places there. updateRipple never calls renderAll. */
+  if(typeof renderAll==='function'){const previous=renderAll;renderAll=function(...args){const result=previous.apply(this,args);updateRipple();return result;};}
   panel.addEventListener('change',event=>{
    const t=event.target;if(!panel.contains(t))return;
    if(t.name==='impShape'){selected=t.value;render();}
@@ -6789,15 +6802,20 @@ const FiberToolsUI=(()=>{
  const trim=(v,d=2)=>{const s=Number(v.toFixed(d)).toString();return s==='-0'?'0':s;};
  const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
  const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
- const field=(card,name,label,hint,extra='')=>`<label>${label}<input type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}></label>`;
+ const field=(card,name,label,hint,extra='')=>`<div class="fiber-field"><label for="fiber-${card}-${name}">${label}</label><input id="fiber-${card}-${name}" type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}><p class="fiber-box-error" id="fiber-${card}-${name}-error" hidden></p></div>`;
  /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
     dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
- function boxName(el){const label=el.closest('label'),text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function boxName(el){const label=el.labels&&el.labels[0],text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
  function read(card){
   const v={},bad=[];
   document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
    v[el.dataset.field]=el.value;
-   if(el.validity&&el.validity.badInput===true){bad.push(boxName(el));el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+   const note=document.getElementById(el.id+'-error');
+   if(el.validity&&el.validity.badInput===true){
+    const name=boxName(el);bad.push(name);el.setAttribute('aria-invalid','true');
+    /* the reason sits directly under the box (the card-wide result can be far below on a phone) and the box points at it */
+    if(note){note.textContent='The '+name+' box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box.';note.hidden=false;el.setAttribute('aria-describedby',note.id);}
+   }else{el.removeAttribute('aria-invalid');if(note){note.hidden=true;note.textContent='';}el.removeAttribute('aria-describedby');}
   });
   Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
   return v;
