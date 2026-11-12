@@ -20,14 +20,14 @@ const norm = s => String(s).replace(/[⌄▾▸]/g, '').replace(/[’‘]/g, "'"
 
 // Old names that were renamed. Each maps to what the app calls it now.
 const RETIRED = [
-  [/Save named job/i, '"Save now" (Job → Details → Named jobs on this device)'],
+  [/Save named job/i, '"Save now" (Plan → Details → Named jobs on this device)'],
   [/Sun\s*\/\s*Night/i, 'the palette button in the header ("Switch to Sun palette" / "Switch to Night palette")'],
   [/Files\s*→\s*Save project/, '"Files → Back up project"'],
-  [/Route\s*→\s*Equipment setup/, '"Route → Amp / node setup"'],
-  [/Route\s*→\s*Equipment\b(?!\s*setup)/, '"Route → Catalog"'],
-  [/Test\s*→\s*Sweep setup/, '"Test → Meter setup"'],
-  [/Test\s*→\s*Sweep\b(?!\s*setup)/, '"Test → Predicted levels"'],
-  [/Job\s*→\s*Records/, '"Job → Acceptance"'],
+  [/Route\s*→\s*Equipment setup/, '"Plan → Amp / node setup"'],
+  [/Route\s*→\s*Equipment\b(?!\s*setup)/, '"Tools → Catalog"'],
+  [/Test\s*→\s*Sweep setup/, '"Field → Meter setup"'],
+  [/Test\s*→\s*Sweep\b(?!\s*setup)/, '"Plan → Predicted levels"'],
+  [/Job\s*→\s*Records/, '"Closeout → Acceptance"'],
 ];
 
 // Phrases the extractors pick up that are not controls, with the reason. Keep this short.
@@ -55,7 +55,7 @@ const DOCUMENT_ALLOWED = new Map([
     ['gs7k/gainmaker gan baseline', 'the name of a practice job'],
     ['documented setup method offered', 'the label "Documented setup method" followed by prose'],
     ['gainmaker source/route station', 'a station of the practice job, described in prose'],
-    ['sc-qam csv', 'an entry shown in Job → ONX files for the practice evidence file'],
+    ['sc-qam csv', 'an entry shown in Field → ONX files for the practice evidence file'],
     ['nightsweep-1', 'part of the installer file name NightSweep-1.8-preview.apk'],
     ['install', 'the Android installer prompt'],
   ])],
@@ -67,7 +67,7 @@ const DOCUMENT_ALLOWED = new Map([
 
 // Retired only as a screen name in the practice-job text, where the screen is "Amp / node setup".
 const RETIRED_IN_TRAINING = [
-  [/Equipment setup/i, '"Amp / node setup" (Route → Amp / node setup)'],
+  [/Equipment setup/i, '"Amp / node setup" (Plan → Amp / node setup)'],
 ];
 
 const GUIDES = [
@@ -78,7 +78,7 @@ const GUIDES = [
   'docs/NightSweep_1.8_Equipment_Coverage.md',
 ];
 
-const ROOT_TABS = ['Home', 'Route', 'Test', 'Power', 'Job'];
+const ROOT_TABS = ['Home', 'Plan', 'Field', 'Tools', 'Closeout'];
 const PATH_START = new RegExp('\\b(?:' + [...ROOT_TABS, 'Files'].join('|') + ')\\s*→', 'g');
 const SEGMENT = /\s*→\s*([^→.,;:()|\n]*?)(?=\s*→|[.,;:()|\n]|\s+(?:and|or|then|to|for|from|in|on|when|if|before|after|with|until|so|that|which|are|is|can|will|the|a)\s|$)/y;
 const VERBS = 'Open|Tap|Press|Select|Choose|Click|Try|Practice|Expand|Return to|Go to';
@@ -227,13 +227,21 @@ function checkPath(info, segments) {
   return problems;
 }
 
-// Guide tables that list a main tab with its task screens, for example
-// "| Test | Meter setup; TDR; ... | purpose |": every screen must be a sub-tab of that tab.
+// Only the navigation inventory is a screen list. Its header is
+// "Main work area | Task screens | Purpose". A form table such as
+// "| Field | What to enter |" is not one, even though Field is also a group name.
 function screenLists(info, clean, label, failures) {
-  for (const line of clean.split('\n')) {
-    const row = line.match(/^\|\s*(Route|Test|Power|Job)\s*\|\s*([^|]+?)\s*\|/);
+  const lines = clean.split('\n');
+  let inventory = false;
+  for (const line of lines) {
+    if (/^\|\s*Main work area\s*\|\s*Task screens\s*\|\s*Purpose\s*\|/.test(line)) { inventory = true; continue; }
+    if (!inventory) continue;
+    if (!line.startsWith('|')) { inventory = false; continue; }
+    if (/^\|\s*-+/.test(line)) continue;
+    const row = line.match(/^\|\s*(Home|Plan|Field|Tools|Closeout)\s*\|\s*([^|]+?)\s*\|/);
     if (!row) continue;
     const tabs = info.subTabs.get(norm(row[1]));
+    if (!tabs) { failures.push(`${label}: table row "${row[1]}" is not a main work area`); continue; }
     for (const screen of row[2].split(';').map(x => norm(x)).filter(Boolean)) {
       if (!tabs.has(screen)) failures.push(`${label}: table row "${row[1]}" lists "${screen}", which is not a ${row[1]} tab (tabs: ${[...tabs].join(', ')})`);
     }
@@ -270,9 +278,11 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
   };
 
   run('The app exposes the five main tabs and their sub-tabs the check relies on', () => {
-    assert.deepEqual([...info.mainLabels].sort(), ['home', 'job', 'power', 'route', 'test']);
-    assert.deepEqual([...info.subTabs.get('job')], ['details', 'onx files', 'checklists', 'safety', 'outage', 'acceptance', 'run sheet', 'night log', 'sweep due']);
-    for (const [main, tab] of [['route', 'amp / node setup'], ['test', 'meter setup'], ['test', 'predicted levels'], ['job', 'acceptance'], ['route', 'catalog']]) {
+    assert.deepEqual([...info.mainLabels].sort(), ['closeout', 'field', 'home', 'plan', 'tools']);
+    assert.deepEqual([...info.subTabs.get('plan')], ['details', 'setup', 'cable route', 'amp gain', 'amp / node setup', 'predicted levels', 'load', 'what-if', 'supply pm', 'sweep due']);
+    assert.deepEqual([...info.subTabs.get('field')], ['meter setup', 'station', 'readings', 'tdr', 'onx files', 'leakage', 'checklists', 'night log']);
+    assert.deepEqual([...info.subTabs.get('home')], ['home', 'outage']);
+    for (const [main, tab] of [['plan', 'amp / node setup'], ['field', 'meter setup'], ['plan', 'predicted levels'], ['closeout', 'acceptance'], ['tools', 'catalog']]) {
       assert(info.subTabs.get(main).has(tab), main + ' → ' + tab);
     }
     assert(info.universe.has('save now') && info.universe.has('back up project'));
@@ -281,7 +291,7 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
 
   run('The check recognizes a wrong tab, a wrong button and a retired name', () => {
     const failures = [];
-    check('probe', info, 'Open Route → Equipment setup, tap Save named job, then press Sun / Night. Use Test → Nonexistent screen. Tap Imaginary control.', failures);
+    check('probe', info, 'Open Route → Equipment setup, tap Save named job, then press Sun / Night. Use Tools → Nonexistent screen. Tap Imaginary control.', failures);
     const text = failures.join('\n');
     assert(/Equipment setup/.test(text) && /Save named job/.test(text) && /Sun/.test(text), text);
     assert(/Nonexistent screen/.test(text) && /Imaginary control/.test(text), text);
@@ -300,8 +310,33 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     check('probe', info, 'In Named jobs on this device, practice Save now and Duplicate, then try the palette button in the header and Help & methods. You can tap Back up project.', lowerGood);
     assert.deepEqual(lowerGood, []);
     const good = [];
-    check('probe', info, 'Use Job → Details → Save now, then Route → Amp / node setup, then Files → Back up project.', good);
+    check('probe', info, 'Use Plan → Details → Save now, then Plan → Amp / node setup, then Files → Back up project.', good);
     assert.deepEqual(good, []);
+  });
+
+  run('A navigation inventory rejects a missing screen and a screen in the wrong group', () => {
+    const header = '| Main work area | Task screens | Purpose |\n| --- | --- | --- |\n';
+    const missing = [];
+    check('probe', info, header + '| Tools | Nonexistent screen | Synthetic |\n', missing);
+    assert(missing.some(f => /nonexistent screen/.test(f)), missing.join('\n'));
+    const wrong = [];
+    check('probe', info, header + '| Tools | Meter setup | Synthetic |\n', wrong);
+    assert(wrong.some(f => /meter setup/.test(f) && /not a Tools tab/.test(f)), wrong.join('\n'));
+    const bogus = [];
+    check('probe', info, header + '| Tools | Bogus | Synthetic |\n', bogus);
+    assert(bogus.some(f => /bogus/.test(f)), bogus.join('\n'));
+    const semi = [];
+    check('probe', info, header + '| Field | Night log; Not a screen | Synthetic |\n', semi);
+    assert(semi.some(f => /lists "not a screen"/.test(f)) && !semi.some(f => /lists "night log"/.test(f)), semi.join('\n'));
+    const valid = [];
+    check('probe', info, header + '| Plan | Details; Amp / node setup; What-if | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n| Field | Meter setup; Night log | ok |\n', valid);
+    assert.deepEqual(valid, []);
+    const form = [];
+    check('probe', info, '| Field | What to enter |\n| --- | --- |\n| Source type | Node output, Amplifier / LE output, or Manual / other output |\n', form);
+    assert.deepEqual(form, []);
+    const outside = [];
+    check('probe', info, '| Tools | Nonexistent screen | Synthetic |\n', outside);
+    assert.deepEqual(outside.filter(f => /table row/.test(f)), []);
   });
 
   run('Practice-job text names only tabs and buttons that exist', () => {

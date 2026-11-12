@@ -23,7 +23,7 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
 (async()=>{
  await check('App starts at Home with five named primary tasks and no duplicated controls',()=>{
   assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 3');assert.equal(ev('WorkflowUI.current()'),'home');shown('#homePanel');
-  assert.deepEqual([...d.querySelectorAll('[data-main-tab]')].map(x=>x.dataset.mainTab),['home','route','test','power','job']);
+  assert.deepEqual([...d.querySelectorAll('[data-main-tab]')].map(x=>x.dataset.mainTab),['home','plan','field','tools','closeout']);
   assert.equal(d.querySelectorAll('[data-main-tab][aria-current="page"]').length,1);uniqueIds();
  });
  await check('Every documented task is reachable and isolates its intended panels',()=>{
@@ -37,14 +37,14 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
  });
  await check('Subtabs support keyboard movement and identify real controlled content',()=>{
   go('setup');const a=d.querySelector('#taskTabs [data-task="setup"]');assert(a);a.focus();a.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'route');assert.equal(d.activeElement.dataset.task,'route');
-  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),ev('WorkflowUI.groups.route.tabs.at(-1)[0]'));
-  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'setup');
+  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),ev('WorkflowUI.groups.plan.tabs.at(-1)[0]'));
+  d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert.equal(ev('WorkflowUI.current()'),'projects');
   assert.equal(d.querySelectorAll('#taskTabs [aria-selected="true"]').length,1);
   for(const b of d.querySelectorAll('#taskTabs [aria-controls]')){const targets=b.getAttribute('aria-controls').trim().split(/\s+/).map(id=>d.getElementById(id));assert(targets.length&&targets.every(Boolean));assert(targets.some(e=>e.children.length>0),'Tab controls must point at actual content');}
  });
  await check('Primary task buttons remember the last subtask within the session',()=>{
-  go('frequency');click('[data-main-tab="home"]');click('[data-main-tab="test"]');assert.equal(ev('WorkflowUI.current()'),'frequency');
-  go('parts');click('[data-main-tab="job"]');click('[data-main-tab="route"]');assert.equal(ev('WorkflowUI.current()'),'parts');
+  go('frequency');click('[data-main-tab="home"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'frequency');
+  go('parts');click('[data-main-tab="closeout"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'parts');
  });
  await check('Setup fields stay in Setup and update predictions without opening other tasks',()=>{
   go('setup');set('[data-setup="lowLevel"]','34');set('[data-setup="highLevel"]','46');set('[data-setup="temperature"]','68');assert.equal(ev('WorkflowUI.current()'),'setup');shown('#setup');hidden('#routePanel');hidden('#tdrPanel');
@@ -104,7 +104,7 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
   const id=ev('state.rows.at(-1).id');go('route');ev('WorkflowUI.selectPoint('+JSON.stringify(id)+')');click('#route [data-row="'+id+'"] [data-delete]');go('gain');shown('#pointEmpty');assert.match(d.querySelector('#pointEmptyText').textContent,/Add an amplifier/);assert.equal(d.querySelector('#pointSelect').disabled,true);assert.equal([...d.querySelectorAll('#route>[data-row]')].filter(visible).length,0);uniqueIds();
  });
  await check('Clicked task tabs retain focus and Frequency opens its actual checker',()=>{
-  go('tdr');const button=d.querySelector('#taskTabs [data-task="frequency"]');button.focus();button.click();assert.equal(ev('WorkflowUI.current()'),'frequency');assert.equal(d.activeElement.dataset.task,'frequency');assert.equal(d.querySelector('#frequencyPanel details').open,true);shown('[data-frequency="quickF"]');
+  go('calculators');const button=d.querySelector('#taskTabs [data-task="frequency"]');button.focus();button.click();assert.equal(ev('WorkflowUI.current()'),'frequency');assert.equal(d.activeElement.dataset.task,'frequency');assert.equal(d.querySelector('#frequencyPanel details').open,true);shown('[data-frequency="quickF"]');
  });
  await check('Tap reference shortcut selects and expands the intended existing route point',()=>{
   ev("state.rows[0].device=modelId('OTTZ-4-23');renderAll()");go('route');set('#pointSelect','r2','change');go('references');d.querySelector('[data-reference-section="root"]').open=true;d.querySelector('[data-reference-section="faces"]').open=true;set('[data-reference-tap]','r1','change');click('#openReferenceTap');

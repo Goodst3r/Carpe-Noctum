@@ -52,13 +52,27 @@ const FieldCalc=(()=>{
   const periodUs=1/rate,perTap=C_FT_PER_US*v.value*periodUs/2,offset=t-m;
   return {ok:true,offset,periodUs,perTap,feet:offset*perTap,low:(offset-0.5)*perTap,high:(offset+0.5)*perTap,vp:v.value};
  }
- /* Same power density over a different bandwidth. Flat across the band only. */
- function ofdmPower(power,basisMHz,occupiedMHz){
-  const p=num(power),a=num(basisMHz),b=num(occupiedMHz);
-  if(p===null)return fail('Enter the measured power in dBmV.');
+ /* Restate a declared flat PSD in known MHz bandwidths; this does not reconstruct
+    an instantaneous OFDMA grant or establish usable transmit headroom. Context is
+    mandatory at every width. The existing numeric envelope remains software-only. */
+ function ofdmPower(power,basisMHz,occupiedMHz,context){
+  // Narrow decimal parsing here leaves all other calculators' input contracts intact.
+  const decimal=x=>{
+   if(typeof x==='number')return Number.isFinite(x)?x:null;
+   if(typeof x!=='string'||!(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i).test(x.trim()))return null;
+   const n=Number(x.trim());return Number.isFinite(n)?n:null;
+  };
+  const p=decimal(power),a=decimal(basisMHz),b=decimal(occupiedMHz);
+  if(p===null)return fail('Enter the measured power in dBmV as a finite decimal number.');
+  // Diagnose explicit incompatible context before unknown confirmations or widths.
+  if(context?.restatementOnly===false)return fail('A bandwidth restatement does not determine instantaneous OFDMA total power; the actual grant and pilot allocation are not established here.');
+  if(context?.bandwidthUnits!==undefined&&context.bandwidthUnits!=='MHz')return fail('Normalize the declared bandwidth units first; both bandwidths must be in MHz before applying the ratio.');
   if(Math.abs(p)>200)return fail('Enter a power within ±200 dBmV.');
   if(a===null||!(a>0)||a>2000)return fail('Enter the bandwidth that power was measured in, from above 0 to 2,000 MHz.');
   if(b===null||!(b>0)||b>2000)return fail('Enter the occupied bandwidth, from above 0 to 2,000 MHz.');
+  if(context?.flatPSD!==true)return fail('Confirm flat PSD across the bandwidths. This conversion cannot reconstruct a nonflat or unknown spectrum total.');
+  if(context?.bandwidthUnits!=='MHz')return fail('Confirm both bandwidths are in MHz; normalize declared units before applying the ratio.');
+  if(context?.restatementOnly!==true)return fail('Confirm bandwidth restatement only: this does not determine instantaneous OFDMA total power.');
   const at=mhz=>p+10*Math.log10(mhz/a);
   const result={ok:true,total:at(b),per6:at(6),per24:at(24),per1_6:at(1.6),delta:10*Math.log10(b/a),basis:a,occupied:b};
   if(![result.total,result.per6,result.per24,result.per1_6].every(v=>Number.isFinite(v)&&Math.abs(v)<=200))return fail('That bandwidth gives a level outside ±200 dBmV. Check the bandwidths in MHz.');
@@ -73,7 +87,92 @@ const FieldCalc=(()=>{
   const ns=2*L/(C_FT_PER_NS*v.value);
   return {ok:true,ns,us:ns/1000,symbols512:ns/(1000/5.12),nsPerFoot:1/C_FT_PER_NS,vp:v.value};
  }
- return {C_FT_PER_US,C_FT_PER_NS,UNITS,IMPEDANCES,SYMBOL_RATES,velocity,convertLevel,rippleDistance,preEqDistance,ofdmPower,echoDelay};
+ /* Uncorrelated power sums at one plane. No coherent (voltage) addition. */
+ function levelText(raw,blank){
+  if(raw===null||raw===undefined)return fail(blank);
+  const s=String(raw).trim();
+  if(s==='')return fail(blank);
+  if(/^[+-]$/.test(s))return fail('Complete the numeric level; a lone sign is not a number.');
+  if(/e$/i.test(s)||/e[+-]$/i.test(s))return fail('Complete the exponent before calculating.');
+  if(/^(?:nan|[+-]?infinity)$/i.test(s))return fail('Use finite numeric levels.');
+  if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(s))return fail('Use complete decimal notation, not partially parsed text.');
+  const n=Number(s);
+  if(!Number.isFinite(n))return fail('Use finite numeric levels.');
+  return {ok:true,value:n};
+ }
+ function carrierCount(raw){
+  if(raw===null||raw===undefined||String(raw).trim()==='')return fail('Enter the carrier count; blank is unknown.');
+  const s=String(raw).trim();
+  if(!/^\d+$/.test(s))return fail('Carrier count must be a safe positive integer.');
+  const digits=s.replace(/^0+/,'')||'0';
+  const max='9007199254740991';
+  if(digits.length>max.length||(digits.length===max.length&&digits>max))return fail('Count exceeds JavaScript safe-integer representation.');
+  const n=Number(digits);
+  if(!Number.isSafeInteger(n)||n<1)return fail('Carrier count must be a safe positive integer.');
+  return {ok:true,value:n};
+ }
+ function outsideEnvelope(input,values){
+  const env=input.registered_input_envelope_dBmV;
+  if(!Array.isArray(env)||env.length<2)return null;
+  const lo=Number(env[0]),hi=Number(env[1]);
+  if(values.some(v=>!(v>=lo&&v<=hi)))return fail('Input is outside this explicitly declared software envelope; this is not an equipment rating.');
+  return null;
+ }
+ function powerGuards(input){
+  if(!input||typeof input!=='object')return fail('Enter the power-sum inputs.');
+  if(input.correlation==='coherent_copies')return fail('Levels alone cannot determine coherent addition; phase/correlation information is missing.');
+  if(input.overlapping_measurements===true)return fail('Summation would double-count overlapping contributions.');
+  if(input.measurement_plane==='unknown')return fail('Declare a common observation plane before adding powers.');
+  if(input.common_unit_conversion===false)return fail('Convert all levels to a common reference and impedance before adding.');
+  if(Array.isArray(input.impedances_ohm)&&new Set(input.impedances_ohm.map(String)).size>1)return fail('Reconcile impedances and measurement planes before power addition.');
+  if(input.noise_bandwidth==='unknown')return fail('Declare compatible total/noise bandwidths and averaging before subtraction.');
+  if(input.detector_and_averaging_compatible===false)return fail('Use representative noise with compatible RMS/power averaging and unchanged settings.');
+  return null;
+ }
+ function powerSum(input){
+  const guard=powerGuards(input);if(guard)return guard;
+  const op=input.operation;
+  if(op==='power_add'){
+   const levels=input.levels_dBmV;
+   if(!Array.isArray(levels)||levels.length<2)return fail('General Add needs at least two contributions.');
+   const values=[];
+   for(const raw of levels){
+    const p=levelText(raw,'Enter every contribution; blank is unknown, not zero.');
+    if(!p.ok)return p;
+    values.push(p.value);
+   }
+   const env=outsideEnvelope(input,values);if(env)return env;
+   const peak=Math.max(...values);
+   let peaks=0,extra=0;
+   for(const level of values){if(level===peak)peaks++;else extra+=10**((level-peak)/10);}
+   const level=peak+(10/Math.log(10))*Math.log1p((peaks-1)+extra);
+   if(!Number.isFinite(level))return fail('That calculation is not a finite number.');
+   return {ok:true,operation:op,level_dBmV:level};
+  }
+  if(op==='equal_carriers'){
+   const p=levelText(input.level_dBmV,'Enter the carrier level; blank is unknown, not zero.');
+   if(!p.ok)return p;
+   const n=carrierCount(input.N);if(!n.ok)return n;
+   const env=outsideEnvelope(input,[p.value]);if(env)return env;
+   const level=p.value+10*Math.log10(n.value);
+   if(!Number.isFinite(level))return fail('That calculation is not a finite number.');
+   return {ok:true,operation:op,level_dBmV:level,N:n.value};
+  }
+  if(op==='subtract_noise'){
+   const blank='Enter total and noise levels; blank is unknown.';
+   const total=levelText(input.total_dBmV,blank);if(!total.ok)return total;
+   const noise=levelText(input.noise_dBmV,blank);if(!noise.ok)return noise;
+   const env=outsideEnvelope(input,[total.value,noise.value]);if(env)return env;
+   const gap=total.value-noise.value;
+   if(!(gap>0))return fail(gap===0?'Total must exceed noise to resolve positive residual signal power.':'Total below noise would imply negative residual signal power.');
+   const signal=total.value+(10/Math.log(10))*Math.log(-Math.expm1(-gap*Math.log(10)/10));
+   const snr=signal-noise.value;
+   if(!Number.isFinite(signal)||!Number.isFinite(snr))return fail('That calculation is not a finite number.');
+   return {ok:true,operation:op,signal_dBmV:signal,SNR_dB:snr};
+  }
+  return fail('Choose add, equal carriers, or signal minus noise.');
+ }
+ return {C_FT_PER_US,C_FT_PER_NS,UNITS,IMPEDANCES,SYMBOL_RATES,velocity,convertLevel,rippleDistance,preEqDistance,ofdmPower,echoDelay,powerSum};
 })();
 
 const FieldCalcs=(()=>{
@@ -89,12 +188,21 @@ const FieldCalcs=(()=>{
   return `<label>Cable VP<select data-calc-vp-source="${id}"><option value="">Enter VP</option>${cables.map(c=>`<option value="${escape(c.id)}">${escape(c.label)} · ${escape((Number(c.nvpPercent)/100).toFixed(2))} catalog</option>`).join('')}</select></label><label>Velocity of propagation (0.50–1.00)<input type="number" min="0.5" max="1" step="any" inputmode="decimal" data-calc="${id}" data-field="vp" placeholder="e.g. 0.87"><span class="note" data-calc-vp-note="${id}">Use the VP from your cable’s datasheet, or pick a catalog cable that lists one.</span></label>`;
  }
  const signed=(v,d=1)=>Number.isFinite(v)?(Number(v.toFixed(d))>0?'+':'')+fixed(v,d):'—';
+ const six=v=>Number.isFinite(v)?v.toPrecision(6).replace(/e/g,'E'):'—';
  const hasAlignment=()=>typeof Alignment!=='undefined';
  function actives(){return typeof catalog!=='undefined'?catalog.devices.filter(d=>d.active&&!d.retired):[];}
  function balanceFields(){
   const list=actives().map(d=>{const sourced=hasAlignment()&&Alignment.profileFor(d.id);return `<option value="${escape(d.id)}">${escape(d.label)}${sourced?' · sourced pad/EQ':''}</option>`;}).join('');
   const level=(field,label,hint)=>`<label>${label}<input type="number" step="any" inputmode="decimal" data-calc="balance" data-field="${field}" placeholder="${hint}"></label>`;
   return `<label class="calc-wide">Amplifier model<select data-calc="balance" data-field="model"><option value="">Choose the installed model</option>${list}</select></label>${level('lowMHz','Low pilot (MHz)','e.g. 54')}${level('highMHz','High pilot (MHz)','e.g. 860')}${level('measuredLow','Reading at low pilot (dBmV)','meter')}${level('measuredHigh','Reading at high pilot (dBmV)','meter')}${level('targetLow','Target at low pilot (dBmV)','design')}${level('targetHigh','Target at high pilot (dBmV)','design')}<div class="calc-wide calc-fields" data-balance-installed hidden><label>Installed input pad (dB)<select data-calc="balance" data-field="pad"></select></label><label>Installed input EQ (dB)<select data-calc="balance" data-field="eq"></select></label></div><p class="note calc-wide" data-balance-source>Choose a model. Only values sourced for that exact model are offered.</p><details class="calc-wide note" data-balance-gaps hidden></details>`;
+ }
+ function powerBody(op){
+  if(op==='equal_carriers')return `<div class="calc-fields"><label>Each carrier (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="level" placeholder="e.g. 40"></label><label>How many<input type="number" min="1" step="1" inputmode="numeric" data-calc="power" data-field="count" placeholder="e.g. 8"></label></div>`;
+  if(op==='subtract_noise')return `<div class="calc-fields"><label>Total, signal plus noise (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="total" placeholder="e.g. 10"></label><label>Noise alone (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="noise" placeholder="e.g. 0"></label></div>`;
+  return `<div data-power-levels><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 40"></label><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 37"></label></div><button type="button" class="calc-add" data-power-add>Add another level</button>`;
+ }
+ function powerFields(){
+  return `<label class="calc-wide">Operation<select data-calc="power" data-field="operation"><option value="power_add">Add uncorrelated levels</option><option value="equal_carriers">N equal carriers</option><option value="subtract_noise">Signal plus noise, minus noise</option></select></label><div class="calc-wide" data-power-body data-power-op="power_add">${powerBody('power_add')}</div>`;
  }
  function refreshInstalled(){
   const model=document.querySelector('[data-calc="balance"][data-field="model"]')?.value||'',profile=hasAlignment()&&model?Alignment.profileFor(model):null;
@@ -116,7 +224,8 @@ const FieldCalcs=(()=>{
 ${card('db','dB converter','dBmV, dBm, dBµV, mV and mW at 75 Ω or 50 Ω.',`<label>Level<input type="number" step="any" inputmode="decimal" data-calc="db" data-field="value" placeholder="e.g. 10"></label><label>Unit<select data-calc="db" data-field="unit">${FieldCalc.UNITS.map(u=>`<option value="${u}">${unitLabels[u]}</option>`).join('')}</select></label><label>Impedance<select data-calc="db" data-field="ohms"><option value="75">75 Ω (cable)</option><option value="50">50 Ω (test gear)</option></select></label>`,'calc.db.dbm','dB converter','RMS voltage across a matched load of the chosen impedance. dBµV = dBmV + 60 at any impedance '+tag('calc.db.dbuv','dBµV conversion')+'.')}
 ${card('ripple','Ripple to distance','Spacing between ripple peaks on a sweep gives the distance between two mismatches.',`<label>Ripple spacing, peak to peak (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ripple" data-field="spacing" placeholder="e.g. 6"><span class="note">Measure across several ripples and divide by the count for a steadier spacing.</span></label>${vpField('ripple')}`,'calc.ripple.distance','ripple to distance','Echo path length between two mismatches, through cable of this VP; one mismatch may be the device you are testing at. A mix of cable types needs separate checks. Speed of light '+tag('const.speedOfLight','speed of light')+'.')}
 ${card('preeq','Pre-EQ tap to distance','Spacing between two mismatches from a post-main tap in an upstream pre-equalizer reading you already have. Nothing is read from a modem.',`<label>Echo tap (1–24)<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="tap" placeholder="e.g. 10"></label><label>Main tap<input type="number" min="1" max="24" step="1" inputmode="numeric" data-calc="preeq" data-field="main" value="8"><span class="note">Tap 8 of 24 is typical, but the CMTS sets it. Use the numbering your tool shows.</span></label><label>Upstream symbol rate<select data-calc="preeq" data-field="rate">${FieldCalc.SYMBOL_RATES.map(r=>`<option value="${r}">${r} Msym/s</option>`).join('')}</select></label>${vpField('preeq')}`,'calc.preeq.tapDistance','pre-EQ tap distance','The result is the spacing between two impedance mismatches, not the distance from the modem or node. DOCSIS 2.0/3.0 single-carrier upstream only, not DOCSIS 3.1 OFDMA. The ±½ tap range is shown because a tap covers one symbol period.')}
-${card('ofdm','OFDM power','Power in one bandwidth, restated per 6, 24 or 1.6 MHz and over the occupied band.',`<label>Measured power (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="ofdm" data-field="power" placeholder="e.g. 42"></label><label>Measured in (MHz)<select data-calc="ofdm" data-field="basis"><option value="6">6 MHz</option><option value="24">24 MHz</option><option value="1.6">1.6 MHz</option></select></label><label>Occupied bandwidth (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ofdm" data-field="occupied" placeholder="e.g. 192"></label>`,'calc.ofdm.bandwidth','OFDM power','Assumes flat power across the occupied band. A tilted output needs a total composite power method instead (SCTE 270 section 30.14). For DOCSIS 3.1 downstream, occupied bandwidth is a whole number of 6 MHz channels (24 MHz minimum) and includes the edge taper.')}
+${card('ofdm','OFDM power','Power in one bandwidth, restated over another bandwidth and per 6, 24 or 1.6 MHz.',`<label>Measured power (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="ofdm" data-field="power" placeholder="e.g. 42"></label><label>Measured in (MHz)<select data-calc="ofdm" data-field="basis"><option value="6">6 MHz</option><option value="24">24 MHz</option><option value="1.6">1.6 MHz</option><option value="6.4">6.4 MHz</option></select></label><label>Restate over bandwidth (MHz)<input type="number" min="0" step="any" inputmode="decimal" data-calc="ofdm" data-field="occupied" placeholder="e.g. 192"></label><label class="calc-wide">Conversion basis<select data-calc="ofdm" data-field="context"><option value="">Unknown — confirm below</option><option value="confirmed">Confirmed basis below</option></select><span class="note">Flat PSD across these bandwidths; both widths are in MHz; bandwidth restatement only. This does not determine instantaneous OFDMA total or available transmit headroom.</span></label>`,'calc.ofdm.bandwidth','OFDM power','Assumes flat PSD across the requested bandwidths. A nonflat or unknown spectrum needs an actual total-power method (SCTE 270 section 30.14). For DOCSIS 3.1 downstream only, occupied bandwidth is a whole number of 6 MHz channels (24 MHz minimum), including the edge taper. This downstream convention does not exclude a 6.4 MHz upstream bandwidth restatement. '+tag('calc.ofdm.softwareBounds','converter numeric software bounds'))}
+${card('power','Power sum','Add uncorrelated levels, N equal carriers, or take noise back out of a total. Not a coherent (voltage) sum.',powerFields(),'calc.power.sum','power sum','Same impedance, same measurement plane and a compatible bandwidth. A blank is unknown, not zero. Add needs at least two levels. The carrier count is a whole number from 1 to 9,007,199,254,740,991, a software limit and not an RF rating. Noise subtraction needs the total above the noise. When those two are close, a small reading error moves the signal a lot; this card sets no minimum gap. No company limit. It does not use 42/54 or 204/258.')}
 ${card('balance','Pad / EQ balance','Two pilot readings and the station’s targets give the level and tilt errors, then the input EQ and pad to change.',balanceFields(),'calc.alignment.balance','pad / EQ balance','Readings and targets at the same pilots and measurement plane. Put the station in the manual or backoff state its procedure requires first; an active AGC or ALSC loop can hide the change. Re-measure after each change. Balancing on two pilots does not replace a sweep.')}
 ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a known cable length apart.',`<label>Cable length between mismatches (ft)<input type="number" min="0" step="any" inputmode="decimal" data-calc="echo" data-field="length" placeholder="e.g. 100"></label>${vpField('echo')}`,'calc.microreflection.delay','echo delay','The echo travels the length twice. Speed of light '+tag('const.speedOfLight','speed of light')+'.')}
 </div>`;
@@ -130,7 +239,38 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
   if(id==='db'){if(blank(v,['value']))return out(id,{ok:false,error:null});const r=FieldCalc.convertLevel(v.value,v.unit,v.ohms);out(id,r,`<div class="calc-stats">${stat('dBmV',fixed(r.dBmV,2))}${stat('dBm',fixed(r.dBm,2))}${stat('dBµV',fixed(r.dBuV,2))}${stat('mV',sig(r.mV))}${stat('mW',sig(r.mW))}</div><p class="note">At ${r.ohms} Ω, dBm = dBmV − ${fixed(r.offset,2)} dB.</p>`);}
   if(id==='ripple'){if(blank(v,['spacing','vp']))return out(id,{ok:false,error:null});const r=FieldCalc.rippleDistance(v.spacing,v.vp);out(id,r,`<div class="calc-stats">${stat('Distance between mismatches',grouped(r.feet),'ft')}${stat('Metres',fixed(r.meters,1),'m')}</div><p class="note">${fixed(r.constant,1)} × ${r.vp} ÷ ${r.spacing} MHz = ${grouped(r.feet)} ft.</p>`);}
   if(id==='preeq'){if(blank(v,['tap','vp']))return out(id,{ok:false,error:null});const r=FieldCalc.preEqDistance(v.tap,v.main,v.rate,v.vp);out(id,r,`<div class="calc-stats">${stat('Spacing between mismatches',grouped(r.feet),'ft')}${stat('Range (±½ tap)',grouped(r.low)+'–'+grouped(r.high),'ft')}${stat('Per tap',grouped(r.perTap),'ft')}</div><p class="note">${r.offset} tap${r.offset===1?'':'s'} after the main tap × ${grouped(r.perTap)} ft (symbol period ${fixed(r.periodUs*1000,1)} ns, VP ${r.vp}).</p>`);}
-  if(id==='ofdm'){if(blank(v,['power','occupied']))return out(id,{ok:false,error:null});const r=FieldCalc.ofdmPower(v.power,v.basis,v.occupied);out(id,r,`<div class="calc-stats">${stat('Total over '+r.occupied+' MHz',fixed(r.total,2),'dBmV')}${stat('Per 6 MHz',fixed(r.per6,2),'dBmV')}${stat('Per 24 MHz',fixed(r.per24,2),'dBmV')}${stat('Per 1.6 MHz',fixed(r.per1_6,2),'dBmV')}</div><p class="note">10·log10(${r.occupied} ÷ ${r.basis}) = ${r.delta>=0?'+':''}${fixed(r.delta,2)} dB.</p>`);}
+  if(id==='ofdm'){
+   const unfinished=[...document.querySelectorAll('input[data-calc="ofdm"]')].some(el=>el.validity&&el.validity.badInput);
+   if(unfinished)return out(id,{ok:false,error:'Finish the number. A half-typed measured power or bandwidth is not a blank.'});
+   if(blank(v,['power','occupied']))return out(id,{ok:false,error:null});
+   const context=v.context==='confirmed'?{flatPSD:true,bandwidthUnits:'MHz',restatementOnly:true}:undefined;
+   const r=FieldCalc.ofdmPower(v.power,v.basis,v.occupied,context);
+   out(id,r,`<div class="calc-stats">${stat('Restated over '+r.occupied+' MHz',six(r.total),'dBmV')}${stat('Per 6 MHz',fixed(r.per6,2),'dBmV')}${stat('Per 24 MHz',fixed(r.per24,2),'dBmV')}${stat('Per 1.6 MHz',fixed(r.per1_6,2),'dBmV')}</div><p class="note">10·log10(${r.occupied} ÷ ${r.basis}) = ${r.delta>=0?'+':''}${six(r.delta)} dB.</p><p class="note">This restatement does not determine instantaneous OFDMA total power. Available transmit headroom: Unknown.</p>`);
+  }
+  if(id==='power'){
+   const op=v.operation||'power_add';
+   const body=document.querySelector('[data-power-body]');
+   if(body&&body.dataset.powerOp!==op){body.dataset.powerOp=op;body.innerHTML=powerBody(op);}
+   const unfinished=[...document.querySelectorAll('[data-power-body] input')].some(el=>el.validity&&el.validity.badInput);
+   if(unfinished)return out(id,{ok:false,error:'Finish the number. A half-typed value is not a blank.'});
+   let input=null;
+   if(op==='power_add'){
+    const values=[...document.querySelectorAll('[data-power-level]')].map(el=>el.value);
+    while(values.length&&String(values[values.length-1]).trim()==='')values.pop();
+    if(!values.length)return out(id,{ok:false,error:null});
+    input={operation:'power_add',levels_dBmV:values};
+   }else if(op==='equal_carriers'){
+    if(blank(v,['level','count']))return out(id,{ok:false,error:null});
+    input={operation:'equal_carriers',level_dBmV:v.level,N:v.count};
+   }else{
+    if(blank(v,['total','noise']))return out(id,{ok:false,error:null});
+    input={operation:'subtract_noise',total_dBmV:v.total,noise_dBmV:v.noise};
+   }
+   const r=FieldCalc.powerSum(input);
+   if(!r.ok)return out(id,r);
+   if(op==='subtract_noise')out(id,r,`<div class="calc-stats">${stat('Signal',six(r.signal_dBmV),'dBmV')}${stat('Signal / noise',six(r.SNR_dB),'dB')}</div><p class="note">SNR is the signal minus the noise, not the total minus the noise.</p>`);
+   else out(id,r,`<div class="calc-stats">${stat('Total',six(r.level_dBmV),'dBmV')}</div><p class="note">${op==='equal_carriers'?'Equal uncorrelated carriers. N = 1 leaves the level unchanged.':'Uncorrelated power sum. Not a voltage (coherent) sum.'}</p>`);
+  }
   if(id==='balance'){
    if(blank(v,['lowMHz','highMHz','measuredLow','measuredHigh','targetLow','targetHigh']))return out(id,{ok:false,error:null});
    if(!hasAlignment())return out(id,{ok:false,error:'The balance engine is unavailable in this build.'});
@@ -160,12 +300,21 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
   const panel=document.getElementById('calculatorPanel');if(!panel)return;panel.innerHTML=markup();
   const onEdit=event=>{const t=event.target;if(!panel.contains(t))return;
    if(t.dataset.calcVpSource!==undefined){if(event.type==='change')chooseCable(t.dataset.calcVpSource,t.value);return;}
+   if(t.dataset.powerLevel!==undefined){update('power');return;}
    if(t.dataset.calc==='balance'&&t.dataset.field==='model'&&event.type==='change')refreshInstalled();
    if(t.dataset.calc){if(t.dataset.field==='vp'&&event.type==='input'){const source=panel.querySelector(`[data-calc-vp-source="${t.dataset.calc}"]`),cable=vpCables().find(c=>c.id===source?.value);if(cable&&Number(t.value)!==Number(cable.nvpPercent)/100){source.value='';const note=panel.querySelector(`[data-calc-vp-note="${t.dataset.calc}"]`);if(note)note.textContent='Entered VP.';}}update(t.dataset.calc);}
   };
   panel.addEventListener('input',onEdit);panel.addEventListener('change',onEdit);
+  panel.addEventListener('click',event=>{
+   const button=event.target.closest('[data-power-add]');
+   if(!button||!panel.contains(button))return;
+   const box=panel.querySelector('[data-power-levels]');
+   const label=document.createElement('label');
+   label.innerHTML='Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="dBmV">';
+   box.appendChild(label);
+  });
   refreshInstalled();
-  ['db','ripple','preeq','ofdm','balance','echo'].forEach(update);
+  ['db','ripple','preeq','ofdm','power','balance','echo'].forEach(update);
  }
  return {init,update,markup};
 })();

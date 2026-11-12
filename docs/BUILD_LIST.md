@@ -74,9 +74,8 @@ The app is a personal notebook, not the company's official leak record.
 Confirm scope, check power, node optics, actives in order, notify ROC, record times. Optional "damage or theft suspected" fields (what was found, times, who was told), following the evidence-collection focus of SCTE's new Critical Infrastructure Protection Subcommittee (2026). Never stores customer identifiers.
 *Test:* supervisor reviews it against the local outage procedure before release.
 
-**9. Pre-work safety card** · S · new
-Editable checklist before climbing or opening a pedestal: PPE, ladder, climbing gear, traffic control, voltage check, fiber/laser precautions, and a "who knows where I am" time. Opens with "follow company policy" and never claims to be the company procedure.
-*Sources:* NCTI Field Safety; SCTE BDS Safety and Construction domain.
+**9. Safety card — removed November 12, 2026 by Spencer**
+Removed from the app, practice library and guides. No replacement safety card, reminder or checklist is planned. Legacy saved data is left untouched.
 
 **10. Sweep-due tracker** · S · new
 Amps from saved jobs with the last sweep and last balance dates, colored by an interval the user sets (default unknown). An 18-month starting interval attributed to Hranac is shown only as unverified guidance until re-checked.
@@ -118,7 +117,7 @@ Every step cites an OEM document revision; no invented steps or pilot codes.
 Short explanations in our own words of the 14 "What is…" topics (decibel, velocity of propagation, return loss, loss, unity gain, skin effect, long-loop ALC, S-parameters, RF, signal level, noise figure, leakage field strength, CNR, impedance), each linked to its calculator and citing "SCTE 293-n year".
 
 **19. Study mode** · M · refines roadmap quizzes
-Original practice questions built from the app's own calculators and exercises, tagged by the five SCTE BDS domains (architectures; distribution components; signal types; maintenance and troubleshooting; safety and construction). Never copies SCTE or NCTI questions.
+Original practice questions built from the app's own calculators and exercises, tagged by four SCTE BDS domains (architectures; distribution components; signal types; maintenance and troubleshooting), with 18 generators. The Outage question belongs to maintenance and troubleshooting. Never copies SCTE or NCTI questions.
 
 **20. FCC proof-of-performance reference card** · S · new
 Reference only, from SCTE 204 2025 and the NCTI testing course. Official results belong to engineering.
@@ -132,9 +131,9 @@ Reference only, from SCTE 204 2025 and the NCTI testing course. Official results
 5. DOCSIS health card (#5).
 6. Night log and handoff (#6). Pulls before/after levels from the station view.
 7. Leak log and FCC card (#7). The biggest compliance risk.
-8. Safety and outage cards (#8, #9).
+8. Outage card (#8). Safety (#9) was removed by Spencer on November 12, 2026.
 
-Quick wins that can slot in any time: dB converter, ripple to distance, pre-EQ tap distance, OFDM power, FCC limits and CLI, TIA-598 color code, safety card, sweep-due tracker.
+Quick wins that can slot in any time: dB converter, ripple to distance, pre-EQ tap distance, OFDM power, FCC limits and CLI, TIA-598 color code, sweep-due tracker.
 
 ## Don't build, or ask first
 
@@ -148,7 +147,7 @@ Quick wins that can slot in any time: dB converter, ripple to distance, pre-EQ t
 2. What leak repair threshold do we use, and where is the official leak log?
 3. Is there a required sweep interval per amp or node?
 4. Can I import meter files I exported myself into a personal app?
-5. Which Vecima and AOI bring-up documents (and revisions) can I reference?
+5. Which AOI bring-up documents (and revisions) can I reference? Vecima setup is plug and play; no Vecima guide is needed.
 6. Which NCTI courses and SCTE certifications are expected for each Maintenance Tech level?
 7. What battery chemistries are in our standby supplies, and is lithium coming?
 8. What should a tech record when vandalism or theft is suspected?

@@ -43,7 +43,7 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   await check('The screen is Test → Why cards after High split and shows only there; all fourteen cards are listed with their citation, and the tool buttons open their screens', async () => {
     await goto(h, 'projects'); assert.equal(h.d.getElementById('whyPanel').hidden, true);
     await goto(h, 'why');
-    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(-5, -2), ['Fiber', 'High split', 'Why cards']);
+    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(8, 11), ['High split', 'Why cards', 'Proof of performance']);
     assert.equal(h.d.getElementById('whyPanel').hidden, false); assert.match(h.d.getElementById('screenTitle').textContent, /Why cards: the basics in plain words/);
     const cards = [...h.d.querySelectorAll('#whyPanel details.why-card')]; assert.equal(cards.length, 14);
     cards.forEach((c, i) => { const n = reference.topics[i]; assert.match(c.querySelector('summary').textContent, new RegExp(`SCTE 293-${n.n} ${n.year}`)); assert(c.querySelector('.why-source').textContent.includes(n.title), 'source line names the title ' + n.n); });

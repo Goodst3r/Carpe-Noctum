@@ -9,14 +9,15 @@ from pathlib import Path
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
-import hashlib, json, os, tempfile
+import hashlib, json, os, subprocess, tempfile
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-html = (ROOT / 'outputs/Night_Sweep.html').read_text()
+html = (subprocess.run(['node', '-e', "process.stdout.write(require('./qa/build2-source-harness.cjs').assembleHtml())"], cwd=ROOT, check=True, capture_output=True, text=True).stdout
+        if os.environ.get('NIGHTSWEEP_BUILD2_SOURCE_TEST') == '1' else (ROOT / 'outputs/Night_Sweep.html').read_text())
 serve = Path(tempfile.mkdtemp(prefix='cn-build3-layout-'))
 (serve / 'index.html').write_text(html)
-OUT = ROOT / 'qa/build3-layout-results.json'
+OUT = Path(os.environ.get('NIGHTSWEEP_LAYOUT_RESULTS') or ROOT / 'qa/build3-layout-results.json')
 
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
@@ -41,7 +42,7 @@ FILL = '''() => {
   set('[data-calc="db"][data-field="value"]', '-12.5');
   set('[data-calc="ripple"][data-field="spacing"]', '0.4'); set('[data-calc="ripple"][data-field="vp"]', '0.87');
   set('[data-calc="preeq"][data-field="tap"]', '24'); set('[data-calc-vp-source="preeq"]', 'mc2_1000', 'change');
-  set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '1794');
+  set('[data-calc="ofdm"][data-field="power"]', '42'); set('[data-calc="ofdm"][data-field="occupied"]', '1794'); set('[data-calc="ofdm"][data-field="context"]', 'confirmed', 'change');
   set('[data-calc="echo"][data-field="length"]', '99999'); set('[data-calc="echo"][data-field="vp"]', '0.5');
   set('[data-calc="balance"][data-field="model"]', 'active_gm_hgd', 'change');
   for (const [k, v] of Object.entries({ lowMHz: '54', highMHz: '860', measuredLow: '30', measuredHigh: '40', targetLow: '39', targetHigh: '49' })) set(`[data-calc="balance"][data-field="${k}"]`, v);
@@ -52,7 +53,7 @@ FILL_DOCSIS = '''() => {
   set('[data-health="scqam"][data-field="level"]', '-15.5');
   set('[data-health="ofdm"][data-field="basis"]', 'other', 'change'); set('[data-health="ofdm"][data-field="occupied"]', '96'); set('[data-health="ofdm"][data-field="power"]', '-9.5');
   set('[data-health="total"][data-field="modem"]', '3.0', 'change'); set('[data-health="total"][data-field="total"]', '41.25');
-  set('[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set('[data-health="upstream"][data-field="total"]', '70'); set('[data-health="upstream"][data-field="pmax"]', '68.5');
+  set('[data-health="upstream"][data-field="mode"]', '3.1', 'change'); set('[data-health="upstream"][data-field="total"]', '70'); set('[data-health="upstream"][data-field="pmax"]', '68.5'); set('[data-health="upstream"][data-field="basis"]', 'confirmed', 'change');
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
   set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
 }'''
@@ -77,19 +78,6 @@ FILL_LEAK = '''() => {
   set('[data-leak-company="repair"]', '25', 'change'); set('[data-leak-company="tolerance"]', '1', 'change');
   set('[data-leak="detector"][data-field="date"]', '2026-11-11'); document.getElementById('leakCheckSave').click();
   set('[data-leak="limit"][data-field="frequency"]', '10'); set('[data-leak="limit"][data-field="kind"]', 'digital', 'change'); set('[data-leak="limit"][data-field="field"]', '5'); set('[data-leak="limit"][data-field="distance"]', '3'); set('[data-leak="limit"][data-field="unit"]', 'm', 'change');
-}'''
-FILL_SAFETY = '''() => {
-  const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
-  for (const id of ['brief-job', 'ppe-hivis', 'lad-gear', 'elec-voltage', 'fiber-lit']) { const el = document.querySelector(`[data-check="${id}"]`); el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
-  set('[data-check-field="who"]', 'W'.repeat(80)); set('[data-check-field="checkin"]', '16:45'); set('[data-check-field="policy"]', 'P'.repeat(120));
-}'''
-FILL_SAFETY_EDIT = '''() => {
-  const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
-  document.getElementById('safety-edit').click();
-  set('[data-check-add-group]', 'Electrical'); set('[data-check-add-text]', 'Q'.repeat(160));
-  document.querySelector('[data-check-add]').click();
-  set('[data-check-text="ppe-hivis"]', 'Reworded '.repeat(17).trim());
-  document.querySelector('[data-check-hide="fiber-hygiene"]').click();
 }'''
 FILL_OUTAGE = '''() => {
   const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
@@ -150,13 +138,14 @@ def docsis_real_input_checks(browser):
     check('DOCSIS real keyboard: emptying the box on purpose still clears the window', stored()['plants']['42']['scqam']['max'] is None and 'Saved on this device' in note('scqam'))
     hi.click(); page.keyboard.type('7'); page.keyboard.press('Tab')
     page.select_option('[data-health="upstream"][data-field="mode"]', '3.1')
+    page.select_option('[data-health="upstream"][data-field="basis"]', 'confirmed')
     page.locator('[data-health="upstream"][data-field="total"]').click(); page.keyboard.type('52')
-    check('DOCSIS real keyboard: a blank Pmax on a 3.1 modem uses the 65 dBmV minimum', '13.0 dB of headroom' in result('upstream'))
+    check('DOCSIS real keyboard: a blank Pmax on a 3.1 modem uses the 65 dBmV minimum', '+13.0000 dB' in result('upstream'))
     pm = page.locator('[data-health="upstream"][data-field="pmax"]')
     pm.click(); page.keyboard.type('-')
     check('DOCSIS real keyboard: a lone minus sign in Pmax is refused and not read as the default', pm.evaluate('el=>el.validity.badInput===true') and 'as a number' in result('upstream') and 'headroom' not in result('upstream'))
     pm.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace')
-    check('DOCSIS real keyboard: emptying Pmax goes back to the default', '13.0 dB of headroom' in result('upstream'))
+    check('DOCSIS real keyboard: emptying Pmax goes back to the default', '+13.0000 dB' in result('upstream'))
     page.locator('[data-health="scqam"][data-field="level"]').click(); page.keyboard.type('9')
     check("DOCSIS real keyboard: a reading is compared with the window of the job's plant", '2.0 dB above your window' in result('scqam'))
     page.evaluate("WorkflowUI.go('sweepSetup')")
@@ -171,6 +160,39 @@ def docsis_real_input_checks(browser):
     page.reload(); page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof DocsisHealth!=="undefined"')
     check('DOCSIS plants: both windows are read back after a reload, each for its own plant', page.evaluate("DocsisHealth.getWindow('scqam','42').max===7&&DocsisHealth.getWindow('scqam','204').max===12"))
     context.close()
+
+def ofdm_real_input_checks(browser):
+    # Real keyboard and source-built existing converter; no physical-device claim.
+    for width in (320, 360, 390, 430):
+        context = browser.new_context(viewport={'width': width, 'height': 800}, is_mobile=True, has_touch=True, color_scheme='dark')
+        page = context.new_page()
+        page.on('pageerror', lambda error: errors.append(str(error)))
+        page.goto(f'http://127.0.0.1:{server.server_port}/index.html')
+        page.wait_for_function('typeof FieldCalc!=="undefined" && typeof WorkflowUI!=="undefined"')
+        page.evaluate("WorkflowUI.go('calculators')")
+        field = lambda name: page.locator(f'[data-calc="ofdm"][data-field="{name}"]')
+        text = lambda: page.locator('#calc-ofdm-result').inner_text().replace('\n', ' ')
+        first = lambda: page.locator('#calc-ofdm-result .calc-stats strong').first.inner_text().replace('\n', ' ')
+        label = f'{width}px OFDM restatement'
+        check(label + ' starts with explicit unconfirmed context', field('context').input_value() == '')
+        field('power').fill('48'); field('occupied').fill('6.4'); field('basis').select_option('1.6')
+        check(label + ' has no numeric result before confirmation', page.locator('#calc-ofdm-result .calc-stats').count() == 0 and 'Confirm flat PSD' in text())
+        field('context').select_option('confirmed')
+        check(label + ' prints H1 total and delta at six significant figures', first() == '54.0206 dBmV' and '+6.02060 dB' in text())
+        field('basis').select_option('6.4'); field('power').fill('54'); field('occupied').fill('1.6')
+        check(label + ' exposes reverse6.4 basis and prints H2 at six significant figures', first() == '47.9794 dBmV' and '-6.02060 dB' in text())
+        check(label + ' keeps instantaneous total and headroom unavailable', 'does not determine instantaneous OFDMA total power' in text() and 'headroom: Unknown' in text())
+        for name in ('power', 'occupied'):
+            box = field(name)
+            for unfinished in ('-', '1e'):
+                box.click(); page.keyboard.press('Control+A'); page.keyboard.type(unfinished)
+                check(label + f' refuses real {unfinished} badInput in {name}', box.evaluate('el=>el.validity.badInput') and page.locator('#calc-ofdm-result .calc-stats').count() == 0 and 'half-typed' in text())
+            box.fill('54' if name == 'power' else '1.6')
+        field('context').select_option('')
+        check(label + ' clearing context removes stale numeric output', page.locator('#calc-ofdm-result .calc-stats').count() == 0)
+        field('context').select_option('confirmed')
+        check(label + ' fits its card and controls without horizontal overflow', page.evaluate("""(()=>{const c=document.querySelector('[data-calc-card="ofdm"]');return document.documentElement.scrollWidth<=innerWidth+1&&[c,...c.querySelectorAll('input,select,.calc-result')].every(e=>{const r=e.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&e.scrollWidth<=e.clientWidth+1})})()"""))
+        context.close()
 
 def leakage_real_input_checks(browser):
     """A lone minus sign in a company-setting box must not clear what is saved, and a blank date must not become today.
@@ -224,7 +246,7 @@ try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
         for theme in ['night', 'sun']:
-            for width in [320, 360, 390, 768, 1280]:
+            for width in [320, 360, 390, 430, 768, 1280]:
                 mobile = width < 600
                 context = browser.new_context(viewport={'width': width, 'height': 800}, is_mobile=mobile, has_touch=mobile)
                 context.add_init_script(f"try{{localStorage.setItem('nightsweep-theme-v1','{theme}')}}catch(e){{}}")
@@ -234,11 +256,24 @@ try:
                 page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof FieldCalcs!=="undefined" && typeof Thresholds!=="undefined"')
                 label = f'{theme} {width}px'
                 check(f'{label} palette applied', page.evaluate("document.documentElement.dataset.theme||'night'") == theme)
+                if theme == 'night' and width <= 430:
+                    page.evaluate("WorkflowUI.go('projects')")
+                    tabs = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task]')].map(b=>({task:b.dataset.task,label:b.textContent.trim(),controls:(b.getAttribute('aria-controls')||'').split(/\\s+/).filter(Boolean)}))")
+                    check(f'{label} Plan is a ten-screen list with panels and no Safety screen', len(tabs) == 10 and [t['task'] for t in tabs] == ['projects','setup','route','gain','equipmentSetup','sweep','power','trial','powerPm','sweepDue'] and all(t['label'] and t['controls'] for t in tabs) and page.evaluate("typeof Safety==='undefined'&&!document.getElementById('safetyPanel')&&!document.querySelector('[data-task=\"safety\"],[data-go=\"safety\"],[href=\"#safetyPanel\"]')"))
+                    heights = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task], #taskTabs [data-task-search]')].map(e=>e.getBoundingClientRect().height)")
+                    check(f'{label} Plan list controls are at least 44 px and the page does not scroll sideways', len(heights) == 11 and min(heights) >= 44 and page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                    for tab in tabs:
+                        page.locator(f'#taskTabs [data-task="{tab["task"]}"]').click()
+                        check(f'{label} Plan → {tab["label"]} opens its existing content', page.evaluate("([task,ids])=>WorkflowUI.current()===task&&ids.every(id=>document.getElementById(id))&&ids.some(id=>{const e=document.getElementById(id);return !e.hidden&&getComputedStyle(e).display!=='none'&&e.textContent.trim().length>0})", [tab['task'], tab['controls']]))
+                    check(f'{label} no rendered link points to Safety', page.evaluate("!Array.from(document.querySelectorAll('button,a')).some(e=>/Job\\s*→\\s*Safety|^Safety$/.test(e.textContent.trim()))"))
+                    page.evaluate("WorkflowUI.go('home')")
+                    home = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task]')].map(b=>b.textContent.trim())")
+                    check(f'{label} Home tabs are Home and Outage', home == ['Home', 'Outage'])
                 page.evaluate("WorkflowUI.go('calculators')")
                 page.evaluate(FILL)
                 check(f'{label} calculators fit without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                 cards = page.evaluate("[...document.querySelectorAll('#calculatorPanel .calc-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
-                check(f'{label} every calculator card stays inside the viewport', len(cards) == 6 and all(l >= -1 and r <= width + 1 for l, r in cards))
+                check(f'{label} every calculator card stays inside the viewport', len(cards) == 7 and all(l >= -1 and r <= width + 1 for l, r in cards))
                 check(f'{label} long results wrap inside their cards', page.evaluate("[...document.querySelectorAll('.calc-stats strong')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
                 sizes = page.evaluate("[...document.querySelectorAll('#calculatorPanel .source-tag')].map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
                 check(f'{label} calculator source tags are at least 24 px tap targets', sizes and all(w >= 24 and h >= 24 for w, h in sizes))
@@ -281,22 +316,6 @@ try:
                 buttons = page.evaluate("[...document.querySelectorAll('#leakagePanel button:not(.source-tag)')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
                 check(f'{label} Leakage buttons are large controls', buttons and min(buttons) >= 40)
                 check(f'{label} Leakage marks an open leak and states results in words, not color alone', page.evaluate("document.querySelector('.leak-item.open')!==null&&[...document.querySelectorAll('#leakagePanel .health-status')].every(s=>/^(✓|⚠|•)/.test(s.textContent.trim()))"))
-                page.evaluate("WorkflowUI.go('safety')")
-                page.evaluate(FILL_SAFETY)
-                check(f'{label} Safety tick boxes are at least 24 px and each row is a 44 px target', page.evaluate("(()=>{const rows=[...document.querySelectorAll('#safetyPanel .check-item')].filter(e=>e.offsetParent);return rows.length>=30&&rows.every(r=>r.getBoundingClientRect().height>=44&&r.querySelector('input').getBoundingClientRect().width>=24&&r.querySelector('input').getBoundingClientRect().height>=24)})()"))
-                page.evaluate(FILL_SAFETY_EDIT)
-                check(f'{label} Safety fits without sideways scrolling, with long notes and a long added item', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
-                boxes = page.evaluate("[...document.querySelectorAll('#safetyPanel .check-section, #safetyPanel .check-notes, #safetyPanel .check-add')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
-                check(f'{label} every Safety section stays inside the viewport', len(boxes) >= 9 and all(l >= -1 and r <= width + 1 for l, r in boxes))
-                check(f'{label} Safety wording and labels wrap inside their rows (a long value in a text box scrolls inside the box, not the page)', page.evaluate("[...document.querySelectorAll('#safetyPanel .check-item span, #safetyPanel .check-policy, #safetyPanel .check-progress, #safetyPanel .note, #safetyPanel legend, #safetyPanel label')].every(s=>s.scrollWidth<=s.clientWidth+1)"))
-                inputs = page.evaluate("[...document.querySelectorAll('#safetyPanel input:not([type=checkbox]),#safetyPanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
-                check(f'{label} Safety inputs keep field-sized controls', len(inputs) >= 5 and min(inputs) >= 40)
-                buttons = page.evaluate("[...document.querySelectorAll('#safetyPanel button')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
-                check(f'{label} Safety buttons are large controls', len(buttons) >= 5 and min(buttons) >= 40)
-                ratios = page.evaluate(CHECK_CONTRAST, '#safetyPanel .check-policy, #safetyPanel .check-item span, #safetyPanel legend, #safetyPanel .note, #safetyPanel button')
-                check(f'{label} Safety text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
-                check(f'{label} Safety opens with the company-policy line before any checklist item', page.evaluate("(()=>{const p=document.querySelector('#safetyPanel .check-policy'),s=document.querySelector('#safetyPanel .check-section');return /^Follow company policy/.test(p.textContent)&&!!(p.compareDocumentPosition(s)&4)})()"))
-                check(f'{label} Safety shows the count in words', page.evaluate("/^\\d+ of \\d+ ticked$/.test(document.querySelector('#safetyPanel .check-progress').textContent.trim())"))
                 page.evaluate("WorkflowUI.go('outage')")
                 page.evaluate(FILL_OUTAGE)
                 check(f'{label} Outage tick boxes are at least 24 px and each row is a 44 px target', page.evaluate("(()=>{const rows=[...document.querySelectorAll('#outagePanel .check-item')].filter(e=>e.offsetParent);return rows.length>=20&&rows.every(r=>r.getBoundingClientRect().height>=44&&r.querySelector('input').getBoundingClientRect().width>=24&&r.querySelector('input').getBoundingClientRect().height>=24)})()"))
@@ -425,10 +444,11 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','safetyPanel','outagePanel','impairmentsPanel','fiberPanel','highSplitPanel','whyPanel','popPanel','studyPanel','powerPmPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','outagePanel','impairmentsPanel','fiberPanel','highSplitPanel','whyPanel','popPanel','studyPanel','powerPmPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)
+        ofdm_real_input_checks(browser)
         leakage_real_input_checks(browser)
         check('No uncaught application errors', not errors)
         browser.close()

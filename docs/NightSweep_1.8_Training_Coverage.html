@@ -6,7 +6,7 @@
 <p>Open <strong>Home → Practice library</strong>. Choose an exercise to open its seeded job, or select a feature to load the matching example and reveal its guide step. The library is bundled for offline use after the installed browser app reports <strong>Ready for offline use</strong>. The standalone app includes the same training.</p>
 <p>All example values and findings remain synthetic. Opening/resetting an example first preserves the current working job locally; export an external project backup for important work. Reviewed checkboxes describe learning progress and do not establish measurements, physical setup or acceptance.</p>
 <h2 id="loadable-exercises">Loadable exercises</h2>
-<p>For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 36 task screens and 54 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 22, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.</p>
+<p>For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 35 task screens and 53 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -47,7 +47,7 @@
 </tr>
 <tr>
 <td>Custom curves</td>
-<td>Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the pre-work safety reminders, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook (added in 2.0 Alpha build 3); twenty-two steps</td>
+<td>Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook (added in 2.0 Alpha build 3); twenty-one steps</td>
 <td>Synthetic entered teaching tables and calculator inputs</td>
 </tr>
 </tbody></table></div>
@@ -67,172 +67,167 @@
 <td>Guide, current-job summary, theme and Help</td>
 </tr>
 <tr>
-<td>Route → Setup</td>
+<td>Plan → Setup</td>
 <td>Complete, GS7K, custom curves</td>
 <td>Source model/port, launch markers/levels, remaining TP compensation, temperature</td>
 </tr>
 <tr>
-<td>Route → Cable route</td>
+<td>Plan → Cable route</td>
 <td>Complete, six-active</td>
 <td>Feed parents, cable/slack, splitter branches, through/tap paths</td>
 </tr>
 <tr>
-<td>Route → Station</td>
+<td>Field → Station</td>
 <td>Complete, six-active</td>
 <td>Independent Before/After worksheets, balance/sweep records, binding and actual dates</td>
 </tr>
 <tr>
-<td>Route → Amp gain</td>
+<td>Plan → Amp gain</td>
 <td>Complete and six-active</td>
 <td>Gain anchors/table, required gain, reserve and output limits</td>
 </tr>
 <tr>
-<td>Route → Amp / node setup</td>
+<td>Plan → Amp / node setup</td>
 <td>Complete, OEM AGC, DSIM, GS7K</td>
 <td>Exact source/active model, manual provenance, reviewed procedure steps</td>
 </tr>
 <tr>
-<td>Route → Catalog</td>
+<td>Tools → Catalog</td>
 <td>Complete</td>
 <td>Cable/passive/active/node/power references; published capability versus entered gain</td>
 </tr>
 <tr>
-<td>Test → Meter setup</td>
+<td>Field → Meter setup</td>
 <td>Complete, six-active, OEM AGC, DSIM, GS7K</td>
 <td>Separate 204/258 and 42/54 workflows, instrument/reference checks and saved setup</td>
 </tr>
 <tr>
-<td>Test → TDR</td>
+<td>Field → TDR</td>
 <td>Complete, six-active</td>
 <td>Cable-side origin, lead correction, velocity factor and active-boundary rejection</td>
 </tr>
 <tr>
-<td>Test → Predicted levels</td>
+<td>Plan → Predicted levels</td>
 <td>Complete, six-active</td>
 <td>Absolute/normalized predictions and selected route outputs</td>
 </tr>
 <tr>
-<td>Test → Frequency</td>
+<td>Tools → Frequency</td>
 <td>Complete, custom curves</td>
 <td>Exact-frequency loss budget, table interpolation and unavailable ranges</td>
 </tr>
 <tr>
-<td>Test → Readings</td>
+<td>Field → Readings</td>
 <td>Complete, six-active</td>
 <td>Corrected measurement minus prediction, intentional mismatch and TP compensation</td>
 </tr>
 <tr>
-<td>Test → References</td>
+<td>Tools → References</td>
 <td>Complete, OEM AGC, DSIM</td>
 <td>Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates</td>
 </tr>
 <tr>
-<td>Test → Calculators</td>
+<td>Tools → Calculators</td>
 <td>Custom curves</td>
-<td>dB units, ripple and pre-EQ tap distance, OFDM power and echo delay, each with its source tag (2.0 Alpha build 3)</td>
+<td>dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum and echo delay, each with its source tag (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Job → ONX files → Grading aid</td>
+<td>Field → ONX files → Grading aid</td>
 <td>Custom curves</td>
 <td>Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original</td>
 </tr>
 <tr>
-<td>Test → Limits</td>
+<td>Tools → Limits</td>
 <td>Custom curves</td>
 <td>Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → DOCSIS health</td>
+<td>Tools → DOCSIS health</td>
 <td>Custom curves</td>
-<td>Synthetic downstream and upstream readings against the modem requirements, with a company window that starts unknown (2.0 Alpha build 3)</td>
+<td>Synthetic downstream capability comparisons and upstream composite margin to a declared comparable total reference; company windows start Unknown (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Leakage</td>
+<td>Field → Leakage</td>
 <td>Custom curves</td>
 <td>Synthetic leaks against the FCC 3 m limits, the CLI worked example, the 3 m distance restatement and a leak log kept on this device (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Impairments</td>
+<td>Tools → Impairments</td>
 <td>Custom curves</td>
 <td>A synthetic 4.3 MHz ripple that lands on the two 100 ft spans of the practice route, and a suckout card read through its five steps; nothing is read from a meter or stored (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Fiber</td>
+<td>Tools → Fiber</td>
 <td>Custom curves</td>
 <td>Fiber 30 found by tube and position, and a synthetic 12.4 km link budgeted at 9.64 dB with the standard allowances shown but never filled in silently; nothing is read from a meter or stored (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → High split</td>
+<td>Tools → High split</td>
 <td>Custom curves</td>
 <td>The 204/258 high-split row and gap read from the band table, the side of 108 to 137 MHz on each plant, and the eight Remote PHY steps with their sources; nothing is typed, read from a node or stored (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Why cards</td>
+<td>Tools → Why cards</td>
 <td>Custom curves</td>
 <td>The decibel card read for what a bare dB is, and a link from the unity gain card to the station worksheet; nothing is typed or stored (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Proof of performance</td>
+<td>Tools → Proof of performance</td>
 <td>Custom curves</td>
 <td>The 43 dB carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Test → Study</td>
+<td>Tools → Study</td>
 <td>Custom curves</td>
 <td>A level-conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Job → Safety</td>
-<td>Custom curves</td>
-<td>Synthetic practice of the pre-work reminder list: ticks, a role and check-in time, and rewording, hiding and adding items; kept on this device and not in the job backup (2.0 Alpha build 3)</td>
-</tr>
-<tr>
-<td>Job → Outage</td>
+<td>Home → Outage</td>
 <td>Custom curves</td>
 <td>Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Power → Load</td>
+<td>Plan → Load</td>
 <td>Complete</td>
 <td>Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom</td>
 </tr>
 <tr>
-<td>Power → What-if</td>
+<td>Plan → What-if</td>
 <td>Complete</td>
 <td>Extra cable/load trial, keep/reset and changed shared current</td>
 </tr>
 <tr>
-<td>Job → Details</td>
+<td>Plan → Details</td>
 <td>Complete</td>
 <td>Work order, named save/open, duplicate and new blank job</td>
 </tr>
 <tr>
-<td>Job → ONX files</td>
+<td>Field → ONX files</td>
 <td>Complete</td>
 <td>Sweep/Ingress/OneCheck CSV previews and preserved original bytes</td>
 </tr>
 <tr>
-<td>Job → Checklists</td>
+<td>Field → Checklists</td>
 <td>Complete</td>
 <td>Inspection notes, maintenance tasks and dBµV/dBmV conversion</td>
 </tr>
 <tr>
-<td>Job → Acceptance</td>
+<td>Closeout → Acceptance</td>
 <td>Complete, OEM AGC, DSIM</td>
 <td>Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms</td>
 </tr>
 <tr>
-<td>Job → Sweep due</td>
+<td>Plan → Sweep due</td>
 <td>Six-active</td>
 <td>Enter 18 only for the synthetic reminder demonstration, inspect independent work dates, refresh, then clear the interval to unknown</td>
 </tr>
 <tr>
-<td>Job → Night log</td>
+<td>Field → Night log</td>
 <td>Six-active</td>
 <td>Record invented A1–A5 Station worksheets, capture each one, then generate a handoff and export TXT/CSV. No customer identifiers. Captured stages stay fixed after later Station edits</td>
 </tr>
 <tr>
-<td>Job → Run sheet</td>
+<td>Closeout → Run sheet</td>
 <td>Complete</td>
 <td>Predictions, actual input context, warnings, as-built notes and synthetic export labels</td>
 </tr>
@@ -316,7 +311,7 @@
 </tr>
 <tr>
 <td>Named-job retention and reset</td>
-<td>Open a different exercise or reset the current one, then Job → Details</td>
+<td>Open a different exercise or reset the current one, then Plan → Details</td>
 </tr>
 </tbody></table></div>
 <h2 id="verification-and-boundaries">Verification and boundaries</h2>
@@ -363,11 +358,11 @@
 <p>The seven examples and 37 feature mappings remain. Build 2 checks the complete point/branch structure, co-located TDR barriers, forward/reverse distance behavior, preserved originals, latest-state duplication, common project-import limits and same-refresh numerical consistency. The current source replay also probes all seven example states over frequency frames and checks unavailable results explicitly. Read final build 2 receipts for actual commands, counts and hashes.</p>
 <p>All seven JSONs are organized under <strong>Examples/</strong> in the one <strong>NightSweep 1.8 Alpha build 2.zip</strong> delivery. Android/Web and iOS/Web use the same frozen shared application. The separate Android Preview installer has its own build/signature receipts; no physical-device or plant acceptance is inferred from these checks.</p>
 <h2 id="build-3-station-practice">Build 3 station practice</h2>
-<p><strong>Route → Station</strong> adds a step to the complete GS7K/GainMaker exercise (<strong>22 steps</strong>) and to the six-active Vecima/AOI exercise (<strong>16 steps</strong>). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has <strong>54 choices</strong>, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.</p>
+<p><strong>Field → Station</strong> adds a step to the complete GS7K/GainMaker exercise (<strong>22 steps</strong>) and to the six-active Vecima/AOI exercise (<strong>16 steps</strong>). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has <strong>53 choices</strong>, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.</p>
 <h3 id="build-3-night-log-handoff-practice">Build 3 Night log handoff practice</h3>
-<p>The six-active exercise adds <strong>Five-station night handoff</strong> under <strong>Job → Night log</strong>, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 48 choices.</p>
+<p>The six-active exercise adds <strong>Five-station night handoff</strong> under <strong>Field → Night log</strong>, for 16 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 48 choices.</p>
 <h2 id="build-3-sweep-due-practice">Build 3 sweep-due practice</h2>
-<p>The current source has <strong>36 task screens</strong>, <strong>54 feature choices</strong>, and <strong>16 steps</strong> in the six-active Vecima/AOI exercise. Its <strong>Personal sweep reminders</strong> step opens <strong>Job → Sweep due</strong>, starts with an unknown interval, and asks the technician to enter <strong>18</strong> only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an <strong>Unknown / unverified app policy</strong>; the older Hranac attribution for 18 months remains unverified.</p>
-<p>The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains <strong>22 steps</strong>, custom curves <strong>22</strong>, OEM AGC <strong>8</strong>, DSIM <strong>9</strong>, manual/thermal <strong>7</strong>, and GS7K <strong>10</strong>. Historical Build 2 counts above describe its frozen delivery.</p>
-<p>The custom-curves exercise has <strong>22 steps</strong>, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.</p>
+<p>The current source has <strong>35 task screens</strong>, <strong>53 feature choices</strong>, and <strong>16 steps</strong> in the six-active Vecima/AOI exercise. Its <strong>Personal sweep reminders</strong> step opens <strong>Plan → Sweep due</strong>, starts with an unknown interval, and asks the technician to enter <strong>18</strong> only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an <strong>Unknown / unverified app policy</strong>; the older Hranac attribution for 18 months remains unverified.</p>
+<p>The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains <strong>22 steps</strong>, custom curves <strong>21</strong>, OEM AGC <strong>8</strong>, DSIM <strong>9</strong>, manual/thermal <strong>7</strong>, and GS7K <strong>10</strong>. Historical Build 2 counts above describe its frozen delivery.</p>
+<p>The custom-curves exercise has <strong>21 steps</strong>, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.</p>
 </article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>
