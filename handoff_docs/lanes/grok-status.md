@@ -8,7 +8,7 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 | A1 power-sum calculator | `grok/a1-power-sum` | #34 merged `d631109` | product `df857d0` | merged. Do not reopen | 2026-11-12 exact `df857d0`: 93 suites / 2371 checks, 816.5 s; layout 1054; smoke 373; standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. Hosted QA on `73b6ab4` run 43200952825 passed |
 | A2 cascade thermal/CNR | `grok/a2-cascade` | [#39](https://github.com/Goodst3r/Carpe-Noctum/pull/39) ready | `223867e` | ready. Do not merge from the author. ChatGPT still writes the math review | Author gate on `223867e`: 101 suites / 2728 checks, 846.7 s; layout 1252; smoke 370; standalone `9cf19f513ac64f49c8116c5f273acc8463d89848455f86e4762b788825aa76b0`; release `4f6ea3fefd49301eaf6e`. Hosted QA run 43232955539 passed |
 | A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) merged `f9a2060` | `b34b1db` | merged 2026-11-12. This session did not run the merge command | Confirming gate on `b34b1db`: 99 suites / 2642 checks, 843.8 s; layout 1252; smoke 370; standalone `3d8dd8b27001fa7719d17212115145137fb36de57ec877a8d25025fe0c432a7d`; release `bf2faf5c76375cc0bad8`. Hosted QA run 43219829179 passed |
-| A4 context strip | `grok/a4-context` | not opened | this commit | read-only strip under the title. No new storage key, screen id or version. Gate not yet recorded | not run |
+| A4 context strip | `grok/a4-context` | not opened | this commit | records the gate on parent `a60194d`. Read-only strip. No new storage key, screen id or version | Gate on `a60194d`: 101 suites / 2676 checks, 842.6 s; layout 1252; smoke 370; all exits 0. Chromium `/opt/pw-browsers/chromium-1254/chrome-linux64/chrome`. Standalone `15a6f51d03d1f1aa87f1d3911052b6397adb91e6048fc832a507eca67e4f0207`. Release `1052b03916e5876aabe5`. Started 2026-11-12T14:29:04Z, ended 14:43:47Z. This commit only records that gate |
 | A4b Supply PM notebook export/import | not started | — | — | after A4. Device key `nightsweep-power-pm-v1` | not run |
 | A5 tonight list | not started | — | — | add open temporary repairs after B4/B5 merge | not run |
 | A6 exact resume | not started | — | — | BLOCKED on Spencer: phone interruption checks are not recorded | not run |
@@ -19,7 +19,7 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 
 ## Next
 
-Run the full gate on this A4 commit, then a status commit records that gate. Do not merge #39. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. #36 is still a draft. No APK.
+This commit only records the full gate on `a60194d` (read-only context strip). Mark the pull request ready after that same style of gate is recorded for this commit in the pull request body. Do not merge it. Do not merge #39. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. #36 is still a draft. No APK.
 
 ## Blocked
 
