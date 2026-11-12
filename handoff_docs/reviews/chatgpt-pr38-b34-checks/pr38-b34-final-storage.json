@@ -1,0 +1,16 @@
+{
+  "pinBefore": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "base": "8c0fc17860c5a63bfc2bb4203601dbc9438e6253",
+  "checks": [
+    "training-complete-legacy17: base/current and actual backup roundtrip identical numbers/content/originalbytes after only linked evidenceID remapping",
+    "training-complete-alpha18-v1: base/current and actual backup roundtrip identical numbers/content/originalbytes after only linked evidenceID remapping",
+    "all35 with seeded retiredSafety devicekey: state/keybytes unchanged and zero storage writes/removes"
+  ],
+  "failures": [],
+  "keyboard": [],
+  "dimensions": [],
+  "runtimeErrors": [],
+  "consoleErrors": [],
+  "pinAfter": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "gitStatusAfter": ""
+}

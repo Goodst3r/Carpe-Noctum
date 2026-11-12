@@ -1,0 +1,28 @@
+{
+  "head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "checks_passed": 27,
+  "pdf_receipts": {
+    "docs/NightSweep_1.8_Alpha_Functions_README.pdf": {
+      "bytes": 400780,
+      "sha256": "b62598e4fa1aec1bb7fab7559228180e5494bf1ff72d50ecafaa77d21c7ac68c",
+      "new_group_arrow_occurrences": {
+        "Home": 4,
+        "Plan": 16,
+        "Field": 19,
+        "Tools": 23,
+        "Closeout": 3
+      }
+    },
+    "docs/NightSweep_1.8_Alpha_Android_iOS_Installation.pdf": {
+      "bytes": 104832,
+      "sha256": "7a624c13b5db44162976091627e1efb5a9f238f9ed7fa6d86000d85d658b1c6a",
+      "new_group_arrow_occurrences": {
+        "Home": 3,
+        "Plan": 2,
+        "Field": 3,
+        "Tools": 0,
+        "Closeout": 0
+      }
+    }
+  }
+}

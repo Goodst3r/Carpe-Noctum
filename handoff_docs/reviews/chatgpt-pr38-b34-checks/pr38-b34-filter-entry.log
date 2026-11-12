@@ -1,0 +1,13 @@
+PASS {"width": 320, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": "trial", "selectedBeforeActivation": "projects", "pass": true}
+PASS {"width": 320, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": "nightLog", "selectedBeforeActivation": "sweepSetup", "pass": true}
+PASS {"width": 320, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": "fiber", "selectedBeforeActivation": "calculators", "pass": true}
+PASS {"width": 360, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": "trial", "selectedBeforeActivation": "projects", "pass": true}
+PASS {"width": 360, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": "nightLog", "selectedBeforeActivation": "sweepSetup", "pass": true}
+PASS {"width": 360, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": "fiber", "selectedBeforeActivation": "calculators", "pass": true}
+PASS {"width": 390, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": "trial", "selectedBeforeActivation": "projects", "pass": true}
+PASS {"width": 390, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": "nightLog", "selectedBeforeActivation": "sweepSetup", "pass": true}
+PASS {"width": 390, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": "fiber", "selectedBeforeActivation": "calculators", "pass": true}
+PASS {"width": 430, "group": "plan", "query": "what-if", "expected": "trial", "visible": ["trial"], "focusedAfterTab": "trial", "selectedBeforeActivation": "projects", "pass": true}
+PASS {"width": 430, "group": "field", "query": "night log", "expected": "nightLog", "visible": ["nightLog"], "focusedAfterTab": "nightLog", "selectedBeforeActivation": "sweepSetup", "pass": true}
+PASS {"width": 430, "group": "tools", "query": "fiber", "expected": "fiber", "visible": ["fiber"], "focusedAfterTab": "fiber", "selectedBeforeActivation": "calculators", "pass": true}
+Searchable lists real-keyboard entry: 12 passed, 0 failed; 0 runtime errors.

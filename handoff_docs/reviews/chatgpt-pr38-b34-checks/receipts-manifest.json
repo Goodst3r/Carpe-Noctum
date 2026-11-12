@@ -1,0 +1,80 @@
+{
+  "reviewed_head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "receipts": [
+    {
+      "file": "pr38-b34-filter-entry.log",
+      "bytes": 2325,
+      "sha256": "115dab688feb7dc1bd1a546ce9c395335d4136f0f2f4db0f18cf71254ca3b279"
+    },
+    {
+      "file": "pr38-b34-filter-entry.json",
+      "bytes": 3313,
+      "sha256": "393a5f47dabeb062da8b27b4f2621a02f54d29999ae96a9ea9e2e004dc7b4f70"
+    },
+    {
+      "file": "pr38-b34-original-tools-repro.log",
+      "bytes": 548,
+      "sha256": "66d8a0e5d824504fe3e5fb6b8b65ad268ddaf5ce1d6803b33a024badc9ba429e"
+    },
+    {
+      "file": "pr38-b34-screenlists-desired.log",
+      "bytes": 501,
+      "sha256": "9875c456600dc2038bf36cc776e424793d740efb244ed031f0dc34a982023aaf"
+    },
+    {
+      "file": "pr38-b34-screenlists-desired.json",
+      "bytes": 2362,
+      "sha256": "cc7a4b38417ccae7d8480751a0588d3a6e2f494353a073a1f6df0511f0fc8493"
+    },
+    {
+      "file": "pr38-b34-ui-names.log",
+      "bytes": 515,
+      "sha256": "4e053f4889a55a79d144950cabf0bb5dcfe61cdab27b4bb49401936be1fbb048"
+    },
+    {
+      "file": "pr38-b34-nav1.log",
+      "bytes": 422,
+      "sha256": "061a50f83deb55e8c239f4f91736de1ca000b46ed427d1c4aac3079dd1158cee"
+    },
+    {
+      "file": "pr38-b34-author-keyboard.log",
+      "bytes": 2296,
+      "sha256": "4ba3c7d7c45cc309f351fa71dbd0dc16180f785845dccd27ff997471b9d41e12"
+    },
+    {
+      "file": "pr38-b34-preservation.json",
+      "bytes": 825,
+      "sha256": "5a4f7869eaa4a6988d7711636965a3b424b462b6a0e0b25224a99812635b3f50"
+    },
+    {
+      "file": "pr38-b34-final-storage.log",
+      "bytes": 513,
+      "sha256": "7456644bb129f0415e81137a8281be0653ebaf5f3020beeeda84741596b3eefc"
+    },
+    {
+      "file": "pr38-b34-final-storage.json",
+      "bytes": 736,
+      "sha256": "143150c86c5f7ccbb9a9a14779cdacb6442bdf51b3918c3e7fc83bc354f89c26"
+    },
+    {
+      "file": "pr38-b34-archived-screenlists.json",
+      "bytes": 2362,
+      "sha256": "cc7a4b38417ccae7d8480751a0588d3a6e2f494353a073a1f6df0511f0fc8493"
+    },
+    {
+      "file": "pr38-b34-archived-screenlists.log",
+      "bytes": 501,
+      "sha256": "9875c456600dc2038bf36cc776e424793d740efb244ed031f0dc34a982023aaf"
+    },
+    {
+      "file": "pr38-b34-archived-docs.json",
+      "bytes": 749,
+      "sha256": "68aa1e8eb76912c35d10ddcff0d3435c2d7e7c0261e37c57740c38679b92c26b"
+    },
+    {
+      "file": "pr38-b34-archived-docs.log",
+      "bytes": 749,
+      "sha256": "68aa1e8eb76912c35d10ddcff0d3435c2d7e7c0261e37c57740c38679b92c26b"
+    }
+  ]
+}

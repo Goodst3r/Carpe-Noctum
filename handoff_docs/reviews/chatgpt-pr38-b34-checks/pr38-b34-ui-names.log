@@ -1,0 +1,8 @@
+PASS The app exposes the five main tabs and their sub-tabs the check relies on
+PASS The check recognizes a wrong tab, a wrong button and a retired name
+PASS A navigation inventory rejects a missing screen and a screen in the wrong group
+PASS Practice-job text names only tabs and buttons that exist
+PASS Messages and help text inside the app name only tabs and buttons that exist
+PASS Technician guides name only tabs and buttons that exist
+PASS Rendered guide pages carry no retired name
+UI names: 7 checks passed

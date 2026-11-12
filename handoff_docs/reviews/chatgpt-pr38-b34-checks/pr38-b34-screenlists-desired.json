@@ -1,0 +1,68 @@
+{
+  "headBefore": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "source": "qa/ui-names.test.cjs actual screenLists()",
+  "checks": [
+    {
+      "name": "reject missing multiword screen",
+      "expected": 1,
+      "failures": [
+        "probe: table row \"Tools\" lists \"nonexistent screen\", which is not a Tools tab (tabs: calculators, frequency, limits, references, catalog, docsis health, impairments, fiber, high split, why cards, proof of performance, study)"
+      ]
+    },
+    {
+      "name": "reject real multiword screen under wrong group",
+      "expected": 1,
+      "failures": [
+        "probe: table row \"Tools\" lists \"meter setup\", which is not a Tools tab (tabs: calculators, frequency, limits, references, catalog, docsis health, impairments, fiber, high split, why cards, proof of performance, study)"
+      ]
+    },
+    {
+      "name": "reject missing one-word screen",
+      "expected": 1,
+      "failures": [
+        "probe: table row \"Tools\" lists \"bogus\", which is not a Tools tab (tabs: calculators, frequency, limits, references, catalog, docsis health, impairments, fiber, high split, why cards, proof of performance, study)"
+      ]
+    },
+    {
+      "name": "accept valid multiword screen",
+      "expected": 0,
+      "failures": []
+    },
+    {
+      "name": "reject invalid member of a semicolon list",
+      "expected": 1,
+      "failures": [
+        "probe: table row \"Tools\" lists \"nonexistent screen\", which is not a Tools tab (tabs: calculators, frequency, limits, references, catalog, docsis health, impairments, fiber, high split, why cards, proof of performance, study)"
+      ]
+    },
+    {
+      "name": "diagnose missing group inventory",
+      "expected": 1,
+      "failures": [
+        "probe: table row \"Tools\" is not a main work area"
+      ]
+    },
+    {
+      "name": "ignore actual prose Field table header",
+      "expected": 0,
+      "failures": []
+    },
+    {
+      "name": "accept exact five-group independent inventory",
+      "expected": 0,
+      "failures": []
+    },
+    {
+      "name": "ignore standalone prose row outside inventory",
+      "expected": 0,
+      "failures": []
+    },
+    {
+      "name": "end inventory at prose before unrelated table",
+      "expected": 0,
+      "failures": []
+    }
+  ],
+  "headAfter": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "statusAfter": ""
+}

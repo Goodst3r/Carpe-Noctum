@@ -1,0 +1,47 @@
+PASS 320px night palette
+PASS 320px What-if: search leaves projects selected
+PASS 320px What-if: Tab reaches the only visible result
+PASS 320px What-if: Enter on that result opens it
+PASS 320px Night log: search leaves sweepSetup selected
+PASS 320px Night log: Tab reaches the only visible result
+PASS 320px Night log: Enter on that result opens it
+PASS 320px Fiber: search leaves calculators selected
+PASS 320px Fiber: Tab reaches the only visible result
+PASS 320px Fiber: Enter on that result opens it
+PASS 320px no page errors
+PASS 360px night palette
+PASS 360px What-if: search leaves projects selected
+PASS 360px What-if: Tab reaches the only visible result
+PASS 360px What-if: Enter on that result opens it
+PASS 360px Night log: search leaves sweepSetup selected
+PASS 360px Night log: Tab reaches the only visible result
+PASS 360px Night log: Enter on that result opens it
+PASS 360px Fiber: search leaves calculators selected
+PASS 360px Fiber: Tab reaches the only visible result
+PASS 360px Fiber: Enter on that result opens it
+PASS 360px no page errors
+PASS 390px night palette
+PASS 390px What-if: search leaves projects selected
+PASS 390px What-if: Tab reaches the only visible result
+PASS 390px What-if: Enter on that result opens it
+PASS 390px Night log: search leaves sweepSetup selected
+PASS 390px Night log: Tab reaches the only visible result
+PASS 390px Night log: Enter on that result opens it
+PASS 390px Fiber: search leaves calculators selected
+PASS 390px Fiber: Tab reaches the only visible result
+PASS 390px Fiber: Enter on that result opens it
+PASS 390px no page errors
+PASS 430px night palette
+PASS 430px What-if: search leaves projects selected
+PASS 430px What-if: Tab reaches the only visible result
+PASS 430px What-if: Enter on that result opens it
+PASS 430px Night log: search leaves sweepSetup selected
+PASS 430px Night log: Tab reaches the only visible result
+PASS 430px Night log: Enter on that result opens it
+PASS 430px Fiber: search leaves calculators selected
+PASS 430px Fiber: Tab reaches the only visible result
+PASS 430px Fiber: Enter on that result opens it
+PASS 430px no page errors
+PASS Enter in the search box focuses Fiber and does not navigate
+PASS ArrowDown in the search box focuses Fiber without navigating
+Build3 navigation keyboard: 46 checks passed

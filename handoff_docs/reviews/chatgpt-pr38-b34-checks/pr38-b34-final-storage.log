@@ -1,0 +1,4 @@
+PASS training-complete-legacy17: base/current and actual backup roundtrip identical numbers/content/originalbytes after only linked evidenceID remapping
+PASS training-complete-alpha18-v1: base/current and actual backup roundtrip identical numbers/content/originalbytes after only linked evidenceID remapping
+PASS all35 with seeded retiredSafety devicekey: state/keybytes unchanged and zero storage writes/removes
+{"passes": 3, "failures": [], "pinAfter": "b34b1db60571e758947ca5b592e14aeaf7f38d73", "status": ""}

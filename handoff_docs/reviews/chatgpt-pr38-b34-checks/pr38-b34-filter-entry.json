@@ -1,0 +1,153 @@
+{
+  "headBefore": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "artifact": "outputs/Night_Sweep.html",
+  "checks": [
+    {
+      "width": 320,
+      "group": "plan",
+      "query": "what-if",
+      "expected": "trial",
+      "visible": [
+        "trial"
+      ],
+      "focusedAfterTab": "trial",
+      "selectedBeforeActivation": "projects",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "group": "field",
+      "query": "night log",
+      "expected": "nightLog",
+      "visible": [
+        "nightLog"
+      ],
+      "focusedAfterTab": "nightLog",
+      "selectedBeforeActivation": "sweepSetup",
+      "pass": true
+    },
+    {
+      "width": 320,
+      "group": "tools",
+      "query": "fiber",
+      "expected": "fiber",
+      "visible": [
+        "fiber"
+      ],
+      "focusedAfterTab": "fiber",
+      "selectedBeforeActivation": "calculators",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "group": "plan",
+      "query": "what-if",
+      "expected": "trial",
+      "visible": [
+        "trial"
+      ],
+      "focusedAfterTab": "trial",
+      "selectedBeforeActivation": "projects",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "group": "field",
+      "query": "night log",
+      "expected": "nightLog",
+      "visible": [
+        "nightLog"
+      ],
+      "focusedAfterTab": "nightLog",
+      "selectedBeforeActivation": "sweepSetup",
+      "pass": true
+    },
+    {
+      "width": 360,
+      "group": "tools",
+      "query": "fiber",
+      "expected": "fiber",
+      "visible": [
+        "fiber"
+      ],
+      "focusedAfterTab": "fiber",
+      "selectedBeforeActivation": "calculators",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "group": "plan",
+      "query": "what-if",
+      "expected": "trial",
+      "visible": [
+        "trial"
+      ],
+      "focusedAfterTab": "trial",
+      "selectedBeforeActivation": "projects",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "group": "field",
+      "query": "night log",
+      "expected": "nightLog",
+      "visible": [
+        "nightLog"
+      ],
+      "focusedAfterTab": "nightLog",
+      "selectedBeforeActivation": "sweepSetup",
+      "pass": true
+    },
+    {
+      "width": 390,
+      "group": "tools",
+      "query": "fiber",
+      "expected": "fiber",
+      "visible": [
+        "fiber"
+      ],
+      "focusedAfterTab": "fiber",
+      "selectedBeforeActivation": "calculators",
+      "pass": true
+    },
+    {
+      "width": 430,
+      "group": "plan",
+      "query": "what-if",
+      "expected": "trial",
+      "visible": [
+        "trial"
+      ],
+      "focusedAfterTab": "trial",
+      "selectedBeforeActivation": "projects",
+      "pass": true
+    },
+    {
+      "width": 430,
+      "group": "field",
+      "query": "night log",
+      "expected": "nightLog",
+      "visible": [
+        "nightLog"
+      ],
+      "focusedAfterTab": "nightLog",
+      "selectedBeforeActivation": "sweepSetup",
+      "pass": true
+    },
+    {
+      "width": 430,
+      "group": "tools",
+      "query": "fiber",
+      "expected": "fiber",
+      "visible": [
+        "fiber"
+      ],
+      "focusedAfterTab": "fiber",
+      "selectedBeforeActivation": "calculators",
+      "pass": true
+    }
+  ],
+  "runtimeErrors": [],
+  "headAfter": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "statusAfter": ""
+}

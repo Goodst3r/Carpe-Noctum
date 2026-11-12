@@ -1,0 +1,6 @@
+PASS Bottom navigation is Home, Plan, Field, Tools and Closeout, and Safety is gone
+PASS Each group lists only its screens, and screen ids are unchanged
+PASS Tools search filters the list and does not navigate or store a screen id
+PASS A filtered list result is reachable from the search box without changing the screen
+PASS A bottom tab returns to the last screen in that group
+Build3 navigation regroup: 5 checks passed

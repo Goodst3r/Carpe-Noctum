@@ -1,5 +1,7 @@
 # PR38 NAV-1 independent focused review
 
+**Latest focused rereview:** [b34b1db findings closed](chatgpt-pr38-b34-rereview.md) on `b34b1db60571e758947ca5b592e14aeaf7f38d73`. The reviewer full gate is still pending separately; this is not final approval. All earlier findings and failed receipts below are retained as historical evidence for their named heads.
+
 **Disposition: CHANGES NEEDED on `4ccd22a28c66ca8739425fdabe79ea505aafea89`.** This is a focused read-only review, not the required reviewer full-gate receipt. Root owns the full gate after the author fixes the known guide/body issues. No build, generic full gate, generic layout/smoke suite, APK, emulator, physical-device or field test was run by this reviewer.
 
 ## Pin and scope

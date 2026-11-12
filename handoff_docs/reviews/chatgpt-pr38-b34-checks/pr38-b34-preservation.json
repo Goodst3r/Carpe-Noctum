@@ -1,0 +1,21 @@
+{
+  "head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+  "comparison": "8a6d99b",
+  "checks": [
+    "groups/screens unchanged",
+    "panel mapping/point selection unchanged",
+    "night-sweep/app.js byte-identical",
+    "night-sweep/jobs.js byte-identical",
+    "night-sweep/field-calcs.js byte-identical",
+    "night-sweep/docsis-health.js byte-identical",
+    "night-sweep/thresholds.js byte-identical",
+    "night-sweep/engine.js byte-identical",
+    "night-sweep/shell.html byte-identical",
+    "night-sweep/style.css byte-identical",
+    "qa/runtime/package.json byte-identical",
+    "qa/runtime/package-lock.json byte-identical",
+    "qa/build3-composite-upstream.test.cjs byte-identical",
+    "qa/build3-composite-margin.test.cjs byte-identical",
+    "qa/build3-composite-upstream-layout.test.py byte-identical"
+  ]
+}

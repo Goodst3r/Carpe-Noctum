@@ -1,0 +1,11 @@
+PASS reject missing multiword screen
+PASS reject real multiword screen under wrong group
+PASS reject missing one-word screen
+PASS accept valid multiword screen
+PASS reject invalid member of a semicolon list
+PASS diagnose missing group inventory
+PASS ignore actual prose Field table header
+PASS accept exact five-group independent inventory
+PASS ignore standalone prose row outside inventory
+PASS end inventory at prose before unrelated table
+Actual b34 screenLists desired behavior: 10 checks passed.
