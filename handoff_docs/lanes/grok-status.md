@@ -7,7 +7,7 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 | A0 workflow docs | `build3` | #33 `7dfddf7` | `7dfddf7` | merged | docs only, 2026-11-12 |
 | A1 power-sum calculator | `grok/a1-power-sum` | #34 merged `d631109` | product `df857d0` | merged. Do not reopen | 2026-11-12 exact `df857d0`: 93 suites / 2371 checks, 816.5 s; layout 1054; smoke 373; standalone `05688de082e375b3cae2ec51bc74618a794aeb4c26ae0ceab3d2747f65300128`. Hosted QA on `73b6ab4` run 43200952825 passed |
 | A2 cascade thermal/CNR | not started | — | — | #37 has merged, so `field-calcs.js` is free after A3 is marked ready | not run |
-| A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) draft | merge of `build3` `8c0fc17` into this branch | draft. Contains B2. Safety stays removed. Screen ids unchanged. Supply PM is in Plan | not a full gate yet |
+| A3 NAV-1 | `grok/a3-nav1` | [#38](https://github.com/Goodst3r/Carpe-Noctum/pull/38) draft | parent `4ccd22a`; this commit records that gate | draft. Do not self-merge. Contains `build3` `8c0fc17` | 2026-11-12 exact `4ccd22a`: 98 suites / 2594 checks, 841.6 s; layout 1252; smoke 370; standalone `f7a8b648119604497e586faad9ada4d30fe51bff3e4a52fd48a790a0b51d528a`. npm ci was not re-run; the existing runtime was linked. Hosted QA was still pending when this line was written |
 | A4 context strip | not started | — | — | after A3 is marked ready | not run |
 | A4b Supply PM notebook export/import | not started | — | — | after A4. Device key `nightsweep-power-pm-v1` | not run |
 | A5 tonight list | not started | — | — | add open temporary repairs after B5 merges | not run |
@@ -19,7 +19,7 @@ Only Grok edits this file. Lane A builds, runs the long gates, reviews ChatGPT's
 
 ## Next
 
-Finish the full gate on the NAV-1 head that contains `build3` `8c0fc17`, record it in #38, and mark that draft ready. Do not merge #38. Then start A2. A4 starts only after A3 is marked ready. A4b after A4. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. No APK.
+The full gate on `4ccd22a` is green (98/2594, 841.6 s, layout 1252, smoke 370). This commit only records that in the status file. Mark #38 ready after hosted QA is green on the head that contains that record, and do not merge it. Then start A2. A4 starts only after A3 is marked ready. A4b after A4. A6 stays blocked. Items 16 and 12 stay blocked. Draft #32 stays a draft. No APK.
 
 #37 merged as `8c0fc17` while this NAV-1 branch was open. This session did not merge it and did not APPROVE `f54d5c2`. The NAV-1 merge keeps B2's composite-margin rows and the new screen names. Generated HTML and `dist/` were rebuilt after the merge.
 
