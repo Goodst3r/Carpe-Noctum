@@ -1,0 +1,13 @@
+# A3 frozen c6 full gate: FAILED
+
+Exact head `c6f742e4042529fa7fa254eb37b401b7f3bd6748`, base3cfb9c2021eabe52644cffbe1515224b9d027cb2, app SHA-256 `94d8243bfb10deb0ce2f843e6a7512272c736627dc7ca7d66e5b0bca61e91b22`. Current remote build3 after completion: `3cfb9c2021eabe52644cffbe1515224b9d027cb2`. Author branch codex/sweep-due remains exact and clean.
+
+Both reproducibility builds passed. Full runner completed **72 suites: 71 passed,1 failed**, raw aggregate **1592 checks**, 480.3s. The failure is the actual stale exact Job-tab assertion in `qa/build3-checklist.test.cjs:489`: actual frozen UI appends Sweep due as eighth tab while the expected list still ends at Run sheet. The failed suite records0 because its completion marker was never reached. Partial checklist PASS lines are not added to the aggregate. No product data-loss/time defect was reproduced by this failure.
+
+Separate rendered checks passed: layout **554**, smoke **346**. Desktop Chromium only; no Android/emulator/phone/WebView/Safari/native-provider/RF/field/APK verification. No source/QA/docs/index changes or restore/install commands. Forty locked installed dependencies remained identical.
+
+All 574 tracked hashes (551 source, 23 generated), complete HEAD/tree, semantic staged entries, README pair, lock and clean status matched the initial snapshot through all stages and direct final rehash. Raw index bytes remain diagnostic only. Exact AST suite identities/order, all72 logged PASS/FAIL outcomes and counts, count sum, fresh raw/source reports and completed artifact manifest were independently rechecked after completion. No live test descendants remain.
+
+Two preceding wrapper-precondition attempts are preserved under `/tmp/carpe-a3-peer-full-*` and `/tmp/carpe-a3-peer-full-recovery-*`. Each executed **zero commands**, failed before builds/tests on unsupported external wrapper assumptions (first repository-contained ../night-sweep paths, then legitimate None count patterns), and retained unchanged author state. They are separate from this actual full-gate QA failure and are never included in the72-suite counts. Original failed proof/MD/manifest/script hashes remain unchanged.
+
+Active raw/proof/MD/manifest: `/tmp/carpe-a3-peer-full-recovery2-{gate.json,layout.json,smoke.json,proof.json,gate.md,manifest.json}`. This receipt supplements the immutable generated proof; overall result stays **FAILED**. Root owns the ordinary one-array expected eighth-tab correction after this seal, focused source/frozen validation, and a fresh full gate under another unique namespace. No competing full run was started.

@@ -1,88 +1,120 @@
 {
-  "tested_commit": "52fac6902d2f2872ec28ca42115589df814cf5a3",
-  "initial_build3": "bc69bb4767e71107cb8ae3f83e4134c2ffafe41e",
-  "integrated_build3": "5588a49b10292bed422b7597ec227bce38173a2d",
-  "actor": "Lane A independent final gate; author focused and independent review results separately attributed",
-  "raw_gate": {
-    "release": "7e4e4389e027a22e31a0",
+  "scope": "Lane A exact072 fresh full gate; separate independent delta review and historical failures/passes retain their original attribution. Metadata-only publication follows without another feature gate.",
+  "tested_source_head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+  "reviewed_base": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "publication_head": "This receipt is committed in an ordinary metadata-only successor; exact publication SHA is reported in PR21.",
+  "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+  "pwa_html_sha256": "45ddd2c6497812ff9a49f410034a38acb96883bf52e215f1039583f24b8e0972",
+  "worker_sha256": "cdadd2773bf563b64800821062bf827a1b1fd44a3085ec8dac0ea008e9e39e32",
+  "pwa_version": "895c3d743a958543a5a5",
+  "actual_full_gate_report": {
+    "release": "895c3d743a958543a5a5",
     "version": "2.0 Alpha build 3",
     "suites": [
       {
         "name": "Build 3 threshold and source registry",
         "script": "build3-registry.test.cjs",
         "passed": true,
-        "checks": 13,
-        "seconds": 4.1
+        "checks": 14,
+        "seconds": 10.5
       },
       {
         "name": "Build 3 field calculators against independent references",
         "script": "build3-field-calcs.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 2.4
+        "seconds": 4.3
       },
       {
         "name": "Build 3 tilt, EQ and pad solver against the recalculated spreadsheet",
         "script": "build3-alignment.test.cjs",
         "passed": true,
         "checks": 12,
-        "seconds": 2.3
+        "seconds": 4.8
       },
       {
         "name": "Build 3 DOCSIS health card against independent decimal references",
         "script": "build3-docsis-health.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 16.9
+        "seconds": 34.8
       },
       {
         "name": "Build 3 leakage tools against independent decimal references",
         "script": "build3-leakage.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 19.0
+        "seconds": 32.9
+      },
+      {
+        "name": "Build 3 shared checklist engine, pre-work safety card and outage first-response card",
+        "script": "build3-checklist.test.cjs",
+        "passed": true,
+        "checks": 37,
+        "seconds": 13.2
+      },
+      {
+        "name": "Build 3 checklist cards in a real browser: half-edited time box and a full storage quota",
+        "script": "build3-checklist-real.test.py",
+        "passed": true,
+        "checks": 38,
+        "seconds": 8.5
       },
       {
         "name": "Build 3 station worksheet arithmetic and saved jobs",
         "script": "build3-station.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 30.9
+        "seconds": 26.3
       },
       {
         "name": "Build 3 rendered station phone layout",
         "script": "build3-station-layout.test.py",
         "passed": true,
         "checks": 121,
-        "seconds": 11.0
+        "seconds": 11.1
       },
       {
         "name": "Build 3 station field-review regressions",
         "script": "build3-station-review.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 23.6
+        "seconds": 26.5
+      },
+      {
+        "name": "Build 3 night-log capture and handoff contracts",
+        "script": "build3-night-log.test.cjs",
+        "passed": true,
+        "checks": 23,
+        "seconds": 49.2
+      },
+      {
+        "name": "Build 3 rendered night-log phone layout",
+        "script": "build3-night-log-layout.test.py",
+        "passed": true,
+        "checks": 107,
+        "seconds": 15.1
       },
       {
         "name": "Build 3 sweep-due calendar and saved-job reminders",
         "script": "build3-sweep-due.test.cjs",
         "passed": true,
-        "checks": 33,
-        "seconds": 14.5
+        "checks": 37,
+        "seconds": 23.7
       },
       {
         "name": "Build 3 rendered sweep-due phone layout",
         "script": "build3-sweep-due-layout.test.py",
         "passed": true,
-        "checks": 121,
-        "seconds": 6.9
+        "checks": 189,
+        "seconds": 9.6
       },
       {
         "name": "2.0 Alpha design changes",
         "script": "v20-design.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 4.0
+        "seconds": 4.5
       },
       {
         "name": "Build 2 TDR active-boundary regressions",
@@ -96,14 +128,14 @@
         "script": "build2-rf-properties.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.3
+        "seconds": 0.4
       },
       {
         "name": "Build 2 all seven examples frequency replay",
         "script": "build2-example-math.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 1.5
+        "seconds": 1.9
       },
       {
         "name": "Build 2 power circuits and current-curve backtests",
@@ -117,35 +149,35 @@
         "script": "build2-dsim-dates.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 1.6
+        "seconds": 1.7
       },
       {
         "name": "Build 2 calculation reuse and import boundaries",
         "script": "build2-frontend.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 16.2
+        "seconds": 14.9
       },
       {
         "name": "Build 2 rendered cascade and lazy-chart layout",
         "script": "build2-layout.test.py",
         "passed": true,
         "checks": 55,
-        "seconds": 32.2
+        "seconds": 30.6
       },
       {
         "name": "Build 2 original-byte limits and atomic job operations",
         "script": "build2-reliability.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 19.6
+        "seconds": 20.2
       },
       {
         "name": "Build 2 native filename and print lifecycle",
         "script": "android-native-edge.test.py",
         "passed": true,
         "checks": 12,
-        "seconds": 0.7
+        "seconds": 0.8
       },
       {
         "name": "1.8 profile acceptance guards",
@@ -166,7 +198,7 @@
         "script": "complete-workflow-math.test.cjs",
         "passed": true,
         "checks": 17,
-        "seconds": 2.3
+        "seconds": 2.5
       },
       {
         "name": "1.8 release identity and documentation",
@@ -180,35 +212,35 @@
         "script": "android-preview.test.py",
         "passed": true,
         "checks": 18,
-        "seconds": 0.4
+        "seconds": 0.3
       },
       {
         "name": "1.8 imported route and power ID boundaries",
         "script": "import-id-boundaries.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 1.8
+        "seconds": 1.9
       },
       {
         "name": "1.8 seven practice exercises and seeded feature coverage",
         "script": "training-library.test.cjs",
         "passed": true,
         "checks": 11,
-        "seconds": 56.1
+        "seconds": 65.3
       },
       {
         "name": "1.6 to current release migration and portable example",
         "script": "upgrade01617.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 8.4
+        "seconds": 9.4
       },
       {
         "name": "1.7 stable workflow rendering",
         "script": "alpha17-render.test.cjs",
         "passed": true,
         "checks": 3,
-        "seconds": 1.9
+        "seconds": 2.2
       },
       {
         "name": "1.7 source and equipment reports",
@@ -222,21 +254,21 @@
         "script": "launch-source.test.cjs",
         "passed": true,
         "checks": 9,
-        "seconds": 3.5
+        "seconds": 3.2
       },
       {
         "name": "1.7 equipment setup and DSIM",
         "script": "equipment-setup.test.cjs",
         "passed": true,
         "checks": 39,
-        "seconds": 1.7
+        "seconds": 1.6
       },
       {
         "name": "1.7 local operator targets and available carriers",
         "script": "local-operator-preset.test.cjs",
         "passed": true,
         "checks": 19,
-        "seconds": 5.6
+        "seconds": 5.7
       },
       {
         "name": "1.7 DSIM historical pilot-code lookup",
@@ -250,21 +282,21 @@
         "script": "equipment-control.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.7
+        "seconds": 0.6
       },
       {
         "name": "1.7 current node setup references",
         "script": "node-setup-refresh.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 retired UBT compatibility",
         "script": "retired-equipment.test.cjs",
         "passed": true,
         "checks": 7,
-        "seconds": 2.1
+        "seconds": 2.0
       },
       {
         "name": "1.7 fresh independent numerical references",
@@ -278,7 +310,7 @@
         "script": "alpha17-engine.test.cjs",
         "passed": true,
         "checks": 8,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "1.7 evidence job context",
@@ -313,49 +345,49 @@
         "script": "sweep-setup.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 13.1
+        "seconds": 12.7
       },
       {
         "name": "Equipment reference catalog",
         "script": "equipment-reference.test.cjs",
         "passed": true,
         "checks": 18,
-        "seconds": 1.6
+        "seconds": 1.9
       },
       {
         "name": "PWA package and service worker",
         "script": "pwa-worker.test.cjs",
         "passed": true,
         "checks": 36,
-        "seconds": 0.3
+        "seconds": 0.5
       },
       {
         "name": "PWA install and update interface",
         "script": "pwa-client.test.cjs",
         "passed": true,
         "checks": 20,
-        "seconds": 2.0
+        "seconds": 2.4
       },
       {
         "name": "Browser file export and sharing",
         "script": "browser-files.test.cjs",
         "passed": true,
         "checks": 23,
-        "seconds": 1.9
+        "seconds": 2.4
       },
       {
         "name": "Guided training job and preserved work",
         "script": "training-job.test.cjs",
         "passed": true,
         "checks": 41,
-        "seconds": 28.9
+        "seconds": 32.6
       },
       {
         "name": "Production training buttons and fleet split",
         "script": "training-controls.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 41.3
+        "seconds": 28.8
       },
       {
         "name": "RF and power engine",
@@ -383,14 +415,14 @@
         "script": "frequency-regression.cjs",
         "passed": true,
         "checks": 16,
-        "seconds": 0.1
+        "seconds": 0.0
       },
       {
         "name": "Retained interface behavior",
         "script": "dom-tests.cjs",
         "passed": true,
         "checks": 38,
-        "seconds": 7.2
+        "seconds": 5.4
       },
       {
         "name": "Active and TDR interface calculations",
@@ -404,7 +436,7 @@
         "script": "alpha15-ui.test.cjs",
         "passed": true,
         "checks": 22,
-        "seconds": 7.5
+        "seconds": 9.1
       },
       {
         "name": "Node profiles and current curves",
@@ -418,28 +450,28 @@
         "script": "evidence.test.cjs",
         "passed": true,
         "checks": 52,
-        "seconds": 0.1
+        "seconds": 0.2
       },
       {
         "name": "Evidence UI and storage",
         "script": "evidence-ui.test.cjs",
         "passed": true,
         "checks": 28,
-        "seconds": 1.0
+        "seconds": 0.8
       },
       {
         "name": "IndexedDB failure and commit boundaries",
         "script": "evidence-storage-failures.test.cjs",
         "passed": true,
         "checks": 13,
-        "seconds": 0.6
+        "seconds": 0.7
       },
       {
         "name": "Named jobs corruption and capacity",
         "script": "named-jobs-storage.test.cjs",
         "passed": true,
         "checks": 5,
-        "seconds": 9.5
+        "seconds": 11.0
       },
       {
         "name": "Legacy upgrade and portable backup",
@@ -453,35 +485,35 @@
         "script": "alpha012.test.cjs",
         "passed": true,
         "checks": 32,
-        "seconds": 13.9
+        "seconds": 15.5
       },
       {
         "name": "0.13 APK backup migration",
         "script": "upgrade01314.test.cjs",
         "passed": true,
         "checks": 15,
-        "seconds": 4.7
+        "seconds": 5.1
       },
       {
         "name": "1.4 backup and active/TDR migration",
         "script": "upgrade01415.test.cjs",
         "passed": true,
         "checks": 10,
-        "seconds": 4.8
+        "seconds": 4.9
       },
       {
         "name": "Training, guide and app text names real screens and buttons",
         "script": "ui-names.test.cjs",
         "passed": true,
         "checks": 6,
-        "seconds": 19.5
+        "seconds": 18.5
       },
       {
         "name": "Built-in reference calculations",
         "script": "../night-sweep/selfcheck.js",
         "passed": true,
         "checks": 8,
-        "seconds": 0.0
+        "seconds": 0.1
       },
       {
         "name": "Catalog structure",
@@ -498,16 +530,33 @@
         "seconds": 13.2
       }
     ],
-    "checks": 1482,
+    "checks": 1760,
     "suite_timeout_seconds": 3600,
-    "total_seconds": 487.7,
+    "total_seconds": 630.0,
     "all_passed": true,
     "build_unchanged_during_tests": true,
     "worktree_unchanged_during_tests": true,
-    "html_sha256": "e3d33ce0530008b5b1385d84d4207e2e2cb1f6c1d6347129b9e449d0052edd77",
-    "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
-    "worker_sha256": "6a08edcd84bc0485daaaea0b96d3e4ffd5a4a79ba50f739e5f17c3beb92dbfae",
+    "html_sha256": "45ddd2c6497812ff9a49f410034a38acb96883bf52e215f1039583f24b8e0972",
+    "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+    "worker_sha256": "cdadd2773bf563b64800821062bf827a1b1fd44a3085ec8dac0ea008e9e39e32",
     "scope": "Synthetic calculations, real version-source migration, DOM interactions, simulated service-worker lifecycle/network/cache, and browser export contracts. No physical iPhone/Safari/offline-device or rendered browser layout claim."
+  },
+  "separate_rendered": {
+    "layout": {
+      "checks": 554,
+      "passed": true,
+      "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+      "scope": "Desktop Chromium with phone-sized viewports and touch emulation, both palettes. Not a physical Android/iPhone, Safari or WebView test."
+    },
+    "smoke": {
+      "browser": "Chromium 156.0.8078.79",
+      "checks": 349,
+      "passed": true,
+      "page_errors": [],
+      "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+      "pwa_sha256": "45ddd2c6497812ff9a49f410034a38acb96883bf52e215f1039583f24b8e0972",
+      "scope": "Rendered desktop Chromium at 360/390/768/1280px, touch/mobile emulation, real IndexedDB import/export, service-worker offline reload and new-tab reopening. No physical Android/iPhone, Safari/WebView or signed APK verification."
+    }
   },
   "commands": [
     {
@@ -516,13 +565,11 @@
         "python3",
         "night-sweep/build.py"
       ],
-      "started_utc": "2026-11-11T20:05:17.781706+00:00",
-      "started_time_ns": 1794427517781732231,
-      "log": "/tmp/carpe-a3-final-standalone_build.log",
+      "started_utc": "2026-11-12T00:16:03.067526+00:00",
+      "log": "/tmp/carpe-a3-nightlog-full-standalone_build.log",
       "exit_code": 0,
-      "finished_time_ns": 1794427518026716897,
-      "finished_utc": "2026-11-11T20:05:18.026721+00:00",
-      "seconds": 0.243,
+      "finished_utc": "2026-11-12T00:16:03.692483+00:00",
+      "seconds": 0.624,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -548,13 +595,11 @@
         "python3",
         "build-pwa.py"
       ],
-      "started_utc": "2026-11-11T20:05:18.109360+00:00",
-      "started_time_ns": 1794427518109368594,
-      "log": "/tmp/carpe-a3-final-pwa_build.log",
+      "started_utc": "2026-11-12T00:16:04.043045+00:00",
+      "log": "/tmp/carpe-a3-nightlog-full-pwa_build.log",
       "exit_code": 0,
-      "finished_time_ns": 1794427518215502123,
-      "finished_utc": "2026-11-11T20:05:18.215506+00:00",
-      "seconds": 0.102,
+      "finished_utc": "2026-11-12T00:16:04.272167+00:00",
+      "seconds": 0.221,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -580,13 +625,11 @@
         "python3",
         "qa/run-pwa.py"
       ],
-      "started_utc": "2026-11-11T20:05:18.326611+00:00",
-      "started_time_ns": 1794427518326621119,
-      "log": "/tmp/carpe-a3-final-gate.log",
+      "started_utc": "2026-11-12T00:16:04.480326+00:00",
+      "log": "/tmp/carpe-a3-nightlog-full-gate.log",
       "exit_code": 0,
-      "finished_time_ns": 1794428006333339961,
-      "finished_utc": "2026-11-11T20:13:26.333344+00:00",
-      "seconds": 488.003,
+      "finished_utc": "2026-11-12T00:26:35.248209+00:00",
+      "seconds": 630.763,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -606,30 +649,30 @@
       },
       "report": {
         "source_report": "qa/pwa-test-results.json",
-        "raw_report": "/tmp/carpe-a3-final-gate.json",
+        "raw_report": "/tmp/carpe-a3-nightlog-full-gate.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794428006325855525,
-        "source_report_mtime_utc": "2026-11-11T20:13:26.325855+00:00",
+        "source_report_mtime_ns": 1794443195231896513,
+        "source_report_mtime_utc": "2026-11-12T00:26:35.231896+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "46b0e8e80386b0229f42ee26b395dae3df76082abe5c3b773f54ec00a22fecc1",
-        "checks": 1482,
-        "suites": 70,
+        "report_sha256": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+        "checks": 1760,
+        "suites": 74,
         "report_all_passed": true,
         "failed_suites": [],
         "count_matches_suite_sum": true,
         "build_unchanged": true,
         "worktree_unchanged": true,
         "version": "2.0 Alpha build 3",
-        "release": "7e4e4389e027a22e31a0",
-        "suite_seconds": 487.7,
+        "release": "895c3d743a958543a5a5",
+        "suite_seconds": 630.0,
         "suite_timeout_seconds": 3600,
-        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
-        "html_sha256": "e3d33ce0530008b5b1385d84d4207e2e2cb1f6c1d6347129b9e449d0052edd77",
-        "worker_sha256": "6a08edcd84bc0485daaaea0b96d3e4ffd5a4a79ba50f739e5f17c3beb92dbfae",
+        "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+        "html_sha256": "45ddd2c6497812ff9a49f410034a38acb96883bf52e215f1039583f24b8e0972",
+        "worker_sha256": "cdadd2773bf563b64800821062bf827a1b1fd44a3085ec8dac0ea008e9e39e32",
         "passed": true,
         "standalone_matches_pinned_build": true
       },
@@ -641,13 +684,11 @@
         "python3",
         "qa/build3-layout.test.py"
       ],
-      "started_utc": "2026-11-11T20:13:26.455588+00:00",
-      "started_time_ns": 1794428006455595253,
-      "log": "/tmp/carpe-a3-final-layout.log",
+      "started_utc": "2026-11-12T00:26:35.378004+00:00",
+      "log": "/tmp/carpe-a3-nightlog-full-layout.log",
       "exit_code": 0,
-      "finished_time_ns": 1794428017558456628,
-      "finished_utc": "2026-11-11T20:13:37.558460+00:00",
-      "seconds": 11.099,
+      "finished_utc": "2026-11-12T00:26:50.008718+00:00",
+      "seconds": 14.625,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -667,20 +708,20 @@
       },
       "report": {
         "source_report": "qa/build3-layout-results.json",
-        "raw_report": "/tmp/carpe-a3-final-layout.json",
+        "raw_report": "/tmp/carpe-a3-nightlog-full-layout.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794428017245163282,
-        "source_report_mtime_utc": "2026-11-11T20:13:37.245163+00:00",
+        "source_report_mtime_ns": 1794443209687158558,
+        "source_report_mtime_utc": "2026-11-12T00:26:49.687159+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "90259eac6293952a58577e4b67299234fe9e43aafc20999d397ea3f058dd8038",
-        "checks": 374,
+        "report_sha256": "f9c2a2a47d0f062deb5ea97b8f4e766857d6a43a3fa1f80deeebd302b51993be",
+        "checks": 554,
         "report_passed": true,
         "count_matches_log": true,
-        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+        "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
         "passed": true,
         "standalone_matches_pinned_build": true
       },
@@ -692,13 +733,11 @@
         "python3",
         "qa/browser-smoke.py"
       ],
-      "started_utc": "2026-11-11T20:13:37.639515+00:00",
-      "started_time_ns": 1794428017639526539,
-      "log": "/tmp/carpe-a3-final-smoke.log",
+      "started_utc": "2026-11-12T00:26:50.078843+00:00",
+      "log": "/tmp/carpe-a3-nightlog-full-smoke.log",
       "exit_code": 0,
-      "finished_time_ns": 1794428032851862923,
-      "finished_utc": "2026-11-11T20:13:52.851867+00:00",
-      "seconds": 15.204,
+      "finished_utc": "2026-11-12T00:27:07.980123+00:00",
+      "seconds": 17.894,
       "comparison_to_initial": {
         "head_same": true,
         "branch_same": true,
@@ -718,20 +757,20 @@
       },
       "report": {
         "source_report": "qa/evidence-out/research/build2/browser/results.json",
-        "raw_report": "/tmp/carpe-a3-final-smoke.json",
+        "raw_report": "/tmp/carpe-a3-nightlog-full-smoke.json",
         "source_exists": true,
         "exit_zero": true,
         "current_log_has_completion": true,
-        "source_report_mtime_ns": 1794428032657975502,
-        "source_report_mtime_utc": "2026-11-11T20:13:52.657975+00:00",
+        "source_report_mtime_ns": 1794443227795274508,
+        "source_report_mtime_utc": "2026-11-12T00:27:07.795274+00:00",
         "mtime_within_stage": true,
         "verified_fresh": true,
         "raw_equals_source": true,
-        "report_sha256": "5ca2d668ff43760aae55dd8705a027aacf7d8053e0b24c3622e3217337c3dc44",
-        "checks": 340,
+        "report_sha256": "3554d735b84bd6a7a7b29802bac4630866dea07b7349b18cfb74071b292515be",
+        "checks": 349,
         "report_passed": true,
         "count_matches_log": true,
-        "standalone_sha256": "9ae7f1c393d6d1b1fbe9fc89e0b1a30010fbdae7ea80dcb77c7255577d894e01",
+        "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
         "page_errors": [],
         "passed": true,
         "standalone_matches_pinned_build": true
@@ -739,206 +778,920 @@
       "passed": true
     }
   ],
-  "source_proof_sha256": "d73df7b256d10ab43a9d4672efb6b3dd18d30334dd911d6a7ad031a520271e58",
-  "final_comparison": {
-    "head_same": true,
-    "branch_same": true,
-    "head_tree_same": true,
-    "staged_entries_same": true,
-    "staged_entries_digest_same": true,
-    "tracked_hashes_same": true,
-    "source_hashes_same": true,
-    "generated_hashes_same": true,
-    "readme_hashes_same": true,
-    "technician_readmes_identical": true,
-    "lock_hash_same": true,
-    "lock_matches_head": true,
-    "clean": true,
-    "changed_tracked_files": [],
-    "changed_generated_files": []
+  "compact_frozen_proof": {
+    "run_id": "10ddb7e6-777c-4807-bc1d-305b635f863e",
+    "expected_head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+    "expected_branch": "codex/sweep-due",
+    "started_utc": "2026-11-12T00:16:02.136002+00:00",
+    "finished_utc": "2026-11-12T00:27:08.135851+00:00",
+    "outer_timeout_seconds": null,
+    "suite_timeout_seconds": 3600,
+    "env": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "NIGHTSWEEP_SUITE_TIMEOUT": "3600",
+      "NIGHTSWEEP_CHROMIUM": "/usr/bin/chromium"
+    },
+    "cleared_switch_names": [],
+    "evidence_write_enabled": false,
+    "no_restore_commands_used": true,
+    "index_policy": "Strict semantic staged-entry and HEAD-tree equality. Raw index fingerprints are diagnostic; benign stat-cache refresh is disclosed, never described as byte-identical index.",
+    "scope": "Synthetic automated and rendered desktop Chromium only. No private attachments, APK/signing, emulator, physical devices, Safari/WebView, meter or field checks.",
+    "versions": {
+      "Python": "Python 3.12.14",
+      "Node": "v24.22.1",
+      "npm": "11.9.0",
+      "Chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)",
+      "Playwright": "1.62.0",
+      "jsdom": "26.1.0",
+      "fake-indexeddb": "6.2.4"
+    },
+    "dependencies_unchanged": true,
+    "final_comparison": {
+      "head_same": true,
+      "branch_same": true,
+      "head_tree_same": true,
+      "staged_entries_same": true,
+      "staged_entries_digest_same": true,
+      "tracked_hashes_same": true,
+      "source_hashes_same": true,
+      "generated_hashes_same": true,
+      "readme_hashes_same": true,
+      "technician_readmes_identical": true,
+      "lock_hash_same": true,
+      "lock_matches_head": true,
+      "clean": true,
+      "changed_tracked_files": [],
+      "changed_generated_files": []
+    },
+    "total_command_seconds": 664.127,
+    "raw_index_diagnostics": {
+      "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
+      "raw_index_bytes_changed": true,
+      "distinct_raw_sha256": [
+        "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+        "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+        "8f98da133884a048b2cfaf7d4b87d5d606087cfc23f5d51b5b04599dd88a9c9b",
+        "bca544062fd9f5c11fe54dae49ec7fe991458bdfab5c05e6cfda8e48e0972620",
+        "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be"
+      ],
+      "semantic_and_source_guards_matched": true,
+      "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion.",
+      "samples": [
+        {
+          "snapshot": "before",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:16:02.141284+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        },
+        {
+          "snapshot": "before",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:16:02.396453+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        },
+        {
+          "snapshot": "after_standalone_build",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:16:03.698499+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        },
+        {
+          "snapshot": "after_standalone_build",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:16:04.040425+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564002349174,
+          "ctime_ns": 1794442564005462963
+        },
+        {
+          "snapshot": "after_pwa_build",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:16:04.278282+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564002349174,
+          "ctime_ns": 1794442564005462963
+        },
+        {
+          "snapshot": "after_pwa_build",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:16:04.474371+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "8f98da133884a048b2cfaf7d4b87d5d606087cfc23f5d51b5b04599dd88a9c9b",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564462348963,
+          "ctime_ns": 1794442564464831743
+        },
+        {
+          "snapshot": "after_gate",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:26:35.255743+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "bca544062fd9f5c11fe54dae49ec7fe991458bdfab5c05e6cfda8e48e0972620",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442759289407058,
+          "ctime_ns": 1794442759294714040
+        },
+        {
+          "snapshot": "after_gate",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:26:35.367962+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_layout",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:26:50.010741+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_layout",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:26:50.069373+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_smoke",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:27:07.982307+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_smoke",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:27:08.050938+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_all",
+          "moment": "before_snapshot",
+          "at_utc": "2026-11-12T00:27:08.068458+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        {
+          "snapshot": "after_all",
+          "moment": "after_snapshot",
+          "at_utc": "2026-11-12T00:27:08.135609+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        }
+      ]
+    },
+    "all_passed": true,
+    "snapshot_summary": {
+      "before": {
+        "at_utc": "2026-11-12T00:16:02.287024+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:16:02.141284+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:16:02.396453+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        }
+      },
+      "after_standalone_build": {
+        "at_utc": "2026-11-12T00:16:03.867873+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:16:03.698499+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442386267216189,
+          "ctime_ns": 1794442386270789100
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:16:04.040425+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564002349174,
+          "ctime_ns": 1794442564005462963
+        }
+      },
+      "after_pwa_build": {
+        "at_utc": "2026-11-12T00:16:04.395858+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:16:04.278282+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564002349174,
+          "ctime_ns": 1794442564005462963
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:16:04.474371+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "8f98da133884a048b2cfaf7d4b87d5d606087cfc23f5d51b5b04599dd88a9c9b",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442564462348963,
+          "ctime_ns": 1794442564464831743
+        }
+      },
+      "after_gate": {
+        "at_utc": "2026-11-12T00:26:35.324970+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:26:35.255743+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "bca544062fd9f5c11fe54dae49ec7fe991458bdfab5c05e6cfda8e48e0972620",
+          "size_bytes": 70353,
+          "mtime_ns": 1794442759289407058,
+          "ctime_ns": 1794442759294714040
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:26:35.367962+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        }
+      },
+      "after_layout": {
+        "at_utc": "2026-11-12T00:26:50.053122+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:26:50.010741+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:26:50.069373+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        }
+      },
+      "after_smoke": {
+        "at_utc": "2026-11-12T00:27:08.030650+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:27:07.982307+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:27:08.050938+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        }
+      },
+      "after_all": {
+        "at_utc": "2026-11-12T00:27:08.113846+00:00",
+        "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+        "branch": "codex/sweep-due",
+        "head_tree": "2d02fe78dec52d58dcd492c9513cf0b97b53b7dc",
+        "status_porcelain_v1": "",
+        "diff_stat": "",
+        "cached_diff_stat": "",
+        "tracked_count": 610,
+        "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+        "source_count": 587,
+        "source_manifest_sha256": "ee057428ca162310544af1a136b129081d9e97f074e6ee542906bdf5e881db58",
+        "generated_count": 23,
+        "generated_manifest_sha256": "7554e032d107de8d65deadf90fbb89b14051820b819ab635839b902bf8193d7d",
+        "readme_sha256": {
+          "README.md": "0363321cf27c968f9803f2bce60ce2735eb10cb3809b7afb0b967dfb8f8a75fb",
+          "android-build/README.md": "e0d1886901d696d1dddbdbe365d404f55f36685acb5766500e8a741a88a7a69a",
+          "apk/README.md": "2404f3d2d4a8c19287d3a555c271f66ea2ec3878ab0855f6e8a17b9bde8b9504",
+          "docs/NightSweep_1.6_Alpha_README.html": "3f8920b658861ed56bf9570289904a0a974d81121d743078edd9b63135c773a7",
+          "docs/NightSweep_1.6_Alpha_README.md": "0fce04a83a7018b2580325d87a7b82e41de054f21f40521269d041a50a7b457a",
+          "docs/NightSweep_1.7_Alpha_README.html": "f58eb14092bc3eecad8e9275c2c030b820beb06733c6e2c5ff91a430d0c3f627",
+          "docs/NightSweep_1.7_Alpha_README.md": "202eb02888378ffbcea865e14a549dc2d82264a572ffef1884c5320ab77c22eb",
+          "docs/NightSweep_1.8_Alpha_Functions_README.html": "5b58133f023aab89afd4f11ab4cd4b4f51faeea9d8b428ddb41d48ae69ba9959",
+          "docs/NightSweep_1.8_Alpha_Functions_README.md": "b1ad2c2ae2016f72d5953e222aab6e5198fcbf4dcc5fa4942493266ba4d81948",
+          "docs/NightSweep_1.8_Alpha_Functions_README.pdf": "0d1cfd4ec1217bd0ede9fb7e0d16c72daffe97d7fe00ccfd78775f4a011193e2",
+          "docs/NightSweep_1.8_Alpha_README.html": "2102d8eff84d35852d1edb380dae05b3698a44412214f5f6c0296949469c9bf9",
+          "docs/NightSweep_1.8_Alpha_README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "docs/render_readme.cjs": "c26cbcb7d377ba880b6e818ebab0a4a362764ae88cebf0dcab45c7effff6ba82",
+          "night-sweep/README.md": "7e33ea07d92f2352e30dc14278efc820590ebdc65e1d99b66a25dec8e1da73fc",
+          "night-sweep/research/equipment-audit-build17/README.md": "9f223ae13471a060db9087578cec8169139ddcc6f12107ca1203963d892e5ee8",
+          "night-sweep/research/equipment-audit-build17/passives/README.md": "8651ffcfc347a0818cfaef3d94ed6df795b7602655271d37e2bac27d1248ddf6",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-1280.png": "6e298b19c5f28c3b13b76995fdbca6751945fdfb62760027926abdbd895b0f3d",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-390.png": "593f6bd642c5ba60f896457964e0a4f369ef07b32cd17268f1f507933f0f2e16",
+          "research/alpha18/separate-guides/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "1c4375207025f3719903439b79ed36c9bb6d9825c2b56e9620a00667e9bb69f8",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-1280.png": "94ef3650304a8c9b7f0306c53e1d6851774043918d72f04c16ad2592fc80320c",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-390.png": "ceae0fab20b6c278960e129a2ba80eb5a851d7fae1f050bb9e7f06bd77ef54ca",
+          "research/build2/documents/NightSweep_1.8_Alpha_Functions_README-pdf-first-page.png": "42cf5fe9bcb473b9110ec60475681e1a96f2a7e023f3696dc2c480a372069142"
+        },
+        "technician_readmes_identical": true,
+        "lock_sha256": "52d740bf982201ae930854a4ba4ebc7a05c5da461f84578dd3d4d7c751e698a8",
+        "lock_matches_head": true,
+        "staged_entries_sha256": "b3a2efef055868f7027363fb0f8b6dae1e53f235a0f09a7f803a56f10c9484c6",
+        "raw_index_before_snapshot": {
+          "at_utc": "2026-11-12T00:27:08.068458+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        },
+        "raw_index_after_snapshot": {
+          "at_utc": "2026-11-12T00:27:08.135609+00:00",
+          "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
+          "sha256": "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+          "size_bytes": 70353,
+          "mtime_ns": 1794443195355989860,
+          "ctime_ns": 1794443195359687091
+        }
+      }
+    },
+    "dependency_summary": {
+      "dependencies_before": {
+        "count": 40,
+        "all_locked_versions_match": true,
+        "node_modules_realpath": "/workspace/Carpe-Noctum/qa/runtime/node_modules",
+        "installed_lock_sha256": "b65c50c988a9325014d6dbf4d6f1d1aca14b0006be4a7c549ceb8184b293af24",
+        "node_modules_reinstalled": false
+      },
+      "dependencies_after": {
+        "count": 40,
+        "all_locked_versions_match": true,
+        "node_modules_realpath": "/workspace/Carpe-Noctum/qa/runtime/node_modules",
+        "installed_lock_sha256": "b65c50c988a9325014d6dbf4d6f1d1aca14b0006be4a7c549ceb8184b293af24",
+        "node_modules_reinstalled": false
+      }
+    }
   },
-  "raw_index_diagnostics": {
-    "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
-    "raw_index_bytes_changed": true,
-    "distinct_raw_sha256": [
-      "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
-      "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-      "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
-      "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b"
-    ],
-    "semantic_and_source_guards_matched": true,
-    "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion.",
-    "samples": [
+  "root_independent_artifact_verification": {
+    "checked_at_utc": "2026-11-12T00:28:02.750322+00:00",
+    "verdict": "PASS",
+    "tested_head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+    "tracked_direct_rehash": 610,
+    "all5commands_zero_fresh_raw_equal": true,
+    "suite_count": 74,
+    "checks": 1760,
+    "layout": 554,
+    "smoke": 349,
+    "manifest_artifacts": 12,
+    "locked_packages_direct_rehash": 40,
+    "semantic_index_clean_tree_exact": true,
+    "actual_remote_base": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+    "proof_sha256": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+    "raw_sha256": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+    "manifest_sha256": "776f6779632f67e7f27f7f507132875b559be6776d1153dc985fd75f865ec61a"
+  },
+  "sealed_artifact_manifest": {
+    "at_utc": "2026-11-12T00:27:08.145084+00:00",
+    "run_id": "10ddb7e6-777c-4807-bc1d-305b635f863e",
+    "expected_head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+    "all_commands_passed": true,
+    "artifact_prefix": "/tmp/carpe-a3-nightlog-full",
+    "raw_proof_and_report_history_rewritten": false,
+    "background_log_note": "The launcher background log remains outside this manifest because the wrapper still writes its final status to it.",
+    "artifacts": [
       {
-        "snapshot": "before",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:05:17.376862+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
-        "size_bytes": 62368,
-        "mtime_ns": 1794426904074566748,
-        "ctime_ns": 1794426904075126109
+        "path": "/tmp/carpe-a3-nightlog-full-done.json",
+        "exists": true,
+        "sha256": "bef7a18a50efc7dc0886e50bd67d93fe56aa822d2e879d5840c4a8770c4b6b41",
+        "size_bytes": 230,
+        "mtime_ns": 1794443228143591002
       },
       {
-        "snapshot": "before",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:05:17.555455+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
-        "size_bytes": 62368,
-        "mtime_ns": 1794426904074566748,
-        "ctime_ns": 1794426904075126109
+        "path": "/tmp/carpe-a3-nightlog-full-gate-run.py",
+        "exists": true,
+        "sha256": "7155a9c2f4ed22dafd3264158105c2cf7e604edd02f0041ca244d1279fd90c8a",
+        "size_bytes": 26739,
+        "mtime_ns": 1794442560840764428
       },
       {
-        "snapshot": "after_standalone_build",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:05:18.028761+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "03f18fd71e4de7d8d0f915f20713c22b2cd9bb91fe55a657ad22984296ec0a4e",
-        "size_bytes": 62368,
-        "mtime_ns": 1794426904074566748,
-        "ctime_ns": 1794426904075126109
+        "path": "/tmp/carpe-a3-nightlog-full-gate.json",
+        "exists": true,
+        "sha256": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+        "size_bytes": 13989,
+        "mtime_ns": 1794443195370072991
       },
       {
-        "snapshot": "after_standalone_build",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:05:18.106222+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b",
-        "size_bytes": 62368,
-        "mtime_ns": 1794427518097780991,
-        "ctime_ns": 1794427518101003076
+        "path": "/tmp/carpe-a3-nightlog-full-gate.log",
+        "exists": true,
+        "sha256": "dd7b7674ccc6177f3ac42da480db711a7c642584c52ed96d0e6d2a4aa75a242d",
+        "size_bytes": 5174,
+        "mtime_ns": 1794443195205024631
       },
       {
-        "snapshot": "after_pwa_build",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:05:18.217927+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "f4d77a84580c2bc649da46c611798dfa64b795cb358c22f61e8573b37853894b",
-        "size_bytes": 62368,
-        "mtime_ns": 1794427518097780991,
-        "ctime_ns": 1794427518101003076
+        "path": "/tmp/carpe-a3-nightlog-full-gate.md",
+        "exists": true,
+        "sha256": "66e1e866aa8eb2ea2be0db61bd5c455c9f55f23f66552f180f161b8c84b023a2",
+        "size_bytes": 4096,
+        "mtime_ns": 1794443228143527017
       },
       {
-        "snapshot": "after_pwa_build",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:05:18.321547+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
-        "size_bytes": 62368,
-        "mtime_ns": 1794427518309784860,
-        "ctime_ns": 1794427518314198128
+        "path": "/tmp/carpe-a3-nightlog-full-layout.json",
+        "exists": true,
+        "sha256": "f9c2a2a47d0f062deb5ea97b8f4e766857d6a43a3fa1f80deeebd302b51993be",
+        "size_bytes": 40649,
+        "mtime_ns": 1794443210070382421
       },
       {
-        "snapshot": "after_gate",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:13:26.335475+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "87011a40a84c4e3245581b2c381697aa42e7ac35369143bb1ebedbabe8351b6a",
-        "size_bytes": 62368,
-        "mtime_ns": 1794427518309784860,
-        "ctime_ns": 1794427518314198128
+        "path": "/tmp/carpe-a3-nightlog-full-layout.log",
+        "exists": true,
+        "sha256": "ff2e53e2b5ad195c705d2695677c6ff659ac1e0acbfd5a7f80a5a5d492dda528",
+        "size_bytes": 39279,
+        "mtime_ns": 1794443209979692428
       },
       {
-        "snapshot": "after_gate",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:13:26.449766+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
+        "path": "/tmp/carpe-a3-nightlog-full-proof.json",
+        "exists": true,
+        "sha256": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+        "size_bytes": 1498709,
+        "mtime_ns": 1794443228142926728
       },
       {
-        "snapshot": "after_layout",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:13:37.560458+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
+        "path": "/tmp/carpe-a3-nightlog-full-pwa_build.log",
+        "exists": true,
+        "sha256": "4ed139d4ed8501457faff9385b8e00a90facc7da922cc15f1aa7a194358d43be",
+        "size_bytes": 117,
+        "mtime_ns": 1794442564259810524
       },
       {
-        "snapshot": "after_layout",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:13:37.629054+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
+        "path": "/tmp/carpe-a3-nightlog-full-smoke.json",
+        "exists": true,
+        "sha256": "3554d735b84bd6a7a7b29802bac4630866dea07b7349b18cfb74071b292515be",
+        "size_bytes": 14359,
+        "mtime_ns": 1794443228051623382
       },
       {
-        "snapshot": "after_smoke",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:13:52.855455+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
+        "path": "/tmp/carpe-a3-nightlog-full-smoke.log",
+        "exists": true,
+        "sha256": "c6da7fe90dc9822e4e6e17e681f0c4eef3d1a8648a36fb166cef15f873c38014",
+        "size_bytes": 13167,
+        "mtime_ns": 1794443227951660334
       },
       {
-        "snapshot": "after_smoke",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:13:52.919452+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
-      },
-      {
-        "snapshot": "after_all",
-        "moment": "before_snapshot",
-        "at_utc": "2026-11-11T20:13:52.935289+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
-      },
-      {
-        "snapshot": "after_all",
-        "moment": "after_snapshot",
-        "at_utc": "2026-11-11T20:13:52.996291+00:00",
-        "path": "/workspace/Carpe-Noctum/.git/worktrees/carpe-sweep-due/index",
-        "sha256": "29a35a7a569122aee3540c62c517e233f07ad68943457f6df32678fc842c36ab",
-        "size_bytes": 62368,
-        "mtime_ns": 1794428006442733847,
-        "ctime_ns": 1794428006444960335
+        "path": "/tmp/carpe-a3-nightlog-full-standalone_build.log",
+        "exists": true,
+        "sha256": "657f66643cc48372135b71698a33717bc5600103fe2dc3809a280a8fdecbf397",
+        "size_bytes": 52,
+        "mtime_ns": 1794442563658349332
       }
     ]
   },
-  "dependencies_unchanged": true,
-  "scope": "Synthetic automated and rendered desktop Chromium only. No private attachments, APK/signing, emulator, physical devices, Safari/WebView, meter or field checks.",
-  "counts": {
-    "tracked": 553,
-    "source": 530,
-    "generated": 23,
-    "suites": 70,
-    "checks": 1482,
-    "layout": 374,
-    "smoke": 340
+  "artifact_hashes": {
+    "/tmp/carpe-a3-nightlog-full-proof.json": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+    "/tmp/carpe-a3-nightlog-full-gate.json": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+    "/tmp/carpe-a3-nightlog-full-layout.json": "f9c2a2a47d0f062deb5ea97b8f4e766857d6a43a3fa1f80deeebd302b51993be",
+    "/tmp/carpe-a3-nightlog-full-smoke.json": "3554d735b84bd6a7a7b29802bac4630866dea07b7349b18cfb74071b292515be",
+    "/tmp/carpe-a3-nightlog-full-manifest.json": "776f6779632f67e7f27f7f507132875b559be6776d1153dc985fd75f865ec61a",
+    "/tmp/carpe-a3-nightlog-full-gate.md": "66e1e866aa8eb2ea2be0db61bd5c455c9f55f23f66552f180f161b8c84b023a2",
+    "/tmp/carpe-a3-nightlog-full-root-artifact-check.json": "c8a912410892d33ee2853938012312049401635ba72f8e19c03c6140042ed2d7"
   },
-  "no_restore_commands_used": true,
-  "ci_only_integration": {
-    "reviewed_build3": "14bfc06ff62e000dc624e46d57cf8d4beda98ce0",
-    "reviewed_ci_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
-    "starting_published_head": "ea2e5deb6a458173bb23058b895542ed0450c73b",
-    "ci_merge_head": "9b40ea0a6ee2d85eef7791feb9ad0cd0ccced7c3",
-    "changed_paths": [
-      ".github/workflows/gate.yml",
-      "qa/ci_layout_diagnose.py"
+  "independent_delta": {
+    "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+    "scope": "Focused source/frozen/provenance and actual MCP only; no independent broad gate",
+    "verdict": "PASS",
+    "own_counts": {
+      "due_source": 37,
+      "due_frozen": 37,
+      "night_log_source": 23,
+      "night_log_frozen": 23,
+      "checklist_frozen": 37,
+      "audit_groups": 14,
+      "actual_MCP": 47
+    },
+    "preserved_preliminary_probe": "UUID-stability assumption failed independently of restored content;17 preliminary checks not added to47; no source change.",
+    "report": "../reviews/codex-sweep-due-nightlog-review.md",
+    "proof": "codex-a3-nightlog-review-validation.json"
+  },
+  "history": [
+    {
+      "head": "c6f742e4042529fa7fa254eb37b401b7f3bd6748",
+      "scope": "real full gate on3cf",
+      "result": "FAILED",
+      "passed_suites": 71,
+      "registered_suites": 72,
+      "raw_checks": 1592,
+      "seconds": 480.3,
+      "layout_checks": 554,
+      "smoke_checks": 346,
+      "receipt": "/tmp/carpe-a3-peer-full-recovery2-receipt.md",
+      "seal": "/tmp/carpe-a3-peer-full-recovery2-seal.json"
+    },
+    {
+      "head": "26f279f18a3dd2ea4fb1c23dcffdd4eea099b666",
+      "scope": "fresh full gate after exact-list repair on3cf",
+      "result": "PASS",
+      "passed_suites": 72,
+      "registered_suites": 72,
+      "raw_checks": 1629,
+      "seconds": 474.1,
+      "layout_checks": 554,
+      "smoke_checks": 346,
+      "receipt": "/tmp/carpe-a3-checklist-fixed-full-receipt.md",
+      "seal": "/tmp/carpe-a3-checklist-fixed-full-seal.json"
+    }
+  ],
+  "earlier_public_receipt": "https://github.com/Goodst3r/Carpe-Noctum/blob/570bafaf51614f7496f4882515a6a8d1df21f054/handoff_docs/lanes/codex-a3-validation.json",
+  "old_receipts_and_failures_rewritten": false,
+  "untested": [
+    "Emulator",
+    "Physical Android/iPhone",
+    "Safari/WebView",
+    "Screen reader",
+    "Native provider dialogs",
+    "RF hardware/reference-plane",
+    "Field operation",
+    "APK/signing/deployment"
+  ],
+  "no_private_meter_file_access": true,
+  "baseline_actor_final_artifact_check": {
+    "at_utc": "2026-11-12T00:29:36.689339+00:00",
+    "head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+    "standalone_sha256": "a765323807749debd2a035ad7929fe2aa5c2fad8ec42456f872b5d75f613c7d0",
+    "all_five_stages_passed": true,
+    "actual_suites": 74,
+    "actual_checks": 1760,
+    "suite_seconds": 630.0,
+    "total_command_seconds": 664.127,
+    "separate_layout_checks": 554,
+    "separate_smoke_checks": 349,
+    "integrated_feature_suites_inside_gate": [
+      {
+        "name": "Build 3 night-log capture and handoff contracts",
+        "script": "build3-night-log.test.cjs",
+        "passed": true,
+        "checks": 23,
+        "seconds": 49.2
+      },
+      {
+        "name": "Build 3 rendered night-log phone layout",
+        "script": "build3-night-log-layout.test.py",
+        "passed": true,
+        "checks": 107,
+        "seconds": 15.1
+      },
+      {
+        "name": "Build 3 sweep-due calendar and saved-job reminders",
+        "script": "build3-sweep-due.test.cjs",
+        "passed": true,
+        "checks": 37,
+        "seconds": 23.7
+      },
+      {
+        "name": "Build 3 rendered sweep-due phone layout",
+        "script": "build3-sweep-due-layout.test.py",
+        "passed": true,
+        "checks": 189,
+        "seconds": 9.6
+      }
     ],
-    "preexisting_tracked_files": 559,
-    "exact_preexisting_file_hashes_at_ci_merge": true,
-    "exact_preexisting_staged_entries_at_ci_merge": true,
-    "ci_files_match_reviewed_base": true,
-    "proof_sha256": "da1505c5c84ac9a4b793eca13658816fecee2b975e806a59b845291cd53c3432",
-    "report": "../reviews/codex-a3-ci-only-integration.md",
-    "no_new_full_gate": true,
-    "gate_attribution": "All existing feature gate counts/commands still belong to tested_commit, not this CI-only merge or subsequent metadata head. Lane B must freshly gate the final published head before merging."
-  }
+    "tracked_files_rehashed": 610,
+    "source_files": 587,
+    "generated_files": 23,
+    "all_tracked_hashes_match_initial": true,
+    "tracked_manifest_sha256": "bc92629bdaa87cb77e3b47fdfeff430697431a67a6507f1dc822da9538f8107e",
+    "all_raw_reports_still_match_sources": true,
+    "all_manifest_entries_hash_size_mtime_verified": 12,
+    "all_40_dependencies_still_match": true,
+    "strict_final_comparison": {
+      "head_same": true,
+      "branch_same": true,
+      "head_tree_same": true,
+      "staged_entries_same": true,
+      "staged_entries_digest_same": true,
+      "tracked_hashes_same": true,
+      "source_hashes_same": true,
+      "generated_hashes_same": true,
+      "readme_hashes_same": true,
+      "technician_readmes_identical": true,
+      "lock_hash_same": true,
+      "lock_matches_head": true,
+      "clean": true,
+      "changed_tracked_files": [],
+      "changed_generated_files": []
+    },
+    "raw_index_diagnostic": {
+      "policy": "Require semantic staged-entry/HEAD-tree equality; retain raw index fingerprints as diagnostics only.",
+      "raw_index_bytes_changed": true,
+      "distinct_raw_sha256": [
+        "267d8c233f19561cf8ae9873427383721e46c53621d52e81b4b9a257a95547cf",
+        "61c2fd522a7296a43fd846cc7b3fd9dfc73a39c186063f77f74c8d67cfdd1a18",
+        "8f98da133884a048b2cfaf7d4b87d5d606087cfc23f5d51b5b04599dd88a9c9b",
+        "bca544062fd9f5c11fe54dae49ec7fe991458bdfab5c05e6cfda8e48e0972620",
+        "f28c1f04c46882fa5154ee4acfebf4171c09a61dc760849b316cb92360ce93be"
+      ],
+      "semantic_and_source_guards_matched": true,
+      "classification": "Raw index bytes changed while staged entries, HEAD/tree, source/generated, README/lock and clean-status guards matched. This is consistent with the benign Git stat-cache refresh reproduced during A4; raw index byte identity is not claimed and is not a pass criterion."
+    },
+    "live_A3_full_gate_descendants": [],
+    "actual_base_fetched_independently_before_launch": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+    "base_advance_observed_at_launch": false,
+    "base_changed_paths_at_launch": [],
+    "root_confirmed_same_actual_base_at_final_seal": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+    "root_independent_artifact_check": "/tmp/carpe-a3-nightlog-full-root-artifact-check.json",
+    "root_independent_artifact_check_sha256": "c8a912410892d33ee2853938012312049401635ba72f8e19c03c6140042ed2d7",
+    "raw_proof_report_summary_manifest_rewritten": false,
+    "git_commands_run_for_this_post_check": false,
+    "child_agents_used": false,
+    "artifact_sha256": {
+      "/tmp/carpe-a3-nightlog-full-proof.json": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+      "/tmp/carpe-a3-nightlog-full-gate.json": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+      "/tmp/carpe-a3-nightlog-full-layout.json": "f9c2a2a47d0f062deb5ea97b8f4e766857d6a43a3fa1f80deeebd302b51993be",
+      "/tmp/carpe-a3-nightlog-full-smoke.json": "3554d735b84bd6a7a7b29802bac4630866dea07b7349b18cfb74071b292515be",
+      "/tmp/carpe-a3-nightlog-full-gate.md": "66e1e866aa8eb2ea2be0db61bd5c455c9f55f23f66552f180f161b8c84b023a2",
+      "/tmp/carpe-a3-nightlog-full-manifest.json": "776f6779632f67e7f27f7f507132875b559be6776d1153dc985fd75f865ec61a",
+      "/tmp/carpe-a3-nightlog-full-preflight.json": "274699527505ab294eae7b39feb927eb725d6ed5dea779147f235ffdc45e5e6e"
+    },
+    "A3_sealed_and_no_further_A3_repo_reads_pending": true
+  },
+  "baseline_actor_final_artifact_check_sha256": "b093d073c5e78ac606d7f552e4f00ac92bf9268539c33acc9e497ce3030fb52e",
+  "publication_scope": "Metadata only; all existing source, QA, guide, generated, research and Known Gaps bytes remain exact tested072. Both other-feature reporting prefixes are byte-exact."
 }
