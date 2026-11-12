@@ -6006,8 +6006,13 @@ const FieldCalcs=(()=>{
   const level=(field,label,hint)=>`<label>${label}<input type="number" step="any" inputmode="decimal" data-calc="balance" data-field="${field}" placeholder="${hint}"></label>`;
   return `<label class="calc-wide">Amplifier model<select data-calc="balance" data-field="model"><option value="">Choose the installed model</option>${list}</select></label>${level('lowMHz','Low pilot (MHz)','e.g. 54')}${level('highMHz','High pilot (MHz)','e.g. 860')}${level('measuredLow','Reading at low pilot (dBmV)','meter')}${level('measuredHigh','Reading at high pilot (dBmV)','meter')}${level('targetLow','Target at low pilot (dBmV)','design')}${level('targetHigh','Target at high pilot (dBmV)','design')}<div class="calc-wide calc-fields" data-balance-installed hidden><label>Installed input pad (dB)<select data-calc="balance" data-field="pad"></select></label><label>Installed input EQ (dB)<select data-calc="balance" data-field="eq"></select></label></div><p class="note calc-wide" data-balance-source>Choose a model. Only values sourced for that exact model are offered.</p><details class="calc-wide note" data-balance-gaps hidden></details>`;
  }
+ function powerBody(op){
+  if(op==='equal_carriers')return `<div class="calc-fields"><label>Each carrier (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="level" placeholder="e.g. 40"></label><label>How many<input type="number" min="1" step="1" inputmode="numeric" data-calc="power" data-field="count" placeholder="e.g. 8"></label></div>`;
+  if(op==='subtract_noise')return `<div class="calc-fields"><label>Total, signal plus noise (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="total" placeholder="e.g. 10"></label><label>Noise alone (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="noise" placeholder="e.g. 0"></label></div>`;
+  return `<div data-power-levels><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 40"></label><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 37"></label></div><button type="button" class="calc-add" data-power-add>Add another level</button>`;
+ }
  function powerFields(){
-  return `<label class="calc-wide">Operation<select data-calc="power" data-field="operation"><option value="power_add">Add uncorrelated levels</option><option value="equal_carriers">N equal carriers</option><option value="subtract_noise">Signal plus noise, minus noise</option></select></label><div class="calc-wide" data-power-panel="power_add"><div data-power-levels><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 40"></label><label>Level (dBmV)<input type="number" step="any" inputmode="decimal" data-power-level placeholder="e.g. 37"></label></div><button type="button" class="calc-add" data-power-add>Add another level</button></div><div class="calc-wide" data-power-panel="equal_carriers" hidden><div class="calc-fields"><label>Each carrier (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="level" placeholder="e.g. 40"></label><label>How many<input type="number" min="1" step="1" inputmode="numeric" data-calc="power" data-field="count" placeholder="e.g. 8"></label></div></div><div class="calc-wide" data-power-panel="subtract_noise" hidden><div class="calc-fields"><label>Total, signal plus noise (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="total" placeholder="e.g. 10"></label><label>Noise alone (dBmV)<input type="number" step="any" inputmode="decimal" data-calc="power" data-field="noise" placeholder="e.g. 0"></label></div></div>`;
+  return `<label class="calc-wide">Operation<select data-calc="power" data-field="operation"><option value="power_add">Add uncorrelated levels</option><option value="equal_carriers">N equal carriers</option><option value="subtract_noise">Signal plus noise, minus noise</option></select></label><div class="calc-wide" data-power-body data-power-op="power_add">${powerBody('power_add')}</div>`;
  }
  function refreshInstalled(){
   const model=document.querySelector('[data-calc="balance"][data-field="model"]')?.value||'',profile=hasAlignment()&&model?Alignment.profileFor(model):null;
@@ -6047,7 +6052,8 @@ ${card('echo','Echo delay','Round-trip delay of an echo between two mismatches a
   if(id==='ofdm'){if(blank(v,['power','occupied']))return out(id,{ok:false,error:null});const r=FieldCalc.ofdmPower(v.power,v.basis,v.occupied);out(id,r,`<div class="calc-stats">${stat('Total over '+r.occupied+' MHz',fixed(r.total,2),'dBmV')}${stat('Per 6 MHz',fixed(r.per6,2),'dBmV')}${stat('Per 24 MHz',fixed(r.per24,2),'dBmV')}${stat('Per 1.6 MHz',fixed(r.per1_6,2),'dBmV')}</div><p class="note">10·log10(${r.occupied} ÷ ${r.basis}) = ${r.delta>=0?'+':''}${fixed(r.delta,2)} dB.</p>`);}
   if(id==='power'){
    const op=v.operation||'power_add';
-   document.querySelectorAll('[data-power-panel]').forEach(el=>{el.hidden=el.dataset.powerPanel!==op;});
+   const body=document.querySelector('[data-power-body]');
+   if(body&&body.dataset.powerOp!==op){body.dataset.powerOp=op;body.innerHTML=powerBody(op);}
    let input=null;
    if(op==='power_add'){
     const values=[...document.querySelectorAll('[data-power-level]')].map(el=>el.value);
@@ -8850,6 +8856,6 @@ const PowerPMUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"aa4f2531e604f524d1eb","worker":"sw.aa4f2531e604f524d1eb.js","appVersion":"2.0 Alpha build 3"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"5f137dfa7e230d33efea","worker":"sw.5f137dfa7e230d33efea.js","appVersion":"2.0 Alpha build 3"}</script>
 <script src="pwa.js"></script>
 </body></html>
