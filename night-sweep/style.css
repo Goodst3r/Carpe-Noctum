@@ -308,5 +308,8 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .fiber-blue{background:#1f5fff}.fiber-orange{background:#ff8c00}.fiber-green{background:#1a9a3a}.fiber-brown{background:#8b5a2b}.fiber-slate{background:#708090}.fiber-white{background:#fff}.fiber-red{background:#d62828}.fiber-black{background:#111}.fiber-yellow{background:#f2d600}.fiber-violet{background:#7f3fbf}.fiber-rose{background:#ff7fa8}.fiber-aqua{background:#00bcd4}
 .fiber-reference{margin:10px 0}
 #fiberPanel input[aria-invalid=true]{border:3px solid var(--bad)}
+.fiber-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fiber-field>label{font-size:13px;font-weight:600}
+.fiber-box-error{margin:0;font-size:13px;font-weight:600;color:var(--bad);overflow-wrap:anywhere}
 #fiberPanel [role=alert]{font-weight:600;overflow-wrap:anywhere}
 .fiber-panel .calc-card button{min-height:44px}
