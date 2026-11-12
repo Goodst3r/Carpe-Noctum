@@ -114,7 +114,7 @@ function independent(input) {
     assert.match(h.d.getElementById('powerPmStatus').textContent, /date/i);
     assert.equal(JSON.parse(h.w.localStorage.getItem('nightsweep-power-pm-v1')).supplies[0].visits.length, 1);
     const rows = h.json('Thresholds.rows.filter(r=>r.id.startsWith("power.pm.")||r.id.startsWith("power.span."))');
-    assert.equal(rows.length, 5);
+    assert.equal(rows.length, 6);
     for (const row of rows) assert.deepEqual(h.json('Thresholds.checkRow(Thresholds.get(' + JSON.stringify(row.id) + '))'), []);
     assert.equal(h.ev('Thresholds.get("power.span.drop").label'), 'unknown');
     comparisons += 8;
