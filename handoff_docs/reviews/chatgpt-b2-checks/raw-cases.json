@@ -1,0 +1,460 @@
+[
+  {
+    "id": "H1",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "H2",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "54",
+      "from_MHz": "6.4",
+      "to_MHz": "1.6",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "H3",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "reference_Pmax_dBmV": "68",
+      "entered_Pmax_dBmV": "68",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "H4",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "reference_Pmax_dBmV": "65",
+      "entered_Pmax_dBmV": null,
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "assumed_spec_minimum_not_reported_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "H5",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "66",
+      "reference_Pmax_dBmV": "65",
+      "entered_Pmax_dBmV": "65",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX01",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "-20",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX02",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "0",
+      "from_MHz": "6.4",
+      "to_MHz": "1.6",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX03",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "1.6",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX04",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "6.4",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX05",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "-100",
+      "from_MHz": "0.000001",
+      "to_MHz": "1.6",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX06",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "-200",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX07",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "200",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX08",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "65",
+      "reference_Pmax_dBmV": "65",
+      "entered_Pmax_dBmV": "65",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX09",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "65.000001",
+      "reference_Pmax_dBmV": "65",
+      "entered_Pmax_dBmV": "65",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HX10",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "-10",
+      "reference_Pmax_dBmV": "65",
+      "entered_Pmax_dBmV": "65",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    },
+    "context": {
+      "impedance_ohm": "75",
+      "measurement_plane": "same_declared_matched_plane",
+      "level_reference": "dBmV",
+      "distinct_uncorrelated_contributions": true,
+      "bandwidth_convention": "known_and_compatible"
+    }
+  },
+  {
+    "id": "HR01",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR02",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "-",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR03",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "Infinity",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR04",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "0",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR05",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "-6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR06",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "unknown",
+      "to_MHz": "6.4",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR07",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "entered_Pmax_dBmV": null,
+      "mode": "other"
+    }
+  },
+  {
+    "id": "HR08",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "reference_Pmax_dBmV": "64",
+      "entered_Pmax_dBmV": "64",
+      "mode": "applicable_docsis_3_1_cm_cmts_transmit_mode",
+      "actual_simultaneous_total_confirmed": true,
+      "reference_provenance": "hypothetical_independently_verified_applicable_capability",
+      "available_per_channel_headroom": "unknown"
+    }
+  },
+  {
+    "id": "HR09",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "48",
+      "basis": "per_1_6_MHz"
+    }
+  },
+  {
+    "id": "HR10",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "reference_Pmax_dBmV": "65",
+      "mode": "unknown"
+    }
+  },
+  {
+    "id": "HR11",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "reference_Pmax_dBmV": "65",
+      "measurement_plane": "unknown"
+    }
+  },
+  {
+    "id": "HR12",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "flat_PSD": false
+    }
+  },
+  {
+    "id": "HR13",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_value": "1.6",
+      "from_units": "MHz",
+      "to_value": "6400000",
+      "to_units": "Hz",
+      "units_normalized": false
+    }
+  },
+  {
+    "id": "HR14",
+    "inputs": {
+      "operation": "available_per_channel_headroom",
+      "composite_total_dBmV": "60",
+      "Pmax_dBmV": "65",
+      "TCS": "unknown",
+      "DRW": "unknown"
+    }
+  },
+  {
+    "id": "HR15",
+    "inputs": {
+      "operation": "company_ceiling_margin",
+      "local_ceiling_dBmV": null,
+      "plant": "42/54"
+    }
+  },
+  {
+    "id": "HR16",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "entered_Pmax_dBmV": "-"
+    }
+  },
+  {
+    "id": "HR17",
+    "inputs": {
+      "operation": "composite_margin",
+      "simultaneous_total_dBmV": "60",
+      "entered_Pmax_dBmV": "NaN"
+    }
+  },
+  {
+    "id": "HR18",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "2001",
+      "flat_PSD": true
+    }
+  },
+  {
+    "id": "HR19",
+    "inputs": {
+      "operation": "bandwidth",
+      "level_dBmV": "48",
+      "from_MHz": "1.6",
+      "to_MHz": "6.4",
+      "instantaneous_OFDMA_total_requested": true,
+      "grant_and_pilot_allocation": "unknown"
+    }
+  }
+]

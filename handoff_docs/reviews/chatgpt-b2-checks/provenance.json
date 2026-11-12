@@ -1,0 +1,22 @@
+{
+  "historical_review_heads": [
+    "58fffd3cf098573d1a84fab08648f18b720b715c",
+    "f54d5c2bbcf0f97f42ef87c7233012fd1a4fccab"
+  ],
+  "source_vectors_relative_path": "handoff_docs/reviews/chatgpt-calculator-test-vectors.json",
+  "raw_case_fields": [
+    "id",
+    "inputs",
+    "context"
+  ],
+  "raw_cases_sha256": "7aed645aa37b7ec87e67ac2b65aa34d17e9d79b657b86a48142be5649b15d871",
+  "independent_references_sha256": "26445b179a29e57b30aaf298efb819be00f58cb744e17f7f8c21c733920fa195",
+  "own_cases_sha256": "784e40aa88cecfe4fff386a557f539adfd5736a3ed481573ac2e2fa3f22399d9",
+  "expected_checks": {
+    "real_function": 660,
+    "native_ui": 153,
+    "length_policy": 84
+  },
+  "reference_precision": 200,
+  "data_scope": "public synthetic raw H/HX/HR vectors and previously reviewed own synthetic probes; no new data"
+}

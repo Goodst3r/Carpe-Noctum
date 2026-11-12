@@ -1,0 +1,18 @@
+[
+ {"id":"OWN-MAX-WIDTH","api":"conversion","args":["0","2000","2000",{"flatPSD":true,"bandwidthUnits":"MHz","restatementOnly":true}]},
+ {"id":"OWN-LOW-LEVEL","api":"conversion","args":["-200","1.6","1.6",{"flatPSD":true,"bandwidthUnits":"MHz","restatementOnly":true}]},
+ {"id":"OWN-HIGH-LEVEL","api":"conversion","args":["200","24","24",{"flatPSD":true,"bandwidthUnits":"MHz","restatementOnly":true}]},
+ {"id":"OWN-TINY-POS","api":"margin","input":{"mode":"3.1","total":"64.9999999999","pmax":"65","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":true}}},
+ {"id":"OWN-TINY-NEG","api":"margin","input":{"mode":"3.1","total":"65.0000000001","pmax":"65","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":true}}},
+ {"id":"OWN-TINY-GENERIC","api":"margin","input":{"mode":"other","total":"0","pmax":"0.000000000001","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":false}}},
+ {"id":"OWN-MAX-MARGIN","api":"margin","input":{"mode":"3.1","total":"-100","pmax":"150","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":true}}},
+ {"id":"OWN-MIN-MARGIN","api":"margin","input":{"mode":"3.1","total":"150","pmax":"65","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":true}}},
+ {"id":"OWN-NO-CONTEXT-16","api":"conversion","args":["48","1.6","6.4"]},
+ {"id":"OWN-NO-CONTEXT-6","api":"conversion","args":["48","6","24"]},
+ {"id":"OWN-NO-CONTEXT-64","api":"conversion","args":["48","6.4","24"]},
+ {"id":"OWN-NO-CONTEXT-24","api":"conversion","args":["48","24","24"]},
+ {"id":"OWN-BW-OVER","api":"conversion","args":["48","1.6","2000.00000001",{"flatPSD":true,"bandwidthUnits":"MHz","restatementOnly":true}]},
+ {"id":"OWN-LEVEL-OVER","api":"conversion","args":["200.00000001","24","24",{"flatPSD":true,"bandwidthUnits":"MHz","restatementOnly":true}]},
+ {"id":"OWN-MTC-OFF","api":"margin","input":{"mode":"3.1","total":"60","pmax":"","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":true,"mtcEnabled":false}}},
+ {"id":"OWN-PROVENANCE-UNKNOWN","api":"margin","input":{"mode":"3.1","total":"60","pmax":"68","context":{"actualSimultaneousTotal":true,"measurementPlane":"cm-f-connector","comparableReference":false,"mtcEnabled":true}}}
+]
