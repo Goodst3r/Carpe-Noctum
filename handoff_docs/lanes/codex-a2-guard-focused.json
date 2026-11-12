@@ -1,0 +1,102 @@
+{
+  "head": "b0d1643b9d423756ea5e9e14d321bdcb9523ba1b",
+  "merged_base": "5588a49b10292bed422b7597ec227bce38173a2d",
+  "standalone_sha256": "348ea3647bbdb9497b7dc5e1827eb054c4f460319321af2c7040f54cade509d1",
+  "results": [
+    {
+      "name": "registry-source",
+      "command": [
+        "node",
+        "qa/build3-registry.test.cjs"
+      ],
+      "env": {
+        "NIGHTSWEEP_BUILD2_SOURCE_TEST": "1"
+      },
+      "exit": 0,
+      "seconds": 4.93,
+      "log": "/tmp/carpe-a2-guard-final-registry-source.log",
+      "tail": [
+        "PASS The open Limits list follows a replaced job, and the sheet closes from the backdrop but not from its own padding",
+        "PASS Night-log entry cap is an Unknown application guard with a separate source button and unchanged boundary",
+        "PASS Opening the registry and its sheets does not change the job or write storage",
+        "Build3 registry: 14 checks passed"
+      ]
+    },
+    {
+      "name": "registry-frozen",
+      "command": [
+        "node",
+        "qa/build3-registry.test.cjs"
+      ],
+      "env": {
+        "NIGHTSWEEP_RELEASE_TEST": "1"
+      },
+      "exit": 0,
+      "seconds": 3.86,
+      "log": "/tmp/carpe-a2-guard-final-registry-frozen.log",
+      "tail": [
+        "PASS The open Limits list follows a replaced job, and the sheet closes from the backdrop but not from its own padding",
+        "PASS Night-log entry cap is an Unknown application guard with a separate source button and unchanged boundary",
+        "PASS Opening the registry and its sheets does not change the job or write storage",
+        "Build3 registry: 14 checks passed"
+      ]
+    },
+    {
+      "name": "guard-integration",
+      "command": [
+        "node",
+        "/tmp/carpe-a2-guard-integration.cjs"
+      ],
+      "env": {
+        "NIGHTSWEEP_RELEASE_TEST": "1"
+      },
+      "exit": 0,
+      "seconds": 2.95,
+      "log": "/tmp/carpe-a2-guard-final-guard-integration.log",
+      "tail": [
+        "PASS Merged leakage source module is byte-identical to reviewed build3",
+        "PASS Leakage practice opens its real source controls",
+        "PASS Night-log practice opens its real source control after the merged feature",
+        "A2 guard integration: 6 checks passed"
+      ]
+    },
+    {
+      "name": "ui-names",
+      "command": [
+        "node",
+        "qa/ui-names.test.cjs"
+      ],
+      "env": {
+        "NIGHTSWEEP_RELEASE_TEST": "1"
+      },
+      "exit": 0,
+      "seconds": 17.13,
+      "log": "/tmp/carpe-a2-guard-final-ui-names.log",
+      "tail": [
+        "PASS Messages and help text inside the app name only tabs and buttons that exist",
+        "PASS Technician guides name only tabs and buttons that exist",
+        "PASS Rendered guide pages carry no retired name",
+        "UI names: 6 checks passed"
+      ]
+    },
+    {
+      "name": "guide-links",
+      "command": [
+        "python3",
+        "qa/alpha18-release.test.py"
+      ],
+      "env": {},
+      "exit": 0,
+      "seconds": 0.11,
+      "log": "/tmp/carpe-a2-guard-final-guide-links.log",
+      "tail": [
+        "PASS Published guide files reference bundled local targets",
+        "PASS Public PWA excludes developer packages and obsolete service workers",
+        "PASS Android build 27 readiness verifies final signed artifacts or explicitly remains pending",
+        "Alpha18 release: 6 checks passed"
+      ]
+    }
+  ],
+  "standalone_after_sha256": "348ea3647bbdb9497b7dc5e1827eb054c4f460319321af2c7040f54cade509d1",
+  "git_status": ""
+}

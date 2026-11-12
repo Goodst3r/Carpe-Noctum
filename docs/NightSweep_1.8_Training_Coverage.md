@@ -6,6 +6,8 @@ All example values and findings remain synthetic. Opening/resetting an example f
 
 ## Loadable exercises
 
+For the current 2.0 Alpha build 3 Night log and grading source, the library covers 28 task screens and 46 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 15, custom curves 15, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
+
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
 | Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
@@ -13,7 +15,7 @@ All example values and findings remain synthetic. Opening/resetting an example f
 | GainMaker / DSIM | Separate 42/54 ACI DSIM lookup/manual/record path; nine steps | None |
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
 | GS7K node | Conventional standard GS7000 identity and manual setup path; ten steps | None; launch inputs remain unverified |
-| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 14 steps | Synthetic entered teaching data |
+| Six-active AOI cascade | Vecima source with six serial AOI amplifiers, cumulative gain/loss, reserve and TDR boundaries; 15 steps | Synthetic entered teaching data |
 | Custom curves | Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, attached sweep grading, the DOCSIS health card, the leakage tools, the pre-work safety reminders and the outage first-response prompts (added in 2.0 Alpha build 3); fifteen steps | Synthetic entered teaching tables and calculator inputs |
 
 The source node is not an amplifier in the six-active count. Each of the six route actives must feed the next along a single path. Sibling branches cannot satisfy this requirement.
@@ -99,4 +101,11 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**14 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **45 choices**, including Station, Calculators, Limits, the attached sweep grading aid, DOCSIS health, leakage, safety and outage prompts. The custom-curves exercise has **15 steps**; its grading step uses invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
+**Route → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**15 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **46 choices**, including Station, Night log, DOCSIS health, Calculators and Limits.
+
+
+### Build 3 Night log handoff practice
+
+The six-active exercise adds **Five-station night handoff** under **Job → Night log**, for 15 steps. Enter the guide’s invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then generate a short handoff and reopen TXT/CSV. No Station measurements are prefilled into normal jobs. General notes, unknown targets, fixed capture history, independent balance/sweep dates, synthetic provenance and full project JSON backup remain distinct from field acceptance. The feature library now includes 46 choices.
+
+The custom-curves exercise has **15 steps**, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.
