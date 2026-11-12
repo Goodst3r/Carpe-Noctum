@@ -171,6 +171,21 @@ const visit = (over = {}) => ({ date: '2026-11-11', chemistry: 'vrla', inverter:
     comparisons += 5;
   });
 
+  await check('A visit with 1,001 spans (the screen never capped them) exports and restores whole', async () => {
+    const h = bootApp(); await flush(); const u = ui(h);
+    const spans = Array.from({ length: 1001 }, (_, i) => ({ cableId: 'commscope_rg6', cableLabel: 'RG6 PRACTICE', lengthFt: 0, currentA: 0, temperatureF: 68, alphaPerC: 0, supplyVolts: 90, drop: 0, atActive: 90, n: i }));
+    h.w.localStorage.setItem(KEY, JSON.stringify({ version: 1, supplies: [{ id: 'pmS1', name: 'PRACTICE many spans', visits: [{ id: 'v1', date: '2026-01-02', chemistry: 'vrla', inputVolts: 120, outputVolts: 90, loadAmps: 5, inverter: 'ran', alarms: '', batteries: [{ slot: 'String A', volts: 13.1 }], spans }] }] }));
+    let exported = null; h.w.download = (name, text) => { exported = text; };
+    u.click('powerPmExport'); await flush();
+    assert.ok(exported, 'export produced a file');
+    h.w.localStorage.removeItem(KEY);
+    await u.importText(exported);
+    assert.match(u.status(), /Imported 1 supply/);
+    const restored = JSON.parse(stored(h)).supplies[0].visits[0].spans;
+    assert.equal(restored.length, 1001); assert.deepEqual(restored.map(x => x.n), spans.map(x => x.n));
+    comparisons += 4;
+  });
+
   await check('The export message says a file was handed over and does not claim it is safe; a refused or failed hand-off says nothing was exported', async () => {
     const h = bootApp(); await flush(); const u = ui(h);
     u.saveVisit('PRACTICE supply', '2026-11-11', '13.2');

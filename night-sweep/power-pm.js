@@ -82,7 +82,7 @@ const PowerPM=(()=>{
     Import is all-or-nothing: one bad field refuses the whole file and nothing on the device changes. */
  const FILE_KIND='carpe-noctum-supply-pm-notebook';
  const MAX_FILE_BYTES=10*1024*1024;
- const MAX_SPANS_IMPORTED=1000; /* The screen has never capped spans per visit, so a saved notebook can hold more than the 40 one chain keeps. Import must take back anything the app could save. */
+ /* The screen has never capped spans per visit, so a saved notebook can hold any number. Import takes back anything the app could save; the file-size bound is what limits it. */
  const isObj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
  function optNum(value,label){
   if(value===''||value===undefined||value===null)return {ok:true,value:''};
@@ -127,7 +127,7 @@ const PowerPM=(()=>{
    out.batteries.push({slot:b.slot,volts});
   }
   const spans=v.spans===undefined?[]:v.spans;
-  if(!Array.isArray(spans)||spans.length>MAX_SPANS_IMPORTED)return fail(where+': too many spans in one visit.');
+  if(!Array.isArray(spans))return fail(where+': spans must be a list.');
   out.spans=[];
   for(const span of spans){const r=cleanSpan(span,where);if(!r.ok)return r;out.spans.push(r.value);}
   return {ok:true,value:out};
