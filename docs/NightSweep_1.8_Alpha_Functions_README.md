@@ -2,7 +2,7 @@
 
 **Technician README · Updated November 11, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 29 task screens and 46 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 30 task screens and 47 entries in the Practice library's feature index.
 
 **2.0 Alpha build 3 (Carpe Noctum, in development)** adds five Test screens, [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage) and [Impairments](#impairments). The custom-curves exercise gains four guide steps for them, and the feature index gains entries 38, 39, 41 and 42. Route → Station adds independent station worksheets and feature 40; complete and six-active practice now have 22 and 16 steps. Job → Safety adds [Pre-work safety](#pre-work-safety), feature 43, and a fifth custom-curves guide step. Job → Outage adds [Outage first response](#outage-first-response), feature 44, and a sixth custom-curves guide step. Job → Night log adds [Night log and shift handoff](#night-log-and-shift-handoff), feature 45, and a five-station handoff practice step. Job → Sweep due adds personal reminders and feature 46, with an interval that starts unknown. Test → Impairments adds the impairment cards and feature 47, with a seventh custom-curves guide step.
 
