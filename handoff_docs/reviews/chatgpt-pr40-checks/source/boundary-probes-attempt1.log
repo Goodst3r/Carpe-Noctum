@@ -1,0 +1,57 @@
+PASS own UI40-span visit reimports with exact recorded values
+PASS parser accepts declared count/text boundaries using an actual UI visit
+PASS exact2MiB UI import accepted and one-byte-over refused atomically
+PASS new import at40-supply device cap is refused atomically
+FAIL notebook within every record count bound produces an importable own export: own export under count bounds is refused by2MiB import limit
+FAIL export does not claim completed backup when file result is ready: claims Exported despite ready
+FAIL export does not claim completed backup when file result is cancelled: claims Exported despite cancelled
+FAIL export does not claim completed backup when file result is error: claims Exported despite error
+{
+  "passes": 4,
+  "failures": [
+    {
+      "name": "notebook within every record count bound produces an importable own export",
+      "error": "own export under count bounds is refused by2MiB import limit"
+    },
+    {
+      "name": "export does not claim completed backup when file result is ready",
+      "error": "claims Exported despite ready"
+    },
+    {
+      "name": "export does not claim completed backup when file result is cancelled",
+      "error": "claims Exported despite cancelled"
+    },
+    {
+      "name": "export does not claim completed backup when file result is error",
+      "error": "claims Exported despite error"
+    }
+  ],
+  "observations": [
+    {
+      "case": "count-valid-large-export",
+      "supplies": 2,
+      "visitsPerSupply": 80,
+      "spansPerVisit": 40,
+      "bytes": 3237465,
+      "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported.",
+      "restored": false,
+      "fixture": "Expanded from actual UI-saved40-span visit; no invented fields."
+    },
+    {
+      "case": "async-export-status",
+      "returned": "ready",
+      "displayed": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record."
+    },
+    {
+      "case": "async-export-status",
+      "returned": "cancelled",
+      "displayed": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record."
+    },
+    {
+      "case": "async-export-status",
+      "returned": "error",
+      "displayed": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record."
+    }
+  ],
+  "runtimeErrors": []
+}

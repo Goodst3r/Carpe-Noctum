@@ -1,0 +1,60 @@
+PASS 768px references fits viewport
+PASS 768px power navigation
+PASS 768px power fits viewport
+PASS 768px trial navigation
+PASS 768px trial fits viewport
+PASS 768px projects navigation
+PASS 768px projects fits viewport
+PASS 768px evidence navigation
+PASS 768px evidence fits viewport
+PASS 768px checklists navigation
+PASS 768px checklists fits viewport
+PASS 768px records navigation
+PASS 768px records fits viewport
+PASS 768px runsheet navigation
+PASS 768px runsheet fits viewport
+PASS 768px help navigation
+PASS 768px help fits viewport
+PASS 768px no JavaScript runtime errors
+PASS 1280px loads current app
+PASS 1280px Home fits viewport
+PASS 1280px setup navigation
+PASS 1280px setup fits viewport
+PASS 1280px route navigation
+PASS 1280px route fits viewport
+PASS 1280px gain navigation
+PASS 1280px gain fits viewport
+PASS 1280px equipmentSetup navigation
+PASS 1280px equipmentSetup fits viewport
+PASS 1280px parts navigation
+PASS 1280px parts fits viewport
+PASS 1280px tdr navigation
+PASS 1280px tdr fits viewport
+PASS 1280px sweepSetup navigation
+PASS 1280px sweepSetup fits viewport
+PASS 1280px sweep navigation
+PASS 1280px sweep fits viewport
+PASS 1280px frequency navigation
+PASS 1280px frequency fits viewport
+PASS 1280px readings navigation
+PASS 1280px readings fits viewport
+PASS 1280px references navigation
+PASS 1280px references fits viewport
+PASS 1280px power navigation
+PASS 1280px power fits viewport
+PASS 1280px trial navigation
+PASS 1280px trial fits viewport
+PASS 1280px projects navigation
+PASS 1280px projects fits viewport
+PASS 1280px evidence navigation
+PASS 1280px evidence fits viewport
+PASS 1280px checklists navigation
+PASS 1280px checklists fits viewport
+PASS 1280px records navigation
+PASS 1280px records fits viewport
+PASS 1280px runsheet navigation
+PASS 1280px runsheet fits viewport
+PASS 1280px help navigation
+PASS 1280px help fits viewport
+PASS 1280px no JavaScript runtime errors
+Chromium rendered checks: 370 passed

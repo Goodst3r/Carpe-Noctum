@@ -1,0 +1,114 @@
+PASS 320 generated app has no Android bridge
+PASS 320 real controls save one supply and two visits
+PASS 320 PM Save writes only its device notebook and leaves job unchanged
+PASS 320 actual browser Blob download has the correct file envelope and content
+PASS 320 export creates no notebook/job/storage writes
+FAIL 320 reimporting an own UI-saved download skips the existing supply byte-for-byte {"beforeCount": 1, "afterCount": 2, "status": "Imported 1 supply. Pick one from the list to see its visits.", "localVisitKeys": ["id", "date", "chemistry", "inputVolts", "outputVolts", "loadAmps", "inverter", "alarms", "batteries", "spans"], "importedVisitKeys": ["id", "date", "chemistry", "inverter", "alarms", "inputVolts", "outputVolts", "loadAmps", "batteries", "spans"]}
+PASS 320 actual file chooser restores original visit values with fresh unique IDs
+PASS 320 successful import changes only notebook storage
+PASS 320 reload retains imported notebook bytes and renders saved visits
+PASS 320 saved visit records remain visible after real selection
+OBSERVED reload startup: {"width": 320, "changedStorageKeysDuringReload": ["hfc-route-v1"], "rowsBeforeReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false}], "rowsAfterReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}]}
+PASS 320 already imported canonical notebook deduplicates without writes
+PASS 320 merge adds new supply and skips canonical matching content
+PASS 320 same name with different visits is retained separately with unique IDs
+PASS 320 not-json real file is refused atomically with adjacent feedback
+PASS 320 bad-version real file is refused atomically with adjacent feedback
+PASS 320 partial-bad-date real file is refused atomically with adjacent feedback
+PASS 320 negative-battery real file is refused atomically with adjacent feedback
+PASS 320 41-supplies real file is refused atomically with adjacent feedback
+PASS 320 real 2MiB+1 byte file is refused without writes
+PASS 320 UTF-8 bytes over cap are refused even when code-unit length is below cap
+PASS 320 exact 2MiB valid notebook file is accepted inclusively
+PASS 320 empty file-chooser selection cancels without writes or a false new import message
+PASS 320 dark notebook export/import controls fit phone width and have 44px targets
+PASS 320 actual Unknown source dialog declares 2097152-byte import cap and atomic refusal
+PASS 320 all import/export/source operations leave unrelated job/device data unchanged
+FAIL 320 imported battery text remains literal without executing markup {"imgCount": 1, "executedFlag": 1, "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"}
+PASS 360 generated app has no Android bridge
+PASS 360 real controls save one supply and two visits
+PASS 360 PM Save writes only its device notebook and leaves job unchanged
+PASS 360 actual browser Blob download has the correct file envelope and content
+PASS 360 export creates no notebook/job/storage writes
+FAIL 360 reimporting an own UI-saved download skips the existing supply byte-for-byte {"beforeCount": 1, "afterCount": 2, "status": "Imported 1 supply. Pick one from the list to see its visits.", "localVisitKeys": ["id", "date", "chemistry", "inputVolts", "outputVolts", "loadAmps", "inverter", "alarms", "batteries", "spans"], "importedVisitKeys": ["id", "date", "chemistry", "inverter", "alarms", "inputVolts", "outputVolts", "loadAmps", "batteries", "spans"]}
+PASS 360 actual file chooser restores original visit values with fresh unique IDs
+PASS 360 successful import changes only notebook storage
+PASS 360 reload retains imported notebook bytes and renders saved visits
+PASS 360 saved visit records remain visible after real selection
+OBSERVED reload startup: {"width": 360, "changedStorageKeysDuringReload": ["hfc-route-v1"], "rowsBeforeReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false}], "rowsAfterReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}]}
+PASS 360 already imported canonical notebook deduplicates without writes
+PASS 360 merge adds new supply and skips canonical matching content
+PASS 360 same name with different visits is retained separately with unique IDs
+PASS 360 not-json real file is refused atomically with adjacent feedback
+PASS 360 bad-version real file is refused atomically with adjacent feedback
+PASS 360 partial-bad-date real file is refused atomically with adjacent feedback
+PASS 360 negative-battery real file is refused atomically with adjacent feedback
+PASS 360 41-supplies real file is refused atomically with adjacent feedback
+PASS 360 real 2MiB+1 byte file is refused without writes
+PASS 360 UTF-8 bytes over cap are refused even when code-unit length is below cap
+PASS 360 exact 2MiB valid notebook file is accepted inclusively
+PASS 360 empty file-chooser selection cancels without writes or a false new import message
+PASS 360 dark notebook export/import controls fit phone width and have 44px targets
+PASS 360 actual Unknown source dialog declares 2097152-byte import cap and atomic refusal
+PASS 360 all import/export/source operations leave unrelated job/device data unchanged
+FAIL 360 imported battery text remains literal without executing markup {"imgCount": 1, "executedFlag": 1, "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"}
+PASS 390 generated app has no Android bridge
+PASS 390 real controls save one supply and two visits
+PASS 390 PM Save writes only its device notebook and leaves job unchanged
+PASS 390 actual browser Blob download has the correct file envelope and content
+PASS 390 export creates no notebook/job/storage writes
+FAIL 390 reimporting an own UI-saved download skips the existing supply byte-for-byte {"beforeCount": 1, "afterCount": 2, "status": "Imported 1 supply. Pick one from the list to see its visits.", "localVisitKeys": ["id", "date", "chemistry", "inputVolts", "outputVolts", "loadAmps", "inverter", "alarms", "batteries", "spans"], "importedVisitKeys": ["id", "date", "chemistry", "inverter", "alarms", "inputVolts", "outputVolts", "loadAmps", "batteries", "spans"]}
+PASS 390 actual file chooser restores original visit values with fresh unique IDs
+PASS 390 successful import changes only notebook storage
+PASS 390 reload retains imported notebook bytes and renders saved visits
+PASS 390 saved visit records remain visible after real selection
+OBSERVED reload startup: {"width": 390, "changedStorageKeysDuringReload": ["hfc-route-v1"], "rowsBeforeReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false}], "rowsAfterReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}]}
+PASS 390 already imported canonical notebook deduplicates without writes
+PASS 390 merge adds new supply and skips canonical matching content
+PASS 390 same name with different visits is retained separately with unique IDs
+PASS 390 not-json real file is refused atomically with adjacent feedback
+PASS 390 bad-version real file is refused atomically with adjacent feedback
+PASS 390 partial-bad-date real file is refused atomically with adjacent feedback
+PASS 390 negative-battery real file is refused atomically with adjacent feedback
+PASS 390 41-supplies real file is refused atomically with adjacent feedback
+PASS 390 real 2MiB+1 byte file is refused without writes
+PASS 390 UTF-8 bytes over cap are refused even when code-unit length is below cap
+PASS 390 exact 2MiB valid notebook file is accepted inclusively
+PASS 390 empty file-chooser selection cancels without writes or a false new import message
+PASS 390 dark notebook export/import controls fit phone width and have 44px targets
+PASS 390 actual Unknown source dialog declares 2097152-byte import cap and atomic refusal
+PASS 390 all import/export/source operations leave unrelated job/device data unchanged
+FAIL 390 imported battery text remains literal without executing markup {"imgCount": 1, "executedFlag": 1, "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"}
+PASS 430 generated app has no Android bridge
+PASS 430 real controls save one supply and two visits
+PASS 430 PM Save writes only its device notebook and leaves job unchanged
+PASS 430 actual browser Blob download has the correct file envelope and content
+PASS 430 export creates no notebook/job/storage writes
+FAIL 430 reimporting an own UI-saved download skips the existing supply byte-for-byte {"beforeCount": 1, "afterCount": 2, "status": "Imported 1 supply. Pick one from the list to see its visits.", "localVisitKeys": ["id", "date", "chemistry", "inputVolts", "outputVolts", "loadAmps", "inverter", "alarms", "batteries", "spans"], "importedVisitKeys": ["id", "date", "chemistry", "inverter", "alarms", "inputVolts", "outputVolts", "loadAmps", "batteries", "spans"]}
+PASS 430 actual file chooser restores original visit values with fresh unique IDs
+PASS 430 successful import changes only notebook storage
+PASS 430 reload retains imported notebook bytes and renders saved visits
+PASS 430 saved visit records remain visible after real selection
+OBSERVED reload startup: {"width": 430, "changedStorageKeysDuringReload": ["hfc-route-v1"], "rowsBeforeReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false}], "rowsAfterReload": [{"id": "r1", "name": "Tap 1", "parent": "source", "length": 400, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-23", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r2", "name": "Tap 2", "parent": "r1::through", "length": 250, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-20", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}, {"id": "r3", "name": "Tap 3", "parent": "r2::through", "length": 180, "cable": "p3_625", "device": "technetix-ottz-1-8-ghz--ottz-4-17", "customLoss": "", "customCable": "", "terminal": false, "family": "Technetix OTTZ 1.8 GHz", "passiveType": "tap4"}]}
+PASS 430 already imported canonical notebook deduplicates without writes
+PASS 430 merge adds new supply and skips canonical matching content
+PASS 430 same name with different visits is retained separately with unique IDs
+PASS 430 not-json real file is refused atomically with adjacent feedback
+PASS 430 bad-version real file is refused atomically with adjacent feedback
+PASS 430 partial-bad-date real file is refused atomically with adjacent feedback
+PASS 430 negative-battery real file is refused atomically with adjacent feedback
+PASS 430 41-supplies real file is refused atomically with adjacent feedback
+PASS 430 real 2MiB+1 byte file is refused without writes
+PASS 430 UTF-8 bytes over cap are refused even when code-unit length is below cap
+PASS 430 exact 2MiB valid notebook file is accepted inclusively
+PASS 430 empty file-chooser selection cancels without writes or a false new import message
+PASS 430 dark notebook export/import controls fit phone width and have 44px targets
+PASS 430 actual Unknown source dialog declares 2097152-byte import cap and atomic refusal
+PASS 430 all import/export/source operations leave unrelated job/device data unchanged
+FAIL 430 imported battery text remains literal without executing markup {"imgCount": 1, "executedFlag": 1, "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"}
+FAIL 390 fault-injected Blob denial is reflected truthfully in PM export feedback {"pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.", "browserStatus": "Could not start the download. Retry or choose Save/share file if available."}
+PASS 390 fault-injected export error leaves notebook and other storage unchanged
+FAIL 390 fault-injected Web Share cancellation is reflected truthfully in PM export feedback {"pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.", "browserStatus": "Sharing cancelled. Your file is still ready; choose Save/share file or Download file."}
+PASS 390 fault-injected share cancellation leaves notebook and unrelated storage unchanged
+PASS  no application runtime errors across browser cases
+PR40 independent browser: 99 passed, 10 failed; 4 actual downloads

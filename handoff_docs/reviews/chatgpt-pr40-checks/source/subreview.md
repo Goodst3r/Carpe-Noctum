@@ -1,0 +1,29 @@
+# PR40 independent source subreview
+
+Head before/after: `1c1e5414a40424d6999fafb105d862a7cf939345`, `/workspace/Carpe-Noctum-pr40`; final tracked status empty. Read WORKFLOW/AGENTS from local `origin/build3` objects. Root ran the full gate concurrently. No builds, installs, source/index writes, checkout, network or PR action; only scratch report creation. This is source review; parent owns real-function/UI reproduction.
+
+## Concrete issues for parent reproduction
+
+1. **Medium: a saved local notebook is not recognized as the same content on re-import.** `power-pm.js:157` compares JSON.stringify of visit objects after strippingid. `saveVisit:370` saves fields in order date/chemistry/inputVolts/outputVolts/loadAmps/inverter/alarms/batteries/spans, while cleanVisit:115–117 builds date/chemistry/inverter/alarms/inputVolts/outputVolts/loadAmps/batteries/spans. Those logically equal visits stringify differently. Exporting a saved notebook then importing it back without clearing storage will therefore add a duplicate. At capacity40 this can reject an otherwise redundant restore. The new QA misses this: first export/restore test clears the key at line52; repeated-import test lines63–70 starts with an imported canonical record. Parent was sent a direct-local-save/re-import reproduction request.
+2. **Medium: export claims completion without awaiting or interpreting the file workflow.** `power-pm.js:392–395` calls download/BrowserFiles.prepare, ignores its returned Promise/status and immediately writes “Exported ... Keep the file ... before you uninstall.” `app.js:281` returns BrowserFiles.prepare, which can resolve ready/error/cancelled at `browser-files.js:42–65`; even download:74 explicitly says the app cannot confirm saving. The new status can wrongly reassure a user immediately before uninstall. Report prepared/offered and require confirmation of the external file; never imply a cancelled or failed share is a completed backup.
+3. **Medium: an app-exported notebook can exceed its own import cap.** `exportText:154–155` has no MAX_FILE_BYTES guard; exportNotebook:390 passes allsaved content to the generic20MiB export path. The importer refuses files>2MiB at401. Existing notebook caps40supplies×80visits×8battery records plus alarm/span history allow ordinary locally stored content above2MiB. No export-size compatibility check or splitting path prevents an unrestorable pre-uninstall export. Parent was asked to exercise a valid large notebook.
+4. **Additional dedupe gap:** mergeImport:162 checks only the originalexisting array, not the output after earlier incoming additions, so duplicate supplies withinone incoming file are all added. This is distinct from the property-order bug. Parent may judge whether the copy-skipping contract should cover duplicates withinfile.
+
+## Validation / identity observations
+
+- Math/original constants, spanDrop, chain, compareMin, cableLoop, activeMin, validDate and selfCheck were compared as the exactprefix before export additions and are byte-identical. The existing validDate implementation remains unchanged.
+- New importer validates known scalar fields, date/enums, supply/visit/battery counts and rejects nesting/prototype field names in spans before the one storage write. Full atomic/quota/legacy behavior belongs to parent probes; it is not asserted here.
+- parseExport:137 measures JS string length while MAX_FILE_BYTES/registry call it bytes. The real UI wrapper checks file.size first at401, which protects actual file imports; API-only tests using fake size=text.length miss UTF8 byte/character differences.
+- New span structural bounds at95/99/101/129 (24fields,40character fieldname,400character value,40spans) are not described in the newfile registry row. Existing addSpan:324–333 has no40span guard, so a locally saved41span visit can produce an export the new parser rejects. The 40span chain bound already existed; exporting actual UI-saved histories still needs round-trip coverage.
+- New nid:197 uses timestamp+sequence+short random suffix without consulting existing IDs. It fixes the prior reset-to-pm2 behavior probabilistically, but is not an absolute uniqueness guarantee under clock rollback/repeated randomness; the new QA:116–124 samples four fresh empty harnesses rather than reloading preserved notebooks. Treat as an identity robustness observation unless parent proves a practical collision.
+
+## Scope and docs
+
+- Scope is11 paths: one module, one Unknown file-limit row, exportQA plus existingrow-count update, runner registration, generated app/PWA files and workflow/gatekeeper records. No new storagekey, jobfield, screenID, package/dependency or version change identified. KEY and SIDE are unchanged.
+- Compared jobs.js, engine.js, field-calcs.js, training.js and both QA runtime package files byte-for-byte with origin/build3: all6 unchanged. Together with the PowerPMprefix comparison,7 source identity assertions passed in a read-only Python check, exit0.
+- Functions guide:551–559 still describes Save/Delete only; training.js:99 still exercises Save/Delete only. No export/import practice step or guide/recovery instructions were added although WORKFLOWreview checklist requires current training/guides. Existing statements that this notebook is not in project backups remain correct. The on-screen reminder is useful but does not supply the requested recovery rehearsal.
+- Added `power.pm.file.max` is labeled Unknown, sourceappguard,2,097,152bytes, preserving the separate manufacturer/field sources. No math/per-channel/resume/deferredfeature change found.
+
+## Own commands and limits
+
+Used local Gitshow/diff/status, rg, nl/sed, and Pythonbyte/hash comparison. All substantive read/identity commands exited0. No runtime suite, browser, full gate, emulator, physical phone or field check was run by this subreview. Parent has the source findings and owns independent behavioral evidence and final disposition.

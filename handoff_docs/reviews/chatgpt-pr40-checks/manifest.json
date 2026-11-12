@@ -1,0 +1,191 @@
+[
+  {
+    "file": "source/review.md",
+    "bytes": 9857,
+    "sha256": "2858a9c6c2b5ea0d2f87324d89df4e2ee45d0469ef0d9e59a57a76f3ddbafaa3",
+    "original": "/workspace/scratch/pr40-independent-source/review.md"
+  },
+  {
+    "file": "source/subreview.md",
+    "bytes": 5951,
+    "sha256": "7d0e41d01328caa6d036f075dea1b2521e298bb1f969cb86105e0d9305b239e1",
+    "original": "/workspace/scratch/pr40-independent-source/subreview.md"
+  },
+  {
+    "file": "source/storage-probes.cjs",
+    "bytes": 10264,
+    "sha256": "50c476eea848940f855c887f262c1090689815d2e50be0d9c901ad942a69eae7",
+    "original": "/workspace/scratch/pr40-independent-source/storage-probes.cjs"
+  },
+  {
+    "file": "source/storage-probes.json",
+    "bytes": 3717,
+    "sha256": "7019c77b79fb95a6688ac551689606f91de879c29b80a620bc89694b40fc39bf",
+    "original": "/workspace/scratch/pr40-independent-source/storage-probes.json"
+  },
+  {
+    "file": "source/storage-probes.log",
+    "bytes": 3711,
+    "sha256": "cc1ca3e1f88def182cf194d0ef3ca0b7c78a12083cbf63ff0509024a061e4944",
+    "original": "/workspace/scratch/pr40-independent-source/storage-probes.log"
+  },
+  {
+    "file": "source/boundary-probes.cjs",
+    "bytes": 6445,
+    "sha256": "2f611550c11a996f841670a1cd55b5272595952093cb905990440b3406d786c7",
+    "original": "/workspace/scratch/pr40-independent-source/boundary-probes.cjs"
+  },
+  {
+    "file": "source/boundary-probes.json",
+    "bytes": 2162,
+    "sha256": "d53020b9a58f135f41ff97c67309cfbc94092f84cbc669442450773bc79c6063",
+    "original": "/workspace/scratch/pr40-independent-source/boundary-probes.json"
+  },
+  {
+    "file": "source/boundary-probes.log",
+    "bytes": 2466,
+    "sha256": "277e217d3c491d06dae25cc8d3a30479f1bb908f01dbe40f772b17194b225827",
+    "original": "/workspace/scratch/pr40-independent-source/boundary-probes.log"
+  },
+  {
+    "file": "source/source-identity.json",
+    "bytes": 483,
+    "sha256": "1198591583a1b4a4c2b0aed0882ef772b49108c363c0c7afcb946b8e1825648b",
+    "original": "/workspace/scratch/pr40-independent-source/source-identity.json"
+  },
+  {
+    "file": "source/quick-dedupe.cjs",
+    "bytes": 1212,
+    "sha256": "2937a7a38f46975acb1e6eb73baa014a2caf85fe9a67067c190a57a7195b56eb",
+    "original": "/workspace/scratch/pr40-independent-source/quick-dedupe.cjs"
+  },
+  {
+    "file": "source/quick-dedupe.json",
+    "bytes": 1519,
+    "sha256": "21672473ffa32a692c1afc8303e0bed02fdb598ff91195906c7c4558c6710941",
+    "original": "/workspace/scratch/pr40-independent-source/quick-dedupe.json"
+  },
+  {
+    "file": "source/storage-probes-attempt1.json",
+    "bytes": 3781,
+    "sha256": "ceca2da65dce2c939d532fc1758b9db60f04bb0081a32ecfb67fd181560fadef",
+    "original": "/workspace/scratch/pr40-independent-source/storage-probes-attempt1.json"
+  },
+  {
+    "file": "source/storage-probes-attempt1.log",
+    "bytes": 3773,
+    "sha256": "f397d27ae2bc70a92198ec81a79be08dd592f193fb8e679c81dd901153b9c6b7",
+    "original": "/workspace/scratch/pr40-independent-source/storage-probes-attempt1.log"
+  },
+  {
+    "file": "source/boundary-probes-attempt1.json",
+    "bytes": 2162,
+    "sha256": "d53020b9a58f135f41ff97c67309cfbc94092f84cbc669442450773bc79c6063",
+    "original": "/workspace/scratch/pr40-independent-source/boundary-probes-attempt1.json"
+  },
+  {
+    "file": "source/boundary-probes-attempt1.log",
+    "bytes": 2466,
+    "sha256": "277e217d3c491d06dae25cc8d3a30479f1bb908f01dbe40f772b17194b225827",
+    "original": "/workspace/scratch/pr40-independent-source/boundary-probes-attempt1.log"
+  },
+  {
+    "file": "browser/report.md",
+    "bytes": 14358,
+    "sha256": "c8c68dc2043546a05de10275dd882cc7a45501aa550765a4f8fd820295a1c7ca",
+    "original": "/workspace/scratch/pr40-independent-browser/report.md"
+  },
+  {
+    "file": "browser/review-browser.py",
+    "bytes": 18334,
+    "sha256": "4f6df8b7bd977dc4ac722427ffd79b2377b004b5dc5a25b100be8200643cc769",
+    "original": "/workspace/scratch/pr40-independent-browser/review-browser.py"
+  },
+  {
+    "file": "browser/results.json",
+    "bytes": 44027,
+    "sha256": "18898858a5dff11ae8808db85470efdfe929a205b42a6101ee3de0ae9ba8a1f2",
+    "original": "/workspace/scratch/pr40-independent-browser/results.json"
+  },
+  {
+    "file": "browser/review-browser.log",
+    "bytes": 16699,
+    "sha256": "ff66b6532e657cad6289d463d9f5eb251aa57953d96c5ab302897f5daca68fce",
+    "original": "/workspace/scratch/pr40-independent-browser/review-browser.log"
+  },
+  {
+    "file": "browser/provenance.json",
+    "bytes": 249,
+    "sha256": "4b7158af16173268d460f65885f8597e10bc651d59f9694fa54874195e399f76",
+    "original": "/workspace/scratch/pr40-independent-browser/provenance.json"
+  },
+  {
+    "file": "root-dedupe.json",
+    "bytes": 1519,
+    "sha256": "69fa0517d29baf70f79deaadd5083bab15ddd59e3a330e446025f35809f36fc6",
+    "original": "/workspace/scratch/root-pr40-dedupe.json"
+  },
+  {
+    "file": "gate/0.tail.log",
+    "bytes": 150,
+    "sha256": "b25ed070ec914d4c49b55b2344cc86e3302bfecd2f50bf9150ed3ab8fa82ca4e",
+    "original": "/workspace/scratch/pr40-reviewer-gate/0.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/1.tail.log",
+    "bytes": 54,
+    "sha256": "231a251ed9efb8ee7629a5edc0da50b16f64a633d55d81cd922ad6e48928b812",
+    "original": "/workspace/scratch/pr40-reviewer-gate/1.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/2.tail.log",
+    "bytes": 119,
+    "sha256": "ac1df7f05d9ca0cf4ab1942e057f6cf8768ea39ef987b9f581c6825be8ebaaea",
+    "original": "/workspace/scratch/pr40-reviewer-gate/2.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/3.tail.log",
+    "bytes": 4016,
+    "sha256": "1ff6fc0d4de1f6e40a2596d370649818177d4c2e84de9dca91374ea92654fe56",
+    "original": "/workspace/scratch/pr40-reviewer-gate/3.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/4.tail.log",
+    "bytes": 4389,
+    "sha256": "0a6d5e4052b38c669321f1107fb8d8bf0caaa1ef9af236fb08c66b6398af54e8",
+    "original": "/workspace/scratch/pr40-reviewer-gate/4.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/5.tail.log",
+    "bytes": 1952,
+    "sha256": "b236927a331f7ddf2deb4d87b4744d2309f463b5cf2e50e2c16b2d3f8c00637c",
+    "original": "/workspace/scratch/pr40-reviewer-gate/5.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/6.tail.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "original": "/workspace/scratch/pr40-reviewer-gate/6.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/7.tail.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "original": "/workspace/scratch/pr40-reviewer-gate/7.log",
+    "tail_only": true
+  },
+  {
+    "file": "gate/receipt.json",
+    "bytes": 22268,
+    "sha256": "5ab49d883eba7fce1dabf8a040f4a18d24d088aee97fa5b29b62221de2a143a3",
+    "original": "/workspace/scratch/pr40-reviewer-gate/receipt.json",
+    "tail_only": false
+  }
+]

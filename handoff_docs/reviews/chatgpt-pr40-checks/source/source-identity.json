@@ -1,0 +1,13 @@
+{
+  "head": "1c1e5414a40424d6999fafb105d862a7cf939345",
+  "base": "f9a2060ee51899c073f121408be79d15cb05ca35",
+  "checks": [
+    "Original PowerPM math/constants/date/selfcheck prefix byte-identical",
+    "night-sweep/jobs.js byte-identical",
+    "night-sweep/engine.js byte-identical",
+    "night-sweep/field-calcs.js byte-identical",
+    "night-sweep/training.js byte-identical",
+    "qa/runtime/package.json byte-identical",
+    "qa/runtime/package-lock.json byte-identical"
+  ]
+}

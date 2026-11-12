@@ -1,0 +1,88 @@
+{
+  "headBefore": "1c1e5414a40424d6999fafb105d862a7cf939345",
+  "checks": [
+    "atomic rejection: malformed JSON",
+    "atomic rejection: wrong kind",
+    "atomic rejection: unsupported version",
+    "atomic rejection: supply list not array",
+    "atomic rejection: last supply invalid after valid prefix",
+    "atomic rejection: name81",
+    "atomic rejection: invalid calendar date",
+    "atomic rejection: unknown chemistry",
+    "atomic rejection: unknown inverter",
+    "atomic rejection: alarms161",
+    "atomic rejection: negative voltage",
+    "atomic rejection: boolean numeric field",
+    "atomic rejection: nonfinite exponent numeric field",
+    "atomic rejection: too many visits81",
+    "atomic rejection: battery count9",
+    "atomic rejection: blank battery slot",
+    "atomic rejection: negative battery voltage",
+    "atomic rejection: nested span field",
+    "atomic rejection: prototype span field",
+    "atomic rejection: span count41",
+    "atomic rejection: span field count25",
+    "atomic rejection: span string401",
+    "atomic rejection: file too many supplies41",
+    "file.text rejection leaves all local bytes",
+    "oversized actual byte-size gate leaves all local bytes",
+    "quota write refusal leaves old notebook and job bytes",
+    "storage-read failure refuses import without changing old bytes",
+    "valid40-span file accepted, exact span history preserved",
+    "actual legacy IDs/bytes remain unchanged on current init/reload",
+    "new supply after reload keeps legacy record and gets distinct IDs",
+    "saved legacy+fresh bytes survive another actual app initialization"
+  ],
+  "failures": [
+    {
+      "name": "own freshly saved notebook reimport is a byte-identical no-op",
+      "error": "own saved file duplicated the supply\n+ actual - expected\n\n+ '{\"version\":1,\"supplies\":[{\"id\":\"pmmwdo9zde2jvcg\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zde3q77t\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"batteries\":[],\"spans\":[]}]},{\"id\":\"pmmwdo9zfq57ade\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zfq45mkm\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"batteries\":[],\"spans\":[]}]}]}'\n- '{\"version\":1,\"supplies\":[{\"id\":\"pmmwdo9zde2jvcg\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zde3q77t\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"batteries\":[],\"spans\":[]}]}]}'\n"
+    },
+    {
+      "name": "own UI41-span export can be reimported after removing device notebook",
+      "error": "own UI export was refused on clean restore"
+    }
+  ],
+  "observations": [
+    {
+      "case": "own-file-dedupe",
+      "beforeCount": 1,
+      "afterCount": 2,
+      "status": "Imported 1 supply. Pick one from the list to see its visits.",
+      "savedVisitKeys": [
+        "id",
+        "date",
+        "chemistry",
+        "inputVolts",
+        "outputVolts",
+        "loadAmps",
+        "inverter",
+        "alarms",
+        "batteries",
+        "spans"
+      ],
+      "parsedVisitKeys": [
+        "id",
+        "date",
+        "chemistry",
+        "inverter",
+        "alarms",
+        "inputVolts",
+        "outputVolts",
+        "loadAmps",
+        "batteries",
+        "spans"
+      ]
+    },
+    {
+      "case": "own41span-roundtrip",
+      "spans": 41,
+      "status": "Supply 1: too many spans in one visit. Nothing was imported.",
+      "retained": false,
+      "bytes": 20976
+    }
+  ],
+  "runtimeErrors": [],
+  "headAfter": "1c1e5414a40424d6999fafb105d862a7cf939345",
+  "statusAfter": ""
+}

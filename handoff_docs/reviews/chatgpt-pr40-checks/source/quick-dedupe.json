@@ -1,0 +1,68 @@
+{
+  "before": {
+    "version": 1,
+    "supplies": [
+      {
+        "id": "pmmwdo62lj2ufy6",
+        "name": "Synthetic dedupe",
+        "visits": [
+          {
+            "id": "vmwdo62lj33ew9",
+            "date": "2026-11-12",
+            "chemistry": "",
+            "inputVolts": "",
+            "outputVolts": 89,
+            "loadAmps": "",
+            "inverter": "",
+            "alarms": "",
+            "batteries": [],
+            "spans": []
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "version": 1,
+    "supplies": [
+      {
+        "id": "pmmwdo62lj2ufy6",
+        "name": "Synthetic dedupe",
+        "visits": [
+          {
+            "id": "vmwdo62lj33ew9",
+            "date": "2026-11-12",
+            "chemistry": "",
+            "inputVolts": "",
+            "outputVolts": 89,
+            "loadAmps": "",
+            "inverter": "",
+            "alarms": "",
+            "batteries": [],
+            "spans": []
+          }
+        ]
+      },
+      {
+        "id": "pmmwdo62n35y5ci",
+        "name": "Synthetic dedupe",
+        "visits": [
+          {
+            "id": "vmwdo62n349yk9",
+            "date": "2026-11-12",
+            "chemistry": "",
+            "inverter": "",
+            "alarms": "",
+            "inputVolts": "",
+            "outputVolts": 89,
+            "loadAmps": "",
+            "batteries": [],
+            "spans": []
+          }
+        ]
+      }
+    ]
+  },
+  "status": "Imported 1 supply. Pick one from the list to see its visits.",
+  "errors": []
+}

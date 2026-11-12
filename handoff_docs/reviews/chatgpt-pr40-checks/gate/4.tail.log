@@ -1,0 +1,60 @@
+PASS DOCSIS real keyboard: a reading is compared with the window of the job's plant
+PASS DOCSIS plants: after choosing 204/258 the company window box is empty and the plant is named
+PASS DOCSIS plants: the 42/54 window is not applied to the 204/258 plant
+PASS DOCSIS plants: the 204/258 window is kept apart from the 42/54 one
+PASS DOCSIS plants: both windows are read back after a reload, each for its own plant
+PASS 320px OFDM restatement starts with explicit unconfirmed context
+PASS 320px OFDM restatement has no numeric result before confirmation
+PASS 320px OFDM restatement prints H1 total and delta at six significant figures
+PASS 320px OFDM restatement exposes reverse6.4 basis and prints H2 at six significant figures
+PASS 320px OFDM restatement keeps instantaneous total and headroom unavailable
+PASS 320px OFDM restatement refuses real - badInput in power
+PASS 320px OFDM restatement refuses real 1e badInput in power
+PASS 320px OFDM restatement refuses real - badInput in occupied
+PASS 320px OFDM restatement refuses real 1e badInput in occupied
+PASS 320px OFDM restatement clearing context removes stale numeric output
+PASS 320px OFDM restatement fits its card and controls without horizontal overflow
+PASS 360px OFDM restatement starts with explicit unconfirmed context
+PASS 360px OFDM restatement has no numeric result before confirmation
+PASS 360px OFDM restatement prints H1 total and delta at six significant figures
+PASS 360px OFDM restatement exposes reverse6.4 basis and prints H2 at six significant figures
+PASS 360px OFDM restatement keeps instantaneous total and headroom unavailable
+PASS 360px OFDM restatement refuses real - badInput in power
+PASS 360px OFDM restatement refuses real 1e badInput in power
+PASS 360px OFDM restatement refuses real - badInput in occupied
+PASS 360px OFDM restatement refuses real 1e badInput in occupied
+PASS 360px OFDM restatement clearing context removes stale numeric output
+PASS 360px OFDM restatement fits its card and controls without horizontal overflow
+PASS 390px OFDM restatement starts with explicit unconfirmed context
+PASS 390px OFDM restatement has no numeric result before confirmation
+PASS 390px OFDM restatement prints H1 total and delta at six significant figures
+PASS 390px OFDM restatement exposes reverse6.4 basis and prints H2 at six significant figures
+PASS 390px OFDM restatement keeps instantaneous total and headroom unavailable
+PASS 390px OFDM restatement refuses real - badInput in power
+PASS 390px OFDM restatement refuses real 1e badInput in power
+PASS 390px OFDM restatement refuses real - badInput in occupied
+PASS 390px OFDM restatement refuses real 1e badInput in occupied
+PASS 390px OFDM restatement clearing context removes stale numeric output
+PASS 390px OFDM restatement fits its card and controls without horizontal overflow
+PASS 430px OFDM restatement starts with explicit unconfirmed context
+PASS 430px OFDM restatement has no numeric result before confirmation
+PASS 430px OFDM restatement prints H1 total and delta at six significant figures
+PASS 430px OFDM restatement exposes reverse6.4 basis and prints H2 at six significant figures
+PASS 430px OFDM restatement keeps instantaneous total and headroom unavailable
+PASS 430px OFDM restatement refuses real - badInput in power
+PASS 430px OFDM restatement refuses real 1e badInput in power
+PASS 430px OFDM restatement refuses real - badInput in occupied
+PASS 430px OFDM restatement refuses real 1e badInput in occupied
+PASS 430px OFDM restatement clearing context removes stale numeric output
+PASS 430px OFDM restatement fits its card and controls without horizontal overflow
+PASS Leakage real keyboard: typed company settings are saved
+PASS Leakage real keyboard: a lone minus sign leaves the box empty and marked badInput
+PASS Leakage real keyboard: that entry is refused and says what is still in use
+PASS Leakage real keyboard: the saved settings are not cleared and the box shows the value in use
+PASS Leakage real keyboard: emptying a box on purpose still clears that one setting
+PASS Leakage dates: the check date starts as today
+PASS Leakage dates: a blank check date is refused with a reason and no check is saved
+PASS Leakage dates: Mark repaired with a cleared date is refused and the leak stays open
+PASS Leakage dates: the date that was chosen is the date kept
+PASS No uncaught application errors
+Build3 layout: 1252 checks passed

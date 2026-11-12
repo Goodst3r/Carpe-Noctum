@@ -1,0 +1,1421 @@
+{
+  "head": "1c1e5414a40424d6999fafb105d862a7cf939345",
+  "checks": [
+    {
+      "name": "generated app has no Android bridge",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "real controls save one supply and two visits",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "PM Save writes only its device notebook and leaves job unchanged",
+      "width": 320,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1",
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "actual browser Blob download has the correct file envelope and content",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "export creates no notebook/job/storage writes",
+      "width": 320,
+      "passed": true,
+      "actual": []
+    },
+    {
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 320,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "name": "actual file chooser restores original visit values with fresh unique IDs",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "successful import changes only notebook storage",
+      "width": 320,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "reload retains imported notebook bytes and renders saved visits",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "saved visit records remain visible after real selection",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "already imported canonical notebook deduplicates without writes",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "merge adds new supply and skips canonical matching content",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "same name with different visits is retained separately with unique IDs",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "not-json real file is refused atomically with adjacent feedback",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "status": "The file is not readable as a Supply PM notebook. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "bad-version real file is refused atomically with adjacent feedback",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "status": "This notebook file has a version this app does not know. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "partial-bad-date real file is refused atomically with adjacent feedback",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "status": "Supply 2: a visit date is not a real calendar date. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "negative-battery real file is refused atomically with adjacent feedback",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "status": "Supply 1: a battery volts value is not a number of 0 or more. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "41-supplies real file is refused atomically with adjacent feedback",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "status": "The notebook file holds more than 40 supplies. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "real 2MiB+1 byte file is refused without writes",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "bytes": 2097153,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "UTF-8 bytes over cap are refused even when code-unit length is below cap",
+      "width": 320,
+      "passed": true,
+      "actual": {
+        "bytes": 2097154,
+        "characters": 1048577,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "exact 2MiB valid notebook file is accepted inclusively",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "empty file-chooser selection cancels without writes or a false new import message",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "dark notebook export/import controls fit phone width and have 44px targets",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "actual Unknown source dialog declares 2097152-byte import cap and atomic refusal",
+      "width": 320,
+      "passed": true,
+      "actual": "Unknown\nSupply PM notebook: size of an imported notebook file\n\nThe source is not verified. Treat this as unconfirmed guidance.\n\nNot verified. Check the source before relying on it.\n\nValue\n2097152 bytes\nWhere the value comes from\nBuilt in\nUnits\nbytes\nApplies when\nSoftware bound on a file the Import notebook button will read. A larger file is refused whole and nothing on the device changes. It also reuses the supplies, visits, battery, name and alarm bounds above.\nPlant\nBoth plants (42/54 and 204/258)\nSource\npower-pm.js application guard; not a manufacturer specification or a company power record\nRevision\n2.0 Alpha build 3 supply PM export\nPage, table or section\npower-pm.js MAX_FILE_BYTES and parseExport()\nChecked\n2026-11-12 · Not verified. Check the source before relying on it.\nUsed by\nPlan → Supply PM\nClose"
+    },
+    {
+      "name": "all import/export/source operations leave unrelated job/device data unchanged",
+      "width": 320,
+      "passed": true
+    },
+    {
+      "name": "imported battery text remains literal without executing markup",
+      "width": 320,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "name": "generated app has no Android bridge",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "real controls save one supply and two visits",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "PM Save writes only its device notebook and leaves job unchanged",
+      "width": 360,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1",
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "actual browser Blob download has the correct file envelope and content",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "export creates no notebook/job/storage writes",
+      "width": 360,
+      "passed": true,
+      "actual": []
+    },
+    {
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 360,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "name": "actual file chooser restores original visit values with fresh unique IDs",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "successful import changes only notebook storage",
+      "width": 360,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "reload retains imported notebook bytes and renders saved visits",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "saved visit records remain visible after real selection",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "already imported canonical notebook deduplicates without writes",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "merge adds new supply and skips canonical matching content",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "same name with different visits is retained separately with unique IDs",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "not-json real file is refused atomically with adjacent feedback",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "status": "The file is not readable as a Supply PM notebook. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "bad-version real file is refused atomically with adjacent feedback",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "status": "This notebook file has a version this app does not know. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "partial-bad-date real file is refused atomically with adjacent feedback",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "status": "Supply 2: a visit date is not a real calendar date. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "negative-battery real file is refused atomically with adjacent feedback",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "status": "Supply 1: a battery volts value is not a number of 0 or more. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "41-supplies real file is refused atomically with adjacent feedback",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "status": "The notebook file holds more than 40 supplies. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "real 2MiB+1 byte file is refused without writes",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "bytes": 2097153,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "UTF-8 bytes over cap are refused even when code-unit length is below cap",
+      "width": 360,
+      "passed": true,
+      "actual": {
+        "bytes": 2097154,
+        "characters": 1048577,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "exact 2MiB valid notebook file is accepted inclusively",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "empty file-chooser selection cancels without writes or a false new import message",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "dark notebook export/import controls fit phone width and have 44px targets",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "actual Unknown source dialog declares 2097152-byte import cap and atomic refusal",
+      "width": 360,
+      "passed": true,
+      "actual": "Unknown\nSupply PM notebook: size of an imported notebook file\n\nThe source is not verified. Treat this as unconfirmed guidance.\n\nNot verified. Check the source before relying on it.\n\nValue\n2097152 bytes\nWhere the value comes from\nBuilt in\nUnits\nbytes\nApplies when\nSoftware bound on a file the Import notebook button will read. A larger file is refused whole and nothing on the device changes. It also reuses the supplies, visits, battery, name and alarm bounds above.\nPlant\nBoth plants (42/54 and 204/258)\nSource\npower-pm.js application guard; not a manufacturer specification or a company power record\nRevision\n2.0 Alpha build 3 supply PM export\nPage, table or section\npower-pm.js MAX_FILE_BYTES and parseExport()\nChecked\n2026-11-12 · Not verified. Check the source before relying on it.\nUsed by\nPlan → Supply PM\nClose"
+    },
+    {
+      "name": "all import/export/source operations leave unrelated job/device data unchanged",
+      "width": 360,
+      "passed": true
+    },
+    {
+      "name": "imported battery text remains literal without executing markup",
+      "width": 360,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "name": "generated app has no Android bridge",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "real controls save one supply and two visits",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "PM Save writes only its device notebook and leaves job unchanged",
+      "width": 390,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1",
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "actual browser Blob download has the correct file envelope and content",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "export creates no notebook/job/storage writes",
+      "width": 390,
+      "passed": true,
+      "actual": []
+    },
+    {
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "name": "actual file chooser restores original visit values with fresh unique IDs",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "successful import changes only notebook storage",
+      "width": 390,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "reload retains imported notebook bytes and renders saved visits",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "saved visit records remain visible after real selection",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "already imported canonical notebook deduplicates without writes",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "merge adds new supply and skips canonical matching content",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "same name with different visits is retained separately with unique IDs",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "not-json real file is refused atomically with adjacent feedback",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "status": "The file is not readable as a Supply PM notebook. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "bad-version real file is refused atomically with adjacent feedback",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "status": "This notebook file has a version this app does not know. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "partial-bad-date real file is refused atomically with adjacent feedback",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "status": "Supply 2: a visit date is not a real calendar date. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "negative-battery real file is refused atomically with adjacent feedback",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "status": "Supply 1: a battery volts value is not a number of 0 or more. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "41-supplies real file is refused atomically with adjacent feedback",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "status": "The notebook file holds more than 40 supplies. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "real 2MiB+1 byte file is refused without writes",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "bytes": 2097153,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "UTF-8 bytes over cap are refused even when code-unit length is below cap",
+      "width": 390,
+      "passed": true,
+      "actual": {
+        "bytes": 2097154,
+        "characters": 1048577,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "exact 2MiB valid notebook file is accepted inclusively",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "empty file-chooser selection cancels without writes or a false new import message",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "dark notebook export/import controls fit phone width and have 44px targets",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "actual Unknown source dialog declares 2097152-byte import cap and atomic refusal",
+      "width": 390,
+      "passed": true,
+      "actual": "Unknown\nSupply PM notebook: size of an imported notebook file\n\nThe source is not verified. Treat this as unconfirmed guidance.\n\nNot verified. Check the source before relying on it.\n\nValue\n2097152 bytes\nWhere the value comes from\nBuilt in\nUnits\nbytes\nApplies when\nSoftware bound on a file the Import notebook button will read. A larger file is refused whole and nothing on the device changes. It also reuses the supplies, visits, battery, name and alarm bounds above.\nPlant\nBoth plants (42/54 and 204/258)\nSource\npower-pm.js application guard; not a manufacturer specification or a company power record\nRevision\n2.0 Alpha build 3 supply PM export\nPage, table or section\npower-pm.js MAX_FILE_BYTES and parseExport()\nChecked\n2026-11-12 · Not verified. Check the source before relying on it.\nUsed by\nPlan → Supply PM\nClose"
+    },
+    {
+      "name": "all import/export/source operations leave unrelated job/device data unchanged",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "imported battery text remains literal without executing markup",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "name": "generated app has no Android bridge",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "real controls save one supply and two visits",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "PM Save writes only its device notebook and leaves job unchanged",
+      "width": 430,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1",
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "actual browser Blob download has the correct file envelope and content",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "export creates no notebook/job/storage writes",
+      "width": 430,
+      "passed": true,
+      "actual": []
+    },
+    {
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 430,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "name": "actual file chooser restores original visit values with fresh unique IDs",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "successful import changes only notebook storage",
+      "width": 430,
+      "passed": true,
+      "actual": [
+        "nightsweep-power-pm-v1"
+      ]
+    },
+    {
+      "name": "reload retains imported notebook bytes and renders saved visits",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "saved visit records remain visible after real selection",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "already imported canonical notebook deduplicates without writes",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "merge adds new supply and skips canonical matching content",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "same name with different visits is retained separately with unique IDs",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "not-json real file is refused atomically with adjacent feedback",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "status": "The file is not readable as a Supply PM notebook. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "bad-version real file is refused atomically with adjacent feedback",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "status": "This notebook file has a version this app does not know. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "partial-bad-date real file is refused atomically with adjacent feedback",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "status": "Supply 2: a visit date is not a real calendar date. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "negative-battery real file is refused atomically with adjacent feedback",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "status": "Supply 1: a battery volts value is not a number of 0 or more. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "41-supplies real file is refused atomically with adjacent feedback",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "status": "The notebook file holds more than 40 supplies. Nothing was imported.",
+        "writes": []
+      }
+    },
+    {
+      "name": "real 2MiB+1 byte file is refused without writes",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "bytes": 2097153,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "UTF-8 bytes over cap are refused even when code-unit length is below cap",
+      "width": 430,
+      "passed": true,
+      "actual": {
+        "bytes": 2097154,
+        "characters": 1048577,
+        "status": "That file is larger than 2 MiB, so it is not a Supply PM notebook from this app. Nothing was imported."
+      }
+    },
+    {
+      "name": "exact 2MiB valid notebook file is accepted inclusively",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "empty file-chooser selection cancels without writes or a false new import message",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "dark notebook export/import controls fit phone width and have 44px targets",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "actual Unknown source dialog declares 2097152-byte import cap and atomic refusal",
+      "width": 430,
+      "passed": true,
+      "actual": "Unknown\nSupply PM notebook: size of an imported notebook file\n\nThe source is not verified. Treat this as unconfirmed guidance.\n\nNot verified. Check the source before relying on it.\n\nValue\n2097152 bytes\nWhere the value comes from\nBuilt in\nUnits\nbytes\nApplies when\nSoftware bound on a file the Import notebook button will read. A larger file is refused whole and nothing on the device changes. It also reuses the supplies, visits, battery, name and alarm bounds above.\nPlant\nBoth plants (42/54 and 204/258)\nSource\npower-pm.js application guard; not a manufacturer specification or a company power record\nRevision\n2.0 Alpha build 3 supply PM export\nPage, table or section\npower-pm.js MAX_FILE_BYTES and parseExport()\nChecked\n2026-11-12 · Not verified. Check the source before relying on it.\nUsed by\nPlan → Supply PM\nClose"
+    },
+    {
+      "name": "all import/export/source operations leave unrelated job/device data unchanged",
+      "width": 430,
+      "passed": true
+    },
+    {
+      "name": "imported battery text remains literal without executing markup",
+      "width": 430,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "name": "fault-injected Blob denial is reflected truthfully in PM export feedback",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.",
+        "browserStatus": "Could not start the download. Retry or choose Save/share file if available."
+      }
+    },
+    {
+      "name": "fault-injected export error leaves notebook and other storage unchanged",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "fault-injected Web Share cancellation is reflected truthfully in PM export feedback",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.",
+        "browserStatus": "Sharing cancelled. Your file is still ready; choose Save/share file or Download file."
+      }
+    },
+    {
+      "name": "fault-injected share cancellation leaves notebook and unrelated storage unchanged",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "name": "no application runtime errors across browser cases",
+      "width": null,
+      "passed": true,
+      "actual": []
+    }
+  ],
+  "passed": 99,
+  "failed": 10,
+  "findings": [
+    {
+      "id": "P2-local-export-dedupe",
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 320,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "id": "P1-imported-markup-executes",
+      "name": "imported battery text remains literal without executing markup",
+      "width": 320,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "id": "P2-local-export-dedupe",
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 360,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "id": "P1-imported-markup-executes",
+      "name": "imported battery text remains literal without executing markup",
+      "width": 360,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "id": "P2-local-export-dedupe",
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "id": "P1-imported-markup-executes",
+      "name": "imported battery text remains literal without executing markup",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "id": "P2-local-export-dedupe",
+      "name": "reimporting an own UI-saved download skips the existing supply byte-for-byte",
+      "width": 430,
+      "passed": false,
+      "actual": {
+        "beforeCount": 1,
+        "afterCount": 2,
+        "status": "Imported 1 supply. Pick one from the list to see its visits.",
+        "localVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "inverter",
+          "alarms",
+          "batteries",
+          "spans"
+        ],
+        "importedVisitKeys": [
+          "id",
+          "date",
+          "chemistry",
+          "inverter",
+          "alarms",
+          "inputVolts",
+          "outputVolts",
+          "loadAmps",
+          "batteries",
+          "spans"
+        ]
+      }
+    },
+    {
+      "id": "P1-imported-markup-executes",
+      "name": "imported battery text remains literal without executing markup",
+      "width": 430,
+      "passed": false,
+      "actual": {
+        "imgCount": 1,
+        "executedFlag": 1,
+        "visitsHTML": "<tr><th scope=\"row\">2026-11-11</th><td><img src=\"x\" onerror=\"window.p=1\"> 13.2 V</td><td>No earlier reading of the same string.</td></tr>"
+      }
+    },
+    {
+      "id": "P2-export-error-feedback",
+      "name": "fault-injected Blob denial is reflected truthfully in PM export feedback",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.",
+        "browserStatus": "Could not start the download. Retry or choose Save/share file if available."
+      }
+    },
+    {
+      "id": "P2-export-cancel-feedback",
+      "name": "fault-injected Web Share cancellation is reflected truthfully in PM export feedback",
+      "width": 390,
+      "passed": false,
+      "actual": {
+        "pmStatus": "Exported 1 supply. Keep the file somewhere safe before you uninstall. This is your own notebook, not a company record.",
+        "browserStatus": "Sharing cancelled. Your file is still ready; choose Save/share file or Download file."
+      }
+    }
+  ],
+  "runtimeErrors": [],
+  "downloads": [
+    {
+      "width": 320,
+      "name": "CarpeNoctum_Supply_PM_notebook.json",
+      "path": "/workspace/scratch/pr40-independent-browser/320-downloaded-notebook.json",
+      "failure": null,
+      "bytes": 961,
+      "sha256": "13aca5cfa5bd5039ce069827379bf29871d655e1fd5624a83234a1e463ed1caf"
+    },
+    {
+      "width": 360,
+      "name": "CarpeNoctum_Supply_PM_notebook.json",
+      "path": "/workspace/scratch/pr40-independent-browser/360-downloaded-notebook.json",
+      "failure": null,
+      "bytes": 961,
+      "sha256": "c7606e2901f3b8658d667e096040f9bcad6f81ddbc4694224a9acee7be4c6ef4"
+    },
+    {
+      "width": 390,
+      "name": "CarpeNoctum_Supply_PM_notebook.json",
+      "path": "/workspace/scratch/pr40-independent-browser/390-downloaded-notebook.json",
+      "failure": null,
+      "bytes": 961,
+      "sha256": "16f794cee20c279ce78e9cf6b12b5a6461de90047290aafde7471a2ad86816c5"
+    },
+    {
+      "width": 430,
+      "name": "CarpeNoctum_Supply_PM_notebook.json",
+      "path": "/workspace/scratch/pr40-independent-browser/430-downloaded-notebook.json",
+      "failure": null,
+      "bytes": 961,
+      "sha256": "6ca5a07498cd0de76122e2c33b903bc0dd248945fb418eee44acf35216a4cf60"
+    }
+  ],
+  "reloadDiagnostics": [
+    {
+      "width": 320,
+      "changedStorageKeysDuringReload": [
+        "hfc-route-v1"
+      ],
+      "rowsBeforeReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        }
+      ],
+      "rowsAfterReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "changedStorageKeysDuringReload": [
+        "hfc-route-v1"
+      ],
+      "rowsBeforeReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        }
+      ],
+      "rowsAfterReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "changedStorageKeysDuringReload": [
+        "hfc-route-v1"
+      ],
+      "rowsBeforeReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        }
+      ],
+      "rowsAfterReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        }
+      ]
+    },
+    {
+      "width": 430,
+      "changedStorageKeysDuringReload": [
+        "hfc-route-v1"
+      ],
+      "rowsBeforeReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false
+        }
+      ],
+      "rowsAfterReload": [
+        {
+          "id": "r1",
+          "name": "Tap 1",
+          "parent": "source",
+          "length": 400,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-23",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r2",
+          "name": "Tap 2",
+          "parent": "r1::through",
+          "length": 250,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-20",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        },
+        {
+          "id": "r3",
+          "name": "Tap 3",
+          "parent": "r2::through",
+          "length": 180,
+          "cable": "p3_625",
+          "device": "technetix-ottz-1-8-ghz--ottz-4-17",
+          "customLoss": "",
+          "customCable": "",
+          "terminal": false,
+          "family": "Technetix OTTZ 1.8 GHz",
+          "passiveType": "tap4"
+        }
+      ]
+    }
+  ],
+  "scope": "offline desktop Chromium mobile viewports; no native Android bridge; Blob denial/Web Share abort are explicitly fault-injected platform boundaries"
+}

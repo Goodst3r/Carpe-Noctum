@@ -1,0 +1,54 @@
+FAIL own freshly saved notebook reimport is a byte-identical no-op: own saved file duplicated the supply
++ actual - expected
+
++ '{"version":1,"supplies":[{"id":"pmmwdo9zde2jvcg","name":"Synthetic local","visits":[{"id":"vmwdo9zde3q77t","date":"2026-11-12","chemistry":"","inputVolts":"","outputVolts":89,"loadAmps":"","inverter":"","alarms":"","batteries":[],"spans":[]}]},{"id":"pmmwdo9zfq57ade","name":"Synthetic local","visits":[{"id":"vmwdo9zfq45mkm","date":"2026-11-12","chemistry":"","inverter":"","alarms":"","inputVolts":"","outputVolts":89,"loadAmps":"","batteries":[],"spans":[]}]}]}'
+- '{"version":1,"supplies":[{"id":"pmmwdo9zde2jvcg","name":"Synthetic local","visits":[{"id":"vmwdo9zde3q77t","date":"2026-11-12","chemistry":"","inputVolts":"","outputVolts":89,"loadAmps":"","inverter":"","alarms":"","batteries":[],"spans":[]}]}]}'
+
+PASS atomic rejection: malformed JSON
+PASS atomic rejection: wrong kind
+PASS atomic rejection: unsupported version
+PASS atomic rejection: supply list not array
+PASS atomic rejection: last supply invalid after valid prefix
+PASS atomic rejection: name81
+PASS atomic rejection: invalid calendar date
+PASS atomic rejection: unknown chemistry
+PASS atomic rejection: unknown inverter
+PASS atomic rejection: alarms161
+PASS atomic rejection: negative voltage
+PASS atomic rejection: boolean numeric field
+PASS atomic rejection: nonfinite exponent numeric field
+PASS atomic rejection: too many visits81
+PASS atomic rejection: battery count9
+PASS atomic rejection: blank battery slot
+PASS atomic rejection: negative battery voltage
+PASS atomic rejection: nested span field
+PASS atomic rejection: prototype span field
+PASS atomic rejection: span count41
+PASS atomic rejection: span field count25
+PASS atomic rejection: span string401
+PASS atomic rejection: file too many supplies41
+PASS file.text rejection leaves all local bytes
+PASS oversized actual byte-size gate leaves all local bytes
+PASS quota write refusal leaves old notebook and job bytes
+PASS storage-read failure refuses import without changing old bytes
+FAIL own UI41-span export can be reimported after removing device notebook: own UI export was refused on clean restore
+PASS valid40-span file accepted, exact span history preserved
+PASS actual legacy IDs/bytes remain unchanged on current init/reload
+PASS new supply after reload keeps legacy record and gets distinct IDs
+PASS saved legacy+fresh bytes survive another actual app initialization
+{
+  "passes": 31,
+  "failures": [
+    {
+      "name": "own freshly saved notebook reimport is a byte-identical no-op",
+      "error": "own saved file duplicated the supply\n+ actual - expected\n\n+ '{\"version\":1,\"supplies\":[{\"id\":\"pmmwdo9zde2jvcg\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zde3q77t\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"batteries\":[],\"spans\":[]}]},{\"id\":\"pmmwdo9zfq57ade\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zfq45mkm\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"batteries\":[],\"spans\":[]}]}]}'\n- '{\"version\":1,\"supplies\":[{\"id\":\"pmmwdo9zde2jvcg\",\"name\":\"Synthetic local\",\"visits\":[{\"id\":\"vmwdo9zde3q77t\",\"date\":\"2026-11-12\",\"chemistry\":\"\",\"inputVolts\":\"\",\"outputVolts\":89,\"loadAmps\":\"\",\"inverter\":\"\",\"alarms\":\"\",\"batteries\":[],\"spans\":[]}]}]}'\n"
+    },
+    {
+      "name": "own UI41-span export can be reimported after removing device notebook",
+      "error": "own UI export was refused on clean restore"
+    }
+  ],
+  "runtimeErrors": [],
+  "headAfter": "1c1e5414a40424d6999fafb105d862a7cf939345",
+  "status": ""
+}
