@@ -37,7 +37,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Test → Frequency | Complete, custom curves | Exact-frequency loss budget, table interpolation and unavailable ranges |
 | Test → Readings | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
 | Test → References | Complete, OEM AGC, DSIM | Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates |
-| Test → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, OFDM power and echo delay, each with its source tag (2.0 Alpha build 3) |
+| Test → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, OFDM power, power sum and echo delay, each with its source tag (2.0 Alpha build 3) |
 | Job → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |
 | Test → Limits | Custom curves | Spec, expert, company and unknown labels; company criteria unknown until entered (2.0 Alpha build 3) |
 | Test → DOCSIS health | Custom curves | Synthetic downstream and upstream readings against the modem requirements, with a company window that starts unknown (2.0 Alpha build 3) |
