@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-11-12T00:28:02.750322+00:00",
+  "verdict": "PASS",
+  "tested_head": "072eb0ec193e7cd621e9f76c4024ecd02de1288d",
+  "tracked_direct_rehash": 610,
+  "all5commands_zero_fresh_raw_equal": true,
+  "suite_count": 74,
+  "checks": 1760,
+  "layout": 554,
+  "smoke": 349,
+  "manifest_artifacts": 12,
+  "locked_packages_direct_rehash": 40,
+  "semantic_index_clean_tree_exact": true,
+  "actual_remote_base": "f50a7445a8c5254b0db4db5d9e4309569345c12c",
+  "proof_sha256": "3eb9cb5b7aa2744eb4eef5bade93077f47039911894f04f1d4789e4d73ee0774",
+  "raw_sha256": "94a3c332c5a44007e950f666e3b448a97cd47cbe9df022161dbb7253eacfa2bd",
+  "manifest_sha256": "776f6779632f67e7f27f7f507132875b559be6776d1153dc985fd75f865ec61a"
+}
