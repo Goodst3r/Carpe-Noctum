@@ -10,14 +10,14 @@ Only Grok edits this file. Third assistant, from November 12, 2026. Lane A and L
 | Stretch #16 item 17 | `claude/b17-highsplit` | [#16](https://github.com/Goodst3r/Carpe-Noctum/pull/16) merged `b4cb832` | `0436e9a` | merged after local gate and hosted CI | 87/2276, 745.4 s, layout 784, smoke 361 |
 | Stretch #18 item 18 | `claude/b18-why-cards` | [#18](https://github.com/Goodst3r/Carpe-Noctum/pull/18) merged `cb3c3b2` | `7d18b9a` | merged after local gate and hosted CI | 88/2283, 781.8 s, layout 854, smoke 364 |
 | Stretch #19 item 20 | `claude/b20-pop` | [#19](https://github.com/Goodst3r/Carpe-Noctum/pull/19) merged `6d684b6` | `b78868b` | merged after local gate and hosted CI | 89/2289, 787.4 s, layout 944, smoke 367 |
-| Stretch #20 item 19 | `claude/b19-study` | #20 draft | this commit | merge of `build3` (`6d684b6`); retarget to `build3` so hosted CI runs; full gate not run yet | not a full gate |
+| Stretch #20 item 19 | `claude/b19-study` | #20 draft | this commit | merge of `build3` (`93acbac`, includes merged #28); retargeted to `build3`; full gate not run on this head yet | not a full gate |
 | A5 item 14 | not started | | | after stretch stack, one PR | |
 | A6 item 16 | not started | | | after A5 | |
 | A7 item 12 | not started | | | after A6 | |
 
 ## Next
 
-Item 20 is merged. This commit is the item 19 merge of `origin/build3`. Its own full gate has not run. Pull request #20 is retargeted to `build3` after this push. **D3: one run (Grok).** Spencer accepts or rejects D3.
+Item 20 is merged. This commit merges `origin/build3` (`93acbac`, pull request #28) into study mode. Its own full gate has not run. Pull request #20 targets `build3`. **D3: one run (Grok).** Spencer accepts or rejects D3.
 
 ## Blocked
 
