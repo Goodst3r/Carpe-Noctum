@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Independent check of the numbers on Test -> FCC proof of performance (build list item 20).
 
-Each entry below is the operative clause of the rule, copied from the eCFR as read on November 11, 2026 (47 CFR is a US
-government work and may be quoted), together with the item it supports. This script pulls the numbers out of the clause
+Each entry below is a relevant excerpt of the operative clause of the rule, copied from the eCFR as read on November 11, 2026
+(47 CFR is a US government work and may be quoted), together with the item it supports. These are selected excerpts, not whole
+sections: for example the noise and isolation entries keep the conditions and numbers the screen states, and leave out the
+amplifier, NCTA Recommended Practices and reflection paragraphs, which the source dialogs on the screen carry. This script pulls the numbers out of the clause
 with its own parser (digits, and the number words the rules use) and writes them to pop-reference.json; the app is not read here.
 qa/build3-pop.test.cjs checks that the screen states exactly those numbers for each item. Run: python3 research/build3/pop-reference.py"""
 import json, re

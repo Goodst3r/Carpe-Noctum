@@ -85,15 +85,20 @@ const FiberToolsUI=(()=>{
  const trim=(v,d=2)=>{const s=Number(v.toFixed(d)).toString();return s==='-0'?'0':s;};
  const row=(label,value)=>`<div class="health-row"><span>${label}</span><strong>${value}</strong></div>`;
  const swatch=name=>`<span class="fiber-swatch fiber-${name.toLowerCase()}" aria-hidden="true"></span>`;
- const field=(card,name,label,hint,extra='')=>`<label>${label}<input type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}></label>`;
+ const field=(card,name,label,hint,extra='')=>`<div class="fiber-field"><label for="fiber-${card}-${name}">${label}</label><input id="fiber-${card}-${name}" type="number" step="any" data-fiber="${card}" data-field="${name}" placeholder="${hint}"${extra}><p class="fiber-box-error" id="fiber-${card}-${name}-error" hidden></p></div>`;
  /* A native number box holding only a minus sign reads as "" but is not blank (validity.badInput is true). It must not be
     dropped, or replaced by the other way of entering the same thing, so it is reported and the calculation waits. */
- function boxName(el){const label=el.closest('label'),text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
+ function boxName(el){const label=el.labels&&el.labels[0],text=label?(label.firstChild&&label.firstChild.textContent||label.textContent):'';return String(text).replace(/\s*\(.*$/,'').trim()||'number';}
  function read(card){
   const v={},bad=[];
   document.querySelectorAll(`[data-fiber="${card}"]`).forEach(el=>{
    v[el.dataset.field]=el.value;
-   if(el.validity&&el.validity.badInput===true){bad.push(boxName(el));el.setAttribute('aria-invalid','true');}else el.removeAttribute('aria-invalid');
+   const note=document.getElementById(el.id+'-error');
+   if(el.validity&&el.validity.badInput===true){
+    const name=boxName(el);bad.push(name);el.setAttribute('aria-invalid','true');
+    /* the reason sits directly under the box (the card-wide result can be far below on a phone) and the box points at it */
+    if(note){note.textContent='The '+name+' box holds an unfinished entry (for example just a minus sign). Finish the number, or clear the box.';note.hidden=false;el.setAttribute('aria-describedby',note.id);}
+   }else{el.removeAttribute('aria-invalid');if(note){note.hidden=true;note.textContent='';}el.removeAttribute('aria-describedby');}
   });
   Object.defineProperty(v,'__bad',{value:bad,enumerable:false});
   return v;
