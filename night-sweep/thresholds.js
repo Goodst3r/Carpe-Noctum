@@ -36,6 +36,19 @@ const Thresholds=(()=>{
   source:'Entered by you in this job’s meter setup',revision:'Per job; saved with the job and its backups',locator:'Test → Meter setup → 42/54 MHz workflow',
   conditions:'Return transmitter output reference at the plane and frequencies you record in meter setup. Separate from sweep injection and receiver references. The 204/258 workflow has no TX reference; it uses XPERTrak return sweep.',
   date:'Not recorded when entered',scope:'42/54',verification:'entered',usedBy:'Test → Meter setup and its exported notes'});
+ const gradingRows=['42-forward','42-reverse','204-forward','204-reverse'].flatMap(profileKey=>[
+  ['lowFrequencyMHz','Low measured marker','MHz'],['highFrequencyMHz','High measured marker','MHz'],['ptvLimitDb','Peak-to-valley limit','dB'],['lowTargetDbmv','Low level target','dBmV'],['highTargetDbmv','High level target','dBmV'],['maxLevelErrorDb','Maximum level error','dB'],['tiltTargetDb','Signed tilt target','dB'],['maxTiltErrorDb','Maximum tilt error','dB']
+ ].map(([field,name,units])=>({id:'company.grading.'+profileKey+'.'+field,label:'company',name:name+' ('+profileKey+')',kind:'target',units,store:'grading',profileKey,field,source:'Explicit user entries in this job; no defaults or native-file limits',revision:'Per job grading snapshot',locator:'Job → ONX files: Grading aid',conditions:'Raw supplied sweep samples at the verified same measurement plane. Exact markers; no correction or acceptance.',date:'Not recorded when entered',scope:profileKey.startsWith('42-')?'42/54':'204/258',verification:'entered',usedBy:'Job → ONX files: Grading aid'})));
+ const archiveGuards=Object.entries(typeof EvidenceArchive!=='undefined'?EvidenceArchive.limits:{}).map(([field,value])=>({id:'app.evidence.'+field,label:'unknown',name:({inputBytes:'Maximum original evidence bytes',decodedBytes:'Maximum decoded preview bytes',entries:'Maximum ZIP entries'})[field],kind:'limit',value,units:field==='entries'?'entries':'bytes',source:'EvidenceArchive.limits; input and decoded caps reuse EvidenceCore.limits',revision:'Carpe Noctum build 3 bounded native adapter',locator:'night-sweep/evidence-archive.js: resource limits and streaming decoder',conditions:'Software application resource guard only. Not an OEM specification, supported RF band, measurement precision or company criterion.',date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files → native JSON/gzip/ZIP previews'}));
+ const gradingGuards=[
+  ['minMHz','Minimum grading marker / sample frequency',5,'MHz','Inclusive lower frequency bound.'],
+  ['maxMHz','Maximum grading marker / sample frequency',1800,'MHz','Inclusive upper frequency bound.'],
+  ['maxScalar','Maximum absolute entered level / difference',1000000,'dB / dBmV','Absolute bound on supplied sample values and entered criteria; signed targets are permitted. Derived differences may be larger.'],
+  ['minMagnitude','Minimum entered magnitude limit',0,'dB','PTV, maximum level error and maximum tilt error limits must be nonnegative.'],
+  ['minSamples','Minimum complete supplied sample count',1,'samples','A series needs at least one sample; grading additionally needs two distinct exact band markers.'],
+  ['maxSamples','Maximum supplied sample count',10000,'samples','Complete supplied samples per normalized series, before selecting the grading band.'],
+  ['maxHistory','Maximum saved grading history',100,'records','Per job; each explicit re-grade adds a record. Back up and start a new job when full.']
+ ].map(([field,name,value,units,condition])=>({id:'app.grading.'+field,label:'unknown',name,kind:'limit',value,units,source:'Application guard in SweepGrading / SweepGradingUI; existing EvidenceCore numeric envelope',revision:'Carpe Noctum build 3 grading aid',locator:'night-sweep/sweep-grading.js: evaluateSeries / criterion; sweep-grading-ui.js: profile / grade / validate',conditions:'Software application guard only, not an OEM specification, equipment capability or company criterion. '+condition,date:CHECKED,scope:'all',verification:'unverified',usedBy:'Job → ONX files: Grading aid'}));
  const rows=Object.freeze([
   // Personal sweep reminders: entered preference and explicitly unverified application policies.
   {id:'company.sweepDue.intervalMonths',label:'company',name:'Sweep reminder interval',kind:'target',units:'calendar months',store:'sweepDue',field:'intervalMonths',source:'Personal technician / company interval entered for this view of all device jobs',revision:'Per working job; optional preference saved with existing job and JSON backup',locator:'Job → Sweep due → Sweep reminder interval',conditions:'Starts unknown. Saved with the current working job; used for this view of all jobs. Loading another job can change it. Strict decimal digits, 1–1200 whole calendar months; original input text retained.',date:'Not recorded when entered',scope:'all',verification:'entered',usedBy:'Job → Sweep due'},
@@ -195,7 +208,10 @@ const Thresholds=(()=>{
   profileRow('injectionLow','Network injection, low marker','dBmV','Return test-signal injection at the profile’s low marker. Not the TX reference.'),
   profileRow('injectionHigh','Network injection, high marker','dBmV','Return test-signal injection at the profile’s high marker. Not the TX reference.'),
   profileRow('injectionTol','Injection tolerance','± dB','Allowed difference from the injection targets.'),
-  sweepRow()
+  sweepRow(),
+  ...archiveGuards,
+  ...gradingGuards,
+  ...gradingRows
  ].map(row=>Object.freeze(row)));
  const byId=new Map();for(const row of rows)byId.set(row.id,row);
  const owner=()=>typeof state!=='undefined'&&state?state:{};
@@ -212,7 +228,7 @@ const Thresholds=(()=>{
   if(!VERIFICATION[row.verification])problems.push('unsupported verification');
   if(row.date!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(row.date)&&!['Not recorded when entered',PRESET_DATE].includes(row.date))problems.push('date must be YYYY-MM-DD');
   if(row.label==='company'&&row.verification!=='entered')problems.push('company values are entered values');
-  if(row.store&&!['profile','sweep','station','docsis','leakage','sweepDue'].includes(row.store))problems.push('unsupported store');
+  if(row.store&&!['profile','sweep','station','docsis','leakage','sweepDue','grading'].includes(row.store))problems.push('unsupported store');
   return problems;
  }
  function selectedProfile(s=owner()){return s.project?.profiles?.find(p=>String(p.id)===String(s.project.selectedProfile))||null;}
@@ -220,6 +236,7 @@ const Thresholds=(()=>{
  function resolve(id,s=owner()){
   const row=get(id);if(!row)return null;
   if(row.store==='sweepDue'){const raw=s.sweepDue?.intervalMonths??'',parsed=typeof SweepDue!=='undefined'?SweepDue.parseInterval(raw):{status:'unknown',value:null};return {value:parsed.value,text:parsed.status==='valid'?'':('Interval '+parsed.status),where:'Current working job; used for this view of all jobs'};}
+  if(row.store==='grading')return {value:finite(s.sweepGrading?.profiles?.[row.profileKey]?.[row.field]),where:'This job’s '+row.profileKey+' grading criteria'};
   if(row.store==='station'){const stage=typeof StationView!=='undefined'?StationView.currentStage(s):null;return {value:finite(stage?.[row.stageScope]?.[row.field]),where:'Selected station · '+(s.stationView?.selected||'first installed station')+' · '+(typeof StationView!=='undefined'?StationView.currentRecord(s).stage||'before':'before')};}
   if(row.store==='profile'){const p=selectedProfile(s);return {value:p?finite(p[row.field]):null,where:p?'Selected profile '+p.id:'No project profile selected'};}
   if(row.store==='sweep'){const v=s.sweepSetup?.profiles?.[row.split]?.[row.field];return {value:finite(v),where:'This job’s '+row.split+' MHz meter setup'};}
@@ -246,7 +263,7 @@ const Thresholds=(()=>{
  function sheetBody(row){
   const info=LABEL_INFO[row.label],r=resolve(row.id),value=display(row.id);
   const caution=['secondary','unverified'].includes(row.verification)?`<p class="status warning">${escape(VERIFICATION[row.verification])}</p>`:'';
-  const edit=row.store==='sweepDue'?`<button type="button" data-task="sweepDue" data-source-close>Edit in Job → Sweep due</button>`:row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Test → DOCSIS health</button>`:row.store==='leakage'?`<button type="button" data-task="leakage" data-source-close>Edit in Test → Leakage</button>`:'';
+  const edit=row.store==='grading'?`<button type="button" data-task="evidence" data-grading-profile="${escape(row.profileKey)}" data-source-close>Edit in Job → ONX files: Grading aid</button>`:row.store==='sweepDue'?`<button type="button" data-task="sweepDue" data-source-close>Edit in Job → Sweep due</button>`:row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Job → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Test → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Test → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Test → DOCSIS health</button>`:row.store==='leakage'?`<button type="button" data-task="leakage" data-source-close>Edit in Test → Leakage</button>`:'';
   return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail('Used by',row.usedBy)}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
  }
  let sheet=null,returnFocus=null;
@@ -261,7 +278,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage']];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);

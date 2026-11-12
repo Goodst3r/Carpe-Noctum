@@ -1,0 +1,80 @@
+{
+  "selected": "r1",
+  "stations": {
+    "station_synthetic_grading": {
+      "pointId": "r1",
+      "equipmentId": "active_gm_hgd",
+      "equipmentContext": "[\"active_gm_hgd\",\"route\"]",
+      "stage": "before",
+      "stages": {
+        "before": {
+          "forward": {
+            "lowMHz": "54",
+            "highMHz": "860",
+            "measuredLow": "36.4",
+            "measuredHigh": "49.6",
+            "targetLow": "39",
+            "targetHigh": "49",
+            "pad": "6",
+            "eq": "9",
+            "levelTolerance": "",
+            "tiltTolerance": "",
+            "plane": "SYNTHETIC output plane"
+          },
+          "returns": {
+            "referencePointTarget": "19",
+            "insertionLoss": "20",
+            "actualInjection": "39",
+            "receiverReading": "-1.25",
+            "receiverReference": "-3.5",
+            "pad": "0",
+            "eq": "0",
+            "tolerance": "",
+            "referencePoint": "SYNTHETIC injection plane",
+            "receiverPlane": "SYNTHETIC receiver plane",
+            "referenceId": "SYNTHETIC-REF"
+          },
+          "updatedAt": "2026-11-11T00:00:00.000Z"
+        },
+        "after": {
+          "forward": {
+            "lowMHz": "54",
+            "highMHz": "860",
+            "measuredLow": "39",
+            "measuredHigh": "49",
+            "targetLow": "39",
+            "targetHigh": "49",
+            "pad": "6",
+            "eq": "9",
+            "levelTolerance": "",
+            "tiltTolerance": "",
+            "plane": "SYNTHETIC output plane"
+          },
+          "returns": {
+            "referencePointTarget": "19",
+            "insertionLoss": "20",
+            "actualInjection": "39",
+            "receiverReading": "-1.25",
+            "receiverReference": "-3.5",
+            "pad": "0",
+            "eq": "0",
+            "tolerance": "",
+            "referencePoint": "SYNTHETIC injection plane",
+            "receiverPlane": "SYNTHETIC receiver plane",
+            "referenceId": "SYNTHETIC-REF"
+          },
+          "updatedAt": "2026-11-11T00:01:00.000Z"
+        }
+      },
+      "balanced": {
+        "done": false,
+        "date": ""
+      },
+      "swept": {
+        "done": false,
+        "date": ""
+      },
+      "bindingVersion": 2
+    }
+  }
+}

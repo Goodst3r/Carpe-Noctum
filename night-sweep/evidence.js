@@ -53,10 +53,103 @@
   channel:['channel','channel_name','channel name'],
   mer_db:['mer_db','mer (db)','mer db']
  };
+ // Only the two inspected, typed VIAVI layouts are supported. Document metadata
+ // stays in the original bytes; these adapters emit technical state and samples.
+ function parseNative(text,kind){
+  const attachment=(message,native)=>Object.assign({status:'attachment',message:'Original JSON retained; preview unavailable. '+message},native?{native}:{});
+  if(kind!=='Sweep')return attachment('Native sweep JSON requires the Sweep category.');
+  if(textBytes(text)>limits.textBytes)return attachment('Preview decoding is limited to 2 MiB of text.');
+  if(unsafe.test(text))return attachment('Unsupported control characters prevent decoding.');
+  let native;
+  try{
+   const doc=JSON.parse(text.replace(/^\uFEFF/,'')),traces=[],warnings=[];
+   // A malformed secondary envelope must not be silently discarded either.
+   if(plain(doc)&&owns(doc,'testGroup')&&(owns(doc,'cdmVersion')||owns(doc,'tests')))throw Error('Multiple native envelopes are ambiguous; no trace was selected.');
+   const warn=s=>{if(!warnings.includes(s)&&warnings.length<8)warnings.push(s);};
+   const vector=(values,label)=>{if(!Array.isArray(values))throw Error('Invalid '+label+' sample array.');if(values.length>limits.samples)throw Error('Native trace exceeds '+limits.samples+' samples.');return values;};
+   const samples=(pairs)=>{
+    const seen=new Set(),points=[];
+    for(const p of pairs){
+     if(!Array.isArray(p)||p.length!==2||!scalar(p[0])||!scalar(p[1]))throw Error('Every sample must be a pair of finite JSON numbers.');
+     if(p[0]<5||p[0]>1800)throw Error('Sample frequency is outside 5–1800 MHz.');
+     if(seen.has(p[0]))throw Error('Duplicate sample frequency.');
+     seen.add(p[0]);points.push([p[0],p[1]]);
+    }
+    return points.sort((a,b)=>a[0]-b[0]);
+   };
+   if(plain(doc)&&plain(doc.testGroup)&&Array.isArray(doc.testGroup.tests)){
+    native={format:'viavi-testgroup',direction:'unknown',referenceState:'unknown'};
+    for(const test of doc.testGroup.tests){
+     if(!plain(test)||test.id!=='sweeplessSweep')continue;
+     if(!Array.isArray(test.resultGroups))throw Error('Unsupported sweep result groups.');
+     for(const group of test.resultGroups){
+      if(!plain(group)||group.id!=='sweep')continue;
+      if(!Array.isArray(group.resultSeries))throw Error('Unsupported sweep result series.');
+      for(const series of group.resultSeries){
+       if(!plain(series)||series.id!=='Levels')continue;
+       const x=series.independent;
+       if(!plain(x)||x.label!=='Frequency'||x.type!=='set'||x.units!=='MHz')throw Error('Unsupported frequency type or units; explicit MHz is required.');
+       const frequencies=vector(x.values,'frequency');
+       if(!Array.isArray(series.dependent))throw Error('Unsupported dependent sample arrays.');
+       for(const y of series.dependent){
+        if(!plain(y)||y.type!=='set'||!['Absolute','Referenced'].includes(y.label))throw Error('Unsupported dependent trace type.');
+        const unit=y.label==='Absolute'?'dBmV':'dB';
+        if(y.units!==unit)throw Error('Unsupported or inconsistent trace units.');
+        const values=vector(y.values,'dependent');
+        if(!values.length){warn(y.label==='Referenced'?'Empty Referenced trace skipped; no response samples are available.':'Empty Absolute trace skipped; no level samples are available.');continue;}
+        if(frequencies.length!==values.length)throw Error('Frequency and dependent sample lengths do not match.');
+        traces.push({unit,points:samples(values.map((value,i)=>[frequencies[i],value])),referenceState:y.label==='Absolute'?'unreferenced':'referenced'});
+       }
+      }
+     }
+    }
+   }else if(plain(doc)&&doc.cdmVersion==='2.0'&&Array.isArray(doc.tests)){
+    native={format:'viavi-cdm2',direction:'unknown',referenceState:'unknown'};
+    for(const test of doc.tests){
+     if(!plain(test)||test.type!=='sweepmode_app')continue;
+     if(!plain(test.results)||!plain(test.results.data))throw Error('Unsupported CDM sweep results.');
+     const results=Object.values(test.results.data);let conflictingReference=false;
+     for(const table of results){
+      if(!plain(table)||table.eType!=='resultTable'||!Array.isArray(table.tableData))continue;
+      for(const row of table.tableData){
+       if(!Array.isArray(row)||row.length!==2||!plain(row[0])||!plain(row[1]))continue;
+       if((row[0].value==='Reference name'&&row[1].value!=='NONE')||(row[0].value==='Reference date'&&row[1].value!=='---'))conflictingReference=true;
+      }
+     }
+     for(const chart of results){
+      if(!plain(chart)||chart.eType!=='resultSeries')continue;
+      if(chart.type!=='line')throw Error('Unsupported CDM chart type.');
+      if(chart.xAxisLabel!=='MHz'||!['dBmV','dB'].includes(chart.yAxisLabel))throw Error('Unsupported chart axis units.');
+      const label=typeof chart.label==='string'?chart.label:'',sweep=/\bsweep\b/i.test(label),forward=/\bforward\b/i.test(label),reverse=/\breverse\b/i.test(label);
+      let direction=sweep&&forward!==reverse?(forward?'forward':'reverse'):'unknown';
+      const testLabel=typeof test.label==='string'?test.label:'',testSweep=/\bsweep\b/i.test(testLabel);
+      if(testSweep&&((direction==='forward'&&/\breverse\b/i.test(testLabel))||(direction==='reverse'&&/\bforward\b/i.test(testLabel)))){
+       direction='unknown';warn('Sweep direction metadata conflicts between the test and chart; direction is unknown.');
+      }
+      for(const child of Object.values(chart)){
+       if(!plain(child)||child.eType!=='series')continue;
+       if(child.name!=='Unreferenced'||child.dimensions!==2)throw Error('Unsupported CDM trace name or dimensions.');
+       if(!Array.isArray(child.units)||child.units.length!==2||child.units[0]!=='MHz'||child.units[1]!=='dBmV'||child.units[1]!==chart.yAxisLabel)throw Error('Unsupported or inconsistent trace units.');
+       const data=vector(child.data,'trace');
+       if(!data.length){warn('Empty Unreferenced trace skipped; no level samples are available.');continue;}
+       traces.push({unit:'dBmV',points:samples(data),direction,referenceState:conflictingReference?'unknown':'unreferenced'});
+       if(conflictingReference)warn('Reference metadata conflicts with the Unreferenced trace; reference state is unknown.');
+      }
+     }
+    }
+   }else return attachment('JSON does not match a supported native sweep schema or version.');
+   if(traces.length!==1)throw Error(traces.length?'Multiple nonempty sweep traces are ambiguous; no trace was selected.':'No nonempty supported sweep samples are available.');
+   const trace=traces[0];native.direction=trace.direction||'unknown';native.referenceState=trace.referenceState;
+   if(native.direction==='unknown')warn('Sweep direction is not explicit in supported metadata.');
+   if(warnings.length)native.warnings=warnings;
+   return {status:'parsed',message:'Decoded '+trace.points.length+' explicit native sweep points ('+trace.unit+'). Raw values only; no test-point, lead or reference correction applied. This is not an acceptance result.'+(warnings.length?' '+warnings.join(' '):''),native,series:{unit:trace.unit,label:trace.unit==='dBmV'?'Absolute level':'Relative response',points:trace.points}};
+  }catch(e){return attachment(e instanceof SyntaxError?'JSON is malformed.':e.message,native);}
+ }
  function parseText(text,filename,kind){
   const attachment=message=>({status:'attachment',message});
   if(typeof text!=='string')return attachment('Original attachment retained; no text was supplied for decoding.');
-  if(!/\.csv$/i.test(String(filename||'')))return attachment('Original attachment only. Native ONX JSON, XML, ZIP, PDF and other schemas are not decoded in Carpe Noctum 2.0 Alpha build 3.');
+  if(/\.json$/i.test(String(filename||'')))return parseNative(text,kind);
+  if(!/\.csv$/i.test(String(filename||'')))return attachment('Original attachment only. This file type is not decoded by the text preview.');
   if(!kinds.includes(kind))return attachment('Choose Sweep, Ingress or OneCheck before importing.');
   if(textBytes(text)>limits.textBytes)return attachment('Original CSV retained. Preview decoding is limited to 2 MiB of text.');
   if(unsafe.test(text))return attachment('Original CSV retained. Unsupported control characters prevent decoding.');
@@ -90,8 +183,18 @@
  }
  function validateParse(parse){
   if(!plain(parse)||!['parsed','attachment'].includes(parse.status))throw Error('Invalid evidence parse result.');
-  ownKeys(parse,['status','message','series','rows'],'parse');
+  ownKeys(parse,['status','message','series','rows','native'],'parse');
   boundedString(parse.message,'parse message',1200,true,true);
+  if(owns(parse,'native')){
+   const native=parse.native;
+   if(!plain(native))throw Error('Invalid native evidence descriptor.');
+   ownKeys(native,['format','direction','referenceState','warnings'],'native');
+   if(!['viavi-testgroup','viavi-cdm2'].includes(native.format)||!['forward','reverse','unknown'].includes(native.direction)||!['unreferenced','referenced','unknown'].includes(native.referenceState))throw Error('Invalid native evidence state.');
+   if(owns(native,'warnings')){
+    if(!Array.isArray(native.warnings)||native.warnings.length>8)throw Error('Invalid native evidence warnings.');
+    for(const warning of native.warnings)boundedString(warning,'native warning',200,true);
+   }
+  }
   if(parse.status==='attachment'){if(owns(parse,'series')||owns(parse,'rows'))throw Error('Attachment-only evidence cannot claim decoded measurements.');return;}
   const series=parse.series;
   if(!plain(series)||!['dBmV','dB'].includes(series.unit)||!Array.isArray(series.points)||!series.points.length||series.points.length>limits.samples)throw Error('Invalid evidence series.');
@@ -128,6 +231,7 @@
    if(typeof item.sha256!=='string'||!/^[a-fA-F0-9]{64}$/.test(item.sha256))throw Error('Invalid evidence SHA-256.');
    validateParse(item.parse);
    if(item.parse.rows&&item.kind!=='OneCheck')throw Error('Decoded channel rows require OneCheck evidence.');
+   if(item.parse.native&&item.kind!=='Sweep')throw Error('Native sweep descriptors require Sweep evidence.');
   }
   if(total>limits.totalBytes)throw Error('Project evidence exceeds the 12 MiB total limit.');
   return true;
