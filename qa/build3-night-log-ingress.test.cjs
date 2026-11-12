@@ -8,6 +8,7 @@ async function check(name,fn){await fn();await flush();assert.deepEqual(h.errors
 function input(selector,value,type='input'){const el=d.querySelector(selector);assert(el,selector);el.value=value;el.dispatchEvent(new w.Event(type,{bubbles:true}));return el;}
 const fresh=()=>ev('loadState({version:1,example:true,setup:{},rows:[]});WorkflowUI.go("nightLog")');
 function ingressDraft(values={}){input('[data-night-draft="type"]','intermittent-ingress','change');for(const[k,v]of Object.entries(values))input(`[data-night-ingress-draft="${k}"]`,v);}
+const ingressBounds=[['conditions','nightLog.ingress.conditions.max',2000],['observedAt','nightLog.ingress.observedAt.max',200],['weather','nightLog.ingress.weather.max',500]];
 function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if(c==='\r'&&text[i+1]==='\n'&&!quoted){row.push(cell);rows.push(row);row=[];cell='';i++;}else cell+=c;}row.push(cell);rows.push(row);return rows;}
 (async()=>{
  await check('Ingress type alone or Unicode whitespace refuses before any state or autosave mutation',()=>{
@@ -61,6 +62,33 @@ function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=
  await check('Exact ingress text bounds accept raw strings and reject overflow without mutation',()=>{
   fresh();ev('NightLog.addEntry({type:"intermittent-ingress",ingress:{conditions:"x".repeat(2000),observedAt:"t".repeat(200),weather:"w".repeat(500)}})');const before=json('state');
   for(const [key,length]of [['conditions',2001],['observedAt',201],['weather',501]])assert.throws(()=>ev(`NightLog.addEntry({type:"intermittent-ingress",ingress:{conditions:"",observedAt:"",weather:"",${key}:"x".repeat(${length})}})`),/night.log/i);assert.deepEqual(json('state'),before);
+  const unicode={conditions:'😀'.repeat(1000),observedAt:'😀'.repeat(100),weather:'😀'.repeat(250)};
+  ev(`NightLog.addEntry(${JSON.stringify({type:'intermittent-ingress',ingress:unicode})})`);assert.deepEqual(json('state.nightLog.entries.at(-1).ingress'),unicode,'non-BMP text is retained at the UTF-16 code-unit boundary');const unicodeBefore=json('state');
+  for(const field of ['conditions','observedAt','weather'])assert.throws(()=>ev(`NightLog.addEntry(${JSON.stringify({type:'intermittent-ingress',ingress:{...unicode,[field]:unicode[field]+'x'}})})`),/night.log/i);assert.deepEqual(json('state'),unicodeBefore,'one extra UTF-16 code unit refuses atomically');
+ });
+ await check('Ingress inputs expose their Unknown application bounds through real source details',async()=>{
+  fresh();ingressDraft();
+  for(const [field,id,limit]of ingressBounds){
+   const row=json(`Thresholds.get(${JSON.stringify(id)})||null`);assert(row,'registered ingress bound '+id);assert.equal(row.label,'unknown');assert.equal(row.verification,'unverified');assert.equal(row.value,limit);assert.equal(ev(`Thresholds.matches(${JSON.stringify(id)})`),1);assert.deepEqual(json(`Thresholds.checkRow(Thresholds.get(${JSON.stringify(id)}))`),[]);
+   assert.match(row.units,/UTF[- ]?16.*code units?/i);assert.match(row.source+' '+row.conditions,/software|application guard/i);assert.match(row.source+' '+row.conditions,/not.*(?:RF|equipment|manufacturer|company|acceptance)/i);
+   const box=d.querySelector(`[data-night-ingress-draft="${field}"]`),tag=d.querySelector(`[data-night-ingress-fields] [data-threshold="${id}"]`);assert.equal(box.maxLength,limit);assert(tag,'source tag beside the manual ingress fields: '+id);assert.equal(tag.closest('label'),null);assert.equal(tag.tagName,'BUTTON');assert.equal(tag.type,'button');assert.equal(tag.textContent,'Unknown');assert.equal(tag.dataset.label,'unknown');assert.equal(tag.getAttribute('aria-haspopup'),'dialog');assert.match(tag.getAttribute('aria-label'),/Unknown source/i);
+   tag.focus();tag.click();await flush();const sheet=d.querySelector('dialog#sourceSheet[open]');assert(sheet,'actual source dialog opens');assert.equal(sheet.dataset.sheetFor,id);assert.equal(d.activeElement.id,'sourceSheetTitle');
+   const details=Object.fromEntries([...sheet.querySelectorAll('dt')].map(term=>[term.textContent,term.nextElementSibling?.textContent]));assert.match(details.Value.replaceAll(',',''),new RegExp('^'+limit+'\\b'));assert.match(details.Units,/UTF[- ]?16.*code units?/i);for(const [term,value]of [['Source',row.source],['Revision',row.revision],['Page, table or section',row.locator],['Applies when',row.conditions]])assert.equal(details[term],value,term+' details belong to '+field);
+   sheet.querySelector('[data-source-close]').click();await flush();assert.equal(d.querySelector('#sourceSheet'),null);assert.equal(d.activeElement,tag,'focus returns to the bound tag');
+  }
+  assert.equal(d.querySelector('#nightLogPanel label [data-threshold]'),null,'source controls never become part of an input label');
+ });
+ await check('Opening ingress sources preserves unadded notes and rejected saved-entry text',async()=>{
+  fresh();ev('NightLog.addEntry({type:"intermittent-ingress",action:"Saved synthetic work",ingress:{conditions:"Saved conditions",observedAt:"",weather:"Saved manual weather"}});NightLog.render(true)');
+  const draft={conditions:'Unadded conditions Ω',observedAt:'About 01:30; zone unknown',weather:'   '};ingressDraft(draft);input('[data-night-draft="action"]','Unadded attempted work');
+  const invalid='w'.repeat(501);input('[data-night-ingress-entry="weather"]',invalid);assert.equal(ev('state.nightLog.entries[0].ingress.weather'),'Saved manual weather');assert.match(d.querySelector('[data-night-status]').textContent,/not saved|remains visible|correct/i);
+  const before=json('state'),stored=ev('localStorage.getItem("hfc-route-v1")');
+  for(const [,id]of ingressBounds){
+   const tag=d.querySelector(`[data-night-ingress-fields] [data-threshold="${id}"]`);assert(tag,id);tag.focus();tag.click();await flush();assert(d.querySelector('dialog#sourceSheet[open]'));ev('NightLog.render(true)');
+   for(const [field,value]of Object.entries(draft))assert.equal(d.querySelector(`[data-night-ingress-draft="${field}"]`).value,value);assert.equal(d.querySelector('[data-night-draft="type"]').value,'intermittent-ingress');assert.equal(d.querySelector('[data-night-draft="action"]').value,'Unadded attempted work');assert.equal(d.querySelector('[data-night-ingress-entry="weather"]').value,invalid);assert.deepEqual(json('state'),before);assert.equal(ev('localStorage.getItem("hfc-route-v1")'),stored);
+   d.querySelector('#sourceSheet [data-source-close]').click();await flush();assert.equal(d.activeElement,tag);assert.equal(d.querySelector('[data-night-ingress-entry="weather"]').value,invalid);assert.deepEqual(json('state'),before);assert.equal(ev('localStorage.getItem("hfc-route-v1")'),stored);
+  }
+  input('[data-night-ingress-entry="weather"]','Corrected manual weather');assert.equal(ev('state.nightLog.entries[0].ingress.weather'),'Corrected manual weather');
  });
  console.log(`Build3 night log ingress: ${checks} checks passed`);h.close();
 })().catch(error=>{console.error(error);h.close();process.exitCode=1;});

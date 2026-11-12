@@ -4,7 +4,7 @@ from pathlib import Path
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
-import os,tempfile,subprocess
+import os,re,tempfile,subprocess
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parent.parent
 class Quiet(SimpleHTTPRequestHandler):
@@ -107,6 +107,44 @@ try:
             for theme in ['night','sun']:
                 page.evaluate('(theme)=>document.documentElement.dataset.theme=theme',theme)
                 check(f'{width}px {theme} ingress long notes fit',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+            page.evaluate('document.documentElement.dataset.theme="night"')
+            ingress_bounds=[
+                ('conditions','nightLog.ingress.conditions.max',2000),
+                ('observedAt','nightLog.ingress.observedAt.max',200),
+                ('weather','nightLog.ingress.weather.max',500),
+            ]
+            tags=page.locator('[data-night-ingress-fields] [data-threshold]')
+            check(f'{width}px ingress bounds have three reachable Unknown source buttons outside labels',tags.count()==3 and tags.evaluate_all('(els)=>els.every(e=>e.dataset.label==="unknown"&&e.getAttribute("aria-haspopup")==="dialog"&&!e.closest("label")&&e.getBoundingClientRect().width>=44&&e.getBoundingClientRect().height>=44)') and all(page.locator(f'[data-night-ingress-fields] [data-threshold="{source_id}"]').count()==1 for _,source_id,_ in ingress_bounds))
+            draft_before=page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')
+            saved_before=page.evaluate('JSON.stringify(state)')
+            storage_before=page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')
+            for field,source_id,cap in ingress_bounds:
+                tag=page.locator(f'[data-night-ingress-fields] [data-threshold="{source_id}"]')
+                tag.click()
+                sheet=page.locator('dialog#sourceSheet[open]')
+                details=sheet.locator('.source-details').evaluate('(root)=>Object.fromEntries([...root.querySelectorAll("div")].map(row=>[row.querySelector("dt").textContent,row.querySelector("dd").textContent]))')
+                number=re.match(r'[\d,]+(?:\.\d+)?',details.get('Value',''))
+                policy=details.get('Applies when','')+' '+details.get('Source','')
+                check(f'{width}px {field} source explains the actual UTF-16 software text bound',sheet.get_attribute('data-sheet-for')==source_id and number is not None and float(number.group().replace(',',''))==cap and page.locator(f'[data-night-ingress-draft="{field}"]').get_attribute('maxlength')==str(cap) and page.locator('[data-night-entry-id]').last.locator(f'[data-night-ingress-entry="{field}"]').get_attribute('maxlength')==str(cap) and re.search(r'UTF\W*16.*code\W*units?',details.get('Units',''),re.I) is not None and re.search(r'software|application',policy,re.I) is not None and re.search(r'not .*?(?:RF|company)',policy,re.I) is not None)
+                check(f'{width}px {field} source dialog fits the narrow screen',sheet.evaluate('(e)=>{const r=e.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&e.scrollWidth<=e.clientWidth+1}') and page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                sheet.locator('[data-source-close]').click()
+                page.wait_for_function('!document.getElementById("sourceSheet")')
+                check(f'{width}px {field} source close returns focus without saving or losing a draft',tag.evaluate('(e)=>document.activeElement===e') and page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')==draft_before and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            last_entry=page.locator('[data-night-entry-id]').last
+            last_entry.evaluate('(e)=>e.open=true')
+            saved_weather=last_entry.locator('[data-night-ingress-entry="weather"]')
+            valid_weather=saved_weather.input_value()
+            invalid_weather='W'*501
+            saved_weather.evaluate('(e,value)=>{e.value=value;e.dispatchEvent(new Event("input",{bubbles:true}))}',invalid_weather)
+            invalid_feedback=page.locator('[data-night-status]').inner_text()
+            check(f'{width}px oversized saved ingress edit stays visible with feedback without entering storage',saved_weather.input_value()==invalid_weather and re.search(r'invalid|too long|length|limit',invalid_feedback,re.I) is not None and 'visible' in invalid_feedback.lower() and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            page.evaluate('NightLog.render(true)')
+            source=page.locator('[data-night-ingress-fields] [data-threshold="nightLog.ingress.weather.max"]')
+            source.click()
+            page.locator('dialog#sourceSheet[open] [data-source-close]').click()
+            page.wait_for_function('!document.getElementById("sourceSheet")')
+            check(f'{width}px source details and same-owner render retain the rejected edit and unadded draft',saved_weather.input_value()==invalid_weather and source.evaluate('(e)=>document.activeElement===e') and page.locator('[data-night-draft],[data-night-ingress-draft]').evaluate_all('(els)=>els.map(e=>[e.dataset.nightDraft||e.dataset.nightIngressDraft,e.value])')==draft_before and page.evaluate('JSON.stringify(state)')==saved_before and page.evaluate('JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)])))')==storage_before)
+            saved_weather.fill(valid_weather)
             stored_log=page.evaluate('JSON.stringify(state.nightLog)');page.reload();page.evaluate('WorkflowUI.go("nightLog")')
             check(f'{width}px real page reload retains ingress bytes',page.evaluate('JSON.stringify(state.nightLog)')==stored_log)
             context.close()
