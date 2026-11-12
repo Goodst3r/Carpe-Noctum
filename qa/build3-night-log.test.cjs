@@ -20,7 +20,7 @@ function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=
  await check('Blank Add refuses without a slot, store write or job mutation; explicit Station capture remains meaningful',()=>{
   ev('loadState({version:1,setup:{},rows:[]});WorkflowUI.go("nightLog")');
   const before=json('state'),stored=ev('localStorage.getItem("hfc-route-v1")');
-  for(const draft of [{},{asset:' \t',action:'\n',rocUpdate:' ',gas:' ',mileage:' ',asBuilt:' '}])assert.throws(()=>ev(`NightLog.addEntry(${JSON.stringify(draft)})`),/enter|blank|choose/i);
+  for(const draft of [{},{asset:' \t',action:'\n',rocUpdate:' ',gas:' ',mileage:' ',asBuilt:' '},{asset:'\u00a0',action:' \t\u00a0'}])assert.throws(()=>ev(`NightLog.addEntry(${JSON.stringify(draft)})`),/enter|blank|choose/i);
   assert.deepEqual(json('state'),before);assert.equal(ev('localStorage.getItem("hfc-route-v1")'),stored);
   input('[data-night-draft="action"]',' \n ');d.querySelector('[data-night-action="add"]').click();assert.deepEqual(json('state'),before);assert.match(d.querySelector('[data-night-status]').textContent,/enter|blank|choose/i);
   seed();ev('NightLog.addEntry({stationIdentity:StationView.records()[0].identity})');assert.equal(ev('state.nightLog.entries.length'),1);assert(ev('state.nightLog.entries[0].station.identity'));
@@ -29,6 +29,7 @@ function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=
   seed();add('First');add('Second');add('Third');const original=json('state.nightLog.entries'),id=original[1].id;
   ev(`NightLog.removeEntry(${JSON.stringify(id)})`);assert.deepEqual(json('state.nightLog.entries').map(e=>e.id),[original[0].id,original[2].id]);
   ev('NightLog.addEntry({action:"Later entry"})');const later=json('state.nightLog.entries[2]');ev('NightLog.undoRemoval()');assert.deepEqual(json('state.nightLog.entries'),[...original,later]);assert.throws(()=>ev('NightLog.undoRemoval()'),/undo|remov/i);
+  ev(`NightLog.removeEntry(${JSON.stringify(original[0].id)});NightLog.removeEntry(${JSON.stringify(original[2].id)});NightLog.undoRemoval()`);assert.deepEqual(json('state.nightLog.entries'),[original[1],original[2],later]);
  });
  await check('Real Remove and Undo retain all unadded draft text and report autosave failure',()=>{
   seed();add();const original=json('state.nightLog.entries[0]');ev('NightLog.render(true)');
@@ -37,9 +38,9 @@ function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=
   try{d.querySelector('[data-night-remove]').click();assert.equal(ev('state.nightLog.entries.length'),0);assert.match(d.querySelector('[data-night-status]').textContent,/remain in memory.*Autosave failed/);assert.equal(d.querySelector('[data-night-draft="action"]').value,'Unadded \n text');d.querySelector('[data-night-action="undo"]').click();assert.deepEqual(json('state.nightLog.entries[0]'),original);assert.equal(d.querySelector('[data-night-draft="asset"]').value,'Draft Ω');assert.equal(d.querySelector('[data-night-draft="gas"]').value,'2 L');assert.equal(d.querySelector('[data-night-draft="stationIdentity"]').value,original.station.identity);assert.match(d.querySelector('[data-night-status]').textContent,/remain in memory.*Autosave failed/);}finally{w.Storage.prototype.setItem=old;}
  });
  await check('Job switch invalidates transient Undo and stale action handlers cannot edit the new job',()=>{
-  seed();add();ev('NightLog.render(true);window.__nightOldOwner=state');const staleAdd=d.querySelector('[data-night-action="add"]').onclick,staleRemove=d.querySelector('[data-night-remove]').onclick;
+  seed();add();const original=json('state.nightLog.entries[0]');ev('NightLog.render(true);window.__nightOldOwner=state');const staleAdd=d.querySelector('[data-night-action="add"]').onclick,staleRemove=d.querySelector('[data-night-remove]').onclick;
   ev('NightLog.removeEntry(state.nightLog.entries[0].id);NightLog.render(true)');const staleUndo=d.querySelector('[data-night-action="undo"]').onclick;
-  ev('loadState({version:1,setup:{},rows:[]});NightLog.render(true)');const before=json('state'),old=json('window.__nightOldOwner');staleAdd();staleRemove();staleUndo();assert.deepEqual(json('state'),before);assert.deepEqual(json('window.__nightOldOwner'),old);assert.throws(()=>ev('NightLog.undoRemoval()'),/undo|remov/i);assert.throws(()=>ev('NightLog.removeEntry("log_missing",window.__nightOldOwner)'),/job|owner|current/i);assert.deepEqual(json('window.__nightOldOwner'),old);delete w.__nightOldOwner;
+  ev(`loadState({version:1,setup:{},rows:[],nightLog:{ticket:'',windowStart:'',windowEnd:'',nextShift:'',entries:[${JSON.stringify({...original,action:'New owner history'})}]}});NightLog.render(true)`);const before=json('state'),old=json('window.__nightOldOwner');staleAdd();staleRemove();staleUndo();assert.deepEqual(json('state'),before);assert.deepEqual(json('window.__nightOldOwner'),old);assert.throws(()=>ev('NightLog.undoRemoval()'),/undo|remov/i);assert.throws(()=>ev('NightLog.removeEntry("log_missing",window.__nightOldOwner)'),/job|owner|current/i);assert.deepEqual(json('window.__nightOldOwner'),old);delete w.__nightOldOwner;
  });
  await check('Undo refuses duplicate IDs and full capacity atomically and can retry after a slot is freed',()=>{
   ev('loadState({version:1,setup:{},rows:[]});NightLog.addEntry({action:"Original"});window.__nightRemoved=NightLog.entries()[0];NightLog.removeEntry(window.__nightRemoved.id)');
