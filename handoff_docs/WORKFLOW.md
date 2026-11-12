@@ -29,7 +29,8 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 | A2 | Cascade calculator: thermal noise and CNR estimates only. | Cases C1-C4 plus edges and refusals. Fixed 290 K. No CTB/CSO score, no MER prediction, no ordered Friis chain or editable temperature (those need new cases first). |
 | A3 | NAV-1, the navigation regroup, exactly as the determination maps it. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
 | A4 | Context strip (P0-3). | |
-| A5 | Tonight list (P0-1). | Add open temporary repairs once B4 has merged. |
+| A4b | Supply PM notebook export/import (see "Known follow-ups"). | Additive; no new storage key. |
+| A5 | Tonight list (P0-1). | Add open temporary repairs once B4 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
 | A6 | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
 | A7 | Final: full gate on the final `build3`, then `handoff_docs/lanes/grok-debug-handoff.md`. | See "Done". |
 
@@ -50,7 +51,8 @@ Reviewing the other lane's open PR always comes before starting your own next it
 
 - Per-channel/DRW headroom tool, CTB/CSO plant-health scores, MER predictions: NO-GO.
 - Leakage-method pointer (P0-3b) and evidence handoff (P0-7): deferred until Spencer supplies the method or the definition.
-- PR #30 (item 14 supply PM) stays a parked draft. Items 16 and 12 do not start. They wait for NAV-1 and Spencer's go-ahead.
+- Build-list items 16 (connector checklist) and 12 (return path toolkit): blocked on missing sources (catalog manuals hold no torque or pin length; the funneling example is unchecked against SCTE 293-11, 293-13 or 270). They do not start until Spencer or a builder supplies the sources, and never ahead of the queues.
+- PR #30 (item 14, Power → Supply PM) merged as `61069f4` before this workflow existed. It is not to be reopened or reworked; see "Known follow-ups".
 
 ## Rules (both builders)
 
@@ -120,6 +122,11 @@ Do not wait on a review. After marking a PR ready, start your next item. If your
 ## Gatekeeper check (Claude)
 
 CI green on the exact head; diff contains only the stated files; no `outputs/` or `dist/` delta the PR did not rebuild; every new value labelled and sourced; company values Unknown; 42/54 and 204/258 separate; no storage-key, package or version change; no secrets or real meter files; the PR body's commands and counts are specific; nothing from "Not to be built". Results go in a PR comment and in `handoff_docs/reviews/claude-gatekeeper-log.md`.
+
+## Known follow-ups
+
+- **Supply PM notebook is outside backups.** PR #30 stores its notebook under the device key `nightsweep-power-pm-v1`, not in the job and not in a project backup. The new-key APK requires uninstall before install, which destroys it. Before the APK is frozen, Grok adds an export/import for that notebook (or includes it in the project backup additively) and proves old jobs and backups still round-trip; until then `APK_STEPS.md` must tell Spencer to export it first. Queue this as item A4b, after A4.
+- **NAV-1 now has more to regroup.** #30 added a Power sub-tab. NAV-1 recounts screens and features on the latest `build3`.
 
 ## Done
 
