@@ -18,11 +18,8 @@ MODULES = [
     ('<!--PROJECTS-->', 'projects.js'),
     ('<!--FREQUENCY-->', 'frequency.js'),
     ('<!--EVIDENCE-->', 'evidence.js'),
-    ('<!--EVIDENCEARCHIVE-->', 'evidence-archive.js'),
     ('<!--BROWSERFILES-->', 'browser-files.js'),
     ('<!--EVIDENCEUI-->', 'evidence-ui.js'),
-    ('<!--SWEEPGRADING-->', 'sweep-grading.js'),
-    ('<!--SWEEPGRADINGUI-->', 'sweep-grading-ui.js'),
     ('<!--NODES-->', 'nodes.js'),
     ('<!--FIELDWORK-->', 'field-work.js'),
     ('<!--FIELDREFERENCE-->', 'field-reference.js'),
@@ -48,6 +45,11 @@ MODULES = [
     ('<!--STATIONSTYLE-->', 'station.css'),
     ('<!--NIGHTLOG-->', 'night-log.js'),
     ('<!--NIGHTLOGSTYLE-->', 'night-log.css'),
+    ('<!--SWEEPDUE-->', 'sweep-due.js'),
+    ('<!--SWEEPDUESTYLE-->', 'sweep-due.css'),
+    ('<!--EVIDENCEARCHIVE-->', 'evidence-archive.js'),
+    ('<!--SWEEPGRADING-->', 'sweep-grading.js'),
+    ('<!--SWEEPGRADINGUI-->', 'sweep-grading-ui.js'),
 ]
 for token,name in MODULES:
     if token not in shell:raise ValueError(f'Missing build token {token}')
