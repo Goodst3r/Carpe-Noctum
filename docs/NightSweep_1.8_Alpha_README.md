@@ -29,6 +29,8 @@ For a new field job:
 
 Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Tools → Calculators, Tools → Limits, Tools → DOCSIS health, Field → Leakage, Home → Outage and the sweep grading aid. Use **Six active devices in series** for Field → Night log and Plan → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Plan → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
 
+A read-only strip under the screen title shows the job name, the plant (42/54 GS7K / GainMaker or 204/258 Vecima / AOI) and the selected point. Field → Station also shows that worksheet's measurement plane. The strip is hidden on Tools. It stores nothing.
+
 ## Find the right tool
 
 | What you want to do | Where to go | What you need first |

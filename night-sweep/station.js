@@ -89,6 +89,7 @@ const StationView=(()=>{
  }
  function normalized(r,t){const b=blankRecord(t),next={...b,...r,stages:Object.fromEntries(['before','after'].map(k=>[k,{...b.stages[k],...r.stages?.[k],forward:{...b.stages[k].forward,...r.stages?.[k]?.forward},returns:{...b.stages[k].returns,...r.stages?.[k]?.returns}}])),balanced:{...b.balanced,...r.balanced},swept:{...b.swept,...r.swept}};if(r.bindingVersion===undefined)delete next.bindingVersion;return next;}
  function currentStage(owner=own()){const t=target(owner),r=normalized(currentRecord(owner),t);return r.stages[r.stage];}
+ function currentTarget(owner=own()){const t=target(owner);return t?{key:t.key,id:t.id,label:t.label}:null;}
  function results(owner=own()){return StationMath.results(currentStage(owner),target(owner)||{});}
  function renderSignature(owner,t,r){return JSON.stringify([data(owner).selected,t?.key,t?.context,t?.forwardBand,t?.returnCeiling,t?.holder?.stationIdentity,targets(owner).map(x=>[x.key,x.label]),r]);}
  function records(owner=own()){
@@ -224,6 +225,6 @@ const StationView=(()=>{
   saveControl(el,context);
  }
  function init(){if(typeof document==='undefined')return;if(!initialized){document.addEventListener('input',edit);document.addEventListener('change',edit);document.addEventListener('focusout',event=>{if(event.target?.closest?.('#stationPanel'))reconcile(event.target);});document.addEventListener('click',event=>{if(!event.target.closest?.('#stationPanel [data-station-confirm-binding]'))return;confirmBinding();lastSignature='';render();});initialized=true;}render();}
- return {init,render,validate,targets,currentRecord,currentStage,results,records,boundRecords};
+ return {init,render,validate,targets,currentTarget,currentRecord,currentStage,results,records,boundRecords};
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports={StationMath,StationView};
