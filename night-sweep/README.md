@@ -53,6 +53,7 @@ Home offers an organized **Practice library** with the complete training job, Ga
 | Attach Sweep, Ingress, or OneCheck files | **Job → ONX files** | Files already available on your phone |
 | Record inspection and repair work | **Job → Checklists** | Work actually performed |
 | Maintain measurement and acceptance records | **Job → Acceptance** | Approved procedure, criteria, readings, and traces |
+| Review personal sweep reminders across device jobs | **Job → Sweep due** | Actual Station work dates and your entered interval, initially unknown |
 | Review, print, or share the field summary | **Job → Run sheet** | Current job data |
 | Read the calculation methods | **Help** from the header or Home | Nothing |
 
@@ -105,8 +106,8 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **Open GainMaker / DSIM practice** | Separate 42/54 MHz GainMaker HGD launch and downstream LE with ACI DSIM practice notes | 9 | None; no fabricated meter captures or verified pilot lock |
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
 | **Open GS7K node practice** | Standard GS7000 1.2 GHz launch, starting at 42/54 MHz; separate node-only setup exercise | 10 | None; launch/TP correction unverified, no RF route or captured traces |
-| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 15 | Synthetic teaching data; no physical acceptance |
-| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, DOCSIS health and Leakage (2.0 Alpha build 3) | 14 | Synthetic table and calculator inputs; no field captures |
+| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 16 | Synthetic teaching data; no physical acceptance |
+| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, pre-work safety and outage prompts (2.0 Alpha build 3) | 14 | Synthetic table and calculator inputs; no field captures |
 
 The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 
@@ -114,7 +115,7 @@ The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exa
 
 1. If a real job is open, use **Files → Back up project** and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.
 2. Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.
-3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 15 steps, custom curves 14 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
+3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 14 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
 4. Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.
 
 While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.
@@ -942,3 +943,20 @@ The selector starts at **General update / no Station snapshot**. To capture meas
 **Generate handoff** prepares a selectable plain-text preview above the entry editors. **Export TXT** and **Export CSV** use the ordinary offline save/share path. A prepared file still needs the save/share dialog completed and the external file checked. CSV has one rectangular header and one Before/After row per captured entry (one blank-stage row for a general update), with raw inputs, planes, context, reason/status columns and separate balance/sweep dates. Levels and derived values show two decimals; pilot MHz show up to three; positive dB deltas have a plus sign, absolute dBmV levels do not. Rounding does not change captured results or comparison decisions. Formula-like text gets the existing spreadsheet-safe apostrophe prefix in CSV. **Files → Back up project** remains the portable full-fidelity record, including exact text, unrounded results and original attachments; handoff exports contain no attachments or legacy address/lead fields.
 
 For practice, the six-active Vecima/AOI exercise has a **Five-station night handoff** step. Manually enter its invented A1–A5 Station readings and capture each station, then reopen the TXT/CSV and compare the two stages. The defined short five-station fixture fits the 390×844 preview; arbitrary long notes or 200 entries can scroll normally and are never truncated. All exercise exports retain the synthetic marker. Personal notes and recorded work do not establish RF acceptance.
+
+
+## Sweep due: Job → Sweep due
+
+Personal sweep reminders read installed launch nodes/actives and route amplifiers from this device's named jobs and current working job. Each card shows separate last recorded sweep and balance dates, validity, completed calendar-month age and the chosen sweep due date. Missing worksheets remain visible as unknown. Current work overlays only a uniquely matching saved job ID; copies keep separate job histories even when Station IDs match. Repeated or missing job IDs remain separate with a diagnostic. Unreadable saved jobs show a warning while readable current work remains available.
+
+**Sweep reminder interval (whole calendar months)** starts unknown. Enter your approved interval; it is a personal reminder setting. **Saved with the current working job; used for this view of all jobs.** Loading another job can change it. Raw invalid entries stay visible and give no reminder color or due date. Empty is unknown; enter digits only from 1 to 1200, an app input guard.
+
+Green means **Before reminder window**, yellow **Reminder window**, and red **Due / overdue**. Yellow begins at `ceil(2 × interval / 3)` calendar months, an **Unknown / unverified app reminder policy** implementing the build-list example. An older plan mentions 18 months; its attribution to Hranac remains unverified. Confirm your company's interval. Colors never establish RF acceptance. Balance does not reset sweep age or have an invented maintenance cadence.
+
+Anniversaries add months to the original civil date and clamp its day to the target month's last day. Age counts completed anniversaries. Dates must be exact `YYYY-MM-DD`, Gregorian years 0001–9999; future/invalid dates and derived dates beyond year 9999 remain unavailable. A recorded checkbox without a date, an unchecked record with a date, and an unknown date are distinct. Historical binding-unconfirmed and read-only UBT worksheets show recorded dates, completed ages, validity and done facts with their historical reason; they do not use current-service reminder colors or wording. SYNTHETIC TRAINING and SAMPLE badges stay visible, with practice counts separate from work reminders.
+
+The interval belongs to the open job; the empty state says so explicitly. If autosave fails, **Not saved** appears directly below its field and stays visible for that same job/interval until a later edit succeeds. Export a project backup before closing. Opening another job clears the old field feedback.
+
+Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Route → Station** to record actual work and **Job → Details** to manage jobs. Export a project backup if autosave fails.
+
+The six-active practice now has **16 steps**; its **Personal sweep reminders** step asks you to enter **18** for a synthetic demonstration and then clear it to restore unknown. The current source has **29 task screens** and **46 feature choices**. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.
