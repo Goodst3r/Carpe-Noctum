@@ -1,9 +1,23 @@
 CARPE NOCTUM 2.0 ALPHA BUILD 3 (IN DEVELOPMENT)
 UPDATE AND VERIFICATION LOG
 Power sum, November 12, 2026: Test → Calculators has an uncorrelated power-sum card (add, N equal carriers, signal minus noise). No new screen, storage key or version. The card does not add coherent (voltage) levels.
-Close-out note added November 12, 2026 UTC by Grok.
-The November 11 body below is the early session. Later lane sections are
-historical checkpoints. The current summary is this block.
+
+CURRENT B1 PRODUCT NOTE - November 12, 2026 UTC
+Safety is removed by Spencer's decision: its screen, practice feature and
+step, Study domain/question, guide section and Outage arrival group are gone.
+The shared checklist engine stays for Outage. Legacy device data is left
+untouched; safety fields in legacy jobs/backups remain opaque and preserved
+on re-export. No new field, storage key, version or APK is introduced.
+
+Counted from current assembled source in JSDOM after B1 (not a full gate):
+35 task screens, 53 features, practice steps 22/16/21/8/9/7/10;
+150 live registry rows (147 in thresholds.js alone plus 3 EvidenceArchive),
+47 module splices plus DSIM insertion, Study 4 domains/18 generators,
+Outage 22 prompts/7 sections. Full same-head gates are recorded separately.
+
+HISTORICAL CHECKPOINTS BELOW
+The close-out note and November 11 body below describe their named heads.
+Their labels such as "current" do not describe the B1 source above.
 
 RELEASE IDENTITY
 Application: 2.0 Alpha build 3 (in development; formerly NightSweep)

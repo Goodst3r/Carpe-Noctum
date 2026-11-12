@@ -42,7 +42,6 @@
 <section class="panel calculator-panel pop-panel" data-screen="test" hidden="" id="popPanel"></section>
 <section class="panel calculator-panel study-panel" data-screen="test" hidden="" id="studyPanel"></section>
 <section class="panel calculator-panel pm-panel" data-screen="power" hidden="" id="powerPmPanel"></section>
-<section class="panel check-panel" data-screen="job" hidden="" id="safetyPanel"></section>
 <section class="panel check-panel" data-screen="job" hidden="" id="outagePanel"></section>
 <section class="panel" data-screen="power" hidden="" id="powerPanel"><div class="sectionhead"><div><h2>Power-supply load</h2><p class="note tight">CATV coax output current • equipment voltage • trunk and branch loading</p></div><button id="powerCSV">Export power results</button></div>
 <div class="fields"><label>Supply output voltage (V RMS)<input data-power="supplyVoltage" min="1" step="any" type="number"/></label><label>Supply output rating (A RMS)<input data-power="supplyRating" min="0.01" step="any" type="number"/></label><label>Power cable temperature (°F)<input data-power="temperatureF" max="185" min="-40" step="any" type="number"/><span class="note">Cable conductor temperature.</span></label><label>Resistance coefficient (per °C)<input data-power="resistanceAlpha" max="0.01" min="0" step="any" type="number"/><span class="note">0.004 is an engineering approximation. Use a verified cable-specific value when available.</span></label></div>
@@ -105,7 +104,6 @@
 <script><!--DOCSISHEALTH--></script>
 <script><!--LEAKAGE--></script>
 <script><!--CHECKLIST--></script>
-<script><!--SAFETY--></script>
 <script><!--OUTAGE--></script>
 <script><!--IMPAIRMENTS--></script>
 <script><!--FIBERTOOLS--></script>
@@ -114,5 +112,5 @@
 <script><!--POP--></script>
 <script><!--STUDY--></script>
 <script><!--POWERPM--></script>
-<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Safety.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
+<script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
 </body></html>

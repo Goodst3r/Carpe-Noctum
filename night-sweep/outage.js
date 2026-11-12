@@ -11,8 +11,6 @@ const Outage=(()=>{
   {id:'scope-nearby',group:'Confirm the scope',text:'Check whether nearby nodes or services are also affected.'},
   {id:'scope-planned',group:'Confirm the scope',text:'Check for planned work, a utility power outage or severe weather in the area.'},
   {id:'scope-notes',group:'Confirm the scope',text:'Read the dispatch notes for the area. Do not copy customer names or addresses into this card.'},
-  {id:'safe-scene',group:'Safety on arrival',text:'Look over the site before you get out: traffic, downed lines, fire, flooding, people or animals. Leave and call it in if it is not safe.'},
-  {id:'safe-checklist',group:'Safety on arrival',text:'Complete your company’s pre-work safety steps. Job → Safety has reminders.'},
   {id:'power-ac',group:'Power',text:'Check whether utility AC power is present at the power supply.'},
   {id:'power-status',group:'Power',text:'Check the power supply’s status: on utility power or on battery, and any alarm lights. Note what you see.'},
   {id:'power-report',group:'Power',text:'If the supply is on battery or off, tell your supervisor or the ROC and note how long it has been out, if you know.'},
