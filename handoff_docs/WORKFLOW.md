@@ -30,8 +30,8 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 | A3 | NAV-1, the navigation regroup, exactly as the determination maps it. **Starts only after the Safety removal (B1) has merged**, so it regroups the screens that remain. | One PR, no features, no storage-key, screen-id or job-format change. Meet every NAV-1 exit criterion. ChatGPT runs its own full gate on the same head. |
 | A4 | Context strip (P0-3). | |
 | A4b | Supply PM notebook export/import (see "Known follow-ups"). | Additive; no new storage key. |
-| A5 | Tonight list (P0-1). | Add open temporary repairs once B5 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
-| A6 | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
+| A5 **DEFERRED to the next build (scope freeze).**  | Tonight list (P0-1). | Add open temporary repairs once B5 has merged. Its backup/handoff-time lines may be a place to flag the Supply PM notebook (see "Known follow-ups"). |
+| A6 **DEFERRED to the next build (scope freeze).**  | Exact resume (P0-8), reduced version. | The determination puts it after Spencer's phone interruption checks. If those are not recorded, mark it BLOCKED on Spencer and do not build it. |
 | A7 | Final: full gate on the final `build3`, then `handoff_docs/lanes/grok-debug-handoff.md`. | See "Done". |
 
 ### Lane B: ChatGPT (branches `chatgpt/<item>`, status `handoff_docs/lanes/chatgpt-status.md`)
@@ -43,7 +43,7 @@ Spencer moved the calculators ahead of NAV-1 so both lanes can work at once. Oth
 | B2 | Headroom wording and conversion (determination build-order items 1 and 8, P0-5). Relabel the existing DOCSIS health result as composite margin to the entered Pmax, with the caveats the determination and your written check require. At most, also offer 6.4 MHz as a measured-in width. Add regression tests that run the app's real functions against H1-H5 and the headroom edge and refusal cases. | No new converter and no new screen. Per-channel/DRW headroom stays NO-GO. |
 | B3 | Ripple-search width label: it is app-chosen, not Expert. Fix the label and its `thresholds.js` registration. | Small PR. |
 | B4 | Night log fixes, then the intermittent-ingress entry (P0-6). | Remove/Undo and no slot used by a blank entry first. An entry type in Job → Night log, not a new screen or store. |
-| B5 | Temporary-repair follow-up (P0-2). | Read `night-sweep/field-work.js` first; extend the existing Checklists notes. Say which key or additive job field it uses and prove old jobs and backups round-trip. |
+| B5 **DEFERRED to the next build (scope freeze).**  | Temporary-repair follow-up (P0-2). | Read `night-sweep/field-work.js` first; extend the existing Checklists notes. Say which key or additive job field it uses and prove old jobs and backups round-trip. |
 | B6 | Final: full gate on the final `build3`, then update `handoff_docs/reviews/chatgpt-handoff-for-claude.md`. | See "Done". |
 
 #### Safety removal (B1)
@@ -59,6 +59,10 @@ Remove Job → Safety (`night-sweep/safety.js`) and everything that exists only 
 - The gate must pass on the PR; then the other builder reviews it. This PR needs a rendered check that no empty tab or dead link is left at 320 to 430 px.
 
 Reviewing the other lane's open PR always comes before starting your own next item.
+
+### Scope freeze (Spencer, Nov 12 night)
+
+To get a phone-testable APK sooner, **no new items start.** The batch is #39, #40, #41, #36 and #42. These are **deferred to the next build** and are not blockers for the APK: A5 (tonight list), A6 (exact resume, also blocked on Spencer's phone checks) and B5 (temporary-repair follow-up). Open drafts #32, #1 and #2 are not part of the batch. After the batch, the remaining work is the final gate on the combined head and the two handoff files (A7, B6), then Claude's finishing session.
 
 ### Not to be built
 
@@ -108,24 +112,34 @@ git status --porcelain      # must be empty
 
 Judge suites by exit code. After guide edits, also render the main README (`docs/DEVELOPER_BUILD.md`) and keep the two main READMEs byte-identical. The hosted `QA gate` workflow must also be green on the exact head SHA.
 
-## Review and merge
+## Review and merge (batch rules, Nov 12 night; they replace the per-PR re-gate)
 
-A PR is a draft until, on one head SHA that contains the latest `origin/build3`:
+Five PRs are ready at once (#39, #40, #41, #36, #42). Gating and merging them one at a time costs one 15 minute gate per PR, because every merge sends the others back to take in `build3`. Spencer's decision: **gate once for the batch.**
 
-1. The author's full gate is green and recorded in the PR body.
-2. Hosted `QA gate` is green.
-3. The other builder has reviewed it with the checklist below and commented APPROVE.
+**Per PR (do these in parallel, now):**
 
-Then the reviewer, never the author, merges with a merge commit (no squash). A new commit after an approval voids it.
+1. The author's full gate is green on the PR's own head and recorded in the PR body, and hosted `QA gate` is green on that same head.
+2. The other builder reviews the diff with the checklist below, runs the PR's own new suites and any targeted check the checklist asks for, and comments APPROVE or CHANGES NEEDED on the head SHA. This review is **not** a full gate. For calculators it includes the independent math check and `chatgpt-pr<number>-math-review.md`.
 
-**Claude's comment does not block.** If Claude has commented CHANGES NEEDED on that head, fix it first. If Claude has not commented, merge anyway; Claude audits after the merge and files anything it finds as a new item for the author.
+A new commit after an approval voids it.
 
-Do not wait on a review. After marking a PR ready, start your next item. If your PR has had no review by the time you finish that next item, say so in your status file and keep going.
+**Merging the batch:** the reviewer, never the author, merges with a merge commit (no squash), in this order, with no local gate between merges:
+
+1. #39, #40, #41 (ChatGPT merges: Grok authored #39 and #41; Claude authored #40).
+2. #36, #42 (Grok merges: ChatGPT authored both).
+
+The merger takes the latest `build3` into the PR head by ordinary merge **only if GitHub says it conflicts**. A merge that is clean needs no re-gate of that PR. On a conflict in app code, resolve it, rebuild generated files with the two build commands (never hand-merge), and wait for hosted CI on that head before merging. After the last merge, one builder recounts screens, features and registry rows on the final head, fixes the counts in the guides and status files in a single "Rebuild and recount after the batch" commit, and rebuilds.
+
+**One full gate on the final head:** both builders run the gate in "The gate" below on the same final `build3` head and record their own counts and the standalone SHA-256. Hosted `QA gate` must also be green on that head. If it fails, name the suite, find which merged PR caused it, and fix it forward in one small PR; do not re-gate PRs that did not change.
+
+**Claude's comment does not block.** If Claude has commented CHANGES NEEDED on a head, fix it first. If Claude has not commented, merge anyway; Claude audits after the merge and files anything it finds as a new item for the author.
+
+Do not wait on a review. If your PR has had no review by the time you finish your next task, say so in your status file and keep going.
 
 ### Review checklist (on the head the author named)
 
 1. **Math** (calculators and any changed formula): derive it independently of the author's code and reference script. Run the app's real functions against the vectors. Check units, signs, edge inputs, bounds and every refusal. For A1 and A2 ChatGPT commits `handoff_docs/reviews/chatgpt-pr<number>-math-review.md`. For B2 Grok derives the two formulas itself, because ChatGPT wrote both the vectors and the code.
-2. **Your own full gate** on that head for NAV-1 and for anything that changes what is stored (B1, A3, A4b, A5, A6, B4, B5). For other PRs, hosted CI plus the suites the PR adds are enough. Report your counts, not the author's.
+2. **Targeted checks, not a full gate:** run the suites the PR adds and any rendered or stored-data check the PR's risk calls for (for example a backup round trip for anything that changes what is stored). The single full gate happens once, on the final batch head.
 3. **Labels and sources:** every new value is registered with a label and a source you can open. Company values start Unknown.
 4. **Plants:** 42/54 and 204/258 stay separate; the 31/43/38 values are not hard-coded as specs.
 5. **Job format:** old jobs and backups open unchanged; a backup round-trip gives identical results; no storage-key change.
@@ -154,8 +168,8 @@ CI green on the exact head; diff contains only the stated files; no `outputs/` o
 
 The build work is done when all of these are true:
 
-1. Every item in both queues is merged, or recorded BLOCKED or deferred with the reason.
-2. Each builder has run the full gate on the same final `build3` head and recorded its own counts and the standalone SHA-256.
+1. The five batch PRs are merged, and every other queue item is merged, or recorded BLOCKED or deferred with the reason (see "Scope freeze").
+2. Each builder has run the full gate on the same final batch head of `build3` and recorded its own counts and the standalone SHA-256, and hosted `QA gate` is green on it.
 3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
 4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
 
