@@ -1,6 +1,8 @@
 # Known gaps
 
-Updated November 11, 2026 by Lane B (task B3). Everything here is something that is **not done, not verified, or not yet sourced**. Each row names where the claim comes from so it can be re-checked. When a gap is closed, delete its row in the pull request that closes it; do not let this file become a log. Lane B rewrites it from both status files for the final handoff (task B9).
+Updated November 12, 2026 by Grok for the D4/D5 close-out. Everything here is something that is **not done, not verified, or not yet sourced**. Each row names where the claim comes from so it can be re-checked. When a gap is closed, delete its row in the pull request that closes it. Lane sections below are kept. Their open items are still open. This file is not a log of closed work.
+
+Grok counted the merged core in jsdom on the `f467e52` standalone: 29 screens, 47 features, 114 registry rows, practice steps 22/16/15/8/9/7/10. That count is not a device test.
 
 ## Never verified on a device
 
@@ -23,29 +25,41 @@ Updated November 11, 2026 by Lane B (task B3). Everything here is something that
 | Cisco GainMaker line extender, data sheet and reverse EQ items in the station-view research are marked "not re-verified" because research credits ran out. The reverse pad values and EQ loss charts were confirmed earlier. | `research/build3/STATION_VIEW_SOURCES.md`, `station-view-research.json` |
 | SCTE 297 2025r1: the PDF release history lists no r1 row, while CableLabs and the catalog label it 2025r1. Its section 6 procedure was not read. | `research/build3/station-view-research.json` |
 
-## Planned features whose sources are not yet confirmed
+## Source limits that remain after the cards were built
 
 | Item | Gap | Where |
 | --- | --- | --- |
-| 5 DOCSIS health card | Downstream ±15 dBmV per 6 MHz, OFDM −9 to +21 dBmV per 24 MHz and the total-input limit come from secondary sources and the older PHY issue I08. Confirm against CM-SP-PHYv3.1-I20-230419 before shipping; anything unconfirmed stays tagged secondary. | `docs/BUILD_LIST.md`, `research/build3/SOURCE_VERIFICATION.md` |
-| 7 Leak log and CLI | 47 CFR 76.611 (CLI) and 76.1706 (logs) were not checked yet. The company repair threshold is unknown. | `NightSweep_Project_Status.md`, `docs/BUILD_LIST.md` |
-| 10 Sweep-due tracker | The 18-month interval attributed to Hranac was not re-verified. It may be shown only as unverified guidance. | `docs/BUILD_LIST.md` |
-| 12 Return path toolkit | Noise-funneling math is standard practice but not checked against an SCTE primary source (293-11, 293-13, 270). | `docs/BUILD_LIST.md` |
-| 13 Imported sweep grading | The SCTE operational practice behind n/10 + x peak-to-valley grading was not re-verified; it appears only as labeled historical guidance. | `docs/BUILD_LIST.md` |
+| 5 DOCSIS health card | The card is on the branch. I20 Table 45, the 3.0 total-power row and the Pmax text were read (see `DOCSIS_HEALTH_SOURCES.md`). Still open: the section 6.4.2 pointer and some page numbers were not re-read; whether a newer issue than I20 exists was not repeated; a 3.1 modem receiving only SC-QAM may be 33 or 40 dBmV total input and the spec does not say which. Company windows start unknown. | `research/build3/DOCSIS_HEALTH_SOURCES.md` |
+| 7 Leak log and CLI | The card is on the branch. 47 CFR 76.605(c), 76.611 and 76.1706 were read (see `LEAKAGE_SOURCES.md`). Still open: SCTE 289 and SCTE 293-12 bodies were not read, so the detector check and the normalizer's validity limit stay secondary. The company repair threshold starts unknown. | `research/build3/LEAKAGE_SOURCES.md` |
+| 10 Sweep-due tracker | The card is on the branch. The interval starts unknown. The 18-month interval attributed to Hranac was not re-verified. It may be shown only as unverified guidance. | `docs/BUILD_LIST.md`, `night-sweep/thresholds.js` |
+| 12 Return path toolkit | Not built. Noise-funneling math is standard practice but not checked against an SCTE primary source (293-11, 293-13, 270). | `docs/BUILD_LIST.md` |
+| 13 Imported sweep grading | The aid is on the branch. The SCTE operational practice behind n/10 + x peak-to-valley grading was not re-verified; it appears only as labeled historical guidance. Native schema beyond the two inspected layouts is not supported. | `docs/BUILD_LIST.md`, the A4 section below |
+| 17 High split | Not on this branch. No Vecima commissioning checklist: the guides are behind a customer portal. No steps may be invented. | Lane B log book; question 0 for Spencer |
 | General | NCTI's own pages disagree on System Technician seat hours (26 versus 42). | `docs/BUILD_LIST.md` |
 
 ## Company targets and decisions that need a person
 
 Every company target and tolerance starts **unknown** and must never be filled in by an assistant: forward levels at both pilots, return injection and receiver levels, return tolerance, tilt, sweep peak-to-valley, leak repair threshold and sweep interval. The open questions for the supervisor are at the end of `docs/BUILD_LIST.md`. Items 7 (leak), 8 (outage) and 9 (safety) need a supervisor's review against the local procedure before coworkers use them. Sharing the app with coworkers, using the leak log as anything but a personal notebook, and producing CLI or proof-of-performance numbers for filings all need a supervisor first.
 
+## Carried from the lane log books (November 12, 2026)
+
+Not closed. Grok did not re-test these.
+
+- Station (PR #23 review): the same message is announced from the field paragraph and the worksheet status line. Toggling `hidden` on a live region is not announced reliably everywhere. No screen-reader test was done.
+- A2: no Remove or Undo for a captured night-log entry. A blank Add uses one of the 200 slots. A notes-only log on the sample state can be labeled synthetic. Multiline TXT does not indent continuation lines.
+- A3: the interval input reads the library on every keystroke. An older backup can overlay a newer saved view without a chronology warning. The 40,746-case calendar exploration was not reproduced in the repository.
+- A4: focus can drop after a select change and after Grade. An internal field id such as `lowTargetDbmv` can appear in a reason. A very long node or asset id can fail grading with "Invalid sweep grading text." ZIP-descriptor, empty-chart wording and eager chart preview items remain in the A4 section below.
+- Lane B cited some R-PHY I22 sections 6.9 and 6.10.1, and some SCTE 280 / 293 sections, from Lane A's reading rather than Lane B's own reading. Treat those citations as not re-verified by Lane B.
+- No Vecima installation checklist is in the app. Do not invent steps. Question 0 asks which guide the company holds.
+
 ## Project paperwork and process
 
 | Gap | Where it is recorded |
 | --- | --- |
-| Training text and the 1.8-named guides still use old screen names ("Save named job", "Sun / Night", "Equipment setup" and others; 16 hits in the first count). No test fails when training names a tab or button that does not exist. Task B4 fixes both. | `handoff_docs/CHATGPT_HANDOFF.md`, `handoff_docs/PARALLEL_TASKS.md` |
-| Until task B1 lands, a full gate run rewrites tracked evidence files under `release/` and `research/` (run `git checkout -- release research` before committing), the per-suite limit is a fixed 150 s, and `qa/alpha18-release.test.py` fails with a traceback instead of a clear message when `build-readiness.json` says an APK was built but its receipts are not in the checkout. | `handoff_docs/PARALLEL_TASKS.md` |
-| `docs/ROADMAP.md` and `docs/BUILD_LIST.md` are also open as pull requests #1 and #2 against `main`. They merge cleanly with the copies on `build3`, but the owner has not decided them. | `handoff_docs/PARALLEL_TASKS.md` |
-| Release-time packaging scripts (`release/package_build2.py` and relatives) still describe build 2. Build 3 has no delivery package. | `docs/DEVELOPER_BUILD.md` |
+| `docs/ROADMAP.md` and `docs/BUILD_LIST.md` are on `build3` and are also open as pull requests #1 and #2 against `main`. The owner has not decided them. Do not merge them from a close-out. | GitHub, November 12, 2026 (Grok listed the open pull requests) |
+| Release-time packaging scripts (`release/package_build2.py` and relatives) still describe the 1.8 build 2 ZIP. Build 3 has no delivery package and no APK. | `docs/DEVELOPER_BUILD.md` |
+| Hosted CI once failed `build3-layout` at 768 px (Lane B, workflow run 2). Lane B could not reproduce it. Not re-run by Grok as a targeted repro. | `handoff_docs/lanes/claude-logbook.md` |
+| Stretch pull requests #13, #15, #16, #18, #19 and #20 are open drafts and are not part of this close-out. #13 has an open review (rendered main guide and stale sentences on that branch). #15 to #19 were red in hosted CI on the pinned grading totals. #20 has no hosted CI while its base is not `build3`. | GitHub, November 12, 2026 |
 
 
 ## A4 native import and grading scope (Lane A, Nov 11)

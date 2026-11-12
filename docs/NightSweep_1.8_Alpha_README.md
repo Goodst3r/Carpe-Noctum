@@ -27,7 +27,7 @@ For a new field job:
 6. Follow **Test → Meter setup** for the actual plant split and approved method. Attach original meter files under **Job → ONX files**, then review **Job → Run sheet**.
 7. Use **Files → Back up project**, finish the phone's save action, and confirm the portable backup exists outside NightSweep.
 
-Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Choose the complete example for every tool, or a focused node/amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Route → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
+Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Test → Calculators, Test → Limits, Test → DOCSIS health, Test → Leakage, Job → Safety, Job → Outage and the sweep grading aid. Use **Six active devices in series** for Job → Night log and Job → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Route → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
 
 ## Find the right tool
 
@@ -47,11 +47,17 @@ Home offers an organized **Practice library** with the complete training job, Ga
 | Check a single cable/passive combination | **Test → Frequency** | Cable length, passive path, frequency |
 | Compare a meter reading with a prediction | **Test → Readings** | Route point, frequency, reading, remaining TP coupling |
 | Look up cable loss, tap faces, or frequency references | **Test → References** | Matching equipment or route tap as needed |
+| Run a quick dB, ripple, OFDM, echo or pad/EQ calculation | **Test → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
+| Check a limit and where it came from | **Test → Limits** | Nothing first. Company values stay unknown until someone enters them |
+| Compare a modem or meter reading with a DOCSIS range | **Test → DOCSIS health** | The reading you type. The card does not talk to a modem |
+| Check a leak, estimate CLI, or keep a personal leak log | **Test → Leakage** | Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup |
 | Estimate supply draw and equipment voltage | **Power → Load** | Actual power circuit and equipment loads |
 | Try an additional cable/load before keeping it | **Power → What-if** | Existing power plan |
 | Save/open named jobs and record node details | **Job → Details** | Job and installed equipment information |
 | Attach Sweep, Ingress, or OneCheck files | **Job → ONX files** | Files already available on your phone |
 | Record inspection and repair work | **Job → Checklists** | Work actually performed |
+| Tick pre-work safety reminders | **Job → Safety** | Follow company policy first. Ticks stay on this phone and are not in the job backup. A supervisor should review the list before coworkers use it |
+| Walk through outage first-response prompts | **Job → Outage** | Follow the local outage procedure first. No customer names. A supervisor should review the card before coworkers use it |
 | Maintain measurement and acceptance records | **Job → Acceptance** | Approved procedure, criteria, readings, and traces |
 | Review personal sweep reminders across device jobs | **Job → Sweep due** | Actual Station work dates and your entered interval, initially unknown |
 | Review, print, or share the field summary | **Job → Run sheet** | Current job data |
@@ -61,7 +67,11 @@ Main tabs choose the work area. The smaller task tabs choose a function within t
 
 ## Install and update
 
-Use the separate [Android/iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md) for full phone steps. The single delivery is **NightSweep 1.8 Alpha build 2.zip**, with one clearly named folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.
+Use the separate [Android/iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md) for the phone steps written for the 1.8 package. The table in this section describes that **historical** delivery, **NightSweep 1.8 Alpha build 2.zip** (Preview APK **1.8 Alpha build 2**, code **24**). It is not the current installer.
+
+The signed installer in this repository is **2.0 Alpha build 2**, Android code **26** (`apk/CarpeNoctum-2.0-build2-preview.apk`). **2.0 Alpha build 3** is source only (Android source code **27**). No build 3 APK is in the repository. Code 27 is not an installer you can download. Build and sign that APK only outside the repository, with the original key, after the owner accepts the source.
+
+The historical 1.8 ZIP is one folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.
 
 | Option | File or route | Important distinction |
 | --- | --- | --- |
@@ -76,7 +86,7 @@ The known site address is **https://nightsweep-field.goodst3r.chatgpt.site/**. I
 
 ### Protect work and verify offline use
 
-1. Open each important job and choose **Files → Back up project**. Finish the save/share picker and confirm its JSON exists outside NightSweep. Build 2 exports use the **NightSweep_1.8_Alpha_build_2_** filename prefix.
+1. Open each important job and choose **Files → Back up project**. Finish the save/share picker and confirm its JSON exists outside NightSweep. Exports from this 2.0 Alpha build 3 source use the **CarpeNoctum_2.0_Alpha_build_3_** filename prefix. Older 1.8 build 2 files used **NightSweep_1.8_Alpha_build_2_**.
 2. Use **Files → Open project** at the destination, then verify route, notes, readings, records and original evidence. Save a named copy and retain the external backup.
 3. In a supported hosted browser/Home Screen app, wait for **Ready for offline use**. Use one editing window, enable Airplane Mode with Wi-Fi off, close/reopen the same app/icon and check a practice calculation plus a saved original.
 4. For a hosted update, export first, then choose **Check for updates → Install update → Reload app**. Check the actual displayed version, jobs and offline readiness afterward.
@@ -106,8 +116,8 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **Open GainMaker / DSIM practice** | Separate 42/54 MHz GainMaker HGD launch and downstream LE with ACI DSIM practice notes | 9 | None; no fabricated meter captures or verified pilot lock |
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
 | **Open GS7K node practice** | Standard GS7000 1.2 GHz launch, starting at 42/54 MHz; separate node-only setup exercise | 10 | None; launch/TP correction unverified, no RF route or captured traces |
-| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz | 16 | Synthetic teaching data; no physical acceptance |
-| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety and Outage (2.0 Alpha build 3) | 16 | Synthetic table and calculator inputs; no field captures |
+| **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz; Night log and Sweep due practice (2.0 Alpha build 3) | 16 | Synthetic teaching data; no physical acceptance |
+| **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Safety, Outage and Impairments (2.0 Alpha build 3) | 16 | Synthetic table and calculator inputs; no field captures |
 
 The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 
@@ -115,7 +125,7 @@ The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exa
 
 1. If a real job is open, use **Files → Back up project** and verify that its JSON file exists outside the app. Save its named entry as well if you want to reopen it from the local list.
 2. Open Home and choose a practice exercise or a feature in the Practice library. Confirm the change-of-job prompt. The app keeps the current working job and its evidence in named jobs on this device before opening training; that local copy is still not an external backup. If preservation or evidence preparation fails, address the message rather than clearing storage.
-3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 15 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
+3. Confirm the job name begins with **TRAINING**. Home shows **Guided practice** for the selected exercise: the complete example has 22 steps, OEM AGC eight, DSIM nine and GS7K ten. The six-active example has 16 steps, custom curves 16 and manual/thermal 7. Choose **Open step** to reveal the destination controls, try them, then mark **Reviewed**. The **Practice guide** button in the training banner returns you to the checklist.
 4. Keep practice edits in the training job. Use a new blank job for real work; do not rename the training data and treat it as measured plant information.
 
 While a training job is open, its matching Home action offers a reset of that exercise. It preserves the current practice copy in named jobs before restoring the baseline exercise. Use it when you have changed several inputs; review the prompt before continuing. Progress checkmarks belong to the current training copy.
