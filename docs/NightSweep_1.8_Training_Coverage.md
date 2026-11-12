@@ -51,6 +51,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Job → Checklists | Complete | Inspection notes, maintenance tasks and dBµV/dBmV conversion |
 | Job → Acceptance | Complete, OEM AGC, DSIM | Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms |
 | Job → Sweep due | Six-active | Enter 18 only for the synthetic reminder demonstration, inspect independent work dates, refresh, then clear the interval to unknown |
+| Job → Night log | Six-active | Record invented A1–A5 Station worksheets, capture each one, then generate a handoff and export TXT/CSV. No customer identifiers. Captured stages stay fixed after later Station edits |
 | Job → Run sheet | Complete | Predictions, actual input context, warnings, as-built notes and synthetic export labels |
 | Help & methods / build self-check | Complete | Calculation assumptions, limits and independent reference checks |
 
