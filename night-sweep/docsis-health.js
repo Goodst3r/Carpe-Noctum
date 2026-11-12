@@ -83,28 +83,41 @@ const DocsisHealth=(()=>{
   const below=r.value<limit;
   return {ok:true,id:'total',reading:r.value,limit,modem,status:below?'below-limit':'at-or-over',margin:Math.abs(limit-r.value),units:'dBmV total',compare:r.value};
  }
- /* Upstream: headroom between the total transmit power and Pmax, the most total power the
-    modem can transmit. For a DOCSIS 3.1 modem working with a 3.1 CMTS, 65 dBmV is the default
-    and the lowest allowed Pmax. A DOCSIS 3.0 modem, or a 3.1 modem on a 3.0 CMTS, follows the
-    3.0 per-channel limits instead; this card has no figure for those, so the modem's own
-    maximum must be typed in. */
+ /* Composite margin compares a genuine simultaneous total at the CM F-connector
+    with an independently established comparable total Pmax reference. It cannot
+    determine per-channel/DRW headroom. The declared 3.1 CM/CMTS mode must have MTC
+    enabled (PHYv3.1 I20 section 7.4.12.2.1); otherwise the 65 default is unavailable.
+    A blank app field is only an assumed Spec minimum/default, not a capability report.
+    `request` is composite_margin (or omitted); a per-channel request is refused. */
  function upstream(input){
-  const mode=String(input?.mode??'');
-  if(mode!=='3.1'&&mode!=='other')return fail('Choose how the modem is working first: a DOCSIS 3.1 modem on a 3.1 CMTS, or anything else. The 65 dBmV minimum applies only to the first.');
+  const request=input?.request;
+  if(request==='available_per_channel_headroom')return fail('Composite margin alone cannot determine available per-channel/DRW headroom. The transmit channel set, applicable limits and DRW are not established here.');
+  if(request!==undefined&&request!=='composite_margin')return fail('Unsupported request: this card compares only composite margin to a total Pmax reference.');
   const r=level(input?.total,'the total transmit power');if(!r.ok)return r;
-  const blank=String(input?.pmax??'').trim()==='';
+  const mode=String(input?.mode??'');
+  const blank=input?.pmax===null||input?.pmax===undefined||(typeof input.pmax==='string'&&input.pmax.trim()==='');
   let pmax=PMAX_MIN;
   if(!blank){
    const p=num(input.pmax);
-   if(p===null)return fail('Enter the modem’s maximum total power in dBmV as a number'+(mode==='3.1'?', or leave it blank for the 65 dBmV minimum.':'.'));
-   if(mode==='3.1'&&p<PMAX_MIN)return fail('For a DOCSIS 3.1 modem on a 3.1 CMTS, Pmax cannot be below 65 dBmV, the lowest value the specification allows.');
+   if(p===null)return fail('Enter the Pmax reference in dBmV as a number; it must be finite. A malformed entry is not a blank.');
+   if(mode==='3.1'&&p<PMAX_MIN)return fail('For the declared DOCSIS 3.1 CM/CMTS mode with MTC enabled, Pmax cannot be below 65 dBmV, the lowest value the specification allows.');
    if(p<=0||p>READING_BOUNDS.max)return fail('Enter a maximum total power from above 0 to '+READING_BOUNDS.max+' dBmV.');
    pmax=p;
-  }else if(mode==='other'){
-   return fail('Enter the modem’s maximum total transmit power from its documentation. This card has no figure for a DOCSIS 3.0 modem or a 3.1 modem on a 3.0 CMTS.');
   }
-  const headroom=pmax-r.value;
-  return {ok:true,id:'upstream',mode,specBasis:mode==='3.1',reading:r.value,pmax,defaultPmax:mode==='3.1'&&blank,headroom,status:headroom>=-EPS?'headroom':'over-pmax',margin:Math.abs(headroom),units:'dBmV total',compare:r.value};
+  const context=input?.context;
+  /* Explicit contradictions precede missing confirmations, so an unknown plane or
+     a normalized status reading gets its own reason even in a partial input. */
+  if(input?.basis&&input.basis!=='confirmed'&&input.basis!=='simultaneous-total')return fail('A normalized or per-channel reading is not a genuine simultaneous composite total. Confirm the actual total before comparing.');
+  if(context&&has(context,'actualSimultaneousTotal')&&context.actualSimultaneousTotal!==true)return fail('A normalized, per-channel or unknown reading is not a confirmed genuine simultaneous composite total.');
+  if(context&&has(context,'measurementPlane')&&context.measurementPlane!=='cm-f-connector')return fail('The total and reference must share the comparable CM F-connector plane; an unknown or different plane cannot be compared.');
+  if(mode!=='3.1'&&mode!=='other')return fail('Choose how the modem is working first: the applicable DOCSIS 3.1 CM/CMTS transmit mode with MTC enabled, or another declared mode.');
+  if(blank&&mode==='other')return fail('A blank Pmax has no supported assumed reference in this mode. Enter a known applicable comparable total reference; this card has no figure for DOCSIS 3.0 or compatibility per-channel limits.');
+  if(!context||context.actualSimultaneousTotal!==true)return fail('Confirm a genuine simultaneous total at the CM F-connector; a normalized or per-channel reading cannot be used as the total.');
+  if(context.measurementPlane!=='cm-f-connector')return fail('Confirm that the total and reference share the comparable CM F-connector plane.');
+  if(context.comparableReference!==true)return fail('Confirm the Pmax reference provenance and its comparable total-power mode and convention. A blank reference is only an assumed Spec minimum/default, not actual capability.');
+  if(mode==='3.1'&&context.mtcEnabled!==true)return fail('Confirm MTC enabled in the applicable DOCSIS 3.1 CM/CMTS transmit mode before using this Pmax reference.');
+  const compositeMargin=pmax-r.value;
+  return {ok:true,id:'upstream',mode,specBasis:mode==='3.1',reading:r.value,pmax,defaultPmax:mode==='3.1'&&blank,compositeMargin,headroom:compositeMargin,status:compositeMargin<0?'over-pmax':compositeMargin===0?'at-pmax':'headroom',margin:Math.abs(compositeMargin),units:'dBmV total',compare:r.value};
  }
  const evaluators=Object.freeze({scqam,ofdm,total,upstream});
  function evaluate(id,input){return typeof id==='string'&&has(evaluators,id)?evaluators[id](input):fail('Unknown measurement.');}
@@ -219,10 +232,10 @@ const DocsisHealthUI=(()=>{
    lead:'Power of every downstream signal added together at the modem input, in dBmV.',
    fields:()=>field('total','total','Total input power (dBmV)','e.g. 28')+`<label>Modem<select data-health="total" data-field="modem"><option value="">Choose the modem</option><option value="3.1">DOCSIS 3.1 (limit 40)</option><option value="3.0">DOCSIS 3.0 only (limit 33)</option></select></label>`,
    conditions:'Use your meter’s total-power reading across the full downstream band. The 3.1 limit covers 54 to 1794 MHz; the 3.0-only limit covers 40 MHz and above. Do not apply 40 dBmV to a 3.0-only modem. On a 3.1 modem that receives only SC-QAM channels, the 3.1 specification also points to the 3.0 table, whose total is 33 dBmV, and does not say which governs: confirm a total between 33 and 40 dBmV.'},
-  upstream:{title:'Upstream transmit headroom',spec:'docsis.us.pmax.capability',company:'company.docsis.upstream',
-   lead:'How far the modem’s total transmit power sits below the most it can transmit (Pmax).',
-   fields:()=>`<label class="calc-wide">How the modem is working<select data-health="upstream" data-field="mode"><option value="">Choose first</option><option value="3.1">DOCSIS 3.1 modem on a 3.1 CMTS</option><option value="other">DOCSIS 3.0 modem, or 3.1 modem on a 3.0 CMTS</option></select></label>`+field('upstream','total','Total transmit power (dBmV)','e.g. 48')+field('upstream','pmax','Modem maximum, Pmax (dBmV)','65 if blank (3.1 only)'),
-   conditions:'Enter the total across all upstream channels, not one channel. In DOCSIS 3.1 operation the specification reports per-channel power normalized to 1.6 MHz, so a 6.4 MHz channel’s actual power is about 6 dB above the number reported; check which convention your tool uses. The 65 dBmV minimum applies to a 3.1 modem working with a 3.1 CMTS. A 3.0 modem has per-channel limits that depend on channel type and count, so type in its maximum from its documentation. Headroom is a margin, not a pass or fail.'}
+  upstream:{title:'Upstream composite margin to Pmax',spec:'docsis.us.pmax.capability',company:'company.docsis.upstream',
+   lead:'Compare a genuine simultaneous total at the CM F-connector with an applicable, comparable total Pmax reference.',
+   fields:()=>`<label class="calc-wide">How the modem is working<select data-health="upstream" data-field="mode"><option value="">Choose first</option><option value="3.1">DOCSIS 3.1 CM + CMTS, MTC enabled</option><option value="other">Another declared mode / compatibility</option></select><span class="note">The 3.1 choice requires both a DOCSIS 3.1 modem and CMTS, with Multiple Transmit Channel (MTC) mode enabled. Other modes need an entered comparable total reference.</span></label>`+field('upstream','total','Simultaneous total at CM F-connector (dBmV)','e.g. 60')+field('upstream','pmax','Comparable total Pmax reference (dBmV)','Assumed 65: 3.1 MTC only')+`<label class="calc-wide">Total and reference basis<select data-health="upstream" data-field="basis"><option value="">Unknown — confirm below</option><option value="confirmed">Confirmed basis below</option></select><span class="note">The reading is a genuine simultaneous total at the CM F-connector. An entered Pmax has a known applicable total-power provenance, mode and convention comparable to the reading. If Pmax is blank, 65 is only an assumed Spec minimum/default in the declared 3.1 MTC mode.</span></label>`,
+   conditions:'A normalized or per-channel status reading is not an actual simultaneous composite total. A bandwidth restatement alone cannot reconstruct instantaneous OFDMA power from unknown grants, pilots or pre-equalization. Blank Pmax is an assumed 65 dBmV minimum/default only in the applicable 3.1 CM/CMTS mode with MTC enabled; it does not show the modem’s actual capability or establish a protocol capability exchange. Composite margin describes this reading and reference, not a pass or fail. Available per-channel/DRW headroom, channel count, channel width and future full-grant capability remain Unknown. DOCSIS 3.0 and compatibility operation use separate per-channel rules; a generic entered-reference subtraction does not certify them.'}
  });
  function field(card,name,label,hint){return `<label>${label}<input type="number" step="any" data-health="${card}" data-field="${name}" placeholder="${hint}"></label>`;}
  function windowBox(id){
@@ -244,7 +257,11 @@ const DocsisHealthUI=(()=>{
     its reason and nothing saved is touched. */
  const NOT_A_NUMBER='not a number';
  const typed=el=>el.validity&&el.validity.badInput?NOT_A_NUMBER:el.value;
- function read(id){const v={};document.querySelectorAll(`[data-health="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});return v;}
+ function read(id){
+  const v={};document.querySelectorAll(`[data-health="${id}"]`).forEach(el=>{v[el.dataset.field]=typed(el);});
+  if(id==='upstream'&&v.basis==='confirmed')v.context={actualSimultaneousTotal:true,measurementPlane:'cm-f-connector',comparableReference:true,mtcEnabled:v.mode==='3.1'};
+  return v;
+ }
  /* The plant comes from the job: Test → Meter setup keeps one choice, 42/54 or 204/258 MHz. */
  function plantNow(){
   try{const p=typeof SweepSetup!=='undefined'?SweepSetup.draft().selected:null;return DocsisHealth.PLANTS.includes(p)?p:null;}catch(_){return null;}
@@ -261,8 +278,8 @@ const DocsisHealthUI=(()=>{
    const specId=r.modem==='3.0'?'docsis.ds.total30.limit':'docsis.ds.total31.limit';
    return `<div class="health-row"><span>Spec limit, DOCSIS ${r.modem}${r.modem==='3.0'?' only':''} ${tag(specId,'total input power limit')}</span><strong>below ${r.limit} <small>dBmV</small></strong></div>`;
   }
-  if(!r.specBasis)return `<div class="health-row"><span>Modem maximum (your entry; not from this specification)</span><strong>${trim2(r.pmax)} <small>dBmV</small></strong></div>`;
-  return `<div class="health-row"><span>Maximum total power (Pmax), DOCSIS 3.1 on a 3.1 CMTS ${tag(c.spec,'Pmax')}</span><strong>${trim2(r.pmax)} <small>dBmV${r.defaultPmax?', the minimum':''}</small></strong></div>`;
+  if(r.defaultPmax)return `<div class="health-row"><span>Assumed Spec minimum/default reference ${tag(c.spec,'applicable Pmax minimum and default')}</span><strong>${trim2(r.pmax)} <small>dBmV</small></strong></div><p class="note tight">Declared DOCSIS 3.1 CM/CMTS mode, MTC enabled. Actual modem capability is Unknown: a blank app field is not a capability report.</p>`;
+  return `<div class="health-row"><span>Entered comparable total Pmax reference</span><strong>${trim2(r.pmax)} <small>dBmV</small></strong></div><p class="note tight">${r.specBasis?'Declared DOCSIS 3.1 CM/CMTS mode, MTC enabled.':'Generic entered reference for the declared mode.'} This app uses your stated reference; it does not verify modem capability.</p>`;
  }
  function statusLine(id,r){
   const where=r.edge==='low'?'lower':'upper';
@@ -270,7 +287,11 @@ const DocsisHealthUI=(()=>{
    return r.status==='below-limit'?`<p class="health-status ok">✓ ${dB(r.margin)} below the ${r.limit} dBmV limit.</p>`:`<p class="health-status warn">⚠ At or above the ${r.limit} dBmV limit${r.margin>0?` (${dB(r.margin)} over)`:''}.</p>`;
   }
   if(id==='upstream'){
-   return r.status==='headroom'?`<p class="health-status neutral">• ${r.headroom<0.005?'No headroom: the reading is at Pmax.':dB(r.headroom)+' of headroom below Pmax.'} This is a margin, not a pass or fail.</p>`:`<p class="health-status warn">⚠ The reading is ${dB(r.margin)} above Pmax. Check the reading, or enter the Pmax the modem reports.</p>`;
+   const m=r.compositeMargin,absolute=Math.abs(m);
+   const digits=absolute===0?'0.00000':absolute<0.0001?absolute.toExponential(5):absolute.toPrecision(6);
+   const signed=(m>0?'+':m<0?'−':'')+digits;
+   const direction=m<0?'Over the reference':m===0?'At the reference':'Below the reference';
+   return `<div class="health-row"><span>Composite margin to reference</span><strong data-composite-margin>${signed} <small>dB</small></strong></div><p class="health-status ${m<0?'warn':'neutral'}">${m<0?'⚠':'•'} ${direction} for this reading. This is a margin, not a pass or fail.</p><p class="note tight">Available per-channel/DRW headroom: Unknown. Channel count and width: Unknown. This comparison does not certify DOCSIS 3.0/compatibility per-channel compliance.</p>`;
   }
   const range=r.derived?'derived range':'spec range';
   if(r.status==='inside')return `<p class="health-status ok">✓ Inside the ${range}, ${dB(r.margin)} from the ${where} edge.</p>`;
@@ -341,6 +362,9 @@ const DocsisHealthUI=(()=>{
   const onEdit=event=>{
    const t=event.target;if(!panel.contains(t))return;
    if(plantNow()!==shownPlant&&t.dataset.health)syncWindowFields();
+   if(t.dataset.health==='upstream'&&t.dataset.field==='mode'&&event.type==='change'){
+    const basis=panel.querySelector('[data-health="upstream"][data-field="basis"]');if(basis)basis.value='';
+   }
    if(t.dataset.health)update(t.dataset.health);
    else if(t.dataset.healthWindow&&event.type==='change')commitWindow(t.dataset.healthWindow);
   };
