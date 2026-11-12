@@ -4,12 +4,16 @@ from pathlib import Path
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
-import os,tempfile
+import os,tempfile,subprocess
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parent.parent
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*args): pass
-server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT/'outputs')))
+source_dir=tempfile.TemporaryDirectory() if os.environ.get('NIGHTSWEEP_NIGHTLOG_SOURCE_TEST')=='1' else None
+serve_dir=Path(source_dir.name) if source_dir else ROOT/'outputs'
+if source_dir:
+    (serve_dir/'Night_Sweep.html').write_bytes(subprocess.check_output(['node','-e',"process.stdout.write(require('./qa/build2-source-harness.cjs').assembleHtml())"],cwd=ROOT))
+server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(serve_dir)))
 Thread(target=server.serve_forever,daemon=True).start()
 checks=[]; errors=[]
 def check(name,value):
@@ -26,6 +30,15 @@ try:
             check(f'{width}px empty state offers general note and Station',page.locator('[data-night-draft="stationIdentity"]').input_value()=='' and page.locator('#nightLogPanel [data-task="station"]').is_visible())
             fixture=page.evaluate((ROOT/'qa/night-log-fixture.js').read_text())
             check(f'{width}px five actual-handler captures',fixture['entries']==5 and all(f'{i}. A{i}' in fixture['preview'] for i in range(1,6)))
+            captured=page.evaluate('JSON.stringify(state.nightLog.entries[0])')
+            page.locator('[data-night-draft="action"]').fill('Unadded draft Ω')
+            page.locator('[data-night-entry-id]').first.locator('summary').click()
+            page.locator('[data-night-remove]').first.click()
+            check(f'{width}px Remove frees one slot and keeps the draft',page.evaluate('state.nightLog.entries.length===4') and page.locator('[data-night-draft="action"]').input_value()=='Unadded draft Ω')
+            page.locator('[data-night-action="undo"]').click()
+            check(f'{width}px Undo restores exact first snapshot and draft',page.evaluate('JSON.stringify(state.nightLog.entries[0])')==captured and page.locator('[data-night-draft="action"]').input_value()=='Unadded draft Ω')
+            page.locator('[data-night-draft="action"]').fill('')
+            page.locator('[data-night-action="generate"]').click()
             for theme in ['night','sun']:
                 page.evaluate('(theme)=>document.documentElement.dataset.theme=theme',theme)
                 check(f'{width}px {theme} no horizontal overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1 && document.querySelector("#nightHandoffPreview").scrollWidth<=document.querySelector("#nightHandoffPreview").clientWidth+1'))
@@ -76,4 +89,5 @@ try:
         check('no application runtime errors',not errors);browser.close()
 finally:
     server.shutdown();server.server_close()
+    if source_dir: source_dir.cleanup()
 print(f'Build3 night log layout: {len(checks)} checks passed')

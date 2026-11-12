@@ -17,6 +17,39 @@ function add(action='Adjusted'){input('[data-night-draft="action"]',action).focu
 function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if(c==='\r'&&text[i+1]==='\n'&&!quoted){row.push(cell);rows.push(row);row=[];cell='';i++;}else cell+=c;}row.push(cell);rows.push(row);return rows;}
 (async()=>{
  await check('Night log opens without persisting a blank log and reports are pure',()=>{assert.equal(ev('typeof NightLog'),'object');const before=json('state');ev('WorkflowUI.go("nightLog");NightLog.render();NightLog.entries();NightLog.handoffText();NightLog.csvRows();NightLog.csvText()');assert.deepEqual(json('state'),before);assert.equal(d.querySelector('[data-night-draft="stationIdentity"]').value,'');assert.match(d.querySelector('#nightLogPanel').textContent,/No saved Station worksheets yet/);});
+ await check('Blank Add refuses without a slot, store write or job mutation; explicit Station capture remains meaningful',()=>{
+  ev('loadState({version:1,setup:{},rows:[]});WorkflowUI.go("nightLog")');
+  const before=json('state'),stored=ev('localStorage.getItem("hfc-route-v1")');
+  for(const draft of [{},{asset:' \t',action:'\n',rocUpdate:' ',gas:' ',mileage:' ',asBuilt:' '}])assert.throws(()=>ev(`NightLog.addEntry(${JSON.stringify(draft)})`),/enter|blank|choose/i);
+  assert.deepEqual(json('state'),before);assert.equal(ev('localStorage.getItem("hfc-route-v1")'),stored);
+  input('[data-night-draft="action"]',' \n ');d.querySelector('[data-night-action="add"]').click();assert.deepEqual(json('state'),before);assert.match(d.querySelector('[data-night-status]').textContent,/enter|blank|choose/i);
+  seed();ev('NightLog.addEntry({stationIdentity:StationView.records()[0].identity})');assert.equal(ev('state.nightLog.entries.length'),1);assert(ev('state.nightLog.entries[0].station.identity'));
+ });
+ await check('Remove and Undo restore exact frozen entry at its original place without replacing later history',()=>{
+  seed();add('First');add('Second');add('Third');const original=json('state.nightLog.entries'),id=original[1].id;
+  ev(`NightLog.removeEntry(${JSON.stringify(id)})`);assert.deepEqual(json('state.nightLog.entries').map(e=>e.id),[original[0].id,original[2].id]);
+  ev('NightLog.addEntry({action:"Later entry"})');const later=json('state.nightLog.entries[2]');ev('NightLog.undoRemoval()');assert.deepEqual(json('state.nightLog.entries'),[...original,later]);assert.throws(()=>ev('NightLog.undoRemoval()'),/undo|remov/i);
+ });
+ await check('Real Remove and Undo retain all unadded draft text and report autosave failure',()=>{
+  seed();add();const original=json('state.nightLog.entries[0]');ev('NightLog.render(true)');
+  input('[data-night-draft="asset"]','Draft Ω');input('[data-night-draft="action"]','Unadded \n text');input('[data-night-draft="gas"]','2 L');input('[data-night-draft="stationIdentity"]',original.station.identity,'change');
+  const old=w.Storage.prototype.setItem;w.Storage.prototype.setItem=()=>{throw Error('quota')};
+  try{d.querySelector('[data-night-remove]').click();assert.equal(ev('state.nightLog.entries.length'),0);assert.match(d.querySelector('[data-night-status]').textContent,/remain in memory.*Autosave failed/);assert.equal(d.querySelector('[data-night-draft="action"]').value,'Unadded \n text');d.querySelector('[data-night-action="undo"]').click();assert.deepEqual(json('state.nightLog.entries[0]'),original);assert.equal(d.querySelector('[data-night-draft="asset"]').value,'Draft Ω');assert.equal(d.querySelector('[data-night-draft="gas"]').value,'2 L');assert.equal(d.querySelector('[data-night-draft="stationIdentity"]').value,original.station.identity);assert.match(d.querySelector('[data-night-status]').textContent,/remain in memory.*Autosave failed/);}finally{w.Storage.prototype.setItem=old;}
+ });
+ await check('Job switch invalidates transient Undo and stale action handlers cannot edit the new job',()=>{
+  seed();add();ev('NightLog.render(true);window.__nightOldOwner=state');const staleAdd=d.querySelector('[data-night-action="add"]').onclick,staleRemove=d.querySelector('[data-night-remove]').onclick;
+  ev('NightLog.removeEntry(state.nightLog.entries[0].id);NightLog.render(true)');const staleUndo=d.querySelector('[data-night-action="undo"]').onclick;
+  ev('loadState({version:1,setup:{},rows:[]});NightLog.render(true)');const before=json('state'),old=json('window.__nightOldOwner');staleAdd();staleRemove();staleUndo();assert.deepEqual(json('state'),before);assert.deepEqual(json('window.__nightOldOwner'),old);assert.throws(()=>ev('NightLog.undoRemoval()'),/undo|remov/i);assert.throws(()=>ev('NightLog.removeEntry("log_missing",window.__nightOldOwner)'),/job|owner|current/i);assert.deepEqual(json('window.__nightOldOwner'),old);delete w.__nightOldOwner;
+ });
+ await check('Undo refuses duplicate IDs and full capacity atomically and can retry after a slot is freed',()=>{
+  ev('loadState({version:1,setup:{},rows:[]});NightLog.addEntry({action:"Original"});window.__nightRemoved=NightLog.entries()[0];NightLog.removeEntry(window.__nightRemoved.id)');
+  ev('state.nightLog.entries.push({...window.__nightRemoved,action:"Different history"})');let before=json('state');assert.throws(()=>ev('NightLog.undoRemoval()'),/already|duplicate/i);assert.deepEqual(json('state'),before);
+  ev('state.nightLog.entries=Array.from({length:200},(_,i)=>({...window.__nightRemoved,id:"log_capacity_"+i,action:"Other "+i}))');before=json('state');assert.throws(()=>ev('NightLog.undoRemoval()'),/200|maximum|full/i);assert.deepEqual(json('state'),before);ev('state.nightLog.entries.pop();NightLog.undoRemoval()');assert.equal(ev('state.nightLog.entries.length'),200);assert.deepEqual(json('state.nightLog.entries[0]'),json('window.__nightRemoved'));delete w.__nightRemoved;
+ });
+ await check('Legacy imported blank entries remain byte-preserved on read, save and backup',async()=>{
+  ev('loadState({version:1,setup:{},rows:[],nightLog:{ticket:"",windowStart:"",windowEnd:"",nextShift:"",entries:[{id:"log_legacy_blank",addedAt:"2026-11-12T00:00:00.000Z",ticket:"",asset:"",action:"",rocUpdate:"",gas:"",mileage:"",asBuilt:"",station:null}]}})');
+  const raw=ev('JSON.stringify(state.nightLog)');ev('NightLog.render(true);NightLog.entries();NightLog.handoffText();NightLog.csvText();saveLocal()');assert.equal(ev('JSON.stringify(state.nightLog)'),raw);const backup=await w.evidenceExportProject(ev('state'));assert.equal(JSON.stringify(backup.nightLog),raw);assert.equal(JSON.stringify(JSON.parse(ev('localStorage.getItem("hfc-route-v1")')).nightLog),raw);
+ });
  await check('The actual route-example button preserves notes on an empty route without creating a log for old jobs',()=>{
   ev('loadState({version:1,example:true,setup:{},rows:[]});NightLog.addEntry({action:"Only note",gas:"2 L",mileage:"-1e2 km",asBuilt:"Unknown Ω"});WorkflowUI.go("nightLog")');
   input('[data-night-window="windowStart"]','2026-11-11T21:30');input('[data-night-window="windowEnd"]','2026-11-12T05:00');const log=json('state.nightLog'),txt=ev('NightLog.handoffText()'),csv=ev('NightLog.csvText()');let confirms=0;const confirm=w.confirm;w.confirm=()=>{confirms++;return true;};
