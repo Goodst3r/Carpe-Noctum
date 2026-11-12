@@ -1,0 +1,268 @@
+{
+  "head": "61c4d4add20b47cd8fb96e9a9fafc392e10c9ffe",
+  "app_sha256": "8caf8ff1e9ccccc701a3f8e27e88c46f8331bdf9747946ccc97d1e05bdc9cb24",
+  "checks": [
+    {
+      "label": "320 baseline18 persisted and due2027-05-11",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "interval": "18",
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "yellow",
+          "text": "Reminder window",
+          "age": 12,
+          "warning": "2026-11-11",
+          "due": "2027-05-11"
+        }
+      }
+    },
+    {
+      "label": "320 baseline trustedGrade Current and captured log exists",
+      "passed": true,
+      "data": {
+        "ptv": 2.5,
+        "current": 1,
+        "entries": 6
+      }
+    },
+    {
+      "label": "320 explicit24 persists and computes exact24-month due2027-11-11",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "24"
+        },
+        "autosaved": {
+          "intervalMonths": "24"
+        },
+        "interval": "24",
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "green",
+          "text": "Before reminder window",
+          "age": 12,
+          "warning": "2027-03-11",
+          "due": "2027-11-11"
+        }
+      }
+    },
+    {
+      "label": "320 explicit24 keeps both immutable histories and Current",
+      "passed": true,
+      "data": {
+        "interval": "{\"intervalMonths\":\"24\"}",
+        "logSame": true,
+        "gradesSame": true,
+        "current": 1
+      }
+    },
+    {
+      "label": "320 explicit restore18 persists before any Station date edit",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "autosaved": {
+          "intervalMonths": "18"
+        },
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "yellow",
+          "text": "Reminder window",
+          "age": 12,
+          "warning": "2026-11-11",
+          "due": "2027-05-11"
+        }
+      }
+    },
+    {
+      "label": "320 restore18 keeps both histories and Current",
+      "passed": true,
+      "data": {
+        "logSame": true,
+        "gradesSame": true,
+        "current": 1
+      }
+    },
+    {
+      "label": "320 restored18 plus changed sweep yields2028-05-11 without history rewrite",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "sweep": {
+          "date": "2026-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "green",
+          "text": "Before reminder window",
+          "age": 0,
+          "warning": "2027-11-11",
+          "due": "2028-05-11"
+        },
+        "balance": {
+          "date": "2026-11-10",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "neutral",
+          "text": "Balance recorded",
+          "age": 0,
+          "warning": null,
+          "due": null
+        },
+        "logSame": true,
+        "gradesSame": true,
+        "current": 0
+      }
+    },
+    {
+      "label": "390 baseline18 persisted and due2027-05-11",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "interval": "18",
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "yellow",
+          "text": "Reminder window",
+          "age": 12,
+          "warning": "2026-11-11",
+          "due": "2027-05-11"
+        }
+      }
+    },
+    {
+      "label": "390 baseline trustedGrade Current and captured log exists",
+      "passed": true,
+      "data": {
+        "ptv": 2.5,
+        "current": 1,
+        "entries": 6
+      }
+    },
+    {
+      "label": "390 explicit24 persists and computes exact24-month due2027-11-11",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "24"
+        },
+        "autosaved": {
+          "intervalMonths": "24"
+        },
+        "interval": "24",
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "green",
+          "text": "Before reminder window",
+          "age": 12,
+          "warning": "2027-03-11",
+          "due": "2027-11-11"
+        }
+      }
+    },
+    {
+      "label": "390 explicit24 keeps both immutable histories and Current",
+      "passed": true,
+      "data": {
+        "interval": "{\"intervalMonths\":\"24\"}",
+        "logSame": true,
+        "gradesSame": true,
+        "current": 1
+      }
+    },
+    {
+      "label": "390 explicit restore18 persists before any Station date edit",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "autosaved": {
+          "intervalMonths": "18"
+        },
+        "sweep": {
+          "date": "2025-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "yellow",
+          "text": "Reminder window",
+          "age": 12,
+          "warning": "2026-11-11",
+          "due": "2027-05-11"
+        }
+      }
+    },
+    {
+      "label": "390 restore18 keeps both histories and Current",
+      "passed": true,
+      "data": {
+        "logSame": true,
+        "gradesSame": true,
+        "current": 1
+      }
+    },
+    {
+      "label": "390 restored18 plus changed sweep yields2028-05-11 without history rewrite",
+      "passed": true,
+      "data": {
+        "stored": {
+          "intervalMonths": "18"
+        },
+        "sweep": {
+          "date": "2026-11-11",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "green",
+          "text": "Before reminder window",
+          "age": 0,
+          "warning": "2027-11-11",
+          "due": "2028-05-11"
+        },
+        "balance": {
+          "date": "2026-11-10",
+          "done": true,
+          "validity": "Valid civil date",
+          "status": "neutral",
+          "text": "Balance recorded",
+          "age": 0,
+          "warning": null,
+          "due": null
+        },
+        "logSame": true,
+        "gradesSame": true,
+        "current": 0
+      }
+    }
+  ],
+  "tools": {
+    "new_page": 2,
+    "list_pages": 2,
+    "emulate": 2,
+    "evaluate_script": 82,
+    "press_key": 22
+  },
+  "server": {
+    "name": "chrome_devtools",
+    "title": "Chrome DevTools MCP server",
+    "version": "1.13.0"
+  }
+}

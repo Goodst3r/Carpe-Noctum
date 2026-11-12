@@ -1,0 +1,584 @@
+{
+  "generator": "research/build3/sweep-grading-reference.py",
+  "precision_digits": 50,
+  "scope": "Synthetic normalized series only. Decimal arithmetic does not verify native VIAVI JSON, units, measurement plane, equipment compatibility, or acceptance.",
+  "sources": [
+    {
+      "path": "handoff_docs/PARALLEL_TASKS.md",
+      "section": "A4 detail and rule 8",
+      "purpose": "Owner-entered unknown criteria, synthetic fixtures, independent math"
+    },
+    {
+      "path": "docs/BUILD_LIST.md",
+      "section": "Item 13",
+      "purpose": "1, 2.5, 4 dB PTV cases at an entered 3 dB limit"
+    },
+    {
+      "path": "night-sweep/projects.js",
+      "section": "ProjectMath",
+      "purpose": "Existing signed high-minus-low and measured-minus-target convention"
+    },
+    {
+      "url": "https://www.wolframalpha.com/input?i=%7Bmax%28%7B0%2C1%2C0.5%7D%29-min%28%7B0%2C1%2C0.5%7D%29%2Cmax%28%7B0%2C2.5%2C1.25%7D%29-min%28%7B0%2C2.5%2C1.25%7D%29%2Cmax%28%7B0%2C4%2C2%7D%29-min%28%7B0%2C4%2C2%7D%29%2C+%2845-34%29-%2843-31%29%7D",
+      "purpose": "Root-reported prior WolframAlpha arithmetic: PTV 1, 2.5, 4 dB; tilt error -1 dB. This script does not invoke Wolfram."
+    }
+  ],
+  "cases": [
+    {
+      "id": "raw-ptv-1",
+      "series": {
+        "unit": "dB",
+        "points": [
+          [
+            54,
+            0
+          ],
+          [
+            400,
+            1
+          ],
+          [
+            860,
+            0.5
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 3
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "1",
+          "lowValue": "0",
+          "highValue": "0.5",
+          "measuredTiltDb": "0.5",
+          "lowLevelErrorDb": null,
+          "highLevelErrorDb": null,
+          "tiltErrorDb": null
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "unknown",
+          "highLevel": "unknown",
+          "tilt": "unknown"
+        },
+        "overall": "unknown"
+      }
+    },
+    {
+      "id": "raw-ptv-2.5",
+      "series": {
+        "unit": "dB",
+        "points": [
+          [
+            54,
+            0
+          ],
+          [
+            400,
+            2.5
+          ],
+          [
+            860,
+            1.25
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 3
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "2.5",
+          "lowValue": "0",
+          "highValue": "1.25",
+          "measuredTiltDb": "1.25",
+          "lowLevelErrorDb": null,
+          "highLevelErrorDb": null,
+          "tiltErrorDb": null
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "unknown",
+          "highLevel": "unknown",
+          "tilt": "unknown"
+        },
+        "overall": "unknown"
+      }
+    },
+    {
+      "id": "raw-ptv-4",
+      "series": {
+        "unit": "dB",
+        "points": [
+          [
+            54,
+            0
+          ],
+          [
+            400,
+            4
+          ],
+          [
+            860,
+            2
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 3
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "4",
+          "lowValue": "0",
+          "highValue": "2",
+          "measuredTiltDb": "2",
+          "lowLevelErrorDb": null,
+          "highLevelErrorDb": null,
+          "tiltErrorDb": null
+        },
+        "checks": {
+          "ptv": "fail",
+          "lowLevel": "unknown",
+          "highLevel": "unknown",
+          "tilt": "unknown"
+        },
+        "overall": "fail"
+      }
+    },
+    {
+      "id": "raw-ptv-3",
+      "series": {
+        "unit": "dB",
+        "points": [
+          [
+            54,
+            0
+          ],
+          [
+            400,
+            3
+          ],
+          [
+            860,
+            1.5
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 3
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "3",
+          "lowValue": "0",
+          "highValue": "1.5",
+          "measuredTiltDb": "1.5",
+          "lowLevelErrorDb": null,
+          "highLevelErrorDb": null,
+          "tiltErrorDb": null
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "unknown",
+          "highLevel": "unknown",
+          "tilt": "unknown"
+        },
+        "overall": "unknown"
+      }
+    },
+    {
+      "id": "signed-errors",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            34
+          ],
+          [
+            400,
+            39
+          ],
+          [
+            860,
+            45
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 12,
+        "lowTargetDbmv": 31,
+        "highTargetDbmv": 43,
+        "maxLevelErrorDb": 3,
+        "tiltTargetDb": 12,
+        "maxTiltErrorDb": 1
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "11",
+          "lowValue": "34",
+          "highValue": "45",
+          "measuredTiltDb": "11",
+          "lowLevelErrorDb": "3",
+          "highLevelErrorDb": "2",
+          "tiltErrorDb": "-1"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "negative-and-zero",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            -4
+          ],
+          [
+            400,
+            -2
+          ],
+          [
+            860,
+            0
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 4,
+        "lowTargetDbmv": -4,
+        "highTargetDbmv": 0,
+        "maxLevelErrorDb": 0,
+        "tiltTargetDb": 4,
+        "maxTiltErrorDb": 0
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "4",
+          "lowValue": "-4",
+          "highValue": "0",
+          "measuredTiltDb": "4",
+          "lowLevelErrorDb": "0",
+          "highLevelErrorDb": "0",
+          "tiltErrorDb": "0"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "descending",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            0
+          ],
+          [
+            400,
+            -1
+          ],
+          [
+            860,
+            -3
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 3,
+        "lowTargetDbmv": 0,
+        "highTargetDbmv": -3,
+        "maxLevelErrorDb": 0,
+        "tiltTargetDb": -3,
+        "maxTiltErrorDb": 0
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "3",
+          "lowValue": "0",
+          "highValue": "-3",
+          "measuredTiltDb": "-3",
+          "lowLevelErrorDb": "0",
+          "highLevelErrorDb": "0",
+          "tiltErrorDb": "0"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "decimal-equality",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            0.1
+          ],
+          [
+            400,
+            0.3
+          ],
+          [
+            860,
+            0.4
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 0.3,
+        "lowTargetDbmv": 0.1,
+        "highTargetDbmv": 0.3,
+        "maxLevelErrorDb": 0.1,
+        "tiltTargetDb": 0.2,
+        "maxTiltErrorDb": 0.1
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "0.3",
+          "lowValue": "0.1",
+          "highValue": "0.4",
+          "measuredTiltDb": "0.3",
+          "lowLevelErrorDb": "0.0",
+          "highLevelErrorDb": "0.1",
+          "tiltErrorDb": "0.1"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "band-only",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            5,
+            -100
+          ],
+          [
+            54,
+            10
+          ],
+          [
+            400,
+            15
+          ],
+          [
+            860,
+            12
+          ],
+          [
+            1800,
+            100
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 5,
+        "lowTargetDbmv": 10,
+        "highTargetDbmv": 12,
+        "maxLevelErrorDb": 0,
+        "tiltTargetDb": 2,
+        "maxTiltErrorDb": 0
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "5",
+          "lowValue": "10",
+          "highValue": "12",
+          "measuredTiltDb": "2",
+          "lowLevelErrorDb": "0",
+          "highLevelErrorDb": "0",
+          "tiltErrorDb": "0"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "unrounded-detail",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            -1.23456789
+          ],
+          [
+            400,
+            -0.123456789
+          ],
+          [
+            860,
+            1e-09
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 1.234567891,
+        "lowTargetDbmv": -1.23456789,
+        "highTargetDbmv": 1e-09,
+        "maxLevelErrorDb": 0,
+        "tiltTargetDb": 1.234567891,
+        "maxTiltErrorDb": 0
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "1.234567891",
+          "lowValue": "-1.23456789",
+          "highValue": "1E-9",
+          "measuredTiltDb": "1.234567891",
+          "lowLevelErrorDb": "0E-8",
+          "highLevelErrorDb": "0E-9",
+          "tiltErrorDb": "0E-9"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "decimal-tenth",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            0.3
+          ],
+          [
+            860,
+            0.4
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 0.1,
+        "lowTargetDbmv": 0.2,
+        "highTargetDbmv": 0.3,
+        "maxLevelErrorDb": 0.1,
+        "tiltTargetDb": 0.2,
+        "maxTiltErrorDb": 0.1
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "0.1",
+          "lowValue": "0.3",
+          "highValue": "0.4",
+          "measuredTiltDb": "0.1",
+          "lowLevelErrorDb": "0.1",
+          "highLevelErrorDb": "0.1",
+          "tiltErrorDb": "-0.1"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    },
+    {
+      "id": "scalar-envelope-decimal",
+      "series": {
+        "unit": "dBmV",
+        "points": [
+          [
+            54,
+            999999.2
+          ],
+          [
+            860,
+            999999.3
+          ]
+        ]
+      },
+      "profile": {
+        "lowFrequencyMHz": 54,
+        "highFrequencyMHz": 860,
+        "ptvLimitDb": 0.1,
+        "lowTargetDbmv": 999999.1,
+        "highTargetDbmv": 999999.2,
+        "maxLevelErrorDb": 0.1,
+        "tiltTargetDb": 0.2,
+        "maxTiltErrorDb": 0.1
+      },
+      "expected": {
+        "metrics": {
+          "ptvDb": "0.1",
+          "lowValue": "999999.2",
+          "highValue": "999999.3",
+          "measuredTiltDb": "0.1",
+          "lowLevelErrorDb": "0.1",
+          "highLevelErrorDb": "0.1",
+          "tiltErrorDb": "-0.1"
+        },
+        "checks": {
+          "ptv": "pass",
+          "lowLevel": "pass",
+          "highLevel": "pass",
+          "tilt": "pass"
+        },
+        "overall": "pass"
+      }
+    }
+  ]
+}
