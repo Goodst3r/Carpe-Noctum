@@ -337,7 +337,7 @@ async function openProjectText(text,confirmed=false){
  loadState(candidate,false,true);
  if(candidate.evidence?.length||candidate.evidenceFiles!==undefined)candidate=await evidencePrepareImport(candidate);
  if(typeof JobsUI!=='undefined'&&!JobsUI.beforeProjectOpen({confirmed}))return false;
- loadState(candidate);return true;
+ loadState(candidate);showTab('route');return true;
 }
 $('load').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{
  if(file.size>20*1024*1024)throw Error('Project file exceeds 20 MiB.');
