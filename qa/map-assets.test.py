@@ -5,6 +5,7 @@ import hashlib
 from html.parser import HTMLParser
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 
@@ -90,6 +91,22 @@ class MapAssetsTests(unittest.TestCase):
         (self.vendor / 'manifest.json').write_text('{"schema":2,"files":[]}')
         with self.assertRaisesRegex(ValueError, 'schema'):
             self.module.asset_script(self.vendor)
+
+    def test_source_qa_assembly_retains_exact_frozen_asset_payload(self):
+        code = r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {assembleHtml}=require('./qa/build2-source-harness.cjs');
+const extract=html=>{const blocks=[...html.matchAll(/<script id="map-import-assets" type="application\/json">([\s\S]*?)<\/script>/g)];assert.equal(blocks.length,1);return blocks[0][1];};
+const source=extract(assembleHtml()),frozen=extract(fs.readFileSync('outputs/Night_Sweep.html','utf8'));
+assert.equal(source,frozen,'Source assembly must preserve every frozen recognition asset byte');
+const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
+assert.equal(hash(source),hash(frozen));
+process.stdout.write(JSON.stringify({sha256:hash(source),names:Object.keys(JSON.parse(source))}));
+'''
+        result = subprocess.run(['node', '-e', code], cwd=ROOT, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(set(payload['names']), {'NOTICE.txt','pdf.js','pdf-worker.js','ocr.js','ocr-worker.js','eng.traineddata.gz'})
 
 if __name__ == '__main__':
     result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(MapAssetsTests))
