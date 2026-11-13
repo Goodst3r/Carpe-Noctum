@@ -12,7 +12,7 @@ const INDEX = new URL('index.html', BASE).href;
 // The production static host redirects these HTML filenames to clean paths.
 // Request the known clean path directly if the original request is rejected;
 // never follow a redirect or accept an unverified redirected response.
-const CANONICAL_HTML = {'index.html':'./','guide.html':'guide','setup-guide.html':'setup-guide','math-audit.html':'math-audit','install.html':'install','android.html':'android','iphone.html':'iphone'};
+const CANONICAL_HTML = Object.fromEntries(ASSETS.filter(asset=>asset.endsWith('.html')).map(asset=>[asset,asset==='index.html'?'./':asset.slice(0,-5)]));
 const HTML_ALIASES = new Map(Object.entries(CANONICAL_HTML).map(([asset,path])=>[new URL(path,BASE).href,new URL(asset,BASE).href]));
 
 async function fetchPublicAsset(url, asset) {
