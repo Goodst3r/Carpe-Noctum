@@ -58,6 +58,12 @@ Repeated parse5/JSDOM parsing of the 11,396,519-character inert asset JSON exhau
 
 The rebuilt post-correction standalone is `63e035d3eed586d587304e712ea0ec01bb64e1fbef8ac442d0639f9b6236d40d`, PWA `ec868ec9033b9b5abbc1`. The full exact-head gate must now restart; neither the aborted attempt nor these targeted checks substitutes for it.
 
+## Interrupted resumed gate and final verification plan
+
+The next gate started on `babd8ce6d8ab1348f25ed8757bc4112bf47deedf` at 2026-11-13T10:37:17.775262Z and was interrupted after three completed setup/build commands, all exit 0. Its partial automated output contains two stale navigation expectations: Why card 5 and the Study unity question requested retained `gain`, whose intentional route-first alias opens `route`. Neither the attempt nor its partial checks is a passing gate. The original receipt/logs remain under `/tmp/carpe-routes-final-gate-20261113T103717Z`; `interrupted.json` records their hashes, including partial automated log SHA-256 `96313d0acc0024b886fe644645b312e25e8786c6360ce0ea80592568ac18385b`.
+
+Terra HIGH owns the bounded QA-only navigation correction and scan for equivalent stale assertions. Mathematical, refusal and legacy-data coverage must remain intact. Final integration will freeze those corrections before restarting every gate command on one exact revision. Final command exits, UTC times, counts, hashes, hosted run and remaining limitations will be attached to the combined draft PR without moving the tested revision for evidence-only edits. Component PRs report their scoped runs separately. The original PR52 base `334bf8442287dacefde8e592eb382674730c1b28`, build3 base `248e77802f333a1a461563dfb1973315a2043d67` and PR54 scope `cb6e21d941e01425bf37304e9464a9211d10a2a6` remain preserved.
+
 ## Remaining field and device checks
 
 HA0005 was not locally available; no private field replay is claimed. OCR is limited to supported printed English schedules and readable geometry; handwriting, rotated/diagonal-only raster layouts, complex crossings, cross-page links and unsupported PDF codecs can remain unknown. Raw map files/previews are transient and originals are not attached to job JSON; retain them separately. The embedded runtime adds 8,547,259 asset bytes (about 11.4 MB base64); recognition loads lazily. Physical phone/WebView/Safari memory, picker and field behavior remain unverified, as do employer acceptance and release signing/publication.
