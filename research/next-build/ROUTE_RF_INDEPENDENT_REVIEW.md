@@ -1,6 +1,6 @@
 # Independent Astra RF review
 
-**Verdict: APPROVE for the scoped RF/workbench review and reviewed map-host follow-ups through `67f25d82abfeaf8902a7930425436b804d4897a4`.**
+**Verdict: APPROVE for the scoped RF/workbench review and reviewed map-host follow-ups through `907b273ae461410491ea1c14f1d432c7934ff743`.**
 
 Original complete RF review source: `962d23a8c34c61963cb413502989006ee2d6d9f9`.
 That executed verification completed 2026-11-13T09:58:04Z with a clean worktree.
@@ -171,3 +171,51 @@ is open. Both new cancellation/context behaviors were observed failing before
 their fixes. The stale context removes the draft controls and requests a fresh
 read; no callback or added-points claim is made for a different job. Final
 combined release, physical device and private field acceptance remain separate.
+
+
+## Navigation and QA hydration delta review
+
+Scoped verdict: **APPROVE `907b273ae461410491ea1c14f1d432c7934ff743`**,
+including `67f25d8..a69fcbed` navigation/documentation/QA updates and the subsequent
+source-assembler fix. Review and targeted execution completed 2026-11-13T10:35:18Z.
+
+The engine, route workbench and station sources are byte-identical to 67f25d8.
+The three app.js edits change navigation prose only. Other runtime edits replace
+retired navigation labels with Route & sweep, Load & what-if and Station records;
+no formulas, event flow, saved state or importer behavior changed. The map importer
+is owned by the separate map branch and is not changed by these Terra commits.
+
+QA retains all 41 training cases and all seven UI-name cases. Existing numerical
+power/RF, portable originals, legacy practice, storage failure and cancellation
+assertions remain. Updated active non-main outputs explicitly require null and a
+missing-gain reason rather than assuming main-leg gain. The wrong-tab, wrong-button,
+retired-name, missing-screen and wrong-group negative validator checks remain and
+passed. Other navigation assertions now check the already-reviewed merged route
+and power screens; catalog tests retain the legacy GaN profile and explicitly test
+current nonretired HGD/HGBT/LE models.
+
+The JSDOM training change replaces only the inert asset block while parsing, then
+synchronously restores its complete text before unchanged application scripts run.
+Every instance checks exact text, original outerHTML and SHA-256; the bootstrap
+removes its temporary global and script. No importer initialization or runtime
+library is disabled. The source harness calls the production Python asset helper,
+which validates and emits the full bundle. The real browser/file:// decoder and
+worker/hash integrity suites are unchanged by the delta.
+
+Independent execution used disposable checkouts, leaving owner worktrees untouched:
+
+- `node qa/training-job.test.cjs`: **41 cases passed**, exit 0, default Node heap,
+  55.23 seconds and observed peak RSS 1,502,956 KiB.
+- `NIGHTSWEEP_RELEASE_TEST=1 node qa/ui-names.test.cjs`: **7 cases passed**, exit 0.
+- `node qa/ui-names.test.cjs` with the updated source harness: **7 cases passed**,
+  exit 0.
+- `node qa/build3-source-assets.test.cjs`: **6 assertions passed**, exit 0,
+  comparing complete source/frozen asset payload SHA-256. This was the owner's
+  disposable review regression. The lead retains the equivalent durable check in
+  the existing `qa/map-assets.test.py` suite; no duplicate QA suite is required.
+
+Frozen replay used the actual integration standalone from local merge `da8e1a9`,
+SHA-256 `63e035d3eed586d587304e712ea0ec01bb64e1fbef8ac442d0639f9b6236d40d`.
+The earlier 58/17 independent RF evidence remains attributed to 962d23a; it was not
+represented as rerun at this QA-only head. This verdict covers the reviewed delta,
+not the final combined gate, physical device testing or unavailable private maps.
