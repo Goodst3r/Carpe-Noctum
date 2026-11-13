@@ -74,7 +74,7 @@ Keep these distinctions while using every tool:
 - A dash or blank result means unavailable, missing, invalid or outside supported data. It is not zero. A deliberately entered zero is different.
 - Use the same frequency, measurement plane and signal-power convention when comparing readings. Apply only test-point correction the meter has not already applied.
 - **Vecima nodes / AOI actives:** local 204/258 MHz workflow, forward Sweepless Sweep and XPERTrak return sweep. **GS7K, GainMaker and the other fleet families:** local 42/54 MHz workflow, forward and Return Sweepless Sweep.
-- Non-high-split design anchors are **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
+- Existing non-high-split jobs and practice designs retain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. New company node references are an explicit separate choice in Plan → Setup. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
 
 ## Header and Home controls
 
@@ -141,6 +141,12 @@ Autosave and named jobs use this app/browser's storage. APK, Chrome, another bro
 ## RF setup and launch source
 
 **Where:** Plan → Setup. **Practice:** Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.
+
+Open **Company node-output design reference**, choose a preset, then **Apply company node design to this job**. The new low-split company reference is **32 @ 54 / 43 @ 753 MHz**, linear in MHz over 54–753 only; the high-split reference is **34 @ 261 / 49 @ 1215 MHz**, linear over 261–1215 only. Apply requires a node with the matching installed split and hardware band. It replaces launch design inputs, disables extrapolation and remaining test-point addback, and preserves Station readings, amplifier targets, hardware and available spectrum. Opening a saved job does not apply either preset. Legacy **31/43 @ 54/860** and **34/46 @ 261/993** jobs retain their saved behavior.
+
+These are intended company node-output values, not measured launch or manufacturer ratings. Company absolute errors and acceptance stay unavailable until channel bandwidth, per-channel/composite/PSD convention, impedance, measurement-plane agreement and field tolerance are confirmed. Partial pilot targets may display independently. Raw sweep peak-to-valley and measured tilt remain raw supplied values. Existing manually entered legacy criteria remain separate.
+
+The AOI source is **Spencer, AOI config v15, 2026-04-23**, user-transcribed; the original file has not been verified and no hash is recorded. Markers **303 / 405 / 555 / 711 MHz** have intended targets **34.7 / 36.3 / 38.6 / 41.1 dBmV**; **303/711** are ALSC mains, backups none. Source/config details retain the conflicting **Config 860/750 MHz ver 1.1** name, firmware and unnamed timer values without inferring carrier availability, lock, compatibility or timer meaning. **38 dBmV · basis unconfirmed · company span 11–42 MHz** remains only a transmitter reference; it changes no hardware edge, injection or receiver target. The same references and provenance are available in Tools → References / Limits and project exports.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -341,7 +347,7 @@ Complete includes intentional mismatches. For example, A1's entered **16.1 + 20 
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
-| Your local non-high-split targets | Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation | Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements |
+| Legacy local non-high-split targets | Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation | Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements |
 | Preset compatibility checks | Match hardware and forward passband containing both base anchors | Blocks high-split/incompatible use; a low return ceiling alone does not prove 54 MHz is usable |
 | Setup targets at available carriers | Enter actual low/high channel centers and choose square-root frequency or linear MHz | Estimates targets from the original 54/860 anchors; range must satisfy 54≤low<high≤860 and known live/hardware limits |
 | Fill 57/753 or 63/550 example | Fill only the converter draft | Does not replace base design anchors, measured launch or approved pilot |

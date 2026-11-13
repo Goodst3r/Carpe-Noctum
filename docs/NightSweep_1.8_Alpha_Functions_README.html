@@ -100,7 +100,7 @@
 <li>A dash or blank result means unavailable, missing, invalid or outside supported data. It is not zero. A deliberately entered zero is different.</li>
 <li>Use the same frequency, measurement plane and signal-power convention when comparing readings. Apply only test-point correction the meter has not already applied.</li>
 <li><strong>Vecima nodes / AOI actives:</strong> local 204/258 MHz workflow, forward Sweepless Sweep and XPERTrak return sweep. <strong>GS7K, GainMaker and the other fleet families:</strong> local 42/54 MHz workflow, forward and Return Sweepless Sweep.</li>
-<li>Non-high-split design anchors are <strong>31 dBmV at 54 MHz / 43 dBmV at 860 MHz</strong>. The separate <strong>38 dBmV return TX reference</strong> does not specify a receiver target, injection setting, channel or measurement plane.</li>
+<li>Existing non-high-split jobs and practice designs retain <strong>31 dBmV at 54 MHz / 43 dBmV at 860 MHz</strong>. New company node references are an explicit separate choice in Plan → Setup. The separate <strong>38 dBmV return TX reference</strong> does not specify a receiver target, injection setting, channel or measurement plane.</li>
 </ul>
 <h2 id="header-and-home-controls">Header and Home controls</h2>
 <p><strong>Where:</strong> the header and Home. <strong>Practice:</strong> Complete field workflow; Custom curves for Help and methods.</p>
@@ -288,6 +288,9 @@
 <p>Autosave and named jobs use this app/browser&#39;s storage. APK, Chrome, another browser/profile, another phone and a Home Screen web app may use different stores. No account or automatic job synchronization is provided. Use one NightSweep window at a time and transfer jobs with verified full-project exports.</p>
 <h2 id="rf-setup-and-launch-source">RF setup and launch source</h2>
 <p><strong>Where:</strong> Plan → Setup. <strong>Practice:</strong> Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.</p>
+<p>Open <strong>Company node-output design reference</strong>, choose a preset, then <strong>Apply company node design to this job</strong>. The new low-split company reference is <strong>32 @ 54 / 43 @ 753 MHz</strong>, linear in MHz over 54–753 only; the high-split reference is <strong>34 @ 261 / 49 @ 1215 MHz</strong>, linear over 261–1215 only. Apply requires a node with the matching installed split and hardware band. It replaces launch design inputs, disables extrapolation and remaining test-point addback, and preserves Station readings, amplifier targets, hardware and available spectrum. Opening a saved job does not apply either preset. Legacy <strong>31/43 @ 54/860</strong> and <strong>34/46 @ 261/993</strong> jobs retain their saved behavior.</p>
+<p>These are intended company node-output values, not measured launch or manufacturer ratings. Company absolute errors and acceptance stay unavailable until channel bandwidth, per-channel/composite/PSD convention, impedance, measurement-plane agreement and field tolerance are confirmed. Partial pilot targets may display independently. Raw sweep peak-to-valley and measured tilt remain raw supplied values. Existing manually entered legacy criteria remain separate.</p>
+<p>The AOI source is <strong>Spencer, AOI config v15, 2026-04-23</strong>, user-transcribed; the original file has not been verified and no hash is recorded. Markers <strong>303 / 405 / 555 / 711 MHz</strong> have intended targets <strong>34.7 / 36.3 / 38.6 / 41.1 dBmV</strong>; <strong>303/711</strong> are ALSC mains, backups none. Source/config details retain the conflicting <strong>Config 860/750 MHz ver 1.1</strong> name, firmware and unnamed timer values without inferring carrier availability, lock, compatibility or timer meaning. <strong>38 dBmV · basis unconfirmed · company span 11–42 MHz</strong> remains only a transmitter reference; it changes no hardware edge, injection or receiver target. The same references and provenance are available in Tools → References / Limits and project exports.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -859,7 +862,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Your local non-high-split targets</td>
+<td>Legacy local non-high-split targets</td>
 <td>Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation</td>
 <td>Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements</td>
 </tr>

@@ -126,7 +126,7 @@ const SweepSetup=(()=>{
   panel.innerHTML=`<div class="sectionhead"><div><h2>Sweep setup</h2><p class="note tight">Two field workflows. Each keeps its own settings and notes with this job.</p></div><button type="button" data-sweep-export>Export setup notes</button></div>
    ${owner.job?.training==='guided-1.5'?'<p class="status warning">SYNTHETIC TRAINING JOB: all readings, notes and snapshots are practice data, not field measurements or acceptance.</p>':''}
    <div class="sweep-split-switch" role="group" aria-label="Plant split">${splits.map(id=>`<button type="button" data-sweep-split="${id}" aria-pressed="${id===split}"><strong>${definitions[id].label}</strong><span>${escape(definitions[id].reverse)}</span></button>`).join('')}</div>
-   <div class="sweep-method-summary"><span class="eyebrow">${escape(g.title||definitions[split].label)}</span><p>${escape(g.summary||'')}</p><p class="note">${escape(definitions[split].forward)} · ${escape(definitions[split].reverse)}</p></div>
+   ${split==='42'&&typeof CompanyTargets!=='undefined'?CompanyTargets.txMarkup():''}<div class="sweep-method-summary"><span class="eyebrow">${escape(g.title||definitions[split].label)}</span><p>${escape(g.summary||'')}</p><p class="note">${escape(definitions[split].forward)} · ${escape(definitions[split].reverse)}</p></div>
    <details class="sweep-settings" data-sweep-section="profile"${open.has('profile')?' open':''}><summary>Plant, equipment and reference</summary><div class="sweep-fields">
     ${field('station',p)}${field('leg',p)}${field('equipment',p)}
     <label>Alignment procedure<select data-sweep-field="method">${Object.entries(methods).filter(([id])=>split==='204'||id!=='aoi').map(([id,label])=>selection(id,label,p.method)).join('')}</select></label>

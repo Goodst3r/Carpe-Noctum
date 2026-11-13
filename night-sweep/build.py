@@ -16,6 +16,7 @@ MODULES = [
     ('<!--CATALOG-->', 'catalog.json'),
     ('<!--ENGINE-->', 'engine.js'),
     ('<!--PROJECTS-->', 'projects.js'),
+    ('<!--COMPANYTARGETS-->', 'company-targets.js'),
     ('<!--FREQUENCY-->', 'frequency.js'),
     ('<!--EVIDENCE-->', 'evidence.js'),
     ('<!--BROWSERFILES-->', 'browser-files.js'),

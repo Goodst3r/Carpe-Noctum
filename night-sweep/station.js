@@ -15,13 +15,22 @@ const StationMath=(()=>{
   return {requiredInjection,injectionDelta:difference(actual,requiredInjection,'Injection delta'),receiverDelta:difference(reading,reference,'Receiver delta')};
  }
  function validDate(value){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value));if(!m||Number(m[1])<1)return false;const date=new Date(value+'T00:00:00Z');return Number.isFinite(date.getTime())&&date.getUTCFullYear()===Number(m[1])&&date.getUTCMonth()+1===Number(m[2])&&date.getUTCDate()===Number(m[3]);}
+ function pilots(input={},equipment={}){
+  const inside=f=>f!==null&&f>=5&&f<=1800&&(!Array.isArray(equipment.forwardBand)||f>=equipment.forwardBand[0]&&f<=equipment.forwardBand[1]);
+  const lo=number(input.lowMHz),hi=number(input.highMHz),ordered=lo===null||hi===null||lo<hi,valid=inside(lo)&&inside(hi)&&ordered;
+  const ml=level(input.measuredLow,'Low reading'),mh=level(input.measuredHigh,'High reading'),tl=level(input.targetLow,'Low target'),th=level(input.targetHigh,'High target');
+  const value=x=>x.ok?x.value:null,errorLow=ordered&&inside(lo)&&ml.ok&&tl.ok?ml.value-tl.value:null,errorHigh=ordered&&inside(hi)&&mh.ok&&th.ok?mh.value-th.value:null;
+  const tiltMeasured=valid&&ml.ok&&mh.ok?mh.value-ml.value:null,tiltTarget=valid&&tl.ok&&th.ok?th.value-tl.value:null;
+  return {errorLow,errorHigh,tiltMeasured,tiltTarget,tiltError:tiltMeasured!==null&&tiltTarget!==null?tiltMeasured-tiltTarget:null,measuredLow:value(ml),measuredHigh:value(mh)};
+ }
  function results(stage={},equipment={}){
   const input=stage.forward||{},names={lowMHz:'low pilot frequency',highMHz:'high pilot frequency',measuredLow:'low reading',measuredHigh:'high reading',targetLow:'low target',targetHigh:'high target',pad:'installed input pad',eq:'installed input EQ',levelTolerance:'level tolerance',tiltTolerance:'tilt tolerance'};
+  const company=equipment.companyTargetProfile&&typeof CompanyTargets!=='undefined'?CompanyTargets.compare(equipment.companyTargetProfile,{...input,split:equipment.split,plane:input.plane,unit:'dBmV'}):null;
   const hidden=Object.keys(names).find(key=>input[key]!==undefined&&input[key]!==''&&number(input[key])===null);
   const forward=hidden?fail('Enter '+names[hidden]+' using finite decimal notation shown in the field.'):Alignment.solve(input,{forwardBand:equipment.forwardBand,profile:Alignment.profileFor(equipment.id),pad:input.pad,eq:input.eq});
-  return {forward,returns:returnResults(stage.returns)};
+  return {forward,pilots:pilots(input,equipment),returns:returnResults(stage.returns),...(company?{company}:{})};
  }
- return {number,level,loss,returnResults,validDate,results};
+ return {number,level,loss,returnResults,validDate,pilots,results};
 })();
 
 const StationView=(()=>{
@@ -71,7 +80,7 @@ const StationView=(()=>{
    // Identity uses only saved job choices. Corrected catalog bands may change the
    // displayed capability / calculation guard, never the ownership of observations.
    const source=t.key==='source'?(type==='node'?['node',String(owner.node?.band??''),owner.node?.asset||'',owner.node?.port||'',owner.node?.module||'']:['active',owner.setup?.sourceAsset||'',owner.setup?.sourcePort||'']):['route'];
-   return {...t,split:t.returnCeiling===42&&t.forwardBand?.[0]===54?'42':t.returnCeiling===204&&t.forwardBand?.[0]===258?'204':'',context:JSON.stringify([t.id,...source])};
+   return {...t,...(t.key==='source'&&type==='node'&&owner.setup?.companyTargetProfile?{companyTargetProfile:owner.setup.companyTargetProfile}:{}),split:t.returnCeiling===42&&t.forwardBand?.[0]===54?'42':t.returnCeiling===204&&t.forwardBand?.[0]===258?'204':'',context:JSON.stringify([t.id,...source])};
   });
  }
  function data(owner=own()){return object(owner.stationView)?owner.stationView:{selected:'',stations:{}};}
@@ -91,7 +100,7 @@ const StationView=(()=>{
  function currentStage(owner=own()){const t=target(owner),r=normalized(currentRecord(owner),t);return r.stages[r.stage];}
  function currentTarget(owner=own()){const t=target(owner);return t?{key:t.key,id:t.id,label:t.label}:null;}
  function results(owner=own()){return StationMath.results(currentStage(owner),target(owner)||{});}
- function renderSignature(owner,t,r){return JSON.stringify([data(owner).selected,t?.key,t?.context,t?.forwardBand,t?.returnCeiling,t?.holder?.stationIdentity,targets(owner).map(x=>[x.key,x.label]),r]);}
+ function renderSignature(owner,t,r){return JSON.stringify([data(owner).selected,t?.key,t?.context,t?.forwardBand,t?.returnCeiling,t?.companyTargetProfile,t?.holder?.stationIdentity,targets(owner).map(x=>[x.key,x.label]),r]);}
  function records(owner=own()){
   return targets(owner).flatMap(t=>{const raw=stored(t,owner);if(!raw)return [];const r=normalized(raw,t);return [{identity:t.holder.stationIdentity,pointId:t.key,equipmentId:t.id,label:t.label,split:t.split,readOnly:readOnly(t,owner),bindingStatus:legacy(t,owner)?'legacy-unconfirmed':'current',...clone(r),results:{before:StationMath.results(r.stages.before,t),after:StationMath.results(r.stages.after,t)}}];});
  }
@@ -156,6 +165,8 @@ const StationView=(()=>{
     else if(!note)content+='<p class="note">No sourced plug-in pad/EQ profile for this equipment. Follow its installed-model procedure.</p>';
     content+=`<p class="note">${escape(comparison(Math.max(Math.abs(f.errorLow),Math.abs(f.errorHigh)),stage.forward.levelTolerance,'Forward level'))} ${escape(comparison(f.tiltError,stage.forward.tiltTolerance,'Forward tilt'))}</p>`;
    }
+   if(!f.ok&&(res.pilots.errorLow!==null||res.pilots.errorHigh!==null))content+=`<p>Independent low / high level error: ${res.pilots.errorLow===null?'—':signed(res.pilots.errorLow)} / ${res.pilots.errorHigh===null?'—':signed(res.pilots.errorHigh)} dB. Complete both pilots for tilt and the solver.</p>`;
+   if(t?.companyTargetProfile){const c=res.company;content='<p class="note"><strong>Independently entered worksheet criteria</strong> — the worksheet results below use your entered targets, not the company node reference.</p>'+content;content+=`<p data-company-station-targets><strong>Separate company node reference</strong> · Company node targets at the entered pilots: ${c.targetLow===null?'—':c.targetLow.toFixed(1)} / ${c.targetHigh===null?'—':c.targetHigh.toFixed(1)} dBmV. Company level errors, tilt error and acceptance: — (basis/tolerance unconfirmed).</p><p class="note">${escape(c.reason)}</p>`;}
    if(note)content+=`<p class="note">${escape(note.text)} Source: ${escape(note.source)}, ${escape(note.revision)}, ${escape(note.locator)}.</p>`;
    if(p)content+=`<p class="note">${escape(p.title)} · ${escape(p.revision)} · ${escape(p.locator)}. OEM AGC, ACI DSIM and manual/thermal setup remain separate procedures.</p>`;
    forward.innerHTML=content;

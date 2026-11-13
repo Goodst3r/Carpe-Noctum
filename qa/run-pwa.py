@@ -38,6 +38,8 @@ suites=[
  ('Build 3 rendered night-log phone layout','build3-night-log-layout.test.py',r'Build3 night log layout: (\d+) checks passed'),
  ('Build 3 sweep-due calendar and saved-job reminders','build3-sweep-due.test.cjs',r'Build3 sweep due: (\d+) checks passed'),
  ('Next-build P1 full-app job and print integration','next-build-p1-integration.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Company node targets and legacy compatibility','company-targets.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Company node target rendered controls','company-targets-layout.test.py',r'Company targets layout: (\d+) checks passed'),
  ('Build 3 rendered sweep-due phone layout','build3-sweep-due-layout.test.py',r'Build3 sweep due layout: (\d+) checks passed'),
  ('Build 3 native JSON and archive evidence','build3-native-evidence.test.cjs',r'Native evidence QA: (\d+) passed'),
  ('Build 3 format-independent sweep grading','build3-sweep-grading-core.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
