@@ -6,7 +6,7 @@ for(const [token,file] of entries){let data=fs.readFileSync('night-sweep/'+file,
 html=html.replace('<!--DSIMPILOTCODES-->',()=>fs.readFileSync('night-sweep/dsim-pilot-codes.js','utf8')).replace('<!--MAPIMPORTCSS-->','').replace('<!--MAPIMPORT-->','').replace('<!--MAPIMPORTASSETS-->','{}');
 const a=bootApp({html}),{w,d,ev,json}=a;
 ev(`state.setup={...state.setup,lowF:54,highF:860,lowLevel:10,highLevel:10,launchMode:'sqrt'};state.rows=[{...freshRow('source','r1'),name:'Amp A',device:'active_gm_hgd',gainLowF:54,gainHighF:860,gainLow:31,gainHigh:31,targetLow:43,targetHigh:43}];renderAll();WorkflowUI.go('route')`);
-assert.match(d.querySelector('.route-workbench').textContent,/Short on gain/);
+assert.match(d.querySelector('.route-workbench').textContent,/Short on gain/);assert.notEqual(w.getComputedStyle(d.querySelector('.active-editor')).display,'none');
 const set=(key,value)=>{const el=d.querySelector(`[data-wb="${key}"]`);assert(el,key);el.value=value;el.dispatchEvent(new w.Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));};
 set('before.low.input','10');set('before.low.inputPlane','tp');set('before.low.inputCorrection','20');set('before.low.output','40');set('before.low.outputPlane','port');
 assert.match(d.querySelector('[data-wb-measured="before.low"]').textContent,/10\.00/);assert.match(d.querySelector('[data-wb-frequency="before.low.input"]').textContent,/54 MHz/);
