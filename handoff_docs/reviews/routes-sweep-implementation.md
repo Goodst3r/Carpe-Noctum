@@ -31,7 +31,13 @@ No storage keys, package identifiers or job schema version changes are authorize
 - GitHub connector and CLI independently confirmed the two draft PR heads and bases.
 - Filename-only search under `/workspace`, `/tmp`, `/mnt`, `/home` found no `HA0005` match. No private field replay has run; absence blocks that private acceptance check only.
 - Wolfram Alpha evaluated `{43-10,31-(43-10)}` as `{33,-2}`. This checks the requested arithmetic, not the app or RF assumptions. Application-level both-marker and measurement-plane checks remain to run.
-- Prior candidate gate results are historical. No new combined gate result is claimed yet.
+- A fresh baseline-only gate on `4b5f31ccd3f33d1a163f68177984f0c049daa9a3` passed 111 suites / 3,160 checks in 1,238.0 seconds, exit 0. Both generated-build and worktree checks were unchanged and `git status --porcelain` was empty. Standalone SHA-256: `0dab215949cad492db2df1d3b1ef7881f0892dcf88eba750415a3991a349a823`; PWA version `eb868a1d252d786b3fa2`. Command: `NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py`. This is the pre-update baseline, not combined-update acceptance.
 - No physical device, emulator, RF hardware, signing or deployment verification has run in this update.
 
 Implementation and verification are in progress. Exact final commands, UTC times, counts and hashes will be recorded here after execution.
+
+## Delegation and tool record
+
+Explicit user-selected execution roles: lead `gpt-6.1-sol` / high; route writer `gpt-6.1-terra` / high; map writer and independent RF reviewer `gpt-6-astra` / high; read-only auditor `gpt-6-luna` / medium. Delegates were started with those actual model/effort overrides and fresh context. Token usage and billing cost are not reported by this runtime.
+
+Actual tools: GitHub connector and CLI for canonical refs/PR metadata; Firecrawl for the three standard manufacturer PDFs (the two excluded HO/GaN URLs redirected to the Cisco homepage); Wolfram for the numeric reference; Context7 and pinned package source for the importer; Figma read-only existing frame inspection in the route lane; local Git, Node, Python and Playwright for implementation and checks. Data quality guidance was applied to a local catalog profile: 516 device IDs and 17 cable IDs, no missing or duplicate IDs; catalog scalar gain references were distinguished from operating curves. No private field evidence was sent to these services.
