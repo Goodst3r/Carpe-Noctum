@@ -63,7 +63,7 @@ const HFC = (() => {
  // Active reference specifications are deliberately not used as a flat RF response.
  // Enter a measured/configured net gain profile for the selected output and band.
  function activeGainAt(device,row,f) {
-  if(!device?.active||!Number.isFinite(f)||f<5||f>1800)return null;
+  if(!device?.active||!Number.isFinite(f)||f<5||f>1800||(row.workbench?.modelId&&row.workbench.modelId!==device.id))return null;
   const lower=number(device.activeMinF??device.publishedGain?.forwardBand?.[0]??device.publishedGain?.min),upper=number(device.activeMaxF??device.publishedGain?.forwardBand?.[1]??device.publishedGain?.max);
   if((lower!==null&&f<lower)||(upper!==null&&f>upper))return null;
   const mode=row.activeMode||'anchors';
