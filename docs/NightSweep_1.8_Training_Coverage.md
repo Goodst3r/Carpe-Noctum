@@ -28,8 +28,8 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | --- | --- | --- |
 | Home and task navigation | Complete | Guide, current-job summary, theme and Help |
 | Plan → Setup | Complete, GS7K, custom curves | Source model/port, launch markers/levels, remaining TP compensation, temperature |
-| Plan → Cable route | Complete, six-active | Feed parents, cable/slack, splitter branches, through/tap paths |
-| Field → Station | Complete, six-active | Independent Before/After worksheets, balance/sweep records, binding and actual dates |
+| Plan → Route & sweep | Complete, six-active | Feed parents, cable/slack, splitter branches, through/tap paths |
+| Field → Station records | Complete, six-active | Independent Before/After worksheets, balance/sweep records, binding and actual dates |
 | Plan → Route & sweep | Complete and six-active | Gain anchors/table, required gain, reserve and output limits |
 | Plan → Amp / node setup | Complete, OEM AGC, DSIM, GS7K | Exact source/active model, manual provenance, reviewed procedure steps |
 | Tools → Catalog | Complete | Cable/passive/active/node/power references; published capability versus entered gain |
@@ -51,8 +51,8 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Tools → Proof of performance | Custom curves | The 43 dB carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored (2.0 Alpha build 3) |
 | Tools → Study | Custom curves | A level-conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only (2.0 Alpha build 3) |
 | Home → Outage | Custom curves | Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3) |
-| Plan → Load | Complete | Independent power parents, explicitly synthetic entered node/HGD loads, voltage/current and supply headroom |
-| Plan → What-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
+| Plan → Load & what-if | Complete | Independent power parents, explicitly synthetic entered node/HGD loads, voltage/current and supply headroom |
+| Plan → Load & what-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
 | Plan → Details | Complete | Work order, named save/open, duplicate and new blank job |
 | Field → ONX files | Complete | Sweep/Ingress/OneCheck CSV previews and preserved original bytes |
 | Field → Checklists | Complete | Inspection notes, maintenance tasks and dBµV/dBmV conversion |
@@ -111,7 +111,7 @@ All seven JSONs are organized under **Examples/** in the one **NightSweep 1.8 Al
 
 ## Build 3 station practice
 
-**Field → Station** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **53 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
+**Field → Station records** adds a step to the complete GS7K/GainMaker exercise (**22 steps**) and to the six-active Vecima/AOI exercise (**16 steps**). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has **53 choices**, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.
 
 
 ### Build 3 Night log handoff practice

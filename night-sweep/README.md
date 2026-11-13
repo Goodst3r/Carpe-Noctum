@@ -29,9 +29,9 @@ For a new field job:
 6. Follow **Field → Meter setup** for the actual plant split and approved method. Attach original meter files under **Field → ONX files**, then review **Closeout → Run sheet**.
 7. Use **Files → Back up project**, finish the phone's save action, and confirm the portable backup exists outside NightSweep.
 
-Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Tools → Calculators, Tools → Limits, Tools → DOCSIS health, Field → Leakage, Home → Outage and the sweep grading aid. Use **Six active devices in series** for Field → Night log and Plan → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Plan → Cable route** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
+Home offers an organized **Practice library** with the complete training job, GainMaker OEM AGC, GainMaker / DSIM, GainMaker manual / thermal, GS7K node, six-active AOI cascade and custom-curve exercises. Use the complete example for the route, gain, TDR, readings, power and records tools. Use **Custom curves and reverse TDR** for Tools → Calculators, Tools → Limits, Tools → DOCSIS health, Field → Leakage, Home → Outage and the sweep grading aid. Use **Six active devices in series** for Field → Night log and Plan → Sweep due. Use a focused node or amplifier exercise for its exact setup path. Follow the [guided training walkthrough](#practice-every-tool-with-the-training-job). The initial three-tap sample and **3-tap route example** in **Plan → Route & sweep** remain a smaller RF-route example; they are separate from the complete training job. Practice readings are synthetic. Explicit user-supplied local design references are labeled separately and require the matching plant, frequency, signal-power convention and measurement plane.
 
-A read-only strip under the screen title shows the job name, the plant (42/54 GS7K / GainMaker or 204/258 Vecima / AOI) and the selected point. Field → Station also shows that worksheet's measurement plane. The strip is hidden on Tools. It stores nothing.
+A read-only strip under the screen title shows the job name, the plant (42/54 GS7K / GainMaker or 204/258 Vecima / AOI) and the selected point. Field → Station records also shows that worksheet's measurement plane. The strip is hidden on Tools. It stores nothing.
 
 ## Find the right tool
 
@@ -40,10 +40,10 @@ A read-only strip under the screen title shows the job name, the plant (42/54 GS
 | Find a task or learn the basic flow | **Home** | Nothing |
 | Choose node / amp / LE launch and enter levels | **Plan → Setup** | Exact source output, frequencies, levels and measurement plane |
 | Follow the installed equipment manual | **Plan → Amp / node setup** | Exact module, split, firmware and applicable guide |
-| Build cable and passive spans | **Plan → Cable route** | Lengths, cable, equipment, actual feeds |
+| Build cable and passive spans | **Plan → Route & sweep** | Lengths, cable, equipment, actual feeds |
 | Check whether an amp or LE has enough gain | **Plan → Route & sweep** | Active route point, gain at both markers, output targets |
 | Keep personal night notes and prepare a shift handoff | **Field → Night log** | Meaningful notes, saved Station captures, Remove/Undo and manual intermittent-ingress observations; no customer identifiers |
-| Record station balance and separate sweep dates | **Field → Station** | Installed station, actual pilots/readings, approved targets and measurement planes |
+| Record station balance and separate sweep dates | **Field → Station records** | Installed station, actual pilots/readings, approved targets and measurement planes |
 | Look up cable/passive/active equipment | **Tools → Catalog** | Manufacturer, model, or part type |
 | Turn a TDR reading into a span location | **Field → TDR** | Route distances and measurement origin |
 | Follow the measured forward/return setup process | **Field → Meter setup** | Split, actual test method, matching reference and approved criteria |
@@ -55,8 +55,8 @@ A read-only strip under the screen title shows the job name, the plant (42/54 GS
 | Check a limit and where it came from | **Tools → Limits** | Nothing first. Company values stay unknown until someone enters them |
 | Compare a modem or meter reading with a DOCSIS range | **Tools → DOCSIS health** | The reading you type. The card does not talk to a modem |
 | Check a leak, estimate CLI, or keep a personal leak log | **Field → Leakage** | Frequency, field strength and distance you type. The log stays on this phone and is not in the job backup |
-| Estimate supply draw and equipment voltage | **Plan → Load** | Actual power circuit and equipment loads |
-| Try an additional cable/load before keeping it | **Plan → What-if** | Existing power plan |
+| Estimate supply draw and equipment voltage | **Plan → Load & what-if** | Actual power circuit and equipment loads |
+| Try an additional cable/load before keeping it | **Plan → Load & what-if** | Existing power plan |
 | Save/open named jobs and record node details | **Plan → Details** | Job and installed equipment information |
 | Attach Sweep, Ingress, or OneCheck files | **Field → ONX files** | Files already available on your phone |
 | Record inspection and repair work | **Field → Checklists** | Work actually performed |
@@ -135,7 +135,7 @@ While a training job is open, its matching Home action offers a reset of that ex
 
 The training content is bundled with the app. After the Android/iPhone web app reports **Ready for offline use**, its training job can be used without a connection. External manufacturer pages still need internet access.
 
-If a practice button cannot open a job, read the message directly below the practice buttons. Storage failures and full or unreadable named-job lists stop the switch to protect the current job; do not clear storage as a workaround. The complete exercise also needs secure file verification: use the installed APK or the HTTPS website rather than a restricted file viewer. Existing older training copies remain unchanged. If their hardware does not match the corrected exercise, reset the complete training job to open the GS7K/GainMaker HGD baseline after preserving that copy.
+If a practice button cannot open a job, read the message directly below the practice buttons. Storage failures and full or unreadable named-job lists stop the switch to protect the current job; do not clear storage as a workaround. The complete exercise also needs secure file verification: use the installed APK or the HTTPS website rather than a restricted file viewer. Existing older training copies remain unchanged. If their hardware does not match the corrected exercise, reset the complete training job to open the current GS7K and GainMaker HGD practice after preserving that copy.
 
 ### Focused GainMaker practice
 
@@ -201,7 +201,7 @@ Try the header's palette button (**Switch to Sun palette** or **Switch to Night 
 
 ### 2. Follow branches, passives and the drop
 
-Open **Plan → Cable route** and use the point selector or **Previous/Next** to follow the incoming cable and ending device. Identify Scientific Atlanta, GigaXtend and Technetix by the selected exact model and port.
+Open **Plan → Route & sweep** and use the point selector or **Previous/Next** to follow the incoming cable and ending device. Identify Scientific Atlanta, GigaXtend and Technetix by the selected exact model and port.
 
 At Split S1, follow the low-loss output to Main Tap B and the high-loss output to Branch Tap D. Open **More at this point** to compare tap faces, inspect the **75 ft custom RG-6 drop** and premises splitter, read map notes and expand **Show the arithmetic**. Custom cable tables are already at actual temperature; do not apply the published-cable temperature factor again.
 
@@ -209,7 +209,7 @@ Follow the branch's custom inline-loss and cable-only points. Try adding a point
 
 ### 3. Check both HGD amplifiers
 
-Open **Plan → Route & sweep** and select HGD A1, then HGD A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
+Open **Plan → Route & sweep** and review the stations named HGD A1 and HGD A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
 
 Change one marker's gain, review its prediction and restore it. A satisfactory low-frequency result cannot compensate for a high-frequency shortage. In **Calculate gain from test-point readings**, the synthetic 54 MHz pair 7.1/16.1 dBmV with equal +20 dB addbacks gives 27.1/36.1 dBmV, or **9 dB** net gain. Compare corrected output minus corrected input at the same frequency, applying only remaining coupling once. This changes an arithmetic input; it does not align a physical station.
 
@@ -237,11 +237,11 @@ Change one reading by 1 dB and confirm corrected reading/error move by 1 dB, the
 
 ### 7. Follow the separate power circuit
 
-Open **Plan → Load**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and HGD A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
+Open **Plan → Load & what-if**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and HGD A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
 
 Review supply current, loading/headroom, branch current, voltage drop and equipment voltage. With unchanged synthetic inputs, the independent reference answer is **2.047 A** supply current, **13.65%** loading and **88.83 V** minimum equipment voltage at HGD A2. RF branches do not define power passing.
 
-Open **Plan → What-if** for the additional **300 ft / 0.75 A** candidate after HGD A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
+Open **Plan → Load & what-if** for the additional **300 ft / 0.75 A** candidate after HGD A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
 
 ### 8. Inspect synthetic meter files
 
@@ -698,7 +698,7 @@ The power circuit is entered separately from the RF route. RF direction, power d
 
 ### Build the load plan
 
-1. Open **Plan → Load**. Replace example supply voltage and current rating with actual operating voltage and nameplate rating.
+1. Open **Plan → Load & what-if**. Replace example supply voltage and current rating with actual operating voltage and nameplate rating.
 2. Add each powered device once, with its cable, feet, and real **Fed from** connection.
 3. Add a zero-load junction where one trunk supplies separate branches.
 4. Select the exact equipment configuration or enter a known load.
@@ -720,7 +720,7 @@ If another 1 A load shares that upstream section, its section current becomes 2 
 
 ### Try an addition
 
-Under **Plan → What-if**, choose the feed point, added cable, length, constant current load, and minimum equipment voltage. The app tests the addition on a copy of the current power plan and shows predicted end voltage/headroom. Choose **Keep in power circuit** only when you want the trial to become a real planning row.
+Under **Plan → Load & what-if**, choose the feed point, added cable, length, constant current load, and minimum equipment voltage. The app tests the addition on a copy of the current power plan and shows predicted end voltage/headroom. Choose **Keep in power circuit** only when you want the trial to become a real planning row.
 
 RF cable temperature and power cable temperature are separate inputs. Built-in loop resistance uses the entered power temperature and coefficient; custom resistance is already at actual temperature. The scalar RMS model does not simulate the complete quasi-square-wave waveform or verify every passive's current rating. Check actual power-passing arrangements and equipment undervoltage settings.
 
@@ -919,7 +919,7 @@ The earlier build 17 expansion added **33 RF equipment selections** (18 active c
 - **ATX GigaXtend SGP:** standard and AC-continuity directional couplers, two-way, balanced/unbalanced three-way splitters, conditioned coupler and RF path of the power inserter. Installed conditioning plug-ins require their own loss information.
 - **Cable:** legacy MC2 .440 and 1.000; CommScope Series 6 and Series 11 drop cable. These historical guide values stop at their published frequency endpoints. Drop cable has no assumed coax-power resistance. The optional RG6 drop tool still takes an entered cable table; adding catalog cable does not silently change saved drop assumptions.
 
-**Find equipment:** Tools → Catalog → choose a category, then family/model. For launch selection use Plan → Setup; the node metadata also remains in Plan → Details. Power models link to Plan → Load. Node optical output is a route launch, not an RF gain block inserted midspan.
+**Find equipment:** Tools → Catalog → choose a category, then family/model. For launch selection use Plan → Setup; the node metadata also remains in Plan → Details. Power models link to Plan → Load & what-if. Node optical output is a route launch, not an RF gain block inserted midspan.
 
 **Power corrections:** the previous GaN HGD current table has an unverifiable source/configuration link. It is now measured-load only. A saved job that used its old curve reports missing current data until you choose a documented manual load. The AOI HGD table now covers only the unambiguous 45–90 VAC columns; below 45 VAC no result is extrapolated. This table boundary is not the station’s undervoltage limit. HGBT and BA have separate measured-load entries; neither borrows HGD or LE current.
 
@@ -956,7 +956,7 @@ See **NightSweep_1.8_Training_Coverage.md**, **NightSweep_1.8_Equipment_Coverage
 
 Build 2 rechecks the existing 20 screens, 37 feature choices and seven examples with regression, synthetic replay, property/reference and browser checks. It fixes same-coordinate active-boundary TDR handling without changing the established RF/power formulas. Current calculations retain the independently checked references, and Records rejects inconsistent frequency limits before evaluating acceptance. Read `research/build2/MATH_BACKTEST.md` and the final validation receipts for the exact current scope/results. Exact executed checks and artifact hashes are in the current release-validation record and `research/alpha18/`; historical results above do not imply a new APK, public deployment, physical phone or installed-plant test. See `NightSweep_1.8_Release_Notes.md` for current behavior and outstanding checks.
 
-## Station worksheet: Field → Station
+## Station worksheet: Field → Station records
 
 Choose the installed launch node, launch amplifier or a route amplifier. The banner uses that equipment’s actual split: **42/54 MHz** uses forward and return Sweepless Sweep; **204/258 MHz** uses forward Sweepless Sweep and return XPERTrak. Other or unidentified splits require confirmation of their procedure. This screen records measured work separately from route predictions.
 
@@ -968,7 +968,7 @@ On **42/54 MHz**, the reminder shows this job’s editable operator return TX en
 
 Record **Balanced** and **Swept** separately with their own dates. Neither matching two pilots nor checking Balanced records a sweep. These are technician records, not automatic RF acceptance. Legacy UBT stations remain readable with disabled worksheet controls. Removed or replaced stations retain their history in JSON backups; a new station starts blank even when a route point ID is reused. Changing the launch asset, output port or installed node module also starts a blank worksheet and retains prior observations. Imported numeric text that the number fields cannot show produces no result; its original text stays in the backup. Named-job switching and project backups retain both measurement stages and the separate dates. Correcting catalog band information keeps saved observations available. Older saved worksheets with incomplete station-binding information remain visible and read-only with a notice. Confirm the actual selected model, installed split, asset, port and module before using **Confirm saved worksheet belongs to this station**; it creates a bound copy and preserves the original worksheet in the job backup.
 
-Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
+Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station records restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
 
 For practice, open the complete GS7K/GainMaker exercise’s **Station balance and separate sweep record** step. Synthetic 54/860 MHz pilots, targets 39/49, readings 36.4/49.6 dBmV, installed pad 6 and EQ 9 dB give an input EQ pick of 4.5 dB and pad 7 dB. A return reference-point target of 19 dBmV plus 20 dB net insertion loss gives 39 dBmV required injection; receiver −1.25 minus reference −3.5 dBmV gives +2.25 dB. Back up, restore and compare the station worksheet. The six-active Vecima/AOI exercise has a separate electronic-alignment station step. Practice values never establish real operating targets.
 
@@ -981,7 +981,7 @@ Keep a personal running window record: ticket/change number, node/amp label, act
 
 Type window times as `YYYY-MM-DDTHH:mm`. Incomplete or invalid text has a named format message beside the field and never replaces its saved value. Leaving the field or returning to Night log restores the saved value and explains the restoration there. Enter a complete valid time to replace it, or clear the entire field deliberately to record unknown. Editing saved log content clears an existing handoff preview; generate it again before copying. Exports always use the current saved log.
 
-**Entry type** starts at **General update / Station capture**. Leave **Saved Station worksheet** at **General update / no Station snapshot** for a note without readings. **Add entry** needs a meaningful note or an explicitly chosen saved Station worksheet; blank or whitespace-only drafts and an entry type alone use no slot. To capture measurements, choose a saved worksheet from **Field → Station** and add the entry. Both real Before and After stages, raw inputs, recorded planes, frozen results and separate balance/sweep records are copied once. Entry notes remain editable. Later Station changes never refresh a capture; add another entry to capture again. Removed/replaced equipment is labeled **Historical snapshot — station changed or no longer installed**. Read-only and unconfirmed legacy bindings remain historical; their old dates never confirm current equipment work. No new RF target, acceptance limit, test-point correction or RF calculation is added.
+**Entry type** starts at **General update / Station capture**. Leave **Saved Station worksheet** at **General update / no Station snapshot** for a note without readings. **Add entry** needs a meaningful note or an explicitly chosen saved Station worksheet; blank or whitespace-only drafts and an entry type alone use no slot. To capture measurements, choose a saved worksheet from **Field → Station records** and add the entry. Both real Before and After stages, raw inputs, recorded planes, frozen results and separate balance/sweep records are copied once. Entry notes remain editable. Later Station changes never refresh a capture; add another entry to capture again. Removed/replaced equipment is labeled **Historical snapshot — station changed or no longer installed**. Read-only and unconfirmed legacy bindings remain historical; their old dates never confirm current equipment work. No new RF target, acceptance limit, test-point correction or RF calculation is added.
 
 **Remove entry** frees its slot. **Undo last removal** restores the latest removed entry, including its original ID, Added time, captured stages and position; unadded draft notes stay in the editor. Undo is temporary: another removal replaces it, and switching jobs or reloading ends it. If a new entry fills the log back to 200, Undo refuses to restore another entry. Removing something else replaces that pending Undo; it is not a way to retry the earlier restoration. Back up the job before removing history. For a separate record, back up and use a new blank job; no new-window/reset control is added.
 
@@ -1004,6 +1004,6 @@ Anniversaries add months to the original civil date and clamp its day to the tar
 
 The interval belongs to the open job; the empty state says so explicitly. If autosave fails, **Not saved** appears directly below its field and stays visible for that same job/interval until a later edit succeeds. Export a project backup before closing. Opening another job clears the old field feedback.
 
-Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Field → Station** to record actual work and **Plan → Details** to manage jobs. Export a project backup if autosave fails.
+Use **Refresh list** after changing Station dates or named jobs; entering/resuming the visible tab also reads the device date. The screen displays **As of YYYY-MM-DD (device date)**. It never edits work dates or opens a saved job. Complete counts and page controls accompany lists longer than 25 entries. Visit **Field → Station records** to record actual work and **Plan → Details** to manage jobs. Export a project backup if autosave fails.
 
 The six-active practice now has **16 steps**; its **Personal sweep reminders** step asks you to enter **18** for a synthetic demonstration and then clear it to restore unknown. The current source has **35 task screens** and **53 feature choices**. The focused QA fixture creates three named synthetic jobs dated 0, 12 and 19 completed calendar months before an explicit 2026-11-11 reference date, producing green, yellow and red at the entered 18-month setting. This fixed QA example is not a live plant schedule.

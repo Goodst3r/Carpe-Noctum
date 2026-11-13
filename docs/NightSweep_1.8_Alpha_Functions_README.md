@@ -61,8 +61,8 @@ Start a real job with **Plan → Details → + New blank job**. Identify the act
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home; Outage | Current job, task shortcuts, practice, backup, and the outage first-response card |
-| Plan | Details; Setup; Cable route; Amp gain; Amp / node setup; Predicted levels; Load; What-if; Supply PM; Sweep due | Job name, starting signal, RF topology, power planning and sweep reminders |
-| Field | Meter setup; Station; Readings; TDR; ONX files; Leakage; Checklists; Night log | Meter setup, station records, measurements, evidence and shift notes |
+| Plan | Details; Setup; Route & sweep; Amp / node setup; Predicted levels; Load & what-if; Supply PM; Sweep due | Job name, starting signal, RF topology, power planning and sweep reminders |
+| Field | Meter setup; Station records; TDR; ONX files; Leakage; Checklists; Night log | Meter setup, station records, measurements, evidence and shift notes |
 | Tools | Calculators; Frequency; Limits; References; Catalog; DOCSIS health; Impairments; Fiber; High split; Why cards; Proof of performance; Study | Searchable references, calculators and reading cards |
 | Closeout | Acceptance; Run sheet | Measurements, acceptance and the run sheet |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -169,7 +169,7 @@ In Complete, **11/23 dBmV +20 dB** at **54/860 MHz** produces **31/43 dBmV** lau
 
 ## Cable route, branches and point tools
 
-**Where:** Plan → Cable route. **Practice:** Complete → Route / Drop; Custom curves → Custom / Arithmetic; Six actives → Route.
+**Where:** Plan → Route & sweep. **Practice:** Complete → Route / Drop; Custom curves → Custom / Arithmetic; Six actives → Route.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -537,7 +537,7 @@ What this screen leaves out on purpose: a Vecima commissioning checklist (no pub
 
 **Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read a why card and follow its link.
 
-Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Field → Station**, **Tools → Calculators**, **Field → TDR**, **Field → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
+Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Field → Station records**, **Tools → Calculators**, **Field → TDR**, **Field → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
 
 The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Tools → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read, so check the monograph itself.
 
@@ -567,7 +567,7 @@ The Outage question is grouped under maintenance and troubleshooting and asks wh
 
 A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. **It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.**
 
-The drop is span current times the cable catalog's published loop resistance, with the same temperature factor Plan → Load already uses. You type the coefficient. **0.004 per °C is not filled in**; it is the engineering approximation named on Plan → Load, and you type it only when you mean to use it. A cable with no published loop resistance is not calculated. The voltage at the end of the span is compared with the published minimum input of the active you pick from the catalog. If that model has no published minimum, the screen says so. **No company minimum is filled in.** Adding a span sets the next span's start to the previous end, so a chain walks span by span. SCTE 238 and the 2025 and 2026 SCTE powering projects named in the build list were not read.
+The drop is span current times the cable catalog's published loop resistance, with the same temperature factor Plan → Load & what-if already uses. You type the coefficient. **0.004 per °C is not filled in**; it is the engineering approximation named on Plan → Load & what-if, and you type it only when you mean to use it. A cable with no published loop resistance is not calculated. The voltage at the end of the span is compared with the published minimum input of the active you pick from the catalog. If that model has no published minimum, the screen says so. **No company minimum is filled in.** Adding a span sets the next span's start to the previous end, so a chain walks span by span. SCTE 238 and the 2025 and 2026 SCTE powering projects named in the build list were not read.
 
 The notebook records the date, input and output volts, load, an inverter observation (ran, did not run, not tested, or not recorded), chemistry as a label only (VRLA, lithium, other, or not recorded), alarms as you saw them, and battery-string volts. Two dates of the same string show the change in volts. There is no battery window and no inverter limit. Tap Save this visit to keep it on this device. Tap Delete this supply to remove that notebook. The job is not changed.
 
@@ -575,7 +575,7 @@ The notebook records the date, input and output volts, load, an inverter observa
 
 ## Power-supply load
 
-**Where:** Plan → Load. **Practice:** Complete → Power; Six actives → explicit power topology.
+**Where:** Plan → Load & what-if. **Practice:** Complete → Power; Six actives → explicit power topology.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -598,11 +598,11 @@ Complete uses a **90 V / 15 A** supply; synthetic entered **0.75 A GS7K**, **0.6
 
 ## Power what-if
 
-**Where:** Plan → What-if. **Practice:** Complete → Power what-if.
+**Where:** Plan → Load & what-if. **Practice:** Complete → Power what-if.
 
 Choose the proposed power parent, cable, added length, current and minimum voltage. Read the trial's displayed **Predicted end voltage**, **Predicted voltage headroom** and status before applying it. The preview recalculates the copied circuit internally; it does not display total trial supply current. This calculation uses a copied circuit until you choose **Keep in power circuit**.
 
-Keep adds the proposed point to the working power plan. Open **Plan → Load** to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.
+Keep adds the proposed point to the working power plan. Open **Plan → Load & what-if** to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.
 
 Complete's trial adds **300 ft P3 .625 and 0.75 A after HGD A2**. The independent reference answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. These are planning estimates for this topology, not a general cable/device allowance.
 
@@ -736,7 +736,7 @@ Run sheet combines job/work-order context, selected frequency, source/model/spli
 | Export sheet CSV | Run sheet | Reviewable summary with context; not a full backup |
 | Export RF levels | Files | Route predictions at listed frequencies; unavailable results blank |
 | Export frequency results | Tools → Frequency | Single-path inputs, frequencies, units, flags and results |
-| Export power load | Plan → Load | Power topology, loads, per-section results and qualifications |
+| Export power load | Plan → Load & what-if | Power topology, loads, per-section results and qualifications |
 | Record CSVs | Closeout → Acceptance | The selected section's entered rows and computed review fields |
 | Export setup notes | Field → Meter setup | Setup drafts, guide/context and saved station snapshots |
 | Save original | Field → ONX files | Exact original attachment bytes |
@@ -793,11 +793,11 @@ The fresh independent complete-workflow audit compares actual application values
 
 ## Station worksheet
 
-Open **Field → Station**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
+Open **Field → Station records**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
-Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
+Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station records restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
 
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **16 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
@@ -811,7 +811,7 @@ Keep personal ticket/change, node/amp label, actions, ROC/dispatch updates, gas/
 
 Incomplete or invalid window text shows a named format message beside that field and is never saved over the previous value. Leaving the field or returning to Night log restores its saved value (blank means unknown) and explains the restoration beside the field. Enter a complete valid time to replace it, or clear the entire field deliberately to record unknown.
 
-**Entry type** starts at **General update / Station capture**; the separate **Saved Station worksheet** selector starts at **General update / no Station snapshot**. **Add entry** requires a meaningful note or an explicitly selected saved worksheet. Blank/whitespace-only drafts and an entry type alone create no entry and use no slot. To capture readings, save the worksheet under **Field → Station**, explicitly select it and add the entry. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit notes; later Station edits never refresh that capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
+**Entry type** starts at **General update / Station capture**; the separate **Saved Station worksheet** selector starts at **General update / no Station snapshot**. **Add entry** requires a meaningful note or an explicitly selected saved worksheet. Blank/whitespace-only drafts and an entry type alone create no entry and use no slot. To capture readings, save the worksheet under **Field → Station records**, explicitly select it and add the entry. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit notes; later Station edits never refresh that capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
 
 **Remove entry** frees one slot. **Undo last removal** restores that entry’s exact ID, Added time, data, frozen Station capture and position; it also retains unadded draft notes. Only the latest removal is kept for Undo. Another removal replaces it, and changing jobs or reloading clears it. Undo refuses if a new Add has filled the shared 200-entry cap; removing another entry replaces the pending Undo rather than making the earlier one restorable. Back up before removing history. Use a separate new blank job when needed; there is no new-window/reset control.
 
@@ -842,7 +842,7 @@ Dates use exact Gregorian `YYYY-MM-DD`, years 0001–9999. Future, invalid or un
 
 The interval belongs to the open job, including in an empty list. **Not saved** feedback appears directly below the interval if autosave fails; export a project backup before closing. Feedback belongs only to that job and raw interval.
 
-Edit actual dates in **Field → Station** and manage jobs in **Plan → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
+Edit actual dates in **Field → Station records** and manage jobs in **Plan → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
 ## 53-feature coverage index
 

@@ -129,7 +129,7 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     assert.equal(h.d.getElementById('leakagePanel').hidden, true);
     await goto(h, 'leakage');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs, ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
+    assert.deepEqual(tabs, ['Meter setup', 'Station records', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
     assert.equal(h.d.querySelector('#screenTitle .eyebrow').textContent, 'Field');
     assert.equal(h.d.getElementById('leakagePanel').hidden, false); assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check and log signal leakage/);
