@@ -1,5 +1,7 @@
 # NightSweep 1.8 Alpha build 2 — All Functions Reference
 
+Current source: **Carpe Noctum 2.0 Alpha build 4**. This guide keeps its 1.8 filename and historical title for existing links; dated build 3 references below identify when those features were introduced. Candidate signing, physical acceptance and web deployment remain pending.
+
 **Technician README · Updated November 12, 2026**
 
 This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library's feature index.
@@ -362,7 +364,7 @@ The available-carrier draft survives project backup and is reported separately i
 
 ## Field calculators
 
-**Where:** Tools → Calculators. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Quick calculations with source tags.
+**Where:** Tools → Calculators. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Quick calculations with source tags.
 
 Each calculator shows its formula's source tag. Tap the tag for the source, revision, page or section, units, conditions and the date it was checked. A message instead of a number means an input is missing or out of range; it is never a zero.
 
@@ -395,7 +397,7 @@ The calculators do not save their inputs, change the job or read a modem, CMTS o
 
 ## Limits and sources
 
-**Where:** Tools → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check a limit and its source.
+**Where:** Tools → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check a limit and its source.
 
 The limits, targets and formulas behind the field calculators and this job's criteria, with where each came from. Each entry carries one of four labels:
 
@@ -421,7 +423,7 @@ The list describes values; it does not approve criteria or change the job. Examp
 
 ## DOCSIS health card
 
-**Where:** Tools → DOCSIS health. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check modem levels against the spec.
+**Where:** Tools → DOCSIS health. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check modem levels against the spec.
 
 Compare a reading you already have, from a meter or a modem's status page, with what the DOCSIS specifications require a cable modem to accept or transmit, and with your own window. Nothing is read from a modem, CMTS or meter, and nothing is saved in the job.
 
@@ -450,7 +452,7 @@ What this card leaves out on purpose: MER and SNR, per-channel upstream power, t
 
 ## Leakage
 
-**Where:** Field → Leakage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check and log signal leakage.
+**Where:** Field → Leakage. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check and log signal leakage.
 
 Five tools for signal leakage on one screen. **This is your own notebook and calculator, not the company's official leak record, and none of its results is a filing.** Nothing is sent anywhere. The leak log, saved detector checks and company settings are kept in the browser on this device only, under their own storage key. They are **not** part of a job or its full backup, and only the log can be exported (CSV); the saved checks and company settings cannot.
 
@@ -474,7 +476,7 @@ What this screen leaves out on purpose: the airspace measurement alternative, th
 
 ## Impairments
 
-**Where:** Tools → Impairments. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find an impairment from what the meter shows.
+**Where:** Tools → Impairments. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Find an impairment from what the meter shows.
 
 Pick what the meter or spectrum display shows, from ten pictures, and read the matching card: **what it looks like**, **what usually causes it**, **what it is easily mistaken for** and **five steps: analyze, localize, prioritize, repair, validate**. It is your own aid and **not your company's procedure**, nothing is read from a meter or modem, and nothing is saved in the job or on the device. What a card says about the look and the causes follows SCTE 280 2022, paraphrased and cited by section; the five-step order is the workflow of SCTE's April 2026 PNM course series; the steps under each are general practice, labeled Expert.
 
@@ -501,7 +503,7 @@ What this screen leaves out on purpose: reading peaks off a sweep, any live capt
 
 ## Fiber
 
-**Where:** Tools → Fiber. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find a fiber and estimate a link loss.
+**Where:** Tools → Fiber. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Find a fiber and estimate a link loss.
 
 Two small fiber tools. Offline; nothing is read from a meter and nothing is saved. A blank entry is never read as zero.
 
@@ -519,7 +521,7 @@ What this screen leaves out on purpose: OTDR events, multimode budgets by wavele
 
 ## High split
 
-**Where:** Tools → High split. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the band plans and the Remote PHY bring-up steps.
+**Where:** Tools → High split. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read the band plans and the Remote PHY bring-up steps.
 
 A reading aid for the 204/258 MHz plant and for what is public about Remote PHY (R-PHY) bring-up. It takes no input, reads nothing from a node, meter or core, and stores nothing. **Every statement names its document, the issue it was read in and where in it.** It is not a procedure and does not replace your node maker's guide or your company's.
 
@@ -533,7 +535,7 @@ What this screen leaves out on purpose: a Vecima commissioning checklist (no pub
 
 ## Why cards
 
-**Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read a why card and follow its link.
+**Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read a why card and follow its link.
 
 Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Field → Station**, **Tools → Calculators**, **Field → TDR**, **Field → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
 
@@ -541,7 +543,7 @@ The cards hold no figure that is not either a definition or a registered one (th
 
 ## Proof of performance
 
-**Where:** Tools → Proof of performance. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the FCC proof-of-performance limits.
+**Where:** Tools → Proof of performance. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read the FCC proof-of-performance limits.
 
 A reference for the technical requirements of the FCC's cable rules (47 CFR Part 76) and how an operator's proof-of-performance tests are measured against them. **It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.** The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section, the 16 rows that state a limit or a method also have a source tag (the three rows about QAM channels, test conditions and the test report name their rule section but have no tag), and the limits are registered in **Tools → Limits**.
 
@@ -551,7 +553,7 @@ These are the analog (NTSC or similar) limits. Many systems have little or no an
 
 ## Study mode
 
-**Where:** Tools → Study. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Answer a practice question.
+**Where:** Tools → Study. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Answer a practice question.
 
 Practice questions made from this app's own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains: **architectures; distribution components; signal types; maintenance and troubleshooting**. **They are original, not SCTE or NCTI questions, and not an exam.** Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the Outage checklist), so the question and the answer cannot disagree with the screen it practices.
 
@@ -561,7 +563,7 @@ The Outage question is grouped under maintenance and troubleshooting and asks wh
 
 ## Supply PM
 
-**Where:** Plan → Supply PM. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Record a supply check and a span drop.
+**Where:** Plan → Supply PM. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Record a supply check and a span drop.
 
 A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. **It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.**
 
@@ -660,7 +662,7 @@ Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm 
 
 ## Outage first response
 
-**Where:** Home → Outage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Walk through an outage first response.
+**Where:** Home → Outage. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Walk through an outage first response.
 
 Prompts for the first steps of an outage call. **It opens with "Follow your company's outage procedure first" and it is not your company's procedure.** The wording was written for this app from general field practice, with no NCTI or SCTE text copied. It has **not** been reviewed by a supervisor against the local outage procedure, and that review is needed before coworkers use it.
 

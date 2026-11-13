@@ -159,8 +159,8 @@ function htmlResponse(r){assert(r,'worker must respond');assert.equal(r.status,2
  });
  await check('Android install instructions open the existing app origin and preserve its manifest identity',()=>{
   const doc=fs.readFileSync(path.join(dist,'android.html'),'utf8'),install=fs.readFileSync(path.join(dist,'install.html'),'utf8'),manifest=JSON.parse(fs.readFileSync(path.join(dist,'manifest.webmanifest'),'utf8'));
-  assert.match(doc,/https:\/\/nightsweep-field\.goodst3r\.chatgpt\.site\/">Open NightSweep/);
-  assert.match(doc,/APK and web app keep separate data/);assert.match(doc,/Install and create shortcut/);assert.match(doc,/Files → Save project/);
+  assert.match(doc,/https:\/\/nightsweep-field\.goodst3r\.chatgpt\.site\/">Open Carpe Noctum/);
+  assert.match(doc,/APK and web app keep separate data/);assert.match(doc,/Install and create shortcut/);assert.match(doc,/Files → Back up project/);
   assert.equal(manifest.id,'./');assert.equal(manifest.start_url,'./');assert.equal(manifest.scope,'./');assert.match(install,/href="android.html"/);assert.match(install,/href="iphone.html"/);
   assert(!/<script\b/i.test(doc),'guide does not create another application or storage origin');
  });

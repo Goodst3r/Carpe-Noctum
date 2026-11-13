@@ -1,9 +1,11 @@
-# NightSweep 1.8 Alpha build 2
+# Carpe Noctum 2.0 Alpha build 4 — technician guide (formerly NightSweep 1.8)
+
+The guide retains its historical `NightSweep_1.8_Alpha_README` filename for existing links.
 
 **Technician guide and README**  
-**Spencer Williams · Updated November 12, 2026**
+**Spencer Williams · Updated November 13, 2026**
 
-NightSweep is an offline field calculator and job notebook for HFC maintenance technicians, team leaders, and supervisors. Use it to follow cable and equipment losses, check amplifier gain, locate a TDR distance along a route, estimate power loading, and keep measurements, notes, and meter files together.
+Carpe Noctum (formerly NightSweep) is an offline field calculator and job notebook for HFC maintenance technicians, team leaders, and supervisors. Use it to follow cable and equipment losses, check amplifier gain, locate a TDR distance along a route, estimate power loading, and keep measurements, notes, and meter files together.
 
 Use the Android APK, open the full web app in Chrome on Android, or add the web app to an iPhone Home Screen through Safari. The web app must finish its first online setup before you rely on it offline. Every version uses the same task layout; jobs stay in the app or browser where you create them until you export and transfer them.
 
@@ -70,7 +72,7 @@ Main tabs choose the work area. The smaller task tabs choose a function within t
 
 Use the separate [Android/iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md) for the phone steps written for the 1.8 package. The table in this section describes that **historical** delivery, **NightSweep 1.8 Alpha build 2.zip** (Preview APK **1.8 Alpha build 2**, code **24**). It is not the current installer.
 
-The signed installer in this repository is **2.0 Alpha build 2**, Android code **26** (`apk/CarpeNoctum-2.0-build2-preview.apk`). **2.0 Alpha build 3** is source only (Android source code **27**). No build 3 APK is in the repository. Code 27 is not an installer you can download. Build and sign that APK only outside the repository, with the original key, after the owner accepts the source.
+The retained installer in this repository is **2.0 Alpha build 2**, Android code **26** (`apk/CarpeNoctum-2.0-build2-preview.apk`). A separately built starting-commit build 3 Preview, code **27**, was reported by Spencer to update his existing app with jobs, readings and originals intact. **2.0 Alpha build 4**, source code **28**, is a pre-signing candidate: its APK, final phone acceptance and web deployment are not yet verified. Build and sign it outside the repository with the original key after review and the full gate.
 
 The historical 1.8 ZIP is one folder containing Android web, iOS web, the Preview APK option, documentation, examples, source and verification records.
 
@@ -87,7 +89,7 @@ The known site address is **https://nightsweep-field.goodst3r.chatgpt.site/**. I
 
 ### Protect work and verify offline use
 
-1. Open each important job and choose **Files → Back up project**. Finish the save/share picker and confirm its JSON exists outside NightSweep. Exports from this 2.0 Alpha build 3 source use the **CarpeNoctum_2.0_Alpha_build_3_** filename prefix. Older 1.8 build 2 files used **NightSweep_1.8_Alpha_build_2_**.
+1. Open each important job and choose **Files → Back up project**. Finish the save/share picker and confirm its JSON exists outside NightSweep. Exports from this 2.0 Alpha build 4 source use the **CarpeNoctum_2.0_Alpha_build_4_** filename prefix. Older 1.8 build 2 files used **NightSweep_1.8_Alpha_build_2_**.
 2. Use **Files → Open project** at the destination, then verify route, notes, readings, records and original evidence. Save a named copy and retain the external backup.
 3. In a supported hosted browser/Home Screen app, wait for **Ready for offline use**. Use one editing window, enable Airplane Mode with Wi-Fi off, close/reopen the same app/icon and check a practice calculation plus a saved original.
 4. For a hosted update, export first, then choose **Check for updates → Install update → Reload app**. Check the actual displayed version, jobs and offline readiness afterward.

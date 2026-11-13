@@ -27,7 +27,7 @@ const file=(name,contents,type='application/octet-stream')=>{const bytes=typeof 
 const meter=(port,field)=>`[data-row="r1"] [data-meter-port="${port}"] [data-meter-field="${field}"]`;
 (async()=>{
  await check('0.12 boots with the node and ONX evidence panels intact',()=>{
-  assert.deepEqual(errors,[]);assert(d.body.textContent.includes('Carpe Noctum 2.0 Alpha build 3'));
+  assert.deepEqual(errors,[]);assert(d.body.textContent.includes('Carpe Noctum 2.0 Alpha build 4'));
   assert(d.getElementById('nodePanel'));assert(d.getElementById('evidencePanel'));
   for(const id of ['sameSpanNext','cascadeStrip','themeToggle','jobsPanel'])assert(d.getElementById(id),id);
  });

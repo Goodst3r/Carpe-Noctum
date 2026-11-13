@@ -206,6 +206,6 @@ const base = { lowMHz: 54, highMHz: 1002, targetLow: 35, targetHigh: 46 };
     assert.deepEqual(json('state'), before); assert.equal(w.localStorage.getItem('hfc-route-v1'), saved);
   });
 
-  fs.writeFileSync('qa/build3-alignment-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, cases, scope: 'Solver logic with a synthetic test fixture, sourced-profile structure and the calculator card in JSDOM. Not a field alignment.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-alignment-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, cases, scope: 'Solver logic with a synthetic test fixture, sourced-profile structure and the calculator card in JSDOM. Not a field alignment.' }, null, 2) + '\n');
   console.log(`Build3 alignment: ${cases.length} checks passed`);
 })().catch(error => { console.error(error); process.exit(1); });

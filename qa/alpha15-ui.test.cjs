@@ -22,7 +22,7 @@ const field=(id,key)=>`#route [data-row="${id}"] [data-field="${key}"]`;
 const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
 (async()=>{
  await check('App starts at Home with five named primary tasks and no duplicated controls',()=>{
-  assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 3');assert.equal(ev('WorkflowUI.current()'),'home');shown('#homePanel');
+  assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 4');assert.equal(ev('WorkflowUI.current()'),'home');shown('#homePanel');
   assert.deepEqual([...d.querySelectorAll('[data-main-tab]')].map(x=>x.dataset.mainTab),['home','plan','field','tools','closeout']);
   assert.equal(d.querySelectorAll('[data-main-tab][aria-current="page"]').length,1);uniqueIds();
  });
@@ -98,7 +98,7 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
  });
  await check('Exports and full rerenders preserve the selected task and no IDs duplicate',async()=>{
   go('readings');set('#pointSelect','r2','change');ev('renderAll()');assert.equal(ev('WorkflowUI.current()'),'readings');assert.equal(d.querySelector('#pointSelect').value,'r2');shown('#route [data-row="r2"] .point-meters');uniqueIds();
-  await d.getElementById('save').onclick();const out=downloads.at(-1);assert.equal(out.name,'CarpeNoctum_2.0_Alpha_build_3_Project.json');const saved=JSON.parse(out.text);assert.equal(saved.rows[1].meters.through.reading,'10');assert.equal(saved.rows[1].asBuiltNote,'Field map corrected 18 ft slack');assert.equal(saved.routeTools.distance,'180');
+  await d.getElementById('save').onclick();const out=downloads.at(-1);assert.equal(out.name,'CarpeNoctum_2.0_Alpha_build_4_Project.json');const saved=JSON.parse(out.text);assert.equal(saved.rows[1].meters.through.reading,'10');assert.equal(saved.rows[1].asBuiltNote,'Field map corrected 18 ft slack');assert.equal(saved.routeTools.distance,'180');
  });
  await check('Removing the last active produces an actionable empty Gain task without stale values',()=>{
   const id=ev('state.rows.at(-1).id');go('route');ev('WorkflowUI.selectPoint('+JSON.stringify(id)+')');click('#route [data-row="'+id+'"] [data-delete]');go('gain');shown('#pointEmpty');assert.match(d.querySelector('#pointEmptyText').textContent,/Add an amplifier/);assert.equal(d.querySelector('#pointSelect').disabled,true);assert.equal([...d.querySelectorAll('#route>[data-row]')].filter(visible).length,0);uniqueIds();
@@ -121,5 +121,5 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
  await check('Help and Sun/Night remain accessible without changing calculations',()=>{
   const before=json('[evaluate(261).source,evaluate(993).source]');click('#helpButton');assert.equal(ev('WorkflowUI.current()'),'help');shown('#helpPanel');click('#themeToggle');go('home');assert.equal(d.documentElement.dataset.theme,'sun');assert.deepEqual(json('[evaluate(261).source,evaluate(993).source]'),before);assert.deepEqual(errors,[]);
  });
- fs.writeFileSync('qa/alpha15-ui-results.json',JSON.stringify({version:'2.0 Alpha build 3',count:cases.length,cases,errors,scope:'DOM task visibility, keyboard/navigation and live edit flows; no browser pixel or Android-device claim.'},null,2)+'\n');console.log('Alpha 1.5 workflow UI: '+cases.length+' checks passed.');
+ fs.writeFileSync('qa/alpha15-ui-results.json',JSON.stringify({version:'2.0 Alpha build 4',count:cases.length,cases,errors,scope:'DOM task visibility, keyboard/navigation and live edit flows; no browser pixel or Android-device claim.'},null,2)+'\n');console.log('Alpha 1.5 workflow UI: '+cases.length+' checks passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>dom.window.close());

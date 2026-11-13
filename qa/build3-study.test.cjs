@@ -157,6 +157,6 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
   });
 
   console.log(`Build3 study: ${cases.length} checks passed (${comparisons} comparisons with the independent reference)`);
-  fs.writeFileSync('qa/build3-study-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'Numeric answers against the Python decimal recomputation in study-reference.py (kept in research/build3), choice questions against the app data they come from, the rendered screen and the saved-job format. Nothing stored.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-study-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'Numeric answers against the Python decimal recomputation in study-reference.py (kept in research/build3), choice questions against the app data they come from, the rendered screen and the saved-job format. Nothing stored.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

@@ -1,12 +1,14 @@
 # NightSweep 1.8 Alpha build 2 — Training coverage
 
+Current source: **Carpe Noctum 2.0 Alpha build 4**. This guide keeps its 1.8 filename and historical title for existing links; dated build 3 references below identify when those features were introduced. Candidate signing, physical acceptance and web deployment remain pending.
+
 Open **Home → Practice library**. Choose an exercise to open its seeded job, or select a feature to load the matching example and reveal its guide step. The library is bundled for offline use after the installed browser app reports **Ready for offline use**. The standalone app includes the same training.
 
 All example values and findings remain synthetic. Opening/resetting an example first preserves the current working job locally; export an external project backup for important work. Reviewed checkboxes describe learning progress and do not establish measurements, physical setup or acceptance.
 
 ## Loadable exercises
 
-For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 35 task screens and 53 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
+For the current Night log, Sweep due and grading source, the library covers 35 task screens and 53 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.
 
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |

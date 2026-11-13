@@ -126,6 +126,6 @@ const call = (h, fn, input) => h.json(`FiberTools.${fn}(${JSON.stringify(input)}
   });
 
   console.log(`Build3 fiber: ${cases.length} checks passed (${comparisons} comparisons with the independent reference)`);
-  fs.writeFileSync('qa/build3-fiber-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by fiber-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering. Synthetic numbers only; nothing read from a meter.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-fiber-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by fiber-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering. Synthetic numbers only; nothing read from a meter.' }, null, 2) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

@@ -1,10 +1,10 @@
 {
-  "version": "2.0 Alpha build 3",
-  "version_code": 27,
-  "launcher_label": "Carpe Noctum 2.0 Preview build 3",
+  "version": "2.0 Alpha build 4",
+  "version_code": 28,
+  "launcher_label": "Carpe Noctum 2.0 Preview build 4",
   "package": "com.spencerwilliams.nightsweep.preview",
   "app_name": "Carpe Noctum (formerly NightSweep)",
-  "status": "Carpe Noctum 2.0 Alpha build 3 source is in development. No build 3 APK has been compiled or signed: the original compatible-update signing key is not in this environment. The released build 2 APK remains the latest signed installer.",
+  "status": "Pre-signing source snapshot: build 4 candidate is not yet built or signed. Final review, full gate, original-key candidate verification and physical acceptance remain pending.",
   "standalone_frozen": false,
   "final_apk_built": false,
   "candidate_apk_built": false,
@@ -13,9 +13,10 @@
   "signing_material_available_outside_project": true,
   "physical_device_tests": false,
   "notes": [
-    "Build the Preview APK only with the original authorized signer, from a frozen outputs/Night_Sweep.html whose SHA-256 is pinned after the full QA run. Never generate a replacement key.",
-    "Package, provider/origin identity and storage keys are unchanged so build 3 can update build 2 in place once it is built and signed with the original certificate.",
-    "Emulator and physical-device testing have separate scope; no device test claim for build 3."
+    "Signing-material presence/inclusion refers to this source tree and APK, not the original signer verified available privately outside the project.",
+    "Spencer reported the separately built starting-commit Preview code 27 updated in place with jobs, readings and originals intact. This is baseline evidence, not build 4 acceptance.",
+    "Build the Preview candidate only after the reviewed source and full gate are frozen; use the original signer and explicit HTML and certificate pins. Never generate a replacement key.",
+    "Candidate receipt-bearing readiness and phone acceptance are separate dated evidence; do not update this pre-signing snapshot retroactively."
   ],
   "standalone_sha256": null,
   "apk_sha256": null,
@@ -68,5 +69,7 @@
         "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881"
       }
     ]
-  }
+  },
+  "source_snapshot_utc": "2026-11-13T07:38:41Z",
+  "source_snapshot_scope": "Pre-signing source state only; later candidate and phone facts belong in separate dated artifact receipts."
 }
