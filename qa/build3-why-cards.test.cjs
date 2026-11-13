@@ -12,6 +12,7 @@ const boot = () => require('./build2-source-harness.cjs').bootApp({ html });
 const flush = () => new Promise(r => setImmediate(r));
 async function check(name, fn) { await fn(); await flush(); cases.push(name); console.log('PASS ' + name); }
 const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); await flush(); };
+const destination = task => ({ gain: 'route', readings: 'route', trial: 'power' })[task] || task;
 function words(el) { const out = [], walk = el.ownerDocument.createTreeWalker(el, 4); while (walk.nextNode()) { const s = walk.currentNode.nodeValue.trim(); if (s) out.push(s); } return out.join(' ').replace(/\s+/g, ' '); }
 const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
 
@@ -29,7 +30,7 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   await check('Every card says what and why in its own words, links only to screens that exist, and none repeats an SCTE definition', async () => {
     assert.deepEqual(h.json('WhyCards.selfCheck()'), []);
     for (const t of h.json('WhyCards.TOPICS')) {
-      for (const tool of t.tools) { await goto(h, 'projects'); await goto(h, tool.task); assert.equal(h.ev('WorkflowUI.current()'), tool.task, `card ${t.n} links to ${tool.task}`); comparisons++; }
+      for (const tool of t.tools) { await goto(h, 'projects'); await goto(h, tool.task); assert.equal(h.ev('WorkflowUI.current()'), destination(tool.task), `card ${t.n} links to ${tool.task}`); comparisons++; }
     }
     const all = h.json('WhyCards.TOPICS').map(t => t.what + ' ' + t.why).join(' ');
     // Phrases from SCTE's own definitions and text (read November 11, 2026): the cards must not repeat them.
