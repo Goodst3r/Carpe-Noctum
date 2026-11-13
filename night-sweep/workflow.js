@@ -229,6 +229,7 @@ const WorkflowUI=(()=>{
   });};
   const originalProject=renderProjects;renderProjects=function(...args){const r=originalProject(...args);apply();return r;};
   const originalMeters=renderMeters;renderMeters=function(...args){const r=originalMeters(...args);apply();return r;};
+  const originalMeterResults=renderMeterResults;renderMeterResults=function(...args){return calculationBatch(()=>originalMeterResults(...args));};
   const originalPower=renderPower;renderPower=function(...args){const r=originalPower(...args);apply();return r;};
   showTab=go;window.NightSweep.showTab=go;
   const oldPrepare=window.NightSweep.preparePrint,oldRestore=window.NightSweep.restorePrint;window.NightSweep.preparePrint=()=>{oldPrepare?.();prepareVisibilityForPrint();};window.NightSweep.restorePrint=()=>{oldRestore?.();restoreVisibilityAfterPrint();};window.addEventListener('beforeprint',prepareVisibilityForPrint);window.addEventListener('afterprint',restoreVisibilityAfterPrint);

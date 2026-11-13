@@ -1,4 +1,5 @@
 const catalog=JSON.parse(document.getElementById('catalogData').textContent);
+const deviceById=new Map();for(const d of catalog.devices)if(!deviceById.has(d.id))deviceById.set(d.id,d);
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const colors=['#70d0ff','#ffb480','#6edca7','#d1adff','#f5d580','#91adff','#ffa2c5','#83e0df'];
 const defaultSetup={lowF:261,highF:993,lowLevel:34,highLevel:46,liveMax:993,launchMode:'sqrt',launchTable:'261, 34\n711, 42\n993, 46',extendLaunch:false,basis:'nominal',temperature:68,graphMode:'absolute',viewStart:261,viewEnd:1002,referenceF:261};
@@ -17,7 +18,7 @@ function partSearchMatches(d,q){if(d.retired)return false;const hay=[d.model,d.l
 // 2.0: a faceplate part number picks the part directly. An exact model match wins; otherwise a single match is chosen.
 function partSearchPick(query){const norm=x=>String(x||'').toLowerCase().replace(/[\s.\-_/]+/g,''),q=norm(query);if(q.length<4)return null;const pool=catalog.devices.filter(p=>!p.retired&&p.id!=='none'&&!p.isCable&&!p.isNode&&!p.isPower&&!p.custom);const exact=pool.filter(p=>norm(p.model)===q);if(exact.length===1)return exact[0];if(exact.length>1)return null;const hits=pool.filter(p=>partSearchMatches(p,query));return hits.length===1?hits[0]:null;}
 function routePicker(r){const d=device(r.device),q=pickerQueries.get(r.id)||'',type=passiveType(d),family=d?.family;let candidates=catalog.devices.filter(p=>!p.retired&&passiveType(p)===type&&p.family===family&&partSearchMatches(p,q));const widened=!!q.trim()&&!candidates.length;if(widened)candidates=catalog.devices.filter(p=>!p.retired&&partSearchMatches(p,q));return {html:candidates.map(p=>option(p.id,partCaption(p),r.device)).join('')+(!candidates.some(p=>p.id===r.device)?option(r.device,(d?.retired?'Legacy — ':'Current: ')+(d?.label||d?.model||'unavailable'),r.device):''),hint:q.trim()&&d&&String(d.model||'').toLowerCase().replace(/[\s.\-_/]+/g,'')===q.toLowerCase().replace(/[\s.\-_/]+/g,'')?'Matched '+d.model+'.':widened?'Search widened to the whole catalog; type and family filters had no match.':q.trim()?candidates.length+' matching part'+(candidates.length===1?'':'s')+'.':''};}
-function device(id){return catalog.devices.find(d=>d.id===id)}
+function device(id){return deviceById.get(id)}
 function modelId(model){return catalog.devices.find(d=>d.model===model)?.id||'none'}
 function nextRecordId(prefix,rows=[],preferred=1){
  // Imported IDs are strings. Keep generated IDs exact, and never reuse a missing
@@ -162,7 +163,7 @@ function refreshResults(){
   if(d&&!d.active&&!d.custom&&d.id!=='none'){const bases=[...new Set(d.ports.map(p=>HFC.selectedCurve(p,s.basis)?.basis||'No maximum data'))];notes.push(bases.join(' + '));if(d.ports.some(p=>!HFC.selectedCurve(p,s.basis)))notes.push('One or more paths have no published maximum curve.');}
   if(atLo?.outputs.some(o=>o.level===null)||atHi?.outputs.some(o=>o.level===null))notes.push('One or more anchor results unavailable; check source, parent and supported ranges.');
   const el=$('status-'+r.id);if(el){el.textContent=notes.join(' · ');el.classList.toggle('danger',notes.some(n=>/Missing|Enter|unavailable|no published|Duplicate|Use \d/.test(n)));}
- });refreshRouteMath();refreshTdr();drawChart();refreshPower();saveLocal();
+ });refreshRouteMath();refreshTdr();if(!$('sweepPanel')?.hidden)drawChart();refreshPower();saveLocal();
 }
 function freshPowerRow(id,junction=false){if(id===undefined){id=nextRecordId('p',state?.power?.rows,powerSerial);powerSerial=Number(id.slice(1))+1;}return {id,name:junction?'Power junction':'Node / amp',parent:'supply',length:0,cable:'p3_625',dcRate:'',extraR:0,equipment:'custom',mode:junction?'va':'watts',load:junction?0:'',pf:1,minV:''};}
 // 2.0: build the power circuit from the RF route's actives instead of entering them twice.
@@ -364,7 +365,7 @@ document.querySelector('.filelabel').addEventListener('keydown',e=>{if(e.key==='
 document.addEventListener('click',e=>{const menu=document.querySelector('.filemenu');if(menu.open&&!menu.contains(e.target))menu.open=false;});
 window.NightSweep={openProject:async text=>{if(await openProjectText(text))$('message').textContent='Project opened.';},onNativeStatus:message=>{$('message').textContent=String(message);},showTab};
 
-if(typeof initProjects==='function')initProjects();if(typeof initFrequency==='function')initFrequency();initial();if(typeof initNodes==='function')initNodes();renderAll();if(typeof initEvidence==='function')initEvidence();renderCatalog();new ResizeObserver(()=>drawChart()).observe($('plot'));
+if(typeof initProjects==='function')initProjects();if(typeof initFrequency==='function')initFrequency();initial();if(typeof initNodes==='function')initNodes();renderAll();if(typeof initEvidence==='function')initEvidence();renderCatalog();new ResizeObserver(()=>{if(!$('sweepPanel')?.hidden)drawChart();}).observe($('plot'));
 
 /* Expand record details only while producing a report. */
 let nightSweepPrintDetails=null;
