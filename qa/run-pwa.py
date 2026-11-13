@@ -39,6 +39,8 @@ suites=[
  ('Build 3 sweep-due calendar and saved-job reminders','build3-sweep-due.test.cjs',r'Build3 sweep due: (\d+) checks passed'),
  ('Next-build P1 full-app job and print integration','next-build-p1-integration.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Company node targets and legacy compatibility','company-targets.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('GainMaker cable EQ source tables, guarded loss lookups and existing solver integration','gainmaker-eq.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('GainMaker cable EQ rendered references and Station pilot losses','gainmaker-eq-layout.test.py',r'GainMaker EQ layout: (\d+) checks passed'),
  ('Company node target rendered controls','company-targets-layout.test.py',r'Company targets layout: (\d+) checks passed'),
  ('Build 3 rendered sweep-due phone layout','build3-sweep-due-layout.test.py',r'Build3 sweep due layout: (\d+) checks passed'),
  ('Build 3 native JSON and archive evidence','build3-native-evidence.test.cjs',r'Native evidence QA: (\d+) passed'),

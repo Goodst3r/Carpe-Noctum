@@ -17,6 +17,7 @@ MODULES = [
     ('<!--ENGINE-->', 'engine.js'),
     ('<!--PROJECTS-->', 'projects.js'),
     ('<!--COMPANYTARGETS-->', 'company-targets.js'),
+    ('<!--GAINMAKEREQ-->', 'gainmaker-eq.js'),
     ('<!--FREQUENCY-->', 'frequency.js'),
     ('<!--EVIDENCE-->', 'evidence.js'),
     ('<!--BROWSERFILES-->', 'browser-files.js'),
