@@ -4,6 +4,9 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const root=path.resolve(__dirname,'..'),dist=path.join(root,'dist'),base='https://nightsweep.test/';
 const workerFiles=fs.readdirSync(dist).filter(name=>/^sw\.[a-f0-9]+\.js$/.test(name));assert.equal(workerFiles.length,1,'one release worker in this build');
 const source=fs.readFileSync(path.join(dist,workerFiles[0]),'utf8'),cases=[];
+// Observed production-host routes; independent of the worker's generated mapping.
+const hostHTML={'index.html':'./','install.html':'install','guide.html':'guide','android.html':'android','iphone.html':'iphone','setup-guide.html':'setup-guide','math-audit.html':'math-audit','equipment-coverage.html':'equipment-coverage','functions-guide.html':'functions-guide','phone-installation.html':'phone-installation','training-coverage.html':'training-coverage'};
+const hostPages=Object.fromEntries(Object.entries(hostHTML).map(([asset,route])=>[route==='./'?'':route,asset]));
 function key(input){return new URL(typeof input==='string'?input:input.url,base).href;}
 class CacheStorage {
  constructor(){this.data=new Map();this.failPut=null;this.deleted=[];}
@@ -21,8 +24,8 @@ class CacheStorage {
 function boot({caches=new CacheStorage(),offline=false,failPath=null,failStatus=503,scope=base,corruptPath=null,wrongMime=null,wrongMimeValue='text/html',redirectPath=null,canonicalHTML=false,redirects={}}={}){
  const handlers={},requests=[],messages=[],life={skip:0,claim:0},context={offline,failPath,corruptPath,wrongMime,wrongMimeValue,redirectPath,canonicalHTML,redirects};
  const network=async(input)=>{const url=new URL(key(input));requests.push(url.href);if(context.offline)throw new TypeError('Network unavailable');if(context.failPath&&url.pathname.endsWith(context.failPath))return new Response('unavailable',{status:failStatus});
-  const relative=decodeURIComponent(url.pathname).replace(new URL(scope).pathname,''),asset=({'':'index.html','install':'install.html','guide':'guide.html','android':'android.html','iphone':'iphone.html','setup-guide':'setup-guide.html'})[relative]||relative,file=path.join(dist,asset);if(!fs.existsSync(file)||!fs.statSync(file).isFile())return new Response('not found',{status:404});
-  const redirectMap={...(context.canonicalHTML?{'index.html':'./','install.html':'install','guide.html':'guide','android.html':'android','iphone.html':'iphone','setup-guide.html':'setup-guide'}:{}),...context.redirects};
+  const relative=decodeURIComponent(url.pathname).replace(new URL(scope).pathname,''),asset=hostPages[relative]||relative,file=path.join(dist,asset);if(!fs.existsSync(file)||!fs.statSync(file).isFile())return new Response('not found',{status:404});
+  const redirectMap={...(context.canonicalHTML?hostHTML:{}),...context.redirects};
   const isRedirect=Object.prototype.hasOwnProperty.call(redirectMap,relative),finalUrl=isRedirect?new URL(redirectMap[relative],scope).href:url.href;
   if(isRedirect&&input.redirect==='error')throw new TypeError('Redirect prohibited by request');
   if(isRedirect&&input.redirect==='manual')return new Response(null,{status:302,headers:{location:finalUrl}});
@@ -84,6 +87,10 @@ function htmlResponse(r){assert(r,'worker must respond');assert.equal(r.status,2
  });
  await check('Both clean guide URLs and their original HTML links remain available offline without network requests',async()=>{
   canonical.context.offline=true;canonical.requests.length=0;for(const [url,name] of [['./','index.html'],['index.html','index.html'],['install','install.html'],['install.html','install.html'],['guide','guide.html'],['guide.html','guide.html'],['install?source=home','install.html'],['guide?section=training','guide.html'],['setup-guide','setup-guide.html'],['setup-guide.html','setup-guide.html'],['setup-guide?split=42','setup-guide.html']])assert.equal(await htmlResponse(await canonical.get(url,{mode:'navigate'})),fs.readFileSync(path.join(dist,name),'utf8'),url);assert.equal(canonical.requests.length,0);
+ });
+ await check('Every production guide alias serves verified cached bytes offline, including the four newer guides',async()=>{
+  for(const [asset,route] of Object.entries(hostHTML))for(const url of [asset,route,route+'?from=home'])assert.equal(await htmlResponse(await canonical.get(url,{mode:'navigate'})),fs.readFileSync(path.join(dist,asset),'utf8'),url);
+  assert.equal(canonical.requests.length,0);
  });
  await check('A canonical fallback that redirects to another origin or protocol is rejected without following it',async()=>{
   for(const destination of ['https://other.example.test/','http://nightsweep.test/']){const broken=boot({redirects:{'index.html':destination,'':destination}});await assert.rejects(broken.emit('install'));assert.equal((await broken.status()).ready,false);assert.deepEqual(await broken.caches.keys(),[]);assert(!broken.requests.includes(destination));}
