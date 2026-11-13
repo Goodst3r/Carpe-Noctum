@@ -22,6 +22,7 @@ Do not hardcode unavailable model names. Use routine coding models for ordinary 
 
 ## Task 0 — readiness and decisions (before implementation)
 Files: `handoff_docs/BUILD_LOG.md` (create if absent, append only), this plan, `handoff_docs/APK_PLAN.md`, `android-build/build-readiness.json` (evidence only).
+- [ ] Reconcile the separately published web repair [PR #51](https://github.com/Goodst3r/Carpe-Noctum/pull/51), code commit `361afbb2f7dc5906ef1cae1836365a7553649823`, before starting: it fixes missing offline-guide clean-URL aliases. Include the reviewed fix in the next build so a later web deployment cannot restore the bug. Do not assume an open PR has merged.
 - [ ] ChatGPT fetches origin, records exact baseline, reads AGENTS and current workflow, confirms clean checkout and push ability. Grok needs read/review access; only the writer needs code-push access.
 - [ ] Record baseline gate evidence. The inspected head had successful repository CI; that does not prove a signed APK or phone checks. Use a fresh baseline run if no trustworthy exact-head result exists.
 - [ ] Spencer verifies an original-key-signed starting-commit APK updates the installed app in place with jobs intact; record installed package/version/certificate and book phone window. Missing key blocks signing, never creates a replacement.
