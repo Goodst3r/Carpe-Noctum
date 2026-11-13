@@ -80,7 +80,7 @@ const SweepDue=(()=>{
   let snapshots=[],reason='';try{snapshots=JobsUI.snapshots();}catch(error){reason='Saved jobs unavailable — '+error.message;}
   const view=collect({working:state,snapshots,today,interval:state.sweepDue?.intervalMonths??''});if(reason)view.diagnostics.unshift(reason);return view;
  }
- let initialized=false,model=null,page=0,saveResult=null;const pageSize=25;
+ let initialized=false,model=null,page=0,saveResult=null,draftPending=false;const pageSize=25;
  const tag=id=>typeof Thresholds!=='undefined'?Thresholds.tag(id):'';
  function structure(){
   const panel=document.getElementById('sweepDuePanel');if(!panel)return null;if(panel.querySelector('#sweepDueInterval'))return panel;
@@ -97,8 +97,15 @@ const SweepDue=(()=>{
   const summary=document.getElementById('sweepDuePageSummary');summary.hidden=entries.length<=pageSize;summary.textContent=`Page ${page+1} of ${pages} · entries ${start+1}–${start+shown.length} of ${entries.length}`;
   document.getElementById('sweepDuePagination').innerHTML=entries.length>pageSize?`<button type="button" data-sweep-due-page="previous"${page===0?' disabled':''}>← Previous</button><span>Page ${page+1} of ${pages} · entries ${start+1}–${start+shown.length} of ${entries.length}</span><button type="button" data-sweep-due-page="next"${page===pages-1?' disabled':''}>Next →</button>`:'';
  }
+ function showDraft(){
+  const interval=state.sweepDue?.intervalMonths??'',parsed=parseInterval(interval);
+  document.getElementById('sweepDueIntervalStatus').textContent=parsed.status==='valid'?'Entered interval: '+parsed.value+' whole calendar months.':'Interval '+parsed.status+(parsed.status==='invalid'?' — enter digits only, from 1 to 1200.':'.');
+  const notice=document.getElementById('sweepDueSaveStatus');notice.textContent=saveResult?(saveResult.saved?'Reminder preference saved on this device.':'Not saved. Autosave failed. Export a project backup before closing.'):'';notice.classList.toggle('warning',saveResult?.saved===false);
+  document.getElementById('sweepDueSummary').textContent='Results are stale. Commit the interval or refresh the list to update reminders.';
+  document.getElementById('sweepDueList').innerHTML='';document.getElementById('sweepDuePagination').innerHTML='';document.getElementById('sweepDueDiagnostics').innerHTML='';document.getElementById('sweepDuePageSummary').hidden=true;
+ }
  function render(today=deviceToday()){
-  const panel=structure();if(!panel)return;model=readView(today);page=0;
+  const panel=structure();if(!panel)return;model=readView(today);page=0;draftPending=false;
   const input=document.getElementById('sweepDueInterval');if(document.activeElement!==input)input.value=model.interval;
   document.getElementById('sweepDueAsOf').textContent='As of '+model.today+' (device date)';const parsed=parseInterval(model.interval);
   document.getElementById('sweepDueIntervalStatus').textContent=parsed.status==='valid'?'Entered interval: '+parsed.value+' whole calendar months.':'Interval '+parsed.status+(parsed.status==='invalid'?' — enter digits only, from 1 to 1200.':'.');
@@ -110,7 +117,9 @@ const SweepDue=(()=>{
  }
  function init(){
   if(initialized)return;initialized=true;
-  document.addEventListener('input',e=>{if(e.target.id!=='sweepDueInterval')return;state.sweepDue={intervalMonths:e.target.value.slice(0,20)};const saved=typeof saveLocal==='function'&&saveLocal()!==false;saveResult={owner:state,interval:state.sweepDue.intervalMonths,saved};render();});
+  document.addEventListener('input',e=>{if(e.target.id!=='sweepDueInterval')return;state.sweepDue={intervalMonths:e.target.value.slice(0,20)};const saved=typeof saveLocal==='function'&&saveLocal()!==false;saveResult={owner:state,interval:state.sweepDue.intervalMonths,saved};draftPending=true;showDraft();});
+  document.addEventListener('change',e=>{if(e.target.id==='sweepDueInterval'&&draftPending)render();});
+  document.addEventListener('keydown',e=>{if(e.target.id==='sweepDueInterval'&&e.key==='Enter'){e.preventDefault();render();}});
   document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='sweepDueRefresh')render();if(b.dataset.sweepDuePage){page+=b.dataset.sweepDuePage==='next'?1:-1;renderList();const summary=document.getElementById('sweepDuePageSummary');summary?.focus({preventScroll:true});summary?.scrollIntoView({block:'start'});}});
   const resume=()=>{if(!document.getElementById('sweepDuePanel')?.hidden&&document.visibilityState!=='hidden')render();};window.addEventListener('pageshow',resume);window.addEventListener('focus',resume);document.addEventListener('visibilitychange',resume);
  }
