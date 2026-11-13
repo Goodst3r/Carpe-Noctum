@@ -25,14 +25,14 @@ function meterProfileTarget(frequency){
  if(!p||frequency===null)return {target:null,tolerance:null,profile:null};
  const low=HFC.number(p.forwardLow),high=HFC.number(p.forwardHigh),tolerance=HFC.number(p.fLevelTol);
  const target=low!==null&&Math.abs(frequency-low)<1e-9?HFC.number(p.launchLow):high!==null&&Math.abs(frequency-high)<1e-9?HFC.number(p.launchHigh):null;
- return {target,tolerance:tolerance!==null&&tolerance>=0?tolerance:null,profile:p.id};
+ return {target,tolerance:tolerance!==null&&tolerance>=0?tolerance:null,profile:p.id,...(p.companyTargetProfile?{profileCompanyReason:'Company profile comparison unavailable: bandwidth, power convention, measurement plane agreement, impedance and field tolerance remain unconfirmed.'}:{})};
 }
 function meterComparison(row,portId){
  const m=row?.meters?.[portId]||{},frequency=HFC.number(m.frequency===undefined?state.setup.lowF:m.frequency),raw=HFC.number(m.reading),c=meterCoupling(m.testPoint,m.coupling);
  const measurement=raw!==null&&c.valid?HFC.number(raw+c.value):null;
  const prediction=frequency!==null&&frequency>=5&&frequency<=1800?val(evaluate(frequency),row.id+'::'+portId):null;
  const profile=meterProfileTarget(frequency),error=measurement===null||prediction===null?null:HFC.number(measurement-prediction);
- return {frequency,raw,coupling:c.valid?c.value:null,converted:c.converted,measurement,prediction,error,...profile,inside:measurement===null||profile.target===null||profile.tolerance===null?null:Math.abs(measurement-profile.target)<=profile.tolerance+1e-9,reference:m.tpReference||'',validCoupling:c.valid,...(state.setup.companyTargetProfile?{error:null,companyReason:'Meter minus company-derived prediction is unavailable until bandwidth, power convention, plane agreement, impedance and field tolerance are confirmed. Independently entered profile criteria are retained.'}:{})};
+ return {frequency,raw,coupling:c.valid?c.value:null,converted:c.converted,measurement,prediction,error,...profile,inside:profile.profileCompanyReason||measurement===null||profile.target===null||profile.tolerance===null?null:Math.abs(measurement-profile.target)<=profile.tolerance+1e-9,reference:m.tpReference||'',validCoupling:c.valid,...(state.setup.companyTargetProfile?{error:null,companyReason:'Meter minus company-derived prediction is unavailable until bandwidth, power convention, plane agreement, impedance and field tolerance are confirmed. Independently entered profile criteria are retained.'}:{})};
 }
 function testPointChoices(choice,attrs,launch=false){
  const p=launch&&(state.setup.sourceType===undefined||state.setup.sourceType==='node')?publishedNodeTestPoint():null;
@@ -67,7 +67,7 @@ function renderMeters(){
 function renderMeterResults(){
  state.rows.forEach(r=>{const card=$('route').querySelector(`[data-row="${r.id}"]`);if(!card)return;
   HFC.portsFor(device(r.device),r).forEach(p=>{const box=[...card.querySelectorAll('[data-meter-port]')].find(el=>el.dataset.meterPort===p.id),el=box?.querySelector('.meter-result');if(!el)return;const x=meterComparison(r,p.id),saved=r.meters?.[p.id];
-   const profile=x.target===null?x.profile?'No profile target entered at this frequency.':'No plant profile target selected.':x.inside===null?`Profile ${x.profile} target ${fmt(x.target)} dBmV; enter a nonnegative level tolerance to compare.`:`${x.inside?'Inside':'Outside'} profile ${x.profile} target ${fmt(x.target)} ±${fmt(x.tolerance)} dBmV.`;
+   const profile=x.target===null?x.profile?'No profile target entered at this frequency.':'No plant profile target selected.':x.profileCompanyReason?`Profile ${x.profile} target ${fmt(x.target)} dBmV. ${x.profileCompanyReason}`:x.inside===null?`Profile ${x.profile} target ${fmt(x.target)} dBmV; enter a nonnegative level tolerance to compare.`:`${x.inside?'Inside':'Outside'} profile ${x.profile} target ${fmt(x.target)} ±${fmt(x.tolerance)} dBmV.`;
    el.innerHTML=`<div class="meter-numbers"><div><span>Prediction</span><strong>${fmt(x.prediction)} <small>dBmV</small></strong></div><div><span>Measurement${x.converted?' · converted':''}</span><strong>${fmt(x.measurement)} <small>dBmV</small></strong></div><div><span>Error · meter − prediction</span><strong>${fmt(x.error)} <small>dB</small></strong></div></div>${!x.validCoupling?'<p class="note danger">Coupling must be nonnegative. Blank means true output.</p>':''}${x.converted?`<p class="note">Converted: ${fmt(x.raw)} + ${fmt(x.coupling)} = ${fmt(x.measurement)} dBmV.${x.reference?' Reference: '+esc(x.reference)+(HFC.number(saved?.tpTolerance)===null?'':' ±'+esc(saved.tpTolerance)+' dB')+'.':''}</p>`:''}<p class="note">${esc(profile)} ${x.companyReason?esc(x.companyReason):''} Targets are the selected profile’s design launch levels at its exact low/high markers; confirm the measurement plane. This comparison is not official acceptance.</p>`;
   });
  });renderLaunchConversionStatus();

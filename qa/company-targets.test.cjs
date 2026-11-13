@@ -110,3 +110,27 @@ test('company sweep grading preserves raw peak-to-valley and measured tilt witho
  const a=start(t);const result=a.json(`SweepGrading.evaluateSeries({unit:'dBmV',points:[[54,32],[200,35],[753,43]]},{lowFrequencyMHz:54,highFrequencyMHz:753,ptvLimitDb:20,lowTargetDbmv:32,highTargetDbmv:43,maxLevelErrorDb:1,tiltTargetDb:11,maxTiltErrorDb:1},{companyTargetProfile:${JSON.stringify(low)}})`);
  assert.equal(result.metrics.ptvDb,11);assert.equal(result.metrics.measuredTiltDb,11);assert.equal(result.metrics.lowLevelErrorDb,null);assert.equal(result.metrics.highLevelErrorDb,null);assert.equal(result.metrics.tiltErrorDb,null);assert.equal(result.checks.lowLevel.status,'unknown');assert.equal(result.overall,'unknown');
 });
+test('explicit company profile meter criteria remain unknown while a legacy prediction and manual criteria stay independent',t=>{
+ const a=start(t);a.ev('loadState(TrainingJob.makePractice("complete"));state.project.selectedProfile="750";Object.assign(projectProfile("750"),{forwardLow:54,launchLow:32,fLevelTol:1});state.rows[0].meters={through:{frequency:54,reading:32}};renderAll()');
+ const before=a.json('meterComparison(state.rows[0],"through")');assert.equal(before.inside,true);
+ a.ev('projectProfile("750").companyTargetProfile="company-42-20261113";renderAll()');
+ const tagged=a.json('meterComparison(state.rows[0],"through")');assert.equal(tagged.inside,null);assert.equal(tagged.target,32);assert.equal(tagged.measurement,32);assert.equal(tagged.prediction,before.prediction);assert.equal(tagged.error,before.error,'independent legacy prediction error remains available');
+ const text=a.d.querySelector('[data-row="r1"] [data-meter-port="through"] .meter-result').textContent;assert.match(text,/company.*comparison.*unavailable|basis.*unconfirmed/i);assert.doesNotMatch(text,/Inside profile|Outside profile/);
+ a.ev('delete projectProfile("750").companyTargetProfile;renderAll()');assert.equal(a.ev('meterComparison(state.rows[0],"through").inside'),true);
+});
+test('company node apply leaves absent amp targets unknown in actual UI and direct engine, preserving explicit and legacy values',t=>{
+ const a=start(t),{ev,d}=a;ev('loadState(TrainingJob.makePractice("complete"));state.rows.filter(r=>device(r.device)?.active).forEach(r=>{delete r.targetLow;delete r.targetHigh});renderAll();WorkflowUI.go("setup")');
+ assert.equal(d.querySelector('[data-row="r1"] [data-field="targetLow"]').value,'31');const before=a.json('state.rows');
+ d.querySelector('#companyTargetProfile').value=low;d.querySelector('#applyCompanyTarget').click();assert.deepEqual(a.json('state.rows'),before);
+ for(const key of ['targetLow','targetHigh'])assert.equal(d.querySelector(`[data-row="r1"] [data-field="${key}"]`).value,'');
+ const b=a.json('HFC.gainBudget(state,catalog,{rowId:"r1"})');assert.equal(b.low.target,null);assert.equal(b.high.target,null);assert.equal(b.low.requiredGain,null);assert.equal(b.high.margin,null);assert.equal(b.gainStatus,'missing');assert(Number.isFinite(b.low.input));assert(Number.isFinite(b.low.predictedOutput));assert.match(d.querySelector('#gain-budget-r1').textContent,/amplifier.*target|amp.*target/i);assert.equal(d.querySelector('#gain-budget-r1 .gain-ok'),null);
+ ev('state.rows[0].targetLow=38;renderAll()');const partial=a.json('HFC.gainBudget(state,catalog,{rowId:"r1"})');assert.equal(partial.low.target,38);assert(Number.isFinite(partial.low.requiredGain));assert.equal(partial.high.target,null);assert.equal(partial.gainStatus,'missing');assert.equal(d.querySelector('#gain-budget-r1 .gain-ok'),null);
+ ev('state.rows[0].targetHigh=49;renderAll()');assert.deepEqual(a.json('(()=>{const b=HFC.gainBudget(state,catalog,{rowId:"r1"});return [b.low.target,b.high.target]})()'),[38,49]);
+ ev('delete state.setup.companyTargetProfile;delete state.rows[0].targetLow;delete state.rows[0].targetHigh;renderAll()');assert.equal(a.ev('HFC.gainBudget(state,catalog,{rowId:"r1"}).low.target'),32,'legacy fallback remains the entered launch value');
+});
+test('company per-pilot domain reasons survive comparison and Station display while the valid pilot remains visible',t=>{
+ const c=api(),r=c.compare(low,{lowMHz:54,highMHz:860,split:'42',plane:'node-output',unit:'dBmV'});assert.equal(r.targetLow,32);assert.equal(r.targetHigh,null);assert.equal(r.applicable,false);assert.match(r.pilotReasons.high,/54–753.*no extrapolation/);assert.match(r.reason,/High pilot.*54–753/);
+ const a=start(t);a.ev('loadState(TrainingJob.makePractice("complete"));state.setup.companyTargetProfile="company-42-20261113";WorkflowUI.go("station")');const select=a.d.querySelector('[data-station-target]');select.value='source';select.dispatchEvent(new a.w.Event('change',{bubbles:true}));
+ for(const [key,value]of Object.entries({lowMHz:'54',highMHz:'860',plane:'node-output'})){const el=a.d.querySelector(`[data-station-scope="forward"][data-station-field="${key}"]`);el.value=value;el.dispatchEvent(new a.w.Event('input',{bubbles:true}));}
+ assert.match(a.d.querySelector('[data-station-forward-result]').textContent,/High pilot.*54–753/);assert.match(a.d.querySelector('[data-company-station-targets]').textContent,/32\.0 \/ —/);
+});

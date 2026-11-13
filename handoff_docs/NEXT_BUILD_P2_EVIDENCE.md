@@ -2,6 +2,14 @@
 
 This is the bounded P2 implementation on the existing `chatgpt/next-release` branch / PR 52, not a completed release. The assigned starting head was `5c1a93f6b17082596c98dc90102949a4ee8bae64`; the P1 RF-audit harness prerequisite was committed separately as `3654dc26b56a105c1b310f5aac3928b0d589c4d2` before P2 application changes. P3 EQ datasets and solver expansion were not implemented.
 
+## P2 dependency correction after internal review
+
+The coordinator supplied Astra's pinned internal review of `0e42a0076e33683ebec90ca62baf840e27d44a58` before P3 editing. Three regressions reproduced the reported behavior: an explicitly company-tagged Project profile produced a meter `inside: true`; missing amplifier targets silently inherited the newly selected company node launch; and an out-of-domain company pilot lost its specific refusal reason. This is an internal prerequisite correction, not Grok's postimplementation approval.
+
+The meter now retains the explicit company association when resolving Project profile criteria and leaves that comparison unknown with its basis reason. Raw/corrected readings, known target display and an independent legacy route prediction/error remain available. An otherwise identical untagged manual profile retains its comparison. Both the actual amplifier editor and direct `HFC.gainBudget` stop filling missing amplifier targets from a selected company node launch. Known per-pilot input/predicted output and explicitly entered amplifier targets survive; either missing target blocks the dependent aggregate gain claim. Legacy launch fallback is unchanged outside company context. Company comparisons carry separate low/high domain reasons, and Station shows the valid target beside the unsupported pilot's frequency-domain reason. No criteria, history, schema, storage key, package or version is rewritten.
+
+The three new tests were observed RED on the starting source (`true` versus `null`, `32` versus blank, and `applicable: true` versus false), then GREEN. The correction's source company suite passes 17 checks; rendered Chromium passes 61 checks at 320/360/390/430 px with no page errors, including tagged-meter refusal, missing amplifier targets and partial domain feedback. The final frozen-standalone affected-suite results and exact artifact hash are appended in `BUILD_LOG.md`. No full gate, signing, deployment or device test belongs to this correction.
+
 ## Behavior and compatibility
 
 - `company-targets.js` supplies one pure `targetAt(profileId, frequencyMHz)` evaluator, shared metadata and two explicit node-output company references: `company-42-20261113` is 32 @ 54 / 43 @ 753 MHz; `company-aoi-v15` is 34 @ 261 / 49 @ 1215 MHz. Both use linear MHz interpolation only inside their inclusive domains. Blank, nonfinite and out-of-domain frequencies return an unavailable value with a reason. Lookup returns units, domain, source and missing-basis metadata; display uses 0.1 dB while numeric checks use 1e-9 dB.
