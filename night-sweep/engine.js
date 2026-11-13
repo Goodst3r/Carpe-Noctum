@@ -195,7 +195,8 @@ const HFC = (() => {
   const warnings=[],bands={};
   const present=x=>x!==undefined&&x!==null&&String(x).trim()!=='';
   for(const [key,frequency,targetField,limitField,setupField] of [['low',lowF,'targetLow','outputLimitLow','lowLevel'],['high',highF,'targetHigh','outputLimitHigh','highLevel']]){
-   const target=number(options[targetField]??row[targetField]??state.setup[setupField]),limitRaw=options[limitField]??row[limitField],outputLimit=number(limitRaw);
+   const target=number(options[targetField]??row[targetField]??(state.setup.companyTargetProfile?null:state.setup[setupField])),limitRaw=options[limitField]??row[limitField],outputLimit=number(limitRaw);
+   if(target===null&&state.setup.companyTargetProfile)warnings.push(`${key==='low'?'Low':'High'} amplifier target unknown. Enter the station's independent design target; the company node launch does not supply amplifier targets.`);
    if(present(limitRaw)&&outputLimit===null)return fail('Enter a numeric output limit or leave it blank.');
    const result=run(state,catalog,frequency).results.find(r=>r.id===row.id),input=result?.input.level??null,availableGain=activeGainAt(device,row,frequency);
    const requiredGain=input===null||target===null?null:number(target+outputLoss-input);

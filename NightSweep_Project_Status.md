@@ -1,6 +1,10 @@
 # Carpe Noctum (formerly NightSweep) project status
 
-## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
+## Current: 2.0 Alpha build 4 · pre-signing source candidate · Android code 28 · November 13, 2026 UTC
+
+The starting-commit build 3 Preview code 27 was separately signed and Spencer reported an in-place update with jobs, readings and original attachments intact. Build 4 remains pending review, full gate, signing, phone acceptance and web deployment. See [candidate handoff](handoff_docs/FINAL_CANDIDATE_HANDOFF.md) and the dated [source snapshot](android-build/build-readiness.json).
+
+## Historical build 3 status · November 12, 2026 UTC
 
 Integration branch **`build3`**. This source includes the merged build-list items through Study, Supply PM (item 14, PR #30) and Power sum. B1 removes Safety by Spencer’s November 12 decision; the remaining build queue and roles are in `handoff_docs/WORKFLOW.md`. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. The finishing session builds and signs it under `handoff_docs/APK_PLAN.md`, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 

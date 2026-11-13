@@ -41,11 +41,11 @@ class Links(HTMLParser):
 def release_identity():
     global release
     release = json.loads((ROOT / 'dist/release.json').read_text())
-    require(release['appVersion'] == '2.0 Alpha build 3', 'PWA release identity')
+    require(release['appVersion'] == '2.0 Alpha build 4', 'PWA release identity')
     for name in ('outputs/Night_Sweep.html', 'dist/index.html'):
         html = (ROOT / name).read_text()
-        require('<title>Carpe Noctum 2.0 Alpha build 3</title>' in html, name + ' title')
-        require('CarpeNoctum_2.0_Alpha_build_3_Project.json' in html, name + ' export identity')
+        require('<title>Carpe Noctum 2.0 Alpha build 4</title>' in html, name + ' title')
+        require('CarpeNoctum_2.0_Alpha_build_4_Project.json' in html, name + ' export identity')
         require('NightSweep_1.7_Alpha_' not in html, name + ' stale export identity')
     require(release['worker'] == 'sw.' + release['version'] + '.js', 'worker filename')
 
@@ -81,6 +81,16 @@ def guide_copies():
             if target.startswith('#') and len(target) > 1:
                 require(unquote(target[1:]) in parsed.ids, filename + ' broken fragment: ' + target)
 
+def current_phone_guides():
+    for filename in ('android.html', 'iphone.html'):
+        html = (ROOT / 'dist' / filename).read_text()
+        require('Carpe Noctum' in html and '2.0 Alpha build 4' in html, filename + ' current identity')
+        require('https://nightsweep-field.goodst3r.chatgpt.site' in html, filename + ' shared app origin')
+        require('Files → Back up project' in html, filename + ' current project backup action')
+        require('1.8 Alpha build 2' not in html, filename + ' obsolete current version')
+    android = (ROOT / 'dist/android.html').read_text()
+    require('original signing key' in android and 'do not uninstall' in android.lower(), 'Android preserving update guidance')
+
 def offline_guide_links():
     names = ['guide.html', 'setup-guide.html', 'equipment-coverage.html', 'math-audit.html',
              'install.html', 'android.html', 'iphone.html', 'functions-guide.html',
@@ -103,11 +113,11 @@ def public_boundaries():
 
 def android_readiness():
     metadata = json.loads((ROOT / 'android-build/build-readiness.json').read_text())
-    require(metadata['version'] == '2.0 Alpha build 3' and metadata['version_code'] == 27, 'Android source metadata')
+    require(metadata['version'] == '2.0 Alpha build 4' and metadata['version_code'] == 28, 'Android source metadata')
     require(type(metadata.get('final_apk_built')) is bool, 'Android final-build state must be explicit')
     require(metadata.get('physical_device_tests') is False, 'physical device test claim')
     source = (ROOT / 'android-build/build.py').read_text()
-    require("VERSION_NAME = '2.0 Alpha build 3'" in source and 'VERSION_CODE = 27' in source, 'Android source identity')
+    require("VERSION_NAME = '2.0 Alpha build 4'" in source and 'VERSION_CODE = 28' in source, 'Android source identity')
     if metadata['final_apk_built']:
         import zipfile
         output = ROOT / 'android-build/dist/preview'
@@ -115,7 +125,7 @@ def android_readiness():
         require(not absent, receipts_message(output.relative_to(ROOT), absent))
         receipt = json.loads((output / 'build-info.json').read_text())
         require(receipt.get('signed') is True and receipt.get('installable') is True, 'final APK must be signed and installable')
-        require(receipt.get('version') == metadata['version'] and receipt.get('version_code') == 27, 'final APK release identity')
+        require(receipt.get('version') == metadata['version'] and receipt.get('version_code') == 28, 'final APK release identity')
         require(receipt.get('package') == 'com.spencerwilliams.nightsweep.preview', 'compatible Preview package')
         expected_certificate = 'a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca'
         require(receipt.get('certificate_sha256') == expected_certificate and receipt.get('matches_original_signing_identity') is True, 'original compatible-update signer')
@@ -134,13 +144,14 @@ def android_readiness():
         require('Signer #1 certificate SHA-256 digest: ' + expected_certificate in signatures, 'signature receipt signer')
         require(all('Verified using ' + scheme + ' scheme (APK Signature Scheme ' + scheme + '): true' in signatures for scheme in ['v2', 'v3']), 'final APK signature schemes')
         manifest = (output / 'apk-manifest-verification.txt').read_text()
-        require("package: name='com.spencerwilliams.nightsweep.preview' versionCode='27' versionName='2.0 Alpha build 3'" in manifest, 'manifest receipt release identity')
+        require("package: name='com.spencerwilliams.nightsweep.preview' versionCode='28' versionName='2.0 Alpha build 4'" in manifest, 'manifest receipt release identity')
         require('com.spencerwilliams.nightsweep.preview.pickerfiles' in (output / 'apk-manifest-tree.txt').read_text(), 'compatible private provider authority')
 
 check('Standalone and PWA identify the current 2.0 release', release_identity)
 check('Standalone and PWA carry identical core implementations', embedded_app)
 check('Current technician guides match and have working table-of-contents links', guide_copies)
+check('Phone guides identify the shared app and preserving update', current_phone_guides)
 check('Published guide files reference bundled local targets', offline_guide_links)
 check('Public PWA excludes developer packages and obsolete service workers', public_boundaries)
-check('Android build 27 readiness verifies final signed artifacts or explicitly remains pending', android_readiness)
+check('Android build 28 readiness verifies final signed artifacts or explicitly remains pending', android_readiness)
 print(f'Alpha18 release: {len(checks)} checks passed')

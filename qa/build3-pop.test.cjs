@@ -105,6 +105,6 @@ function numbersIn(text) {
   });
 
   console.log(`Build3 proof of performance: ${cases.length} checks passed (${comparisons} comparisons with the rule clauses)`);
-  fs.writeFileSync('qa/build3-pop-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App statements against the rule clauses parsed by pop-reference.py (kept in research/build3), plus the rendered screen, the registry rows and the saved-job format. No input, no storage.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-pop-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'App statements against the rule clauses parsed by pop-reference.py (kept in research/build3), plus the rendered screen, the registry rows and the saved-job format. No input, no storage.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

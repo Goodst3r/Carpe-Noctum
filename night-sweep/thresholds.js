@@ -321,7 +321,8 @@ const Thresholds=(()=>{
   sweepRow(),
   ...archiveGuards,
   ...gradingGuards,
-  ...gradingRows
+  ...gradingRows,
+  ...(typeof CompanyTargets!=='undefined'?CompanyTargets.registry:[])
  ].map(row=>Object.freeze(row)));
  const byId=new Map();for(const row of rows)byId.set(row.id,row);
  const owner=()=>typeof state!=='undefined'&&state?state:{};
@@ -388,7 +389,7 @@ const Thresholds=(()=>{
   dlg.querySelector('#sourceSheetTitle')?.focus({preventScroll:true});return true;
  }
  let filter='all';
- const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage'],['Fiber color code and loss budget',r=>r.id.startsWith('fiber.')],['Band plans and the aeronautical band',r=>r.id.startsWith('band.')||r.id.startsWith('aero.')],['FCC proof of performance',r=>r.id.startsWith('fcc.pop.')],['Power supply PM',r=>r.id.startsWith('power.pm.')||r.id.startsWith('power.span.')]];
+ const groups=[['Field calculators',r=>r.id.startsWith('calc.')||r.id.startsWith('const.')],['Your local targets',r=>r.id.startsWith('company.local.')],['Company node references',r=>r.id.startsWith('company.targets.')],['This job’s targets',r=>r.store==='profile'||r.store==='sweep'||r.store==='sweepDue'||r.store==='grading'],['Built-in approximations',r=>r.id.startsWith('app.')],['Station worksheet',r=>r.id.startsWith('station.')],['Checklist cards application guards',r=>r.id.startsWith('checklist.')],['Night log application guards',r=>r.id.startsWith('nightLog.')],['DOCSIS modem requirements',r=>r.id.startsWith('docsis.')],['Your DOCSIS windows',r=>r.store==='docsis'],['Leakage rules and methods',r=>r.id.startsWith('leak.')],['Your leakage settings',r=>r.store==='leakage'],['Fiber color code and loss budget',r=>r.id.startsWith('fiber.')],['Band plans and the aeronautical band',r=>r.id.startsWith('band.')||r.id.startsWith('aero.')],['FCC proof of performance',r=>r.id.startsWith('fcc.pop.')],['Power supply PM',r=>r.id.startsWith('power.pm.')||r.id.startsWith('power.span.')]];
  function renderLimits(){
   const host=document.getElementById('limitsList');if(!host)return;
   const shown=rows.filter(r=>filter==='all'||r.label===filter);

@@ -1,5 +1,7 @@
 # NightSweep 1.8 Alpha build 2 — All Functions Reference
 
+Current source: **Carpe Noctum 2.0 Alpha build 4**. This guide keeps its 1.8 filename and historical title for existing links; dated build 3 references below identify when those features were introduced. Candidate signing, physical acceptance and web deployment remain pending.
+
 **Technician README · Updated November 12, 2026**
 
 This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library's feature index.
@@ -74,7 +76,7 @@ Keep these distinctions while using every tool:
 - A dash or blank result means unavailable, missing, invalid or outside supported data. It is not zero. A deliberately entered zero is different.
 - Use the same frequency, measurement plane and signal-power convention when comparing readings. Apply only test-point correction the meter has not already applied.
 - **Vecima nodes / AOI actives:** local 204/258 MHz workflow, forward Sweepless Sweep and XPERTrak return sweep. **GS7K, GainMaker and the other fleet families:** local 42/54 MHz workflow, forward and Return Sweepless Sweep.
-- Non-high-split design anchors are **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
+- Existing non-high-split jobs and practice designs retain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. New company node references are an explicit separate choice in Plan → Setup. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
 
 ## Header and Home controls
 
@@ -141,6 +143,12 @@ Autosave and named jobs use this app/browser's storage. APK, Chrome, another bro
 ## RF setup and launch source
 
 **Where:** Plan → Setup. **Practice:** Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.
+
+Open **Company node-output design reference**, choose a preset, then **Apply company node design to this job**. The new low-split company reference is **32 @ 54 / 43 @ 753 MHz**, linear in MHz over 54–753 only; the high-split reference is **34 @ 261 / 49 @ 1215 MHz**, linear over 261–1215 only. Apply requires a node with the matching installed split and hardware band. It replaces launch design inputs, disables extrapolation and remaining test-point addback, and preserves Station readings, amplifier targets, hardware and available spectrum. Opening a saved job does not apply either preset. Legacy **31/43 @ 54/860** and **34/46 @ 261/993** jobs retain their saved behavior.
+
+These are intended company node-output values, not measured launch or manufacturer ratings. Company absolute errors and acceptance stay unavailable until channel bandwidth, per-channel/composite/PSD convention, impedance, measurement-plane agreement and field tolerance are confirmed. Partial pilot targets may display independently. Raw sweep peak-to-valley and measured tilt remain raw supplied values. Existing manually entered legacy criteria remain separate.
+
+The AOI source is **Spencer, AOI config v15, 2026-04-23**, user-transcribed; the original file has not been verified and no hash is recorded. Markers **303 / 405 / 555 / 711 MHz** have intended targets **34.7 / 36.3 / 38.6 / 41.1 dBmV**; **303/711** are ALSC mains, backups none. Source/config details retain the conflicting **Config 860/750 MHz ver 1.1** name, firmware and unnamed timer values without inferring carrier availability, lock, compatibility or timer meaning. **38 dBmV · basis unconfirmed · company span 11–42 MHz** remains only a transmitter reference; it changes no hardware edge, injection or receiver target. The same references and provenance are available in Tools → References / Limits and project exports.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -341,7 +349,7 @@ Complete includes intentional mismatches. For example, A1's entered **16.1 + 20 
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
-| Your local non-high-split targets | Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation | Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements |
+| Legacy local non-high-split targets | Apply the labelled 31 @ 54 / 43 @ 860 · TX 38 preset to a compatible selected profile after confirmation | Updates its stated design/reference fields; does not write measured launch, approve criteria or supply missing measurements |
 | Preset compatibility checks | Match hardware and forward passband containing both base anchors | Blocks high-split/incompatible use; a low return ceiling alone does not prove 54 MHz is usable |
 | Setup targets at available carriers | Enter actual low/high channel centers and choose square-root frequency or linear MHz | Estimates targets from the original 54/860 anchors; range must satisfy 54≤low<high≤860 and known live/hardware limits |
 | Fill 57/753 or 63/550 example | Fill only the converter draft | Does not replace base design anchors, measured launch or approved pilot |
@@ -356,7 +364,7 @@ The available-carrier draft survives project backup and is reported separately i
 
 ## Field calculators
 
-**Where:** Tools → Calculators. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Quick calculations with source tags.
+**Where:** Tools → Calculators. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Quick calculations with source tags.
 
 Each calculator shows its formula's source tag. Tap the tag for the source, revision, page or section, units, conditions and the date it was checked. A message instead of a number means an input is missing or out of range; it is never a zero.
 
@@ -375,6 +383,12 @@ Checked worked numbers (the balance example above was also checked against a Lib
 
 **Pad / EQ balance:** the readings and targets must be at the same two pilots and the same measurement plane. Put the station in the manual or backoff state its procedure requires before changing parts; an active AGC or ALSC loop can hide the change. GainMaker values come from Cisco OL-31156-01 (system amplifiers) and OL-31155-01 (line extenders) with S-A data sheet 716336 Rev D: input pads 0–20.5 dB in 0.5 dB steps and 1 GHz forward cable EQs 1.5–30 dB in 1.5 dB steps, with each EQ's published loss at 52–1000 MHz (the top column is headed 1002 MHz in data sheet 716336, so a 1002 MHz pilot is accepted). Loss between published frequencies is interpolated linearly in MHz, never across the chart's 86–550 MHz gap, so a pilot in that gap gets no pick. Pilots must be inside the model's forward band. The advice says whether to keep or change each part, gives the high-pilot level predicted after the EQ change, and says whether the result lands inside the procedure's ±0.5 dB window for tilt and level. The 0 dB EQ jumper has no published loss chart, inverse EQs have conflicting charts, and 870 MHz EQs are for 870 MHz designs, so none of these are offered. Worked example: GainMaker HGD at 54 / 860 MHz, readings 36.4 / 49.6 dBmV, targets 39 / 49 dBmV, installed pad 6 dB and EQ 9 dB → EQ **4.5 dB** and pad **7 dB**, predicted **39.0 / 48.9 dBmV**. Balancing on two pilots does not replace a sweep.
 
+**GainMaker EQ catalog / loss comparison:** Tools → References and Catalog share four distinct families: 1 GHz / 1002 MHz and 1.2 GHz / 1218 MHz forward cable EQs (0 jumper plus 1.5–30 dB in 1.5 dB steps), standard return 42 MHz (0 jumper plus ordering values 1–12, with separate 40/42 MHz nominal labels), and standard return 204 MHz (0 jumper plus 1–12). All 68 choices retain ATX/Cisco identifiers, including published trailing equals. The ATX 42 MHz zero row's printed `GAGM-EQREV-204M-0` is preserved as a source anomaly; no `42M-0` is invented and it does not make the 204 jumper compatible with a 42 module. Jumper insertion loss remains unknown.
+
+Source: ATX [ANW1513 Rev.02/2021](https://digicomm.com/wp-content/uploads/2021/07/ANW1513_GigaXtend_GMC_Amp_Accessories.pdf) pp.2/4/5, Cisco OL-31156-01 p.98 standard return samples, and Scientific Atlanta 716336 Rev D pp.2/6. ATX source temperature/tolerance is unspecified; Scientific Atlanta typical references are 20°C. Published typical values, application estimates and nominal labels remain separate. Known table losses and per-pilot unknown reasons appear independently; scalar display is 0.1 dB while source tables retain their published precision. For flat input, output high-minus-low tilt = low loss − high loss. Changing 1.2 GHz order 6 to 12 at 258/1218 changes output −3.5/0.0 dB and increases tilt by 3.5 dB.
+
+Standard 42 order 6 has losses 4.9/0.9 dB at 5/42 (actual tilt 4.0 despite nominal 6.1). At 11 MHz its bounded linear estimate is 3.96 dB; at frequencies strictly between 5 and 10 no estimate is permitted. Standard 204 order 6 has losses 6.1/1.0 at 5/204; every intermediate loss remains unknown. Linear MHz interpolation is the application's labelled policy, only across adjacent published points with frequency ratio ≤ 1.5; no extrapolation or blanket permission to bridge wider gaps. Forward 1.2 GHz data cannot replace 1 GHz data. Current installed-model solver mappings stay 1 GHz/input-only: Cisco's 1.2 GHz LE accessory table requires input AND output EQs, and no matching procedure/pads/slot mapping is sourced here. No return part recommendation is derived from endpoint losses or unknown injection/receiver planes. AOI electronic controls and thermal/linear/inverse/interstage/870 MHz EQs remain separate. Reference controls are transient; Station and Meter setup consume the same library without changing saved readings or company criteria.
+
 **VP:** pick a catalog cable that lists a nominal VP (MC2 .440, MC2 1.000, Series 6 and Series 11 drop), or type the VP from the cable's datasheet as a fraction from 0.50 to 1.00. Most hardline catalog entries do not list a VP yet. The DOCSIS 3.1 downstream occupied-band convention is a whole number of 6 MHz channels, at least 24 MHz, including the edge taper. This downstream condition does not exclude a 6.4 MHz upstream bandwidth restatement. A nonflat or unknown spectrum needs an actual total-power method, such as the method discussed in SCTE 270 2021r1 section 30.14; nominal width alone does not reconstruct a dynamically granted OFDMA burst.
 
 **OFDM power software bounds — Unknown:** the existing converter accepts measured and returned levels from −200 to +200 dBmV and finite bandwidths above 0 through 2,000 MHz. These are software bounds, not equipment ratings or company limits. The restated result and bandwidth change are displayed to six significant figures; the other per-band values retain their existing two-decimal display.
@@ -383,7 +397,7 @@ The calculators do not save their inputs, change the job or read a modem, CMTS o
 
 ## Limits and sources
 
-**Where:** Tools → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check a limit and its source.
+**Where:** Tools → Limits, and the tag beside each formula. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check a limit and its source.
 
 The limits, targets and formulas behind the field calculators and this job's criteria, with where each came from. Each entry carries one of four labels:
 
@@ -409,7 +423,7 @@ The list describes values; it does not approve criteria or change the job. Examp
 
 ## DOCSIS health card
 
-**Where:** Tools → DOCSIS health. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check modem levels against the spec.
+**Where:** Tools → DOCSIS health. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check modem levels against the spec.
 
 Compare a reading you already have, from a meter or a modem's status page, with what the DOCSIS specifications require a cable modem to accept or transmit, and with your own window. Nothing is read from a modem, CMTS or meter, and nothing is saved in the job.
 
@@ -438,7 +452,7 @@ What this card leaves out on purpose: MER and SNR, per-channel upstream power, t
 
 ## Leakage
 
-**Where:** Field → Leakage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Check and log signal leakage.
+**Where:** Field → Leakage. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check and log signal leakage.
 
 Five tools for signal leakage on one screen. **This is your own notebook and calculator, not the company's official leak record, and none of its results is a filing.** Nothing is sent anywhere. The leak log, saved detector checks and company settings are kept in the browser on this device only, under their own storage key. They are **not** part of a job or its full backup, and only the log can be exported (CSV); the saved checks and company settings cannot.
 
@@ -462,7 +476,7 @@ What this screen leaves out on purpose: the airspace measurement alternative, th
 
 ## Impairments
 
-**Where:** Tools → Impairments. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find an impairment from what the meter shows.
+**Where:** Tools → Impairments. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Find an impairment from what the meter shows.
 
 Pick what the meter or spectrum display shows, from ten pictures, and read the matching card: **what it looks like**, **what usually causes it**, **what it is easily mistaken for** and **five steps: analyze, localize, prioritize, repair, validate**. It is your own aid and **not your company's procedure**, nothing is read from a meter or modem, and nothing is saved in the job or on the device. What a card says about the look and the causes follows SCTE 280 2022, paraphrased and cited by section; the five-step order is the workflow of SCTE's April 2026 PNM course series; the steps under each are general practice, labeled Expert.
 
@@ -489,7 +503,7 @@ What this screen leaves out on purpose: reading peaks off a sweep, any live capt
 
 ## Fiber
 
-**Where:** Tools → Fiber. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Find a fiber and estimate a link loss.
+**Where:** Tools → Fiber. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Find a fiber and estimate a link loss.
 
 Two small fiber tools. Offline; nothing is read from a meter and nothing is saved. A blank entry is never read as zero.
 
@@ -507,7 +521,7 @@ What this screen leaves out on purpose: OTDR events, multimode budgets by wavele
 
 ## High split
 
-**Where:** Tools → High split. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the band plans and the Remote PHY bring-up steps.
+**Where:** Tools → High split. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read the band plans and the Remote PHY bring-up steps.
 
 A reading aid for the 204/258 MHz plant and for what is public about Remote PHY (R-PHY) bring-up. It takes no input, reads nothing from a node, meter or core, and stores nothing. **Every statement names its document, the issue it was read in and where in it.** It is not a procedure and does not replace your node maker's guide or your company's.
 
@@ -521,7 +535,7 @@ What this screen leaves out on purpose: a Vecima commissioning checklist (no pub
 
 ## Why cards
 
-**Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read a why card and follow its link.
+**Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read a why card and follow its link.
 
 Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Field → Station**, **Tools → Calculators**, **Field → TDR**, **Field → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
 
@@ -529,7 +543,7 @@ The cards hold no figure that is not either a definition or a registered one (th
 
 ## Proof of performance
 
-**Where:** Tools → Proof of performance. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Read the FCC proof-of-performance limits.
+**Where:** Tools → Proof of performance. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read the FCC proof-of-performance limits.
 
 A reference for the technical requirements of the FCC's cable rules (47 CFR Part 76) and how an operator's proof-of-performance tests are measured against them. **It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.** The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section, the 16 rows that state a limit or a method also have a source tag (the three rows about QAM channels, test conditions and the test report name their rule section but have no tag), and the limits are registered in **Tools → Limits**.
 
@@ -539,7 +553,7 @@ These are the analog (NTSC or similar) limits. Many systems have little or no an
 
 ## Study mode
 
-**Where:** Tools → Study. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Answer a practice question.
+**Where:** Tools → Study. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Answer a practice question.
 
 Practice questions made from this app's own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains: **architectures; distribution components; signal types; maintenance and troubleshooting**. **They are original, not SCTE or NCTI questions, and not an exam.** Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the Outage checklist), so the question and the answer cannot disagree with the screen it practices.
 
@@ -549,7 +563,7 @@ The Outage question is grouped under maintenance and troubleshooting and asks wh
 
 ## Supply PM
 
-**Where:** Plan → Supply PM. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Record a supply check and a span drop.
+**Where:** Plan → Supply PM. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Record a supply check and a span drop.
 
 A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. **It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.**
 
@@ -648,7 +662,7 @@ Practice **72 dBµV =12 dBmV**. This is a voltage-reference conversion, not dBm 
 
 ## Outage first response
 
-**Where:** Home → Outage. **Added in:** 2.0 Alpha build 3 (in development). **Practice:** Custom curves → Walk through an outage first response.
+**Where:** Home → Outage. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Walk through an outage first response.
 
 Prompts for the first steps of an outage call. **It opens with "Follow your company's outage procedure first" and it is not your company's procedure.** The wording was written for this app from general field practice, with no NCTI or SCTE text copied. It has **not** been reviewed by a supervisor against the local outage procedure, and that review is needed before coworkers use it.
 

@@ -165,6 +165,6 @@ let comparisons = 0;
     assert.deepEqual(json('Thresholds.rows'), rows);
   });
 
-  fs.writeFileSync('qa/build3-field-calcs-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, referenceComparisons: comparisons, cases, scope: 'App FieldCalc output against independent 50-digit decimal references and published worked numbers; JSDOM screen behavior. Arithmetic only; no field acceptance, meter or modem data.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-field-calcs-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, referenceComparisons: comparisons, cases, scope: 'App FieldCalc output against independent 50-digit decimal references and published worked numbers; JSDOM screen behavior. Arithmetic only; no field acceptance, meter or modem data.' }, null, 2) + '\n');
   console.log(`Build3 field calculators: ${cases.length} checks passed (${comparisons} reference comparisons)`);
 })().catch(error => { console.error(error); process.exit(1); });

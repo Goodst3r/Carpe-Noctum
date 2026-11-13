@@ -1,0 +1,45 @@
+{
+  "snapshot_utc": "2026-11-13T07:53:48Z",
+  "scope": "Built source artifacts frozen for independent review; pre-signing, full gate pending. This is not an APK or deployment receipt.",
+  "source_base_commit": "86372572601c5f5bf690b2f947fde34f184a8703",
+  "app_version": "2.0 Alpha build 4",
+  "android_version_code": 28,
+  "pwa_version": "eb868a1d252d786b3fa2",
+  "pwa_worker": "sw.eb868a1d252d786b3fa2.js",
+  "sha256": {
+    "outputs/Night_Sweep.html": "0dab215949cad492db2df1d3b1ef7881f0892dcf88eba750415a3991a349a823",
+    "dist/android.html": "b2f8b3e56c024ea780d294b63dc5b3baadcccaea6f0d88ddb863cffa1feb3ac1",
+    "dist/equipment-coverage.html": "786d9e42a626c380e503807743696a0941999026b6d9a7419c72674ce861cd25",
+    "dist/functions-guide.html": "35cd55f7638358f0bf8e1f1dcaed7085cbca8c9566e0ac5f6336beabaceb3f72",
+    "dist/guide.html": "b99bb54062143d938432c3fb08701ad132ff55ead158a3ee22eaf3c9974c1051",
+    "dist/icons/apple-touch-icon.png": "27009ef689427e5953667f189a00457b9f3f075796762177e6f015b3b819250f",
+    "dist/icons/icon-192.png": "5f76beb81c5cd4371c07a7d3e61efaeb7f39120e269ea27c289d9221c609fc2d",
+    "dist/icons/icon-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+    "dist/icons/icon-maskable-512.png": "a988db12801eb0b426361d1c6d9477e7e3a7a1c0fa765dbc644432a904031f60",
+    "dist/icons/icon.svg": "c01a21b6e7dbb5e88dd4c64ccb2a082ae87c9e3f8f94e084cf8fe4a14d36f617",
+    "dist/index.html": "326f1897feaca4190f390e9c82159977aca01b0272d7652c055cf2e82e224037",
+    "dist/install.html": "c951b9be2490e54196c07e974d5b3709bbbfd63bf5063dfe656d7c247b751b17",
+    "dist/iphone.html": "53ccb19e452e1675a327495e598632192bfdad2b2cc203e9760136f067de7292",
+    "dist/manifest.webmanifest": "aad67645a15d2ca426b35542d17e1c0135b0902128e1f7212fcb034d86802a9d",
+    "dist/math-audit.html": "48c5b135e8ae7d54f69a2bd9d5921eeb56a702ecec350bf2f2911f5ee18501a0",
+    "dist/phone-installation.html": "8015f752e67621aac229ba719faf38b694412ba9b7d82c7ed5e5d149983831f8",
+    "dist/pwa.css": "c611fd2db30de63ec4bc57cc1c479a33c745aed3d113044720eb64467d3ecc64",
+    "dist/pwa.js": "647f67eb1c6db49832d25bd059510cacf6e3314bc173853b1a40cf46c5dc7b00",
+    "dist/release.json": "67e92d411ee07971c64a225cf536d67016435d9b94163bae183ce7d4d9f1f8d6",
+    "dist/robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
+    "dist/setup-guide.html": "f3f4868b0bc0a4ec4e7a517b08e8f826dcd941485c48185f5882e3b88f7b6942",
+    "dist/sw.eb868a1d252d786b3fa2.js": "1fd381217b77773934ccc9db67f84ef90c5a5e063c79274e8305554623d13de2",
+    "dist/training-coverage.html": "781055b22962834fd3be02e8cb54b82f962aed5851ee6f8fab81cb9ce4334758"
+  },
+  "changed_source_modules_sha256": {
+    "night-sweep/gainmaker-eq.js": "09872d5fb88b712ebd468346b6f3bb6f28b98da6a3647eee4730ebc4bee14470",
+    "night-sweep/field-reference.js": "01619a7deab1e42f24a72bb27592225882ab2ccf8d1d90b9fde736c761ba2cab",
+    "night-sweep/station.js": "578e2ac5c35f0b3bae72b4ff7b718a0bb7f11f9176f7c5927fb9d24a621afc2f"
+  },
+  "unchanged_reference_inputs_sha256": {
+    "night-sweep/alignment.js": "36c334bcc82f36cfca1a9f01e4478496beedee65f18f620d618b309c30fb0900",
+    "qa/fixtures/gainmaker-eq/source-facts.json": "759ba332f7219fc2fd79754dc67b89b33c3da72fb7636cd9c9a21c0ffb699082",
+    "qa/fixtures/gainmaker-eq/legacy-forward-items.json": "8328835495946e8e4da655a9ba0a0a1b7918bd7b8a1747ae3ba9f8e09fb92bf9"
+  },
+  "source_freeze_commit_record": "Record the commit containing this snapshot externally on PR52 after commit; no future commit is asserted in this tracked file."
+}

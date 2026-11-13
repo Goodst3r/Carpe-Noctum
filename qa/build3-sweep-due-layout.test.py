@@ -57,6 +57,15 @@ try:
             check(f'{width}px tapping interval label focuses without opening source', page.locator('#sweepDueInterval').evaluate('(e)=>document.activeElement===e') and page.locator('dialog.source-sheet[open]').count() == 0)
             page.locator('#sweepDueInterval').fill('18x')
             check(f'{width}px malformed input remains focused/visible with nearby error', page.locator('#sweepDueInterval').input_value() == '18x' and page.locator('#sweepDueInterval').evaluate('(e)=>document.activeElement===e') and 'Interval invalid' in page.locator('#sweepDueIntervalStatus').inner_text() and page.locator('.sweep-due-green,.sweep-due-yellow,.sweep-due-red').count() == 0)
+            page.locator('#sweepDueInterval').press('Enter')
+            check(f'{width}px Enter commits invalid text without colored reminders', page.locator('#sweepDueInterval').input_value() == '18x' and 'Interval invalid' in page.locator('#sweepDueIntervalStatus').inner_text() and page.locator('.sweep-due-green,.sweep-due-yellow,.sweep-due-red').count() == 0 and 'stale' not in page.locator('#sweepDueSummary').inner_text().lower())
+            page.locator('#sweepDueInterval').fill('30')
+            check(f'{width}px draft is saved and old counts hidden', page.evaluate('JSON.parse(localStorage.getItem("hfc-route-v1")).sweepDue.intervalMonths') == '30' and 'stale' in page.locator('#sweepDueSummary').inner_text().lower() and page.locator('[data-sweep-due-row]').count() == 0)
+            page.locator('#sweepDueInterval').press('Enter')
+            check(f'{width}px Enter commits the full 30-month interval', page.locator('#sweepDueInterval').input_value() == '30' and '30 whole calendar months' in page.locator('#sweepDueIntervalStatus').inner_text() and 'stale' not in page.locator('#sweepDueSummary').inner_text().lower() and page.locator('[data-sweep-due-row]').count() == 21)
+            page.locator('#sweepDueInterval').fill('24')
+            page.evaluate('window.dispatchEvent(new Event("pageshow"))')
+            check(f'{width}px resume retains and commits the saved draft', page.locator('#sweepDueInterval').input_value() == '24' and page.evaluate('state.sweepDue.intervalMonths') == '24' and 'stale' not in page.locator('#sweepDueSummary').inner_text().lower())
             page.locator('#sweepDueInterval').fill('')
             check(f'{width}px clearing returns to unknown without rewriting Station dates', 'Interval unknown' in page.locator('#sweepDueIntervalStatus').inner_text() and page.evaluate('state.stationView.stations.layout_1.swept.date') == '2025-04-11')
             page.locator('#sweepDuePanel [data-threshold="company.sweepDue.intervalMonths"]').click()
@@ -120,6 +129,13 @@ try:
             check(f'{width}px same-owner refresh retains unsaved warning', 'Not saved' in warning.inner_text())
             page.evaluate('''() => {Storage.prototype.setItem=window.__sweepPeerStorage;loadState({version:1,setup:{...defaultSetup,sourceType:'manual'},rows:[],sweepDue:{intervalMonths:'25'}});WorkflowUI.go('sweepDue');}''')
             check(f'{width}px a different job does not inherit old interval save feedback', warning.inner_text() == '')
+            page.locator('#sweepDueInterval').fill('30')
+            page.evaluate('''() => {
+              const owner=TrainingJob.makePractice('aoi-six-active');owner.rows=[];
+              owner.job.id='job_render_switch';owner.sweepDue={intervalMonths:'6'};
+              loadState(owner);
+            }''')
+            check(f'{width}px focused working-job switch replaces draft and visible counts without navigation',page.locator('#sweepDueInterval').input_value() == '6' and page.locator('#sweepDueInterval').evaluate('(e)=>document.activeElement===e') and '1 job sources · 1 stations' in page.locator('#sweepDueSummary').inner_text() and 'stale' not in page.locator('#sweepDueSummary').inner_text().lower())
             context.close()
         check('No browser page errors', not errors)
         browser.close()

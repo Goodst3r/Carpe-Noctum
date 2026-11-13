@@ -193,6 +193,7 @@ const JobsUI=(()=>{
   if(typeof drawChart==='function')drawChart();return value;
  }
  function render(){
+  if(typeof SweepDue!=='undefined')SweepDue.refresh();
   const parent=$('projectPanel');if(!parent)return;let el=$('jobsPanel');
   if(!el){el=document.createElement('section');el.id='jobsPanel';el.className='panel';el.dataset.screen='projects';parent.before(el);}
   el.hidden=parent.hidden;const m=metadata(),saved=library||{jobs:[],activeId:null},disabled=isBusy()?' disabled':'';
