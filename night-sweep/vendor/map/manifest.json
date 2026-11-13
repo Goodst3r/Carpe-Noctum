@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "name": "NOTICE.txt",
+      "bytes": 99262,
+      "sha256": "14919433b71de237a495978dbc150b52562624dae1afdda164fcc6fe7c8e8d49"
+    },
+    {
+      "name": "pdf.js",
+      "bytes": 400218,
+      "sha256": "e1da62aa893e4a78c291eb6143a792b811c746e61549281b874cd33519b66bfc"
+    },
+    {
+      "name": "pdf-worker.js",
+      "bytes": 1024153,
+      "sha256": "e66c21cd8afdd344a6ce1bd2c1a906769c9c82e80ae0bb84d4a144b909fcfa1d"
+    },
+    {
+      "name": "ocr.js",
+      "bytes": 62961,
+      "sha256": "000c27d9cd0def655f77b36c72a389c0ab13793aa31cb4d7aab56d09c0afbc7e"
+    },
+    {
+      "name": "ocr-worker.js",
+      "bytes": 4007792,
+      "sha256": "01c983e3ab281ce765f96dc3aca485874bf6362a617213b3abfbb06aa781c5d7"
+    },
+    {
+      "name": "eng.traineddata.gz",
+      "bytes": 2952873,
+      "sha256": "45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91"
+    }
+  ]
+}
