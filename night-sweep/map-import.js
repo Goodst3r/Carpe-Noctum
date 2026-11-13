@@ -42,10 +42,17 @@
         }
       : null;
   }
+  function boundedSegments(segments) {
+    if (segments.length > LIMITS.segments)
+      throw Error(
+        "Map contains more than 4000 cable segments. Split it into smaller sections.",
+      );
+    return segments;
+  }
   function geometry(page, candidates) {
-    const segments = page.segments
-      .filter((s) => distance(point(s), point(s, true)) > 5)
-      .slice(0, LIMITS.segments);
+    const segments = boundedSegments(page.segments).filter(
+      (s) => distance(point(s), point(s, true)) > 5,
+    );
     const cuts = segments.map((s) => [point(s), point(s, true)]),
       nodes = [],
       edges = [],
@@ -707,7 +714,7 @@
     }
     scan(false);
     scan(true);
-    return out.slice(0, LIMITS.segments);
+    return boundedSegments(out);
   }
   function vectorSegments(ops, viewport, lib) {
     const out = [],
@@ -757,7 +764,7 @@
         }
       }
     });
-    return out.slice(0, LIMITS.segments);
+    return boundedSegments(out);
   }
   async function recognize(canvas, worker) {
     const { data } = await worker.recognize(

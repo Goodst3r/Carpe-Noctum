@@ -82,7 +82,7 @@ separate length labels on one continuous cable line.
 
 20 MiB per input, 8 PDF pages, 16 million decoded/rendered pixels per page,
 2400 pixels maximum recognition edge, 200 schedule candidates, and 4000
-retained line segments are application resource guards, not RF rules.
+line segments (exceeding this cap rejects the map; geometry is never silently truncated) are application resource guards, not RF rules.
 Unsupported types, empty/oversized inputs and decoder failures produce explicit
 errors. A missing schedule returns recognized text and page previews with a
 specific message rather than inventing a route. Connections across pages remain

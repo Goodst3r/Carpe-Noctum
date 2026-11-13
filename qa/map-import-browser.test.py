@@ -56,6 +56,10 @@ with tempfile.TemporaryDirectory(prefix='cn-map-') as d,sync_playwright() as pw:
 
  nine=base64.b64encode((root/'qa/fixtures/maps/synthetic-nine-pages.pdf').read_bytes()).decode()
  bounds=page.evaluate('''async encoded=>{const out={};try{await NightSweepMapImport.read(new File([Uint8Array.from(atob(encoded),c=>c.charCodeAt(0))],'nine.pdf'));out.pages='accepted';}catch(e){out.pages=e.message;}const c=document.createElement('canvas');c.width=5000;c.height=4000;const blob=await new Promise(resolve=>c.toBlob(resolve));c.width=c.height=1;try{await NightSweepMapImport.read(new File([blob],'large.png'));out.pixels='accepted';}catch(e){out.pixels=e.message;}return out;}''',nine)
+
+ complex_map=base64.b64encode((root/'qa/fixtures/maps/synthetic-complex.pdf').read_bytes()).decode()
+ complex_error=page.evaluate('''async encoded=>{try{await NightSweepMapImport.read(new File([Uint8Array.from(atob(encoded),c=>c.charCodeAt(0))],'complex.pdf'));return 'accepted';}catch(e){return e.message;}}''',complex_map)
+ check('4000 cable segments' in complex_error and 'Split' in complex_error,complex_error)
  check('8-page' in bounds['pages'],bounds)
  check('16-million-pixel' in bounds['pixels'],bounds)
  check(page.evaluate('originalFetch===fetch'),'OCR worker network guard does not modify window fetch')

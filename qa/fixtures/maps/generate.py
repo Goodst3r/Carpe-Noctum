@@ -22,3 +22,8 @@ doc.save(root/'synthetic-marked.pdf');p.get_pixmap(matrix=fitz.Matrix(1.5,1.5),a
 limits=fitz.open()
 for i in range(9): limits.new_page(width=100,height=100)
 limits.save(root/'synthetic-nine-pages.pdf')
+
+complex_doc=fitz.open();complex_page=complex_doc.new_page(width=400,height=1200);shape=complex_page.new_shape()
+for i in range(4001):shape.draw_line((50,20+i*.2),(250,20+i*.2))
+shape.finish(width=.1,color=(0,0,0));shape.commit()
+complex_doc.save(root/'synthetic-complex.pdf',deflate=True)
