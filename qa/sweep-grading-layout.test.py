@@ -29,6 +29,16 @@ try:
             page.locator('#evidenceFiles').set_input_files({'name':'SYNTHETIC.csv','mimeType':'text/csv','buffer':b'frequency_mhz,level_dbmv\n54,0\n100,2.5\n860,0'})
             page.wait_for_function('!EvidenceUI.isBusy()&&state.evidence?.length===1')
             check(f'{width}px closed evidence preview creates no chart or table',page.locator('#evidencePanel [data-evidence-preview] svg,#evidencePanel [data-evidence-preview] table').count()==0)
+            printed=page.evaluate('''() => {
+              const preview=document.querySelector('[data-evidence-preview]');
+              NightSweep.preparePrint();
+              const ready=preview.open&&preview.querySelectorAll('svg').length===1&&preview.querySelectorAll('tbody tr').length===3;
+              NightSweep.restorePrint();
+              return {ready,restored:!preview.open};
+            }''')
+            check(f'{width}px direct print prepares evidence synchronously before toggle events',printed['ready'])
+            page.evaluate('EvidenceUI.render()')
+            check(f'{width}px print restores closed preview and redraw keeps it lazy',printed['restored'] and page.locator('#evidencePanel [data-evidence-preview] svg,#evidencePanel [data-evidence-preview] table').count()==0)
             original=page.evaluate('async()=> (await evidenceExportProject(state)).evidenceFiles[0].base64')
             page.locator('#evidencePanel [data-evidence-card] > summary').click()
             page.locator('#evidencePanel [data-evidence-preview] > summary').click()

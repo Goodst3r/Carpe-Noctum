@@ -365,7 +365,7 @@ document.querySelector('.filelabel').addEventListener('keydown',e=>{if(e.key==='
 document.addEventListener('click',e=>{const menu=document.querySelector('.filemenu');if(menu.open&&!menu.contains(e.target))menu.open=false;});
 window.NightSweep={openProject:async text=>{if(await openProjectText(text))$('message').textContent='Project opened.';},onNativeStatus:message=>{$('message').textContent=String(message);},showTab};
 
-if(typeof initProjects==='function')initProjects();if(typeof initFrequency==='function')initFrequency();initial();if(typeof initNodes==='function')initNodes();renderAll();if(typeof initEvidence==='function')initEvidence();renderCatalog();new ResizeObserver(()=>{if(!$('sweepPanel')?.hidden)drawChart();}).observe($('plot'));
+if(typeof initProjects==='function')initProjects();if(typeof initFrequency==='function')initFrequency();initial();if(typeof initNodes==='function')initNodes();renderAll();renderCatalog();new ResizeObserver(()=>{if(!$('sweepPanel')?.hidden)drawChart();}).observe($('plot'));
 
 /* Expand record details only while producing a report. */
 let nightSweepPrintDetails=null;
@@ -375,3 +375,5 @@ window.NightSweep.restorePrint=()=>{if(!nightSweepPrintDetails)return;nightSweep
 window.NightSweep.onNativeStatus=message=>{$('message').textContent=String(message);};
 window.addEventListener('beforeprint',window.NightSweep.preparePrint);
 window.addEventListener('afterprint',window.NightSweep.restorePrint);
+// Evidence installs its synchronous materialization wrapper around the final print hook.
+if(typeof initEvidence==='function')initEvidence();

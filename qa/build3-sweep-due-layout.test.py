@@ -129,6 +129,13 @@ try:
             check(f'{width}px same-owner refresh retains unsaved warning', 'Not saved' in warning.inner_text())
             page.evaluate('''() => {Storage.prototype.setItem=window.__sweepPeerStorage;loadState({version:1,setup:{...defaultSetup,sourceType:'manual'},rows:[],sweepDue:{intervalMonths:'25'}});WorkflowUI.go('sweepDue');}''')
             check(f'{width}px a different job does not inherit old interval save feedback', warning.inner_text() == '')
+            page.locator('#sweepDueInterval').fill('30')
+            page.evaluate('''() => {
+              const owner=TrainingJob.makePractice('aoi-six-active');owner.rows=[];
+              owner.job.id='job_render_switch';owner.sweepDue={intervalMonths:'6'};
+              loadState(owner);
+            }''')
+            check(f'{width}px focused working-job switch replaces draft and visible counts without navigation',page.locator('#sweepDueInterval').input_value() == '6' and page.locator('#sweepDueInterval').evaluate('(e)=>document.activeElement===e') and '1 job sources · 1 stations' in page.locator('#sweepDueSummary').inner_text() and 'stale' not in page.locator('#sweepDueSummary').inner_text().lower())
             context.close()
         check('No browser page errors', not errors)
         browser.close()

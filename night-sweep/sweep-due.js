@@ -80,7 +80,7 @@ const SweepDue=(()=>{
   let snapshots=[],reason='';try{snapshots=JobsUI.snapshots();}catch(error){reason='Saved jobs unavailable — '+error.message;}
   const view=collect({working:state,snapshots,today,interval:state.sweepDue?.intervalMonths??''});if(reason)view.diagnostics.unshift(reason);return view;
  }
- let initialized=false,model=null,page=0,saveResult=null,draftPending=false;const pageSize=25;
+ let initialized=false,model=null,renderedOwner=null,page=0,saveResult=null,draftPending=false;const pageSize=25;
  const tag=id=>typeof Thresholds!=='undefined'?Thresholds.tag(id):'';
  function structure(){
   const panel=document.getElementById('sweepDuePanel');if(!panel)return null;if(panel.querySelector('#sweepDueInterval'))return panel;
@@ -105,8 +105,8 @@ const SweepDue=(()=>{
   document.getElementById('sweepDueList').innerHTML='';document.getElementById('sweepDuePagination').innerHTML='';document.getElementById('sweepDueDiagnostics').innerHTML='';document.getElementById('sweepDuePageSummary').hidden=true;
  }
  function render(today=deviceToday()){
-  const panel=structure();if(!panel)return;model=readView(today);page=0;draftPending=false;
-  const input=document.getElementById('sweepDueInterval');if(document.activeElement!==input)input.value=model.interval;
+  const panel=structure();if(!panel)return;const sameOwner=renderedOwner===state;model=readView(today);renderedOwner=state;page=0;draftPending=false;
+  const input=document.getElementById('sweepDueInterval');if(!sameOwner||document.activeElement!==input)input.value=model.interval;
   document.getElementById('sweepDueAsOf').textContent='As of '+model.today+' (device date)';const parsed=parseInterval(model.interval);
   document.getElementById('sweepDueIntervalStatus').textContent=parsed.status==='valid'?'Entered interval: '+parsed.value+' whole calendar months.':'Interval '+parsed.status+(parsed.status==='invalid'?' — enter digits only, from 1 to 1200.':'.');
   if(saveResult&&(saveResult.owner!==state||saveResult.interval!==model.interval))saveResult=null;
@@ -114,6 +114,12 @@ const SweepDue=(()=>{
   document.getElementById('sweepDueDiagnostics').innerHTML=model.diagnostics.map(s=>'<p class="status warning">'+escape(s)+'</p>').join('');
   const c=model.counts;document.getElementById('sweepDueSummary').textContent=c.jobs+' job sources · '+c.stations+' stations. Work reminders: '+c.work.green+' before window, '+c.work.yellow+' in window, '+c.work.red+' due / overdue, '+c.work.neutral+' unavailable. Practice / sample reminders: '+c.practice.green+' before window, '+c.practice.yellow+' in window, '+c.practice.red+' due / overdue, '+c.practice.neutral+' unavailable. Synthetic and sample data remain practice after editing, duplication and restore.';
   renderList();
+ }
+ function refresh(){
+  if(document.getElementById('sweepDuePanel')?.hidden!==false)return;
+  // A library/app redraw must not commit a still-typed interval for this job.
+  if(draftPending&&renderedOwner===state)return;
+  render();
  }
  function init(){
   if(initialized)return;initialized=true;
@@ -123,5 +129,5 @@ const SweepDue=(()=>{
   document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='sweepDueRefresh')render();if(b.dataset.sweepDuePage){page+=b.dataset.sweepDuePage==='next'?1:-1;renderList();const summary=document.getElementById('sweepDuePageSummary');summary?.focus({preventScroll:true});summary?.scrollIntoView({block:'start'});}});
   const resume=()=>{if(!document.getElementById('sweepDuePanel')?.hidden&&document.visibilityState!=='hidden')render();};window.addEventListener('pageshow',resume);window.addEventListener('focus',resume);document.addEventListener('visibilitychange',resume);
  }
- return {parseDate,addMonthsClamped,parseInterval,validate,deviceToday,classify,collect,readView,render,init};
+ return {parseDate,addMonthsClamped,parseInterval,validate,deviceToday,classify,collect,readView,render,refresh,init};
 })();
