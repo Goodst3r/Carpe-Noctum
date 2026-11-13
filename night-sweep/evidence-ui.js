@@ -192,7 +192,7 @@ const EvidenceUI = (() => {
       }
       report(failed?failed+' original file'+(failed===1?' is':'s are')+' unavailable or failed verification. Reattach those files before exporting.':'Saved originals verified. Readable measurement previews are ready.',failed>0);
     }catch(e){report(e.message,true);throw e;}
-    finally{busy=false;render();}
+    finally{busy=false;render();if(typeof JobsUI!=='undefined')JobsUI.render();}
   }
   async function cleanupUnused(){
     if(busy)throw Error('Finish the current file operation first.');
