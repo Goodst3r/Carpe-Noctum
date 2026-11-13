@@ -4,7 +4,7 @@
   "launcher_label": "Carpe Noctum 2.0 Preview build 4",
   "package": "com.spencerwilliams.nightsweep.preview",
   "app_name": "Carpe Noctum (formerly NightSweep)",
-  "status": "Pre-signing source snapshot: build 4 candidate is not yet built or signed. Final review, full gate, original-key candidate verification and physical acceptance remain pending.",
+  "status": "Pre-signing source snapshot: build 4 HTML/PWA are built and identity-pinned for independent review. The build 4 APK is not built or signed; independent reviews, final full gate, original-key candidate verification and physical acceptance remain pending.",
   "standalone_frozen": false,
   "final_apk_built": false,
   "candidate_apk_built": false,
@@ -18,7 +18,7 @@
     "Build the Preview candidate only after the reviewed source and full gate are frozen; use the original signer and explicit HTML and certificate pins. Never generate a replacement key.",
     "Candidate receipt-bearing readiness and phone acceptance are separate dated evidence; do not update this pre-signing snapshot retroactively."
   ],
-  "standalone_sha256": null,
+  "standalone_sha256": "0dab215949cad492db2df1d3b1ef7881f0892dcf88eba750415a3991a349a823",
   "apk_sha256": null,
   "apk_file": null,
   "historical_readiness": "../docs/history/Android_Build20_Readiness.json",
@@ -70,6 +70,11 @@
       }
     ]
   },
-  "source_snapshot_utc": "2026-11-13T07:38:41Z",
-  "source_snapshot_scope": "Pre-signing source state only; later candidate and phone facts belong in separate dated artifact receipts."
+  "source_snapshot_utc": "2026-11-13T07:53:48Z",
+  "source_snapshot_scope": "Source artifacts and their current hashes only. standalone_frozen remains false until final review/full-gate approval for signing; source_artifacts_frozen_for_review identifies this review snapshot. Later APK/phone/publication facts belong in separate dated receipts.",
+  "source_snapshot_base_commit": "86372572601c5f5bf690b2f947fde34f184a8703",
+  "source_artifacts_frozen_for_review": true,
+  "pwa_version": "eb868a1d252d786b3fa2",
+  "pwa_index_sha256": "326f1897feaca4190f390e9c82159977aca01b0272d7652c055cf2e82e224037",
+  "source_asset_hashes": "../handoff_docs/FINAL_CANDIDATE_ASSET_HASHES.json"
 }

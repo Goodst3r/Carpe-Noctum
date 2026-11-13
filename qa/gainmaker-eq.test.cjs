@@ -58,6 +58,26 @@ test('installed-model, split, direction and slot guards refuse unsupported famil
  for(const id of ['GAGM-EQREV-42M-13','GAGM-EQL-1.2G-6','GAGM-EQIN-1G-6.5','748381','589260','made-up'])assert.equal(e.partFor(id),null,id);
  assert.equal(e.compareChange('4007236','GAGM-EQC-1.2G-12',52,1002).low.value,null);assert.equal(e.compareLoss('GAGM-EQREV-204M-6',5,204,{...ctx,direction:'return'}).high.value,null);
 });
+test('nested EQ output changes retain the complete source set through tilt composition',()=>{
+ const e=api(),r=e.compareChange('4007232','4007236',52,1002);near(r.tilt.value,4.8);assert.equal(r.tilt.status,'known');
+ const keys=s=>[...new Set(s.map(x=>x.key))].sort();assert.deepEqual(keys(r.low.sources),['B']);assert.deepEqual(keys(r.high.sources),['D']);assert.deepEqual(keys(r.tilt.sources),['B','D'],'nested composition must retain both source charts');
+ const partial=e.compareChange('4007232','4007236',300,900);assert.equal(partial.low.value,null);assert.equal(partial.high.status,'estimated');assert.equal(partial.tilt.value,null);assert(partial.high.sources.some(s=>s.key==='B'));
+});
+test('LGD Station uses its actual65MHz hardware ceiling without changing local split workflow or leaking another owner',t=>{
+ const a=bootApp();t.after(()=>{assert.deepEqual(a.errors,[]);a.close();});const {ev,d,w}=a;ev('loadState(TrainingJob.makePractice("complete"));state.rows[0].device="active_gm_lgd_65";renderAll();WorkflowUI.go("station")');let select=d.querySelector('[data-station-target]');select.value='r1';select.dispatchEvent(new w.Event('change',{bubbles:true}));
+ const target=()=>ev('StationView.targets().find(t=>t.key===StationView.currentTarget().key)');assert.equal(target().split,'');assert.equal(target().returnCeiling,65);assert.equal(ev('(()=>{const t=StationView.targets().find(t=>t.key===StationView.currentTarget().key);return GainMakerEQ.compatibility("4007236",{equipmentId:t.id,direction:"forward",split:t.returnCeiling,slot:"forward-input-eq"}).ok})()'),true);
+ for(const [key,value]of Object.entries({lowMHz:'86',highMHz:'1002',eq:'12'})){const el=d.querySelector(`[data-station-scope="forward"][data-station-field="${key}"]`);el.value=value;el.dispatchEvent(new w.Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));}
+ const text=d.querySelector('[data-station-eq-loss]').textContent;assert.match(text,/Low attenuation: 9\.9 dB · known/);assert.match(text,/High attenuation: 1\.0 dB · known/);assert.match(d.querySelector('[data-station-split]').textContent,/65\/86.*workflow unconfigured/);
+ const previous=ev('state');ev('loadState(TrainingJob.makePractice("aoi-six-active"))');const retained=ev('StationView').targets(previous).find(t=>t.key==='r1');assert.equal(retained.id,'active_gm_lgd_65');assert.equal(retained.returnCeiling,65);assert.equal(retained.split,'');
+ ev('loadState(TrainingJob.makePractice("complete"));WorkflowUI.go("station")');select=d.querySelector('[data-station-target]');select.value='r1';select.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(target().split,'42');assert.equal(target().returnCeiling,42);
+ for(const [key,value]of Object.entries({lowMHz:'86',highMHz:'1002',eq:'12'})){const el=d.querySelector(`[data-station-scope="forward"][data-station-field="${key}"]`);el.value=value;el.dispatchEvent(new w.Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));}assert.match(d.querySelector('[data-station-eq-loss]').textContent,/Low attenuation: 9\.9 dB · known/);
+});
+test('partial EQ change UI labels each independent output status and source beside an unknown tilt',t=>{
+ const a=bootApp();t.after(()=>{assert.deepEqual(a.errors,[]);a.close();});const {ev,d,w}=a;ev('WorkflowUI.go("references")');const before=a.json('state');
+ const set=(key,value)=>{const el=d.querySelector(`[data-eq-reference="${key}"]`);el.value=value;el.dispatchEvent(new w.Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));};
+ set('family','forward-cable-1g');set('part','forward-cable-1g/6');set('change','forward-cable-1g/12');set('low','300');set('high','900');
+ assert.match(d.querySelector('[data-eq-change="low"]')?.textContent||'',/—.*unknown/);assert.match(d.querySelector('[data-eq-change="high"]')?.textContent||'',/-0\.3 dB · estimated.*ATX.*ANW1513.*p\.2/s);assert.match(d.querySelector('[data-eq-change="tilt"]')?.textContent||'',/—.*unknown/);assert.deepEqual(a.json('state'),before);
+});
 test('Tools references and Catalog expose parts, status, unknown reasons and F3 without changing saved work',t=>{
  const a=bootApp();t.after(()=>{assert.deepEqual(a.errors,[]);a.close();});const {ev,d,w}=a;ev('loadState(TrainingJob.makePractice("complete"));WorkflowUI.go("references")');const before=a.json('state');
  assert.equal(ev('catalogEntries()[0].id'),ev('catalog.devices.find(d=>d.id!=="none"&&!d.retired).id'),'new accessories preserve the existing catalog default ordering');

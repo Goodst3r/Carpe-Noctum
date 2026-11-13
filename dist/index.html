@@ -1188,7 +1188,10 @@ function projectChanged(t){const p=ensureProject(),scope=t.dataset.projectScope,
   if(!p.orderingValue)return fail('The known jumper has no published numeric loss curve and cannot be a solver candidate.');
   return {ok:true,reason:'Sourced 1 GHz installed-model forward input cable-EQ procedure; pads remain model-profile data.'};
  }
- const pairValue=(a,b,operation,reason)=>a.value===null||b.value===null?unknown(reason):{status:a.status==='estimated'||b.status==='estimated'?'estimated':'known',value:operation(a.value,b.value)===0?0:operation(a.value,b.value),units:'dB',reason,sources:[a.source,b.source].filter(Boolean)};
+ // Loss lookups carry one source; derived values carry a source set. Preserve
+ // both forms when composing differences and the resulting output-tilt change.
+ const sourceSet=(...operands)=>[...new Map(operands.flatMap(x=>[x.source,...(x.sources||[])]).filter(Boolean).map(s=>[JSON.stringify(s),s])).values()];
+ const pairValue=(a,b,operation,reason)=>{const sources=sourceSet(a,b);return a.value===null||b.value===null?{...unknown(reason),sources}:{status:a.status==='estimated'||b.status==='estimated'?'estimated':'known',value:operation(a.value,b.value)===0?0:operation(a.value,b.value),units:'dB',reason,sources};};
  function compareLoss(partId,lowMHz,highMHz,context){
   const p=partFor(partId),lo=number(lowMHz),hi=number(highMHz),match=context?compatibility(partId,context):null;
   const low=match&&!match.ok?unknown(match.reason):lookupLoss(partId,lowMHz),high=match&&!match.ok?unknown(match.reason):lookupLoss(partId,highMHz);
@@ -2523,10 +2526,10 @@ const FieldReference=(()=>{
  }
  const eqNumber=r=>(r.value===null?'—':r.value.toFixed(1)+' dB')+' · '+r.status;
  function eqResultMarkup(partId,low,high,change='',context){
-  const lib=eqLibrary();if(!lib)return '<p>EQ reference unavailable.</p>';const r=lib.compareLoss(partId,low,high,context),source=x=>x.source?' ['+x.source.manufacturer+' '+x.source.revision+' '+x.source.locator+']':'';
+  const lib=eqLibrary();if(!lib)return '<p>EQ reference unavailable.</p>';const r=lib.compareLoss(partId,low,high,context),source=x=>{const refs=x.source?[x.source]:(x.sources||[]);return refs.length?' ['+refs.map(s=>s.manufacturer+' '+s.revision+' '+s.locator).join('; ')+']':'';};
   const loss=(label,x)=>`<p><b>${label} attenuation:</b> ${eqNumber(x)}. ${esc(x.reason+source(x))}</p>`;
   let out=loss('Low',r.low)+loss('High',r.high)+`<p><b>High-minus-low output tilt for a flat input:</b> ${eqNumber(r.tilt)}. ${esc(r.tilt.reason)}</p>`;
-  if(change){const c=lib.compareChange(partId,change,low,high,context),signed=x=>x.value===null?'—':(x.value>0?'+':'')+x.value.toFixed(1);out+=`<p><b>EQ-only output change, old loss − new loss:</b> low ${signed(c.low)} / high ${signed(c.high)} dB; change in high-minus-low output tilt ${signed(c.tilt)} dB (${esc(c.tilt.status)}).</p>`;if(c.low.value===null||c.high.value===null)out+=`<p class="note">${esc(c.low.reason)} ${esc(c.high.reason)}</p>`;}
+  if(change){const c=lib.compareChange(partId,change,low,high,context),signed=x=>x.value===null?'—':(x.value>0?'+':'')+x.value.toFixed(1)+' dB',metric=(key,label)=>`<p data-eq-change="${key}"><b>${label}:</b> ${signed(c[key])} · ${esc(c[key].status)}. ${esc(c[key].reason+source(c[key]))}</p>`;out+='<p><b>EQ-only output change, old loss − new loss</b></p>'+metric('low','Low output change')+metric('high','High output change')+metric('tilt','Change in high-minus-low output tilt');}
   return out;
  }
  function renderEqReference(){
@@ -3521,7 +3524,7 @@ const StationView=(()=>{
     const installed=StationMath.number(stage.forward.eq),part=typeof GainMakerEQ!=='undefined'&&installed!==null?GainMakerEQ.partFor(String(4007228+installed/1.5)):null;
     const eqBox=document.querySelector('[data-station-eq-loss]'),eqResult=eqBox?.querySelector('[data-station-eq-loss-result]');
     if(eqBox)eqBox.hidden=!part;
-    if(eqResult)eqResult.innerHTML=part?`${FieldReference.eqResultMarkup(String(4007228+installed/1.5),stage.forward.lowMHz,stage.forward.highMHz,'',{equipmentId:t.id,direction:'forward',split:t.split,slot:'forward-input-eq'})}<p class="note">Published typical EQ loss only. Each pilot remains visible independently of missing readings, targets or the other pilot. Existing model-specific input pad and balancing procedure still govern the solver.</p><button type="button" data-task="references">Open EQ catalog / loss comparison</button>`:'';
+    if(eqResult)eqResult.innerHTML=part?`${FieldReference.eqResultMarkup(String(4007228+installed/1.5),stage.forward.lowMHz,stage.forward.highMHz,'',{equipmentId:t.id,direction:'forward',split:t.returnCeiling,slot:'forward-input-eq'})}<p class="note">Published typical EQ loss only. Each pilot remains visible independently of missing readings, targets or the other pilot. Existing model-specific input pad and balancing procedure still govern the solver.</p><button type="button" data-task="references">Open EQ catalog / loss comparison</button>`:'';
    }
    forward.innerHTML=content;
   }
@@ -9503,6 +9506,6 @@ const PowerPMUI=(()=>{
 })();
 </script>
 <script>initMeters();initRouteTools();initJobs();initFieldWork();initFieldReference();initFieldReport();SweepSetup.init();LaunchSource.init();EquipmentSetup.init();renderAll();runBuildSelfCheck();Thresholds.init();FieldCalcs.init();StationView.init();NightLog.init();SweepDue.init();DocsisHealthUI.init();LeakageUI.init();Outage.init();ImpairmentsUI.init();FiberToolsUI.init();HighSplitUI.init();WhyCardsUI.init();ProofOfPerformanceUI.init();StudyModeUI.init();PowerPMUI.init();initWorkflow();initTraining();</script>
-<script type="application/json" id="nightSweepPwaConfig">{"version":"08dbb32f35d4d5722b7f","worker":"sw.08dbb32f35d4d5722b7f.js","appVersion":"2.0 Alpha build 4"}</script>
+<script type="application/json" id="nightSweepPwaConfig">{"version":"eb868a1d252d786b3fa2","worker":"sw.eb868a1d252d786b3fa2.js","appVersion":"2.0 Alpha build 4"}</script>
 <script src="pwa.js"></script>
 </body></html>

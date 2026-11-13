@@ -131,7 +131,10 @@
   if(!p.orderingValue)return fail('The known jumper has no published numeric loss curve and cannot be a solver candidate.');
   return {ok:true,reason:'Sourced 1 GHz installed-model forward input cable-EQ procedure; pads remain model-profile data.'};
  }
- const pairValue=(a,b,operation,reason)=>a.value===null||b.value===null?unknown(reason):{status:a.status==='estimated'||b.status==='estimated'?'estimated':'known',value:operation(a.value,b.value)===0?0:operation(a.value,b.value),units:'dB',reason,sources:[a.source,b.source].filter(Boolean)};
+ // Loss lookups carry one source; derived values carry a source set. Preserve
+ // both forms when composing differences and the resulting output-tilt change.
+ const sourceSet=(...operands)=>[...new Map(operands.flatMap(x=>[x.source,...(x.sources||[])]).filter(Boolean).map(s=>[JSON.stringify(s),s])).values()];
+ const pairValue=(a,b,operation,reason)=>{const sources=sourceSet(a,b);return a.value===null||b.value===null?{...unknown(reason),sources}:{status:a.status==='estimated'||b.status==='estimated'?'estimated':'known',value:operation(a.value,b.value)===0?0:operation(a.value,b.value),units:'dB',reason,sources};};
  function compareLoss(partId,lowMHz,highMHz,context){
   const p=partFor(partId),lo=number(lowMHz),hi=number(highMHz),match=context?compatibility(partId,context):null;
   const low=match&&!match.ok?unknown(match.reason):lookupLoss(partId,lowMHz),high=match&&!match.ok?unknown(match.reason):lookupLoss(partId,highMHz);

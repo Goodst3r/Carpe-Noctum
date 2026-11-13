@@ -24,10 +24,10 @@ const FieldReference=(()=>{
  }
  const eqNumber=r=>(r.value===null?'—':r.value.toFixed(1)+' dB')+' · '+r.status;
  function eqResultMarkup(partId,low,high,change='',context){
-  const lib=eqLibrary();if(!lib)return '<p>EQ reference unavailable.</p>';const r=lib.compareLoss(partId,low,high,context),source=x=>x.source?' ['+x.source.manufacturer+' '+x.source.revision+' '+x.source.locator+']':'';
+  const lib=eqLibrary();if(!lib)return '<p>EQ reference unavailable.</p>';const r=lib.compareLoss(partId,low,high,context),source=x=>{const refs=x.source?[x.source]:(x.sources||[]);return refs.length?' ['+refs.map(s=>s.manufacturer+' '+s.revision+' '+s.locator).join('; ')+']':'';};
   const loss=(label,x)=>`<p><b>${label} attenuation:</b> ${eqNumber(x)}. ${esc(x.reason+source(x))}</p>`;
   let out=loss('Low',r.low)+loss('High',r.high)+`<p><b>High-minus-low output tilt for a flat input:</b> ${eqNumber(r.tilt)}. ${esc(r.tilt.reason)}</p>`;
-  if(change){const c=lib.compareChange(partId,change,low,high,context),signed=x=>x.value===null?'—':(x.value>0?'+':'')+x.value.toFixed(1);out+=`<p><b>EQ-only output change, old loss − new loss:</b> low ${signed(c.low)} / high ${signed(c.high)} dB; change in high-minus-low output tilt ${signed(c.tilt)} dB (${esc(c.tilt.status)}).</p>`;if(c.low.value===null||c.high.value===null)out+=`<p class="note">${esc(c.low.reason)} ${esc(c.high.reason)}</p>`;}
+  if(change){const c=lib.compareChange(partId,change,low,high,context),signed=x=>x.value===null?'—':(x.value>0?'+':'')+x.value.toFixed(1)+' dB',metric=(key,label)=>`<p data-eq-change="${key}"><b>${label}:</b> ${signed(c[key])} · ${esc(c[key].status)}. ${esc(c[key].reason+source(c[key]))}</p>`;out+='<p><b>EQ-only output change, old loss − new loss</b></p>'+metric('low','Low output change')+metric('high','High output change')+metric('tilt','Change in high-minus-low output tilt');}
   return out;
  }
  function renderEqReference(){

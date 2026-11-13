@@ -172,7 +172,7 @@ const StationView=(()=>{
     const installed=StationMath.number(stage.forward.eq),part=typeof GainMakerEQ!=='undefined'&&installed!==null?GainMakerEQ.partFor(String(4007228+installed/1.5)):null;
     const eqBox=document.querySelector('[data-station-eq-loss]'),eqResult=eqBox?.querySelector('[data-station-eq-loss-result]');
     if(eqBox)eqBox.hidden=!part;
-    if(eqResult)eqResult.innerHTML=part?`${FieldReference.eqResultMarkup(String(4007228+installed/1.5),stage.forward.lowMHz,stage.forward.highMHz,'',{equipmentId:t.id,direction:'forward',split:t.split,slot:'forward-input-eq'})}<p class="note">Published typical EQ loss only. Each pilot remains visible independently of missing readings, targets or the other pilot. Existing model-specific input pad and balancing procedure still govern the solver.</p><button type="button" data-task="references">Open EQ catalog / loss comparison</button>`:'';
+    if(eqResult)eqResult.innerHTML=part?`${FieldReference.eqResultMarkup(String(4007228+installed/1.5),stage.forward.lowMHz,stage.forward.highMHz,'',{equipmentId:t.id,direction:'forward',split:t.returnCeiling,slot:'forward-input-eq'})}<p class="note">Published typical EQ loss only. Each pilot remains visible independently of missing readings, targets or the other pilot. Existing model-specific input pad and balancing procedure still govern the solver.</p><button type="button" data-task="references">Open EQ catalog / loss comparison</button>`:'';
    }
    forward.innerHTML=content;
   }
