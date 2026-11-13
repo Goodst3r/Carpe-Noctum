@@ -66,7 +66,7 @@ To get a phone-testable APK sooner, **no new items start.** The batch is #39, #4
 
 ### Routes and Sweep cleanup (Spencer, November 13)
 
-Spencer added the Routes and Sweep cleanup to the current update. See [the scope and acceptance checks](NEXT_UPDATE_SWEEP_MAP_SCOPE.md). This is the exception to the November 12 scope freeze. Finish the route workflow and rerun the release gate on the combined build before signing. Keep the calculator tools available.
+Spencer added the Routes and Sweep cleanup and a review of the entire app to the current update. See [the scope and acceptance checks](NEXT_UPDATE_SWEEP_MAP_SCOPE.md). This is the exception to the November 12 scope freeze. Remove unused GaN and GaAs amplifier variants from the low-split workflow, retain the verified standard GainMaker models, and remove app elements that do not support the field workflow. Keep every calculator tool available. Complete the app walkthrough and rerun the release gate on the combined build before signing.
 
 ### Not to be built
 
