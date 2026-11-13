@@ -33,7 +33,7 @@ The final validation record distinguishes grouped automated checks, numerical as
 
 ## Preserved training and plant rules
 
-Complete field workflow remains **GS7K + two GainMaker GaN HGD** actives with **Scientific Atlanta SAT MM 4-23**, GigaXtend and Technetix passives on **42/54 MHz**. Design anchors remain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**, with a separate **38 dBmV return TX** reference. The source's 1218 MHz hardware capability is distinct from entered path operating/planning 1000 MHz and live 860 MHz.
+Complete field workflow remains **GS7K + two GainMaker HGD** actives with **Scientific Atlanta SAT MM 4-23**, GigaXtend and Technetix passives on **42/54 MHz**. Design anchors remain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**, with a separate **38 dBmV return TX** reference. The source's 1218 MHz hardware capability is distinct from entered path operating/planning 1000 MHz and live 860 MHz.
 
 The separate six-active Vecima/AOI exercise remains **204/258 MHz** and 261/993 MHz markers. Seven examples and 37 feature choices retain their guided steps, synthetic labels, unapproved records and portable original evidence. Existing field jobs and older practice copies are not silently reconfigured.
 

@@ -11,7 +11,7 @@ function click(selector){const e=d.querySelector(selector);assert(e,selector);e.
 check('Start without JS errors',()=>assert.deepEqual(errors,[]));
 check('NightSweep title',()=>assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 4'));
 check('Default 3-point example',()=>assert.equal(d.querySelectorAll('[data-row]').length,3));
-const primaryPanels={route:['routePanel'],sweep:['sweepPanel','levelsPanel'],power:['powerPanel'],parts:['catalogPanel'],projects:['jobsPanel','projectPanel']};
+const primaryPanels={route:['setup','routePanel'],sweep:['sweepPanel','levelsPanel'],power:['powerPanel'],parts:['catalogPanel'],projects:['jobsPanel','projectPanel']};
 for(const id of ['route','sweep','power','parts','projects','help'])check('Legacy navigation alias '+id,()=>{ev(`showTab('${id}')`);const expected=id==='help'?[...d.querySelectorAll('[data-screen=help]')]:primaryPanels[id].map(x=>d.getElementById(x));assert(expected.length&&expected.every(e=>e&&!e.hidden));assert([...d.querySelectorAll('[data-screen]')].filter(e=>!expected.includes(e)).every(e=>e.hidden));});
 ev("showTab('route')");
 check('Add RF row',()=>{click('#add');assert.equal(ev('state.rows.length'),4)});
