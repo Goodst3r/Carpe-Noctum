@@ -1,0 +1,1 @@
+{"private":true,"description":"Reproducible offline map-recognition vendor build only","dependencies":{"pdfjs-dist":"5.4.624","tesseract.js":"7.0.0","@tesseract.js-data/eng":"1.0.0"},"devDependencies":{"esbuild":"0.25.12"}}
