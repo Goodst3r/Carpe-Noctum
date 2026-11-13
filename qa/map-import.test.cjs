@@ -173,6 +173,23 @@ assert.throws(
   () => M.buildDraft(doc, { launchId: "s", port: "1", destinationIds: ["a"] }),
   /node or active/i,
 );
+const complex = JSON.parse(JSON.stringify(doc));
+complex.pages[0].segments = Array.from({ length: 4001 }, (_, i) => ({
+  x1: 0,
+  y1: i,
+  x2: 100,
+  y2: i,
+}));
+assert.throws(
+  () =>
+    M.buildDraft(complex, {
+      launchId: "n",
+      port: "Main",
+      destinationIds: ["a"],
+    }),
+  /4000.*segments.*Split/i,
+  "Oversized geometry must be rejected rather than truncated",
+);
 console.log(
   `map-import: ${checks} checks passed (branch, review, save IDs, continuous spans, launch)`,
 );
