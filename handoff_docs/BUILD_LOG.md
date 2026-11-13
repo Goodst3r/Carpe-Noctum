@@ -1,0 +1,7 @@
+# Build log
+Append only. Times below are UTC machine observations. Missing event times are not reconstructed. Planning and current Build3 web maintenance are separate from next-build implementation. Gate rows additionally record exit code, counts, app hash and tool versions.
+
+| UTC machine time | Build ID | Attempt | Who/role | Stage | Event | Code commit | Reported usage | Evidence | Note |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-13T05:21:38Z | CN-NEXT-20261113 | planning-1 | ChatGPT / planner | spec and handoff | handoff | 248e77802f333a1a461563dfb1973315a2043d67 | not reported | [Plan PR50](https://github.com/Goodst3r/Carpe-Noctum/pull/50) | Three proposed packages, independent values, OEM source limits and three role prompts published; original-key-only instruction recorded. Next-build implementation and phone acceptance have not started. Earlier planning start time not recorded. |
+| 2026-11-13T05:21:38Z | CN-WEB3-20261113 | web-2 | ChatGPT / writer | publication verification | handoff | 361afbb2f7dc5906ef1cae1836365a7553649823 | not reported | [Web repair PR51](https://github.com/Goodst3r/Carpe-Noctum/pull/51) | Existing site published as PWA d7158f010d8007fce21d; live browser shows Ready for offline use. 37 worker and20 client checks passed; exact local test-end times not recorded. Local broad browser gate is environment-blocked; normal GitHub gate pending. No signed APK or physical phone check claimed. |

@@ -1,30 +1,23 @@
-# APK plan (decided by Spencer, Nov 12, 2026): option 3, a new signing key
+# APK plan — original signing key only
+Current instruction from Spencer, 2026-11-13: **use the original signing key**. This supersedes the earlier replacement-key plan. Do not generate a new key, change the application ID, or ask Spencer to uninstall as an update workaround.
 
-## What was decided
-- The original signing key is not available to any assistant. Spencer chose **option 3: generate a new key, outside the repository, and build the build 3 APK with it.**
-- Consequence, to be told to Spencer in plain words before he installs: **this APK will not update an installed build 2 (or older) app.** Android treats a different certificate as a different app. Spencer must first use **Back up project** (full project JSON) in the old app, uninstall it, install the new APK, then **Open project** to restore. Data not backed up is lost on uninstall.
-- Package `com.spencerwilliams.nightsweep.preview`, version code 27 and version name "2.0 Alpha build 3" stay as they are. No storage key or job-format change.
+## Readiness and custody
+Before the next build clock starts, verify that an APK built from the recorded baseline and signed with the original installed-app key updates Spencer's installed app in place with jobs intact. Match the actual installed package, version and certificate; do not assume every historical NightSweep APK used the same identity.
 
-## Who does what
-- Only the **finishing session** (Claude, after Grok and ChatGPT have written their debug handoffs and the open PRs are merged or BLOCKED) builds and signs. Nobody else builds an APK.
-- The key, its password and any `.p12`/`.jks`/password file **never enter the repository, a commit, a log, a PR or a report.** Keep them in a directory outside the clone (for example `~/carpe-signing-private/`). Spencer must keep a copy of that directory somewhere safe: **a lost key means no future update can install over this APK.**
+The private key and password remain outside the repository, public artifacts, logs and PRs. Record only the public certificate SHA-256 fingerprint. A missing or mismatched key blocks signing. Unsigned compilation may continue, but is not an installable release or a passed phone check.
 
-## Steps
-1. Freeze the final merged `build3`: full gate green, then record the SHA-256 of `outputs/Night_Sweep.html` in `android-build/build-readiness.json` and `handoff_docs/FINAL_HANDOFF.md`.
-2. `python3 android-build/toolchain/download.py` (Java 21, Android SDK 35 r2, build-tools 35.0.0, Eclipse compiler 3.40.0; each artifact is checksum-verified).
-3. Unsigned check: `python3 android-build/build.py <abs path>/outputs/Night_Sweep.html --preview --unsigned --expected-html-sha256 <sha>` then `python3 qa/android-preview.test.py`.
-4. Create the key outside the repo (the build script reads `nightsweep-release.p12` and `keystore-password.txt` from the signing directory):
-   ```
-   mkdir -p ~/carpe-signing-private && cd ~/carpe-signing-private
-   openssl rand -base64 24 | tr -d '\n' > keystore-password.txt
-   keytool -genkeypair -alias nightsweep -keyalg RSA -keysize 3072 -validity 10000 -storetype PKCS12 -keystore nightsweep-release.p12 -storepass "$(cat keystore-password.txt)" -dname "CN=Carpe Noctum, O=Spencer Williams"
-   keytool -list -v -keystore nightsweep-release.p12 -storepass "$(cat keystore-password.txt)" | grep "SHA256:"
-   ```
-   Check `android-build/build.py` for the exact keystore alias it expects and use that. Record only the **certificate SHA-256 fingerprint** (public) in `android-build/build-readiness.json`.
-5. Signed build, pinning the new certificate: `python3 android-build/build.py <html> --preview --signing-dir ~/carpe-signing-private --expected-html-sha256 <sha> --expected-certificate-sha256 <new fingerprint>`.
-6. Verify with `apksigner verify --verbose --print-certs`: package, versionCode 27, certificate fingerprint, v2 and v3 signatures, `zipalign -c 4`, and that the embedded HTML hash equals the frozen hash. Record the APK SHA-256 in `build-readiness.json`.
-7. Do not commit the APK into history. Attach it to a draft GitHub release (or upload it as a workflow artifact) and give Spencer the link.
-8. Write Spencer's phone steps in `handoff_docs/APK_STEPS.md`: back up first, uninstall old, install, restore, then the real-phone checks in order, and how to go back to build 2.
+## Candidate steps
+1. Freeze reviewed source and full-gate evidence. Record code commit, actual counts and SHA-256 of `outputs/Night_Sweep.html`.
+2. Prepare the existing Android toolchain using `python3 android-build/toolchain/download.py` and its checksum verification. Inspect the build script's expected signing filenames and alias.
+3. Optional unsigned check: `python3 android-build/build.py <absolute-html-path> --preview --unsigned --expected-html-sha256 <frozen-html-sha256>`; run `python3 qa/android-preview.test.py`. Select the variant matching the installed package, not by guess.
+4. Use the existing original signing backup outside the clone. Current script expects `nightsweep-release.p12`, `keystore-password.txt` and alias `nightsweep`. Do not regenerate a key to satisfy a filename/alias mismatch.
+5. Sign using `--signing-dir <private-directory> --expected-html-sha256 <frozen-html-sha256> --expected-certificate-sha256 <verified-original-certificate-sha256>` with the correct variant. Package ID remains unchanged. Check that candidate versionCode is a valid update for the installed version; version27 is the inspected Build3 value, not a permanent next-build value.
+6. Verify APK signatures, zip alignment, package/version, original certificate, embedded HTML hash and APK SHA-256. Record facts in `android-build/build-readiness.json` and the release handoff. Do not set tested-on-device before Spencer reports the result.
+7. Attach the APK as an authorized release/workflow artifact rather than committing the binary to source history. Provide hash and phone steps.
+8. Spencer backs up first, installs **over** the existing app, confirms jobs/readings/evidence intact, checks backup/restore, switches apps, locks/resumes and completes one offline route. Separately check backup coverage for device-only notebook/settings.
+9. Record actual acceptance or failures. On a signature mismatch, stop; no uninstall or replacement-key workaround. Update `handoff_docs/APK_STEPS.md` to these instructions when preparing the release.
 
-## Not covered
-No assistant can test on a phone. Say so in the report. Emulator checks, if any, are listed separately.
+## Roles
+For the next build, ChatGPT is the implementation writer and release coordinator; Grok reviews; Claude performs a narrow new-source/release check and signs only if assigned that finishing action. Spencer keeps the key and performs physical-phone acceptance. See `NEXT_BUILD_PROMPTS.md` and the next-build plan.
+
+No signed APK or physical-phone acceptance is claimed by this documentation change.
