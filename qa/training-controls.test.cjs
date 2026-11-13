@@ -27,19 +27,19 @@ async function settle(h){for(let i=0;i<5;i++)await new Promise(resolve=>setImmed
 async function withApp(options,fn){const h=boot(options);try{await settle(h);await fn(h);assert.deepEqual(h.errors,[]);}finally{await settle(h);h.dom.window.close();}}
 function assertControlShown(target,label){assert(target,label+' control exists');for(let ancestor=target.parentElement;ancestor;ancestor=ancestor.parentElement){if(ancestor.tagName==='DETAILS')assert.equal(ancestor.open,true,label+' control is collapsed');assert.equal(ancestor.hidden,false,label+' control is hidden');}}
 
-test('Complete practice uses GS7K and two GainMaker GaN actives with all three requested passive families',async()=>withApp({},async h=>{
+test('Complete practice uses GS7K and two GainMaker HGD actives with all three requested passive families',async()=>withApp({},async h=>{
  await h.d.getElementById('openTrainingJob').onclick();await settle(h);
  assert.equal(h.ev('state.node.model'),'gs7000-12g');assert.equal(h.ev('state.node.operatingUpper'),1000);
  const band=h.json('NodeTools.band(state.node,catalog)');assert.equal(band.returnCeiling,42);assert.equal(band.forwardFloor,54);assert.equal(band.equipmentUpper,1218);
  assert.equal(h.ev('state.project.selectedProfile'),'1002');assert.equal(h.ev('projectProfile("1002").equipmentUpper'),1000);assert.equal(h.ev('projectProfile("1002").plannedUpper'),1000);assert.equal(h.ev('projectProfile("1002").available'),860);
  assert.deepEqual(h.json('projectProfile("1200")'),h.json('projectDefaults().profiles.find(p=>p.id==="1200")'),'Inactive high-split profile must be a clean default, not retained AOI exercise criteria.');
- assert.equal(h.ev('state.sweepSetup.selected'),'42');const sweep=h.json('state.sweepSetup.profiles["42"]');assert.equal(sweep.method,'installed');assert.match(sweep.equipment,/GS7K.*GainMaker.*GaN/);assert.equal(sweep.forwardUpper,'1000');assert.equal(sweep.forwardAvailable,'860');assert.equal(sweep.txReference,'38');
- assert.deepEqual(h.json('state.rows.filter(r=>device(r.device)?.active).map(r=>r.device)'),['active_gm_gan_hgd','active_gm_gan_hgd']);
+ assert.equal(h.ev('state.sweepSetup.selected'),'42');const sweep=h.json('state.sweepSetup.profiles["42"]');assert.equal(sweep.method,'installed');assert.match(sweep.equipment,/GS7K.*GainMaker.*HGD/);assert.equal(sweep.forwardUpper,'1000');assert.equal(sweep.forwardAvailable,'860');assert.equal(sweep.txReference,'38');
+ assert.deepEqual(h.json('state.rows.filter(r=>device(r.device)?.active).map(r=>r.device)'),['active_gm_hgd','active_gm_hgd']);
  const families=h.json('state.rows.map(r=>device(r.device)?.family)');for(const brand of ['Scientific-Atlanta','GigaXtend','Technetix'])assert(families.some(f=>f.includes(brand)),brand);
- const loads=h.json('state.power.rows.filter(row=>["p2","p3","p4"].includes(row.id))');for(const load of loads){assert.equal(load.mode,'amps');assert.match(load.name,/SYNTHETIC/);assert.equal(load.minV,'');}assert.deepEqual(loads.map(x=>x.load),[0.75,0.6,0.45]);assert(loads.slice(1).every(x=>x.equipment==='gm-hgd-gan-1g-thermal'));
+ const loads=h.json('state.power.rows.filter(row=>["p2","p3","p4"].includes(row.id))');for(const load of loads){assert.equal(load.mode,'amps');assert.match(load.name,/SYNTHETIC/);assert.equal(load.minV,'');}assert.deepEqual(loads.map(x=>x.load),[0.75,0.6,0.45]);assert(loads.slice(1).every(x=>x.equipment==='custom'));
  assert.equal(h.ev('evaluate(54).source'),31);assert.equal(h.ev('evaluate(860).source'),43);assert.equal(h.ev('state.job.trainingRevision'),'gs7k-gan-alpha18-v1');
  assert.match(h.json('TrainingJob.steps').find(step=>step[0]==='power')[4],/synthetic|SYNTHETIC/);
- assert.match(h.d.querySelector('.training-card').textContent,/GS7K.*GainMaker.*GaN/);
+ assert.match(h.d.querySelector('.training-card').textContent,/GS7K.*GainMaker.*HGD/);
 }));
 
 test('The previous AOI complete export keeps every original and row while its replaced guide stays hidden',async()=>withApp({},async h=>{

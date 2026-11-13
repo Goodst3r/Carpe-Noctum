@@ -12,7 +12,7 @@ For the current Night log, Sweep due and grading source, the library covers 35 t
 
 | Exercise | Purpose | Supplied evidence |
 | --- | --- | --- |
-| Complete Cedar Lane | GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
+| Complete Cedar Lane | GS7K/GainMaker HGD 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps | Five synthetic interchange CSVs and one original-only SVG diagram |
 | GainMaker OEM AGC | Separate 42/54 OEM detector/pilot and exact-manual path; eight steps | None |
 | GainMaker / DSIM | Separate 42/54 ACI DSIM lookup/manual/record path; nine steps | None |
 | GainMaker manual / thermal | Separate 42/54 manual/thermal installed-control path; seven steps | None |
@@ -51,7 +51,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Tools → Proof of performance | Custom curves | The 43 dB carrier-to-noise limit, the test frequency and the number of test points read with their rule sections; nothing is typed, read from a meter or stored (2.0 Alpha build 3) |
 | Tools → Study | Custom curves | A level-conversion question answered and checked, with its working and a link to the calculator; nothing is stored and a score is kept for the visit only (2.0 Alpha build 3) |
 | Home → Outage | Custom curves | Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3) |
-| Plan → Load | Complete | Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom |
+| Plan → Load | Complete | Independent power parents, explicitly synthetic entered node/HGD loads, voltage/current and supply headroom |
 | Plan → What-if | Complete | Extra cable/load trial, keep/reset and changed shared current |
 | Plan → Details | Complete | Work order, named save/open, duplicate and new blank job |
 | Field → ONX files | Complete | Sweep/Ingress/OneCheck CSV previews and preserved original bytes |
@@ -68,7 +68,7 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | --- | --- |
 | Tap-face comparison, drop cable/splitter and map note | Complete → Tap faces, drop and map note |
 | Detailed RF arithmetic | Complete → Cable route/drop; custom curves → table exercises |
-| Gain from input/output test points | Complete → GainMaker GaN gain; equal +20 dB addbacks produce 9 dB gain from 7.1/16.1 readings |
+| Gain from input/output test points | Complete → GainMaker HGD gain; equal +20 dB addbacks produce 9 dB gain from 7.1/16.1 readings |
 | Custom inline loss and cable-only point | Complete → branch; custom curves → custom path |
 | Custom launch, cable and passive tables | Custom curves → matching guide steps |
 | Active gain table | Six-active AOI → Gain-table example at A2 |

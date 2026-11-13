@@ -114,7 +114,7 @@ Home provides seven separate practice exercises and a feature index that loads t
 
 | Home choice | Plant and equipment | Guided steps | Original evidence supplied |
 | --- | --- | ---: | --- |
-| **Open complete training job** | Cedar Lane: GS7K launch, GainMaker GaN actives, mixed Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 MHz route, power and records | 22 | Six synthetic files: five interchange CSVs and one original-only SVG diagram |
+| **Open complete training job** | Cedar Lane: GS7K launch, GainMaker HGD actives, mixed Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 MHz route, power and records | 22 | Six synthetic files: five interchange CSVs and one original-only SVG diagram |
 | **Open GainMaker OEM AGC practice** | Separate 42/54 MHz GainMaker HGD launch and downstream AGC LE | 8 | None; attach clearly labeled practice files yourself |
 | **Open GainMaker / DSIM practice** | Separate 42/54 MHz GainMaker HGD launch and downstream LE with ACI DSIM practice notes | 9 | None; no fabricated meter captures or verified pilot lock |
 | **GainMaker manual / thermal** | Separate 42/54 MHz manual/thermal control path | 7 | None; installed settings unverified |
@@ -122,7 +122,7 @@ Home provides seven separate practice exercises and a feature index that loads t
 | **Six active devices in series** | Vecima source followed by six serial AOI route actives on 204/258 MHz; Night log and Sweep due practice (2.0 Alpha build 3) | 16 | Synthetic teaching data; no physical acceptance |
 | **Custom curves and reverse TDR** | Manual source and custom cable/passive tables; field calculators, limit sources, attached sweep grading, DOCSIS health, Leakage, Outage, Impairments, Fiber, High split, Why cards, Proof of performance, Study mode and Supply PM (2.0 Alpha build 3) | 21 | Synthetic table and calculator inputs; no field captures |
 
-The complete workflow uses the GS7K/GainMaker GaN 42/54 MHz plant. Match its exact installed GaN module and setup procedure; conventional GaAs OEM/DSIM pad rules do not establish GaN instructions. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
+The complete workflow uses the GS7K/GainMaker HGD 42/54 MHz plant. Confirm the exact installed HGD module and its applicable setup procedure. GainMaker OEM AGC and ACI DSIM retain their own focused exercises. Vecima/AOI 204/258 MHz belongs to the separate six-active example.
 
 ### Start without losing your working job
 
@@ -135,7 +135,7 @@ While a training job is open, its matching Home action offers a reset of that ex
 
 The training content is bundled with the app. After the Android/iPhone web app reports **Ready for offline use**, its training job can be used without a connection. External manufacturer pages still need internet access.
 
-If a practice button cannot open a job, read the message directly below the practice buttons. Storage failures and full or unreadable named-job lists stop the switch to protect the current job; do not clear storage as a workaround. The complete exercise also needs secure file verification: use the installed APK or the HTTPS website rather than a restricted file viewer. Existing older training copies remain unchanged. If their hardware does not match the corrected exercise, reset the complete training job to open the GS7K/GainMaker GaN baseline after preserving that copy.
+If a practice button cannot open a job, read the message directly below the practice buttons. Storage failures and full or unreadable named-job lists stop the switch to protect the current job; do not clear storage as a workaround. The complete exercise also needs secure file verification: use the installed APK or the HTTPS website rather than a restricted file viewer. Existing older training copies remain unchanged. If their hardware does not match the corrected exercise, reset the complete training job to open the GS7K/GainMaker HGD baseline after preserving that copy.
 
 ### Focused GainMaker practice
 
@@ -143,7 +143,7 @@ For **OEM AGC**, begin with the HGD launch and its installed OEM detector/pilot,
 
 For **ACI DSIM**, identify the HGD and downstream LE, their DSIM variant, firmware and complete applicable procedure before physical changes. The historical lookup exercise uses channel 110 digital, 711 MHz, `@@?<A`; lookup or copying does not change key verification or establish pilot lock. Procedure-specific pad, switch and backoff values start blank. The records remain incomplete until actual work and evidence are entered.
 
-The focused **OEM AGC and DSIM** exercises use the user’s local non-high-split design anchors: **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. Their synthetic raw readings are **11 / 23 dBmV**, with one explicit **+20 dB** remaining test-point addback, yielding **31 / 43 dBmV**. The **38 dBmV return TX reference** is recorded separately; confirm the transmitter, signal-power convention and measurement plane. It is not forward launch, return injection or CMTS/receiver level. The complete GS7K/GainMaker GaN workflow uses the same local **54 / 860 MHz at 31 / 43 dBmV** anchors; the separate Vecima/AOI six-active exercise uses **261 / 993 MHz at 34 / 46 dBmV**.
+The focused **OEM AGC and DSIM** exercises use the user’s local non-high-split design anchors: **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. Their synthetic raw readings are **11 / 23 dBmV**, with one explicit **+20 dB** remaining test-point addback, yielding **31 / 43 dBmV**. The **38 dBmV return TX reference** is recorded separately; confirm the transmitter, signal-power convention and measurement plane. It is not forward launch, return injection or CMTS/receiver level. The complete GS7K/GainMaker HGD workflow uses the same local **54 / 860 MHz at 31 / 43 dBmV** anchors; the separate Vecima/AOI six-active exercise uses **261 / 993 MHz at 34 / 46 dBmV**.
 
 The focused OEM AGC, DSIM, manual/thermal and GS7K examples open with zero evidence files. Attach your own labeled practice originals under **Field → ONX files** when rehearsing evidence handling. Opening or resetting another example preserves the previous working copy in named jobs; export it for an external backup.
 
@@ -171,18 +171,18 @@ In **Tools → DOCSIS health → Upstream composite margin to Pmax**, use **Tota
 
 ### Know the complete practice route
 
-The complete Cedar Lane workflow starts at a **GS7000/GS7K node** and feeds **two GainMaker GaN HGD actives** on the local **42/54 MHz** plant. Its passive route mixes **Scientific Atlanta, GigaXtend and Technetix** equipment. Forward design anchors remain **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. The **38 dBmV return-transmitter reference** is separate from forward launch, generator injection and receiver levels.
+The complete Cedar Lane workflow starts at a **GS7000/GS7K node** and feeds **two GainMaker HGD actives** on the local **42/54 MHz** plant. Its passive route mixes **Scientific Atlanta, GigaXtend and Technetix** equipment. Forward design anchors remain **31 dBmV at 54 MHz** and **43 dBmV at 860 MHz**. The **38 dBmV return-transmitter reference** is separate from forward launch, generator injection and receiver levels.
 
-Node hardware capability is not an end-to-end route rating. A node profile can describe **1218 MHz** hardware while the selected GaN active covers **54–1002 MHz** and the Scientific Atlanta passive covers **5–1000 MHz**. Follow the entered route/planning/live limits and matching model tables; do not infer 1218 MHz operation through the whole route. Exact installed GaN setup instructions remain a documentation hold; a conventional GaAs manual, OEM pad formula or DSIM procedure is not a substitute.
+Node hardware capability is not an end-to-end route rating. A node profile can describe **1218 MHz** hardware while the selected HGD active covers **54–1002 MHz** and the Scientific Atlanta passive covers **5–1000 MHz**. Follow the entered route/planning/live limits and matching model tables; do not infer 1218 MHz operation through the whole route. Exact installed GaN setup instructions remain a documentation hold; a conventional GaAs manual, OEM pad formula or DSIM procedure is not a substitute.
 
 All cable spans include their prefilled slack. Main and branch feed paths remain separate. Gain, cable and power values are synthetic teaching inputs, not manufacturer settings or measurements.
 
 | Route point | Exact selected equipment | Incoming cable / complete span | Feed |
 | --- | --- | --- | --- |
-| GaN A1 | GainMaker HGD GaN, 1 GHz 42/54 | P3 .750 / 820 ft | Source |
-| Tap A | Scientific Atlanta SAT MM 4-23 | P3 .625 / 260 ft | GaN A1 through |
-| GaN A2 | GainMaker HGD GaN, 1 GHz 42/54 | QR .715 / 620 ft | Tap A through |
-| Split S1 | GigaXtend XSC-2-959 | P3 .625 / 110 ft | GaN A2 through |
+| HGD A1 | GainMaker HGD, 1 GHz 42/54 | P3 .750 / 820 ft | Source |
+| Tap A | Scientific Atlanta SAT MM 4-23 | P3 .625 / 260 ft | HGD A1 through |
+| HGD A2 | GainMaker HGD, 1 GHz 42/54 | QR .715 / 620 ft | Tap A through |
+| Split S1 | GigaXtend XSC-2-959 | P3 .625 / 110 ft | HGD A2 through |
 | Main Tap B | GigaXtend GTSG-TAP-4-20-STD | P3 .500 / 310 ft | Splitter low-loss output |
 | EOL Tap C | Technetix OTTZ-4-17 | P3 .500 / 260 ft | Main Tap B through |
 | Branch Tap D | Scientific Atlanta SAT MM 4-23 | P3 .625 / 210 ft | Splitter high-loss outputs |
@@ -195,7 +195,7 @@ The main endpoint is 2380 ft from the source; the branch cable-only endpoint is 
 
 Open **Plan → Setup**. Confirm the GS7K source, 42/54 split, selected output, **54/860 MHz** markers and measurement plane. Synthetic **11/23 dBmV** test-point readings with one remaining **+20 dB** correction give **31/43 dBmV** launch. A meter that already compensates its test point needs no second addback. RF cable temperature and power-cable temperature are separate inputs.
 
-Open **Source setup & manual**, then select each route GaN HGD under **Plan → Amp / node setup**. Identify exact modules, firmware, control hardware and the applicable procedure. Keep unavailable GaN instructions unresolved. The focused OEM AGC, DSIM and manual/thermal exercises teach their own matching control paths; they do not approve applying those instructions to this GaN module.
+Open **Source setup & manual**, then select each route HGD under **Plan → Amp / node setup**. Identify exact modules, firmware, control hardware and the applicable procedure. Keep unavailable model-specific instructions unresolved. The focused OEM AGC, DSIM and manual/thermal exercises teach their own matching control paths; they do not approve applying those instructions to this GaN module.
 
 Try the header's palette button (**Switch to Sun palette** or **Switch to Night palette**) and **Help & methods**. Display controls do not change route calculations.
 
@@ -207,15 +207,15 @@ At Split S1, follow the low-loss output to Main Tap B and the high-loss output t
 
 Follow the branch's custom inline-loss and cable-only points. Try adding a point in this training job and observe how its parent output changes distance and prediction. Reset when you need the baseline.
 
-### 3. Check both GaN amplifiers
+### 3. Check both HGD amplifiers
 
-Open **Plan → Amp gain** and select GaN A1, then GaN A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
+Open **Plan → Amp gain** and select HGD A1, then HGD A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
 
 Change one marker's gain, review its prediction and restore it. A satisfactory low-frequency result cannot compensate for a high-frequency shortage. In **Calculate gain from test-point readings**, the synthetic 54 MHz pair 7.1/16.1 dBmV with equal +20 dB addbacks gives 27.1/36.1 dBmV, or **9 dB** net gain. Compare corrected output minus corrected input at the same frequency, applying only remaining coupling once. This changes an arithmetic input; it does not align a physical station.
 
 ### 4. Locate a TDR distance after the correct active
 
-Open **Field → TDR**. Select the cable side after **GaN A2** and review endpoint, direction, displayed distance, lead and velocity factors. The example uses 295 ft displayed − 25 ft lead = 270 ft from GaN A2 at route coordinate 1700 ft. The event is at 1970 ft: 160 ft into Main Tap B's 310 ft incoming span, 150 ft before its end. Both VFs are 0.87. This locates an entered distance; it has not detected a physical fault.
+Open **Field → TDR**. Select the cable side after **HGD A2** and review endpoint, direction, displayed distance, lead and velocity factors. The example uses 295 ft displayed − 25 ft lead = 270 ft from HGD A2 at route coordinate 1700 ft. The event is at 1970 ft: 160 ft into Main Tap B's 310 ft incoming span, 150 ft before its end. Both VFs are 0.87. This locates an entered distance; it has not detected a physical fault.
 
 Try the **Launch** origin exercise. A route from the source beyond an amplifier crosses an active boundary and is blocked. Restore the cable-side origin. Route coordinate and distance from the chosen origin are different quantities.
 
@@ -231,17 +231,17 @@ Open **Tools → References** for available-carrier target estimates, anchors, c
 
 ### 6. Compare synthetic readings
 
-Open **Field → Readings**. Inspect GaN test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
+Open **Field → Readings**. Inspect HGD test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
 
 Change one reading by 1 dB and confirm corrected reading/error move by 1 dB, then restore it. Do not add coupling twice to a meter-compensated reading.
 
 ### 7. Follow the separate power circuit
 
-Open **Plan → Load**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and GaN A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
+Open **Plan → Load**. The **90 V, 15 A** teaching supply feeds an independently entered topology. The GS7K node is entered as **0.75 A** and HGD A1/A2 as **0.60/0.45 A**, all explicitly synthetic. The custom branch is **20 W at PF 0.9**. The GaN preset has no verified current curve; no AOI load curve is substituted. Replace teaching loads with installed or measured data for real work.
 
-Review supply current, loading/headroom, branch current, voltage drop and equipment voltage. With unchanged synthetic inputs, the independent reference answer is **2.047 A** supply current, **13.65%** loading and **88.83 V** minimum equipment voltage at GaN A2. RF branches do not define power passing.
+Review supply current, loading/headroom, branch current, voltage drop and equipment voltage. With unchanged synthetic inputs, the independent reference answer is **2.047 A** supply current, **13.65%** loading and **88.83 V** minimum equipment voltage at HGD A2. RF branches do not define power passing.
 
-Open **Plan → What-if** for the additional **300 ft / 0.75 A** candidate after GaN A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
+Open **Plan → What-if** for the additional **300 ft / 0.75 A** candidate after HGD A2. The independent trial answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. Compare before keeping it, then reset to recover the baseline. These are planning estimates, not measured draw, verified power-passing ratings or equipment undervoltage limits. The source inputs and independent Wolfram results are retained in `research/alpha18/complete-workflow-wolfram.json`.
 
 ### 8. Inspect synthetic meter files
 
@@ -273,7 +273,7 @@ Open **Field → Checklists** for inspection, maintenance, repair and retest not
 
 Open **Closeout → Acceptance**. Review planning-only rows, unapproved criteria, frequencies, measurement planes, corrections, trace references and reviewer fields. The **38 dBmV return TX reference** is not a receiver target or generator setting. Injection-budget arithmetic is a separate form exercise, not the 42 MHz Return Sweepless Sweep method or an instrument limit.
 
-Keep the DSIM form exercise separate from the installed GaN procedure. Reviewed steps cannot establish pilot lock, module compatibility, physical alignment or measured acceptance. Inspect the open punch item and required closeout/retest fields.
+Keep the DSIM form exercise separate from the installed HGD procedure. Reviewed steps cannot establish pilot lock, module compatibility, physical alignment or measured acceptance. Inspect the open punch item and required closeout/retest fields.
 
 ### 10. Export and recover the job
 
@@ -464,7 +464,7 @@ Use custom cable or passive tables only with values that match the actual freque
 
 Use **Plan → Amp gain** to answer: **Can this amplifier restore the desired output after the preceding route losses?** First add the amplifier in Cable route as **Active amplifier**. Then select that active point in Amp gain.
 
-The catalog includes GainMaker 1 GHz GaAs HGD, GaN HGD, manual LE, thermal LE, AGC LE, and AOI Quantum18 HGD and LE configurations. Match the actual module, split, control mode, and output path.
+The catalog offers standard GainMaker 1 GHz HGD, HGBT, manual LE, thermal LE, AGC LE, and AOI Quantum18 HGD and LE configurations. Match the actual module, split, control mode, and output path.
 
 ### Required inputs
 
@@ -665,7 +665,7 @@ Choose **Tools → References → Legacy local non-high-split targets → Local 
 
 Under **Field → Meter setup → 42 / 54 MHz**, **Operator return TX reference (dBmV)** records the separate **38 dBmV** reference. Fill **Return TX frequencies / service plan** from the verified operator plan; this text is deliberately not inferred from the level or split. It does not set desired network-plane injection, raw generator output, received/CMTS level or relative-return targets. The 42 MHz Return Sweepless Sweep workflow gains no generator calculation from this reference. Confirm the actual measurement plane and channel-power convention before applying any local value.
 
-The complete GS7K/GainMaker GaN training job uses the local **54 / 860 MHz, 31 / 43 dBmV** design and separate **38 dBmV return TX** reference. The separate Vecima/AOI six-active job keeps its synthetic **261 / 993 MHz, 34 / 46 dBmV** setup; the lower-split preset cannot overwrite that high-split profile.
+The complete GS7K/GainMaker HGD training job uses the local **54 / 860 MHz, 31 / 43 dBmV** design and separate **38 dBmV return TX** reference. The separate Vecima/AOI six-active job keeps its synthetic **261 / 993 MHz, 34 / 46 dBmV** setup; the lower-split preset cannot overwrite that high-split profile.
 
 ### Convert local targets to available carrier frequencies
 
@@ -690,7 +690,7 @@ The conversion draft is retained in the job and full project backup. **Closeout 
 
 Changing the carrier-conversion draft does not choose an AGC pilot. If actual live spectrum ends at **550 MHz**, the **711 MHz** practice pilot is outside that spectrum; identify an approved compatible live pilot from the exact detector/module procedure. No replacement pilot is guessed.
 
-The focused OEM/DSIM and GS7K guides include an available-carrier/target-conversion step. Their supplied base design values remain unchanged. The complete GS7K/GainMaker GaN example includes the same lower-split design/available-carrier context. The separate Vecima/AOI six-active example retains its own 261/993 MHz anchors and does not inherit the lower-split conversion.
+The focused OEM/DSIM and GS7K guides include an available-carrier/target-conversion step. Their supplied base design values remain unchanged. The complete GS7K/GainMaker HGD example includes the same lower-split design/available-carrier context. The separate Vecima/AOI six-active example retains its own 261/993 MHz anchors and does not inherit the lower-split conversion.
 
 ## Power Load and What-if
 
