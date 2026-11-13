@@ -1,6 +1,6 @@
 'use strict';
 // Development may assemble source; release QA uses the exact frozen standalone.
-const fs=require('node:fs'),path=require('node:path'),{webcrypto}=require('node:crypto');
+const fs=require('node:fs'),path=require('node:path'),{webcrypto}=require('node:crypto'),{execFileSync}=require('node:child_process');
 const {JSDOM,VirtualConsole}=require('./runtime/node_modules/jsdom'),FDB=require('./runtime/node_modules/fake-indexeddb');
 const root=path.resolve(__dirname,'..');
 function assembleHtml(){
@@ -10,6 +10,7 @@ function assembleHtml(){
  if(entries.length<20)throw Error('Source builder token list unavailable.');
  for(const [,token,file]of entries){if(!html.includes(token))throw Error('Missing source token '+token);let data=fs.readFileSync(path.join(src,file),'utf8');if(file==='catalog.json'){const catalog=JSON.parse(data);catalog.setupManuals=JSON.parse(fs.readFileSync(path.join(src,'setup-manuals.json'),'utf8'));data=JSON.stringify(catalog);}html=html.replace(token,()=>data);}
  html=html.replace('<!--DSIMPILOTCODES-->',()=>fs.readFileSync(path.join(src,'dsim-pilot-codes.js'),'utf8'));
+ if(html.includes('<!--MAPIMPORTASSETS-->')){const assetScript=execFileSync('python3',['-B','-c','from map_assets import asset_script; from pathlib import Path; import sys; sys.stdout.write(asset_script(Path(sys.argv[1])))',path.join(src,'vendor','map')],{cwd:src,encoding:'utf8',maxBuffer:32*1024*1024});html=html.replace('<!--MAPIMPORTASSETS-->',()=>assetScript);}
  if(/<!--[A-Z]+-->/.test(html))throw Error('Unresolved source build token.');return html;
 }
 function bootApp(options={}){
