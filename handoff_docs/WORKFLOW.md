@@ -161,7 +161,7 @@ CI green on the exact head; diff contains only the stated files; no `outputs/` o
 
 ## Known follow-ups
 
-- **Supply PM notebook is outside backups.** PR #30 stores its notebook under the device key `nightsweep-power-pm-v1`, not in the job and not in a project backup. The new-key APK requires uninstall before install, which destroys it. Before the APK is frozen, Grok adds an export/import for that notebook (or includes it in the project backup additively) and proves old jobs and backups still round-trip; until then `APK_STEPS.md` must tell Spencer to export it first. Queue this as item A4b, after A4.
+- **Supply PM notebook is outside backups.** PR #30 stores its notebook under the device key `nightsweep-power-pm-v1`, not in the job and not in a project backup. Done in A4b (#40, merged `fc7e9c8`): Plan → Supply PM has Export notebook and Import notebook. Since Spencer supplied the original signing key (Nov 12), the build 3 APK installs over build 2 without an uninstall, so the notebook stays on the phone; `APK_STEPS.md` still tells Spencer to export it first as a precaution.
 - **NAV-1 now has more to regroup.** #30 added a Power sub-tab. NAV-1 recounts screens and features on the latest `build3`.
 
 ## Done
@@ -173,7 +173,7 @@ The build work is done when all of these are true:
 3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
 4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
 
-Then both lanes stop and Spencer starts Claude's finishing session. **The goal is an APK Spencer can install and start testing:** the finishing session audits, freezes `build3`, builds and signs the APK under `APK_PLAN.md`, records its SHA-256, attaches it outside the repository, and writes `APK_STEPS.md` (back up first, including the Supply PM notebook, then uninstall, install, restore, and the phone checks in order). Emulator, phone and field tests are Spencer's and are not part of done.
+Then both lanes stop and Spencer starts Claude's finishing session. **The goal is an APK Spencer can install and start testing:** the finishing session audits, freezes `build3`, builds and signs the APK under `APK_PLAN.md`, records its SHA-256, attaches it outside the repository, and writes `APK_STEPS.md` (back up first, including the Supply PM notebook, then install over build 2 without uninstalling, and the phone checks in order). Emulator, phone and field tests are Spencer's and are not part of done.
 
 ## Status files
 

@@ -37,9 +37,11 @@ Their labels such as "current" do not describe the B1 source above.
 RELEASE IDENTITY
 Application: 2.0 Alpha build 3 (in development; formerly NightSweep)
 Export filename prefix: CarpeNoctum_2.0_Alpha_build_3_
-Android Preview version code: 27 (source identity only; no build 3 APK)
+Android Preview version code: 27
 Android package: com.spencerwilliams.nightsweep.preview (unchanged)
-Build 3 APK: NOT BUILT. The original signing key is not in this environment.
+Build 3 APK: built and signed 2026-11-13 with the original key from build3 248e778;
+  SHA-256 0aca97bb4070bebceb55d297ec98ecc91d2c10e674cf796e3f7c36c2eb2b6977 (not committed;
+  delivered to Spencer). Installs over build 2. See handoff_docs/APK_STEPS.md. No device test.
 Latest signed installer: apk/CarpeNoctum-2.0-build2-preview.apk (code 26)
 Integration branch: build3
 Required core on that branch before this close-out: f467e5261295449f94dd232ab3995c8a00be25ee

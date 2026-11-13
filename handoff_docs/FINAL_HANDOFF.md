@@ -1,5 +1,22 @@
 # Final handoff — Carpe Noctum 2.0 Alpha build 3
 
+## Build 3 APK (finishing session, November 13, 2026)
+
+This section is current. Everything below it is the earlier D5 record from November 12 and is kept as history.
+
+| What | Value |
+| --- | --- |
+| Frozen `build3` | `248e77802f333a1a461563dfb1973315a2043d67` (merge of #47; tree identical to the gated head `b4f5922`) |
+| Standalone `outputs/Night_Sweep.html` SHA-256 | `844c53b06d11e6af60cd9473fbcef2de3015732fc09ede12a986296ee7d51137` |
+| APK | `CarpeNoctum-2.0-build3-preview.apk`, 471,580 bytes, SHA-256 `0aca97bb4070bebceb55d297ec98ecc91d2c10e674cf796e3f7c36c2eb2b6977`. Delivered to Spencer outside git; not committed |
+| Identity | `com.spencerwilliams.nightsweep.preview`, versionCode 27, "2.0 Alpha build 3"; label "Carpe Noctum 2.0 Preview build 3" |
+| Signer | Spencer's **original** key, supplied Nov 12 and kept outside the repository. Certificate SHA-256 `a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca`, the same as build 2, so it **installs as an update over build 2 (code 26)** |
+| Verified | `apksigner verify`: v2 and v3 true, one signer. `zipalign -c 4` OK. `aapt2` badging as above. Embedded `assets/index.html` equals the frozen standalone. Manifest equal to build 2 except version and label. `qa/alpha18-release.test.py` 6/6 against the real APK (with `final_apk_built` set true on the building machine) |
+| Gates on the app code | Grok and ChatGPT each ran the full gate on `fc7e9c8` (105 suites / 2,884 checks, layout 1,252, smoke 370, identical standalone). Claude ran it on #47's head `b4f5922` (106 suites / 2,890 checks, layout 1,252, smoke 370). Hosted QA green on both heads. **Freeze gate (Claude) on exact `248e778`, 2026-11-13T03:07:03Z to 03:21:46Z: every command exit 0; 106 suites / 2,890 checks, 846.0 s; layout 1,252; smoke 370; clean tree; standalone `844c53b0…1137`.** |
+| What changed after the builders' gates | #47: three output-identical speed-ups (no hidden Sweep chart redraw, batched meter results, a catalog lookup table) and the fix for Named jobs buttons staying disabled after a cold start with attached evidence. Spencer chose to include it and waived ChatGPT's second review for that one PR |
+| Phone steps | `handoff_docs/APK_STEPS.md` |
+| Not tested by anyone | physical phone, emulator, the installer's update path, share sheet and file picker on a device, meters, field use |
+
 Written November 12, 2026 by Grok. Lane A (ChatGPT) and Lane B (Claude) had stopped. This file is the D5 handoff for the required core. It is not a second lane's review. D3 is **not** closed by the one run below.
 
 ## Heads
