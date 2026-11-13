@@ -1,6 +1,6 @@
 # Carpe Noctum developer instructions
 
-The app is named **Carpe Noctum** (formerly NightSweep). Keep the Android package `com.spencerwilliams.nightsweep(.preview)`, the storage keys (`hfc-route-v1`, `hfc-named-jobs-v1`, `nightsweep-*`) and the `NightSweep`/`NightSweepAndroid` code identifiers unchanged: renaming them would break updates or strand saved jobs. Current source candidate: **2.0 Alpha build 4**, Android code 28, pre-signing. Spencer reported the separately signed starting-commit build 3 code 27 update retained jobs, readings and originals; build 4 signing and phone acceptance are pending. The retained repository installer is build 2, code 26.
+The app is named **Carpe Noctum** (formerly NightSweep). Keep the Android package `com.spencerwilliams.nightsweep(.preview)`, the storage keys (`hfc-route-v1`, `hfc-named-jobs-v1`, `nightsweep-*`) and the `NightSweep`/`NightSweepAndroid` code identifiers unchanged: renaming them would break updates or strand saved jobs. Current source candidate: **2.0 Alpha build 4**, Android code 28, pre-signing. Spencer reported the separately signed starting-commit build 3 code 27 update retained jobs, readings and originals; build 4 Preview code 28 was signed with the original key on 2026-11-13 (record: `handoff_docs/reviews/build4-preview-release-2026-11-13.md`); phone acceptance is pending. The retained repository installer is build 2, code 26.
 
 Read these project files before each NightSweep development iteration:
 

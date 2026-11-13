@@ -1,5 +1,7 @@
 # APK plan — original signing key only
 
+**Signed build 4 candidate, 2026-11-13 UTC:** Preview code 28 was compiled from `57dcde8` (standalone `8c9073e3…6ab21`) and signed with the original key (certificate `a7c2596c…046ca`); APK SHA-256 `d24f71544ec4e2bd0a106d5d4d1bc1049ff9722de068d9e7ee62bc7c7748a1a2`. Physical-phone acceptance is pending. See [the release record](reviews/build4-preview-release-2026-11-13.md) and [phone steps](APK_STEPS.md). Earlier text below is the dated pre-signing snapshot.
+
 **Build 4 source snapshot, November 13, 2026:** Android Preview code 28 is the pending candidate. Spencer reported that the separately signed starting-commit code 27 Preview updated in place with jobs, readings and originals intact. This baseline phone result does not establish build 4 acceptance. `android-build/build-readiness.json` is a dated pre-signing snapshot; later APK and phone facts belong in separate dated receipts.
 Current instruction from Spencer, 2026-11-13: **use the original signing key**. This supersedes the earlier replacement-key plan. Do not generate a new key, change the application ID, or ask Spencer to uninstall as an update workaround.
 

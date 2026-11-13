@@ -1,5 +1,7 @@
 # Carpe Noctum 2.0 Alpha build 4 — Android wrapper
 
+**Signed build 4 candidate, 2026-11-13 UTC:** Preview code 28 was compiled from `57dcde8` (standalone `8c9073e3…6ab21`) and signed with the original key (certificate `a7c2596c…046ca`); APK SHA-256 `d24f71544ec4e2bd0a106d5d4d1bc1049ff9722de068d9e7ee62bc7c7748a1a2`. Physical-phone acceptance is pending. See [the release record](../handoff_docs/reviews/build4-preview-release-2026-11-13.md) and [phone steps](../handoff_docs/APK_STEPS.md). Earlier text below is the dated pre-signing snapshot.
+
 Preview identity: `com.spencerwilliams.nightsweep.preview` · Version code **28** · Version name **2.0 Alpha build 4** · Launcher label **Carpe Noctum 2.0 Preview build 4**.
 
 `build-readiness.json` is a dated pre-signing source snapshot; the build 4 APK and matching `dist/preview/build-info.json` do not exist yet at that snapshot. Later candidate receipts and phone acceptance are separate dated evidence. A separately signed starting-commit code 27 Preview was reported to update in place with jobs, readings and original attachments intact. Signing material stays outside the project and is excluded from every source and coworker package. The retained build 22 APK is a historical **1.7** installer; it does not contain these changes.
