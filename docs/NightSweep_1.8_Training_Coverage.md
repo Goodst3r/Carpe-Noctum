@@ -30,14 +30,14 @@ The source node is not an amplifier in the six-active count. Each of the six rou
 | Plan → Setup | Complete, GS7K, custom curves | Source model/port, launch markers/levels, remaining TP compensation, temperature |
 | Plan → Cable route | Complete, six-active | Feed parents, cable/slack, splitter branches, through/tap paths |
 | Field → Station | Complete, six-active | Independent Before/After worksheets, balance/sweep records, binding and actual dates |
-| Plan → Amp gain | Complete and six-active | Gain anchors/table, required gain, reserve and output limits |
+| Plan → Route & sweep | Complete and six-active | Gain anchors/table, required gain, reserve and output limits |
 | Plan → Amp / node setup | Complete, OEM AGC, DSIM, GS7K | Exact source/active model, manual provenance, reviewed procedure steps |
 | Tools → Catalog | Complete | Cable/passive/active/node/power references; published capability versus entered gain |
 | Field → Meter setup | Complete, six-active, OEM AGC, DSIM, GS7K | Separate 204/258 and 42/54 workflows, instrument/reference checks and saved setup |
 | Field → TDR | Complete, six-active | Cable-side origin, lead correction, velocity factor and active-boundary rejection |
 | Plan → Predicted levels | Complete, six-active | Absolute/normalized predictions and selected route outputs |
 | Tools → Frequency | Complete, custom curves | Exact-frequency loss budget, table interpolation and unavailable ranges |
-| Field → Readings | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
+| Plan → Route & sweep | Complete, six-active | Corrected measurement minus prediction, intentional mismatch and TP compensation |
 | Tools → References | Complete, OEM AGC, DSIM | Anchor presets, cable loss, tap faces, draft targets and available-carrier target estimates |
 | Tools → Calculators | Custom curves | dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum, thermal CNR and echo delay, each with its source tag (2.0 Alpha build 3) |
 | Field → ONX files → Grading aid | Custom curves | Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original |

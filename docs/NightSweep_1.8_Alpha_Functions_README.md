@@ -195,7 +195,7 @@ Complete uses Scientific Atlanta **SAT MM 4-23**, GigaXtend **XSC-2-959** and **
 
 ## Amplifier gain and test-point helper
 
-**Where:** Plan → Amp gain. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
+**Where:** Plan → Route & sweep. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -335,7 +335,7 @@ Complete at **860 MHz**: **200 ft ×2.2 dB/100 ft + 1.4 dB =5.8 dB** total; **43
 
 ## Meter readings and prediction error
 
-**Where:** Field → Readings. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
+**Where:** Plan → Route & sweep. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
 
 Choose a route point and actual output, then enter frequency, reading, test-point status and remaining coupling. The comparison shows raw reading, corrected reading, prediction and **measurement minus prediction**. A negative error means the entered measurement is below the model.
 

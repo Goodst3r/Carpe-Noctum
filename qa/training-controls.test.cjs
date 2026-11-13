@@ -72,7 +72,7 @@ test('Every Records Open step exposes all record sections and their existing edi
 
 test('The gain Open step exposes its test-point measurement inputs at the intended amplifier',async()=>withApp({},async h=>{
  await h.d.getElementById('openTrainingJob').onclick();await settle(h);h.d.querySelectorAll('#route details').forEach(details=>{details.open=false;});
- const before=h.ev('JSON.stringify([state.project,state.rows,state.job])');h.d.querySelector('[data-training-open="gain"]').click();assert.equal(h.ev('WorkflowUI.current()'),'gain');assert.equal(h.d.getElementById('pointSelect').value,'r1');
+ const before=h.ev('JSON.stringify([state.project,state.rows,state.job])');h.d.querySelector('[data-training-open="gain"]').click();assert.equal(h.ev('WorkflowUI.current()'),'route');assert.equal(h.d.getElementById('pointSelect').value,'r1');
  for(const field of ['measureF','measureIn','measureInTP','measureOut','measureOutTP'])assertControlShown(h.d.querySelector('#route [data-row="r1"] [data-field="'+field+'"]'),'Gain '+field);
  assert.equal(h.ev('JSON.stringify([state.project,state.rows,state.job])'),before,'Revealing measurement inputs cannot change gain or acceptance.');
 }));

@@ -2,7 +2,7 @@
 const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[['home','Home'],['outage','Outage']]},
-  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load'],['trial','What-if'],['powerPm','Supply PM'],['sweepDue','Sweep due']]}]},
+  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['powerPm','Supply PM'],['sweepDue','Sweep due']]}]},
   field:{label:'Field',list:true,sections:[{title:'Field',items:[['sweepSetup','Meter setup'],['station','Station records'],['tdr','TDR'],['evidence','ONX files'],['leakage','Leakage'],['checklists','Checklists'],['nightLog','Night log']]}]},
   tools:{label:'Tools',list:true,sections:[
    {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency']]},
@@ -83,7 +83,7 @@ const WorkflowUI=(()=>{
   document.body.dataset.task=current;
  }
  function go(tab,options={}){
-  const aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help'};
+  const requested=tab,aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help',gain:'route',readings:'route',trial:'power'};
   if(groups[tab]&&!screens[tab])tab=lastGroup[tab]||groups[tab].tabs[0][0];
   tab=aliases[tab]||tab;
   if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
@@ -98,6 +98,8 @@ const WorkflowUI=(()=>{
   if(tab==='impairments'&&typeof ImpairmentsUI!=='undefined')ImpairmentsUI.updateRipple();
   if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
   renderNav();apply();
+  if(requested==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;
+  if((requested==='gain'||requested==='readings')&&chosen()){const card=all('#route > [data-row]').find(x=>x.dataset.row===chosen().id);const details=card?.querySelector('.route-workbench > details');if(details)details.open=true;}
   document.querySelector('.filemenu').open=false;
   if(options.scroll!==false)window.scrollTo({top:0,behavior:'instant'});
   if(tab==='sweep')requestAnimationFrame(drawChart);
@@ -196,7 +198,7 @@ const WorkflowUI=(()=>{
    // Renderers preserve their original parent; subtask visibility is reapplied after each edit.
    if(['route','gain','readings'].includes(current))updatePointControls();
    updateJobViews();
-   const power=$('powerPanel');if(power){[...power.children].forEach(child=>hidden(child,current==='trial'?child.id!=='powerWhatIf':child.id==='powerWhatIf'));if(current==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;}
+   const power=$('powerPanel');if(power)[...power.children].forEach(child=>hidden(child,false));
    updateHome();
    updateContextStrip();
   }finally{applying=false;}

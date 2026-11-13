@@ -25,7 +25,7 @@ For a new field job:
 2. Open **Plan → Setup**. Choose **Node output**, **Amplifier / LE output**, or **Manual / other output**. For a node, select its model, installed split, RF port and operating upper frequency. For an amplifier or LE, select the exact configuration and output port.
 3. Enter the actual low/high frequencies, launch levels and cable temperature. If using a test point, enter only the coupling the meter has not already added. Changing the source identity preserves your entered levels; review them for the new physical connection.
 4. Choose **Source setup & manual**, or **Plan → Amp / node setup**. Select the source or a route active, read its applicable manual and record the steps actually reviewed. If the exact manual is unavailable, obtain it before applying equipment-specific adjustments.
-5. Continue to **Cable route**. Add spans and ending equipment in feed order, starting directly from the selected source output. Use **Amp gain**, **TDR** or **Readings** when those tasks are needed.
+5. Continue to **Cable route**. Add spans and ending equipment in feed order, starting directly from the selected source output. Use **Route & sweep** for station work and **TDR** for distance checks.
 6. Follow **Field → Meter setup** for the actual plant split and approved method. Attach original meter files under **Field → ONX files**, then review **Closeout → Run sheet**.
 7. Use **Files → Back up project**, finish the phone's save action, and confirm the portable backup exists outside NightSweep.
 
@@ -41,7 +41,7 @@ A read-only strip under the screen title shows the job name, the plant (42/54 GS
 | Choose node / amp / LE launch and enter levels | **Plan → Setup** | Exact source output, frequencies, levels and measurement plane |
 | Follow the installed equipment manual | **Plan → Amp / node setup** | Exact module, split, firmware and applicable guide |
 | Build cable and passive spans | **Plan → Cable route** | Lengths, cable, equipment, actual feeds |
-| Check whether an amp or LE has enough gain | **Plan → Amp gain** | Active route point, gain at both markers, output targets |
+| Check whether an amp or LE has enough gain | **Plan → Route & sweep** | Active route point, gain at both markers, output targets |
 | Keep personal night notes and prepare a shift handoff | **Field → Night log** | Meaningful notes, saved Station captures, Remove/Undo and manual intermittent-ingress observations; no customer identifiers |
 | Record station balance and separate sweep dates | **Field → Station** | Installed station, actual pilots/readings, approved targets and measurement planes |
 | Look up cable/passive/active equipment | **Tools → Catalog** | Manufacturer, model, or part type |
@@ -49,7 +49,7 @@ A read-only strip under the screen title shows the job name, the plant (42/54 GS
 | Follow the measured forward/return setup process | **Field → Meter setup** | Split, actual test method, matching reference and approved criteria |
 | See predicted RF levels across frequency | **Plan → Predicted levels** | Launch and route |
 | Check a single cable/passive combination | **Tools → Frequency** | Cable length, passive path, frequency |
-| Compare a meter reading with a prediction | **Field → Readings** | Route point, frequency, reading, remaining TP coupling |
+| Compare a meter reading with a prediction | **Plan → Route & sweep** | Route point, frequency, reading, remaining TP coupling |
 | Look up cable loss, tap faces, or frequency references | **Tools → References** | Matching equipment or route tap as needed |
 | Run a quick dB, ripple, OFDM, power-sum, thermal CNR, echo or pad/EQ calculation | **Tools → Calculators** | The frequencies and levels that formula asks for. Nothing on this screen is saved with the job |
 | Check a limit and where it came from | **Tools → Limits** | Nothing first. Company values stay unknown until someone enters them |
@@ -209,7 +209,7 @@ Follow the branch's custom inline-loss and cable-only points. Try adding a point
 
 ### 3. Check both HGD amplifiers
 
-Open **Plan → Amp gain** and select HGD A1, then HGD A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
+Open **Plan → Route & sweep** and select HGD A1, then HGD A2. Compare input, desired output, entered frequency-specific gain, margin, reserve and output limits. The second active provides a gain-table exercise. A manufacturer's scalar operational-gain reference is not a flat response or proof of installed available gain.
 
 Change one marker's gain, review its prediction and restore it. A satisfactory low-frequency result cannot compensate for a high-frequency shortage. In **Calculate gain from test-point readings**, the synthetic 54 MHz pair 7.1/16.1 dBmV with equal +20 dB addbacks gives 27.1/36.1 dBmV, or **9 dB** net gain. Compare corrected output minus corrected input at the same frequency, applying only remaining coupling once. This changes an arithmetic input; it does not align a physical station.
 
@@ -231,7 +231,7 @@ Open **Tools → References** for available-carrier target estimates, anchors, c
 
 ### 6. Compare synthetic readings
 
-Open **Field → Readings**. Inspect HGD test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
+Open **Plan → Route & sweep**. Inspect HGD test-point and direct tap-output examples. Identify raw value, remaining coupling, corrected reading, prediction and signed difference. Intentional discrepancies teach input/frequency/measurement-plane review; they do not establish a defect or acceptance.
 
 Change one reading by 1 dB and confirm corrected reading/error move by 1 dB, then restore it. Do not add coupling twice to a meter-compensated reading.
 
@@ -462,7 +462,7 @@ Use custom cable or passive tables only with values that match the actual freque
 
 ## Amp gain
 
-Use **Plan → Amp gain** to answer: **Can this amplifier restore the desired output after the preceding route losses?** First add the amplifier in Cable route as **Active amplifier**. Then select that active point in Amp gain.
+Use **Plan → Route & sweep** to answer: **Can this amplifier restore the desired output after the preceding route losses?** First add the amplifier in Cable route as **Active amplifier**. Then open that active row in Route & sweep.
 
 The catalog offers standard GainMaker 1 GHz HGD, HGBT, manual LE, thermal LE, AGC LE, and AOI Quantum18 HGD and LE configurations. Match the actual module, split, control mode, and output path.
 
@@ -607,7 +607,7 @@ The complete-route summary selects an existing route output and shows its total 
 
 ## Meter readings
 
-Open **Field → Readings**, select the route point, and choose the relevant output. Enter measurement frequency, displayed level, and any remaining test-point coupling.
+Open **Plan → Route & sweep**, select the route point, and choose the relevant output. Enter measurement frequency, displayed level, and any remaining test-point coupling.
 
 The comparison shows:
 
