@@ -41,6 +41,8 @@ suites=[
  ('Company node targets and legacy compatibility','company-targets.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Route workbench RF, per-port gain and uncertainty guards','route-workbench.test.cjs',r'Route workbench: (\d+) checks passed'),
  ('Route workbench readings, navigation and legacy job compatibility','route-workbench-ui.test.cjs',r'Route workbench UI: (\d+) checks passed'),
+ ('Independent RF reference and model/path guard checks','route-rf-independent.test.cjs',r'Independent route RF: (\d+) checks passed'),
+ ('Independent station model/context regressions in the assembled app','route-rf-independent-ui.test.cjs',r'Independent route RF UI: (\d+) checks passed'),
  ('Local map branch drafts and review rules','map-import.test.cjs',r'map-import: (\d+) checks passed'),
  ('Actual local PDF and image map recognition in an offline browser','map-import-browser.test.py',r'map-import-browser: (\d+) checks passed'),
  ('Checksum-pinned offline map asset packaging','map-assets.test.py',r'Map assets: (\d+) checks passed'),

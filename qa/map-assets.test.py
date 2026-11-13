@@ -2,6 +2,7 @@
 from pathlib import Path
 import base64
 import hashlib
+from html.parser import HTMLParser
 import importlib.util
 import json
 import tempfile
@@ -35,6 +36,32 @@ class MapAssetsTests(unittest.TestCase):
         self.assertEqual(markup.count('</script>'), 1)
         payload = json.loads(markup.split('>', 1)[1].removesuffix('</script>'))
         self.assertEqual({name: base64.b64decode(value) for name, value in payload.items()}, self.contents)
+
+    def test_actual_shell_contains_one_parseable_asset_block(self):
+        class AssetsParser(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.capture = False
+                self.blocks = []
+            def handle_starttag(self, tag, attrs):
+                if tag == 'script' and dict(attrs).get('id') == 'map-import-assets':
+                    self.capture = True
+                    self.blocks.append('')
+            def handle_data(self, data):
+                if self.capture:
+                    self.blocks[-1] += data
+            def handle_endtag(self, tag):
+                if tag == 'script':
+                    self.capture = False
+        shell = (ROOT / 'night-sweep' / 'shell.html').read_text()
+        parser = AssetsParser()
+        parser.feed(shell.replace('<!--MAPIMPORTASSETS-->', self.module.asset_script(self.vendor)))
+        self.assertEqual(len(parser.blocks), 1)
+        try:
+            payload = json.loads(parser.blocks[0])
+        except json.JSONDecodeError:
+            self.fail('The actual shell asset block contains markup instead of JSON')
+        self.assertEqual(set(payload), set(self.contents))
 
     def test_corruption_fails_before_embedding(self):
         (self.vendor / 'worker.js').write_bytes(b'changed')

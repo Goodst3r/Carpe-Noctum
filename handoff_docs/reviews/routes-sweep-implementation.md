@@ -34,7 +34,23 @@ No storage keys, package identifiers or job schema version changes are authorize
 - A fresh baseline-only gate on `4b5f31ccd3f33d1a163f68177984f0c049daa9a3` passed 111 suites / 3,160 checks in 1,238.0 seconds, exit 0. Both generated-build and worktree checks were unchanged and `git status --porcelain` was empty. Standalone SHA-256: `0dab215949cad492db2df1d3b1ef7881f0892dcf88eba750415a3991a349a823`; PWA version `eb868a1d252d786b3fa2`. Command: `NIGHTSWEEP_CHROMIUM=/usr/bin/chromium NIGHTSWEEP_SUITE_TIMEOUT=3600 python3 qa/run-pwa.py`. This is the pre-update baseline, not combined-update acceptance.
 - No physical device, emulator, RF hardware, signing or deployment verification has run in this update.
 
-Implementation and verification are in progress. Exact final commands, UTC times, counts and hashes will be recorded here after execution.
+This is the pre-gate source-freeze record. Exact combined gate commands, UTC times, counts, hashes, tested head and hosted run are recorded in the implementation draft PR body and CI artifacts after execution. The results below are scoped implementation/review evidence, not a claim that the combined release gate has already run.
+
+## Reviewed implementation and walkthrough
+
+- Route source head: `67f25d82abfeaf8902a7930425436b804d4897a4`; importer/reproducible-review head: `da536cf3cdc1d47780d00079753a9ee5b48ceb82`. Both are ordinarily integrated. Current build3, original candidate PR52 and scope PR54 refs were freshly checked and remain `248e778`, `334bf84` and `cb6e21d` respectively.
+- Removed duplicate primary gain/readings navigation and combined What-if under Load. Legacy entry IDs remain aliases. Detailed traces, meter/return setup, Station records, acceptance records and every calculator remain available. Runtime metadata: 35 retained screen IDs, 31 grouped navigation entries plus Help (32 normal paths), 53 practice feature choices, 164 live threshold rows.
+- Route scoped checks: 38 engine, 84 UI and 34 route-engine checks pass. Independent review approves the exact route head; 58 independent engine and 17 independent UI assertions are retained as portable repository tests. Initial findings about model reuse, source/route identity, span edits and invalid measurement frequencies were reproduced and fixed. See [RF review](../../research/next-build/ROUTE_RF_INDEPENDENT_REVIEW.md).
+- Importer scoped checks: 26 unit and 60 actual file:// offline browser checks pass, including real marked PDF/raster decoding, visible annotations, colored raster geometry, malformed/resource limits, cancellation and picker/read/apply job-context changes. Zero HTTP(S) requests were observed during those tests. Local OCR ambiguity remains visible per affected row.
+- Lead packaging: seven tests pass, including checksum/size/path/duplicate guards, binary round-trip and the actual shell's JSON block. The nested-wrapper integration defect was reproduced, then fixed; it was not covered by the initial isolated importer tests.
+- Combined rendered preflight: 1,244 layout checks and 370 browser smoke checks passed on their documented earlier combined checkpoints. The full gate must repeat these on the frozen final combined source.
+- [Final read-only walkthrough](routes-sweep-combined-audit.md): actual PDF/image UI import, gain/readings/pads, separate Main/Aux and Before/After values, named-job reopen and export, cancellation, and browser widths 320/390/430/1280. The [captured synthetic project](../../research/next-build/synthetic-edited-route-project.json) is preserved byte-for-byte for review. Its SHA-256 is `66f0fb638be8e367417f013008d60c050aadd21a3e54c8289efcb75910d0dcd1`.
+- A new map application reserves fresh route IDs across current and historical references, remaps parents and archives old route/source/setup data. Old Station/workbench records remain historical; old source identity, measured launch levels and TP associations cannot supply a different launch. A stale job context cannot apply a delayed import.
+- Source handoffs: [route writer](routes-sweep-route-source-handoff.md), [importer writer](routes-sweep-map-source-handoff.md). These record their own exact commands and limits; their results are not copied into the combined gate count.
+
+## Remaining field and device checks
+
+HA0005 was not locally available; no private field replay is claimed. OCR is limited to supported printed English schedules and readable geometry; handwriting, rotated/diagonal-only raster layouts, complex crossings, cross-page links and unsupported PDF codecs can remain unknown. Raw map files/previews are transient and originals are not attached to job JSON; retain them separately. The embedded runtime adds 8,547,259 asset bytes (about 11.4 MB base64); recognition loads lazily. Physical phone/WebView/Safari memory, picker and field behavior remain unverified, as do employer acceptance and release signing/publication.
 
 ## Delegation and tool record
 
