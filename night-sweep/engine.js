@@ -63,7 +63,7 @@ const HFC = (() => {
  // Active reference specifications are deliberately not used as a flat RF response.
  // Enter a measured/configured net gain profile for the selected output and band.
  function activeGainAt(device,row,f) {
-  if(!device?.active||!Number.isFinite(f)||f<5||f>1800)return null;
+  if(!device?.active||!Number.isFinite(f)||f<5||f>1800||(row.workbench?.modelId&&row.workbench.modelId!==device.id))return null;
   const lower=number(device.activeMinF??device.publishedGain?.forwardBand?.[0]??device.publishedGain?.min),upper=number(device.activeMaxF??device.publishedGain?.forwardBand?.[1]??device.publishedGain?.max);
   if((lower!==null&&f<lower)||(upper!==null&&f>upper))return null;
   const mode=row.activeMode||'anchors';
@@ -175,8 +175,8 @@ const HFC = (() => {
   for(const row of state.rows){
    const d=catalog.devices.find(d=>d.id===row.device),c=catalog.cables.find(c=>c.id===row.cable),parent=byKey.get(row.parent);
    const m=row.mapImport, modelMismatch=m&&(!d||d.id==='none'||(m.kind==='active'&&!d.active)||(m.kind==='passive'&&d.active)), mapReason=m?(m.status==='absent'?'Equipment is marked absent.':m.status==='proposed'?'Proposed equipment is not installed.':modelMismatch?'Installed model is missing or does not match the map equipment type.':m.status==='draft'||m.connectionConfirmed!==true?'Map connection or span is unverified.':m.modelConfirmed!==true?'Installed model is unverified.':m.reasons?.length&&!m.reviewResolved?m.reasons.join(' '):''):(row.modelUnverified?'Installed model is unverified.':'');
-   const blockedReason=mapReason||parent?.blockedReason||'';
-   const cableLoss=cableAt(c,row,frequency,state.setup.temperature??68),valid=parent&&parent.level!==null&&cableLoss!==null&&!blockedReason;
+   const cableLoss=cableAt(c,row,frequency,state.setup.temperature??68),spanReason=spanLength(row)===null?'Span length or slack is missing or invalid.':cableLoss===null?'Cable construction or loss curve is unavailable at '+frequency+' MHz.':'',blockedReason=mapReason||parent?.blockedReason||(!parent?'Upstream connection is missing.':'')||spanReason;
+   const valid=parent&&parent.level!==null&&cableLoss!==null&&!blockedReason;
    const input=valid?number(parent.level-cableLoss):null,inputLoss=!blockedReason&&parent&&parent.loss!==null&&cableLoss!==null?number(parent.loss+cableLoss):null;
    const gain=d?.active?activeGainAt(d,row,frequency):null,outputLoss=d?.active?number(row.outputLoss??0):null;
    const outputs=portsFor(d,row).map(p=>{const leg=p.id==='through'?null:row.workbench?.legGain?.[p.id],legRow=p.id==='through'?row:{...row,activeMode:'anchors',gainLowF:leg?.lowF,gainHighF:leg?.highF,gainLow:leg?.low,gainHigh:leg?.high},portGain=d?.active?activeGainAt(d,legRow,frequency):null,portLoss=d?.active?number(p.id==='through'?(row.outputLoss??0):(leg?.loss??0)):null;const pl=d?.active?(portGain===null||portLoss===null||portLoss<0?null:number(portLoss-portGain)):d?passiveAt(d,p,row,frequency,state.setup.basis):null;const level=input===null||pl===null?null:number(input-pl),loss=inputLoss===null||pl===null?null:number(inputLoss+pl);const portReason=blockedReason||(d?.active&&portGain===null?'Operating gain unavailable for '+p.label+' at '+frequency+' MHz.':'');const out={...p,key:row.id+'::'+p.id,level,loss,blockedReason:portReason,passiveLoss:d?.active?null:pl,activeGain:portGain,outputLoss:portLoss,netLoss:pl};byKey.set(out.key,out);return out;});

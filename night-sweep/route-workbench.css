@@ -1,1 +1,5 @@
 .route-workbench{margin:1rem 0;padding:1rem;border:1px solid var(--line,#405369);border-radius:12px}.route-workbench h3{margin-top:0}.wb-grid,.wb-levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}.wb-grid label{margin:.4rem 0}.route-workbench fieldset{margin:.8rem 0;border:1px solid #526477;border-radius:8px}.route-workbench summary{cursor:pointer}.wb-levels p{margin:.3rem 0}
+
+.route-workbench pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+.wb-sticky{position:sticky;top:0;z-index:4;display:flex;align-items:center;gap:.8rem;justify-content:space-between;padding:.5rem;background:var(--paper,#172533);border:1px solid var(--line,#405369);border-radius:8px}.wb-sticky label{min-width:140px}.wb-sticky strong{overflow-wrap:anywhere}
