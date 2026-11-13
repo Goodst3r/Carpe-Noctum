@@ -102,3 +102,16 @@ Both standalone Android input and PWA carry the same bytes and need no network
 permission or external worker path. Actual Android WebView/iPhone device
 performance, picker lifecycle and memory behavior remain physical-device checks.
 The private HA0005 file was not available; no field replay is claimed.
+
+## Job context during local import
+
+The host may pass `getContext` and optional `matchesContext(captured, current)`
+to `mount`. The default comparison is strict identity. The importer captures
+the context at the file-picker click, falling back to file-change/read start;
+it checks before reading, after the asynchronous decoder, before building and
+before calling `onDraft(draft, capturedContext)`. A stale context clears the draft
+and asks the user to read the map again for the current job. The host must also
+reject stale callback context before replacing any route. An explicit false
+callback result is cancellation, never an added-points success message. Real
+PDF-picker tests cover cancellation, job changes during recognition, job changes
+before applying, and job changes while the picker is open.
