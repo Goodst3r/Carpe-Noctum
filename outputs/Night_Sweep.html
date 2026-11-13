@@ -4421,7 +4421,7 @@ const JobsUI=(()=>{
   el.hidden=parent.hidden;const m=metadata(),saved=library||{jobs:[],activeId:null},disabled=isBusy()?' disabled':'';
   const workOrderOpen=$('jobWorkOrder')?.open;
   const focused=document.activeElement?.dataset.jobField;
-  if(focused&&el.contains(document.activeElement)&&lastRenderedOwner===state)return;
+  if(focused&&el.contains(document.activeElement)&&lastRenderedOwner===state){el.querySelectorAll('#jobNew,#jobSave,[data-job-open],[data-job-duplicate],[data-job-delete]').forEach(b=>{b.disabled=!!disabled;});return;}
   const signature=JSON.stringify([[m.name,m.node,m.date,m.lead,m.id,...workOrderFields.map(([key])=>m[key]??'')],sample(state),libraryError,disabled,saved.activeId,saved.jobs.map(j=>[j.id,j.name,j.node,j.date,j.lead,j.workOrder,j.sample,j.updatedAt,j.snapshot.rows.length,j.snapshot.evidence?.length||0])]);
   if(lastRenderedOwner===state&&lastRenderedSignature===signature)return;
   lastRenderedOwner=state;lastRenderedSignature=signature;

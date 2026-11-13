@@ -46,6 +46,26 @@ const countDraws = h => h.ev("window.__draws=0;{const original=drawChart;drawCha
     comparisons += 6;
   });
 
+  await check('If the user is typing in a Named jobs field when the evidence check ends, the buttons still come back, and the typing is untouched', async () => {
+    const h = bootApp(); await settle();
+    const bytes = new TextEncoder().encode('frequency_mhz,level_dbmv\n100,30\n');
+    await h.ev('EvidenceUI').importFiles([{ name: 'practice-sweep.csv', size: bytes.byteLength, type: 'text/csv', arrayBuffer: async () => bytes.slice().buffer }], { kind: 'Sweep', stage: 'Before', asset: 'AMP-1', notes: '' });
+    await settle(); h.ev('JobsUI.saveNamed()'); await settle();
+    const buttons = () => [...h.d.querySelectorAll('#jobNew,#jobSave,[data-job-open],[data-job-duplicate],[data-job-delete]')];
+    const pending = h.ev('EvidenceUI.reloadPreviews()');
+    h.ev('JobsUI.render()');
+    assert.ok(buttons().every(b => b.disabled), 'buttons are disabled while the check runs');
+    const name = h.d.querySelector('#jobsPanel [data-job-field="name"]');
+    name.focus(); name.value = 'PRACTICE typing'; name.setSelectionRange(4, 4);
+    await pending; await settle();
+    assert.equal(h.d.activeElement, name, 'focus stays in the field');
+    assert.equal(name.value, 'PRACTICE typing'); assert.equal(name.selectionStart, 4, 'the caret is not moved');
+    assert.deepEqual(buttons().filter(b => b.disabled).length, 0, 'no button is left disabled');
+    assert.deepEqual(h.errors, []);
+    h.close();
+    comparisons += 6;
+  });
+
   await check('The hidden Sweep chart is drawn once at start and not redrawn while Sweep is hidden', async () => {
     const { h, observers } = bootWithObservers(); await settle(); await sleep(40);
     assert.equal(h.ev("document.getElementById('sweepPanel').hidden"), true, 'the app opens on another screen');
