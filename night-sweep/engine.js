@@ -205,7 +205,8 @@ const HFC = (() => {
    const result=(options.routeResults?.[key]||run(state,catalog,frequency)).results.find(r=>r.id===row.id),input=result?.input.level??null,availableGain=activeGainAt(device,row,frequency);
    if(result?.blockedReason&&!warnings.includes(result.blockedReason))warnings.push(result.blockedReason);
    const requiredGain=input===null||target===null?null:number(target+outputLoss-input);
-   const margin=requiredGain===null||availableGain===null?null:number(availableGain-requiredGain);
+   const liveMax=number(state.setup?.liveMax),markerAvailable=liveMax===null||frequency<=liveMax;if(!markerAvailable)warnings.push(`${key==='low'?'Low':'High'} marker is above the available spectrum; choose an available carrier.`);
+   const margin=!markerAvailable||requiredGain===null||availableGain===null?null:number(availableGain-requiredGain);
    const predictedOutput=input===null||availableGain===null?null:number(input+availableGain-outputLoss);
    bands[key]={frequency,input,target,outputLoss,requiredGain,availableGain,margin,predictedOutput,outputLimit,targetLimitMargin:outputLimit===null||target===null?null:number(outputLimit-target),predictedLimitMargin:outputLimit===null||predictedOutput===null?null:number(outputLimit-predictedOutput)};
    if(requiredGain!==null&&requiredGain<0)warnings.push(`${key==='low'?'Low':'High'} target is below the signal at the active input after output loss; attenuation or a lower gain setting is needed.`);

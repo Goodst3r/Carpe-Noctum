@@ -19,7 +19,7 @@ const RouteWorkbench=(()=>{
   if(b.error)return {label:'Needs input',reason:b.error,budget:b};
   if(b.gainStatus==='missing'){
    let missing=[];for(const [key,x] of [['Low',b.low],['High',b.high]]){if(x.input===null)missing.push(key+' route input unavailable: check the upstream path, cable and marker.');else if(x.target===null)missing.push(key+' target output is missing.');else if(x.availableGain===null)missing.push(key+' operating gain is unavailable at this marker.');}
-   return {label:'Needs input',reason:(b.warnings||[]).find(x=>/model|map connection|map launch|equipment is|proposed equipment|upstream/i.test(x))||missing.join(' ')||'Enter verified gain at both markers.',budget:b};
+   return {label:'Needs input',reason:(b.warnings||[]).find(x=>/model|map connection|map launch|equipment is|proposed equipment|upstream|marker is above/i.test(x))||missing.join(' ')||'Enter verified gain at both markers.',budget:b};
   }
   const limiting=b.low.margin<=b.high.margin?b.low:b.high;
   return {label:b.gainStatus==='shortfall'?'Short on gain':b.outputStatus==='unknown'?'Gain available · output limit unknown':'Can make gain',reason:'',limiting,budget:b};
