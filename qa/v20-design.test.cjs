@@ -1,4 +1,4 @@
-/* 2.0 Alpha build 3 design changes, checked against the built standalone app DOM. */
+/* 2.0 Alpha build 4 design changes, checked against the built standalone app DOM. */
 'use strict';
 const fs = require('node:fs'), assert = require('node:assert/strict'), { webcrypto } = require('node:crypto');
 const { JSDOM, VirtualConsole } = require('./runtime/node_modules/jsdom'), FDB = require('./runtime/node_modules/fake-indexeddb');
@@ -37,10 +37,10 @@ async function newJobWith(choice) {
 
   await check('Renamed tabs, version-free screen headers and an icon theme toggle', () => {
     ev("WorkflowUI.go('route')");
-    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Details', 'Setup', 'Cable route', 'Amp gain', 'Amp / node setup', 'Predicted levels', 'Load', 'What-if', 'Supply PM', 'Sweep due']);
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Details', 'Setup', 'Route & sweep', 'Amp / node setup', 'Predicted levels', 'Load & what-if', 'Supply PM', 'Sweep due']);
     assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Plan');
     ev("WorkflowUI.go('sweepSetup')");
-    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
+    assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Meter setup', 'Station records', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
     assert.equal(d.querySelector('#screenTitle .eyebrow').textContent, 'Field');
     ev("WorkflowUI.go('records')");
     assert.deepEqual([...d.querySelectorAll('#taskTabs button')].map(b => b.textContent), ['Acceptance', 'Run sheet']);
@@ -49,7 +49,7 @@ async function newJobWith(choice) {
     assert(toggle.querySelector('svg'), 'theme icon');
     assert.match(toggle.getAttribute('aria-label'), /Switch to (Sun|Night) palette/);
     assert.equal(d.querySelector('header .sub').textContent, 'HFC field tools');
-    assert(d.querySelector('.footer').textContent.includes('Carpe Noctum 2.0 Alpha build 3'), 'version kept in Help footer');
+    assert(d.querySelector('.footer').textContent.includes('Carpe Noctum 2.0 Alpha build 4'), 'version kept in Help footer');
   });
 
   await check('New job on 42/54 starts at 31/43 dBmV at 54/860 MHz, picks the 42 MHz meter workflow and joins the job list', async () => {
@@ -127,6 +127,6 @@ async function newJobWith(choice) {
     assert(!panel.querySelector('.sectionhead').textContent.includes('certify'), 'no repeated caveat in the heading');
   });
 
-  fs.writeFileSync('qa/v20-design-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, cases }, null, 2) + '\n');
+  fs.writeFileSync('qa/v20-design-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, cases }, null, 2) + '\n');
   console.log('2.0 design: ' + cases.length + ' checks passed');
 })().catch(e => { console.error(e); process.exit(1); });

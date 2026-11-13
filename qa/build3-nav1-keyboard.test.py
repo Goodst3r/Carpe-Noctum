@@ -27,7 +27,7 @@ server = QuietServer(('127.0.0.1', 0), partial(Quiet, directory=str(serve)))
 Thread(target=server.serve_forever, daemon=True).start()
 checks, errors = [], []
 CASES = [
-    ('projects', 'what-if', 'trial', 'What-if'),
+    ('projects', 'what-if', 'power', 'Load & what-if'),
     ('sweepSetup', 'night log', 'nightLog', 'Night log'),
     ('calculators', 'fiber', 'fiber', 'Fiber'),
 ]

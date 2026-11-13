@@ -13,8 +13,8 @@ async function check(name, fn) { await fn(); await flush(); assert.deepEqual(err
 const buttons = () => [...d.querySelectorAll('#taskTabs button')].map(b => b.textContent);
 const expected = {
   home: ['Home', 'Outage'],
-  plan: ['Details', 'Setup', 'Cable route', 'Amp gain', 'Amp / node setup', 'Predicted levels', 'Load', 'What-if', 'Supply PM', 'Sweep due'],
-  field: ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log'],
+  plan: ['Details', 'Setup', 'Route & sweep', 'Amp / node setup', 'Predicted levels', 'Load & what-if', 'Supply PM', 'Sweep due'],
+  field: ['Meter setup', 'Station records', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log'],
   tools: ['Calculators', 'Frequency', 'Limits', 'References', 'Catalog', 'DOCSIS health', 'Impairments', 'Fiber', 'High split', 'Why cards', 'Proof of performance', 'Study'],
   closeout: ['Acceptance', 'Run sheet']
 };
@@ -66,9 +66,13 @@ const expected = {
       visible[0].click();
       assert.equal(ev('WorkflowUI.current()'), id);
     };
-    probe('projects', 'what-if', 'trial', 'What-if');
+    probe('projects', 'what-if', 'power', 'Load & what-if');
     probe('sweepSetup', 'night log', 'nightLog', 'Night log');
     probe('calculators', 'fiber', 'fiber', 'Fiber');
+  });
+  await check('Legacy station and power entry IDs open the consolidated tasks', () => {
+    for (const id of ['gain', 'readings']) { ev(`WorkflowUI.go('${id}')`); assert.equal(ev('WorkflowUI.current()'), 'route'); assert.equal(d.getElementById('routePanel').hidden, false); }
+    ev("WorkflowUI.go('trial')"); assert.equal(ev('WorkflowUI.current()'), 'power'); assert.equal(d.getElementById('powerPanel').hidden, false); assert.equal(d.getElementById('powerWhatIf').hidden, false); assert.equal(d.getElementById('powerWhatIf').open, true);
   });
   await check('A bottom tab returns to the last screen in that group', () => {
     ev("WorkflowUI.go('powerPm')");

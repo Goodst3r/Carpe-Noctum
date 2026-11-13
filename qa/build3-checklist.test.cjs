@@ -477,7 +477,7 @@ function fakeStorage(initial = {}) {
   await check('Save as text carries the ticks, plant place, times and what was found, leaves blank notes out, and names the file for the outage call', async () => {
     change(h, '[data-check-field="damage"]', 'Cut strand and missing tap plate'); change(h, '[data-check-field="damagetold"]', 'supervisor'); change(h, '[data-check-field="damagetime"]', '09:40'); await flush();
     downloads = []; click(h, '#outage-export'); await flush();
-    assert.equal(downloads.length, 1); assert.equal(downloads[0].name, 'CarpeNoctum_2.0_Alpha_build_3_Outage_First_Response.txt'); assert.equal(downloads[0].mime, 'text/plain');
+    assert.equal(downloads.length, 1); assert.equal(downloads[0].name, 'CarpeNoctum_2.0_Alpha_build_4_Outage_First_Response.txt'); assert.equal(downloads[0].mime, 'text/plain');
     assert.match(h.d.getElementById('outage-note').textContent, /check it before you send it/);
     const text = downloads[0].text;
     assert.match(text, /^Outage first-response notes \(not a company procedure\)\r\nPrepared \d{4}-\d{2}-\d{2} \d{2}:\d{2}\r\n/);
@@ -520,6 +520,6 @@ function fakeStorage(initial = {}) {
   });
 
   console.log(`Build3 checklist: ${cases.length} checks passed`);
-  fs.writeFileSync('qa/build3-checklist-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, cases, scope: 'Shared checklist engine and Outage first-response card; JSDOM rendering, device-local storage and job format. Synthetic text only; no phone or field check.' }, null, 1));
+  fs.writeFileSync('qa/build3-checklist-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, cases, scope: 'Shared checklist engine and Outage first-response card; JSDOM rendering, device-local storage and job format. Synthetic text only; no phone or field check.' }, null, 1));
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

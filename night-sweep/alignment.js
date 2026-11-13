@@ -12,28 +12,8 @@ const Alignment=(()=>{
  /* Cisco 1 GHz forward cable equalizers 4007229–4007248: insertion loss (dB) at 52–1000 MHz, transcribed from
     OL-31156-01 Appendix A p.96 and checked equal to S-A data sheet 716336 Rev D p.2 and the LE guide OL-31155-01. The guide heads
     the top column 1000 MHz and the data sheet heads the same values 1002 MHz, so both points carry them. */
- const GM_EQS=Object.freeze([
-   {value:1.5,label:'1.5 dB · 4007229',points:[[52,2.2],[70,2.2],[86,2.1],[550,1.4],[600,1.4],[650,1.3],[750,1.2],[870,1.1],[1000,1.0],[1002,1.0]]},
-   {value:3,label:'3 dB · 4007230',points:[[52,3.4],[70,3.3],[86,3.2],[550,1.9],[600,1.8],[650,1.7],[750,1.5],[870,1.2],[1000,1.0],[1002,1.0]]},
-   {value:4.5,label:'4.5 dB · 4007231',points:[[52,4.6],[70,4.4],[86,4.3],[550,2.3],[600,2.1],[650,2.0],[750,1.7],[870,1.4],[1000,1.0],[1002,1.0]]},
-   {value:6,label:'6 dB · 4007232',points:[[52,5.8],[70,5.6],[86,5.4],[550,2.7],[600,2.5],[650,2.3],[750,1.9],[870,1.5],[1000,1.0],[1002,1.0]]},
-   {value:7.5,label:'7.5 dB · 4007233',points:[[52,7.0],[70,6.7],[86,6.5],[550,3.2],[600,2.9],[650,2.6],[750,2.1],[870,1.6],[1000,1.0],[1002,1.0]]},
-   {value:9,label:'9 dB · 4007234',points:[[52,8.2],[70,7.9],[86,7.7],[550,3.6],[600,3.3],[650,3.0],[750,2.4],[870,1.7],[1000,1.0],[1002,1.0]]},
-   {value:10.5,label:'10.5 dB · 4007235',points:[[52,9.4],[70,9.0],[86,8.8],[550,4.0],[600,3.7],[650,3.3],[750,2.6],[870,1.8],[1000,1.0],[1002,1.0]]},
-   {value:12,label:'12 dB · 4007236',points:[[52,10.6],[70,10.2],[86,9.9],[550,4.5],[600,4.0],[650,3.6],[750,2.8],[870,1.9],[1000,1.0],[1002,1.0]]},
-   {value:13.5,label:'13.5 dB · 4007237',points:[[52,11.8],[70,11.3],[86,11.0],[550,4.9],[600,4.4],[650,3.9],[750,3.1],[870,2.0],[1000,1.0],[1002,1.0]]},
-   {value:15,label:'15 dB · 4007238',points:[[52,13.0],[70,12.5],[86,12.1],[550,5.3],[600,4.8],[650,4.3],[750,3.3],[870,2.2],[1000,1.0],[1002,1.0]]},
-   {value:16.5,label:'16.5 dB · 4007239',points:[[52,14.2],[70,13.6],[86,13.2],[550,5.8],[600,5.2],[650,4.6],[750,3.5],[870,2.3],[1000,1.0],[1002,1.0]]},
-   {value:18,label:'18 dB · 4007240',points:[[52,15.4],[70,14.8],[86,14.3],[550,6.2],[600,5.5],[650,4.9],[750,3.7],[870,2.4],[1000,1.0],[1002,1.0]]},
-   {value:19.5,label:'19.5 dB · 4007241',points:[[52,16.6],[70,15.9],[86,15.4],[550,6.6],[600,5.9],[650,5.3],[750,4.0],[870,2.5],[1000,1.0],[1002,1.0]]},
-   {value:21,label:'21 dB · 4007242',points:[[52,17.8],[70,17.1],[86,16.5],[550,7.1],[600,6.3],[650,5.6],[750,4.2],[870,2.6],[1000,1.0],[1002,1.0]]},
-   {value:22.5,label:'22.5 dB · 4007243',points:[[52,19.5],[70,18.7],[86,18.1],[550,8.0],[600,7.2],[650,6.4],[750,4.9],[870,3.2],[1000,1.5],[1002,1.5]]},
-   {value:24,label:'24 dB · 4007244',points:[[52,20.7],[70,19.9],[86,19.2],[550,8.4],[600,7.6],[650,6.7],[750,5.2],[870,3.4],[1000,1.5],[1002,1.5]]},
-   {value:25.5,label:'25.5 dB · 4007245',points:[[52,21.9],[70,21.0],[86,20.3],[550,8.8],[600,7.9],[650,7.1],[750,5.4],[870,3.5],[1000,1.5],[1002,1.5]]},
-   {value:27,label:'27 dB · 4007246',points:[[52,23.1],[70,22.2],[86,21.5],[550,9.3],[600,8.4],[650,7.4],[750,5.6],[870,3.6],[1000,1.5],[1002,1.5]]},
-   {value:28.5,label:'28.5 dB · 4007247',points:[[52,24.3],[70,23.3],[86,22.6],[550,9.7],[600,8.7],[650,7.7],[750,5.8],[870,3.7],[1000,1.5],[1002,1.5]]},
-   {value:30,label:'30 dB · 4007248',points:[[52,25.5],[70,24.5],[86,23.7],[550,10.1],[600,9.1],[650,8.0],[750,6.1],[870,3.8],[1000,1.5],[1002,1.5]]}
- ].map(Object.freeze));
+ const EQ_LIBRARY=typeof GainMakerEQ!=='undefined'?GainMakerEQ:require('./gainmaker-eq.js');
+ const GM_EQS=EQ_LIBRARY.legacyForwardItems();
  const GM_UNPUBLISHED=Object.freeze([Object.freeze({value:0,label:'0 dB jumper · 4007228 (no loss chart)',reason:'The 0 dB forward EQ jumper (4007228) has no published loss chart, so no pick can be computed from it. Set tilt by the procedure, or fit a charted EQ and re-measure.'})]);
  const gmGaps=['The 0 dB forward EQ jumper (4007228) has no published loss chart, so it is not offered and cannot be the installed EQ in a pick.','Forward inverse EQs (4007486–4007495) are left out: the two published loss charts disagree below 550 MHz.','870 MHz forward EQs (589260–589278) are for 870 MHz designs only and are left out.','Interstage EQs and interstage or output pads are factory parts and are not field adjustments.'];
  const PROFILES=Object.freeze([

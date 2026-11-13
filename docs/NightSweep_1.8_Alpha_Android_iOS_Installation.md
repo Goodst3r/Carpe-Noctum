@@ -2,7 +2,11 @@
 
 Installation, offline use, updates and project backups for Android phones/tablets, iPhone and iPad. Prepared November 11, 2026.
 
-This page describes the **historical 1.8 Alpha build 2** ZIP and its Preview APK (code 24). It is not a 2.0 installer. The signed installer in the current repository is 2.0 Alpha build 2, Android code 26. 2.0 Alpha build 3 is source only (Android source code 27). No build 3 APK is in the repository.
+**Current source candidate: Carpe Noctum 2.0 Alpha build 4**, Android Preview code 28. The build 4 APK and its phone acceptance are pending review, full gate and original-key signing. Spencer reported that a separately signed starting-commit build 3 Preview code 27 updated in place with jobs, readings and original attachments intact; that is baseline evidence, not build 4 acceptance. The repository retains the build 2 code 26 APK. The 1.8 Alpha build 2 filename is kept for old guide links.
+
+For the current web app, open https://nightsweep-field.goodst3r.chatgpt.site/ in Chrome on Android or Safari on iPhone. Back up each job with **Files → Back up project** and verify the external file. Wait for **Ready for offline use**, then test the same browser or icon offline. Web and APK stores are separate; Safari and a Home Screen app may also use separate stores. To update the web app, back up first, then choose **Check for updates → Install update → Reload app**. Do not clear site data to update.
+
+For a compatible Preview APK update, verify the same package and original signing key and a higher version code. Back up first and install over the existing app; do not uninstall or clear app data. Stop on a signature conflict. Verify jobs, readings, originals, backup/restore and offline use on the phone. The remaining package-specific tables and numbered APK instructions below describe the **historical 1.8 Alpha build 2** ZIP and its code 24 Preview; they are not build 4 acceptance evidence.
 
 ## Read this before choosing an installation
 

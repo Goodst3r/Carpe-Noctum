@@ -12,6 +12,7 @@ const boot = () => require('./build2-source-harness.cjs').bootApp({ html });
 const flush = () => new Promise(r => setImmediate(r));
 async function check(name, fn) { await fn(); await flush(); cases.push(name); console.log('PASS ' + name); }
 const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); await flush(); };
+const destination = task => ({ gain: 'route', readings: 'route', trial: 'power' })[task] || task;
 function words(el) { const out = [], walk = el.ownerDocument.createTreeWalker(el, 4); while (walk.nextNode()) { const s = walk.currentNode.nodeValue.trim(); if (s) out.push(s); } return out.join(' ').replace(/\s+/g, ' '); }
 const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
 
@@ -25,7 +26,7 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     assert.deepEqual(ids, ['architectures', 'components', 'signals', 'troubleshooting']);
     for (const d of ids) assert(gens.filter(g => g.domain === d).length >= 2, d + ' has at least two question types');
     assert.equal(gens.length, 18); assert.equal(new Set(gens.map(g => g.id)).size, 18);
-    for (const g of gens) { await goto(h, 'projects'); await goto(h, g.task); assert.equal(h.ev('WorkflowUI.current()'), g.task, g.id + ' links to ' + g.task); comparisons++; }
+    for (const g of gens) { await goto(h, 'projects'); await goto(h, g.task); assert.equal(h.ev('WorkflowUI.current()'), destination(g.task), g.id + ' links to ' + g.task); comparisons++; }
   });
 
   await check('Every numeric answer equals the independent Python decimal recomputation from the question’s own parameters (140 questions)', () => {
@@ -126,7 +127,7 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     x.d.getElementById('studyCheck').click(); assert.match(words(x.d.getElementById('studyFeedback')), /Choose an answer first/);
     radios[q.correct].checked = true; x.d.getElementById('studyCheck').click();
     assert.match(words(x.d.getElementById('studyFeedback')), /Right/); assert.match(x.d.getElementById('studyScore').textContent, /1 right of 1/);
-    x.d.querySelector('#studyPanel [data-study-go]').click(); await flush(); assert.equal(x.ev('WorkflowUI.current()'), q.tool.task);
+    x.d.querySelector('#studyPanel [data-study-go]').click(); await flush(); assert.equal(x.ev('WorkflowUI.current()'), destination(q.tool.task));
     assert.equal(JSON.stringify(x.json('evidenceExportProject(state)')), before);
     assert.equal(JSON.stringify(Object.keys(x.w.localStorage).sort().map(k => [k, x.w.localStorage.getItem(k)])), values);
     assert(!('study' in x.json('state')), 'no new job field'); assert.deepEqual(x.errors, []); x.close();
@@ -157,6 +158,6 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
   });
 
   console.log(`Build3 study: ${cases.length} checks passed (${comparisons} comparisons with the independent reference)`);
-  fs.writeFileSync('qa/build3-study-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'Numeric answers against the Python decimal recomputation in study-reference.py (kept in research/build3), choice questions against the app data they come from, the rendered screen and the saved-job format. Nothing stored.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-study-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'Numeric answers against the Python decimal recomputation in study-reference.py (kept in research/build3), choice questions against the app data they come from, the rendered screen and the saved-job format. Nothing stored.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

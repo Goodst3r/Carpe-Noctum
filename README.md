@@ -1,23 +1,23 @@
-# Carpe Noctum 2.0 Alpha build 2 (formerly NightSweep)
+# Carpe Noctum 2.0 Alpha build 4 (formerly NightSweep)
 
 > The app was renamed from NightSweep to Carpe Noctum in 2.0 Alpha build 2. The Android package ID, storage names and job file format keep their NightSweep-era identifiers so saved jobs and updates carry over. Sections below describe the 1.8 baseline unless they say otherwise.
 
-> **2.0 Alpha build 3 is in development** on branch `ccr-7abea525-rljsni`. It adds **Test → Calculators** (dB converter, ripple and pre-EQ tap distance, OFDM power, echo delay, and a pad / EQ balance solver for GainMaker 1 GHz amplifiers) and **Test → Limits** (every limit, target and formula with its spec, expert, company or unknown label and source), build list items 1, 2 and 4. No build 3 APK exists yet; the signed installer is still build 2. See [project status](NightSweep_Project_Status.md) and the [build 3 update log](CarpeNoctum_2.0_Alpha_build_3_UPDATE_LOG.txt).
+> **2.0 Alpha build 4** is the pre-signing source candidate (Android code 28). The original-key starting-commit code 27 Preview update was reported to retain jobs, readings and originals; build 4 signing, phone acceptance and web deployment remain pending. See [project status](NightSweep_Project_Status.md) and [candidate handoff](handoff_docs/FINAL_CANDIDATE_HANDOFF.md).
 
 Offline HFC field calculations, exact-model setup references, synthetic training and local job/evidence records for maintenance technicians, team leaders and supervisors.
 
-This source belongs to the single **NightSweep 1.8 Alpha build 2.zip** delivery. Android and iOS share the same tested web application; the Android Preview installer uses the existing package/origin identity with version code **24**. The package's verification receipts identify the accepted final artifacts. No hosted deployment, physical phone installation or field RF acceptance is implied.
+The historical **NightSweep 1.8 Alpha build 2.zip** delivery described below is retained as a prior release. Android and iOS share the same tested web application; the Android Preview installer uses the existing package/origin identity with version code **24**. The package's verification receipts identify the accepted final artifacts. No hosted deployment, physical phone installation or field RF acceptance is implied.
 
 ## Start here
 
-- [All-functions README](docs/NightSweep_1.8_Alpha_Functions_README.md): all 20 task screens, 37 feature choices and seven loadable exercises.
+- [All-functions README](docs/NightSweep_1.8_Alpha_Functions_README.md): current task reference and seven loadable exercises.
 - [Android/iOS installation guide](docs/NightSweep_1.8_Alpha_Android_iOS_Installation.md): APK or browser options, compatible updates, offline checks and job transfers.
 - [Technician guide](docs/NightSweep_1.8_Alpha_README.html): workflow, calculation inputs, examples and limits.
 - [Training coverage](docs/NightSweep_1.8_Training_Coverage.md): feature-to-example map.
 - [Release notes](docs/NightSweep_1.8_Release_Notes.md) and [text update log](NightSweep_1.8_Alpha_build_2_UPDATE_LOG.txt): build 2 changes and executed-verification record.
 - [Developer build guide](docs/DEVELOPER_BUILD.md) and [project status](NightSweep_Project_Status.md): source/build context, receipts and remaining checks.
 
-## One organized delivery
+## Historical 1.8 build 2 delivery
 
 The ZIP has one top-level folder, `NightSweep 1.8 Alpha build 2/`:
 
