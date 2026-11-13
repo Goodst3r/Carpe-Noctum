@@ -16,10 +16,19 @@ const w=dom.window,d=w.document,ev=code=>w.eval(code),json=code=>JSON.parse(ev('
 function check(label,fn){fn();assert.deepEqual(errors,[]);checks++;console.log('PASS '+label);}
 const parsedOptions=html=>{const select=d.createElement('select');select.innerHTML=html;return [...select.options];};
 const ids=html=>parsedOptions(html).map(o=>o.value);
-check('Only the two UBT RF configurations and three UBT power curves are retired',()=>{
- assert.deepEqual(data.devices.filter(x=>x.retired).map(x=>x.id).sort(),[...retiredRF].sort());assert.deepEqual(data.powerEquipment.filter(x=>x.retired).map(x=>x.id).sort(),[...retiredPower].sort());
- for(const record of [...data.devices,...data.powerEquipment].filter(x=>x.retired))assert.match(record.retirementReason,/previously saved jobs/);
+check('UBT and dedicated GaN RF and power profiles are retired',()=>{
+ assert.deepEqual(data.devices.filter(x=>x.retired).map(x=>x.id).sort(),[...retiredRF,'active_gm_gan_hgd'].sort());assert.deepEqual(data.powerEquipment.filter(x=>x.retired).map(x=>x.id).sort(),[...retiredPower,'gm-hgd-gan-1g-thermal'].sort());
+ for(const id of [...retiredRF,...retiredPower])assert.match([...data.devices,...data.powerEquipment].find(x=>x.id===id).retirementReason,/previously saved jobs/);
+ for(const id of ['active_gm_gan_hgd','gm-hgd-gan-1g-thermal'])assert.match([...data.devices,...data.powerEquipment].find(x=>x.id===id).retirementReason,/legacy/i);
  assert.equal(data.devices.find(x=>x.id==='active_gm_hgbt').retired,undefined);assert(data.devices.some(x=>!x.retired&&/unbalanced/i.test(x.label)&&!x.active));
+});
+check('Dedicated GaN choices remain addressable as legacy but cannot be newly selected',()=>{
+ const rf='active_gm_gan_hgd',power='gm-hgd-gan-1g-thermal';
+ assert(!ids(ev('deviceOptions("","","active")')).includes(rf));assert(!ids(ev('equipmentOptions("custom")')).includes(power));
+ assert(!json('catalogEntries()').some(x=>x.id===rf||x.id===power));
+ assert.equal(ev('device('+JSON.stringify(rf)+').id'),rf);assert.equal(ev('powerEquipment('+JSON.stringify(power)+').id'),power);
+ assert.match(parsedOptions(ev('deviceOptions('+JSON.stringify(rf)+',"","active")')).find(x=>x.value===rf).textContent,/^Legacy/);
+ assert.match(parsedOptions(ev('equipmentOptions('+JSON.stringify(power)+')')).find(x=>x.value===power).textContent,/^Legacy/);
 });
 check('New route choices and widened model search exclude retired UBT configurations',()=>{
  const options=ids(ev('deviceOptions("","","active")'));for(const id of retiredRF)assert(!options.includes(id));assert(options.includes('active_gm_hgbt'));

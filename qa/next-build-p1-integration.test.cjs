@@ -11,11 +11,14 @@ function fixture(app,id,interval,short=false){
 function start(t){
  const app=bootApp();t.after(()=>{assert.deepEqual(app.errors,[]);app.close();});return app;
 }
-test('visible Sweep Due follows a project import and its retained previous job without navigation',async t=>{
+test('visible Sweep Due follows a project import and its retained previous job after returning from Route',async t=>{
  const app=start(t),{d,ev}=app;
  ev(`loadState(${JSON.stringify(fixture(app,'job_import_old','18'))});WorkflowUI.go('sweepDue')`);
  assert.match(d.querySelector('#sweepDueSummary').textContent,/1 job sources · 7 stations/);
  await ev(`openProjectText(${JSON.stringify(JSON.stringify(fixture(app,'job_import_new','30',true)))},true)`);
+ assert.equal(ev('WorkflowUI.current()'),'route');
+ ev("WorkflowUI.go('sweepDue')");
+ assert.equal(d.querySelector('#sweepDuePanel').hidden,false);
  assert.equal(d.querySelector('#sweepDueInterval').value,'30');
  assert.match(d.querySelector('#sweepDueSummary').textContent,/2 job sources · 8 stations/);
  assert.doesNotMatch(d.querySelector('#sweepDueSummary').textContent,/stale/);
