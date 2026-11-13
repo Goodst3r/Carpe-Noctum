@@ -4,22 +4,38 @@
   "launcher_label": "Carpe Noctum 2.0 Preview build 3",
   "package": "com.spencerwilliams.nightsweep.preview",
   "app_name": "Carpe Noctum (formerly NightSweep)",
-  "status": "Carpe Noctum 2.0 Alpha build 3 source is in development. No build 3 APK has been compiled or signed: the original compatible-update signing key is not in this environment. The released build 2 APK remains the latest signed installer.",
-  "standalone_frozen": false,
+  "status": "Carpe Noctum 2.0 Alpha build 3 Preview APK compiled and signed on 2026-11-13 with the original compatible-update certificate, from the frozen build3 248e778 standalone, verified with official tools and delivered to Spencer outside git. final_apk_built stays false in this committed file because the APK and its receipts are not in the repository (android-build/dist/ is gitignored), and qa/alpha18-release.test.py requires them whenever it is true. On the building machine, with it set true, that check passed 6 of 6 against the real APK and receipts. No emulator or physical-device test.",
+  "standalone_frozen": true,
   "final_apk_built": false,
-  "candidate_apk_built": false,
+  "candidate_apk_built": true,
   "signing_material_present": false,
   "signing_material_included": false,
   "signing_material_available_outside_project": true,
   "physical_device_tests": false,
   "notes": [
-    "Build the Preview APK only with the original authorized signer, from a frozen outputs/Night_Sweep.html whose SHA-256 is pinned after the full QA run. Never generate a replacement key.",
-    "Package, provider/origin identity and storage keys are unchanged so build 3 can update build 2 in place once it is built and signed with the original certificate.",
+    "Signed with the original Preview signer supplied by Spencer on 2026-11-12 and kept outside the repository; certificate SHA-256 a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca (equals build 2). No key, password or keystore is in this repository or any log.",
+    "Package, provider/origin identity and storage keys are unchanged, and the Android wrapper differs from build 2 only in label and version strings, so build 3 (code 27) installs as an update over build 2 (code 26) without an uninstall.",
+    "The APK is not committed. It was delivered to Spencer directly; install steps are in handoff_docs/APK_STEPS.md.",
     "Emulator and physical-device testing have separate scope; no device test claim for build 3."
   ],
-  "standalone_sha256": null,
-  "apk_sha256": null,
-  "apk_file": null,
+  "standalone_sha256": "844c53b06d11e6af60cd9473fbcef2de3015732fc09ede12a986296ee7d51137",
+  "apk_sha256": "0aca97bb4070bebceb55d297ec98ecc91d2c10e674cf796e3f7c36c2eb2b6977",
+  "apk_file": "dist/preview/CarpeNoctum-2.0-build3-preview.apk (built output, gitignored; not committed)",
+  "apk_size_bytes": 471580,
+  "certificate_sha256": "a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca",
+  "frozen_source": {
+    "branch": "build3",
+    "commit": "248e77802f333a1a461563dfb1973315a2043d67",
+    "note": "merge of #47; tree identical to the gated head b4f5922"
+  },
+  "verification": {
+    "apksigner": "verifies; v2 true, v3 true; one signer; certificate SHA-256 above",
+    "zipalign": "zipalign -c 4 OK",
+    "aapt2_badging": "package com.spencerwilliams.nightsweep.preview, versionCode 27, versionName 2.0 Alpha build 3",
+    "embedded_html_sha256": "844c53b06d11e6af60cd9473fbcef2de3015732fc09ede12a986296ee7d51137",
+    "manifest_vs_build2": "identical apart from versionCode, versionName and label",
+    "unsigned_check": "python3 qa/android-preview.test.py: 18 checks passed (mocked SDK)"
+  },
   "historical_readiness": "../docs/history/Android_Build20_Readiness.json",
   "historical_apk": "../release/build22/NightSweep-1.7-preview-build22.apk",
   "previous_release": {
@@ -68,5 +84,6 @@
         "apk_sha256": "c6f88eda459111a39fb6a357febb8188707a854c7869f2310c178d760ce5c881"
       }
     ]
-  }
+  },
+  "apk_delivered_outside_repository": true
 }

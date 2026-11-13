@@ -22,3 +22,6 @@
 
 ## Not covered
 No assistant can test on a phone. Say so in the report. Emulator checks, if any, are listed separately.
+
+## Result (Nov 13, 2026)
+Done as above from `build3` `248e778`. APK SHA-256 `0aca97bb4070bebceb55d297ec98ecc91d2c10e674cf796e3f7c36c2eb2b6977`, certificate as stated, versionCode 27, embedded HTML `844c53b0…1137`. Delivered to Spencer outside git. Phone steps: `handoff_docs/APK_STEPS.md`. No device test was run.
