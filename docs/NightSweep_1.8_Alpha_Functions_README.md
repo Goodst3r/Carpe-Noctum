@@ -106,7 +106,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 
 | Exercise name | What is loaded | Guide / supplied evidence |
 | --- | --- | --- |
-| **Complete field workflow** | GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
+| **Complete field workflow** | GS7K source, two GainMaker HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
 | **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook | 21 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
@@ -120,7 +120,7 @@ Use **Open step** to reveal the relevant controls, try them, then mark **Reviewe
 
 Older practice copies remain readable. If their equipment no longer matches the current complete exercise, the app hides mismatched guidance and offers an explicit reset. Renaming, editing, saving or exporting a practice job does not remove its synthetic identity.
 
-The complete workflow uses GS7K/GainMaker GaN, not the AOI six-active path. Its GS7K hardware capability is 1218 MHz, but the entered operating/planning upper is **1000 MHz** and live spectrum **860 MHz**. The selected GaN active covers 54–1002 MHz and the Scientific Atlanta route passive stops at 1000 MHz. Do not infer end-to-end 1218 MHz operation from the source model.
+The complete workflow uses GS7K/GainMaker HGD, not the AOI six-active path. Its GS7K hardware capability is 1218 MHz, but the entered operating/planning upper is **1000 MHz** and live spectrum **860 MHz**. The selected HGD active covers 54–1002 MHz and the Scientific Atlanta route passive stops at 1000 MHz. Do not infer end-to-end 1218 MHz operation from the source model.
 
 ## Job details and named jobs
 
@@ -195,7 +195,7 @@ Complete uses Scientific Atlanta **SAT MM 4-23**, GigaXtend **XSC-2-959** and **
 
 ## Amplifier gain and test-point helper
 
-**Where:** Plan → Amp gain. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
+**Where:** Plan → Route & sweep. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -211,7 +211,7 @@ Complete uses Scientific Atlanta **SAT MM 4-23**, GigaXtend **XSC-2-959** and **
 | Calculate gain from test-point readings | Enter input/output readings at the same frequency plus their separate remaining corrections | Corrected output minus corrected input; no gain is inferred from an output-only photo |
 | Use as low / high gain point | Apply the helper result to the chosen gain marker | Updates the calculation input; does not align physical hardware |
 
-Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/36.1 dBmV gives **9 dB gain**. A1's entered anchors are 9/18 dB at 54/860 MHz; A2's table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not GainMaker GaN control settings.
+Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/36.1 dBmV gives **9 dB gain**. A1's entered anchors are 9/18 dB at 54/860 MHz; A2's table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not hardware control settings.
 
 ## Installed equipment, manuals and control paths
 
@@ -229,7 +229,7 @@ Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/3
 
 **Conventional GS7K:** the node guide distinguishes receiver/FCM/RCM/routing, selected-port pads/EQs and the actual reverse transmitter/EDR/RPD. Conventional LCM Auto Set-Up discovers modules; it does not balance RF. Intelligent, SHO/Fiber Deep and retrofit-RPD references require their own hardware/procedure and are not interchangeable conventional-node profiles.
 
-**Complete's GainMaker GaN HGD:** exact installed GaN commissioning/control instructions remain unresolved. The app keeps this gap visible. Conventional GaAs OEM pad/backoff formulas, ACI DSIM instructions and AOI alignment sequences do not establish GaN settings.
+**Complete’s GainMaker HGD:** confirm the installed module and use its matching manufacturer procedure. OEM AGC, ACI DSIM and AOI procedures are distinct; the synthetic gain values do not establish hardware settings.
 
 **Focused OEM AGC:** match the detector, approved pilot and manual. The displayed manual-backoff and thermal preparation branches are alternatives. Conventional GaAs system-amplifier and LE references use different pad relationships and different backoff tables; the station/manual must match. No universal OEM QAM detector offset or settling timer is supplied.
 
@@ -274,7 +274,7 @@ Custom entries require actual input tables. Published references do not automati
 | Locate result | Review corrected path distance, route coordinate, span and offsets | Places an entered distance on entered geometry; does not classify or detect a physical fault |
 | Active boundary / invalid input message | Read the first barrier or missing/invalid condition | Uses the actual parent-chain order, including distinct active points sharing one route coordinate. A TDR path cannot cross another amplifier; reconnect on the correct cable side |
 
-Complete: after GaN A2 at **1700 ft**, **295 − 25 = 270 ft** of cable path locates **1970 ft**, **160 ft** into Main Tap B's 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.
+Complete: after HGD A2 at **1700 ft**, **295 − 25 = 270 ft** of cable path locates **1970 ft**, **160 ft** into Main Tap B's 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.
 
 Custom curves: reverse from the 200 ft endpoint; **100 × 0.88/0.80 − 25 = 85 ft** toward the source places the hit at **115 ft**, 15 ft into the second span. These VFs and distances are teaching inputs.
 
@@ -335,7 +335,7 @@ Complete at **860 MHz**: **200 ft ×2.2 dB/100 ft + 1.4 dB =5.8 dB** total; **43
 
 ## Meter readings and prediction error
 
-**Where:** Field → Readings. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
+**Where:** Plan → Route & sweep. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
 
 Choose a route point and actual output, then enter frequency, reading, test-point status and remaining coupling. The comparison shows raw reading, corrected reading, prediction and **measurement minus prediction**. A negative error means the entered measurement is below the model.
 
@@ -594,7 +594,7 @@ The notebook records the date, input and output volts, load, an inverter observa
 | Remove / edit row | Change only the intended circuit point and inspect child feeds | Verify actual power passing, supply boundaries and connector ratings independently |
 | Export power load | Save the power CSV | Includes circuit inputs, configuration/source and warnings; not a full-project backup |
 
-Complete uses a **90 V / 15 A** supply; synthetic entered **0.75 A GS7K**, **0.60/0.45 A GaN** loads and a **20 W / PF 0.9** branch. Its independent reference result is **2.047 A**, **13.65%** loading and **88.83 V** minimum at GaN A2. The GaN selection has no verified current curve; no AOI curve is substituted.
+Complete uses a **90 V / 15 A** supply; synthetic entered **0.75 A GS7K**, **0.60/0.45 A HGD** loads and a **20 W / PF 0.9** branch. Its independent reference result is **2.047 A**, **13.65%** loading and **88.83 V** minimum at HGD A2. The GaN selection has no verified current curve; no AOI curve is substituted.
 
 ## Power what-if
 
@@ -604,7 +604,7 @@ Choose the proposed power parent, cable, added length, current and minimum volta
 
 Keep adds the proposed point to the working power plan. Open **Plan → Load** to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.
 
-Complete's trial adds **300 ft P3 .625 and 0.75 A after GaN A2**. The independent reference answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. These are planning estimates for this topology, not a general cable/device allowance.
+Complete's trial adds **300 ft P3 .625 and 0.75 A after HGD A2**. The independent reference answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. These are planning estimates for this topology, not a general cable/device allowance.
 
 ## ONX files, original evidence and comparisons
 

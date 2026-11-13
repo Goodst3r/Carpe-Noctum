@@ -17,7 +17,7 @@ Current filenames under `docs/NightSweep_1.8_*` stay stable; their titles still 
 | `outputs/Night_Sweep.html` | Generated standalone app; frozen Android input |
 | `dist/` | Generated complete public PWA; regenerate instead of hand-editing |
 
-The complete 21-step job is GS7K + two GainMaker GaN HGD actives, mixed Scientific Atlanta **SAT MM 4-23**, GigaXtend and Technetix passives on 42/54 MHz. Preserve 31@54 / 43@860 and the separate 38 dBmV return TX reference. The separate 13-step Vecima/AOI job remains six serial actives on 204/258. The other five exercises cover custom curves/reverse TDR, OEM AGC, DSIM, manual/thermal and conventional GS7K setup.
+The complete 21-step job is GS7K + two GainMaker HGD actives, mixed Scientific Atlanta **SAT MM 4-23**, GigaXtend and Technetix passives on 42/54 MHz. Preserve 31@54 / 43@860 and the separate 38 dBmV return TX reference. The separate 13-step Vecima/AOI job remains six serial actives on 204/258. The other five exercises cover custom curves/reverse TDR, OEM AGC, DSIM, manual/thermal and conventional GS7K setup.
 
 ## Reproduce app and browser checks
 

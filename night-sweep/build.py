@@ -2,6 +2,7 @@
 """Build the offline 2.0 Alpha build 4 app with technician task navigation."""
 from pathlib import Path
 import subprocess
+from map_assets import asset_script
 root=Path(__file__).resolve().parent
 subprocess.run(['node',str(root/'selfcheck.js')],check=True,stdout=subprocess.DEVNULL)
 shell=(root/'shell.html').read_text()
@@ -27,6 +28,10 @@ MODULES = [
     ('<!--FIELDREFERENCE-->', 'field-reference.js'),
     ('<!--LAUNCHSOURCE-->', 'launch-source.js'),
     ('<!--EQUIPMENTSETUP-->', 'equipment-setup.js'),
+    ('<!--ROUTEWORKBENCHCSS-->', 'route-workbench.css'),
+    ('<!--ROUTEWORKBENCH-->', 'route-workbench.js'),
+    ('<!--MAPIMPORTCSS-->', 'map-import.css'),
+    ('<!--MAPIMPORT-->', 'map-import.js'),
     ('<!--APP-->', 'app.js'),
     ('<!--SELFCHECK-->', 'selfcheck.js'),
     ('<!--METERS-->', 'meter.js'),
@@ -67,6 +72,9 @@ for token,name in MODULES:
         cat=json.loads(data);cat['setupManuals']=json.loads((root/'setup-manuals.json').read_text());data=json.dumps(cat,separators=(',',':'),ensure_ascii=False)
     shell=shell.replace(token,data)
 shell=shell.replace('<!--DSIMPILOTCODES-->',(root/'dsim-pilot-codes.js').read_text())
+if '<!--MAPIMPORTASSETS-->' not in shell:
+    raise ValueError('Missing map asset build token')
+shell=shell.replace('<!--MAPIMPORTASSETS-->',asset_script(root/'vendor'/'map'))
 out=root.parent/'outputs'/'Night_Sweep.html'
 out.parent.mkdir(exist_ok=True)
 out.write_text(shell)

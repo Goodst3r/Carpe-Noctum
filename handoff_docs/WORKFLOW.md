@@ -1,5 +1,7 @@
 > **Next-build override — Spencer, 2026-11-13:** The completed Build3 lane history below stays as a record. For the next build, [the new plan](../docs/superpowers/plans/2026-11-13-next-build.md) governs: ChatGPT is the only implementation writer, Grok independently reviews spec/math/code, and Claude performs a narrow source/release check. One implementation branch and PR; accuracy first; only Spencer moves scope. [APK_PLAN.md](APK_PLAN.md) now requires the **original key only**, superseding all replacement-key or uninstall instructions. No next-build feature implementation is authorized by a historical queue assignment alone.
 
+> **Current Routes and Sweep implementation override — Spencer, 2026-11-13:** For the [PR54 scope](NEXT_UPDATE_SWEEP_MAP_SCOPE.md), GPT-6.1 Sol HIGH leads integration and product decisions; GPT-6.1 Terra HIGH implements the combined route UI and equipment cleanup; GPT-6 Astra HIGH implements the separate local map importer and independently reviews RF behavior; GPT-6 Luna MEDIUM audits the whole app read-only. These explicit assignments supersede the earlier single-writer and historical assistant lanes for this update. Keep one writer per file, separate implementation worktrees and reviewable draft PRs. Preserve the existing build 4 candidate, integrate with ordinary merges, rebuild generated outputs centrally, and rerun the release gate on the combined source. Accuracy first, cost second, speed third. Signing, upstream merging and publication remain with the established release process.
+
 # Carpe Noctum workflow: three assistants, one integration branch
 
 Written November 12, 2026 for Spencer; revised the same night. This is the only file that says who does what. It replaces `PARALLEL_TASKS.md`, `ROADMAP_PROMPTS.md`, `START_HERE_CODEX.md` and the old `codex-status.md` / `claude-status.md` lane files, which were deleted because they described a two-lane plan that has ended. If anything elsewhere in the repository disagrees with this file about roles, queues, review or merging, this file wins. Product decisions still come from `ROADMAP_DETERMINATION.md`, `docs/BUILD_LIST.md` and `AGENTS.md`.
@@ -65,6 +67,10 @@ Reviewing the other lane's open PR always comes before starting your own next it
 ### Scope freeze (Spencer, Nov 12 night)
 
 To get a phone-testable APK sooner, **no new items start.** The batch is #39, #40, #41, #36 and #42. These are **deferred to the next build** and are not blockers for the APK: A5 (tonight list), A6 (exact resume, also blocked on Spencer's phone checks) and B5 (temporary-repair follow-up). Open drafts #32, #1 and #2 are not part of the batch. After the batch, the remaining work is the final gate on the combined head and the two handoff files (A7, B6), then Claude's finishing session.
+
+### Routes and Sweep cleanup (Spencer, November 13)
+
+Spencer added the Routes and Sweep cleanup and a review of the entire app to the current update. See [the scope and acceptance checks](NEXT_UPDATE_SWEEP_MAP_SCOPE.md). This is the exception to the November 12 scope freeze. Keep the verified standard GainMaker models in the low-split workflow, including the standard HGD whose earlier catalog label said GaAs. Remove dedicated GaN and High Output choices from new standard low-split work. Remove app elements that do not support the field workflow. Keep every calculator tool available. Complete the app walkthrough and rerun the release gate on the combined build before signing.
 
 ### Not to be built
 
@@ -171,7 +177,7 @@ CI green on the exact head; diff contains only the stated files; no `outputs/` o
 The build work is done when all of these are true:
 
 1. The five batch PRs are merged, and every other queue item is merged, or recorded BLOCKED or deferred with the reason (see "Scope freeze").
-2. Each builder has run the full gate on the same final batch head of `build3` and recorded its own counts and the standalone SHA-256, and hosted `QA gate` is green on it.
+2. The Routes and Sweep cleanup meets its acceptance checks. Each builder has run the full gate on the same final combined head of `build3` and recorded its own counts and the standalone SHA-256, and hosted `QA gate` is green on it.
 3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
 4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
 

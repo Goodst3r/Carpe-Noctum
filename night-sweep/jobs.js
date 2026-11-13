@@ -114,7 +114,7 @@ const JobsUI=(()=>{
    const snapshot=clone(target.snapshot);snapshot.job={...snapshot.job,...metadata(snapshot),id,sample:!!target.sample};
    writeLibrary({...library,activeId:id});loadState(snapshot);saveLocal();
    if(typeof EvidenceUI!=='undefined')await EvidenceUI.reloadPreviews();
-   status('Opened '+target.name+'. Predictions and job records remain separate.');return true;
+   status('Opened '+target.name+'. Predictions and job records remain separate.');if(typeof showTab==='function')showTab('route');return true;
   }finally{changing=false;render();}
  }
  // 2.0: a new job starts from the plant it is on. 42/54 uses the local forward design references;

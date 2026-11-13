@@ -192,7 +192,7 @@
 </thead>
 <tbody><tr>
 <td><strong>Complete field workflow</strong></td>
-<td>GS7K source, two GainMaker GaN HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records</td>
+<td>GS7K source, two GainMaker HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records</td>
 <td>22 steps; five synthetic CSV originals and one original-only SVG diagram</td>
 </tr>
 <tr>
@@ -229,7 +229,7 @@
 <p>Opening or resetting training preserves the working job locally before switching. A full or unreadable named-job list, an evidence operation in progress, or a preservation failure stops the switch. Read the message and keep the existing job; do not clear storage to force it. A local retained copy is not an external backup.</p>
 <p>Use <strong>Open step</strong> to reveal the relevant controls, try them, then mark <strong>Reviewed</strong>. <strong>Practice guide</strong> in the training banner returns to the guide. Progress is saved with that practice copy; it does not mark field inspections or acceptance complete. Reset preserves the edited copy before restoring the exercise baseline.</p>
 <p>Older practice copies remain readable. If their equipment no longer matches the current complete exercise, the app hides mismatched guidance and offers an explicit reset. Renaming, editing, saving or exporting a practice job does not remove its synthetic identity.</p>
-<p>The complete workflow uses GS7K/GainMaker GaN, not the AOI six-active path. Its GS7K hardware capability is 1218 MHz, but the entered operating/planning upper is <strong>1000 MHz</strong> and live spectrum <strong>860 MHz</strong>. The selected GaN active covers 54–1002 MHz and the Scientific Atlanta route passive stops at 1000 MHz. Do not infer end-to-end 1218 MHz operation from the source model.</p>
+<p>The complete workflow uses GS7K/GainMaker HGD, not the AOI six-active path. Its GS7K hardware capability is 1218 MHz, but the entered operating/planning upper is <strong>1000 MHz</strong> and live spectrum <strong>860 MHz</strong>. The selected HGD active covers 54–1002 MHz and the Scientific Atlanta route passive stops at 1000 MHz. Do not infer end-to-end 1218 MHz operation from the source model.</p>
 <h2 id="job-details-and-named-jobs">Job details and named jobs</h2>
 <p><strong>Where:</strong> Plan → Details. <strong>Practice:</strong> Complete → Job details; any exercise&#39;s backup step.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
@@ -460,7 +460,7 @@
 </tbody></table></div>
 <p>Complete uses Scientific Atlanta <strong>SAT MM 4-23</strong>, GigaXtend <strong>XSC-2-959</strong> and <strong>GTSG-TAP-4-20-STD</strong>, and Technetix <strong>OTTZ-4-17</strong>. Its drop uses a <strong>75 ft synthetic RG-6 table plus explicit custom 4 dB loss</strong>, not an asserted premises-splitter model. Its main endpoint is 2380 ft from source; the branch cable-only endpoint is 2220 ft.</p>
 <h2 id="amplifier-gain-and-test-point-helper">Amplifier gain and test-point helper</h2>
-<p><strong>Where:</strong> Plan → Amp gain. <strong>Practice:</strong> Complete → Gain; Six actives → Gain / Gain table.</p>
+<p><strong>Where:</strong> Plan → Route &amp; sweep. <strong>Practice:</strong> Complete → Gain; Six actives → Gain / Gain table.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -525,7 +525,7 @@
 <td>Updates the calculation input; does not align physical hardware</td>
 </tr>
 </tbody></table></div>
-<p>Complete&#39;s helper uses <strong>7.1/16.1 dBmV +20 dB each</strong> at 54 MHz: corrected 27.1/36.1 dBmV gives <strong>9 dB gain</strong>. A1&#39;s entered anchors are 9/18 dB at 54/860 MHz; A2&#39;s table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not GainMaker GaN control settings.</p>
+<p>Complete&#39;s helper uses <strong>7.1/16.1 dBmV +20 dB each</strong> at 54 MHz: corrected 27.1/36.1 dBmV gives <strong>9 dB gain</strong>. A1&#39;s entered anchors are 9/18 dB at 54/860 MHz; A2&#39;s table is 54 MHz/8 dB, 550 MHz/12 dB, 860 MHz/15 dB. These are synthetic net gains, not hardware control settings.</p>
 <h2 id="installed-equipment-manuals-and-control-paths">Installed equipment, manuals and control paths</h2>
 <p><strong>Where:</strong> Plan → Amp / node setup; also <strong>Source setup &amp; manual</strong> from Setup. <strong>Practice:</strong> Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
@@ -573,7 +573,7 @@
 </tr>
 </tbody></table></div>
 <p><strong>Conventional GS7K:</strong> the node guide distinguishes receiver/FCM/RCM/routing, selected-port pads/EQs and the actual reverse transmitter/EDR/RPD. Conventional LCM Auto Set-Up discovers modules; it does not balance RF. Intelligent, SHO/Fiber Deep and retrofit-RPD references require their own hardware/procedure and are not interchangeable conventional-node profiles.</p>
-<p><strong>Complete&#39;s GainMaker GaN HGD:</strong> exact installed GaN commissioning/control instructions remain unresolved. The app keeps this gap visible. Conventional GaAs OEM pad/backoff formulas, ACI DSIM instructions and AOI alignment sequences do not establish GaN settings.</p>
+<p><strong>Complete’s GainMaker HGD:</strong> confirm the installed module and use its matching manufacturer procedure. OEM AGC, ACI DSIM and AOI procedures are distinct; the synthetic gain values do not establish hardware settings.</p>
 <p><strong>Focused OEM AGC:</strong> match the detector, approved pilot and manual. The displayed manual-backoff and thermal preparation branches are alternatives. Conventional GaAs system-amplifier and LE references use different pad relationships and different backoff tables; the station/manual must match. No universal OEM QAM detector offset or settling timer is supplied.</p>
 <p><strong>Focused manual / thermal:</strong> identify the installed control path and follow its own applicable method. Do not infer OEM AGC pilot-pad values or DSIM codes from that selection.</p>
 <p><strong>ACI DSIM functions:</strong></p>
@@ -669,7 +669,7 @@
 <td>Uses the actual parent-chain order, including distinct active points sharing one route coordinate. A TDR path cannot cross another amplifier; reconnect on the correct cable side</td>
 </tr>
 </tbody></table></div>
-<p>Complete: after GaN A2 at <strong>1700 ft</strong>, <strong>295 − 25 = 270 ft</strong> of cable path locates <strong>1970 ft</strong>, <strong>160 ft</strong> into Main Tap B&#39;s 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.</p>
+<p>Complete: after HGD A2 at <strong>1700 ft</strong>, <strong>295 − 25 = 270 ft</strong> of cable path locates <strong>1970 ft</strong>, <strong>160 ft</strong> into Main Tap B&#39;s 310 ft span. Both VFs are 0.87. Launch-origin testing beyond the active is blocked.</p>
 <p>Custom curves: reverse from the 200 ft endpoint; <strong>100 × 0.88/0.80 − 25 = 85 ft</strong> toward the source places the hit at <strong>115 ft</strong>, 15 ft into the second span. These VFs and distances are teaching inputs.</p>
 <h2 id="forward-and-return-sweep-setup">Forward and return sweep setup</h2>
 <p><strong>Where:</strong> Field → Meter setup. <strong>Practice:</strong> Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.</p>
@@ -848,7 +848,7 @@
 </tbody></table></div>
 <p>Complete at <strong>860 MHz</strong>: <strong>200 ft ×2.2 dB/100 ft + 1.4 dB =5.8 dB</strong> total; <strong>43 − 5.8 = 37.2 dBmV</strong> receive. Custom curves at 261 MHz: 100 ft ×1 dB/100 ft +1 dB =2 dB, leaving 32 dBmV from 34 dBmV. These are exact-frequency teaching inputs.</p>
 <h2 id="meter-readings-and-prediction-error">Meter readings and prediction error</h2>
-<p><strong>Where:</strong> Field → Readings. <strong>Practice:</strong> Complete → Meter readings; Six actives → A6 comparison.</p>
+<p><strong>Where:</strong> Plan → Route &amp; sweep. <strong>Practice:</strong> Complete → Meter readings; Six actives → A6 comparison.</p>
 <p>Choose a route point and actual output, then enter frequency, reading, test-point status and remaining coupling. The comparison shows raw reading, corrected reading, prediction and <strong>measurement minus prediction</strong>. A negative error means the entered measurement is below the model.</p>
 <p>Use zero/off for remaining correction when the meter already reports mainline-equivalent level. A reading at another frequency is not a valid comparison with the chosen marker. Missing predictions/readings remain unavailable. This task does not automatically fill the official forward/return records or approve their criteria.</p>
 <p>Complete includes intentional mismatches. For example, A1&#39;s entered <strong>16.1 + 20 = 36.1 dBmV</strong> at 54 MHz is compared with about <strong>36.94 dBmV</strong> predicted. Tap C&#39;s direct <strong>7.50 dBmV</strong> compares with about <strong>14.01 dBmV</strong>. Investigate inputs and measurement planes; synthetic disagreement is not evidence of a physical defect.</p>
@@ -1288,12 +1288,12 @@
 <td>Includes circuit inputs, configuration/source and warnings; not a full-project backup</td>
 </tr>
 </tbody></table></div>
-<p>Complete uses a <strong>90 V / 15 A</strong> supply; synthetic entered <strong>0.75 A GS7K</strong>, <strong>0.60/0.45 A GaN</strong> loads and a <strong>20 W / PF 0.9</strong> branch. Its independent reference result is <strong>2.047 A</strong>, <strong>13.65%</strong> loading and <strong>88.83 V</strong> minimum at GaN A2. The GaN selection has no verified current curve; no AOI curve is substituted.</p>
+<p>Complete uses a <strong>90 V / 15 A</strong> supply; synthetic entered <strong>0.75 A GS7K</strong>, <strong>0.60/0.45 A HGD</strong> loads and a <strong>20 W / PF 0.9</strong> branch. Its independent reference result is <strong>2.047 A</strong>, <strong>13.65%</strong> loading and <strong>88.83 V</strong> minimum at HGD A2. The GaN selection has no verified current curve; no AOI curve is substituted.</p>
 <h2 id="power-what-if">Power what-if</h2>
 <p><strong>Where:</strong> Plan → What-if. <strong>Practice:</strong> Complete → Power what-if.</p>
 <p>Choose the proposed power parent, cable, added length, current and minimum voltage. Read the trial&#39;s displayed <strong>Predicted end voltage</strong>, <strong>Predicted voltage headroom</strong> and status before applying it. The preview recalculates the copied circuit internally; it does not display total trial supply current. This calculation uses a copied circuit until you choose <strong>Keep in power circuit</strong>.</p>
 <p>Keep adds the proposed point to the working power plan. Open <strong>Plan → Load</strong> to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.</p>
-<p>Complete&#39;s trial adds <strong>300 ft P3 .625 and 0.75 A after GaN A2</strong>. The independent reference answer is <strong>2.798 A</strong> supply current, <strong>18.65%</strong> loading and <strong>87.37 V</strong> at the new load. These are planning estimates for this topology, not a general cable/device allowance.</p>
+<p>Complete&#39;s trial adds <strong>300 ft P3 .625 and 0.75 A after HGD A2</strong>. The independent reference answer is <strong>2.798 A</strong> supply current, <strong>18.65%</strong> loading and <strong>87.37 V</strong> at the new load. These are planning estimates for this topology, not a general cable/device allowance.</p>
 <h2 id="onx-files-original-evidence-and-comparisons">ONX files, original evidence and comparisons</h2>
 <p><strong>Where:</strong> Field → ONX files. <strong>Practice:</strong> Complete → Synthetic meter files; backup step.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>

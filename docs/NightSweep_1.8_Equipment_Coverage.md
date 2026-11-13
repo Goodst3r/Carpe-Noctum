@@ -34,7 +34,7 @@ The source frequency matrix keeps OEM backoff columns **445.25/547.25/870/1000 M
 
 In **Tools → References**, the optional **Local non-high-split: 31 @ 54 / 43 @ 860 · TX 38** button updates the selected eligible profile’s forward design anchors and the separate 42 MHz TX reference to 38 dBmV after confirmation. Measured Route Setup fields and existing records remain unchanged, and criteria remain unapproved. It is blocked for return ceilings of 204 MHz or above and for bands that exclude 54 MHz; do not treat all lower-split hardware as 54 MHz-capable. In **42/54 Sweep setup**, the fields are **Operator return TX reference (dBmV)** and **Return TX frequencies / service plan**. They stay separate from injection, generator and received/CMTS levels, and add no 42 MHz generator calculation. The read-only **Setup frequencies & job levels** card in Equipment setup displays these selected-job references, not measured levels or manufacturer ratings.
 
-OEM/DSIM practice uses 54/860 design anchors and synthetic raw 11/23 dBmV + one 20 dB addback = 31/43 dBmV. GS7K practice carries those design references while actual markers/readings/coupling remain blank. The complete GS7K/GainMaker GaN 42/54 exercise uses 54/860 MHz at 31/43 dBmV, with six synthetic originals. No design reference is a measured reading or field acceptance.
+OEM/DSIM practice uses 54/860 design anchors and synthetic raw 11/23 dBmV + one 20 dB addback = 31/43 dBmV. GS7K practice carries those design references while actual markers/readings/coupling remain blank. The complete GS7K/GainMaker HGD 42/54 exercise uses 54/860 MHz at 31/43 dBmV, with six synthetic originals. No design reference is a measured reading or field acceptance.
 
 ### Available-carrier target conversion
 
@@ -77,7 +77,7 @@ In the app, use **Plan → Setup → Node output**, select the exact standard **
 
 Current launch Equipment setup selectors cover **standard GS7000 1 GHz and standard 1.2 GHz** only. SHO/Fiber Deep, Intelligent and retrofit-RPD documents remain exact-variant source references, not additional selectable launch/setup profiles. Conventional LCM module discovery is separate from RF balancing. Intelligent-node forward Auto Setup has its own software/manual conditions; it does not align return.
 
-**Home → Open GS7K node practice** is a separate ten-step standard GS7000 1.2 GHz / 42/54 starter. It covers identity, model/manual selection, receiver/routing, standard forward setup, return handoff, sweep workflow, records and backup. Launch/TP correction remains unverified; no RF route rows, evidence files or captured traces are supplied. It sits alongside the complete 21-step GS7K/GainMaker GaN workflow and focused OEM AGC/DSIM paths. A separate 13-step Vecima/AOI example covers six serial actives at 204/258 MHz. The portable file is **NightSweep_1.8_GS7K_Practice.json**. None of these practice jobs establishes hardware alignment or acceptance.
+**Home → Open GS7K node practice** is a separate ten-step standard GS7000 1.2 GHz / 42/54 starter. It covers identity, model/manual selection, receiver/routing, standard forward setup, return handoff, sweep workflow, records and backup. Launch/TP correction remains unverified; no RF route rows, evidence files or captured traces are supplied. It sits alongside the complete 21-step GS7K/GainMaker HGD workflow and focused OEM AGC/DSIM paths. A separate 13-step Vecima/AOI example covers six serial actives at 204/258 MHz. The portable file is **NightSweep_1.8_GS7K_Practice.json**. None of these practice jobs establishes hardware alignment or acceptance.
 
 ### Installed gain control and complete method
 
@@ -164,7 +164,7 @@ Context7/MDN clipboard and storage documentation was reviewed: copying requires 
 
 ## 1.8 audit update
 
-The 1.8 local audit retains the equipment inventory and exact-model source qualifications. Current runtime/catalog structural results and representative independent arithmetic are recorded in `research/alpha18/`; the previous 1.7 review described above remains historical. The complete workflow uses GS7K/GainMaker GaN 42/54, mixed Scientific Atlanta/GigaXtend/Technetix passives and 54/860 MHz anchors. The separate six-active synthetic AOI cascade stays 204/258; custom curves and manual/thermal starters complete the seven-exercise library. See `NightSweep_1.8_Training_Coverage.md` for the feature-to-example map. Current verification does not retranscribe every manufacturer table cell or establish physical commissioning.
+The 1.8 local audit retains the equipment inventory and exact-model source qualifications. Current runtime/catalog structural results and representative independent arithmetic are recorded in `research/alpha18/`; the previous 1.7 review described above remains historical. The complete workflow uses GS7K/GainMaker HGD 42/54, mixed Scientific Atlanta/GigaXtend/Technetix passives and 54/860 MHz anchors. The separate six-active synthetic AOI cascade stays 204/258; custom curves and manual/thermal starters complete the seven-exercise library. See `NightSweep_1.8_Training_Coverage.md` for the feature-to-example map. Current verification does not retranscribe every manufacturer table cell or establish physical commissioning.
 
 ## Build 2 validation
 

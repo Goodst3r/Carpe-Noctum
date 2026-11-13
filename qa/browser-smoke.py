@@ -26,6 +26,7 @@ EXPORTS = {
 TASKS = ['setup', 'route', 'gain', 'equipmentSetup', 'parts', 'tdr', 'sweepSetup',
          'sweep', 'frequency', 'readings', 'references', 'power', 'trial',
          'projects', 'evidence', 'checklists', 'records', 'runsheet', 'help']
+TASK_ALIASES = {'gain': 'route', 'readings': 'route', 'trial': 'power'}
 checks, errors = [], []
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -74,7 +75,7 @@ try:
             ready(page)
             for task in TASKS:
                 page.evaluate('(task) => WorkflowUI.go(task)', task)
-                checked(f'{width}px {task} navigation', page.evaluate('document.body.dataset.task') == task)
+                checked(f'{width}px {task} navigation', page.evaluate('document.body.dataset.task') == TASK_ALIASES.get(task, task))
                 no_overflow(page, f'{width}px {task}')
             if width == 390:
                 exercises = page.evaluate('TrainingJob.exercises.map(e => ({id:e.id,button:e.button}))')
@@ -96,8 +97,8 @@ try:
                             passiveFamilies: state.rows.filter(r => !device(r.device)?.active).map(r => device(r.device)?.family || '')
                         })''')
                         checked('Complete workflow launches from GS7K', fleet['node'] == 'gs7000-12g')
-                        checked('Complete workflow uses GainMaker GaN actives',
-                                len(fleet['activeIds']) >= 2 and set(fleet['activeIds']) == {'active_gm_gan_hgd'})
+                        checked('Complete workflow uses standard GainMaker HGD actives',
+                                len(fleet['activeIds']) >= 2 and set(fleet['activeIds']) == {'active_gm_hgd'})
                         checked('Complete workflow selects 42/54 sweep setup', fleet['split'] == '42')
                         for brand in ['Scientific-Atlanta', 'GigaXtend', 'Technetix']:
                             checked('Complete workflow contains ' + brand + ' passives',
@@ -135,7 +136,7 @@ try:
                     reveal(page, '#trainingFeatureSelect')
                     page.locator('#trainingFeatureSelect').select_option(feature['id'])
                     page.locator('#loadTrainingFeature').click()
-                    page.wait_for_function('(task) => WorkflowUI.current() === task', arg=feature['task'])
+                    page.wait_for_function('(task) => WorkflowUI.current() === task', arg=TASK_ALIASES.get(feature['task'], feature['task']))
                     ready(page)
                     checked('Feature loads seeded example: ' + feature['id'], page.evaluate('TrainingJob.isTraining()'))
                     checked('Feature reveals its control: ' + feature['id'], bool(feature.get('control')) and page.locator(feature['control']).first.is_visible())

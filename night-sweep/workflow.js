@@ -2,8 +2,8 @@
 const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[['home','Home'],['outage','Outage']]},
-  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Cable route'],['gain','Amp gain'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load'],['trial','What-if'],['powerPm','Supply PM'],['sweepDue','Sweep due']]}]},
-  field:{label:'Field',list:true,sections:[{title:'Field',items:[['sweepSetup','Meter setup'],['station','Station'],['readings','Readings'],['tdr','TDR'],['evidence','ONX files'],['leakage','Leakage'],['checklists','Checklists'],['nightLog','Night log']]}]},
+  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['powerPm','Supply PM'],['sweepDue','Sweep due']]}]},
+  field:{label:'Field',list:true,sections:[{title:'Field',items:[['sweepSetup','Meter setup'],['station','Station records'],['tdr','TDR'],['evidence','ONX files'],['leakage','Leakage'],['checklists','Checklists'],['nightLog','Night log']]}]},
   tools:{label:'Tools',list:true,sections:[
    {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency']]},
    {title:'Limits and sources',items:[['limits','Limits'],['references','References'],['parts','Catalog']]},
@@ -19,7 +19,7 @@ const WorkflowUI=(()=>{
   station:['field','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
   home:['home','Choose your task','Start with a field task, or continue the working job below.'],
   setup:['plan','Set the starting signal','Enter launch frequencies, levels and cable temperature before building your route.'],
-  route:['plan','Build the cable route','Work on one point at a time. Each point includes the cable leading to its equipment.'],
+  route:['plan','Route & sweep','Follow the launch and branches, then record readings at each station.'],
   gain:['plan','Check amplifier gain','Choose an active on your route, enter its gain, then review both frequency margins.'],
   equipmentSetup:['plan','Set up the installed equipment','Choose the launch or a route active, review its exact manual and save setup notes.'],
   parts:['tools','Equipment catalog','Search by model or part number, then review its published gain or loss data.'],
@@ -61,7 +61,7 @@ const WorkflowUI=(()=>{
  const hidden=(el,value)=>{if(el&&el.hidden!==value)el.hidden=value;};
  const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
  const all=selector=>[...document.querySelectorAll(selector)];
- const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],powerPm:['powerPmPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
+ const visibleIds={sweepDue:['sweepDuePanel'],nightLog:['nightLogPanel'],station:['stationPanel'],equipmentSetup:['equipmentSetupPanel'],sweepSetup:['sweepSetupPanel'],home:['homePanel'],setup:['setup'],route:['setup','routePanel'],gain:['routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['routePanel'],references:['fieldReferencePanel'],calculators:['calculatorPanel'],limits:['limitsPanel'],docsisHealth:['docsisHealthPanel'],leakage:['leakagePanel'],impairments:['impairmentsPanel'],fiber:['fiberPanel'],highSplit:['highSplitPanel'],why:['whyPanel'],pop:['popPanel'],study:['studyPanel'],powerPm:['powerPmPanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],outage:['outagePanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
  function selectedRows(){return current==='gain'?state.rows.filter(r=>device(r.device)?.active):state.rows;}
  function chosen(){const rows=selectedRows(),wanted=current==='gain'?activePoint:point;return rows.find(r=>r.id===wanted)||rows[0]||null;}
  function setPoint(id){if(!state.rows.some(r=>r.id===id))return false;point=id;if(device(state.rows.find(r=>r.id===id).device)?.active)activePoint=id;apply();return true;}
@@ -83,7 +83,7 @@ const WorkflowUI=(()=>{
   document.body.dataset.task=current;
  }
  function go(tab,options={}){
-  const aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help'};
+  const requested=tab,aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help',gain:'route',readings:'route',trial:'power'};
   if(groups[tab]&&!screens[tab])tab=lastGroup[tab]||groups[tab].tabs[0][0];
   tab=aliases[tab]||tab;
   if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
@@ -98,6 +98,8 @@ const WorkflowUI=(()=>{
   if(tab==='impairments'&&typeof ImpairmentsUI!=='undefined')ImpairmentsUI.updateRipple();
   if(tab==='frequency'&&typeof renderFrequency==='function'){renderFrequency();const main=$('frequencyPanel')?.querySelector('details');if(main)main.open=true;}
   renderNav();apply();
+  if(requested==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;
+  if((requested==='gain'||requested==='readings')&&chosen()){const card=all('#route > [data-row]').find(x=>x.dataset.row===chosen().id);const details=card?.querySelector('.route-workbench > details');if(details)details.open=true;}
   document.querySelector('.filemenu').open=false;
   if(options.scroll!==false)window.scrollTo({top:0,behavior:'instant'});
   if(tab==='sweep')requestAnimationFrame(drawChart);
@@ -119,7 +121,7 @@ const WorkflowUI=(()=>{
    }
    const saved=new Map(pointDetailState.get(card.dataset.row)||[]);card.querySelectorAll('details').forEach(d=>{if(d.dataset.workflowRestored)return;d.dataset.workflowRestored='true';const key=d.querySelector(':scope > summary')?.textContent?.trim()||'';if(saved.has(key))d.open=saved.get(key);});
    if(!card.querySelector('.point-task-links')){
-    const div=document.createElement('div');div.className='point-task-links';div.innerHTML=`<button type="button" data-point-task="readings" data-point="${card.dataset.row}">Enter meter reading</button>${active?`<button type="button" data-equipment-target="${card.dataset.row}">Setup &amp; manual</button><button type="button" data-point-task="gain" data-point="${card.dataset.row}">Check this amp's gain</button>`:''}`;card.querySelector('.route-math')?.after(div);
+    const div=document.createElement('div');div.className='point-task-links';div.innerHTML=`${active?`<button type="button" data-equipment-target="${card.dataset.row}">Setup &amp; manual</button>`:''}`;card.querySelector('.route-math')?.after(div);
    }
   });
  }
@@ -131,7 +133,7 @@ const WorkflowUI=(()=>{
   picker.disabled=!rows.length;const index=rows.indexOf(row);$('pointPrevious').disabled=index<=0;$('pointNext').disabled=index<0||index>=rows.length-1;
   text($('pointCount'),rows.length?`${index+1} of ${rows.length}${current==='gain'?' active points':' points'}`:'');
   hidden($('pointPicker'),!state.rows.length&&current!=='gain');
-  all('#route > [data-row]').forEach(card=>hidden(card,card.dataset.row!==row?.id));
+  all('#route > [data-row]').forEach(card=>hidden(card,current!=='route'&&card.dataset.row!==row?.id));
   hidden($('pointEmpty'),!!rows.length);text($('pointEmptyText'),current==='gain'?'Add an amplifier to the cable route, then select it here to check the gain budget.':'Add your first cable span and equipment point to get started.');
   text($('routePanelTitle'),current==='gain'?'Selected amplifier':current==='readings'?'Selected measurement point':'Cable route');
   const feeds=new Set(['source']),broken=[];
@@ -196,7 +198,7 @@ const WorkflowUI=(()=>{
    // Renderers preserve their original parent; subtask visibility is reapplied after each edit.
    if(['route','gain','readings'].includes(current))updatePointControls();
    updateJobViews();
-   const power=$('powerPanel');if(power){[...power.children].forEach(child=>hidden(child,current==='trial'?child.id!=='powerWhatIf':child.id==='powerWhatIf'));if(current==='trial'&&$('powerWhatIf'))$('powerWhatIf').open=true;}
+   const power=$('powerPanel');if(power)[...power.children].forEach(child=>hidden(child,false));
    updateHome();
    updateContextStrip();
   }finally{applying=false;}
