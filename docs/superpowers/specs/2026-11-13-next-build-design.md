@@ -1,6 +1,8 @@
 # Carpe Noctum next-build design
 Status: proposed scope, implementation not started. Owner: Spencer. Working build ID CN-NEXT-20261113. Product version to be recorded at freeze, not inferred from this ID.
 
+Current task scope: update GitHub process, source information and handoff prompts only. Implementation, signing and further web deployment belong to a separately started build; this planning update does not begin them.
+
 ## Baseline and strategy changes
 Inspected public `build3` at `248e77802f333a1a461563dfb1973315a2043d67`, later than fc7e9c8. PR #47 already provides hidden-chart, calculation reuse, catalog-map and named-job button fixes; do not repeat them.
 
