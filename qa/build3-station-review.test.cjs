@@ -26,7 +26,7 @@ test('Forward clamp results show solver limit notes, sourced procedure window an
 
 test('Catalog-only band corrections cannot hide a saved station or its sweep date',withApp(h=>{
  open(h);returns(h);set(h,'swept','date','2026-11-10','change');const done=control(h,'swept','done');done.checked=true;done.dispatchEvent(new h.w.Event('change',{bubbles:true}));const before=h.json('state'),identity=h.ev('state.rows[0].stationIdentity');
- h.ev('device("active_gm_gan_hgd").publishedGain.forwardBand[0]=55;device("active_gm_gan_hgd").publishedGain.reverseBand[1]=41;StationView.render()');assert.match(words(h,'[data-station-split]'),/41\/55/,'catalog correction refreshes informational banner');h.ev(`loadState(${JSON.stringify(before)});WorkflowUI.go('station')`);
+ h.ev('device("active_gm_hgd").publishedGain.forwardBand[0]=55;device("active_gm_hgd").publishedGain.reverseBand[1]=41;StationView.render()');assert.match(words(h,'[data-station-split]'),/41\/55/,'catalog correction refreshes informational banner');h.ev(`loadState(${JSON.stringify(before)});WorkflowUI.go('station')`);
  assert.equal(h.ev('StationView.records(state).length'),1);assert.equal(h.ev('StationView.currentRecord().swept.done'),true);assert.equal(h.ev('StationView.currentRecord().swept.date'),'2026-11-10');assert.equal(control(h,'returns','referencePointTarget').value,'19');assert.deepEqual(h.json(`state.stationView.stations[${JSON.stringify(identity)}]`),before.stationView.stations[identity]);
 }));
 
