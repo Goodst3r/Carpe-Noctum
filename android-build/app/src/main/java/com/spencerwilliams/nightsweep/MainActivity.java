@@ -86,6 +86,8 @@ public final class MainActivity extends Activity {
         WebView.setWebContentsDebuggingEnabled(false);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                // data: carries its bytes inline and cannot reach the network (setBlockNetworkLoads(true) and the navigation block remain).
+                if (loadsInline(request.getUrl().getScheme())) return null;
                 return new WebResourceResponse("text/plain","UTF-8",new ByteArrayInputStream(new byte[0]));
             }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -155,6 +157,10 @@ public final class MainActivity extends Activity {
             }
         }
         return types.toArray(new String[0]);
+    }
+
+    static boolean loadsInline(String scheme) {
+        return "data".equalsIgnoreCase(scheme);
     }
 
     private static String exportName(String name,String fallback) {

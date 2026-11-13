@@ -17,6 +17,7 @@ SOURCE = ROOT / 'android-build/app/src/main/java/com/spencerwilliams/nightsweep/
 
 def execute_production_bodies():
     source = SOURCE.read_text()
+    inline = re.search(r'    static boolean loadsInline\(.*?\n    \}', source, re.S).group(0)
     export = re.search(r'    private static String exportName\(.*?\n    \}', source, re.S).group(0)
     sanitizer = re.search(r'        String safe=display\.replaceAll\(.*?(?=\n        String token=)', source, re.S).group(0)
     printer = re.search(r'        @JavascriptInterface public void printReport\(\) \{.*?\n        \}', source, re.S).group(0).replace('@JavascriptInterface ', '')
@@ -26,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.function.Consumer;
 public class NativeEdgeChecks {
+''' + inline + r'''
 ''' + export + r'''
  static String importName(String display){
 ''' + sanitizer + r'''
@@ -75,6 +77,8 @@ public class NativeEdgeChecks {
   filename("cjk_long","測".repeat(100)+".csv");filename("emoji_long","🚀".repeat(70)+".csv");
   filename("cjk_short","測".repeat(50)+".csv");filename("ascii_long","a".repeat(210)+".csv");
   filename("unsafe","../a\u0001.csv");filename("empty","");
+  for(String scheme:new String[]{"data","DATA","http","https","file","content","blob","javascript",""})System.out.println("inline_"+scheme+"="+loadsInline(scheme));
+  System.out.println("inline_null="+loadsInline(null));
   for(String name:new String[]{"queued_null","queued_finishing","queued_destroyed","callback_destroyed","callback_finishing","callback_replaced","live","callback_rejected"})printcase(name);
  }
 }
@@ -150,6 +154,28 @@ class NativeEdgeTests(unittest.TestCase):
     def test_live_print_and_preparation_failure_remain_supported(self):
         self.assertEqual(self.results['live'], 'none|1|1|0|0')
         self.assertEqual(self.results['callback_rejected'], 'none|1|0|1|1')
+
+    def test_data_scheme_loads_inline_case_insensitively(self):
+        self.assertEqual(self.results['inline_data'], 'true')
+        self.assertEqual(self.results['inline_DATA'], 'true')
+
+    def test_every_other_scheme_stays_blocked(self):
+        for scheme in ('http', 'https', 'file', 'content', 'blob', 'javascript', '', 'null'):
+            self.assertEqual(self.results['inline_' + scheme], 'false', scheme)
+
+    def test_intercept_returns_null_only_through_inline_helper(self):
+        source = SOURCE.read_text()
+        body = re.search(r'public WebResourceResponse shouldInterceptRequest\(.*?\n            \}', source, re.S).group(0)
+        self.assertEqual(body.count('return null'), 1)
+        self.assertIn('if (loadsInline(request.getUrl().getScheme())) return null;', body)
+        self.assertEqual(len(re.findall(r'loadsInline\(', source)), 2)
+        self.assertIn('return "data".equalsIgnoreCase(scheme)', source)
+
+    def test_intercept_fallback_and_network_block_unchanged(self):
+        source = SOURCE.read_text()
+        body = re.search(r'public WebResourceResponse shouldInterceptRequest\(.*?\n            \}', source, re.S).group(0)
+        self.assertIn('return new WebResourceResponse("text/plain","UTF-8",new ByteArrayInputStream(new byte[0]));', body)
+        self.assertIn('settings.setBlockNetworkLoads(true);', source)
 
 
 if __name__ == '__main__':

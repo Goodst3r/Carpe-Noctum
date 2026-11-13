@@ -50,7 +50,7 @@ The WebView bundles all app resources and has no INTERNET permission, account, t
 - `shareText(title, text)` opens Android's chooser without sending automatically.
 - `printReport()` opens the print dialog, including Save as PDF when the device supports it. Deferred work checks the Activity/WebView lifecycle before preparation and printing.
 - Alert/confirm dialogs use Android dialogs.
-- The fixed `https://appassets.androidplatform.net/` origin preserves localStorage/IndexedDB identity across compatible updates. The wrapper denies remote-resource requests and file-URL access.
+- The fixed `https://appassets.androidplatform.net/` origin preserves localStorage/IndexedDB identity across compatible updates. The wrapper denies remote-resource requests and file-URL access. Self-contained `data:` resources (such as map page previews) load inline; every other intercepted request is answered empty.
 
 Android, Chrome and Safari/Home Screen jobs are separate stores. Android backups are disabled; complete project exports are the external backup. A run-sheet CSV/PDF is not a full backup with original evidence.
 
