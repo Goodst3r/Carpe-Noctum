@@ -79,7 +79,7 @@ const StudyMode=(()=>{
    const c=choice(r,x.fiberColor,a.fiber.COLORS);
    return {kind:'choice',prompt:`Counting from 1 with 12 fibers in each tube, which color is fiber ${fiber}?`,choices:c.choices,correct:c.correct,params:{fiber},working:[`Fiber ${fiber} is position ${x.position} in tube ${x.tube}.`,`The TIA-598 order is ${a.fiber.COLORS.join(', ')}, so position ${x.position} is ${x.fiberColor}.`],source:'TIA-598 color code (see Tools → Fiber)'};
   }},
-  {id:'unity',domain:'components',tool:{task:'gain',label:'Plan → Amp gain'},make:r=>{
+  {id:'unity',domain:'components',tool:{task:'gain',label:'Plan → Route & sweep'},make:r=>{
    const cable=grid(r,10,30,0.5),passives=grid(r,1,8,0.5);
    const answer=cable+passives;
    return number({prompt:`A span has ${cable} dB of cable loss and ${passives} dB of passive loss at the highest operating frequency. For unity gain, how much operational gain should the amplifier after it have?`,unit:'dB',answer,tol:0.05,params:{cable,passives},working:['Unity gain: the amplifier’s gain equals the loss of the span ahead of it at the same frequency.',`${cable} + ${passives} = ${round(answer)} dB.`],source:'SCTE 293-5 2024, unity gain'});

@@ -35,7 +35,7 @@ function check(name, ok) { assert.equal(ok, true, name); checks++; }
   check('42/54 stays the GS7K / GainMaker plant', part('plant') === '42/54 GS7K / GainMaker');
   check('a blank Station plane stays unknown', part('plane') === 'Measurement plane unknown');
   // The sample route is taps only, so the worksheet stays closed until an installed active exists.
-  ev("state.rows[0].device='active_gm_gan_hgd'");
+  ev("state.rows[0].device='active_gm_hgd'");
   ev("WorkflowUI.go('station')");
   const plane = d.querySelector('#stationPanel [data-station-scope="forward"][data-station-field="plane"]');
   assert.ok(plane, 'station plane field');
@@ -48,7 +48,7 @@ function check(name, ok) { assert.equal(ok, true, name); checks++; }
   ev("state.setup=Object.assign({}, state.setup, {sourceType:'node'})");
   ev("state.node=Object.assign({}, state.node, {model:'gs7000-1g', band:'0'})");
   ev("state.rows[0].name='SYNTHETIC route active A1'");
-  ev("state.rows[0].device='active_gm_gan_hgd'");
+  ev("state.rows[0].device='active_gm_hgd'");
   ev("if(state.stationView)state.stationView.selected=''");
   ev("WorkflowUI.selectPoint(state.rows[0].id)");
   ev("WorkflowUI.go('station')");
