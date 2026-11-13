@@ -64,6 +64,10 @@ Reviewing the other lane's open PR always comes before starting your own next it
 
 To get a phone-testable APK sooner, **no new items start.** The batch is #39, #40, #41, #36 and #42. These are **deferred to the next build** and are not blockers for the APK: A5 (tonight list), A6 (exact resume, also blocked on Spencer's phone checks) and B5 (temporary-repair follow-up). Open drafts #32, #1 and #2 are not part of the batch. After the batch, the remaining work is the final gate on the combined head and the two handoff files (A7, B6), then Claude's finishing session.
 
+### Routes and Sweep cleanup (Spencer, November 13)
+
+Spencer added the Routes and Sweep cleanup to the current update. See [the scope and acceptance checks](NEXT_UPDATE_SWEEP_MAP_SCOPE.md). This is the exception to the November 12 scope freeze. Finish the route workflow and rerun the release gate on the combined build before signing. Keep the calculator tools available.
+
 ### Not to be built
 
 - **Safety:** Spencer removed the Safety part of the app. Do not add any pre-work safety card, reminder or checklist.
@@ -169,7 +173,7 @@ CI green on the exact head; diff contains only the stated files; no `outputs/` o
 The build work is done when all of these are true:
 
 1. The five batch PRs are merged, and every other queue item is merged, or recorded BLOCKED or deferred with the reason (see "Scope freeze").
-2. Each builder has run the full gate on the same final batch head of `build3` and recorded its own counts and the standalone SHA-256, and hosted `QA gate` is green on it.
+2. The Routes and Sweep cleanup meets its acceptance checks. Each builder has run the full gate on the same final combined head of `build3` and recorded its own counts and the standalone SHA-256, and hosted `QA gate` is green on it.
 3. Grok has written `handoff_docs/lanes/grok-debug-handoff.md`: branches and PRs with heads and CI links; every failure with the reproduce command and the last 60 lines of output; doubts; the final `build3` commit and standalone SHA-256.
 4. ChatGPT has updated `handoff_docs/reviews/chatgpt-handoff-for-claude.md` the same way, plus everything "not re-verified".
 
