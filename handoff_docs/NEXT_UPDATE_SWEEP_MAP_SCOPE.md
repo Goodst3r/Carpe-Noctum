@@ -1,41 +1,31 @@
-# Next update: HGD station worksheet and map-built runs
+# Current update: simplify Routes and Sweep
 
-Decision from Spencer, November 13, 2026. This scopes the **next** update; it does not alter the current build 3 release gate.
+Spencer requested this cleanup for the update already in progress on November 13, 2026. Include it before the release candidate is signed. Run the release gate again on the combined build. Keep the calculator tools available from their current entry points.
 
-## Installed GainMaker model
+## One route view for planning and sweep
 
-Use **Cisco GainMaker High Gain Dual (HGD), 1 GHz, 42/54 MHz** as the sole GainMaker choice for new station work. The pictured housing is marked 1 GHz, 42/54 and AGC; those markings identify the family/configuration for this plant, not a universal set of plug-in values. Remove other GainMaker models from new-job pickers and practice defaults. Preserve legacy jobs containing other models and preserve the separate AOI/Vecima upgrade workflows. Do not silently convert stored equipment records.
+Open a job to its route. Show the node or launch active, the selected port, and the branches in order. Each route point shows its expected low and high levels when its RF inputs are known. Each active row shows the exact map **NAME**, selected leg, expected input and output, and a plain answer to **Can it make gain?** Tap the row to enter sweep readings and pad/EQ values inline. Keep the selected station and leg in view while entering or reviewing readings.
 
-## Sweep entry: one station, every active leg
+- **Expected levels.** Reuse the route engine and show its expected low/high input and output at the selected frequencies. Use the route's recorded launch levels, cable and passive losses, active configuration, and selected output. Keep measured values and target outputs separately labeled on the same row.
+- **Gain check.** Reuse the existing gain budget. Compare required gain to available gain at both markers for the selected leg. Show **Can make gain**, **Short on gain**, or **Needs input**, with the limiting frequency and margin when available. Surface low reserve and output-limit results separately. If available gain is sufficient but output capability is unknown, say **Gain available · output limit unknown**. A nominal catalog reference alone cannot establish a pass. Explain a missing or unverified input in one line at the affected row.
+- **Sweep readings.** Enter actual low/high input and output levels in dBmV for each applicable leg. Use the same frequencies shown on the route. Support an input shared by multiple outputs where the station has a common input and allow per-leg readings when needed. Keep Before and After values editable and allow saving an incomplete record. Where applicable, let the user identify the measurement plane and enter explicit test-point corrections. Compute measured gain only from comparable readings at matching frequencies.
+- **Pads & EQs.** Put a compact editable section in the active row. Show the installed and changed pad/EQ values for the slots supported by the selected model and leg. For HGD this includes forward input, interstage, main/aux output, and applicable return and AGC positions. Enter values in dB and start with blanks. Use station-specific values.
+- **Remove redundant navigation.** Make the route the normal path for expected levels, gain feasibility, readings and plug-in values. Remove separate page hops for those tasks. Move detailed traces, return setup and existing saved records out of the main route view. Preserve existing job and backup data.
 
-Keep the default worksheet short:
+## Equipment selection
 
-- Station label = exact source map **NAME** column. Keep TAG and model separately.
-- Enter the actual low/high marker frequencies used on this job (do not force 54/860 if carriers stop earlier).
-- Record forward input levels and forward output levels at those markers for MAIN, AUX1 and AUX2 as applicable. The station input may be shared, with a per-leg override if the measurement plane differs. Unused legs are hidden or marked not present.
-- Show measured gain and output tilt per leg only when the necessary readings and matching frequencies are present. Keep Before and After sets editable. A saved sweep trace/reference is optional evidence, not a prerequisite to entering levels.
-- Record measurement plane as input/output port or named test point. If a 20 dB test point is used, display raw meter reading and explicit addback separately; never infer or apply coupling from the photo. Blank means unknown, not zero.
+GainMaker 1 GHz installations can contain more than one active model. The photo identifies a Cisco GainMaker High Gain Dual 1 GHz unit with 42/54 MHz and AGC markings. Use that profile for stations where that model is confirmed. Keep model choices available for other installed actives and leave uncertain model assignments unverified. Review unused GainMaker variants for removal from new-job choices when the supported list is confirmed. Maintain compatibility with existing jobs and keep the applicable AOI and Vecima workflows.
 
-Provide a compact **Pads & EQs** area on the same station. Record installed and changed values for FWD IN PAD, FWD IN EQ, I/S PAD, I/S EQ, FWD MAIN OUT PAD, FWD AUX OUT PAD (identify AUX1/AUX2 path), REV OUT PAD, REV EQ, REV MAIN IN PAD, REV AUX1 IN PAD, REV AUX2 IN PAD, and AGC PAD when present. The UI may group these by forward/return and hide unused slots. Values are editable numbers with units dB; do not copy the photo's particular plug-ins to other stations. No auto recommendation without model-specific qualified tables and entered measurement planes.
+## Map upload builds the route draft
 
-Return readings can remain in a secondary section with their actual injection and receiver planes. Do not calculate a forward gain from return readings or assume a return injection target.
+Import a local PDF or image, including a marked-up PDF. Choose the launch node or active, output port and destinations. Read text, geometry and visible annotations and build an editable branch draft automatically. Raster recognition may be used locally for this map feature. Keep private maps out of the public repository.
 
-## Map upload creates a route draft
+Copy the exact **NAME** column to active labels. Retain TAG as a map reference and keep installed model as a separate field. Extract cable lengths and sizes, passive locations and ports, and active positions where legible. Use original walkout evidence for installed plant and apply the user's corrections about proposed or absent equipment. Flag unclear connections, cable construction, and installed models at the affected row. Keep confirmed sections usable. Display expected levels and gain results where the necessary path and data are supported.
 
-Allow a tech to select a PDF or image locally (including a marked-up or annotation-layer PDF), choose the node and output port, and enter destination NAMEs. Flatten or render annotation layers for visual review, then parse vector text/geometry and, for raster marks, use an offline recognition method if available. This overrides the prior no-OCR scope rule in `docs/BUILD_LIST.md` **for this specifically requested map-import feature**. No upload to a cloud service is required for job creation.
+## Acceptance checks
 
-Extract a candidate graph with source, cable spans (feet and diameter/construction where legible), tap/splitter/coupler ports, existing active locations, and destination NAMEs. Treat TAG, NAME, MODEL, proposed equipment, crossed-out/no-cable notes and installed markings as separate evidence. Preserve source page and position for every extracted element. Generate editable route rows and a review list for unknown links, split legs, cable curves and device losses. Do not claim numeric RF predictions for incomplete paths.
-
-The user confirms the drawn candidate route and can fix any edge or cable size before saving. Never force a connection across an uncertain map crossing, a line-cut mark, or a proposed booster. Ignore absent boosters when flagged. An active's GainMaker HGD model comes from the job configuration, while its **NAME** is copied verbatim from the map's NAME column. Keep the map private in the job; do not commit field maps to the public repository.
-
-## Acceptance examples
-
-1. A station with MAIN and AUX1 records actual low/high input and output, old/new FWD IN PAD and EQ, and two distinct output pad values. Save/reopen/export/import returns the same NAME, leg readings, frequencies, measurement planes and plug-in values.
-2. A test-point input of -20 dBmV remains -20 raw until the user explicitly enters the chosen addback; a missing addback produces no corrected level or gain.
-3. A scanned map with a separate TAG and NAME labels the station with NAME; changing its MODEL does not rename it. Two stations with the same NAME remain distinguishable by TAG/location rather than having fabricated suffixes.
-4. A marked PDF with an unconnected crossing, a proposed booster and an unclear .412/.625 transition produces a draft with review items. It does not insert the booster, connect the crossing or select a cable loss curve by diameter alone.
-5. A map whose annotations are stored in PDF layers is rendered with its markings visible and produces the same candidate NAMEs as the flattened copy.
-6. Existing saved jobs and AOI/Vecima workflows remain readable after the GainMaker new-selection list is narrowed. A legacy LE or HGBT record is not rewritten as HGD.
-7. An image or PDF with unreadable NAME or route marks yields an unresolved item and lets the tech enter the value manually; it never invents an asset or a level.
-
-Implementation sequence: specify a small job schema migration that preserves old records; build the compact station worksheet and save/restore checks; implement local map rendering/recognition and graph construction; validate against the two HA0005 maps and a separate synthetic ambiguity fixture; render and test on phone and browser. Treat OCR recognition as candidate evidence, never as certified plant truth.
+1. On a phone, open an imported route and see expected levels and the gain result for each supported active leg. Enter low/high input and output readings and pad/EQ values inline. Save and reopen the job with those values intact.
+2. A verified input of 10 dBmV and target of 43 dBmV at one marker require 33 dB of net gain at the same planes. Available net gain of 31 dB shows a 2 dB shortfall. Verify both markers, plus a case where gain is available and the output limit is unknown.
+3. An incomplete span, unverified model, missing gain curve or unavailable marker gives a specific reason at the affected route point. A draft link and a planned booster cannot generate a passing result. A raw test-point reading remains separate from the corrected port level.
+4. A marked PDF creates a draft with the same exact NAME values as its schedule. Unclear crossings or cable changes appear as review items. A mixed-model route keeps each station's installed model. Use a synthetic fixture in the public test suite and the private HA0005 job for a field check.
+5. Legacy jobs and exports open with their original values. The calculator tools remain available. Verify the route workflow and the release gate against the final combined build before signing.
