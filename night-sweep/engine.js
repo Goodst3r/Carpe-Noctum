@@ -46,6 +46,8 @@ const HFC = (() => {
  }
  function portsFor(device,row) {
   if(device?.custom)return row.terminal?[{id:'tap',label:'Each tap port',role:'tap'}]:[{id:'through',label:'OUT / through',role:'through'},{id:'tap',label:device.custom==='tap'?'Each tap port':'TAP / branch',role:device.custom==='tap'?'tap':'branch'}];
+  if(device?.id==='active_gm_hgd')return [{id:'through',label:'Main',role:'through'},{id:'aux',label:'Auxiliary',role:'output'},{id:'third',label:'Optional signal director output',role:'output'}];
+  if(device?.id==='active_gm_hgbt')return [{id:'through',label:'Main',role:'through'},{id:'output2',label:'Output 2',role:'output'},{id:'output3',label:'Output 3',role:'output'}];
   return device?.ports||[];
  }
  function selectedCurve(port,basis){return basis==='max'?port.maximum:(port.nominal||port.maximum);}
@@ -61,7 +63,7 @@ const HFC = (() => {
  // Active reference specifications are deliberately not used as a flat RF response.
  // Enter a measured/configured net gain profile for the selected output and band.
  function activeGainAt(device,row,f) {
-  if(!device?.active||!Number.isFinite(f)||f<5||f>1800)return null;
+  if(!device?.active||!Number.isFinite(f)||f<5||f>1800||(row.workbench?.modelId&&row.workbench.modelId!==device.id))return null;
   const lower=number(device.activeMinF??device.publishedGain?.forwardBand?.[0]??device.publishedGain?.min),upper=number(device.activeMaxF??device.publishedGain?.forwardBand?.[1]??device.publishedGain?.max);
   if((lower!==null&&f<lower)||(upper!==null&&f>upper))return null;
   const mode=row.activeMode||'anchors';
@@ -167,17 +169,19 @@ const HFC = (() => {
    (s.launchMode==='table'?launchAt(s,number(String(s.launchTable||'').trim().split(/[;,\s]+/)[0]))!==null:number(s.lowLevel)!==null&&number(s.highLevel)!==null);
   const validSetup=sourceConfig&&temp!==null&&temp>=-40&&temp<=185&&['nominal','max'].includes(s.basis)
    && (s.liveMax===undefined||(live!==null&&live>=5&&live<=1800));
-  const source=validSetup?launchAt(s,frequency):null,results=[],byKey=new Map();
+  const launchReason=state.mapLaunch&&state.mapLaunch.confirmed!==true?'Map launch and selected output port are unverified.':'',source=validSetup&&!launchReason?launchAt(s,frequency):null,results=[],byKey=new Map();
   const validLoss=validSetup&&Number.isFinite(frequency)&&frequency>=5&&frequency<=1800;
-  byKey.set('source',{level:source,loss:validLoss?0:null});
+  byKey.set('source',{level:source,loss:validLoss&&!launchReason?0:null,blockedReason:launchReason});
   for(const row of state.rows){
    const d=catalog.devices.find(d=>d.id===row.device),c=catalog.cables.find(c=>c.id===row.cable),parent=byKey.get(row.parent);
-   const cableLoss=cableAt(c,row,frequency,state.setup.temperature??68),valid=parent&&parent.level!==null&&cableLoss!==null;
-   const input=valid?number(parent.level-cableLoss):null,inputLoss=parent&&parent.loss!==null&&cableLoss!==null?number(parent.loss+cableLoss):null;
+   const m=row.mapImport, modelMismatch=m&&(!d||d.id==='none'||(m.kind==='active'&&!d.active)||(m.kind==='passive'&&d.active)), mapReason=m?(m.status==='absent'?'Equipment is marked absent.':m.status==='proposed'?'Proposed equipment is not installed.':modelMismatch?'Installed model is missing or does not match the map equipment type.':m.status==='draft'||m.connectionConfirmed!==true?'Map connection or span is unverified.':m.modelConfirmed!==true?'Installed model is unverified.':m.reasons?.length&&!m.reviewResolved?m.reasons.join(' '):''):(row.modelUnverified?'Installed model is unverified.':'');
+   const cableLoss=cableAt(c,row,frequency,state.setup.temperature??68),spanReason=spanLength(row)===null?'Span length or slack is missing or invalid.':cableLoss===null?'Cable construction or loss curve is unavailable at '+frequency+' MHz.':'',blockedReason=mapReason||parent?.blockedReason||(!parent?'Upstream connection is missing.':'')||spanReason;
+   const valid=parent&&parent.level!==null&&cableLoss!==null&&!blockedReason;
+   const input=valid?number(parent.level-cableLoss):null,inputLoss=!blockedReason&&parent&&parent.loss!==null&&cableLoss!==null?number(parent.loss+cableLoss):null;
    const gain=d?.active?activeGainAt(d,row,frequency):null,outputLoss=d?.active?number(row.outputLoss??0):null;
-   const outputs=portsFor(d,row).map(p=>{const pl=d?.active?(gain===null||outputLoss===null||outputLoss<0?null:number(outputLoss-gain)):d?passiveAt(d,p,row,frequency,state.setup.basis):null;const level=input===null||pl===null?null:number(input-pl),loss=inputLoss===null||pl===null?null:number(inputLoss+pl);const out={...p,key:row.id+'::'+p.id,level,loss,passiveLoss:d?.active?null:pl,activeGain:gain,outputLoss:d?.active?outputLoss:null,netLoss:pl};byKey.set(out.key,out);return out;});
+   const outputs=portsFor(d,row).map(p=>{const leg=p.id==='through'?null:row.workbench?.legGain?.[p.id],legRow=p.id==='through'?row:{...row,activeMode:'anchors',gainLowF:leg?.lowF,gainHighF:leg?.highF,gainLow:leg?.low,gainHigh:leg?.high},portGain=d?.active?activeGainAt(d,legRow,frequency):null,portLoss=d?.active?number(p.id==='through'?(row.outputLoss??0):(leg?.loss??0)):null;const pl=d?.active?(portGain===null||portLoss===null||portLoss<0?null:number(portLoss-portGain)):d?passiveAt(d,p,row,frequency,state.setup.basis):null;const level=input===null||pl===null?null:number(input-pl),loss=inputLoss===null||pl===null?null:number(inputLoss+pl);const portReason=blockedReason||(d?.active&&portGain===null?'Operating gain unavailable for '+p.label+' at '+frequency+' MHz.':'');const out={...p,key:row.id+'::'+p.id,level,loss,blockedReason:portReason,passiveLoss:d?.active?null:pl,activeGain:portGain,outputLoss:portLoss,netLoss:pl};byKey.set(out.key,out);return out;});
    const inputOut={key:row.id+'::input',label:d?.active?'Active input':'Passive input',role:'input',level:input,loss:inputLoss};
-   results.push({id:row.id,input:inputOut,cableLoss,outputs,orphan:!parent,device:d});
+   results.push({id:row.id,input:inputOut,cableLoss,outputs,orphan:!parent,device:d,blockedReason});
   }
   return {source,results,byKey};
  }
@@ -198,9 +202,11 @@ const HFC = (() => {
    const target=number(options[targetField]??row[targetField]??(state.setup.companyTargetProfile?null:state.setup[setupField])),limitRaw=options[limitField]??row[limitField],outputLimit=number(limitRaw);
    if(target===null&&state.setup.companyTargetProfile)warnings.push(`${key==='low'?'Low':'High'} amplifier target unknown. Enter the station's independent design target; the company node launch does not supply amplifier targets.`);
    if(present(limitRaw)&&outputLimit===null)return fail('Enter a numeric output limit or leave it blank.');
-   const result=run(state,catalog,frequency).results.find(r=>r.id===row.id),input=result?.input.level??null,availableGain=activeGainAt(device,row,frequency);
+   const result=(options.routeResults?.[key]||run(state,catalog,frequency)).results.find(r=>r.id===row.id),input=result?.input.level??null,availableGain=activeGainAt(device,row,frequency);
+   if(result?.blockedReason&&!warnings.includes(result.blockedReason))warnings.push(result.blockedReason);
    const requiredGain=input===null||target===null?null:number(target+outputLoss-input);
-   const margin=requiredGain===null||availableGain===null?null:number(availableGain-requiredGain);
+   const liveMax=number(state.setup?.liveMax),markerAvailable=liveMax===null||frequency<=liveMax;if(!markerAvailable)warnings.push(`${key==='low'?'Low':'High'} marker is above the available spectrum; choose an available carrier.`);
+   const margin=!markerAvailable||requiredGain===null||availableGain===null?null:number(availableGain-requiredGain);
    const predictedOutput=input===null||availableGain===null?null:number(input+availableGain-outputLoss);
    bands[key]={frequency,input,target,outputLoss,requiredGain,availableGain,margin,predictedOutput,outputLimit,targetLimitMargin:outputLimit===null||target===null?null:number(outputLimit-target),predictedLimitMargin:outputLimit===null||predictedOutput===null?null:number(outputLimit-predictedOutput)};
    if(requiredGain!==null&&requiredGain<0)warnings.push(`${key==='low'?'Low':'High'} target is below the signal at the active input after output loss; attenuation or a lower gain setting is needed.`);
