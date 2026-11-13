@@ -962,7 +962,10 @@
       if (pdf) await pdf.destroy();
     }
   }
-  function mount(container, { onDraft, onError } = {}) {
+  function mount(
+    container,
+    { onDraft, onError, getContext, matchesContext } = {},
+  ) {
     const el = (tag, text, attrs = {}) => {
       const e = document.createElement(tag);
       if (text) e.textContent = text;
@@ -1003,18 +1006,52 @@
     });
     container.append(title, note, input, status, content, licenses);
     let current = null,
+      currentContext,
+      pickerContext,
+      pickerContextCaptured = false,
       disposed = false;
+    const contextMatches = (token) =>
+      typeof getContext !== "function" ||
+      (typeof matchesContext === "function"
+        ? matchesContext(token, getContext())
+        : token === getContext());
+    const discardStaleDraft = () => {
+      current = null;
+      content.replaceChildren();
+      input.value = "";
+      status.textContent =
+        "Job changed. Read the map again for the current job.";
+    };
+    input.addEventListener("click", () => {
+      pickerContext = getContext?.();
+      pickerContextCaptured = true;
+    });
     input.addEventListener("change", async () => {
       if (!input.files[0]) return;
+      const readContext = pickerContextCaptured
+        ? pickerContext
+        : getContext?.();
+      pickerContextCaptured = false;
+      if (!contextMatches(readContext)) {
+        discardStaleDraft();
+        return;
+      }
       input.disabled = true;
+      current = null;
       content.replaceChildren();
       try {
-        current = await read(input.files[0], {
+        const recognized = await read(input.files[0], {
           onProgress: (t) => {
             if (!disposed) status.textContent = t;
           },
         });
         if (disposed) return;
+        if (!contextMatches(readContext)) {
+          discardStaleDraft();
+          return;
+        }
+        current = recognized;
+        currentContext = readContext;
         status.textContent =
           current.candidates.length +
           " map points recognized. Every imported connection needs review.";
@@ -1089,6 +1126,10 @@
         );
         button.addEventListener("click", () => {
           try {
+            if (!contextMatches(currentContext)) {
+              discardStaleDraft();
+              return;
+            }
             const draft = buildDraft(current, {
               launchId: launch.value,
               port: port.value,
@@ -1097,7 +1138,15 @@
               ).map((e) => e.value),
             });
             draft.originalFile = current.originalFile;
-            onDraft?.(draft);
+            if (!contextMatches(currentContext)) {
+              discardStaleDraft();
+              return;
+            }
+            if (onDraft?.(draft, currentContext) === false) {
+              status.textContent =
+                "Import cancelled; existing route unchanged.";
+              return;
+            }
             status.textContent =
               draft.rows.length +
               " editable draft points added. Confirm each connection, cable and installed model.";
@@ -1107,6 +1156,11 @@
           }
         });
       } catch (e) {
+        if (disposed) return;
+        if (!contextMatches(readContext)) {
+          discardStaleDraft();
+          return;
+        }
         status.textContent = e.message || "Local map recognition failed.";
         onError?.(e);
       } finally {
