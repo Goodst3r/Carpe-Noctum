@@ -4,7 +4,7 @@ Read **`AGENTS.md`** for project rules and [the single-writer workflow](handoff_
 
 ## Role
 
-Claude reviews the finished batch once and gives **APPROVE** or **CHANGES NEEDED** on the exact candidate SHA. Start on Sonnet 5.5 at medium effort. Move to Opus 5.5 for cross-file or repeatedly failing defects and Fable 5.2 only if both miss. Debug reported defects on your own branch. Give Codex reproducible evidence and a proposed fix so it can write any app-code correction. Spencer builds and signs the APK off-repo with the original key and checks it on the phone.
+Claude reviews the finished batch once and gives **APPROVE** or **CHANGES NEEDED** on the exact candidate SHA. Choose and switch among the models and effort levels available in the current session using the [model guidance](handoff_docs/PARALLEL_TASKS.md#model-selection-and-switching). Debug reported defects on your own branch. Give Codex reproducible evidence and a proposed fix so it can write any app-code correction. Spencer builds and signs the APK off-repo with the original key and checks it on the phone.
 
 ## Before any work
 

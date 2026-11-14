@@ -25,14 +25,29 @@ Keep these requirements in the queue when sizing the two priorities. Report any 
 
 | Owner | Responsibility |
 | --- | --- |
-| ChatGPT / Codex, GPT-6.1 Sol | Sole app-code writer. Use medium effort for routine work and high effort for difficult RF, import or PDF work. Owns optimization, verified company-level entry, map/PDF and route/ONX implementation in the agreed batch. Ships affected tests, a practice step and guide text per item. Integrates review fixes and prepares the web candidate. |
-| Claude | Reviews the finished batch once and makes the final technical call. Starts on Sonnet 5.5 at medium effort, escalates to Opus 5.5 when a defect spans files or keeps failing, and uses Fable 5.2 only if both miss. Debugs reported defects on its own branch with a reproduction, regression evidence and a proposed fix. Codex owns any app-code correction. |
-| Grok | Participation is open. If Spencer retains Grok, it may check standing rules and take separable chores such as comparing approved guide text against the UI and returning suggested wording. Grok works read-only in the repository. It has no signing key or real meter files, and does not review the batch for approval or write code. |
+| ChatGPT / Codex | Sole app-code writer. Owns optimization, verified company-level entry, map/PDF and route/ONX implementation in the agreed batch. Ships affected tests, a practice step and guide text per item. Integrates review fixes and prepares the web candidate. |
+| Claude | Reviews the finished batch once and makes the final technical call. Debugs reported defects on its own branch with a reproduction, regression evidence and a proposed fix. Codex owns any app-code correction. |
+| Grok 4.7 Heavy | Spencer retained Grok for read-only rule checks and separable chores such as guide synchronization. Grok, Harper, Benjamin and Lucas return evidence or proposed wording to Codex. Use only the roles needed for the assigned work. Keep real meter files and signing material private. Claude owns the batch review and approval. |
 | Spencer | Makes product and release decisions, confirms company levels, builds and signs the APK off-repo with the original key, and runs the real-phone test. Records whether the in-place upgrade retained saved jobs and attachments. |
 
-**Question for Spencer.** Keep Grok for rule checks and narrowly scoped guide-text assistance, or leave Grok off the project? The writer and reviewer can proceed while that decision is open.
+## Model selection and switching
+
+Codex and Claude can use any model and reasoning effort available in their own current client, account and approved usage. Pick for the task, tool access, accuracy and expected rework. Among models that meet the accuracy requirement, prefer the one that finishes the work with less usage and time. Use the model's supported default effort as a starting point. Increase effort when the current model needs to check more evidence, or switch models when the task or capability changes. A difficult RF, PDF geometry or saved-job issue can start on a stronger model immediately.
+
+| Work | Codex examples | Claude Code examples |
+| --- | --- | --- |
+| Narrow extraction, log triage and repeatable checks | GPT-6 Luna | Haiku 5.5 |
+| Rendered layout, screenshots and browser interaction | GPT-6.1 Terra | An available vision-capable model, such as Sonnet 5.5 |
+| Routine implementation, integration and review | GPT-6.1 Sol for implementation | Sonnet 5.5 for routine review and focused reproductions |
+| High-risk or ambiguous RF, PDF or saved-job work | GPT-6.1 Sol with higher effort or GPT-6 Astra | Opus 5.5 or Fable 5.2 when the evidence warrants it |
+
+These are starting points, and the actual model picker governs availability. In Codex use `/model` in the CLI, the client model picker or `codex -m MODEL` at launch. In Claude Code use `/model` and `/effort` or `claude --model MODEL` at launch. If the host exposes a supported control, apply the switch through that control. If it requires Spencer's input, state the model and effort to select or continue with a suitable available model. Before switching, keep the current branch and SHA, commands, results and remaining work. Verify the active model and log the change and reason. Model switches preserve writer/reviewer roles and verification requirements. Use existing plans and approved credits.
+
+Provider task guidance and controls, checked November 14, 2026 using Octen discovery and Firecrawl retrieval. [OpenAI model guidance](https://learn.chatgpt.com/docs/models) · [Anthropic model overview](https://platform.claude.com/docs/en/about-claude/models/overview) · [Claude Code configuration](https://code.claude.com/docs/en/model-config)
 
 ## From item branch to phone release
+
+Run the Codex kickoff first to pin `build3`. Send Grok the exact SHA and an independent support task once Codex has pinned it. Grok's task can run alongside implementation. Send Claude the finished candidate SHA and evidence for the single batch review. After Claude's final call and any corrections, Spencer signs and tests the APK off-repo.
 
 1. **Start an item.** Fetch `origin` and pin the latest `origin/build3`. Codex creates one owned branch per item, with a small scope and pass/fail examples. Invite independent math evidence for new formulas before relying on an implementation result. Track the baseline, owner, model and effort in the item handoff.
 2. **Build and verify the item.** Run affected suites, refusal cases and any relevant render or legacy import/backup checks as changes are made. Include the item-specific practice step and guide text. Record commands, exits, evidence and unavailable checks. Measure before/after when optimizing. Draft item PRs can hold evidence and changes while the batch is assembled. They do not require separate Claude reviews.
