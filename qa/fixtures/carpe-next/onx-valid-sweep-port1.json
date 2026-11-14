@@ -1,0 +1,27 @@
+{
+  "cdmVersion": "2.0",
+  "tests": [
+    {
+      "type": "sweepmode_app",
+      "label": "Forward Sweep Port1",
+      "results": {
+        "data": {
+          "chart1": {
+            "eType": "resultSeries",
+            "type": "line",
+            "xAxisLabel": "MHz",
+            "yAxisLabel": "dBmV",
+            "label": "forward sweep",
+            "series1": {
+              "eType": "series",
+              "name": "Unreferenced",
+              "dimensions": 2,
+              "units": ["MHz", "dBmV"],
+              "data": [[54, 35.2], [100, 36.1], [550, 40.5], [860, 42.0]]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
