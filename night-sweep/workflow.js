@@ -2,9 +2,9 @@
 const WorkflowUI=(()=>{
  const groups={
   home:{label:'Home',tabs:[['home','Home']]},
-  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['sweepSetup','Meter setup'],['station','Station records'],['evidence','ONX files']]}]},
+  plan:{label:'Route & sweep',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['sweepSetup','Meter setup'],['station','Station records'],['evidence','ONX files']]}]},
   tools:{label:'Tools',list:true,sections:[
-   {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency'],['tdr','TDR']]},
+   {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency'],['tdr','TDR'],['powerPm','Voltage drop']]},
    {title:'Limits and sources',items:[['limits','Limits'],['references','References'],['parts','Catalog']]},
    {title:'Cards',items:[['docsisHealth','DOCSIS health'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance']]},
    {title:'Learn',items:[['study','Study']]}

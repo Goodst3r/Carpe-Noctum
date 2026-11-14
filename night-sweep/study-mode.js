@@ -79,7 +79,7 @@ const StudyMode=(()=>{
    const c=choice(r,x.fiberColor,a.fiber.COLORS);
    return {kind:'choice',prompt:`Counting from 1 with 12 fibers in each tube, which color is fiber ${fiber}?`,choices:c.choices,correct:c.correct,params:{fiber},working:[`Fiber ${fiber} is position ${x.position} in tube ${x.tube}.`,`The TIA-598 order is ${a.fiber.COLORS.join(', ')}, so position ${x.position} is ${x.fiberColor}.`],source:'TIA-598 color code (see Tools → Fiber)'};
   }},
-  {id:'unity',domain:'components',tool:{task:'gain',label:'Plan → Route & sweep'},make:r=>{
+  {id:'unity',domain:'components',tool:{task:'gain',label:'Route & sweep → Route & sweep'},make:r=>{
    const cable=grid(r,10,30,0.5),passives=grid(r,1,8,0.5);
    const answer=cable+passives;
    return number({prompt:`A span has ${cable} dB of cable loss and ${passives} dB of passive loss at the highest operating frequency. For unity gain, how much operational gain should the amplifier after it have?`,unit:'dB',answer,tol:0.05,params:{cable,passives},working:['Unity gain: the amplifier’s gain equals the loss of the span ahead of it at the same frequency.',`${cable} + ${passives} = ${round(answer)} dB.`],source:'SCTE 293-5 2024, unity gain'});
@@ -109,12 +109,12 @@ const StudyMode=(()=>{
    const x=a.calc.rippleDistance(spacingR,vp);
    return number({prompt:`A sweep shows a standing-wave ripple whose peaks are ${spacingR} MHz apart, on cable with a velocity of propagation of ${vp}. How far apart, in feet, are the two mismatches?`,unit:'ft',answer:x.feet,tol:0.01,relative:true,params:{spacing:spacingR,vp},working:[`Distance (ft) = ${round(a.calc.C_FT_PER_US/2,1)} × VP ÷ ripple spacing (MHz), where ${round(a.calc.C_FT_PER_US/2,1)} ft·MHz is half the speed of light in feet per microsecond.`,`${round(a.calc.C_FT_PER_US/2,1)} × ${vp} ÷ ${spacingR} = ${round(x.feet,1)} ft.`],source:'SCTE 280 2022, standing waves (see Tools → Impairments)'});
   }},
-  {id:'leak3m',domain:'troubleshooting',tool:{task:'leakage',label:'Field → Leakage'},make:r=>{
+  {id:'leak3m',domain:'troubleshooting',tool:{task:'leakage',label:'Route & sweep → Leakage'},make:r=>{
    const field=grid(r,20,200,5),distance=pick(r,[10,30,100]),a=app();
    const x=a.leak.normalize({field,distance,unit:'m'});
    return number({prompt:`A leak reads ${field} µV/m at ${distance} m. What is that restated at 3 m?`,unit:'µV/m',answer:x.at3,tol:0.005,relative:true,params:{field,distance},working:['In the far field the field strength falls in proportion to distance: E at 3 m ≈ E × distance ÷ 3 m.',`${field} × ${distance} ÷ 3 = ${round(x.at3,1)} µV/m (an approximation; measure at 3 m when you can).`],source:'SCTE 221 2020 (R2026) and SCTE 293-12 2025'});
   }},
-  {id:'cli',domain:'troubleshooting',tool:{task:'leakage',label:'Field → Leakage'},make:r=>{
+  {id:'cli',domain:'troubleshooting',tool:{task:'leakage',label:'Route & sweep → Leakage'},make:r=>{
    const leaks=[grid(r,60,300,10),grid(r,60,300,10),grid(r,60,300,10)],theta=pick(r,[0.8,0.9,1]),a=app();
    const x=a.leak.cli({leaks:leaks.join(' '),theta:String(theta)});
    return number({prompt:`Three leaks of ${leaks.join(', ')} µV/m were found at 3 m on the 108–137 MHz basis, with ${Math.round(theta*100)}% of the plant examined. What is the cumulative leakage index in dB?`,unit:'dB',answer:x.cli,tol:0.05,params:{leaks,theta},working:['CLI = 10·log10( (1 ÷ fraction examined) × the sum of each leak’s field strength squared ), counting leaks of 50 µV/m or more.',`10·log10( (${leaks.map(v=>v+'²').join(' + ')}) ÷ ${theta} ) = ${round(x.cli)} dB. The limit is 64 dB.`],source:'47 CFR 76.611(a)(1)'});
@@ -137,7 +137,7 @@ const StudyMode=(()=>{
    const c=choice(r,item.group,groups);
    return {kind:'choice',prompt:`In which section of the outage first-response card does this prompt appear? “${item.text}”`,choices:c.choices,correct:c.correct,params:{item:item.id},working:[`It is in “${item.group}”.`,'The card is a set of prompts written for this app. It is not your company’s procedure; follow it first.'],source:'This app’s Home → Outage card'};
   }}
- ].map(g=>Object.freeze(g));
+ ].filter(g=>!['leakage','outage'].includes(g.tool.task)).map(g=>Object.freeze(g));
  const SEED_STEP=7919;
  /* Question number k (0 based) within a domain filter, for a base seed. */
  function list(domain){return domain&&domain!=='all'?GENERATORS.filter(g=>g.domain===domain):GENERATORS;}
