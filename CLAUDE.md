@@ -1,21 +1,21 @@
 # CLAUDE.md
 
-Everything a Claude session needs to know about this project is in **`AGENTS.md`**. Read it first; this file only adds what is specific to Claude Code sessions. Put project rules in `AGENTS.md` and who-does-what in `handoff_docs/WORKFLOW.md`, not here.
+Read **`AGENTS.md`** for project rules and [the single-writer workflow](handoff_docs/PARALLEL_TASKS.md) for work ownership and review. Use the Claude kickoff in [starting prompts](handoff_docs/PROMPTS.md).
 
 ## Role
 
-From the night of November 12, 2026 Grok and ChatGPT build, run the long gates, math-check and cross-review each other. Claude is the gatekeeper: read each pull request's diff, apply the gatekeeper check in `handoff_docs/WORKFLOW.md`, and comment APPROVE or CHANGES NEEDED on the exact head SHA. Do not re-run the full gate (hosted CI on that SHA covers it) and do not build features. Record each check in `handoff_docs/reviews/claude-gatekeeper-log.md`. A missing Claude comment does not block a merge; audit merged work afterwards. The APK is built and signed only by the later finishing session, following `handoff_docs/APK_PLAN.md`.
+Claude reviews the finished batch once and gives **APPROVE** or **CHANGES NEEDED** on the exact candidate SHA. Start on Sonnet 5.5 at medium effort. Move to Opus 5.5 for cross-file or repeatedly failing defects and Fable 5.2 only if both miss. Debug reported defects on your own branch. Give Codex reproducible evidence and a proposed fix so it can write any app-code correction. Spencer builds and signs the APK off-repo with the original key and checks it on the phone.
 
 ## Before any work
 
-1. Read `AGENTS.md`, then `handoff_docs/WORKFLOW.md`.
+1. Read `AGENTS.md`, then `handoff_docs/PARALLEL_TASKS.md`.
 2. `git fetch origin`, then look at open pull requests and recent commits on `build3`. The repository is the record, not an earlier chat.
-3. Read `handoff_docs/lanes/grok-status.md` and `handoff_docs/lanes/chatgpt-status.md` for what each builder last recorded.
+3. Read the writer's batch handoff for the proposed merge SHA, HTML hash and test evidence.
 
 ## Working rules in short
 
 - Branch from the latest `build3`. Never push to `main` or to another assistant's branch. Never force-push or rebase; integrate with ordinary merges.
-- Never change the version, storage keys, package ID or job file format, or put signing keys or real meter files in the repository. Only the finishing session builds and signs an APK (`handoff_docs/APK_PLAN.md`).
+- Preserve the version, storage keys, package ID and job-format compatibility. Job changes are additive only. Keep signing keys and real meter files out of the repository. Assistants never build or sign an APK.
 - Restore test churn before committing: `git checkout -- release research`. A clean `git status` after a normal gate is expected.
 - Generated files (`outputs/Night_Sweep.html`, `dist/`) are rebuilt with `python3 night-sweep/build.py` and `python3 build-pwa.py`, never hand-merged.
 - Report your own command results. Keep automated, rendered-browser, emulator, phone and field results separate. Say plainly what was not run.
