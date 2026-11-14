@@ -1,11 +1,10 @@
 /* 1.5 task navigation. Reuses live controls and schema-one data; no calculation changes. */
 const WorkflowUI=(()=>{
  const groups={
-  home:{label:'Home',tabs:[['home','Home'],['outage','Outage']]},
-  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['powerPm','Supply PM'],['sweepDue','Sweep due']]}]},
-  field:{label:'Field',list:true,sections:[{title:'Field',items:[['sweepSetup','Meter setup'],['station','Station records'],['tdr','TDR'],['evidence','ONX files'],['leakage','Leakage'],['checklists','Checklists'],['nightLog','Night log']]}]},
+  home:{label:'Home',tabs:[['home','Home']]},
+  plan:{label:'Plan',list:true,sections:[{title:'Plan',items:[['projects','Details'],['setup','Setup'],['route','Route & sweep'],['equipmentSetup','Amp / node setup'],['sweep','Predicted levels'],['power','Load & what-if'],['sweepSetup','Meter setup'],['station','Station records'],['evidence','ONX files']]}]},
   tools:{label:'Tools',list:true,sections:[
-   {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency']]},
+   {title:'Calculators',items:[['calculators','Calculators'],['frequency','Frequency'],['tdr','TDR']]},
    {title:'Limits and sources',items:[['limits','Limits'],['references','References'],['parts','Catalog']]},
    {title:'Cards',items:[['docsisHealth','DOCSIS health'],['impairments','Impairments'],['fiber','Fiber'],['highSplit','High split'],['why','Why cards'],['pop','Proof of performance']]},
    {title:'Learn',items:[['study','Study']]}
@@ -14,20 +13,20 @@ const WorkflowUI=(()=>{
  };
  for(const spec of Object.values(groups))if(!spec.tabs)spec.tabs=spec.sections.flatMap(section=>section.items);
  const screens={
-  nightLog:['field','Night log and shift handoff','Keep personal window notes and explicitly capture both saved Station stages for the next shift.'],
+  nightLog:['plan','Night log and shift handoff','Keep personal window notes and explicitly capture both saved Station stages for the next shift.'],
   sweepDue:['plan','Review personal sweep reminders','Read saved Station sweep and balance dates across this device’s jobs. Enter your own reminder interval.'],
-  station:['field','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
+  station:['plan','Record station balance and sweep','Choose an installed node or amplifier. Save forward and return measurements, then record balance and sweep separately.'],
   home:['home','Choose your task','Start with a field task, or continue the working job below.'],
   setup:['plan','Set the starting signal','Enter launch frequencies, levels and cable temperature before building your route.'],
   route:['plan','Route & sweep','Follow the launch and branches, then record readings at each station.'],
   gain:['plan','Check amplifier gain','Choose an active on your route, enter its gain, then review both frequency margins.'],
   equipmentSetup:['plan','Set up the installed equipment','Choose the launch or a route active, review its exact manual and save setup notes.'],
   parts:['tools','Equipment catalog','Search by model or part number, then review its published gain or loss data.'],
-  tdr:['field','Locate a TDR distance','Use the route you built to place a one-way meter distance on the correct span.'],
-  sweepSetup:['field','Set up the meter','Follow your 42/54 or 204/258 MHz procedure, save settings and record each step.'],
+  tdr:['tools','Locate a TDR distance','Use the route you built to place a one-way meter distance on the correct span.'],
+  sweepSetup:['plan','Set up the meter','Follow your 42/54 or 204/258 MHz procedure, save settings and record each step.'],
   sweep:['plan','View predicted levels','Expected levels along the route. Calculated from your inputs, not a meter trace.'],
   frequency:['tools','Check one cable / passive path','Calculate a separate path at a chosen frequency. This does not add points to the RF route.'],
-  readings:['field','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
+  readings:['plan','Compare meter readings','Choose a route point, enter your measurement and compare it with the predicted output.'],
   references:['tools','Use a field reference','Look up cable loss and tap faces, or apply an editable frequency / target reference.'],
   calculators:['tools','Run a quick calculation','dB units, ripple and pre-EQ distance, OFDM power and echo delay. Each formula shows its source.'],
   fiber:['tools','Fiber color code and loss budget','Find a fiber by number, tube and color, and estimate a link\'s loss from length, connectors and splices. Nothing is read from a meter.'],
@@ -36,23 +35,23 @@ const WorkflowUI=(()=>{
   why:['tools','Why cards: the basics in plain words','Fourteen short cards on the basics behind the numbers in this app, one for each SCTE 293 "What is …?" monograph, each linking to the screen that uses it. A summary, not a copy. Nothing is typed, stored or read from a meter.'],
   highSplit:['tools','High split and Remote PHY','Band plans for the 204/258 MHz plant, where the aeronautical band falls, and what is public about Remote PHY bring-up. Each statement names its document and issue. A reading aid: nothing is read from a node or stored.'],
   impairments:['tools','Find the impairment','Pick what the meter shows and read its card: what it looks like, what usually causes it and five steps. Your own aid, not your company\'s procedure.'],
-  leakage:['field','Check and log signal leakage','FCC limits, distance and CLI math, a detector check and your own leak log. A personal notebook, not the company record.'],
+  leakage:['plan','Check and log signal leakage','FCC limits, distance and CLI math, a detector check and your own leak log. A personal notebook, not the company record.'],
   docsisHealth:['tools','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
   limits:['tools','Check a limit or its source','Limits, targets and formulas behind the field tools and job criteria, labeled spec, expert, company or unknown.'],
   power:['plan','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
   powerPm:['plan','Record a supply PM check','Record what you saw at a standby supply and estimate span voltage drop from the cable catalog. A notebook on this device, not the company record and not part of the job.'],
   trial:['plan','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['plan','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
-  evidence:['field','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],
+  evidence:['plan','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],
   outage:['home','Respond to an outage','First-response prompts: scope, power, node, actives in order, who to tell and the times. Not your company’s procedure; follow it first.'],
-  checklists:['field','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
+  checklists:['plan','Record field work','Track inspections and repair notes. Checkmarks do not establish RF acceptance.'],
   records:['closeout','Measurements and acceptance','Advanced job records: enter actual measurements and verified plant criteria.'],
   runsheet:['closeout','Review and share the run sheet','Review predictions, measurements and field notes before printing or exporting.'],
   help:['home','Quick help','Pick a common task, learn the terms and review calculation limits.']
  };
  const pointDetailState=new Map();
  let printVisibility=null;
- let ready=false,current='home',point='',activePoint='',lastGroup={plan:'route',field:'sweepSetup',tools:'calculators',closeout:'records'},applying=false,queued=false,rendering=0,refreshing=0,calculationCache=null;
+ let ready=false,current='calculators',point='',activePoint='',lastGroup={plan:'route',tools:'calculators',closeout:'records'},applying=false,queued=false,rendering=0,refreshing=0,calculationCache=null;
  function calculationBatch(action){
   if(calculationCache)return action();
   calculationCache=new Map();
@@ -83,7 +82,7 @@ const WorkflowUI=(()=>{
   document.body.dataset.task=current;
  }
  function go(tab,options={}){
-  const requested=tab,aliases={job:'projects',test:'sweepSetup',equipment:'parts',help:'help',gain:'route',readings:'route',trial:'power'};
+  const requested=tab,aliases={field:'route',leakage:'calculators',job:'projects',test:'sweepSetup',equipment:'parts',help:'help',gain:'route',readings:'route',trial:'power'};
   if(groups[tab]&&!screens[tab])tab=lastGroup[tab]||groups[tab].tabs[0][0];
   tab=aliases[tab]||tab;
   if(!screens[tab])tab='home';current=tab;const group=screens[tab][0];if(group!=='home')lastGroup[group]=tab;
@@ -235,7 +234,7 @@ const WorkflowUI=(()=>{
   const originalPower=renderPower;renderPower=function(...args){const r=originalPower(...args);apply();return r;};
   showTab=go;window.NightSweep.showTab=go;
   const oldPrepare=window.NightSweep.preparePrint,oldRestore=window.NightSweep.restorePrint;window.NightSweep.preparePrint=()=>{oldPrepare?.();prepareVisibilityForPrint();};window.NightSweep.restorePrint=()=>{oldRestore?.();restoreVisibilityAfterPrint();};window.addEventListener('beforeprint',prepareVisibilityForPrint);window.addEventListener('afterprint',restoreVisibilityAfterPrint);
-  all('[data-main-tab]').forEach(b=>b.onclick=()=>go(b.dataset.mainTab==='home'?'home':lastGroup[b.dataset.mainTab]));
+  all('[data-main-tab]').forEach(b=>b.onclick=()=>go(({home:'home',plan:'route',tools:'calculators',closeout:lastGroup.closeout})[b.dataset.mainTab]));
   $('helpButton').onclick=()=>go('help');
   const add=$('add'),oldAdd=add.onclick;add.onclick=()=>{const before=state.rows.length;oldAdd();if(state.rows.length>before)point=state.rows.at(-1).id;go('route',{scroll:false});};
   const same=$('sameSpanNext'),oldSame=same?.onclick;if(same)same.onclick=()=>{const before=state.rows.length;oldSame();if(state.rows.length>before)point=state.rows.at(-1).id;go('route',{scroll:false});};
@@ -276,7 +275,7 @@ const WorkflowUI=(()=>{
   });
   document.addEventListener('input',queue);document.addEventListener('change',queue);
   if(typeof MutationObserver!=='undefined')new MutationObserver(queue).observe(document.querySelector('main'),{childList:true,subtree:true});
-  go('home',{scroll:false});
+  go('calculators',{scroll:false});
  }
  return {init,go,current:()=>current,selectPoint:setPoint,apply,groups,screens};
 })();
