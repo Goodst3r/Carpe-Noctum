@@ -1,55 +1,48 @@
 #!/usr/bin/env python3
-"""Deterministic generator for synthetic multi-sheet, rotated, and cropped PDF fixtures.
-Uses public ReportLab canvas APIs only. Temporary outputs are deterministic.
-Synthetic only.
+"""Synthetic map PDFs for next-build QA. Public ReportLab only.
+
+Canvas(..., invariant=1) fixes the document ID and the creation/mod dates so
+two runs are byte-identical. setPageRotation writes a real /Rotate entry.
+setCropBox writes a CropBox rectangle distinct from the MediaBox. Files are
+written only to the directory the caller supplies.
 """
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
 from pathlib import Path
 
-def generate(out_dir=None):
-    if out_dir is None:
-        out_dir = Path(__file__).resolve().parent
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen.canvas import Canvas
+
+# Inside the rotated MediaBox [0, 0, 792, 612]. Origin is not zero and the
+# rectangle is not the MediaBox, so a parser can see a real crop.
+CROP = (36, 36, 760, 580)
+MARKER = "SYNTHETIC ORIGINAL MARKUP"
+ANNOTATION = "Existing annotation"
+
+
+def generate(out_dir):
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / "synthetic-rotated-cropped.pdf"
+    canvas = Canvas(
+        str(path),
+        pagesize=letter,
+        invariant=1,
+        pdfVersion=(1, 4),
+    )
+    canvas.setTitle("synthetic-map")
+    canvas.setAuthor("carpe-next-qa")
+    canvas.setSubject("synthetic")
+    canvas.setPageRotation(90)
+    canvas.setCropBox(CROP)
+    canvas.drawString(72, 500, MARKER)
+    canvas.drawString(72, 480, "NAME: ACT1 TAG: T1")
+    canvas.textAnnotation(ANNOTATION, Rect=(120, 120, 180, 160))
+    canvas.showPage()
+    canvas.save()
+    return {"rotated_cropped": path, "crop": CROP, "rotation": 90, "marker": MARKER, "annotation": ANNOTATION}
 
-    # Multi-sheet
-    path = out_dir / "synthetic-multi-sheet.pdf"
-    c = canvas.Canvas(str(path), pagesize=letter)
-    c.drawString(1*inch, 10*inch, "NAME: ACT1 TAG: T1 Active Symbol")
-    c.drawString(1*inch, 9*inch, "Symbol: [ACTIVE]")
-    c.showPage()
-    c.drawString(1*inch, 10*inch, "NAME: EOL1 TAG: T2 EOL Symbol")
-    c.drawString(1*inch, 9*inch, "Symbol: [EOL]")
-    c.showPage()
-    c.save()
-
-    # Rotated page using public rotate
-    path = out_dir / "synthetic-rotated.pdf"
-    c = canvas.Canvas(str(path), pagesize=letter)
-    c.saveState()
-    c.rotate(90)
-    c.drawString(1*inch, -10*inch, "ROTATED NAME: ACT1 TAG: T1 Active")
-    c.restoreState()
-    c.showPage()
-    c.save()
-
-    # Cropped using public page cropBox if available, else documented
-    path = out_dir / "synthetic-cropped.pdf"
-    c = canvas.Canvas(str(path), pagesize=letter)
-    c.drawString(1*inch, 10*inch, "CROPPED NAME: ACT1 TAG: T1")
-    # Public API: set cropBox on the page object after creation where supported
-    try:
-        page = c._doc.page
-        if hasattr(page, 'cropBox'):
-            page.cropBox = [50, 50, 500, 700]
-    except Exception:
-        pass  # Fallback; crop verified separately if needed
-    c.showPage()
-    c.save()
-
-    print(f"Generated deterministic synthetic fixtures in {out_dir}")
 
 if __name__ == "__main__":
-    generate()
+    import tempfile
+    destination = Path(tempfile.mkdtemp(prefix="carpe-next-pdf-"))
+    made = generate(destination)
+    print(made["rotated_cropped"])

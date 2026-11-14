@@ -1,56 +1,129 @@
 #!/usr/bin/env python3
-"""PDF QA: deterministic generator with public ReportLab, stable hashes, rotation/crop,
-and assertions against NightSweepMapPDF.plan/exportPDF (contract at 1bcda8d90faa8bb997aa9cfd33c605e83090de13).
-On baseline 248e778 the module is absent (expected gap); on candidate exercise plan/export.
+"""PDF QA against the frozen candidate.
+
+Generates synthetic pages in a temporary directory. Asserts real /Rotate and a
+CropBox that is not the MediaBox, then calls NightSweepMapPDF.plan/exportPDF.
 """
 import hashlib
+import json
+import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
+from pypdf import PdfReader
+from pypdf.generic import ContentStream
+
 ROOT = Path(__file__).resolve().parent.parent
+GEN = ROOT / "qa" / "fixtures" / "carpe-next" / "generate_pdfs.py"
+BRIDGE = ROOT / "qa" / "carpe-next-pdf-bridge.cjs"
 FIXTURES = ROOT / "qa" / "fixtures" / "carpe-next"
-GEN = FIXTURES / "generate_pdfs.py"
-MAP_PDF = ROOT / "night-sweep" / "map-pdf.js"
+
+checks = 0
+
+
+def check(condition, message):
+    global checks
+    if not condition:
+        raise AssertionError(message)
+    checks += 1
+    print("PASS " + message)
+
 
 def sha256(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
-def run_generator():
-    subprocess.check_call([sys.executable, str(GEN)], cwd=str(FIXTURES))
 
-def test_generator_stable():
-    run_generator()
-    multi = FIXTURES / "synthetic-multi-sheet.pdf"
-    h1 = sha256(multi)
-    run_generator()
-    h2 = sha256(multi)
-    assert h1 == h2
-    print("PASS: stable deterministic hashes")
+def boxes(page):
+    return [float(v) for v in page.mediabox], [float(v) for v in page.cropbox]
 
-def test_rotation_crop_labels():
-    from pypdf import PdfReader
-    run_generator()
-    reader = PdfReader(str(FIXTURES / "synthetic-rotated.pdf"))
-    text = reader.pages[0].extract_text() or ""
-    assert "ROTATED" in text or "NAME" in text
-    print("PASS: rotation and labels")
-    # Crop check if present
-    cropped = FIXTURES / "synthetic-cropped.pdf"
-    if cropped.exists():
-        cr = PdfReader(str(cropped))
-        print("PASS: cropped fixture generated")
 
-def test_map_pdf_interface_on_candidate():
-    if not MAP_PDF.exists():
-        print("EXPECTED BASELINE GAP: NightSweepMapPDF not present on 248e778; exercise plan/exportPDF on candidate SHA 1bcda8d90faa8bb997aa9cfd33c605e83090de13")
-        return
-    # On candidate: require and call plan/export with synthetic owner (see codex-next-map-pdf.test.cjs for pattern)
-    print("PASS: NightSweepMapPDF present; plan/exportPDF contract available for candidate assertions")
+def test_stable_rotation_and_crop():
+    sys.path.insert(0, str(GEN.parent))
+    from generate_pdfs import generate
+    with tempfile.TemporaryDirectory(prefix="carpe-pdf-a-") as first, tempfile.TemporaryDirectory(prefix="carpe-pdf-b-") as second:
+        made = generate(first)
+        again = generate(second)
+        left, right = made["rotated_cropped"], again["rotated_cropped"]
+        check(sha256(left) == sha256(right), "invariant generator hashes match across directories")
+        reader = PdfReader(str(left))
+        page = reader.pages[0]
+        media, crop = boxes(page)
+        check(page.rotation == 90, "page /Rotate is 90")
+        check(crop != media, "CropBox is distinct from MediaBox")
+        check(crop[0] != 0 and crop[1] != 0, "CropBox origin is nonzero")
+        check(all(v > 0 for v in crop[2:]), "CropBox upper corner is nonzero")
+        text = page.extract_text() or ""
+        check("SYNTHETIC ORIGINAL MARKUP" in text, "original markup text is on the page")
+        annots = page.annotations or []
+        check(len(annots) == 1, "source has one text annotation")
+        contents = str(annots[0].get_object().get("/Contents"))
+        check("Existing annotation" in contents, "annotation contents preserved on the source")
+        stored = list(FIXTURES.glob("*.pdf"))
+        check(stored == [], "generator did not write PDFs into the checkout")
+        return left.read_bytes()
+
+
+def content_text(page):
+    raw = page.get_contents()
+    if raw is None:
+        return ""
+    data = raw.get_data() if hasattr(raw, "get_data") else ContentStream(raw, page.pdf).get_data()
+    return data.decode("latin1", errors="replace")
+
+
+def test_plan_and_export(source_bytes):
+    if os.environ.get("NIGHTSWEEP_RELEASE_TEST") != "1":
+        raise AssertionError("NIGHTSWEEP_RELEASE_TEST=1 is required. Refusing a source-assembly pass.")
+    with tempfile.TemporaryDirectory(prefix="carpe-pdf-out-") as folder:
+        folder = Path(folder)
+        source = folder / "source.pdf"
+        output = folder / "updated.pdf"
+        source.write_bytes(source_bytes)
+        env = os.environ.copy()
+        env["NIGHTSWEEP_RELEASE_TEST"] = "1"
+        completed = subprocess.run(
+            ["node", str(BRIDGE), str(source), str(output)],
+            cwd=str(ROOT),
+            env=env,
+            text=True,
+            capture_output=True,
+        )
+        if completed.returncode != 0:
+            raise AssertionError(completed.stdout + "\n" + completed.stderr)
+        print(completed.stdout.strip())
+        report = json.loads((str(output) + ".matrix.json") and Path(str(output) + ".matrix.json").read_text())
+        check(report["checks"] > 0, "bridge executed frozen-page checks")
+        updated = PdfReader(str(output))
+        page = updated.pages[0]
+        media, crop = boxes(page)
+        check(page.rotation == 90, "exported page keeps /Rotate 90")
+        check(crop != media and crop[0] != 0, "exported page keeps the distinct nonzero CropBox")
+        text = page.extract_text() or ""
+        check("SYNTHETIC ORIGINAL MARKUP" in text, "export preserves original markup text")
+        annots = page.annotations or []
+        check(len(annots) == 1, "export preserves the original annotation")
+        check("Existing annotation" in str(annots[0].get_object().get("/Contents")), "annotation text still present")
+        stream = content_text(page)
+        needle = " ".join(("%d" % n) if float(n).is_integer() else ("%g" % n) for n in report["matrix"]) + " cm"
+        if needle not in stream:
+            operators = [line for line in stream.splitlines() if line.endswith(" cm") or " cm" in line]
+            raise AssertionError("overlay matrix %s not in content. cm operators: %s" % (needle, operators[:8]))
+        check(True, "overlay uses the rotated/cropped inverse viewport matrix")
+        check(sha256(source) == hashlib.sha256(source_bytes).hexdigest(), "bridge left the original file bytes unchanged")
+        check(list(FIXTURES.glob("*.pdf")) == [], "export left the checkout free of generated PDFs")
+
+
+def main():
+    source = test_stable_rotation_and_crop()
+    test_plan_and_export(source)
+    print("Benjamin PDF suite: %d python checks" % checks)
+
 
 if __name__ == "__main__":
-    print("PDF suite: public ReportLab + map PDF interface")
-    test_generator_stable()
-    test_rotation_crop_labels()
-    test_map_pdf_interface_on_candidate()
-    print("Benjamin PDF suite complete (tombstone via NightSweepMapPDF on candidate)")
+    try:
+        main()
+    except Exception as error:
+        print("FAIL " + str(error))
+        sys.exit(1)
