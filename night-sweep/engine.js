@@ -1,6 +1,12 @@
 /* Pure calculation engine; all levels dBmV, loss dB, frequency MHz, length ft. */
 const HFC = (() => {
  const number = x => (typeof x==='number'||typeof x==='string') && String(x).trim()!=='' && Number.isFinite(Number(x)) ? Number(x) : null;
+ // Legacy entries without a frequency binding remain readable. A recorded
+ // binding must match before its target or limit participates in a result.
+ function frequencyValue(record,key,frequency,value=record?.[key]) {
+  const binding=record?.[key+'F'];
+  return binding!==undefined&&(number(binding)===null||number(binding)!==number(frequency))?null:number(value);
+ }
  function curveValue(c,f,axis='linear') {
   if(!c||!Number.isFinite(f)||f<c.min||f>c.max)return null;
   if(c.bands){
@@ -174,7 +180,7 @@ const HFC = (() => {
   byKey.set('source',{level:source,loss:validLoss&&!launchReason?0:null,blockedReason:launchReason});
   for(const row of state.rows){
    const d=catalog.devices.find(d=>d.id===row.device),c=catalog.cables.find(c=>c.id===row.cable),parent=byKey.get(row.parent);
-   const m=row.mapImport, modelMismatch=m&&(!d||d.id==='none'||(m.kind==='active'&&!d.active)||(m.kind==='passive'&&d.active)), mapReason=m?(m.status==='absent'?'Equipment is marked absent.':m.status==='proposed'?'Proposed equipment is not installed.':modelMismatch?'Installed model is missing or does not match the map equipment type.':m.status==='draft'||m.connectionConfirmed!==true?'Map connection or span is unverified.':m.modelConfirmed!==true?'Installed model is unverified.':m.reasons?.length&&!m.reviewResolved?m.reasons.join(' '):''):(row.modelUnverified?'Installed model is unverified.':'');
+   const m=row.mapImport, modelMismatch=m&&(!d||(d.id==='none'&&m.kind!=='terminal'&&!row.terminal)||(m.kind==='active'&&!d.active)||(m.kind==='passive'&&d.active)), mapReason=m?(m.status==='absent'?'Equipment is marked absent.':m.status==='proposed'?'Proposed equipment is not installed.':modelMismatch?'Installed model is missing or does not match the map equipment type.':m.status==='draft'||m.connectionConfirmed!==true?'Map connection or span is unverified.':m.kind!=='terminal'&&!row.terminal&&m.modelConfirmed!==true?'Installed model is unverified.':m.reasons?.length&&!m.reviewResolved?m.reasons.join(' '):''):(row.modelUnverified?'Installed model is unverified.':'');
    const cableLoss=cableAt(c,row,frequency,state.setup.temperature??68),spanReason=spanLength(row)===null?'Span length or slack is missing or invalid.':cableLoss===null?'Cable construction or loss curve is unavailable at '+frequency+' MHz.':'',blockedReason=mapReason||parent?.blockedReason||(!parent?'Upstream connection is missing.':'')||spanReason;
    const valid=parent&&parent.level!==null&&cableLoss!==null&&!blockedReason;
    const input=valid?number(parent.level-cableLoss):null,inputLoss=!blockedReason&&parent&&parent.loss!==null&&cableLoss!==null?number(parent.loss+cableLoss):null;
@@ -193,7 +199,7 @@ const HFC = (() => {
   if(!row||!device?.active)return fail('Choose an active route point for the gain check.');
   const legId=options.legId||'main',portId=legId==='main'?'through':legId;
   if(!portsFor(device,row).some(p=>p.id===portId))return fail('Choose a supported physical output leg.');
-  if(portId!=='through'){const leg=row.workbench?.legGain?.[legId]||{};row={...row,activeMode:'anchors',gainLowF:leg.lowF,gainHighF:leg.highF,gainLow:leg.low,gainHigh:leg.high,outputLoss:leg.loss??0,targetLow:leg.targetLow??'',targetHigh:leg.targetHigh??'',outputLimitLow:leg.limitLow,outputLimitHigh:leg.limitHigh};}
+  if(portId!=='through'){const leg=row.workbench?.legGain?.[legId]||{};row={...row,activeMode:'anchors',gainLowF:leg.lowF,gainHighF:leg.highF,gainLow:leg.low,gainHigh:leg.high,outputLoss:leg.loss??0,targetLow:leg.targetLow??'',targetHigh:leg.targetHigh??'',targetLowF:leg.targetLowF,targetHighF:leg.targetHighF,outputLimitLow:leg.limitLow,outputLimitHigh:leg.limitHigh,outputLimitLowF:leg.limitLowF,outputLimitHighF:leg.limitHighF};}
   const reserve=number(options.reserve??row.reserve??3),outputLoss=number(row.outputLoss??0);
   if(reserve===null||reserve<0)return fail('Enter a nonnegative gain reserve.');
   if(outputLoss===null||outputLoss<0)return fail('Enter a nonnegative selected-output loss.');
@@ -202,9 +208,10 @@ const HFC = (() => {
   const warnings=[],bands={};
   const present=x=>x!==undefined&&x!==null&&String(x).trim()!=='';
   for(const [key,frequency,targetField,limitField,setupField] of [['low',lowF,'targetLow','outputLimitLow','lowLevel'],['high',highF,'targetHigh','outputLimitHigh','highLevel']]){
-   const target=number(options[targetField]??row[targetField]??(state.setup.companyTargetProfile?null:state.setup[setupField])),limitRaw=options[limitField]??row[limitField],outputLimit=number(limitRaw);
+   const target=frequencyValue(row,targetField,frequency,options[targetField]??row[targetField]??(state.setup.companyTargetProfile?null:state.setup[setupField])),limitRaw=options[limitField]??row[limitField],outputLimit=frequencyValue(row,limitField,frequency,limitRaw);
+   for(const field of [targetField,limitField])if(row[field+'F']!==undefined&&number(row[field+'F'])!==frequency)warnings.push(`${key==='low'?'Low':'High'} ${field===targetField?'target':'output limit'} was recorded at a different or unknown frequency; re-enter it at this marker.`);
    if(target===null&&state.setup.companyTargetProfile)warnings.push(`${key==='low'?'Low':'High'} amplifier target unknown. Enter the station's independent design target; the company node launch does not supply amplifier targets.`);
-   if(present(limitRaw)&&outputLimit===null)return fail('Enter a numeric output limit or leave it blank.');
+   if(present(limitRaw)&&number(limitRaw)===null)return fail('Enter a numeric output limit or leave it blank.');
    const result=(options.routeResults?.[key]||run(state,catalog,frequency)).results.find(r=>r.id===row.id),input=result?.input.level??null,availableGain=activeGainAt(device,row,frequency);
    if(result?.blockedReason&&!warnings.includes(result.blockedReason))warnings.push(result.blockedReason);
    const requiredGain=input===null||target===null?null:number(target+outputLoss-input);
@@ -325,6 +332,6 @@ const HFC = (() => {
   if(rating!==null&&supplyCurrent>rating)warnings.push('Estimated output current exceeds the supply rating.');
   return {ok:true,error:'',rows,supplyCurrent,sourceVA,wireWatts,loading,headroom,minVoltage:Math.min(...voltage),warnings};
  }
- return {number,curveValue,parseTable,launchAt,portsFor,selectedCurve,passiveAt,activeGainAt,spanLength,routeDistances,tdrLocate,cableAt,run,gainBudget,grid,dcSegment,dcRoute,powerRun};
+ return {number,frequencyValue,curveValue,parseTable,launchAt,portsFor,selectedCurve,passiveAt,activeGainAt,spanLength,routeDistances,tdrLocate,cableAt,run,gainBudget,grid,dcSegment,dcRoute,powerRun};
 })();
 if(typeof module!=='undefined')module.exports=HFC;

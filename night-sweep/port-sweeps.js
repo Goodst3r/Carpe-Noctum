@@ -5,10 +5,12 @@
  const n=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
  const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
  const port=x=>typeof x==='string'&&x.trim()===x&&x.length>0&&x.length<=64&&!/[\u0000-\u001f\u007f]/.test(x)&&!['__proto__','prototype','constructor'].includes(x);
+ const sourceIdentity=owner=>JSON.stringify([owner?.job?.id??'',...['stationIdentity','sourceType','sourceModel','sourceAsset','sourcePort'].map(k=>owner?.setup?.[k]??''),...['model','asset','band','port','module','operatingUpper'].map(k=>owner?.node?.[k]??'')]);
  function prepare(parsed,context={}){
   if(parsed?.status!=='parsed'||!['dBmV','dB'].includes(parsed.series?.unit))throw Error('Choose one decoded sweep with explicit dBmV or dB units. Previous port sweep retained.');
   const {split,direction,stage,plane,basis}=context;
   if(!['42','204'].includes(split)||!['forward','reverse'].includes(direction)||!['Before','After','Reference'].includes(stage))throw Error('Choose the split, direction and stage for this physical port.');
+  if(['forward','reverse'].includes(parsed.native?.direction)&&parsed.native.direction!==direction)throw Error('Declared direction conflicts with the native sweep direction. Previous port sweep retained.');
   if(!['unknown','port','tp'].includes(plane)||!['unknown','sc-qam','ofdm-plc','relative'].includes(basis))throw Error('Choose the measurement plane and power basis, or Unknown.');
   if(parsed.series.unit==='dB'&&!['relative','unknown'].includes(basis)||parsed.series.unit==='dBmV'&&basis==='relative')throw Error('Sweep units do not match the declared power basis.');
   const bw=n(context.bandwidthMHz);if(context.bandwidthMHz!==undefined&&context.bandwidthMHz!==null&&String(context.bandwidthMHz).trim()!==''&&(bw===null||bw<=0||bw>1800))throw Error('Bandwidth must be positive MHz or blank for Unknown.');
@@ -21,7 +23,8 @@
    if(f<min||f>max||seen.has(f))throw Error('Sweep has a duplicate frequency or a point outside the selected split and direction.');
    seen.add(f);return [f,v];
   }).sort((a,b)=>a[0]-b[0]);
-  return {schema:1,stationIdentity:String(context.stationIdentity||'source').slice(0,200),split,direction,stage,plane,basis,bandwidthMHz:bw,unit:parsed.series.unit,points,evidenceId:context.evidenceId,sha256:context.sha256.toLowerCase()};
+  const stationIdentity=context.stationIdentity??'source';if(typeof stationIdentity!=='string'||!stationIdentity||stationIdentity.length>4096)throw Error('Invalid physical node identity.');
+  return {schema:1,stationIdentity,split,direction,stage,plane,basis,bandwidthMHz:bw,unit:parsed.series.unit,points,evidenceId:context.evidenceId,sha256:context.sha256.toLowerCase()};
  }
  function replace(owner,portId,parsed,context){
   if(!port(portId))throw Error('Enter the exact physical port ID (1–64 characters).');
@@ -37,23 +40,26 @@
   return errors;
  }
  function sample(record,frequency){const f=n(frequency),point=f===null?null:record?.points?.find(p=>p[0]===f);return {value:point?.[1]??null,unit:record?.unit||null,basis:record?.basis||'unknown',bandwidthMHz:record?.bandwidthMHz??null,plane:record?.plane||'unknown'};}
- return Object.freeze({limits,prepare,replace,validate,sample});
+ return Object.freeze({limits,sourceIdentity,prepare,replace,validate,sample});
 });
 
 function initPortSweeps(){
  const host=document.createElement('details');host.id='portSweepsPanel';host.innerHTML='<summary>ONX sweep by physical node port</summary><p class="note">Retain every decoded point and its verified original. A valid replacement updates only the named port. Observed levels are measurements; they do not set company targets.</p><div class="fields"><label>Exact physical node port<input data-port="id" maxlength="64" placeholder="Port label on installed node"></label><label>Split<select data-port="split"><option value="">Choose split</option><option value="42">42/54 MHz</option><option value="204">204/258 MHz</option></select></label><label>Direction<select data-port="direction"><option value="forward">Forward</option><option value="reverse">Return</option></select></label><label>Stage<select data-port="stage"><option>Before</option><option>After</option><option>Reference</option></select></label><label>Reading plane<select data-port="plane"><option value="unknown">Unknown</option><option value="port">Port</option><option value="tp">Raw test point</option></select></label><label>Power basis<select data-port="basis"><option value="unknown">Unknown</option><option value="sc-qam">SC-QAM channel power</option><option value="ofdm-plc">OFDM PLC</option><option value="relative">Relative response</option></select></label><label>Measurement bandwidth (MHz)<input type="number" step="any" min="0" data-port="bandwidthMHz" placeholder="Unknown"></label></div><label class="filelabel">Import sweep for this port<input type="file" data-port-file accept=".json,.csv,.gz,.zip"></label><p data-port-status role="status" aria-live="polite"></p><div data-port-records></div>';
  $('mapLaunchSummary').after(host);
- const identity=()=>JSON.stringify([state.setup?.stationIdentity||'',state.setup?.sourceModel||'',state.setup?.sourceAsset||'',state.node?.asset||'']);
+ const identity=()=>PortSweeps.sourceIdentity(state),fields=()=>Object.fromEntries([...host.querySelectorAll('[data-port]')].map(el=>[el.dataset.port,el.value]));
  host.addEventListener('change',async e=>{
   if(!e.target.hasAttribute('data-port-file'))return;const file=e.target.files?.[0];if(!file)return;
-  const owner=state,source=identity(),values=Object.fromEntries([...host.querySelectorAll('[data-port]')].map(el=>[el.dataset.port,el.value])),status=host.querySelector('[data-port-status]');e.target.disabled=true;
+  const owner=state,source=identity(),values=fields(),status=host.querySelector('[data-port-status]'),unchanged=()=>owner===state&&identity()===source&&JSON.stringify(fields())===JSON.stringify(values);e.target.disabled=true;
   try{
    if(!values.id||!values.split)throw Error('Enter a physical node port and choose its split first.');
    const files=await EvidenceUI.importFiles([file],{kind:'Sweep',stage:values.stage,asset:values.id,notes:'Physical node port sweep'});
-   if(owner!==state||identity()!==source)throw Error('Job or node changed during import; previous port data retained.');
+   if(!unchanged())throw Error('Job, node or port settings changed during import; previous port data retained.');
    const meta=files[0],verified=await EvidenceUI.verifiedParse(meta.id);
-   if(owner!==state||identity()!==source)throw Error('Job or node changed during verification; previous port data retained.');
-   owner.portSweeps=PortSweeps.replace(owner,values.id,verified.parse,{...values,evidenceId:meta.id,sha256:meta.sha256,stationIdentity:source});saveLocal();refreshPortSweeps();status.textContent='Saved '+owner.portSweeps[values.id].points.length+' points for port '+values.id+'. Other ports retained.';
+   if(!unchanged())throw Error('Job, node or port settings changed during verification; previous port data retained.');
+   const previous=owner.portSweeps;
+   owner.portSweeps=PortSweeps.replace(owner,values.id,verified.parse,{...values,evidenceId:meta.id,sha256:meta.sha256,stationIdentity:source});
+   if(saveLocal()===false){if(previous===undefined)delete owner.portSweeps;else owner.portSweeps=previous;refreshPortSweeps();throw Error('Port replacement could not be saved. Previous port sweep retained; the new original remains attached.');}
+   refreshPortSweeps();status.textContent='Saved '+owner.portSweeps[values.id].points.length+' points for port '+values.id+'. Other ports retained.';
   }catch(error){status.textContent=error.message;}finally{e.target.disabled=false;e.target.value='';}
  });
  refreshPortSweeps();
@@ -61,6 +67,6 @@ function initPortSweeps(){
 function refreshPortSweeps(){
  if(!state)return;
  const el=$('portSweepsPanel')?.querySelector('[data-port-records]');if(!el)return;
- el.innerHTML=Object.entries(state.portSweeps||{}).map(([port,r])=>`<details><summary>Port ${esc(port)} · ${r.points?.length||0} points · ${esc(r.stage)} · ${esc(r.split)}/${r.split==='42'?'54':'258'} MHz</summary><p>${esc(r.direction)} · ${esc(r.unit)} · ${esc(r.basis)} · bandwidth ${esc(r.bandwidthMHz??'Unknown')} MHz · plane ${esc(r.plane)}</p><p class="note">All points are retained. Raw levels have no correction or company acceptance applied. ${r.stationIdentity!==JSON.stringify([state.setup?.stationIdentity||'',state.setup?.sourceModel||'',state.setup?.sourceAsset||'',state.node?.asset||''])?'Historical node identity; verify before comparison.':''}</p><button type="button" data-port-original="${esc(r.evidenceId)}">Save original</button></details>`).join('')||'<p class="note">No port sweeps saved.</p>';
+ el.innerHTML=Object.entries(state.portSweeps||{}).map(([port,r])=>`<details><summary>Port ${esc(port)} · ${r.points?.length||0} points · ${esc(r.stage)} · ${esc(r.split)}/${r.split==='42'?'54':'258'} MHz</summary><p>${esc(r.direction)} · ${esc(r.unit)} · ${esc(r.basis)} · bandwidth ${esc(r.bandwidthMHz??'Unknown')} MHz · plane ${esc(r.plane)}</p><p class="note">All points are retained. Raw levels have no correction or company acceptance applied. ${r.stationIdentity!==PortSweeps.sourceIdentity(state)?'Historical node identity; verify before comparison.':''}</p><button type="button" data-port-original="${esc(r.evidenceId)}">Save original</button></details>`).join('')||'<p class="note">No port sweeps saved.</p>';
  el.onclick=e=>{const id=e.target.dataset.portOriginal;if(id)EvidenceUI.downloadOriginal(id).catch(err=>{$('message').textContent=err.message;});};
 }

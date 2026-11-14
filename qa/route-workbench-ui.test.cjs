@@ -16,6 +16,7 @@ ev('state.setup.launchTestPoint=false;state.setup.launchCoupling="";refreshResul
 ev(`state.rows.push({...freshRow('source','r2'),name:'Amp B',device:'active_gm_hgd'});renderAll();WorkflowUI.go('route')`);const second=d.querySelector('[data-row="r2"] [data-wb="before.low.input"]');second.focus();assert.equal(d.getElementById('pointSelect').value,'r2');assert.match(d.querySelector('[data-context="point"]').textContent,/Amp B/);assert.equal(d.activeElement,second);ev('state.rows=state.rows.filter(r=>r.id!=="r2");renderAll()');
 const set=(key,value)=>{const el=d.querySelector(`[data-wb="${key}"]`);assert(el,key);el.value=value;el.dispatchEvent(new w.Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));};
 set('before.low.input','10');set('before.low.inputPlane','tp');set('before.low.inputCorrection','20');set('before.low.output','40');set('before.low.outputPlane','port');
+for(const side of ['input','output']){set('before.low.'+side+'Basis','sc-qam');set('before.low.'+side+'BandwidthMHz','6');set('before.low.'+side+'ImpedanceOhms','75');}
 assert.match(d.querySelector('[data-wb-measured="before.low"]').textContent,/10\.00/);assert.match(d.querySelector('[data-wb-frequency="before.low.input"]').textContent,/54 MHz/);
 set('pad.Forward input pad.installed','6');const saved=JSON.stringify(json('state'));ev(`loadState(${saved})`);
 assert.equal(d.querySelector('[data-wb="before.low.input"]').value,'10');assert.equal(d.querySelector('[data-wb="pad.Forward input pad.installed"]').value,'6');

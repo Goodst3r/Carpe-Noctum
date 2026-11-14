@@ -17,4 +17,10 @@ test('all validated sweep points replace only the selected physical port atomica
  assert.throws(()=>api.replace(owner,'A',parsed,{...context,bandwidthMHz:0}));
  assert.equal(api.sample(api.replace(owner,'A',parsed,{...context,basis:'ofdm-plc',bandwidthMHz:''}).A,54).basis,'ofdm-plc');
  assert.deepEqual(api.validate({}),[]);
+ assert.throws(()=>api.prepare({...parsed,native:{direction:'reverse'}},context),/direction conflicts/);
+ const many={status:'parsed',series:{unit:'dBmV',points:Array.from({length:10000},(_,i)=>[54+i/10,32+i/10000])}};
+ assert.equal(api.prepare(many,context).points.length,10000);
+ const node={setup:{sourceType:'node',sourcePort:'A'},node:{model:'N1',asset:'X',band:0,port:'A',module:'M1'}};
+ for(const [key,value] of [['model','N2'],['band',1],['port','B'],['module','M2']])assert.notEqual(api.sourceIdentity(node),api.sourceIdentity({...node,node:{...node.node,[key]:value}}));
+ assert.notEqual(api.sourceIdentity(node),api.sourceIdentity({...node,setup:{...node.setup,sourcePort:'B'}}));
 });

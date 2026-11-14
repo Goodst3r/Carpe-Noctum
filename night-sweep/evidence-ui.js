@@ -127,6 +127,7 @@ const EvidenceUI = (() => {
     try{
       const snapshot=compactState(source);
       const metadata=list(snapshot);EvidenceCore.validateEvidence(metadata);
+      if(snapshot.portSweeps!==undefined){const errors=PortSweeps.validate(snapshot);if(errors.length)throw Error(errors.join(' '));for(const record of Object.values(snapshot.portSweeps)){const meta=metadata.find(m=>m.id===record.evidenceId);if(!meta||meta.kind!=='Sweep'||meta.stage!==record.stage||meta.sha256.toLowerCase()!==record.sha256.toLowerCase())throw Error('A physical port sweep is missing its matching original. Restore the original before backing up this job.');}}
       if(metadata.length){
         const bundled=[];
         for(const meta of metadata)bundled.push({id:meta.id,base64:EvidenceCore.bytesToBase64(await bytesFor(meta))});
@@ -163,7 +164,7 @@ const EvidenceUI = (() => {
         const errors=PortSweeps.validate(clean);if(errors.length)throw Error(errors.join(' '));
         for(const record of Object.values(clean.portSweeps)){
           const newId=mapping.get(record.evidenceId),meta=metadata.find(m=>m.id===newId);
-          if(!meta||meta.kind!=='Sweep'||meta.sha256.toLowerCase()!==record.sha256)throw Error('Port sweep original is missing or does not match its recorded checksum.');
+          if(!meta||meta.kind!=='Sweep'||meta.stage!==record.stage||meta.sha256.toLowerCase()!==record.sha256.toLowerCase())throw Error('Port sweep original is missing or does not match its recorded stage/checksum.');
           const rebuilt=PortSweeps.prepare(meta.parse,{...record,evidenceId:newId,sha256:meta.sha256});
           if(JSON.stringify(rebuilt.points)!==JSON.stringify(record.points))throw Error('Port sweep points do not match the verified original.');
           record.evidenceId=newId;
@@ -296,6 +297,7 @@ const EvidenceUI = (() => {
       if(t.dataset.evidenceRemove){
         if(busy){report('Finish the current file operation first.',true);return;}
         const owner=current(),meta=list(owner).find(m=>m.id===t.dataset.evidenceRemove);if(!meta)return;
+        if(Object.values(owner.portSweeps||{}).some(r=>r.evidenceId===meta.id)){report('This original belongs to a physical port sweep. Replace that port sweep before removing its original.',true);return;}
         if(!confirm('Remove '+meta.name+' from this job? Previously exported project backups are unchanged.'))return;
         owner.evidence=list(owner).filter(m=>m.id!==meta.id);saveLocal();report('Removed from this job.');render();
       }

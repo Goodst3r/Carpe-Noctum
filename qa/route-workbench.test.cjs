@@ -1,5 +1,6 @@
 'use strict';
 const baseAssert=require('node:assert/strict');let checks=0;const assert=new Proxy(baseAssert,{get(o,k){const v=o[k];return typeof v==='function'?(...a)=>{checks++;return v(...a)}:v;}});
+const context={inputBasis:'sc-qam',outputBasis:'sc-qam',inputBandwidthMHz:6,outputBandwidthMHz:6,inputImpedanceOhms:75,outputImpedanceOhms:75};
 const W=require('../night-sweep/route-workbench.js');
 const HFC=require('../night-sweep/engine.js');
 const catalog={devices:[{id:'amp',active:true,ports:[{id:'through',label:'Main',role:'through'}],activeMinF:54,activeMaxF:1002}],cables:[]};
@@ -14,10 +15,10 @@ state.rows[0].gainLow=state.rows[0].gainHigh=35;
 assert.equal(W.assess(HFC,state,catalog,state.rows[0]).label,'Gain available · output limit unknown');
 state.rows[0].modelUnverified=true;
 assert.match(W.assess(HFC,state,catalog,state.rows[0]).reason,/model/i);
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'port',outputPlane:'port',inputCorrection:'',outputCorrection:''},54,54),30);
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'tp',outputPlane:'port',inputCorrection:'20',outputCorrection:''},54,54),10);
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'tp',outputPlane:'port',inputCorrection:'',outputCorrection:''},54,54),null);
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'port',outputPlane:'port'},54,860),null);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'port',outputPlane:'port',inputCorrection:'',outputCorrection:''},54,54),30);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'tp',outputPlane:'port',inputCorrection:'20',outputCorrection:''},54,54),10);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'tp',outputPlane:'port',inputCorrection:'',outputCorrection:''},54,54),null);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'port',outputPlane:'port'},54,860),null);
 
 const draft=structuredClone(state);draft.rows[0].modelUnverified=false;draft.rows[0].mapImport={status:'draft',connectionConfirmed:false,modelConfirmed:false,reasons:['Verify span']};
 assert.equal(HFC.run(draft,catalog,54).results[0].input.level,null,'unconfirmed map path cannot yield a prediction');
@@ -26,7 +27,7 @@ const split=structuredClone(state);delete split.rows[0].modelUnverified;split.ro
 const outputs=HFC.run(split,catalog,54).results;
 assert.equal(outputs[0].input.level,null);
 assert.equal(outputs[1].input.level,10,'confirmed independent branch remains usable');
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'port',outputPlane:'port',inputFrequency:54,outputFrequency:860},54,860),null);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'port',outputPlane:'port',inputFrequency:54,outputFrequency:860},54,860),null);
 assert.equal(W.correctedLevel('10','tp','20'),30);
 assert.equal(W.correctedLevel('10','port','20'),10);
 assert.equal(W.correctedLevel('10','tp',''),null);
@@ -39,7 +40,7 @@ const unknown={setup:{...state.setup},rows:[{id:'r1',device:'none',parent:'sourc
 const unknownLaunch={...branches,mapLaunch:{name:'Node',port:'Main',confirmed:false}};assert.equal(HFC.run(unknownLaunch,realCatalog,54).results[1].input.level,null);assert.match(HFC.run(unknownLaunch,realCatalog,54).results[0].blockedReason,/launch/i);
 const passiveDevice=realCatalog.devices.find(d=>!d.active&&!d.custom&&d.id!=='none'&&d.ports?.length);const unknownPassive={setup:{...state.setup},rows:[{id:'r1',device:passiveDevice.id,parent:'source',length:0,mapImport:{kind:'passive',status:'installed',connectionConfirmed:true,modelConfirmed:false,reviewResolved:true}}]};assert.equal(HFC.run(unknownPassive,realCatalog,54).results[0].input.level,null);assert.match(HFC.run(unknownPassive,realCatalog,54).results[0].blockedReason,/model/i);
 const noHighMarker=structuredClone(branches);noHighMarker.setup.liveMax=700;const unavailable=HFC.gainBudget(noHighMarker,realCatalog,{rowId:'r1'});assert.equal(unavailable.gainStatus,'missing');assert.match(unavailable.warnings.join(' '),/high.*marker.*available/i);
-assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'port',outputPlane:'port'},-1,-1),null);assert.equal(W.measuredGain({input:'10',output:'40',inputPlane:'port',outputPlane:'port'},1801,1801),null);
+assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'port',outputPlane:'port'},-1,-1),null);assert.equal(W.measuredGain({...context,input:'10',output:'40',inputPlane:'port',outputPlane:'port'},1801,1801),null);
 const wrongBinding=structuredClone(branches);wrongBinding.rows[0].device='active_gm_le_manual';wrongBinding.rows[0].workbench={modelId:'active_gm_hgd',leg:'aux',legGain:{aux:{low:35,high:35,lowF:54,highF:860}}};assert.equal(HFC.run(wrongBinding,realCatalog,54).results[0].outputs[0].level,null);assert.equal(HFC.gainBudget(wrongBinding,realCatalog,{rowId:'r1'}).gainStatus,'missing');
 const wrongLeg=structuredClone(branches);wrongLeg.rows[0].workbench={modelId:'active_gm_hgbt',legGain:{aux:{low:35,high:35,lowF:54,highF:860}}};assert.equal(HFC.run(wrongLeg,realCatalog,54).results[2].input.level,null);
 const missingLength=structuredClone(branches);missingLength.rows[0].length='';assert.match(HFC.gainBudget(missingLength,realCatalog,{rowId:'r1'}).warnings.join(' '),/span.*length/i);const missingCable=structuredClone(branches);missingCable.rows[0].length=100;missingCable.rows[0].cable='';assert.match(HFC.gainBudget(missingCable,realCatalog,{rowId:'r1'}).warnings.join(' '),/cable.*(construction|curve)/i);

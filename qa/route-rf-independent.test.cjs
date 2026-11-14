@@ -151,6 +151,7 @@ A.equal(r.results[1].input.level, 28);
 A.equal(r.results[2].input.level, 41);
 A.equal(r.results[0].outputs.find((p) => p.id === "third").level, 24);
 const reading = {
+  inputBasis:"sc-qam",outputBasis:"sc-qam",inputBandwidthMHz:6,outputBandwidthMHz:6,inputImpedanceOhms:75,outputImpedanceOhms:75,
   input: "10",
   output: "40",
   inputPlane: "tp",

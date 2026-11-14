@@ -9,6 +9,8 @@ test('gain requires equal known power basis and bandwidth; raw TP correction rem
  assert.equal(WB.measuredGain({...r,inputBasis:undefined,outputBasis:undefined},54,54),null);
  assert.equal(WB.measuredGain(r,54,55),null);
  assert.equal(WB.correctedLevel(-5,'tp',20),15);
+ assert.equal(WB.measuredGain({...r,inputImpedanceOhms:''},54,54),null);
+ assert.equal(WB.measuredGain({...r,inputCorrection:-20},54,54),null);
 });
 test('physical leg targets and gains remain independent',()=>{
  const HFC=require('../night-sweep/engine.js'),catalog=require('../night-sweep/catalog.json');
@@ -18,6 +20,14 @@ test('physical leg targets and gains remain independent',()=>{
  assert.equal(aux.low.predictedOutput,29);assert.equal(aux.low.target,35);assert.equal(aux.low.margin,-6);
  assert.equal(HFC.gainBudget(state,catalog,{rowId:'r1',legId:'third'}).low.margin,null);
  assert.equal(HFC.gainBudget(state,catalog,{rowId:'r1',legId:'missing'}).status,'invalid');
+ state.rows[0].workbench.legGain.aux.targetLowF=55;
+ assert.equal(HFC.gainBudget(state,catalog,{rowId:'r1',legId:'aux'}).low.target,null);
+ assert.equal(state.rows[0].workbench.legGain.aux.targetLow,35,'stale raw target is retained');
+ state.rows[0].targetLowF=55;state.rows[0].outputLimitLow=50;state.rows[0].outputLimitLowF=55;
+ const stale=HFC.gainBudget(state,catalog,{rowId:'r1',targetLow:43,outputLimitLow:50});
+ assert.equal(stale.low.target,null);assert.equal(stale.low.margin,null);assert.equal(stale.low.outputLimit,null);assert.equal(stale.low.predictedOutput,41);
+ delete state.rows[0].targetLowF;delete state.rows[0].outputLimitLowF;
+ assert.equal(HFC.gainBudget(state,catalog,{rowId:'r1'}).low.target,43,'legacy unbound target is compatible');
 });
 test('route pad/EQ advice uses the sourced model and comparable output readings',()=>{
  assert.equal(typeof WB.balance,'function');
@@ -27,4 +37,15 @@ test('route pad/EQ advice uses the sourced model and comparable output readings'
  const state={setup:{lowF:54,highF:860},rows:[row]};
  const a=WB.balance(HFC,Alignment,state,catalog,row,'before','main');assert.equal(a.catalog.eq.to,4.5);assert.equal(a.catalog.pad.to,7);
  row.workbench.records.main.before.high.outputBasis='ofdm-plc';assert.equal(WB.balance(HFC,Alignment,state,catalog,row,'before','main').ok,false);
+ row.workbench.records.main.before.high.outputBasis='sc-qam';
+ row.targetLowF=55;assert.equal(WB.balance(HFC,Alignment,state,catalog,row,'before','main').ok,false);delete row.targetLowF;
+ row.device='active_gm_lgd_65';assert.equal(WB.balance(HFC,Alignment,state,catalog,row,'before','main').ok,false,'54 MHz is below the 65/86 hardware band');
+ row.device='active_gm_hgd';row.workbench.modelId='active_gm_le_manual';assert.equal(WB.balance(HFC,Alignment,state,catalog,row,'before','main').ok,false);
+ delete row.workbench.modelId;assert.equal(WB.balance(HFC,Alignment,state,catalog,row,'before','unsupported').ok,false);
+});
+test('known output-limit failure takes precedence even when another gain input is unknown',()=>{
+ const HFC=require('../night-sweep/engine.js'),catalog=require('../night-sweep/catalog.json');
+ const row={id:'r1',device:'active_gm_hgd',parent:'source',length:0,cable:'p3_625',targetLow:50,targetHigh:'',outputLimitLow:45};
+ const state={setup:{lowF:54,highF:860,lowLevel:10,highLevel:10,launchMode:'linear',basis:'nominal',temperature:68},rows:[row]};
+ assert.equal(WB.assess(HFC,state,catalog,row).label,'Output limit exceeded');
 });
