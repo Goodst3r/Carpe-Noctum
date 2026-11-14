@@ -19,6 +19,7 @@ function boot(){
 async function settle(h){for(let i=0;i<5;i++)await new Promise(r=>setImmediate(r));}
 async function withApp(fn){const h=boot();try{await settle(h);await fn(h);await settle(h);assert.deepEqual(h.errors,[]);}finally{h.dom.window.close();}}
 const near=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+const destination=task=>({gain:'route',readings:'route',trial:'power'})[task]||task;
 function shown(el,label){assert(el,label+' exists');for(let a=el;a;a=a.parentElement){assert.notEqual(a.hidden,true,label+' hidden');assert.notEqual(el.ownerDocument.defaultView.getComputedStyle(a).display,'none',label+' not displayed');if(a.tagName==='DETAILS')assert.equal(a.open,true,label+' collapsed');}}
 
 test('Practice library exposes seven identifiable loadable exercises and preserves the four original paths',async()=>withApp(async h=>{
@@ -80,7 +81,7 @@ test('Loading any feature opens its seeded exercise, the right guide step, and a
  const features=h.json('TrainingJob.features');
  for(const feature of features){
   assert.equal(await h.ev('TrainingJob.openFeature('+JSON.stringify(feature.id)+')'),true,feature.id);await settle(h);
-  assert.equal(h.ev('WorkflowUI.current()'),feature.task,feature.id);
+  assert.equal(h.ev('WorkflowUI.current()'),destination(feature.task),feature.id);
   assert.equal(h.ev('state.job.training'),'guided-1.5');assert.equal(h.ev('state.job.trainingVariant||"complete"'),feature.variant,feature.id);
   if(feature.control)shown(h.d.querySelector(feature.control),feature.id);
   assert.equal(h.d.getElementById('trainingBanner').hidden,false);
@@ -114,6 +115,6 @@ test('Unknown requested variants/features reject before switching and retained f
 test('New guides reveal their configured route, gain, TDR and reference fields without altering practice data',async()=>withApp(async h=>{
  for(const variant of ['aoi-six-active','custom-curves','gainmaker-manual']){
   await h.ev('TrainingJob.open('+JSON.stringify(variant)+')');const list=h.json('TrainingJob.stepsFor('+JSON.stringify(variant)+')');
-  for(const step of list){h.ev('WorkflowUI.go("home")');h.d.querySelectorAll('#route details,#projectPanel details,#fieldReferencePanel details').forEach(d=>d.open=false);const before=h.ev('JSON.stringify([state.rows,state.project,state.job])');h.d.querySelector('[data-training-open="'+step[0]+'"]').click();assert.equal(h.ev('WorkflowUI.current()'),step[2],variant+' '+step[0]);assert.equal(h.ev('JSON.stringify([state.rows,state.project,state.job])'),before);}
+  for(const step of list){h.ev('WorkflowUI.go("home")');h.d.querySelectorAll('#route details,#projectPanel details,#fieldReferencePanel details').forEach(d=>d.open=false);const before=h.ev('JSON.stringify([state.rows,state.project,state.job])');h.d.querySelector('[data-training-open="'+step[0]+'"]').click();assert.equal(h.ev('WorkflowUI.current()'),destination(step[2]),variant+' '+step[0]);assert.equal(h.ev('JSON.stringify([state.rows,state.project,state.job])'),before);}
  }
 }));

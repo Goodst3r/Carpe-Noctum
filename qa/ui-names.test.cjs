@@ -279,8 +279,8 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
 
   run('The app exposes the five main tabs and their sub-tabs the check relies on', () => {
     assert.deepEqual([...info.mainLabels].sort(), ['closeout', 'field', 'home', 'plan', 'tools']);
-    assert.deepEqual([...info.subTabs.get('plan')], ['details', 'setup', 'cable route', 'amp gain', 'amp / node setup', 'predicted levels', 'load', 'what-if', 'supply pm', 'sweep due']);
-    assert.deepEqual([...info.subTabs.get('field')], ['meter setup', 'station', 'readings', 'tdr', 'onx files', 'leakage', 'checklists', 'night log']);
+    assert.deepEqual([...info.subTabs.get('plan')], ['details', 'setup', 'route & sweep', 'amp / node setup', 'predicted levels', 'load & what-if', 'supply pm', 'sweep due']);
+    assert.deepEqual([...info.subTabs.get('field')], ['meter setup', 'station records', 'tdr', 'onx files', 'leakage', 'checklists', 'night log']);
     assert.deepEqual([...info.subTabs.get('home')], ['home', 'outage']);
     for (const [main, tab] of [['plan', 'amp / node setup'], ['field', 'meter setup'], ['plan', 'predicted levels'], ['closeout', 'acceptance'], ['tools', 'catalog']]) {
       assert(info.subTabs.get(main).has(tab), main + ' → ' + tab);
@@ -329,7 +329,7 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     check('probe', info, header + '| Field | Night log; Not a screen | Synthetic |\n', semi);
     assert(semi.some(f => /lists "not a screen"/.test(f)) && !semi.some(f => /lists "night log"/.test(f)), semi.join('\n'));
     const valid = [];
-    check('probe', info, header + '| Plan | Details; Amp / node setup; What-if | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n| Field | Meter setup; Night log | ok |\n', valid);
+    check('probe', info, header + '| Plan | Details; Amp / node setup; Load & what-if | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n| Field | Meter setup; Night log | ok |\n', valid);
     assert.deepEqual(valid, []);
     const form = [];
     check('probe', info, '| Field | What to enter |\n| --- | --- |\n| Source type | Node output, Amplifier / LE output, or Manual / other output |\n', form);

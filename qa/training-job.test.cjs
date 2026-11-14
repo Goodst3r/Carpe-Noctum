@@ -1,13 +1,14 @@
 /* Guided example flows, job preservation, and portable synthetic evidence. */
 'use strict';
-const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{webcrypto}=require('node:crypto');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{webcrypto,createHash}=require('node:crypto');
 const {JSDOM,VirtualConsole}=require('./runtime/node_modules/jsdom'),FDB=require('./runtime/node_modules/fake-indexeddb');
 const root=path.resolve(__dirname,'..'),cases=[],instances=[];
 const practicePath=suffix=>path.join(root,process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST==='1'?'research/build2':'release','NightSweep_1.8_Alpha_build_2_'+suffix);
+let cachedStandalone;
 function standaloneHtml(){
- if(process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST==='1')return require('./build2-source-harness.cjs').assembleHtml();
- let html=fs.readFileSync(path.join(root,'outputs/Night_Sweep.html'),'utf8');
- if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')return html;
+ if(cachedStandalone)return cachedStandalone;
+ let html=process.env.NIGHTSWEEP_BUILD2_SOURCE_TEST==='1'?require('./build2-source-harness.cjs').assembleHtml():fs.readFileSync(path.join(root,'outputs/Night_Sweep.html'),'utf8');
+ if(process.env.NIGHTSWEEP_TRAINING_SOURCE_TEST!=='1')return cachedStandalone=prepareSharedMapAssets(html);
  // Bounded source integration while the release owner freezes/builds the final
  // standalone. Default QA always tests the generated release HTML unchanged.
  for(const [file,startMarker,endMarker] of [['training.js','/* Offline synthetic practice job.','function initTraining(){TrainingJob.init();}'],['sweep-setup.js','/* 2.0 Alpha build 3 guided field setup.',"if(typeof module!=='undefined'&&module.exports)module.exports=SweepSetup;"]]){
@@ -15,15 +16,24 @@ function standaloneHtml(){
   assert(start>=0&&end>start,'Could not isolate '+file+' for source-only integration.');
   html=html.slice(0,start)+fs.readFileSync(path.join(root,'night-sweep',file),'utf8')+html.slice(end+endMarker.length);
  }
- return html;
+ return cachedStandalone=prepareSharedMapAssets(html);
+}
+// Parse the inert binary block once across JSDOM instances. A self-removing
+// bootstrap restores the exact payload before importer or app scripts execute.
+// Real-browser and package-integrity suites continue to read the full file.
+function prepareSharedMapAssets(html){
+ const re=/(<script id="map-import-assets" type="application\/json">)([\s\S]*?)(<\/script>)/g,matches=[...html.matchAll(re)];
+ assert.equal(matches.length,1,'Exactly one map asset JSON block is required');const text=matches[0][2],assets=JSON.parse(text);assert(assets&&typeof assets==='object'&&!Array.isArray(assets)&&Object.keys(assets).length,'Embedded map assets must be valid and nonempty');
+ const tag=matches[0][0],sha256=createHash('sha256').update(text).digest('hex'),bootstrap='<script>document.getElementById("map-import-assets").textContent=window.__qaSharedMapAssets;delete window.__qaSharedMapAssets;document.currentScript.remove();</script>';
+ return {html:html.replace(re,()=>matches[0][1]+'{}'+matches[0][3]+bootstrap),text,tag,sha256};
 }
 function boot(){
  const errors=[],downloads=[],prompts=[],control={confirm:true},vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
- const dom=new JSDOM(standaloneHtml(),{url:'https://nightsweep.test/',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
-  w.ResizeObserver=class{observe(){}};w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.print=()=>{};w.structuredClone=structuredClone;
+ const prepared=standaloneHtml();const dom=new JSDOM(prepared.html,{url:'https://nightsweep.test/',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
+  Object.defineProperty(w,'__qaSharedMapAssets',{value:prepared.text,configurable:true});w.ResizeObserver=class{observe(){}};w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.print=()=>{};w.structuredClone=structuredClone;
   w.indexedDB=new FDB.IDBFactory();w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;w.Uint8Array=Uint8Array;w.ArrayBuffer=ArrayBuffer;Object.defineProperty(w.crypto,'subtle',{value:webcrypto.subtle});
   w.confirm=message=>{prompts.push(message);return control.confirm;};w.NightSweepAndroid={saveFile:(name,text,mime)=>downloads.push({name,text,mime}),saveBinary:(name,base64,mime)=>downloads.push({name,base64,mime}),printReport:()=>{}};
- }});instances.push(dom);const w=dom.window,d=w.document,ev=source=>w.eval(source),json=source=>JSON.parse(ev('JSON.stringify('+source+')'));
+ }});const restored=dom.window.document.getElementById('map-import-assets');assert(restored,'map asset block survives');assert.equal(restored.textContent,prepared.text,'exact map bytes restored before app scripts');assert.equal(restored.outerHTML,prepared.tag,'DOM serialization matches original asset tag');assert.equal(createHash('sha256').update(restored.textContent).digest('hex'),prepared.sha256,'asset payload hash preserved');assert.equal('__qaSharedMapAssets' in dom.window,false,'temporary bootstrap global removed');instances.push(dom);const w=dom.window,d=w.document,ev=source=>w.eval(source),json=source=>JSON.parse(ev('JSON.stringify('+source+')'));
  return {w,d,ev,json,errors,downloads,prompts,control,storage:()=>Object.fromEntries(Array.from({length:w.localStorage.length},(_,i)=>{const key=w.localStorage.key(i);return[key,w.localStorage.getItem(key)];})),click:selector=>{const button=d.querySelector(selector);assert(button,selector);button.click();}};
 }
 async function settle(h){for(let i=0;i<5;i++)await new Promise(r=>setImmediate(r));const end=Date.now()+5000;while(h.w.evidenceIsBusy?.()&&Date.now()<end)await new Promise(r=>setImmediate(r));assert(!h.w.evidenceIsBusy?.(),'evidence operation did not settle');}
@@ -65,7 +75,7 @@ async function train(h){await h.ev('TrainingJob.open()');await settle(h);}
  await check('The example uses valid node, branch, active, passive and power objects with real calculable outputs',()=>{
   assert.deepEqual(existing.json('NodeTools.issues(state.node,catalog)'),[]);const distances=existing.json('HFC.routeDistances(state,catalog)');assert.deepEqual(distances.errors,[]);const rows=existing.json('state.rows');assert(rows.length>=5);assert(existing.ev('state.rows.filter(r=>device(r.device)?.active).length')>=2);assert(rows.some(r=>r.drop));assert(rows.some(r=>String(r.asBuiltNote||'').trim()));assert(existing.ev('state.rows.some(r=>HFC.portsFor(device(r.device),r).length>1)'));
   assert.equal(existing.ev('state.node.model'),'gs7000-12g');assert.deepEqual(existing.json('NodeTools.band(state.node,catalog)'),{label:'42/54 MHz',returnLow:5,returnCeiling:42,forwardFloor:54,equipmentUpper:1218});assert.equal(existing.ev('state.node.operatingUpper'),1000);assert.equal(existing.ev('state.sweepSetup.selected'),'42');assert(existing.ev('state.rows.every(r=>device(r.device)&&catalog.cables.some(c=>c.id===r.cable))'));assert(existing.ev('state.power.rows.every(r=>r.equipment==="custom"||powerEquipment(r.equipment))'));assert(existing.ev('state.power.rows.every(r=>catalog.cables.some(c=>c.id===r.cable))'));
-  for(const frequency of [54,860]){const results=existing.json('evaluate('+frequency+').results');assert.equal(results.length,rows.length);for(const row of results){assert(Number.isFinite(row.input.level),row.id+' input');assert(row.outputs.length);for(const output of row.outputs)assert(Number.isFinite(output.level),row.id+' '+output.id);}}
+  for(const frequency of [54,860]){const results=existing.json('evaluate('+frequency+').results');assert.equal(results.length,rows.length);for(const row of results){assert(Number.isFinite(row.input.level),row.id+' input');assert(row.outputs.length);for(const output of row.outputs){if(row.device?.active&&output.id!=='through'){assert.equal(output.level,null,row.id+' '+output.id+' requires per-leg gain');assert.match(output.blockedReason,/gain unavailable/i);}else assert(Number.isFinite(output.level),row.id+' '+output.id);}}}
   const power=existing.json('HFC.powerRun(state.power,catalog)');assert.equal(power.ok,true);assert(power.supplyCurrent>0);assert(power.rows.length>=3);assert(power.rows.every(row=>Number.isFinite(row.voltage)&&row.voltage>0));
  });
  await check('Synthetic evidence includes readable Sweep, Ingress and OneCheck files with explicit provenance',()=>{
@@ -98,11 +108,11 @@ async function train(h){await h.ev('TrainingJob.open()');await settle(h);}
  await check('Return injection and checklist examples show concrete arithmetic without creating acceptance',()=>{
   near(existing.ev('ProjectMath.generator(state.project.generator)'),61);assert.equal(existing.ev('state.fieldWork.leakage.conversion.value'),'72');assert.equal(existing.ev('state.fieldWork.leakage.conversion.from'),'dbuv');assert(existing.ev('FieldWork.reportSections(state).length')>=2);assert.equal(existing.ev('state.fieldReferences.tapPoint'),'r6');
  });
- await check('Both GaN HGDs use entered gain and reserve instead of inventing a flat manufacturer response',()=>{
+ await check('Both standard HGDs use entered gain and reserve instead of inventing a flat manufacturer response',()=>{
   const budgets=existing.json('["r1","r3"].map(rowId=>HFC.gainBudget({...state,setup:effectiveLaunchSetup()},catalog,{rowId}))');for(const budget of budgets){assert(Number.isFinite(budget.minimumMargin));assert.equal(budget.publishedReference.screeningOnly,true);assert.notEqual(budget.low.availableGain,44);assert.notEqual(budget.high.availableGain,44);}near(budgets[0].low.availableGain,9);near(budgets[0].high.availableGain,18);near(budgets[1].low.availableGain,8);near(budgets[1].high.availableGain,15);
  });
  await check('Every guided action reaches its named task and the intended existing route point',()=>{
-  const expected={job:['projects'],launch:['setup'],equipment:['equipmentSetup','source'],route:['route','r4'],drop:['route','r6'],gain:['gain','r1'],parts:['parts'],agc:['equipmentSetup','r1'],station:['station','r1'],tdr:['tdr'],sweepSetup:['sweepSetup'],sweep:['sweep'],frequency:['frequency'],readings:['readings','r1'],reference:['references'],power:['power'],trial:['trial'],files:['evidence'],checks:['checklists'],records:['records'],report:['runsheet'],backup:['home']};assert.equal(existing.d.querySelectorAll('[data-training-open]').length,22);
+  const expected={job:['projects'],launch:['setup'],equipment:['equipmentSetup','source'],route:['route','r4'],drop:['route','r6'],gain:['route','r1'],parts:['parts'],agc:['equipmentSetup','r1'],station:['station','r1'],tdr:['tdr'],sweepSetup:['sweepSetup'],sweep:['sweep'],frequency:['frequency'],readings:['route','r1'],reference:['references'],power:['power'],trial:['power'],files:['evidence'],checks:['checklists'],records:['records'],report:['runsheet'],backup:['home']};assert.equal(existing.d.querySelectorAll('[data-training-open]').length,22);
   for(const [step,[task,point]] of Object.entries(expected)){existing.click('#trainingShowGuide');assert.equal(existing.ev('WorkflowUI.current()'),'home');assert.equal(existing.d.getElementById('trainingGuide').open,true);existing.click('[data-training-open="'+step+'"]');assert.equal(existing.ev('WorkflowUI.current()'),task,step);if(point)assert.equal(existing.d.querySelector(task==='equipmentSetup'?'#equipmentSetupPanel select[data-equipment-target]':task==='station'?'#stationPanel [data-station-target]':'#pointSelect').value,point,step);if(task==='equipmentSetup')assert.equal(existing.ev('state.equipmentSetup.selected'),point,step+' saved selection');if(step==='drop')assert.equal(existing.d.querySelector('#route [data-row="r6"] .point-extras').open,true);}
  });
  await check('Reviewed steps persist as learning progress without marking real inspections or acceptance',()=>{
@@ -141,17 +151,17 @@ async function train(h){await h.ev('TrainingJob.open()');await settle(h);}
   for(const id of ['openTrainingJob','openOemTrainingJob','openDsimTrainingJob','openGs7kTrainingJob'])assert(practice.d.getElementById(id));
   assert.match(practice.d.querySelector('.training-card').textContent,/OEM AGC/);assert.match(practice.d.querySelector('.training-card').textContent,/ACI DSIM/);
   const definitions=practice.json('TrainingJob.steps');assert.equal(definitions.length,22);assert(definitions.find(s=>s[0]==='equipment'&&s[2]==='equipmentSetup'));
-  const agc=definitions.find(s=>s[0]==='agc');assert.match(agc[4],/GaN.*unverified/i);assert.match(agc[4],/Do not apply an AOI/);assert.match(agc[4],/DSIM/);
+  const agc=definitions.find(s=>s[0]==='agc');assert.match(agc[4],/HGD.*unverified/i);assert.match(agc[4],/Do not apply an AOI/);assert.match(agc[4],/DSIM/);
   for(const [list,id] of [['TrainingJob.dsimSteps','launch'],['TrainingJob.oemSteps','launch'],['TrainingJob.gs7kSteps','levels']]){const step=practice.json(list).find(s=>s[0]===id);assert.equal(step[2],'references');assert.match(step[4],/57 \/ 753 MHz/);assert.match(step[4],/63 \/ 550 MHz/);assert.match(step[4],/31 dBmV at 54 MHz \/ 43 dBmV at 860 MHz/);assert.match(step[4],/square-root cable law or linear-MHz/);}
  });
  await train(practice);let fullOriginals;
- await check('Cancelling a separate practice choice preserves the complete GS7K / GaN job and all six original files',async()=>{
+ await check('Cancelling a separate practice choice preserves the complete GS7K / HGD job and all six original files',async()=>{
   const before=practice.ev('JSON.stringify(state)'),stored=practice.storage();fullOriginals=await practice.w.evidenceExportProject(practice.ev('state'));
   assert.equal(fullOriginals.evidenceFiles.length,6);practice.control.confirm=false;await practice.ev('TrainingJob.open("gainmaker-dsim")');await settle(practice);
   assert.equal(practice.ev('JSON.stringify(state)'),before);assert.deepEqual(practice.storage(),stored);practice.control.confirm=true;
   const after=await practice.w.evidenceExportProject(practice.ev('state'));assert.deepEqual(evidenceBytes(practice,after),evidenceBytes(practice,fullOriginals));
  });
- await check('Opening the separate DSIM job retains the GS7K / GaN example and supplies only compatible legacy practice equipment',async()=>{
+ await check('Opening the separate DSIM job retains the GS7K / HGD example and supplies only compatible legacy practice equipment',async()=>{
   await practice.ev('TrainingJob.open("gainmaker-dsim")');await settle(practice);
   assert.equal(practice.ev('state.job.training'),'guided-1.5');assert.equal(practice.ev('state.job.trainingVariant'),'gainmaker-dsim');assert.equal(practice.ev('state.setup.sourceType'),'active');assert.equal(practice.ev('state.setup.sourceModel'),'active_gm_hgd');
   assert.equal(practice.ev('state.rows[0].device'),'active_gm_le_agc');assert(practice.ev('state.rows.every(r=>!r.device.startsWith("active_aoi_"))'));

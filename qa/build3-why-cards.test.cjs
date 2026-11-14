@@ -12,6 +12,7 @@ const boot = () => require('./build2-source-harness.cjs').bootApp({ html });
 const flush = () => new Promise(r => setImmediate(r));
 async function check(name, fn) { await fn(); await flush(); cases.push(name); console.log('PASS ' + name); }
 const goto = async (h, tab) => { h.ev(`WorkflowUI.go(${JSON.stringify(tab)})`); await flush(); };
+const destination = task => ({ gain: 'route', readings: 'route', trial: 'power' })[task] || task;
 function words(el) { const out = [], walk = el.ownerDocument.createTreeWalker(el, 4); while (walk.nextNode()) { const s = walk.currentNode.nodeValue.trim(); if (s) out.push(s); } return out.join(' ').replace(/\s+/g, ' '); }
 const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
 
@@ -29,7 +30,7 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   await check('Every card says what and why in its own words, links only to screens that exist, and none repeats an SCTE definition', async () => {
     assert.deepEqual(h.json('WhyCards.selfCheck()'), []);
     for (const t of h.json('WhyCards.TOPICS')) {
-      for (const tool of t.tools) { await goto(h, 'projects'); await goto(h, tool.task); assert.equal(h.ev('WorkflowUI.current()'), tool.task, `card ${t.n} links to ${tool.task}`); comparisons++; }
+      for (const tool of t.tools) { await goto(h, 'projects'); await goto(h, tool.task); assert.equal(h.ev('WorkflowUI.current()'), destination(tool.task), `card ${t.n} links to ${tool.task}`); comparisons++; }
     }
     const all = h.json('WhyCards.TOPICS').map(t => t.what + ' ' + t.why).join(' ');
     // Phrases from SCTE's own definitions and text (read November 11, 2026): the cards must not repeat them.
@@ -90,6 +91,6 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   });
 
   console.log(`Build3 why cards: ${cases.length} checks passed (${comparisons} comparisons with the catalog list)`);
-  fs.writeFileSync('qa/build3-why-cards-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App cards against the SCTE catalog list typed into why-cards-reference.json (kept in research/build3), plus the rendered screen, the registry row and the saved-job format. No input, no storage.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-why-cards-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'App cards against the SCTE catalog list typed into why-cards-reference.json (kept in research/build3), plus the rendered screen, the registry row and the saved-job format. No input, no storage.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

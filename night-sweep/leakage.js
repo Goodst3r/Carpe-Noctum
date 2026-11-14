@@ -555,7 +555,7 @@ const LeakageUI=(()=>{
     const snap=Leakage.snapshot();
     if(!snap.leaks.length){note('leak-log-note','The log is empty, so there is nothing to export.',true);return;}
     const csv=Leakage.leaksCsv([...snap.leaks].sort((a,b)=>a.found.localeCompare(b.found)));
-    if(typeof download==='function')download('CarpeNoctum_2.0_Alpha_build_3_Leak_Log.csv',csv,'text/csv');
+    if(typeof download==='function')download('CarpeNoctum_2.0_Alpha_build_4_Leak_Log.csv',csv,'text/csv');
     note('leak-log-note','Leak log CSV prepared. It includes the place and notes text you entered. Finish the save or share step on your device.',false);
    }else if(b.id==='leakClear'){
     if(typeof confirm==='function'&&!confirm('Clear the whole leak log, the saved detector checks and the company settings from this device? Only the leak log can be exported first (CSV); the checks and settings cannot.'))return;

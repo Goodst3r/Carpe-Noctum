@@ -1,8 +1,8 @@
-# NightSweep 1.8 Alpha build 2 — Android wrapper
+# Carpe Noctum 2.0 Alpha build 4 — Android wrapper
 
-Preview identity: `com.spencerwilliams.nightsweep.preview` · Version code **24** · Version name **1.8 Alpha build 2** · Launcher label **NightSweep 1.8 Preview build 2**.
+Preview identity: `com.spencerwilliams.nightsweep.preview` · Version code **28** · Version name **2.0 Alpha build 4** · Launcher label **Carpe Noctum 2.0 Preview build 4**.
 
-Read `build-readiness.json` and the matching `dist/preview/build-info.json` for actual build evidence. Signing material stays outside the project and is excluded from every source and coworker package. The retained build 22 APK is a historical **1.7** installer; it does not contain these changes.
+`build-readiness.json` is a dated pre-signing source snapshot; the build 4 APK and matching `dist/preview/build-info.json` do not exist yet at that snapshot. Later candidate receipts and phone acceptance are separate dated evidence. A separately signed starting-commit code 27 Preview was reported to update in place with jobs, readings and original attachments intact. Signing material stays outside the project and is excluded from every source and coworker package. The retained build 22 APK is a historical **1.7** installer; it does not contain these changes.
 
 The standard package remains `com.spencerwilliams.nightsweep`; `--preview` selects the established Preview package. Keep the existing package, private document-provider authority and fixed HTTPS document origin when producing an update. A separately signed or renamed package cannot establish an in-place update.
 
@@ -26,7 +26,7 @@ python3 toolchain/download.py
 python3 build.py /absolute/path/to/outputs/Night_Sweep.html --preview --signing-dir /absolute/path/to/private-signing --expected-html-sha256 <frozen-html-sha256>
 ```
 
-The default pinned certificate is `a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca`. Output is `dist/preview/NightSweep-1.8-build2-preview.apk`; the optional standard variant uses `dist/NightSweep-1.8-build2-alpha.apk`. The build checks package/version/label, provider authority, expected signer, v2/v3 signatures, ZIP alignment and exact embedded HTML. Only a completely verified APK and matching receipts are promoted together; failed compilation, validation, copy or promotion preserves the previous validated output.
+The default pinned certificate is `a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d55e3698d153046ca`. Output is `dist/preview/CarpeNoctum-2.0-build4-preview.apk`; the optional standard variant uses `dist/CarpeNoctum-2.0-build4-alpha.apk`. The build checks package/version/label, provider authority, expected signer, v2/v3 signatures, ZIP alignment and exact embedded HTML. Only a completely verified APK and matching receipts are promoted together; failed compilation, validation, copy or promotion preserves the previous validated output.
 
 For development compilation without a signer, add `--unsigned`. Those candidates go to `dist/unsigned-preview/` (or `dist/unsigned-standard/`) with `signed: false` and `installable: false`; they cannot replace the signed installer or establish update compatibility.
 
@@ -34,7 +34,7 @@ From the project root, `python3 qa/android-preview.test.py` checks disposable st
 
 ## Compatible update and data preservation
 
-A verified build 2 Preview APK signed with the original Preview certificate and version code 24 is intended to update compatible earlier Preview builds, including 1.7 build 22, using the same app storage. Export and verify each important project first. Complete the install/update without uninstalling the existing app or clearing its data, then check named jobs, a saved route and original attachments. Physical-phone update behavior requires a separate device check.
+A build 4 Preview candidate signed with the original Preview certificate and code 28 is intended to update a matching earlier Preview package. The separately verified baseline code 27 update does not establish build 4 acceptance. Export and verify each important project first. Complete the install/update without uninstalling the existing app or clearing its data, then check named jobs, a saved route and original attachments. Physical-phone update behavior requires a separate device check.
 
 The supplied historical 0.13 installer uses a different certificate: `7998433ff49dc46b1157f69c917fb9b7e93936a5845140f054f9488ad7519e5b`. The available original Preview key cannot update that installer in place. Preview can coexist with it using separate storage; move jobs using verified project exports. A preserving standard-package update requires the private key that actually signed 0.13 and an explicit matching `--expected-certificate-sha256`.
 
