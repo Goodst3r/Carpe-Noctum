@@ -65,3 +65,7 @@ Grok should start from the exact `build3` pin `248e77802f333a1a461563dfb1973315a
 | Candidate gate / Codex, review / Claude, release / Spencer | Freeze only the intended combined scope. Gate once on exact SHA/hash (or reuse a qualifying byte-identical pass), then one consolidated Claude review. No assistant APK work. |
 
 - Organization checkpoint at 2026-11-14T18:34:18+00:00: standalone SHA-256 `18463d3c3a2087eb6bd5afea4110527a64b60d18a58a2398ed6ff2daf5785686`. Final standalone-mode `NIGHTSWEEP_RELEASE_TEST=1 node qa/next-navigation.test.cjs` passes8; current keyboard passes58 and UI-names passes7. Remaining complete-gate/release limitations above still apply.
+
+- Final organization PWA checks on the recorded HTML: `node qa/pwa-worker.test.cjs` exit0 /37 checks; `node qa/pwa-client.test.cjs` exit0 /20 checks. Organization source committed as `db25346dd1906b819dcdd8fcbe624215830e43d5`. See NEXT_BUILD_COMPANY_VERIFICATION.md for the separate company item and independent numeric evidence.
+
+- Company item: fresh build3 pin unchanged, ordinary merge `fc924fd842beda2ed97daf75909794a723d548a6`, exact standalone company suite exit0 /17 tests. No app bytes changed from organization. Next action remains Grok OEM/math source return, then the shared-leg item on a new owned branch; the full gate and Claude finished-batch review have not started.
