@@ -2,6 +2,7 @@
 (function(root,factory){const api=factory(root);if(typeof module==='object'&&module.exports)module.exports=api;else root.NightSweepMapPDF=api;})(typeof globalThis!=='undefined'?globalThis:this,root=>{
  'use strict';
  const n=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
+ const currentTarget=(record,key,frequency)=>{if(n(frequency)===null)return null;const engine=typeof HFC!=='undefined'?HFC:typeof require==='function'?require('./engine.js'):null;return engine?.frequencyValue?engine.frequencyValue(record,key,frequency):n(record?.[key]);};
  const value=x=>n(x)===null?'Unknown':Number(x).toFixed(1);
  const wrap=text=>{const out=[];let rest=String(text);while(rest.length>44){let at=rest.lastIndexOf(' ',44);if(at<8)at=44;out.push(rest.slice(0,at));rest=rest.slice(at).trimStart();}out.push(rest);return out;};
  function geometry(source,page){
@@ -15,25 +16,38 @@
   for(const p of Object.values(placements))if(!p||!/^[a-f0-9]{64}$/i.test(p.sourceId)||n(p.x)===null||n(p.y)===null||p.x<0||p.x>1||p.y<0||p.y>1)problems.push('PDF tombstone positions must be finite fractions of their original page.');
   return problems;
  }
- function linesFor(row){
+ function predictions(owner){
+  const engine=typeof HFC!=='undefined'?HFC:typeof require==='function'?require('./engine.js'):null;
+  const equipment=typeof catalog!=='undefined'?catalog:typeof require==='function'?require('./catalog.json'):null;
+  if(!engine||!equipment||!owner.setup)return {};
+  const setup=typeof effectiveLaunchSetup==='function'?effectiveLaunchSetup(owner.setup):owner.setup.launchTestPoint?{...owner.setup,lowLevel:'',highLevel:'',launchTable:''}:owner.setup;
+  const result={};for(const band of ['low','high']){const frequency=n(setup[band+'F']);if(frequency===null)continue;try{result[band]=typeof state!=='undefined'&&owner===state&&typeof evaluate==='function'?evaluate(frequency):engine.run({...owner,setup},equipment,frequency);}catch(e){/* Unsupported legacy context stays Unknown. */}}
+  return result;
+ }
+ function linesFor(row,owner,runs){
   const w=row.workbench||{},lines=['NAME: '+(row.mapImport?.exactName||row.name||'Unknown'),'TAG: '+(row.mapImport?.tag||'Unknown'),row.terminal||row.mapImport?.kind==='terminal'?'End of line':'Active station'];
+  lines.push('Markers L/H: '+value(owner.setup?.lowF)+' / '+value(owner.setup?.highF)+' MHz');
+  const expected=band=>runs[band]?.results?.find(r=>r.id===row.id),lo=expected('low'),hi=expected('high');
+  lines.push('Expected input L/H: '+value(lo?.input?.level)+' / '+value(hi?.input?.level)+' dBmV');
+  if(row.id!=='source')lines.push('Incoming cable loss L/H: '+value(lo?.cableLoss)+' / '+value(hi?.cableLoss)+' dB');
   const legs=Array.from(new Set(['main',...Object.keys(w.records||{}),...Object.keys(w.legGain||{})]));
-  for(const leg of legs){const target=leg==='main'?row:w.legGain?.[leg]||{};lines.push(leg+' target L/H: '+value(target.targetLow)+' / '+value(target.targetHigh)+' dBmV');
+  for(const leg of legs){const port=leg==='main'?'through':leg,out=band=>row.id==='source'?runs[band]?.source:expected(band)?.outputs?.find(p=>p.id===port)?.level;lines.push(leg+' expected OUT L/H: '+value(out('low'))+' / '+value(out('high'))+' dBmV');const target=leg==='main'?row:w.legGain?.[leg]||{};lines.push(leg+' target L/H: '+value(currentTarget(target,'targetLow',owner.setup?.lowF))+' / '+value(currentTarget(target,'targetHigh',owner.setup?.highF))+' dBmV');
    for(const stage of ['before','after']){const r=w.records?.[leg]?.[stage]||{},lo=r.low||{},hi=r.high||{},il=w.commonInput?w.shared?.[stage]?.low||{}:lo,ih=w.commonInput?w.shared?.[stage]?.high||{}:hi;lines.push(leg+' '+stage+' raw IN '+value(il.input)+'/'+value(ih.input)+' OUT '+value(lo.output)+'/'+value(hi.output)+' dBmV');}
   }
   for(const [slot,p] of Object.entries(w.pads||{}))if(n(p.installed)!==null||n(p.changed)!==null)lines.push(slot+': '+value(p.installed)+' -> '+value(p.changed)+' dB');
+  if(row.id==='source')for(const [port,r] of Object.entries(owner.portSweeps||{})){if(typeof PortSweeps!=='undefined'&&r.stationIdentity!==PortSweeps.sourceIdentity(owner)){lines.push('ONX '+port+': historical node identity; not applied.');continue;}const at=f=>r.points?.find(p=>p[0]===n(f))?.[1];lines.push('ONX '+port+' '+r.stage+': '+value(at(owner.setup?.lowF))+' / '+value(at(owner.setup?.highF))+' '+(r.unit||'Unknown')+' '+r.basis+' '+value(r.bandwidthMHz)+' MHz');}
   lines.push('Raw readings; no RF acceptance.');return lines.flatMap(wrap);
  }
  function plan(owner){
   const source=owner?.mapImportSource;
   if(!source||source.type!=='application/pdf'||!/^[a-f0-9]{64}$/i.test(source.id))throw Error('Update PDF map requires an imported PDF original. Images remain route-draft inputs only.');
   const problems=validate(owner);if(problems.length)throw Error(problems.join(' '));
-  const tombstones=[],skipped=[],seen=new Set(),add=(row,m,launch=false)=>{
-   const eligible=m&&m.sourceId===source.id&&m.positionConfirmed===true&&!['absent','proposed'].includes(m.status)&&(launch?m.confirmed===true:m.status==='installed'&&(m.kind==='terminal'||row.terminal===true||m.modelConfirmed===true));
+  let runs;const tombstones=[],skipped=[],seen=new Set(),add=(row,m,launch=false)=>{
+   const eligible=m&&m.sourceId===source.id&&m.positionConfirmed===true&&m.positionReadable!==false&&!['absent','proposed'].includes(m.status)&&(launch?m.confirmed===true:m.status==='installed'&&(m.kind==='terminal'||row.terminal===true||m.modelConfirmed===true));
    if(!eligible||!launch&&m.kind!=='active'&&m.kind!=='terminal'&&!row.terminal){skipped.push({rowId:row.id||'source',reason:'Symbol, installed model or source is unconfirmed.'});return;}
    const page=Number(m.page),symbol=String(m.symbolId||'');if(!Number.isInteger(page)||page<1||page>8||!symbol||symbol.length>200||n(m.position?.x)===null||n(m.position?.y)===null){skipped.push({rowId:row.id||'source',reason:'Confirmed diagram position is missing.'});return;}
    const key=source.id+':'+page+':'+symbol;if(seen.has(key))throw Error('Two route points refer to the same physical map symbol. Resolve the duplicate before export.');seen.add(key);
-   const g=geometry(source,page),scale=Math.hypot(g.viewportTransform[0],g.viewportTransform[1]),lines=linesFor(row),width=210*scale,lineHeight=8.5*scale,height=(lines.length*8.5+16)*scale;
+   const g=geometry(source,page),scale=Math.hypot(g.viewportTransform[0],g.viewportTransform[1]),lines=linesFor(row,owner,runs??=predictions(owner)),width=210*scale,lineHeight=8.5*scale,height=(lines.length*8.5+16)*scale;
    if(width>g.width-12*scale||height>g.height-12*scale)throw Error('This grouped tombstone does not fit on its diagram page. Reduce the grouped record or use a larger source page.');
    const saved=owner.mapTombstones?.[key],defaultX=m.position.x+width+18*scale<=g.width?m.position.x+12*scale:m.position.x-width-12*scale;
    const x=saved?.sourceId===source.id?saved.x*g.width:Math.max(6*scale,Math.min(g.width-width-6*scale,defaultX)),y=saved?.sourceId===source.id?saved.y*g.height:Math.max(6*scale,Math.min(g.height-height-6*scale,m.position.y-height/2));
@@ -80,10 +94,11 @@
 });
 
 function initMapPDF(){
- const host=document.createElement('details');host.id='mapPdfPanel';host.innerHTML='<summary>Update PDF map</summary><p class="note">Create one grouped tombstone beside each confirmed active and end-of-line symbol, on its diagram page. Keep the original separately. Re-select the same original after reopening a job. Images cannot be exported as updated maps.</p><label class="filelabel">Select verified original PDF<input type="file" accept=".pdf,application/pdf" data-map-pdf-original></label><div class="toolbar"><button type="button" data-map-pdf-refresh>Refresh tombstones</button><button type="button" data-map-pdf-export>Update PDF map</button></div><p data-map-pdf-status role="status" aria-live="polite"></p><div data-map-pdf-positions></div>';
+ const host=document.createElement('details');host.id='mapPdfPanel';host.innerHTML='<summary>Update PDF map</summary><p class="note">Create one grouped tombstone beside each confirmed active and end-of-line symbol, on its diagram page. Keep the original separately. Re-select the same original after reopening a job. Images cannot be exported as updated maps.</p><label class="filelabel">Select verified original PDF<input type="file" accept=".pdf,application/pdf" data-map-pdf-original></label><div class="toolbar"><button type="button" data-map-pdf-practice>Save synthetic map PDF</button><button type="button" data-map-pdf-refresh>Refresh tombstones</button><button type="button" data-map-pdf-export>Update PDF map</button></div><p data-map-pdf-status role="status" aria-live="polite"></p><div data-map-pdf-positions></div>';
  $('mapImportMount').closest('details').after(host);let selected=null;
  const current=()=>selected?.owner===state&&selected.sourceId===state.mapImportSource?.id;
  host.addEventListener('change',async e=>{if(!e.target.hasAttribute('data-map-pdf-original'))return;const file=e.target.files?.[0],owner=state;if(!file)return;selected=null;try{const bytes=new Uint8Array(await file.arrayBuffer());await NightSweepMapPDF.verifyOriginal(bytes,owner);if(owner!==state)throw Error('Job changed; select its original again.');selected={owner,sourceId:owner.mapImportSource.id,bytes};host.querySelector('[data-map-pdf-status]').textContent='Original PDF verified. Review symbol confirmations and tombstone positions before export.';renderMapPDF();}catch(err){host.querySelector('[data-map-pdf-status]').textContent=err.message;}});
+ host.addEventListener('click',async e=>{if(!e.target.hasAttribute('data-map-pdf-practice'))return;try{const packed=JSON.parse(document.getElementById('map-import-assets').textContent)['practice-map.pdf'];if(!packed)throw Error('Synthetic practice map is unavailable.');const bytes=Uint8Array.from(atob(packed),c=>c.charCodeAt(0));if(window.NightSweepAndroid?.saveBinary)window.NightSweepAndroid.saveBinary('SYNTHETIC-practice-map.pdf',EvidenceCore.bytesToBase64(bytes),'application/pdf');else await BrowserFiles.prepare('SYNTHETIC-practice-map.pdf',bytes,'application/pdf',{forceReady:true});host.querySelector('[data-map-pdf-status]').textContent='Synthetic PDF prepared. Import it into a practice job and review every connection.';}catch(err){host.querySelector('[data-map-pdf-status]').textContent=err.message;}});
  host.addEventListener('click',async e=>{if(!e.target.hasAttribute('data-map-pdf-refresh')&&!e.target.hasAttribute('data-map-pdf-export'))return;const status=host.querySelector('[data-map-pdf-status]');try{if(!current())throw Error('Select the verified original PDF for this job first.');const owner=state;await NightSweepMapPDF.verifyOriginal(selected.bytes,owner);if(!current())throw Error('Job changed during PDF verification.');if(e.target.hasAttribute('data-map-pdf-refresh')){renderMapPDF();status.textContent='Tombstones refreshed from the verified original and current records. RF data retained.';return;}const bytes=await NightSweepMapPDF.exportPDF(selected.bytes,owner,{isCurrent:()=>state===owner&&current()});if(!current())throw Error('Job changed during PDF update.');const name=owner.mapImportSource.name.replace(/\.pdf$/i,'')+'-updated.pdf';if(window.NightSweepAndroid?.saveBinary)window.NightSweepAndroid.saveBinary(name,EvidenceCore.bytesToBase64(bytes),'application/pdf');else await BrowserFiles.prepare(name,bytes,'application/pdf',{forceReady:true});status.textContent='Updated PDF prepared. Original PDF and job records retained.';}catch(err){status.textContent=err.message;}});
  host.addEventListener('change',e=>{const t=e.target,key=t.dataset.tombstone;if(!key)return;const row=t.closest('[data-tombstone-key]'),id=row?.dataset.tombstoneKey,n=Number(t.value);if(!t.value.trim()||!Number.isFinite(n)||n<0||n>100){host.querySelector('[data-map-pdf-status]').textContent='Enter a complete position from 0 to 100 percent.';return;}try{const plan=NightSweepMapPDF.plan(state),box=plan.tombstones.find(x=>x.key===id);if(!box)return;state.mapTombstones??={};const previous=state.mapTombstones[id];state.mapTombstones[id]={sourceId:plan.sourceId,x:box.x/box.geometry.width,y:box.y/box.geometry.height,[key]:n/100};try{NightSweepMapPDF.plan(state);}catch(err){if(previous)state.mapTombstones[id]=previous;else delete state.mapTombstones[id];throw err;}saveLocal();host.querySelector('[data-map-pdf-status]').textContent='Tombstone position saved. Review the exported PDF.';}catch(err){host.querySelector('[data-map-pdf-status]').textContent=err.message;}});
 }

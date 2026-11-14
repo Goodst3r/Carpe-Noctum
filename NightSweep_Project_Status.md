@@ -1,5 +1,15 @@
 # Carpe Noctum (formerly NightSweep) project status
 
+## November 14 next-build candidate
+
+The owned candidate branch is `codex/next-build-candidate`, based on current `build3` pin `248e77802f333a1a461563dfb1973315a2043d67`, retaining PR55 implementation `18e7239d017882ee780864c5a2fe74e8d979ea7a` and PR59 workflow `0501a6198ee0a672b4aaf5f238384e3d7aa3f571`. Current roles come from `handoff_docs/PARALLEL_TASKS.md`.
+
+The app starts on standalone Calculators. Route & sweep is directly reachable, Field is removed, and Leakage/daily-workflow entries are retired while legacy data and APIs remain. Voltage drop remains a standalone calculator. Physical-leg targets, limits, measured context and compatible pad/EQ advice remain separate; stale/missing inputs suppress dependent results. Verified ONX originals back complete per-port sweep records and portable restore. PDF updates require a verified original and confirmed active/EOL diagram bindings; each grouped tombstone stays on the diagram page with editable placement. The original map remains a separate immutable file, as in PR55; reselect it after reopening a job.
+
+Approved Company profiles are carried forward with their existing provenance. No ONX observation, missing target, unconfirmed bandwidth/tolerance, or pilot code is promoted into a company criterion. The independent Wolfram record and local OCR evaluation are under `research/next-build/2026-11-14-*`.
+
+Grok QA SHA `a23fab9f0350746d1b356c68d72faf6d4829d6bb` is integrated. Its ONX parser assertions are executable; its nav/RF/PDF files still contain scaffolding or tautological/existence checks and do not prove the claimed production behavior. Codex-owned executable production suites cover those gaps and are registered in the existing runner. Final frozen SHA, standalone SHA-256, combined release results and any remaining failures belong in the single build3 candidate PR and [integration record](handoff_docs/reviews/codex-next-build-integration.md). No signing, merge, deployment or physical-phone acceptance is claimed here; Spencer owns the original-key APK and installed-phone upgrade test.
+
 ## Current: 2.0 Alpha build 4 · pre-signing source candidate · Android code 28 · November 13, 2026 UTC
 
 The starting-commit build 3 Preview code 27 was separately signed and Spencer reported an in-place update with jobs, readings and original attachments intact. Build 4 remains pending final review, signing, phone acceptance and web deployment; combined gate evidence belongs to the implementation PR and its exact-head CI run. See [candidate handoff](handoff_docs/FINAL_CANDIDATE_HANDOFF.md) and the dated [source snapshot](android-build/build-readiness.json).

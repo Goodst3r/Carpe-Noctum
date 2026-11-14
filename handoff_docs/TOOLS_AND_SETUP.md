@@ -16,6 +16,7 @@ Updated November 12, 2026 by Grok (third assistant; Lane A and Lane B have stopp
 
 ```sh
 npm ci --prefix qa/runtime --no-audit --no-fund    # once per checkout
+python3 -m pip install -r qa/requirements.txt       # pinned browser/PDF QA libraries
 python3 night-sweep/build.py                        # writes outputs/Night_Sweep.html
 python3 build-pwa.py                                # writes dist/
 python3 qa/run-pwa.py                               # all automated suites; writes qa/pwa-test-results.json

@@ -11,6 +11,18 @@ def snapshot():
 tested_build=snapshot()
 logs=root/'qa/pwa-testlogs';logs.mkdir(exist_ok=True)
 suites=[
+ ('Next candidate calculator-first navigation and retired-flow compatibility','codex-next-navigation.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate per-leg RF context and compatible pad/EQ','codex-next-rf-context.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate rendered RF context and model/path guards','codex-next-rf-ui.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate RF against separately executed Wolfram vector','codex-next-independent.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate atomic physical-port sweep records','codex-next-port-sweeps.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate original-backed physical-port job restore','codex-next-port-integration.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate asynchronous port identity and original protection','codex-next-port-context.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate native schedule matching across sheets','codex-next-map-schedules.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate grouped PDF overlays and original preservation','codex-next-map-pdf.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate offline PDF rasters on rotated and cropped pages','codex-next-map-pdf-browser.test.py',r'Next PDF browser: (\d+) checks passed'),
+ ('Next candidate PDF positioning keyboard focus','codex-next-map-pdf-ui.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Grok ONX parser and channel-kind regressions','carpe-next-onx.test.cjs',r'Lucas ONX suite: (\d+) checks passed'),
  ('Build 3 threshold and source registry','build3-registry.test.cjs',r'Build3 registry: (\d+) checks passed'),
  ('Build 3 field calculators against independent references','build3-field-calcs.test.cjs',r'Build3 field calculators: (\d+) checks passed'),
  ('Build 3 tilt, EQ and pad solver against the recalculated spreadsheet','build3-alignment.test.cjs',r'Build3 alignment: (\d+) checks passed'),

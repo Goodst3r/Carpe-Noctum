@@ -12,6 +12,16 @@
       "sha256": "e1da62aa893e4a78c291eb6143a792b811c746e61549281b874cd33519b66bfc"
     },
     {
+      "name": "pdf-lib.js",
+      "bytes": 525099,
+      "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
+    },
+    {
+      "name": "practice-map.pdf",
+      "bytes": 7082,
+      "sha256": "e6c92d1a05f913cc0e145473dad8e39257ea13a82967ba3714fef6d68e7589fa"
+    },
+    {
       "name": "pdf-worker.js",
       "bytes": 1024153,
       "sha256": "e66c21cd8afdd344a6ce1bd2c1a906769c9c82e80ae0bb84d4a144b909fcfa1d"
@@ -30,11 +40,6 @@
       "name": "eng.traineddata.gz",
       "bytes": 2952873,
       "sha256": "45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91"
-    },
-    {
-      "name": "pdf-lib.js",
-      "bytes": 525099,
-      "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
     }
   ]
 }

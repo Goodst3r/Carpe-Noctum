@@ -323,7 +323,7 @@
           page: c.page,
           tag: c.tag || "",
           kind: c.kind,
-          symbolId:c.symbolId||c.id,exactName:c.name,schedulePage:c.schedulePage||c.page,positionConfirmed:false,
+          symbolId:c.symbolId||c.id,exactName:c.name,sourceName:c.name,sourceTag:c.tag||'',schedulePage:c.schedulePage||c.page,positionConfirmed:false,positionReadable:c.positionReadable===true,
           installedModel: c.installedModel || "",
           modelConfirmed: false,
           connectionConfirmed: false,
@@ -350,7 +350,7 @@
         status: launch.status || "draft",
         confirmed: false,
         sourceId: document.source.id,
-        page:launch.page,position:{x:launch.x,y:launch.y},symbolId:launch.symbolId||launch.id,exactName:launch.name,positionConfirmed:false,
+        page:launch.page,position:{x:launch.x,y:launch.y},symbolId:launch.symbolId||launch.id,exactName:launch.name,sourceName:launch.name,sourceTag:launch.tag||'',positionConfirmed:false,positionReadable:launch.positionReadable===true,
       },
       source: document.source,
       reviewItems: rows.map((r) => ({
@@ -676,11 +676,16 @@
           // NAME and TAG beside the same symbol count as one occurrence.
           if(matches.some(m=>m.page===page.number&&distance(m,at)<15))continue;
           const id='p'+page.number+'s'+result.length+'m'+matches.length;
-          matches.push({...scheduled,id,symbolId:id,schedulePage:scheduled.page,page:page.number,x:at.x,y:at.y,positionReadable:gap<110,exactName:scheduled.name,positionConfirmed:false});
+          matches.push({...scheduled,id,symbolId:'p'+page.number+'x'+at.x.toFixed(2)+'y'+at.y.toFixed(2),schedulePage:scheduled.page,page:page.number,x:at.x,y:at.y,positionReadable:gap<110,exactName:scheduled.name,positionConfirmed:false});
         }
       }
       if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,positionReadable:false,positionConfirmed:false,positionReason:'No exact diagram symbol match; confirm the map location before PDF updates.'});
-      else for(const m of matches)result.push({...m,...(matches.length>1?{positionReason:'Repeated diagram identity: confirm this physical symbol and page.'}:{})});
+      else for(const m of matches){
+        const escaped=scheduled.tag.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),absent=new RegExp('(?:^|\\s)'+escaped+'\\s*[:=-]?\\s*(?:ABSENT|NOT INSTALLED|REMOVE[D]?|NOT BUILT)\\b','i');
+        const markedAbsent=pages.some(p=>(p.annotations||[]).some(a=>absent.test(a.text||''))||lineGroups(p.nativeTokens||p.ocrTokens||[]).some(l=>absent.test(l.text)));
+        const conflict=schedules.some(c=>c.tag===scheduled.tag&&c.name!==scheduled.name);
+        result.push({...m,...(markedAbsent?{status:'absent'}:{}),...(matches.length>1||conflict?{positionReason:'Repeated diagram identity: confirm exact NAME, TAG and this physical symbol page.'}:{})});
+      }
     }
     return result;
   }

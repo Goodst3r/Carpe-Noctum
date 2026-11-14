@@ -25,6 +25,7 @@ From the source root:
 
 ```sh
 npm ci --prefix qa/runtime --no-audit --no-fund
+python3 -m pip install -r qa/requirements.txt
 python3 night-sweep/build.py
 python3 build-pwa.py
 python3 qa/run-pwa.py
@@ -32,6 +33,8 @@ python3 qa/browser-smoke.py
 ```
 
 `qa/run-pwa.py` builds the current standalone/PWA and writes `qa/pwa-test-results.json` and suite logs. Read failures, scope and generated-artifact consistency, not just the count. Browser smoke needs Playwright and Chromium; `NIGHTSWEEP_CHROMIUM` selects another executable. Browser results are rendered desktop Chromium with mobile viewport emulation and offline contexts, not physical Safari/WebView results.
+
+The next candidate includes executable per-leg RF/context, original-backed physical-port ONX, and PDF overlay suites in this runner. `qa/requirements.txt` pins the Python browser/PDF QA libraries. PDF tests generate synthetic documents in memory or temporary directories; no real map or signing material belongs in QA. The runtime PDF writer and the synthetic practice map are pinned in `night-sweep/vendor/map/manifest.json`; regenerate with that directory's locked vendor build, then run the normal standalone/PWA builders.
 
 Build 2 current checks include topology-aware zero-span TDR boundaries, synthetic replay/property/reference math, direct/picker JSON size guards, active named-job duplication faults, retained storage/evidence round trips, hidden-chart/current-data rendering and native filename/print-lifecycle regressions. Root's final receipts record exact commands, counts and source/artifact hashes. Previous 1.8 totals are baseline evidence, not new build 2 results.
 

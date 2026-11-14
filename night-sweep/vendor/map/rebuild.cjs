@@ -59,10 +59,12 @@ const notices = [
     ),
 ].join("\n");
 fs.writeFileSync(path.join(root, "NOTICE.txt"), notices);
+fs.copyFileSync(path.resolve(root,"../../../qa/fixtures/maps/synthetic-marked.pdf"),path.join(root,"practice-map.pdf"));
 const files = [
   "NOTICE.txt",
   "pdf.js",
   "pdf-lib.js",
+  "practice-map.pdf",
   "pdf-worker.js",
   "ocr.js",
   "ocr-worker.js",

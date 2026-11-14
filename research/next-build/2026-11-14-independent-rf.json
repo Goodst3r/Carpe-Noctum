@@ -1,0 +1,66 @@
+{
+  "source": "Wolfram Language evaluator, executed in this session on 2026-11-14",
+  "scope": "Synthetic same-plane arithmetic only; no company or hardware acceptance claim",
+  "inputs": {
+    "launch": [
+      32,
+      43
+    ],
+    "cableLoss": [
+      2,
+      7
+    ],
+    "passiveLoss": [
+      3.5,
+      4
+    ],
+    "gain": [
+      20,
+      25
+    ],
+    "outputLoss": [
+      1,
+      1
+    ],
+    "target": [
+      43,
+      50
+    ],
+    "outputLimit": [
+      50,
+      55
+    ]
+  },
+  "expected": {
+    "input": [
+      26.5,
+      32
+    ],
+    "output": [
+      45.5,
+      56
+    ],
+    "requiredGain": [
+      17.5,
+      19
+    ],
+    "gainMargin": [
+      2.5,
+      6
+    ],
+    "inputTilt": 5.5,
+    "outputTilt": 10.5,
+    "highOutputExcess": 1,
+    "bandwidthMismatchDb": 1.249387366083
+  },
+  "raw_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Out[1]= \"{\\n\\t\\\"input\\\":[\\n\\t\\t2.65e1,\\n\\t\\t32\\n\\t],\\n\\t\\\"output\\\":[\\n\\t\\t4.55e1,\\n\\t\\t56\\n\\t],\\n\\t\\\"requiredGain\\\":[\\n\\t\\t1.75e1,\\n\\t\\t19\\n\\t],\\n\\t\\\"gainMargin\\\":[\\n\\t\\t2.5,\\n\\t\\t6\\n\\t],\\n\\t\\\"inputTilt\\\":5.5,\\n\\t\\\"outputTilt\\\":1.05e1,\\n\\t\\\"highOutputExcess\\\":1,\\n\\t\\\"bandwidthMismatchDb\\\":1.249387366083000\\n}\""
+      }
+    ],
+    "structuredContent": null,
+    "isError": false
+  }
+}
