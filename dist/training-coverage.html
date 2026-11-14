@@ -2,11 +2,12 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="NightSweep 1.8 Alpha build 2 — Training coverage: equipment setup, source qualifications, practice workflows and verification limits."><title>NightSweep 1.8 Alpha build 2 — Training coverage — Technician guide</title>
 <style>
 :root{--ink:#172c39;--muted:#4b626f;--accent:#11677b;--line:#d4e0e5;--paper:#fff;--surface:#f0f5f6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#075e77;text-underline-offset:3px}a:hover{color:#003e50}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #de8d15;outline-offset:3px}.toolbar{position:sticky;top:0;z-index:5;background:#102e3b;color:white;box-shadow:0 2px 10px #102e3b26}.bar-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 24px}.brand{font-weight:750;letter-spacing:.3px;line-height:1.3}.brand small{display:block;font-size:11px;font-weight:500;color:#b1d5df;letter-spacing:1.2px;text-transform:uppercase}.bar-actions{display:flex;align-items:center;gap:8px}.bar-actions a,.bar-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:7px 12px;background:#224654;border:1px solid #527480;border-radius:8px;color:#fff;font:inherit;font-size:13px;text-decoration:none;cursor:pointer}main{max-width:1050px;margin:auto;padding:34px 24px 80px}article{padding:34px 42px 54px;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px #193a4810}h1{font-size:38px;line-height:1.15;letter-spacing:-1.1px;margin:0 0 18px;color:#102e3b}h2{font-size:27px;line-height:1.25;letter-spacing:-.4px;border-top:1px solid var(--line);padding-top:30px;margin:42px 0 16px;color:#143d4d}h3{font-size:20px;line-height:1.35;margin:27px 0 12px;color:#1a4c5d}p{margin:14px 0}article>p:first-of-type{color:var(--muted);font-size:14px}ul,ol{padding-left:24px}li{margin:8px 0;padding-left:3px}strong{font-weight:730}code{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef3f5;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:#102e3b;color:#e4f4f8;border-radius:9px;padding:18px;overflow-x:auto}pre code{background:transparent;color:inherit;padding:0;white-space:pre}.table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.75}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e5eff2;color:#153d4c;font-size:12px;font-weight:750;letter-spacing:.3px}td{min-width:115px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#f8fbfc}td code{font-size:12px}.contents{background:#e5eff2;border:1px solid #c5d9e0;border-radius:12px;margin-bottom:24px;padding:8px 18px 14px}.contents summary{min-height:48px;display:flex;align-items:center;font-weight:750;font-size:17px;cursor:pointer}.contents summary::before{content:'+';font-size:24px;margin-right:12px;color:var(--accent)}.contents[open] summary::before{content:'−'}.contents-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:6px}.contents-grid a{display:flex;align-items:center;min-height:44px;line-height:1.35;padding:8px 4px;border-bottom:1px solid #cbdce2;text-decoration:none;font-size:14px}.guide-note{font-size:14px;color:var(--muted);margin:0 0 20px}.footer{margin-top:24px;font-size:13px;color:var(--muted)}@media(max-width:650px){body{font-size:16px}.bar-inner{padding:8px 14px}.bar-actions a,.bar-actions button{padding:7px 9px;font-size:12px}.brand{font-size:15px}.brand small{font-size:10px}main{padding:18px 12px 50px}article{padding:25px 18px 34px;border-radius:11px}h1{font-size:31px}h2{font-size:24px}h3{font-size:19px}.contents{padding:6px 14px 12px}.contents-grid{grid-template-columns:1fr}td,th{padding:10px}table{min-width:510px;font-size:13px}li{padding-left:0}.guide-note{font-size:13px}}@media print{html{scroll-behavior:auto}body{background:white;font-size:10pt;line-height:1.7}.toolbar,.contents,.guide-note,.footer{display:none}main{padding:0;max-width:none}article{border:0;border-radius:0;box-shadow:none;padding:0}h1{font-size:27pt}h2{font-size:17pt;break-after:avoid;margin-top:25px;padding-top:18px}h3{font-size:13pt;break-after:avoid}p,li{orphans:3;widows:3}table{font-size:8.5pt;min-width:0}th,td{padding:7px;min-width:0}tr{break-inside:avoid}.table-scroll{overflow:visible;border-radius:0}pre{white-space:pre-wrap;break-inside:avoid}a{color:inherit;text-decoration:none}code{font-size:8.5pt}article>p:first-of-type{font-size:10pt}}
-</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">NightSweep<small>1.8 Alpha · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#loadable-exercises">Loadable exercises</a><a href="#every-task-has-an-example">Every task has an example</a><a href="#additional-tools-within-those-tasks">Additional tools within those tasks</a><a href="#verification-and-boundaries">Verification and boundaries</a><a href="#portable-example-filenames">Portable example filenames</a><a href="#build-2-checks-and-delivery">Build 2 checks and delivery</a><a href="#build-3-station-practice">Build 3 station practice</a><a href="#build-3-sweep-due-practice">Build 3 sweep-due practice</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-training-coverage">NightSweep 1.8 Alpha build 2 — Training coverage</h1>
+</style><meta name="robots" content="noindex,nofollow"></head><body id="top"><div class="toolbar"><div class="bar-inner"><div class="brand">Carpe Noctum<small>2.0 Alpha build 4 · Technician guide</small></div><div class="bar-actions"><a href="#contents">Contents</a><button type="button" onclick="window.print()">Print / save PDF</button></div></div></div><main><p class="guide-note">Choose a section below. This guide works offline; use your browser's Find command to search within it. External source links require a connection.</p><details id="contents" class="contents" open><summary>Jump to a section</summary><nav class="contents-grid" aria-label="Guide contents"><a href="#loadable-exercises">Loadable exercises</a><a href="#every-task-has-an-example">Every task has an example</a><a href="#additional-tools-within-those-tasks">Additional tools within those tasks</a><a href="#verification-and-boundaries">Verification and boundaries</a><a href="#portable-example-filenames">Portable example filenames</a><a href="#build-2-checks-and-delivery">Build 2 checks and delivery</a><a href="#build-3-station-practice">Build 3 station practice</a><a href="#build-3-sweep-due-practice">Build 3 sweep-due practice</a></nav></details><article><h1 id="nightsweep-1-8-alpha-build-2-training-coverage">NightSweep 1.8 Alpha build 2 — Training coverage</h1>
+<p>Current source: <strong>Carpe Noctum 2.0 Alpha build 4</strong>. This guide keeps its 1.8 filename and historical title for existing links; dated build 3 references below identify when those features were introduced. Candidate signing, physical acceptance and web deployment remain pending.</p>
 <p>Open <strong>Home → Practice library</strong>. Choose an exercise to open its seeded job, or select a feature to load the matching example and reveal its guide step. The library is bundled for offline use after the installed browser app reports <strong>Ready for offline use</strong>. The standalone app includes the same training.</p>
 <p>All example values and findings remain synthetic. Opening/resetting an example first preserves the current working job locally; export an external project backup for important work. Reviewed checkboxes describe learning progress and do not establish measurements, physical setup or acceptance.</p>
 <h2 id="loadable-exercises">Loadable exercises</h2>
-<p>For the current 2.0 Alpha build 3 Night log, Sweep due and grading source, the library covers 35 task screens and 53 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.</p>
+<p>For the current Night log, Sweep due and grading source, the library covers 34 task screens and 52 feature choices. The seven exercise counts below are the actual guide steps: complete 22, six-active 16, custom curves 20, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
 <thead>
 <tr>
@@ -17,7 +18,7 @@
 </thead>
 <tbody><tr>
 <td>Complete Cedar Lane</td>
-<td>GS7K/GainMaker GaN 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps</td>
+<td>GS7K/GainMaker HGD 42/54 route, Scientific Atlanta/GigaXtend/Technetix passives, branch/drop, gain, TDR, sweep, readings, power, records and backup; 22 steps</td>
 <td>Five synthetic interchange CSVs and one original-only SVG diagram</td>
 </tr>
 <tr>
@@ -47,7 +48,7 @@
 </tr>
 <tr>
 <td>Custom curves</td>
-<td>Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the leakage tools, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook (added in 2.0 Alpha build 3); twenty-one steps</td>
+<td>Manual launch and cable/passive table inputs, interpolation and missing ranges; field calculators, limit sources, the DOCSIS health card, the checklist tools, the outage first-response prompts, the impairment cards, the fiber tools, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook (added in 2.0 Alpha build 3); twenty steps</td>
 <td>Synthetic entered teaching tables and calculator inputs</td>
 </tr>
 </tbody></table></div>
@@ -67,27 +68,27 @@
 <td>Guide, current-job summary, theme and Help</td>
 </tr>
 <tr>
-<td>Plan → Setup</td>
+<td>Route &amp; sweep → Setup</td>
 <td>Complete, GS7K, custom curves</td>
 <td>Source model/port, launch markers/levels, remaining TP compensation, temperature</td>
 </tr>
 <tr>
-<td>Plan → Cable route</td>
+<td>Route &amp; sweep → Route &amp; sweep</td>
 <td>Complete, six-active</td>
 <td>Feed parents, cable/slack, splitter branches, through/tap paths</td>
 </tr>
 <tr>
-<td>Field → Station</td>
+<td>Route &amp; sweep → Station records</td>
 <td>Complete, six-active</td>
 <td>Independent Before/After worksheets, balance/sweep records, binding and actual dates</td>
 </tr>
 <tr>
-<td>Plan → Amp gain</td>
+<td>Route &amp; sweep → Route &amp; sweep</td>
 <td>Complete and six-active</td>
 <td>Gain anchors/table, required gain, reserve and output limits</td>
 </tr>
 <tr>
-<td>Plan → Amp / node setup</td>
+<td>Route &amp; sweep → Amp / node setup</td>
 <td>Complete, OEM AGC, DSIM, GS7K</td>
 <td>Exact source/active model, manual provenance, reviewed procedure steps</td>
 </tr>
@@ -97,17 +98,17 @@
 <td>Cable/passive/active/node/power references; published capability versus entered gain</td>
 </tr>
 <tr>
-<td>Field → Meter setup</td>
+<td>Route &amp; sweep → Meter setup</td>
 <td>Complete, six-active, OEM AGC, DSIM, GS7K</td>
 <td>Separate 204/258 and 42/54 workflows, instrument/reference checks and saved setup</td>
 </tr>
 <tr>
-<td>Field → TDR</td>
+<td>Route &amp; sweep → TDR</td>
 <td>Complete, six-active</td>
 <td>Cable-side origin, lead correction, velocity factor and active-boundary rejection</td>
 </tr>
 <tr>
-<td>Plan → Predicted levels</td>
+<td>Route &amp; sweep → Predicted levels</td>
 <td>Complete, six-active</td>
 <td>Absolute/normalized predictions and selected route outputs</td>
 </tr>
@@ -117,7 +118,7 @@
 <td>Exact-frequency loss budget, table interpolation and unavailable ranges</td>
 </tr>
 <tr>
-<td>Field → Readings</td>
+<td>Route &amp; sweep → Route &amp; sweep</td>
 <td>Complete, six-active</td>
 <td>Corrected measurement minus prediction, intentional mismatch and TP compensation</td>
 </tr>
@@ -132,7 +133,7 @@
 <td>dB units, ripple and pre-EQ tap distance, confirmed flat-PSD bandwidth restatement (including 1.6/6.4 MHz), power sum, thermal CNR and echo delay, each with its source tag (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Field → ONX files → Grading aid</td>
+<td>Route &amp; sweep → ONX files → Grading aid</td>
 <td>Custom curves</td>
 <td>Attach the invented three-point interchange trace, explicitly enter practice criteria, inspect unknown checks and preserve the original</td>
 </tr>
@@ -145,11 +146,6 @@
 <td>Tools → DOCSIS health</td>
 <td>Custom curves</td>
 <td>Synthetic downstream capability comparisons and upstream composite margin to a declared comparable total reference; company windows start Unknown (2.0 Alpha build 3)</td>
-</tr>
-<tr>
-<td>Field → Leakage</td>
-<td>Custom curves</td>
-<td>Synthetic leaks against the FCC 3 m limits, the CLI worked example, the 3 m distance restatement and a leak log kept on this device (2.0 Alpha build 3)</td>
 </tr>
 <tr>
 <td>Tools → Impairments</td>
@@ -187,27 +183,27 @@
 <td>Synthetic practice of the outage prompts: ticks for scope, power and the node, a plant place and times, a new call; kept on this device with no customer identifiers (2.0 Alpha build 3)</td>
 </tr>
 <tr>
-<td>Plan → Load</td>
+<td>Route &amp; sweep → Load &amp; what-if</td>
 <td>Complete</td>
-<td>Independent power parents, explicitly synthetic entered node/GaN loads, voltage/current and supply headroom</td>
+<td>Independent power parents, explicitly synthetic entered node/HGD loads, voltage/current and supply headroom</td>
 </tr>
 <tr>
-<td>Plan → What-if</td>
+<td>Route &amp; sweep → Load &amp; what-if</td>
 <td>Complete</td>
 <td>Extra cable/load trial, keep/reset and changed shared current</td>
 </tr>
 <tr>
-<td>Plan → Details</td>
+<td>Route &amp; sweep → Details</td>
 <td>Complete</td>
 <td>Work order, named save/open, duplicate and new blank job</td>
 </tr>
 <tr>
-<td>Field → ONX files</td>
+<td>Route &amp; sweep → ONX files</td>
 <td>Complete</td>
 <td>Sweep/Ingress/OneCheck CSV previews and preserved original bytes</td>
 </tr>
 <tr>
-<td>Field → Checklists</td>
+<td>Route &amp; sweep → Checklists</td>
 <td>Complete</td>
 <td>Inspection notes, maintenance tasks and dBµV/dBmV conversion</td>
 </tr>
@@ -217,12 +213,12 @@
 <td>Planning forward/return rows, unapproved criteria, punch list, injection arithmetic and separate DSIM forms</td>
 </tr>
 <tr>
-<td>Plan → Sweep due</td>
+<td>Route &amp; sweep → Sweep due</td>
 <td>Six-active</td>
 <td>Enter 18 only for the synthetic reminder demonstration, inspect independent work dates, refresh, then clear the interval to unknown</td>
 </tr>
 <tr>
-<td>Field → Night log</td>
+<td>Route &amp; sweep → Night log</td>
 <td>Six-active</td>
 <td>Reject a blank Add; record/capture invented A1–A5 Station worksheets; Remove and Undo one capture; add manual synthetic ingress conditions, approximate observed time, attempted work and weather/Unknown blanks; reopen TXT/CSV and JSON. No customer identifiers; captured stages stay fixed</td>
 </tr>
@@ -255,7 +251,7 @@
 </tr>
 <tr>
 <td>Gain from input/output test points</td>
-<td>Complete → GainMaker GaN gain; equal +20 dB addbacks produce 9 dB gain from 7.1/16.1 readings</td>
+<td>Complete → GainMaker HGD gain; equal +20 dB addbacks produce 9 dB gain from 7.1/16.1 readings</td>
 </tr>
 <tr>
 <td>Custom inline loss and cable-only point</td>
@@ -311,7 +307,7 @@
 </tr>
 <tr>
 <td>Named-job retention and reset</td>
-<td>Open a different exercise or reset the current one, then Plan → Details</td>
+<td>Open a different exercise or reset the current one, then Route &amp; sweep → Details</td>
 </tr>
 </tbody></table></div>
 <h2 id="verification-and-boundaries">Verification and boundaries</h2>
@@ -358,11 +354,11 @@
 <p>The seven examples and 37 feature mappings remain. Build 2 checks the complete point/branch structure, co-located TDR barriers, forward/reverse distance behavior, preserved originals, latest-state duplication, common project-import limits and same-refresh numerical consistency. The current source replay also probes all seven example states over frequency frames and checks unavailable results explicitly. Read final build 2 receipts for actual commands, counts and hashes.</p>
 <p>All seven JSONs are organized under <strong>Examples/</strong> in the one <strong>NightSweep 1.8 Alpha build 2.zip</strong> delivery. Android/Web and iOS/Web use the same frozen shared application. The separate Android Preview installer has its own build/signature receipts; no physical-device or plant acceptance is inferred from these checks.</p>
 <h2 id="build-3-station-practice">Build 3 station practice</h2>
-<p><strong>Field → Station</strong> adds a step to the complete GS7K/GainMaker exercise (<strong>22 steps</strong>) and to the six-active Vecima/AOI exercise (<strong>16 steps</strong>). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has <strong>53 choices</strong>, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.</p>
+<p><strong>Route &amp; sweep → Station records</strong> adds a step to the complete GS7K/GainMaker exercise (<strong>22 steps</strong>) and to the six-active Vecima/AOI exercise (<strong>16 steps</strong>). The complete step practices sourced forward pad/EQ advice and a synthetic return budget; the six-active step shows electronic alignment without plug-in parts. Before/After worksheets, separate balance/sweep dates and JSON backup/restore remain distinct from field acceptance. The current build 3 feature library has <strong>52 choices</strong>, including Station, Night log, Sweep due, DOCSIS health, Calculators and Limits.</p>
 <h3 id="build-3-night-log-handoff-practice">Build 3 Night log handoff practice</h3>
-<p>The existing six-active <strong>Five-station night handoff</strong> step remains under <strong>Field → Night log</strong>, with 16 steps in the exercise. Start with a blank Add and confirm no slot is used. Enter the invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then Remove and Undo one capture and compare its original data. Add a synthetic <strong>Intermittent ingress</strong> note: manual conditions, date/time/zone or an honest approximation, attempted work through Actions, and manually typed weather. Leave a manual field blank to see <strong>Unknown</strong>; <strong>Added</strong> is a separate device recording timestamp. Generate and reopen TXT/CSV and a full project JSON backup. No Station measurements or weather are collected automatically. General notes, unknown targets, fixed capture history, independent balance/sweep dates and synthetic provenance remain distinct from field acceptance. This extends the existing step and feature; the exercise and feature counts above are unchanged.</p>
+<p>The existing six-active <strong>Five-station night handoff</strong> step remains under <strong>Route &amp; sweep → Night log</strong>, with 16 steps in the exercise. Start with a blank Add and confirm no slot is used. Enter the invented A1–A5 Before/After worksheets manually, explicitly capture each saved Station, then Remove and Undo one capture and compare its original data. Add a synthetic <strong>Intermittent ingress</strong> note: manual conditions, date/time/zone or an honest approximation, attempted work through Actions, and manually typed weather. Leave a manual field blank to see <strong>Unknown</strong>; <strong>Added</strong> is a separate device recording timestamp. Generate and reopen TXT/CSV and a full project JSON backup. No Station measurements or weather are collected automatically. General notes, unknown targets, fixed capture history, independent balance/sweep dates and synthetic provenance remain distinct from field acceptance. This extends the existing step and feature; the exercise and feature counts above are unchanged.</p>
 <h2 id="build-3-sweep-due-practice">Build 3 sweep-due practice</h2>
-<p>The current source has <strong>35 task screens</strong>, <strong>53 feature choices</strong>, and <strong>16 steps</strong> in the six-active Vecima/AOI exercise. Its <strong>Personal sweep reminders</strong> step opens <strong>Plan → Sweep due</strong>, starts with an unknown interval, and asks the technician to enter <strong>18</strong> only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an <strong>Unknown / unverified app policy</strong>; the older Hranac attribution for 18 months remains unverified.</p>
+<p>The current source has <strong>34 task screens</strong>, <strong>52 feature choices</strong>, and <strong>16 steps</strong> in the six-active Vecima/AOI exercise. Its <strong>Personal sweep reminders</strong> step opens <strong>Route &amp; sweep → Sweep due</strong>, starts with an unknown interval, and asks the technician to enter <strong>18</strong> only for practice, then clear it. Colors are personal reminders, not acceptance or an app-supplied company cadence. The two-thirds warning boundary is an <strong>Unknown / unverified app policy</strong>; the older Hranac attribution for 18 months remains unverified.</p>
 <p>The focused QA fixture saves three actual named synthetic jobs with Station sweep dates 0, 12 and 19 completed calendar months before explicit 2026-11-11 and compares green/yellow/red at entered 18. Calendar references independently cover month ends, leap years and short intervals. Practice/sample badges and separate reminder counts remain visible after duplicate and JSON backup/restore. Balance dates stay independent. Missing, invalid, future, unchecked and historical records remain neutral; historical rows show recorded facts and their reason without current-service reminder wording. No work date is inferred from training progress or a captured history time. Current complete practice remains <strong>22 steps</strong>, custom curves <strong>21</strong>, OEM AGC <strong>8</strong>, DSIM <strong>9</strong>, manual/thermal <strong>7</strong>, and GS7K <strong>10</strong>. Historical Build 2 counts above describe its frozen delivery.</p>
-<p>The custom-curves exercise has <strong>21 steps</strong>, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.</p>
-</article><p class="footer">Spencer Williams · NightSweep 1.8 Alpha · <a href="#top">Back to top</a></p></main></body></html>
+<p>The custom-curves exercise has <strong>20 steps</strong>, including attached sweep grading with invented interchange samples and explicitly entered illustrative criteria. It never records a real balance, sweep date or official acceptance.</p>
+</article><p class="footer">Spencer Williams · Carpe Noctum 2.0 Alpha build 4 · <a href="#top">Back to top</a></p></main></body></html>

@@ -48,7 +48,7 @@ const Outage=(()=>{
   policy:'Follow your company’s outage procedure first, and your supervisor’s direction. This list is a set of prompts written for this app. It is not your company’s procedure. Enter plant places and roles only: no customer names, addresses, phone numbers or account numbers.',
   source:'Wording written for this app from general field practice; no NCTI or SCTE text is copied. The damage and theft prompts only point at SCTE’s 2026 Critical Infrastructure Protection Subcommittee, which is still writing its evidence-collection standard; this card does not implement it.',
   reviewNote:'A supervisor has not yet reviewed it against your local outage procedure, and that review is needed before coworkers use it.',
-  startLabel:'Start a new call',exportName:'CarpeNoctum_2.0_Alpha_build_3_Outage_First_Response.txt',exportTitle:'Outage first-response notes (not a company procedure)'};
+  startLabel:'Start a new call',exportName:'CarpeNoctum_2.0_Alpha_build_4_Outage_First_Response.txt',exportTitle:'Outage first-response notes (not a company procedure)'};
  let ui=null;
  function init(){
   if(ui||typeof document==='undefined')return;

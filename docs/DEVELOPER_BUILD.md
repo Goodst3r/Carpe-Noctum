@@ -1,6 +1,6 @@
 # Carpe Noctum 2.0 Alpha build 3 — Developer build notes
 
-This is the **2.0 Alpha build 3** source workspace on branch `build3` (Android source code 27, no build 3 APK). The signed installer in the repository is still 2.0 Alpha build 2, Android code 26. The Android section later in this file describes the **historical 1.8 Alpha build 2** package (code 24) and its delivery script. Do not treat code 24 or code 27 as an installer you can download from this tree.
+This is the **2.0 Alpha build 4** pre-signing source candidate (Android code 28). The retained repository APK is build 2 code 26. Spencer reported that a separately signed starting-commit build 3 code 27 updated his phone with jobs, readings and originals intact; build 4 has not yet been signed, accepted on a phone or deployed. The Android section below records the historical 1.8 package (code 24).
 
 Current filenames under `docs/NightSweep_1.8_*` stay stable; their titles still say 1.8 where that was the original guide name. A third assistant (Grok) updated the build 3 orientation on November 12, 2026. Preserve schema-one storage and historical migration fixtures.
 
@@ -17,7 +17,7 @@ Current filenames under `docs/NightSweep_1.8_*` stay stable; their titles still 
 | `outputs/Night_Sweep.html` | Generated standalone app; frozen Android input |
 | `dist/` | Generated complete public PWA; regenerate instead of hand-editing |
 
-The complete 21-step job is GS7K + two GainMaker GaN HGD actives, mixed Scientific Atlanta **SAT MM 4-23**, GigaXtend and Technetix passives on 42/54 MHz. Preserve 31@54 / 43@860 and the separate 38 dBmV return TX reference. The separate 13-step Vecima/AOI job remains six serial actives on 204/258. The other five exercises cover custom curves/reverse TDR, OEM AGC, DSIM, manual/thermal and conventional GS7K setup.
+The complete 21-step job is GS7K + two GainMaker HGD actives, mixed Scientific Atlanta **SAT MM 4-23**, GigaXtend and Technetix passives on 42/54 MHz. Preserve 31@54 / 43@860 and the separate 38 dBmV return TX reference. The separate 13-step Vecima/AOI job remains six serial actives on 204/258. The other five exercises cover custom curves/reverse TDR, OEM AGC, DSIM, manual/thermal and conventional GS7K setup.
 
 ## Reproduce app and browser checks
 

@@ -28,7 +28,7 @@ let checks=0;async function check(name,fn){await fn();checks++;console.log('PASS
   assert(!json('StudyMode.DOMAINS').some(x=>x.id==='safety'));
   const generators=json('StudyMode.GENERATORS');assert(!generators.some(x=>x.id==='safetysection'));
   const outage=generators.find(x=>x.id==='outagesection');assert(outage);assert(json('StudyMode.DOMAINS').some(x=>x.id===outage.domain));
-  assert.equal(generators.length,18);
+  assert.equal(generators.length,16);
  });
  await check('Outage keeps the shared checklist and removes the arrival Safety group',()=>{
   assert.equal(ev('typeof Checklist.create'),'function');assert.equal(ev('typeof Outage.init'),'function');

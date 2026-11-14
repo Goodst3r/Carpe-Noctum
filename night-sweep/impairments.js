@@ -137,7 +137,7 @@ const Impairments=(()=>{
   if(typeof HFC==='undefined'||typeof HFC.routeDistances!=='function')return fail('The route calculation is not available.');
   const distances=HFC.routeDistances(state,catalog);
   const rows=distances.rows.filter(r=>!r.error&&Number.isFinite(r.end));
-  if(!rows.length)return fail('The saved route has no point with a valid distance. Build the route in Plan → Cable route first.');
+  if(!rows.length)return fail('The saved route has no point with a valid distance. Build the route in Route & sweep → Route & sweep first.');
   const byId=new Map(distances.rows.map(r=>[r.id,r]));
   const found=[];
   for(const r of rows){

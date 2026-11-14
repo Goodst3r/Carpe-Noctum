@@ -129,7 +129,7 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     assert.equal(h.d.getElementById('leakagePanel').hidden, true);
     await goto(h, 'leakage');
     const tabs = [...h.d.querySelectorAll('#taskTabs button')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs, ['Meter setup', 'Station', 'Readings', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
+    assert.deepEqual(tabs, ['Meter setup', 'Station records', 'TDR', 'ONX files', 'Leakage', 'Checklists', 'Night log']);
     assert.equal(h.d.querySelector('#screenTitle .eyebrow').textContent, 'Field');
     assert.equal(h.d.getElementById('leakagePanel').hidden, false); assert.equal(h.d.getElementById('docsisHealthPanel').hidden, true);
     assert.match(h.d.getElementById('screenTitle').textContent, /Check and log signal leakage/);
@@ -314,7 +314,7 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
     downloads = [];
     set(h, '[data-leak="log"][data-field="location"]', 'Pole 31'); set(h, '[data-leak="log"][data-field="found"]', '2026-11-10'); click(h, '#leakAdd');
     click(h, '#leakExport');
-    assert.equal(downloads.length, 1); assert.equal(downloads[0].name, 'CarpeNoctum_2.0_Alpha_build_3_Leak_Log.csv'); assert.match(downloads[0].text, /Pole 31/);
+    assert.equal(downloads.length, 1); assert.equal(downloads[0].name, 'CarpeNoctum_2.0_Alpha_build_4_Leak_Log.csv'); assert.match(downloads[0].text, /Pole 31/);
     h.d.getElementById('leakClear').click();
     assert.match(h.d.getElementById('leak-log-note').textContent, /Cleared on this device/);
     assert.equal(h.w.localStorage.getItem(KEY), null);
@@ -595,6 +595,6 @@ const click = (h, selector) => { const el = h.d.querySelector(selector); assert(
   });
 
   console.log(`Build3 leakage: ${cases.length} checks passed (${comparisons} comparisons with the independent references)`);
-  fs.writeFileSync('qa/build3-leakage-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by leakage-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering, device-local notebook and job format. Synthetic readings only.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-leakage-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'App output against the independent reference built by leakage-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering, device-local notebook and job format. Synthetic readings only.' }, null, 2) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

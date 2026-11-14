@@ -24,11 +24,34 @@ async function reject(fn,pattern){await assert.rejects(fn,pattern);}
     w.document.getElementById('evidenceOpenProject').click();
     assert.equal(opened,1);
   });
+  await check('Closed evidence previews avoid charts until opened',async()=>{
+    const original=w.state; w.state={version:1};
+    try{
+      await api.importFiles([file('lazy.csv','frequency_mhz,level_dbmv\n100,30\n200,31')],{kind:'Sweep',stage:'Before'});
+      assert.equal(w.document.querySelectorAll('#evidencePanel svg').length,0,'closed preview must not create a chart');
+      const preview=w.document.querySelector('[data-evidence-preview]'); assert(preview);
+      preview.open=true; preview.dispatchEvent(new w.Event('toggle'));
+      assert(w.document.querySelector('#evidencePanel svg'));
+    }finally{w.state=original;api.render();}
+  });
+  await check('Open previews survive redraw, never follow another job, and print materializes current evidence',async()=>{
+    const original=w.state;w.state={version:1};
+    try{
+      await api.importFiles([file('first.csv','frequency_mhz,level_dbmv\n100,30\n200,31')],{kind:'Sweep',stage:'Before'});
+      let preview=w.document.querySelector('[data-evidence-preview]');preview.open=true;preview.dispatchEvent(new w.Event('toggle'));
+      const path=preview.querySelector('path[stroke="#85d9f6"]').getAttribute('d');assert.equal(path,'M48.00,160.34 L540.00,39.66');
+      api.render();preview=w.document.querySelector('[data-evidence-preview]');assert(preview.open);assert.equal(preview.querySelector('path[stroke="#85d9f6"]').getAttribute('d'),path);
+      const first=w.state;w.state={version:1,evidence:[{...first.evidence[0],name:'second.csv',parse:{...first.evidence[0].parse,series:{unit:'dBmV',points:[[300,1],[400,2]]}}}]};api.render();
+      preview=w.document.querySelector('[data-evidence-preview]');assert.equal(preview.open,false);assert.equal(preview.querySelector('svg'),null);
+      w.dispatchEvent(new w.Event('beforeprint'));assert(preview.querySelector('svg'));assert.match(preview.textContent,/300.00 MHz/);
+    }finally{w.state=original;api.render();}
+  });
   await check('Channel readings are plotted as discrete samples',async()=>{
     const original=w.state;
     w.state={version:1};
     try{
       await api.importFiles([file('channels.csv','channel,frequency_mhz,level_dbmv,mer_db\nCH A,273,18.4,39.1\nCH B,519,21.7,41.2')],{kind:'OneCheck',stage:'Reference'});
+      const disclosure=w.document.querySelector('[data-evidence-preview]');disclosure.open=true;disclosure.dispatchEvent(new w.Event('toggle'));
       const chart=w.document.querySelector('svg[aria-label="Discrete CSV channel readings"]');
       assert(chart);
       const data=chart.querySelector('path[stroke="#85d9f6"]');

@@ -42,7 +42,7 @@
   result.reason=label+(result.status==='pass'?' is within the explicitly entered inclusive limit.':' exceeds the explicitly entered limit.');
   return result;
  }
- function evaluateSeries(series,profile){
+ function evaluateSeries(series,profile,context={}){
   const result=blankResult();
   if(!plain(series)||Object.keys(series).some(key=>!['unit','points','label'].includes(key)))return unavailable(result,'Supply one normalized EvidenceCore series with explicit units. Unsupported series fields cannot be interpreted.');
   if(!owns(series,'unit')||!['dBmV','dB'].includes(series.unit))return unavailable(result,'Series unit must explicitly be dBmV or dB; units are never inferred.');
@@ -87,6 +87,11 @@
   if(tiltTarget.value!==null)m.tiltErrorDb=m.measuredTiltDb-tiltTarget.value;
   const tiltScale=tiltTarget.value===null?Math.max(Math.abs(lowValue),Math.abs(highValue)):Math.max(Math.abs(lowValue),Math.abs(highValue),Math.abs(tiltTarget.value));
   result.checks.tilt=compare(m.tiltErrorDb,tiltLimit,tiltTarget,tiltTarget.reason,tiltScale,'Signed tilt error','dB');
+  if(context.companyTargetProfile){
+   m.lowLevelErrorDb=null;m.highLevelErrorDb=null;m.tiltErrorDb=null;
+   const reason='Company absolute comparison unavailable: channel bandwidth, power convention, measurement plane, impedance and field tolerance are unconfirmed.';
+   for(const key of ['lowLevel','highLevel','tilt'])result.checks[key]=unknownCheck(reason);
+  }
   const checks=Object.values(result.checks);
   result.overall=checks.some(check=>check.status==='fail')?'fail':checks.every(check=>check.status==='pass')?'pass':'unknown';
   result.reason=result.overall==='fail'?'At least one established check exceeds an entered criterion.':result.overall==='pass'?'All four checks satisfy the explicitly entered criteria.':'At least one required check remains unknown; available checks are reported separately.';

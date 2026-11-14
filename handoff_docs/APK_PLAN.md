@@ -1,5 +1,7 @@
 # APK plan (decided by Spencer, Nov 12, 2026): option 3, a new signing key
 
+**Historical plan.** The [current workflow](PARALLEL_TASKS.md) assigns the off-repo build, original-key signing and in-place upgrade test to Spencer. The replacement-key, uninstall and assistant signing instructions below are superseded.
+
 ## What was decided
 - The original signing key is not available to any assistant. Spencer chose **option 3: generate a new key, outside the repository, and build the build 3 APK with it.**
 - Consequence, to be told to Spencer in plain words before he installs: **this APK will not update an installed build 2 (or older) app.** Android treats a different certificate as a different app. Spencer must first use **Back up project** (full project JSON) in the old app, uninstall it, install the new APK, then **Open project** to restore. Data not backed up is lost on uninstall.

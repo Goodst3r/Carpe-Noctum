@@ -33,9 +33,9 @@ const current=()=>json('StationView.currentRecord()');
  await check('Forward uses the real sourced solver and saves readings without altering route calculations',()=>{
   const before=json('HFC.run(state,catalog,54)');
   for(const [k,v] of Object.entries({lowMHz:'54',highMHz:'860',measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',pad:'6',eq:'9'}))set('forward',k,v,['pad','eq'].includes(k)?'change':'input');
-  const r=json('StationView.results().forward'),direct=json('Alignment.solve(StationView.currentStage().forward,{forwardBand:device("active_gm_gan_hgd").publishedGain.forwardBand,profile:Alignment.profileFor("active_gm_gan_hgd"),pad:6,eq:9})');
+  const r=json('StationView.results().forward'),direct=json('Alignment.solve(StationView.currentStage().forward,{forwardBand:device("active_gm_hgd").publishedGain.forwardBand,profile:Alignment.profileFor("active_gm_hgd"),pad:6,eq:9})');
   assert.deepEqual(r,direct);assert.equal(r.catalog.eq.to,4.5);assert.equal(r.catalog.pad.to,7);assert.match(words('[data-station-forward-result]'),/4.5/);assert.match(words('[data-station-forward-result]'),/7.0/);assert.deepEqual(json('HFC.run(state,catalog,54)'),before);
-  assert.equal(current().equipmentId,'active_gm_gan_hgd');assert(current().stages.before.updatedAt);
+  assert.equal(current().equipmentId,'active_gm_hgd');assert(current().stages.before.updatedAt);
  });
  await check('Forward invalid pilots and signed zero levels are evaluated by Alignment',()=>{
   set('forward','lowMHz','0');assert.equal(json('StationView.results().forward').ok,false);
@@ -63,7 +63,7 @@ const current=()=>json('StationView.currentRecord()');
  });
  await check('Station identity survives reordering and never transfers to a replacement with reused route ID',()=>{
   const identity=ev('state.rows.find(r=>r.id==="r1").stationIdentity'),saved=current();ev('state.rows.reverse();StationView.render()');assert.equal(current().equipmentId,saved.equipmentId);
-  ev('state.rows=state.rows.filter(r=>r.id!=="r1");state.rows.push({...freshRow(),id:"r1",device:"active_gm_gan_hgd"});StationView.render()');
+  ev('state.rows=state.rows.filter(r=>r.id!=="r1");state.rows.push({...freshRow(),id:"r1",device:"active_gm_hgbt"});StationView.render()');
   assert.equal(current().stages.before.forward.targetLow,'');set('forward','targetLow','12');assert.notEqual(ev('state.rows.find(r=>r.id==="r1").stationIdentity'),identity);assert.equal(json(`state.stationView.stations[${JSON.stringify(identity)}]`).stages.before.forward.targetLow,saved.stages.before.forward.targetLow);
  });
  await check('Copied route identities cannot share readings and changed equipment starts a blank record',()=>{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.spencerwilliams.nightsweep" android:versionCode="27" android:versionName="2.0 Alpha build 3">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.spencerwilliams.nightsweep" android:versionCode="28" android:versionName="2.0 Alpha build 4">
   <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
-  <application android:label="Carpe Noctum 2.0 Alpha build 3" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:usesCleartextTraffic="false" android:supportsRtl="true" android:hardwareAccelerated="true">
+  <application android:label="Carpe Noctum 2.0 Alpha build 4" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:usesCleartextTraffic="false" android:supportsRtl="true" android:hardwareAccelerated="true">
     <provider android:name=".PickerFiles" android:authorities="com.spencerwilliams.nightsweep.pickerfiles" android:exported="false" android:grantUriPermissions="false" />
     <activity android:name=".MainActivity" android:exported="true" android:enableOnBackInvokedCallback="false" android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize" android:windowSoftInputMode="adjustResize">
       <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>

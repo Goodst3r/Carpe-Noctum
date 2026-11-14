@@ -125,6 +125,19 @@ const row=(v,point='r1',group=0)=>v.groups[group].rows.find(r=>r.pointId===point
  await check('Save feedback belongs to the actual interval owner and never follows a different job',()=>{
   const other=owner('job_other');other.sweepDue={intervalMonths:'24'};ev(`loadState(${JSON.stringify(other)});WorkflowUI.go('sweepDue')`);assert.equal(d.querySelector('#sweepDueSaveStatus').textContent,'');const input=d.querySelector('#sweepDueInterval');input.value='18';input.dispatchEvent(new w.Event('input',{bubbles:true}));assert.match(d.querySelector('#sweepDueSaveStatus').textContent,/saved on this device/);const next=owner('job_next');next.sweepDue={intervalMonths:'18'};ev(`loadState(${JSON.stringify(next)});WorkflowUI.go('sweepDue')`);assert.equal(d.querySelector('#sweepDueSaveStatus').textContent,'');
  });
+ await check('Interval drafts save without collecting and are marked stale until committed',()=>{
+  ev(`loadState(${JSON.stringify(owner('job_draft'))});window.__draftOldSnapshots=JobsUI.snapshots;window.__draftCalls=0;JobsUI.snapshots=()=>{window.__draftCalls++;return []};WorkflowUI.go('sweepDue')`);
+  const input=d.querySelector('#sweepDueInterval'),before=ev('window.__draftCalls');
+  input.value='3';input.dispatchEvent(new w.Event('input',{bubbles:true}));input.value='30';input.dispatchEvent(new w.Event('input',{bubbles:true}));
+  assert.equal(ev('window.__draftCalls'),before,'typing must not collect snapshots');assert.equal(ev('state.sweepDue.intervalMonths'),'30');assert.match(d.querySelector('#sweepDueSummary').textContent,/stale|refresh/i);
+  input.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(ev('window.__draftCalls'),before+1);assert.doesNotMatch(d.querySelector('#sweepDueSummary').textContent,/stale/i);ev('JobsUI.snapshots=window.__draftOldSnapshots');
+ });
+ await check('A draft already refreshed does not rebuild pagination again on blur',()=>{
+  const jobs=Array.from({length:8},(_,i)=>owner('job_blur_'+i));ev(`loadState(${JSON.stringify(owner('job_blur_working'))});window.__blurSnapshots=JobsUI.snapshots;window.__blurCalls=0;JobsUI.snapshots=()=>{window.__blurCalls++;return ${JSON.stringify(jobs)}};SweepDue.render('2026-11-11')`);
+  const input=d.querySelector('#sweepDueInterval');input.value='0018';input.dispatchEvent(new w.Event('input',{bubbles:true}));ev(`SweepDue.render('2026-11-11')`);
+  const button=d.querySelector('[data-sweep-due-page="next"]'),before=ev('window.__blurCalls');input.dispatchEvent(new w.Event('change',{bubbles:true}));
+  assert.equal(ev('window.__blurCalls'),before,'an already refreshed draft must not collect again');assert.equal(d.querySelector('[data-sweep-due-page="next"]'),button,'blur must not replace the pagination target');ev('JobsUI.snapshots=window.__blurSnapshots');
+ });
  await check('Bounded page navigation shows complete counts and never silently drops a source',()=>{
   const jobs=Array.from({length:8},(_,i)=>owner('job_page_'+i));ev(`loadState(${JSON.stringify(owner('job_working'))});window.__dueFixture=${JSON.stringify(jobs)};window.__oldDueSnapshots=JobsUI.snapshots;JobsUI.snapshots=()=>window.__dueFixture;SweepDue.render('2026-11-11')`);assert.equal(d.querySelectorAll('[data-sweep-due-row]').length,25);assert.match(d.querySelector('#sweepDueSummary').textContent,/63 stations/);const before=d.querySelector('#sweepDueList').textContent;d.querySelector('[data-sweep-due-page="next"]').click();assert.notEqual(d.querySelector('#sweepDueList').textContent,before);assert.equal(d.querySelectorAll('[data-sweep-due-row]').length,25);ev('JobsUI.snapshots=window.__oldDueSnapshots');
  });

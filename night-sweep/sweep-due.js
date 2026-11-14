@@ -80,7 +80,7 @@ const SweepDue=(()=>{
   let snapshots=[],reason='';try{snapshots=JobsUI.snapshots();}catch(error){reason='Saved jobs unavailable — '+error.message;}
   const view=collect({working:state,snapshots,today,interval:state.sweepDue?.intervalMonths??''});if(reason)view.diagnostics.unshift(reason);return view;
  }
- let initialized=false,model=null,page=0,saveResult=null;const pageSize=25;
+ let initialized=false,model=null,renderedOwner=null,page=0,saveResult=null,draftPending=false;const pageSize=25;
  const tag=id=>typeof Thresholds!=='undefined'?Thresholds.tag(id):'';
  function structure(){
   const panel=document.getElementById('sweepDuePanel');if(!panel)return null;if(panel.querySelector('#sweepDueInterval'))return panel;
@@ -92,14 +92,21 @@ const SweepDue=(()=>{
   if(!model)return;const panel=structure();if(!panel)return;
   const entries=model.groups.flatMap(g=>g.rows.length?g.rows.map(r=>({g,r})):[{g,r:null}]),pages=Math.max(1,Math.ceil(entries.length/pageSize));page=Math.min(page,pages-1);
   const start=page*pageSize,shown=entries.slice(start,start+pageSize),container=document.getElementById('sweepDueList');
-  let last='';container.innerHTML=shown.map(({g,r})=>{const header=g.key!==last;last=g.key;return `${header?`<div class="sweep-due-job"><h3>${escape(g.name)}</h3><p>${escape(g.origin)}${g.badge?' · <strong>'+g.badge+'</strong>':''}</p><p class="note">Job ID: ${escape(g.id||'Unknown')} · ${escape(g.node||'No node / asset')}</p>${g.diagnostics.map(s=>'<p class="status warning">'+escape(s)+'</p>').join('')}</div>`:''}${r?`<article class="sweep-due-row" data-sweep-due-row><h4>${escape(r.label)}</h4><p class="note">${r.pointId==='source'?'Launch station':'Route point '+escape(r.pointId)} · ${escape(r.equipmentId)}${r.split?' · '+r.split+'/'+(r.split==='42'?'54':'258')+' MHz':''}</p>${r.historical?'<p class="status warning">'+escape(r.historical)+'</p>':''}<p class="sweep-due-badge sweep-due-${r.sweep.status}">${r.sweep.status==='green'?'● ':r.sweep.status==='yellow'?'▲ ':r.sweep.status==='red'?'! ':''}${escape(r.sweep.status==='neutral'?'Reminder unavailable':r.sweep.text)}</p><div class="sweep-due-events">${eventMarkup('Sweep',r.sweep)}${eventMarkup('Balance',r.balance)}</div><p class="note">Chosen sweep due date: <strong>${escape(r.sweep.due||'Unavailable')}</strong>${r.sweep.warning?' · Reminder begins '+escape(r.sweep.warning):''}</p></article>`:'<p class="note">No installed launch node / active or route amplifiers readable in this source.</p>'}`;}).join('')||'<p>No saved stations yet.</p><div class="toolbar"><button type="button" data-task="station">Open Field → Station</button><button type="button" data-task="projects">Open Plan → Details</button></div>';
-  if(!model.counts.stations)container.insertAdjacentHTML('beforeend','<p class="note">The interval belongs to the open job. Opening another job can show a different interval or Unknown.</p><div class="toolbar"><button type="button" data-task="station">Open Field → Station</button><button type="button" data-task="projects">Open Plan → Details</button></div>');
+  let last='';container.innerHTML=shown.map(({g,r})=>{const header=g.key!==last;last=g.key;return `${header?`<div class="sweep-due-job"><h3>${escape(g.name)}</h3><p>${escape(g.origin)}${g.badge?' · <strong>'+g.badge+'</strong>':''}</p><p class="note">Job ID: ${escape(g.id||'Unknown')} · ${escape(g.node||'No node / asset')}</p>${g.diagnostics.map(s=>'<p class="status warning">'+escape(s)+'</p>').join('')}</div>`:''}${r?`<article class="sweep-due-row" data-sweep-due-row><h4>${escape(r.label)}</h4><p class="note">${r.pointId==='source'?'Launch station':'Route point '+escape(r.pointId)} · ${escape(r.equipmentId)}${r.split?' · '+r.split+'/'+(r.split==='42'?'54':'258')+' MHz':''}</p>${r.historical?'<p class="status warning">'+escape(r.historical)+'</p>':''}<p class="sweep-due-badge sweep-due-${r.sweep.status}">${r.sweep.status==='green'?'● ':r.sweep.status==='yellow'?'▲ ':r.sweep.status==='red'?'! ':''}${escape(r.sweep.status==='neutral'?'Reminder unavailable':r.sweep.text)}</p><div class="sweep-due-events">${eventMarkup('Sweep',r.sweep)}${eventMarkup('Balance',r.balance)}</div><p class="note">Chosen sweep due date: <strong>${escape(r.sweep.due||'Unavailable')}</strong>${r.sweep.warning?' · Reminder begins '+escape(r.sweep.warning):''}</p></article>`:'<p class="note">No installed launch node / active or route amplifiers readable in this source.</p>'}`;}).join('')||'<p>No saved stations yet.</p><div class="toolbar"><button type="button" data-task="station">Open Route & sweep → Station records</button><button type="button" data-task="projects">Open Route & sweep → Details</button></div>';
+  if(!model.counts.stations)container.insertAdjacentHTML('beforeend','<p class="note">The interval belongs to the open job. Opening another job can show a different interval or Unknown.</p><div class="toolbar"><button type="button" data-task="station">Open Route & sweep → Station records</button><button type="button" data-task="projects">Open Route & sweep → Details</button></div>');
   const summary=document.getElementById('sweepDuePageSummary');summary.hidden=entries.length<=pageSize;summary.textContent=`Page ${page+1} of ${pages} · entries ${start+1}–${start+shown.length} of ${entries.length}`;
   document.getElementById('sweepDuePagination').innerHTML=entries.length>pageSize?`<button type="button" data-sweep-due-page="previous"${page===0?' disabled':''}>← Previous</button><span>Page ${page+1} of ${pages} · entries ${start+1}–${start+shown.length} of ${entries.length}</span><button type="button" data-sweep-due-page="next"${page===pages-1?' disabled':''}>Next →</button>`:'';
  }
+ function showDraft(){
+  const interval=state.sweepDue?.intervalMonths??'',parsed=parseInterval(interval);
+  document.getElementById('sweepDueIntervalStatus').textContent=parsed.status==='valid'?'Entered interval: '+parsed.value+' whole calendar months.':'Interval '+parsed.status+(parsed.status==='invalid'?' — enter digits only, from 1 to 1200.':'.');
+  const notice=document.getElementById('sweepDueSaveStatus');notice.textContent=saveResult?(saveResult.saved?'Reminder preference saved on this device.':'Not saved. Autosave failed. Export a project backup before closing.'):'';notice.classList.toggle('warning',saveResult?.saved===false);
+  document.getElementById('sweepDueSummary').textContent='Results are stale. Commit the interval or refresh the list to update reminders.';
+  document.getElementById('sweepDueList').innerHTML='';document.getElementById('sweepDuePagination').innerHTML='';document.getElementById('sweepDueDiagnostics').innerHTML='';document.getElementById('sweepDuePageSummary').hidden=true;
+ }
  function render(today=deviceToday()){
-  const panel=structure();if(!panel)return;model=readView(today);page=0;
-  const input=document.getElementById('sweepDueInterval');if(document.activeElement!==input)input.value=model.interval;
+  const panel=structure();if(!panel)return;const sameOwner=renderedOwner===state;model=readView(today);renderedOwner=state;page=0;draftPending=false;
+  const input=document.getElementById('sweepDueInterval');if(!sameOwner||document.activeElement!==input)input.value=model.interval;
   document.getElementById('sweepDueAsOf').textContent='As of '+model.today+' (device date)';const parsed=parseInterval(model.interval);
   document.getElementById('sweepDueIntervalStatus').textContent=parsed.status==='valid'?'Entered interval: '+parsed.value+' whole calendar months.':'Interval '+parsed.status+(parsed.status==='invalid'?' — enter digits only, from 1 to 1200.':'.');
   if(saveResult&&(saveResult.owner!==state||saveResult.interval!==model.interval))saveResult=null;
@@ -108,11 +115,19 @@ const SweepDue=(()=>{
   const c=model.counts;document.getElementById('sweepDueSummary').textContent=c.jobs+' job sources · '+c.stations+' stations. Work reminders: '+c.work.green+' before window, '+c.work.yellow+' in window, '+c.work.red+' due / overdue, '+c.work.neutral+' unavailable. Practice / sample reminders: '+c.practice.green+' before window, '+c.practice.yellow+' in window, '+c.practice.red+' due / overdue, '+c.practice.neutral+' unavailable. Synthetic and sample data remain practice after editing, duplication and restore.';
   renderList();
  }
+ function refresh(){
+  if(document.getElementById('sweepDuePanel')?.hidden!==false)return;
+  // A library/app redraw must not commit a still-typed interval for this job.
+  if(draftPending&&renderedOwner===state)return;
+  render();
+ }
  function init(){
   if(initialized)return;initialized=true;
-  document.addEventListener('input',e=>{if(e.target.id!=='sweepDueInterval')return;state.sweepDue={intervalMonths:e.target.value.slice(0,20)};const saved=typeof saveLocal==='function'&&saveLocal()!==false;saveResult={owner:state,interval:state.sweepDue.intervalMonths,saved};render();});
+  document.addEventListener('input',e=>{if(e.target.id!=='sweepDueInterval')return;state.sweepDue={intervalMonths:e.target.value.slice(0,20)};const saved=typeof saveLocal==='function'&&saveLocal()!==false;saveResult={owner:state,interval:state.sweepDue.intervalMonths,saved};draftPending=true;showDraft();});
+  document.addEventListener('change',e=>{if(e.target.id==='sweepDueInterval'&&draftPending)render();});
+  document.addEventListener('keydown',e=>{if(e.target.id==='sweepDueInterval'&&e.key==='Enter'){e.preventDefault();render();}});
   document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='sweepDueRefresh')render();if(b.dataset.sweepDuePage){page+=b.dataset.sweepDuePage==='next'?1:-1;renderList();const summary=document.getElementById('sweepDuePageSummary');summary?.focus({preventScroll:true});summary?.scrollIntoView({block:'start'});}});
   const resume=()=>{if(!document.getElementById('sweepDuePanel')?.hidden&&document.visibilityState!=='hidden')render();};window.addEventListener('pageshow',resume);window.addEventListener('focus',resume);document.addEventListener('visibilitychange',resume);
  }
- return {parseDate,addMonthsClamped,parseInterval,validate,deviceToday,classify,collect,readView,render,init};
+ return {parseDate,addMonthsClamped,parseInterval,validate,deviceToday,classify,collect,readView,render,refresh,init};
 })();

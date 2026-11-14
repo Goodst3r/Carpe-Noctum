@@ -63,7 +63,7 @@ def route_checks(browser, width):
     context.close()
 
 def import_checks(browser, width):
-    """The header Open project picker replaces the working job while this screen stays open: the places must follow."""
+    """Opening a project goes to Route; returning to Impairments must show the new route's places."""
     context = browser.new_context(viewport={'width': width, 'height': 844}, is_mobile=True, has_touch=True)
     page = context.new_page()
     page.on('pageerror', lambda e: errors.append(str(e)))
@@ -81,16 +81,24 @@ def import_checks(browser, width):
     empty = tmp / 'empty-route.json'
     empty.write_text(page.evaluate("JSON.stringify({...JSON.parse(JSON.stringify(state)),rows:[]})"))
     page.set_input_files('#load', str(empty)); page.wait_for_timeout(500)
+    check(f'{width}px header import: the opened project goes to Route', page.evaluate("WorkflowUI.current()") == 'route')
+    page.evaluate("WorkflowUI.go('impairments')")
+    page.locator(OUT).wait_for(state='visible')
     after = text(page)
-    check(f'{width}px header import: opening a project with no route on this screen removes the old places and says the route has no point', page.evaluate('state.rows.length') == 0 and 'candidate place' not in after and 'Tap 1' not in after and 'no point with a valid distance' in after)
-    check(f'{width}px header import: the screen did not change', page.evaluate("WorkflowUI.current()") == 'impairments' )
+    check(f'{width}px header import: returning to Impairments with no route removes the old places and says the route has no point', page.evaluate('state.rows.length') == 0 and 'candidate place' not in after and 'Tap 1' not in after and 'no point with a valid distance' in after)
     other = tmp / 'other-route.json'
     other.write_text(page.evaluate("JSON.stringify(TrainingJob.makePractice('aoi-six-active'))"))
     page.set_input_files('#load', str(other)); page.wait_for_timeout(500)
+    check(f'{width}px header import: the second project goes to Route', page.evaluate("WorkflowUI.current()") == 'route')
+    page.evaluate("WorkflowUI.go('impairments')")
+    page.locator(OUT).wait_for(state='visible')
     expected = page.evaluate("(()=>{const r=FieldCalc.rippleDistance('1.7','0.87');const f=Impairments.candidates(state,catalog,r.feet,undefined);return f.ok?f.total:-1})()")
     again = text(page)
     check(f'{width}px header import: a second project with another route shows that route\'s places', page.evaluate('state.rows.length') > 0 and ((expected > 0 and f'{expected} candidate' in again) or (expected == 0 and 'No pair of points' in again)) and again != after)
     page.evaluate("window.NightSweep.openProject(JSON.stringify({...JSON.parse(JSON.stringify(state)),rows:[]}))"); page.wait_for_timeout(500)
+    check(f'{width}px native open: the opened project goes to Route', page.evaluate("WorkflowUI.current()") == 'route')
+    page.evaluate("WorkflowUI.go('impairments')")
+    page.locator(OUT).wait_for(state='visible')
     check(f'{width}px header import: the app\'s own native open-project call also refreshes the places', page.evaluate('state.rows.length') == 0 and 'candidate place' not in text(page))
     check(f'{width}px header import: no sideways scroll and no page errors', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1') and not errors)
     context.close()

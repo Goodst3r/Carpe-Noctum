@@ -1,6 +1,29 @@
 # Carpe Noctum (formerly NightSweep) project status
 
-## Current: 2.0 Alpha build 3 · in development · Android source code 27 (no APK yet) · November 12, 2026 UTC
+## November 14 next-build kickoff (in progress)
+
+Pinned integration baseline `248e77802f333a1a461563dfb1973315a2043d67`. Codex owns the app code under `handoff_docs/PARALLEL_TASKS.md`; Claude reviews the finished batch and Spencer signs with the original key off-repo and tests the real phone. The older roles and APK instructions below are historical. The prior route/map candidate is preserved through ordinary local merges, without merging a remote PR.
+
+Organization work on `codex/next-optimization-organization` opens standalone calculators on cold launch, adds direct Route & sweep access, folds Field destinations into that searchable screen list, and removes the dedicated Leakage module/screen/practice generators. The inventory starts collapsed, touch selection closes it, and keyboard navigation keeps focus. Existing storage keys and job fields are unchanged; opaque retired job data and the old device notebook remain untouched. Night log, Outage, Checklists, Supply PM and Sweep due remain accessible pending an explicit retired-daily-workflow list.
+
+Current source inventory: **34 screens, 52 practice choices, custom-curves 20 steps, 16 Study generators, 156 registry rows**. The remaining leakage source rows support High split, Why cards and FCC references; no retired notebook editor or grading rule is exposed. The approved company profiles from the inherited candidate remain explicit opt-in references; the 31@54/43@860 legacy design and separate TX38 reference are retained. Unconfirmed comparison basis, tolerances, pilot codes and source-file verification remain unknown.
+
+See `handoff_docs/NEXT_BUILD_2026-11-14.md` for timestamped branches, inherited gate evidence, new affected checks, actual tool access and open next items. This is not a finished batch or phone release; no new full gate, Claude approval, APK or device acceptance is claimed by this kickoff.
+
+
+## Current: 2.0 Alpha build 4 · pre-signing source candidate · Android code 28 · November 13, 2026 UTC
+
+The starting-commit build 3 Preview code 27 was separately signed and Spencer reported an in-place update with jobs, readings and original attachments intact. Build 4 remains pending final review, signing, phone acceptance and web deployment; combined gate evidence belongs to the implementation PR and its exact-head CI run. See [candidate handoff](handoff_docs/FINAL_CANDIDATE_HANDOFF.md) and the dated [source snapshot](android-build/build-readiness.json).
+
+### Current update source freeze: PR54 Routes and Sweep
+
+The [PR54 scope](handoff_docs/NEXT_UPDATE_SWEEP_MAP_SCOPE.md) is implemented on a separate review candidate that retains `334bf84` and the prior build 4 work. Jobs open to the route workbench, with expected levels, per-leg gain feasibility, separate output limits, inline Before/After input/output readings and model-specific pad/EQ records. Gain/readings entry links resolve to the workbench; What-if is under Load. Every calculator remains available. Dedicated GaN choices are retired for new standard low-split work while legacy equipment and exports remain readable.
+
+The local PDF/image importer bundles its renderer and OCR assets into the standalone HTML and PWA, without runtime cloud recognition. Imported connections/models/launches start unconfirmed; previous route and launch records remain historical, and fresh station IDs prevent rebinding old readings. New launch levels must be entered for the new source. The private HA0005 check and physical Android/iPhone acceptance have not run. No signing, upstream merge or publication is authorized by this freeze.
+
+This paragraph records the source before its combined release gate. See the [implementation record](handoff_docs/reviews/routes-sweep-implementation.md), [independent RF review](research/next-build/ROUTE_RF_INDEPENDENT_REVIEW.md), and implementation draft PR body/CI artifacts for exact tested heads and executed results. Historical gate results below do not establish acceptance of this update.
+
+## Historical build 3 status · November 12, 2026 UTC
 
 Integration branch **`build3`**. This source includes the merged build-list items through Study, Supply PM (item 14, PR #30) and Power sum. B1 removes Safety by Spencer’s November 12 decision; the remaining build queue and roles are in `handoff_docs/WORKFLOW.md`. The signed installer in the repository is still **2.0 Alpha build 2** (`apk/CarpeNoctum-2.0-build2-preview.apk`, Android code 26). No build 3 APK exists. The finishing session builds and signs it under `handoff_docs/APK_PLAN.md`, from a frozen `outputs/Night_Sweep.html` whose hash is pinned after the final gate. `android-build/build-readiness.json` says so.
 

@@ -166,7 +166,7 @@ const HighSplitUI=(()=>{
 <ul class="hs-list">${HighSplit.AERO.map(a=>`<li>${escape(a.text)} ${cite(a.src,a.loc)}</li>`).join('')}</ul>
 <h4>The rules, in plain words</h4>
 <ul class="hs-list">${HighSplit.RULES.map(r=>`<li>${escape(r.text)} ${tag(r.registry,r.loc)} ${cite(r.src,r.loc)}</li>`).join('')}</ul>
-<p class="note tight">Official leakage results belong to your engineering group. The Leakage screen is a notebook and calculator, not a filing.</p></section>
+<p class="note tight">Official leakage results belong to your engineering group. This reference does not record or file leakage results.</p></section>
 <section class="calc-card hs-card" aria-labelledby="hsRphyTitle"><div class="calc-card-head"><h3 id="hsRphyTitle">Remote PHY bring-up</h3></div>
 <p class="note tight">What the CableLabs specifications say an RPD does after power-up. The steps are listed in the order each is first needed, but they are not one strict sequence: for example, the RPD synchronizes to its timing source in parallel with the configuration done by the principal and auxiliary cores, and that synchronization has to be started before the core moves the RPD to operational. It is automatic. Most of it is done with the network and the CCAP core, and none of it is a check you can make with a meter at the node; use it to know what the core operator is waiting for.</p>
 <ol class="hs-steps">${HighSplit.RPHY_STEPS.map(s=>`<li><strong>${escape(s.who)}.</strong> ${escape(s.text)} ${cite(s.src,s.loc)}</li>`).join('')}</ol>
