@@ -26,7 +26,8 @@ EXPORTS = {
 }
 TASKS = ['setup', 'route', 'gain', 'equipmentSetup', 'parts', 'tdr', 'sweepSetup',
          'sweep', 'frequency', 'readings', 'references', 'power', 'trial',
-         'projects', 'evidence', 'checklists', 'records', 'runsheet', 'help']
+         'projects', 'evidence', 'records', 'runsheet', 'help']
+RETIRED_TASKS = {'leakage', 'checklists', 'nightLog', 'sweepDue', 'outage'}
 TASK_ALIASES = {'gain': 'route', 'readings': 'route', 'trial': 'power'}
 checks, errors, offline_probes = [], [], []
 
@@ -131,6 +132,12 @@ try:
                             [x['sha256'] for x in imported.get('evidence', [])] ==
                             [x['sha256'] for x in bundle.get('evidence', [])])
                 features = page.evaluate('TrainingJob.features.map(f => ({id:f.id,task:f.task,control:f.control}))')
+                active_nav_tasks = set()
+                for group_task in ['route', 'calculators', 'projects']:
+                    page.evaluate('(task) => WorkflowUI.go(task)', group_task)
+                    active_nav_tasks.update(page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task]')].map(b=>b.dataset.task)"))
+                checked('Retired task entries are absent from active navigation', RETIRED_TASKS.isdisjoint(active_nav_tasks))
+                checked('Retired task entries are absent from the training feature library', RETIRED_TASKS.isdisjoint({f['task'] for f in features}))
                 checked('Feature library covers every task screen', set(TASKS).issubset({f['task'] for f in features}))
                 for feature in features:
                     page.evaluate('WorkflowUI.go("home")')

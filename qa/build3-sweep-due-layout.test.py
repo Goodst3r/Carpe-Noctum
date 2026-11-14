@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
-server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Quiet, directory=str(ROOT)))
+server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Quiet, directory=os.environ.get('NIGHTSWEEP_TEST_SERVE_ROOT', str(ROOT))))
 Thread(target=server.serve_forever, daemon=True).start()
 checks, errors = [], []
 def check(name, value):
@@ -44,7 +44,7 @@ try:
             page.on('dialog', lambda dialog: dialog.accept())
             page.goto(f'http://127.0.0.1:{server.server_port}/outputs/Night_Sweep.html')
             page.evaluate(FIXTURE)
-            check(f'{width}px Sweep due visible as final Plan screen', page.locator('#sweepDuePanel').is_visible() and page.locator('#taskTabs [data-task]').last.get_attribute('data-task') == 'sweepDue')
+            check(f'{width}px legacy Sweep due view remains accessible by ID but absent from navigation', page.locator('#sweepDuePanel').is_visible() and page.locator('#taskTabs [data-task="sweepDue"]').count() == 0)
             check(f'{width}px all named synthetic jobs/rows visible', page.locator('.sweep-due-job').count() == 3 and page.locator('[data-sweep-due-row]').count() == 21)
             check(f'{width}px 0/12/19 reminder words and colors', all(page.locator(f'.sweep-due-{color}').count() == 7 for color in ['green', 'yellow', 'red']) and all(text in page.locator('#sweepDueList').inner_text() for text in ['Before reminder window', 'Reminder window', 'Due / overdue']))
             check(f'{width}px separate sweep and balance labels/dates', page.locator('.sweep-due-event h4').all_text_contents().count('Last recorded sweep') == 21 and page.locator('.sweep-due-event h4').all_text_contents().count('Last recorded balance') == 21)
@@ -69,7 +69,7 @@ try:
             page.locator('#sweepDueInterval').fill('')
             check(f'{width}px clearing returns to unknown without rewriting Station dates', 'Interval unknown' in page.locator('#sweepDueIntervalStatus').inner_text() and page.evaluate('state.stationView.stations.layout_1.swept.date') == '2025-04-11')
             page.locator('#sweepDuePanel [data-threshold="company.sweepDue.intervalMonths"]').click()
-            check(f'{width}px source sheet opens with correct edit destination', page.locator('dialog.source-sheet[open]').count() == 1 and page.locator('dialog [data-task="sweepDue"]').count() == 1)
+            check(f'{width}px source sheet opens without a retired edit destination', page.locator('dialog.source-sheet[open]').count() == 1 and page.locator('dialog [data-task="sweepDue"]').count() == 0)
             page.locator('dialog button[data-source-close]').last.click()
             check(f'{width}px closing source restores source-button focus', page.locator('#sweepDuePanel [data-threshold="company.sweepDue.intervalMonths"]').evaluate('(e)=>document.activeElement===e'))
             page.evaluate('JobsUI.snapshots=()=>{throw Error("Synthetic unreadable library")};SweepDue.render("2026-11-11")')

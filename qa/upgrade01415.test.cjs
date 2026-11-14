@@ -58,6 +58,9 @@ async function check(name,fn){await fn();cases.push(name);console.log('PASS '+na
   const current=app.json(calculations),previous=copy(oldNumbers);
   assert.equal(current.gain.publishedReference.source,'https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf');
   assert.match(current.gain.publishedReference.conditions,/minimum operational gain/);
+  // The legacy selected output is now explicitly identified as the main leg.
+  // Assert that additive metadata before comparing every prior engineering field.
+  assert.equal(current.gain.legId,'main');assert.equal(Object.hasOwn(previous.gain,'legId'),false);delete current.gain.legId;
   // Audited document URLs and source conditions may change; every engineering result must remain identical.
   for(const data of [current,previous]){delete data.gain.publishedReference.source;delete data.gain.publishedReference.conditions;}
   assert.deepEqual(current,previous);

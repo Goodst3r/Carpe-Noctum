@@ -4227,7 +4227,9 @@ function initMapWorkbench(){
         }
       }
     for (const c of candidates) {
-      if (c.positionReadable === false) continue;
+      // A provisional OCR location may connect a draft, but remains unreadable
+      // for symbol confirmation and PDF export.
+      if (c.positionReadable === false && c.draftPositionReadable !== true) continue;
       let best = -1,
         gap = Infinity,
         p;
@@ -4828,7 +4830,7 @@ function initMapWorkbench(){
           matches.push({...scheduled,id,symbolId:'p'+page.number+'x'+at.x.toFixed(2)+'y'+at.y.toFixed(2),schedulePage:scheduled.page,page:page.number,x:at.x,y:at.y,positionReadable:gap<110,exactName:scheduled.name,positionConfirmed:false});
         }
       }
-      if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,positionReadable:false,positionConfirmed:false,positionReason:'No exact diagram symbol match; confirm the map location before PDF updates.'});
+      if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,draftPositionReadable:scheduled.textSource==='ocr'&&scheduled.positionReadable===true,positionReadable:false,positionConfirmed:false,positionReason:[scheduled.positionReason,'No exact diagram symbol match; confirm the map location before PDF updates.'].filter(Boolean).join(' ')});
       else for(const m of matches){
         const escaped=scheduled.tag.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),absent=new RegExp('(?:^|\\s)'+escaped+'\\s*[:=-]?\\s*(?:ABSENT|NOT INSTALLED|REMOVE[D]?|NOT BUILT)\\b','i');
         const markedAbsent=pages.some(p=>(p.annotations||[]).some(a=>absent.test(a.text||''))||lineGroups(p.nativeTokens||p.ocrTokens||[]).some(l=>absent.test(l.text)));
@@ -7649,8 +7651,9 @@ const Thresholds=(()=>{
  function sheetBody(row){
   const info=LABEL_INFO[row.label],r=resolve(row.id),value=display(row.id);
   const caution=['secondary','unverified'].includes(row.verification)?`<p class="status warning">${escape(VERIFICATION[row.verification])}</p>`:'';
-  const edit=row.store==='grading'?`<button type="button" data-task="evidence" data-grading-profile="${escape(row.profileKey)}" data-source-close>Edit in Route & sweep → ONX files: Grading aid</button>`:row.store==='sweepDue'?`<button type="button" data-task="sweepDue" data-source-close>Edit in Route & sweep → Sweep due</button>`:row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Closeout → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Route & sweep → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Tools → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Tools → DOCSIS health</button>`:row.store==='leakage'?`<button type="button" data-task="leakage" data-source-close>Edit in Route & sweep → Leakage</button>`:'';
-  return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail('Used by',row.usedBy)}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
+  const edit=row.store==='grading'?`<button type="button" data-task="evidence" data-grading-profile="${escape(row.profileKey)}" data-source-close>Edit in Route & sweep → ONX files: Grading aid</button>`:row.store==='profile'?`<button type="button" data-task="records" data-source-close>Edit in Closeout → Acceptance</button>`:row.store==='sweep'?`<button type="button" data-task="sweepSetup" data-source-close>Edit in Route & sweep → Meter setup (choose 42/54)</button>`:row.preset?`<button type="button" data-task="references" data-source-close>Open Tools → References</button>`:row.store==='docsis'?`<button type="button" data-task="docsisHealth" data-source-close>Edit in Tools → DOCSIS health</button>`:'';
+  const retired=row.store==='leakage'||row.store==='sweepDue'||row.id.startsWith('leak.')||row.id.startsWith('app.sweepDue.');
+  return `<div class="source-sheet-head"><span class="source-tag source-${row.label} static" aria-hidden="true">${info.text}</span><h2 id="sourceSheetTitle" tabindex="-1">${escape(row.name)}</h2></div><p class="note">${escape(info.help)}</p>${caution}<dl class="source-details">${detail(row.kind==='formula'?'Formula':'Value',value)}${row.kind!=='formula'&&row.formula?detail('Formula',row.formula):''}${row.kind==='formula'?'':detail('Where the value comes from',r?.where)}${detail('Units',row.units)}${detail('Applies when',row.conditions)}${detail('Plant',row.scope==='all'?'Both plants (42/54 and 204/258)':row.scope+' MHz plant')}${detail('Source',row.source)}${detail('Revision',row.revision)}${detail('Page, table or section',row.locator)}${row.verification==='entered'?detail('Date',row.date):detail('Checked',row.date+' · '+VERIFICATION[row.verification])}${row.verification==='entered'?detail('Verification',VERIFICATION.entered):''}${detail(retired?'Former use':'Used by',row.usedBy)}${retired?detail('Availability','This workflow is retired from current navigation; stored legacy values remain unchanged.'):''}${detail('Note',row.note)}</dl><div class="toolbar">${edit}<button type="button" class="primary" data-source-close>Close</button></div>`;
  }
  let sheet=null,returnFocus=null;
  function close(){if(!sheet)return;const dlg=sheet;sheet=null;try{dlg.close();}catch(_){}dlg.remove();const back=returnFocus;returnFocus=null;if(back?.isConnected)back.focus({preventScroll:true});}
@@ -10306,7 +10309,7 @@ const WhyCards=(()=>{
   {n:9,year:2025,title:'What is … RF?',name:'RF',
    what:'RF is radio frequency: the part of the electromagnetic spectrum used for radio, from a few kilohertz up to just below infrared light. The word also names the signals that occupy that range and the rate of an oscillation in it. The coax in a cable plant carries several kinds of RF (telemetry, analog, SC-QAM, OFDM and OFDMA) alongside AC power for the actives.',
    why:'The same RF that belongs inside the cable is interference if it leaks out, and outside RF that gets in is ingress, which is why shielding and good connectors matter.',
-   tools:[{task:'frequency',label:'Tools → Frequency'},{task:'leakage',label:'Route & sweep → Leakage'}],tags:[]},
+   tools:[{task:'frequency',label:'Tools → Frequency'},{task:'limits',label:'Tools → Limits'}],tags:[]},
   {n:10,year:2025,title:'What Is...Signal Level?',name:'Signal level',
    what:'Signal level is the power of a signal, usually written in dBmV (decibels relative to 1 millivolt across 75 ohms), or in dBµV or dBm. What is measured depends on the signal: the peak envelope power of an analog TV visual carrier, the average power across an SC-QAM channel’s occupied bandwidth, the average power per 6 MHz for a downstream OFDM channel, and an average over a narrower bandwidth for upstream OFDMA.',
    why:'Level alone does not say a signal is good, because error rate and MER are separate checks, but a wrong level, or a reading taken on a different basis than the limit, is the first thing to rule out.',
@@ -10317,8 +10320,8 @@ const WhyCards=(()=>{
    tools:[],tags:[]},
   {n:12,year:2025,title:'What is...Signal Leakage Field Strength?',name:'Signal leakage field strength',
    what:'Leakage is described by field strength: how strong a radio wave a leak produces at a stated distance, in volts per meter (microvolts per meter in practice). Rules give limits together with the distance each applies at, and a reading taken with a dipole in dBmV has to be converted to field strength for its frequency.',
-   why:'A leakage reading means nothing without its distance and its frequency. The leakage screen restates a reading at 3 m and compares it with the FCC table.',
-   tools:[{task:'leakage',label:'Route & sweep → Leakage'}],tags:['leak.normalize.distance']},
+   why:'A leakage reading means nothing without its distance and its frequency. The Limits registry lists FCC field-strength rules and their measurement distances, including 3 m.',
+   tools:[{task:'limits',label:'Tools → Limits'}],tags:['leak.normalize.distance']},
   {n:13,year:2026,title:'What is … Carrier-to-Noise Ratio?',name:'Carrier-to-noise ratio',
    what:'Carrier-to-noise ratio (CNR) compares a carrier’s power with the noise power in a stated bandwidth, in dB, as read on a spectrum analyzer. The noise reading can need a bandwidth correction, and the analyzer’s own noise floor has to sit below the plant’s.',
    why:'A low CNR points at noise, low levels or a noisy active device. It is a different check from MER and error counts, and a signal can have a fine level and a poor ratio.',

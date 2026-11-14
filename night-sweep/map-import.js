@@ -78,7 +78,9 @@
         }
       }
     for (const c of candidates) {
-      if (c.positionReadable === false) continue;
+      // A provisional OCR location may connect a draft, but remains unreadable
+      // for symbol confirmation and PDF export.
+      if (c.positionReadable === false && c.draftPositionReadable !== true) continue;
       let best = -1,
         gap = Infinity,
         p;
@@ -679,7 +681,7 @@
           matches.push({...scheduled,id,symbolId:'p'+page.number+'x'+at.x.toFixed(2)+'y'+at.y.toFixed(2),schedulePage:scheduled.page,page:page.number,x:at.x,y:at.y,positionReadable:gap<110,exactName:scheduled.name,positionConfirmed:false});
         }
       }
-      if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,positionReadable:false,positionConfirmed:false,positionReason:'No exact diagram symbol match; confirm the map location before PDF updates.'});
+      if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,draftPositionReadable:scheduled.textSource==='ocr'&&scheduled.positionReadable===true,positionReadable:false,positionConfirmed:false,positionReason:[scheduled.positionReason,'No exact diagram symbol match; confirm the map location before PDF updates.'].filter(Boolean).join(' ')});
       else for(const m of matches){
         const escaped=scheduled.tag.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),absent=new RegExp('(?:^|\\s)'+escaped+'\\s*[:=-]?\\s*(?:ABSENT|NOT INSTALLED|REMOVE[D]?|NOT BUILT)\\b','i');
         const markedAbsent=pages.some(p=>(p.annotations||[]).some(a=>absent.test(a.text||''))||lineGroups(p.nativeTokens||p.ocrTokens||[]).some(l=>absent.test(l.text)));

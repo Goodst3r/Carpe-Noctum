@@ -19,6 +19,7 @@ suites=[
  ('Next candidate original-backed physical-port job restore','codex-next-port-integration.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Next candidate asynchronous port identity and original protection','codex-next-port-context.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Next candidate native schedule matching across sheets','codex-next-map-schedules.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
+ ('Next candidate uncertain OCR branch preservation and PDF refusal','codex-map-ocr-regression.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Next candidate grouped PDF overlays and original preservation','codex-next-map-pdf.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),
  ('Next candidate offline PDF rasters on rotated and cropped pages','codex-next-map-pdf-browser.test.py',r'Next PDF browser: (\d+) checks passed'),
  ('Next candidate PDF positioning keyboard focus','codex-next-map-pdf-ui.test.cjs',r'(?:# tests|ℹ tests) (\d+)'),

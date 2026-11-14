@@ -24,31 +24,31 @@
 
 Files: `workflow.js`, `shell.html`, `training.js`, current guides and affected existing navigation assertions.
 
-- [ ] Record cold-start calculator and route access. Start on Calculators; expose Route & sweep directly; remove Field bottom tab.
-- [ ] Move retained station/meter/evidence/TDR entry IDs to existing groups. Remove Leakage and daily-workflow entries from active navigation/practice, preserve legacy payloads and useful shortcuts.
-- [ ] Verify standalone calculation without a named job, keyboard search, route aliases and legacy round-trip. Record operation/workflow differences rather than invented timing claims.
+- [x] Record cold-start calculator and route access. Start on Calculators; expose Route & sweep directly; remove Field bottom tab.
+- [x] Move retained station/meter/evidence/TDR entry IDs to existing groups. Remove Leakage and daily-workflow entries from active navigation/practice, preserve legacy payloads and useful shortcuts.
+- [x] Verify standalone calculation without a named job, keyboard search, route aliases and legacy round-trip. Record operation/workflow differences rather than invented timing claims.
 
 ## 2. RF and per-port ONX
 
 Files: `route-workbench.js`, `engine.js` as needed, new `port-sweeps.js`, evidence integration and route source card.
 
-- [ ] Pin public `PortSweeps.replace(owner, portId, parsed, context)` returning a new port collection after complete validation, and `PortSweeps.validate` for job imports. `owner.portSweeps` is additive. Failed validation must not mutate owner.
-- [ ] Add file/verified-evidence selection by physical node port. Keep all points and original evidence ID/hash. Never apply an observed ONX level as a Company target.
-- [ ] Require comparable measurement basis/bandwidth in `RouteWorkbench.measuredGain`; record context independently for input/output and Before/After per leg.
-- [ ] Keep leg gains/output limits/part records independent and explicitly show missing values. Run independent math vectors and affected legacy/route/evidence suites.
+- [x] Pin public `PortSweeps.replace(owner, portId, parsed, context)` returning a new port collection after complete validation, and `PortSweeps.validate` for job imports. `owner.portSweeps` is additive. Failed validation must not mutate owner.
+- [x] Add file/verified-evidence selection by physical node port. Keep all points and original evidence ID/hash. Never apply an observed ONX level as a Company target.
+- [x] Require comparable measurement basis/bandwidth in `RouteWorkbench.measuredGain`; record context independently for input/output and Before/After per leg.
+- [x] Keep leg gains/output limits/part records independent and explicitly show missing values. Run independent math vectors and affected legacy/route/evidence suites.
 
 ## 3. PDF map update
 
 Files: `map-import.js`, new `map-pdf.js`, `evidence-ui.js`, `route-workbench.js`, vendor manifest and build registration.
 
-- [ ] Match native NAME/TAG schedules across sheets while retaining ambiguous matches for review. Persist source and diagram geometry with imported rows.
-- [ ] Public `MapPDF.plan(owner)` returns one grouped tombstone per confirmed active/EOL symbol; `MapPDF.exportPdf(originalBytes, owner)` verifies source digest and produces PDF bytes without mutating state or originals.
-- [ ] Expose explicit symbol confirmation and reposition controls. Persist original through existing evidence storage; remap evidence references on backup import. Refresh always verifies the original digest.
-- [ ] Test rotated/cropped multi-page PDFs, original annotation retention, duplicate identity refusal, repeat export, job/source switching and incomplete records.
+- [x] Match native NAME/TAG schedules across sheets while retaining ambiguous matches for review. Persist source and diagram geometry with imported rows.
+- [x] Public `NightSweepMapPDF.plan(owner)` returns one grouped tombstone per confirmed active/EOL symbol; `NightSweepMapPDF.exportPDF(originalBytes, owner)` verifies source digest and produces PDF bytes without mutating state or originals.
+- [x] Expose explicit symbol confirmation and reposition controls. Keep the original map as a separate immutable file under PR55’s external-original model; portable backups retain verified ONX evidence and remap its references. Refresh always verifies the original digest.
+- [x] Test rotated/cropped multi-page PDFs, original annotation retention, duplicate identity refusal, repeat export, job/source switching and incomplete records.
 
 ## 4. Combined candidate and release gate
 
-- [ ] Integrate Grok's exact QA SHA or complete patch; register eligible suites in `qa/run-pwa.py`. Integrate guide/practice drafts.
-- [ ] Rebuild standalone, guides and PWA; commit generated outputs centrally. Freeze exact source SHA and HTML SHA-256.
+- [x] Integrate Grok's exact QA SHA or complete patch; register eligible suites in `qa/run-pwa.py`. Integrate guide/practice drafts.
+- [x] Rebuild standalone, guides and PWA; commit generated outputs centrally. Freeze exact source SHA and HTML SHA-256.
 - [ ] Run the existing full automated gate plus both rendered suites once on the combined candidate, or use qualifying hosted evidence. Fix genuine failures and gate changed app bytes again.
 - [ ] Open one build3 candidate PR recording pins, Grok QA SHA, exact candidate, HTML hash, executed results and outstanding physical-phone checks. Keep unmerged; hand off to Claude.

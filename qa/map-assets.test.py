@@ -106,7 +106,7 @@ process.stdout.write(JSON.stringify({sha256:hash(source),names:Object.keys(JSON.
         result = subprocess.run(['node', '-e', code], cwd=ROOT, text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(set(payload['names']), {'NOTICE.txt','pdf.js','pdf-worker.js','ocr.js','ocr-worker.js','eng.traineddata.gz'})
+        self.assertEqual(set(payload['names']), {'NOTICE.txt','pdf.js','pdf-worker.js','ocr.js','ocr-worker.js','eng.traineddata.gz','pdf-lib.js','practice-map.pdf'})
 
 if __name__ == '__main__':
     result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(MapAssetsTests))

@@ -21,9 +21,9 @@ function hidden(selector){assert(!visible(d.querySelector(selector)),selector+' 
 const field=(id,key)=>`#route [data-row="${id}"] [data-field="${key}"]`;
 const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPanel'],setup:['setup'],route:['setup','routePanel'],gain:['setup','routePanel'],parts:['catalogPanel'],tdr:['tdrPanel'],sweep:['sweepPanel','levelsPanel'],frequency:['frequencyPanel'],readings:['setup','routePanel'],references:['fieldReferencePanel'],power:['powerPanel'],trial:['powerPanel'],projects:['jobsPanel','projectPanel'],evidence:['projectPanel'],checklists:['fieldWorkPanel'],records:['projectPanel'],runsheet:['runSheetPanel']};
 (async()=>{
- await check('App starts at Home with five named primary tasks and no duplicated controls',()=>{
-  assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 4');assert.equal(ev('WorkflowUI.current()'),'home');shown('#homePanel');
-  assert.deepEqual([...d.querySelectorAll('[data-main-tab]')].map(x=>x.dataset.mainTab),['home','plan','field','tools','closeout']);
+ await check('App starts at Calculators with four primary tasks and no duplicated controls',()=>{
+  assert.equal(d.title,'Carpe Noctum 2.0 Alpha build 4');assert.equal(ev('WorkflowUI.current()'),'calculators');shown('#calculatorPanel');
+  assert.deepEqual([...d.querySelectorAll('[data-main-tab]')].map(x=>x.dataset.mainTab),['home','plan','tools','closeout']);
   assert.equal(d.querySelectorAll('[data-main-tab][aria-current="page"]').length,1);uniqueIds();
  });
  await check('Every documented task is reachable and isolates its intended panels',()=>{
@@ -42,9 +42,10 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
   assert.equal(d.querySelectorAll('#taskTabs [aria-selected="true"]').length,1);
   for(const b of d.querySelectorAll('#taskTabs [aria-controls]')){const targets=b.getAttribute('aria-controls').trim().split(/\s+/).map(id=>d.getElementById(id));assert(targets.length&&targets.every(Boolean));assert(targets.some(e=>e.children.length>0),'Tab controls must point at actual content');}
  });
- await check('Primary task buttons remember the last subtask within the session',()=>{
-  go('frequency');click('[data-main-tab="home"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'frequency');
-  go('parts');click('[data-main-tab="closeout"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'parts');
+ await check('Primary Route and Tools buttons open the route and calculators directly',()=>{
+  go('frequency');click('[data-main-tab="home"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'calculators');
+  go('parts');click('[data-main-tab="closeout"]');click('[data-main-tab="tools"]');assert.equal(ev('WorkflowUI.current()'),'calculators');
+  go('setup');click('[data-main-tab="home"]');click('[data-main-tab="plan"]');assert.equal(ev('WorkflowUI.current()'),'route');
  });
  await check('Setup fields stay in Setup and update predictions without opening other tasks',()=>{
   go('setup');set('[data-setup="lowLevel"]','34');set('[data-setup="highLevel"]','46');set('[data-setup="temperature"]','68');assert.equal(ev('WorkflowUI.current()'),'setup');shown('#setup');hidden('#routePanel');hidden('#tdrPanel');
@@ -69,6 +70,8 @@ const map={station:['stationPanel'],home:['homePanel'],sweepSetup:['sweepSetupPa
   const id=ev('state.rows.at(-1).id');set(field(id,'gainLow'),'23');set(field(id,'gainHigh'),'30');set(field(id,'targetLow'),'36');set(field(id,'targetHigh'),'50');
   assert.match(d.getElementById('gain-budget-'+id).textContent,/covers this route with reserve/);assert.equal(ev('evaluate(993).results.at(-1).outputs[0].level'),57.5);
   set(field(id,'measureIn'),'10');set(field(id,'measureOut'),'20');set(field(id,'measureInTP'),'20');set(field(id,'measureOutTP'),'20');set(field(id,'measureF'),'993');click('#route [data-row="'+id+'"] [data-use-gain="high"]');
+  assert.equal(ev('state.rows.at(-1).gainHigh'),'30','Unconfirmed measurement context must not replace gain');
+  set(field(id,'measureBasis'),'sc-qam','change');set(field(id,'measureBandwidthMHz'),'6');set(field(id,'measureImpedanceOhms'),'75');click('#route [data-row="'+id+'"] [data-use-gain="high"]');
   assert.equal(ev('state.rows.at(-1).gainHigh'),10);assert.match(d.getElementById('gain-budget-'+id).textContent,/Not enough entered gain/);assert.equal(ev('WorkflowUI.current()'),'route');uniqueIds();
  });
  await check('Readings tab reuses route meter controls and stores only the chosen point',()=>{

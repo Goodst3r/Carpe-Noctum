@@ -425,9 +425,9 @@ function fakeStorage(initial = {}) {
   /* ---- The outage first-response card ---- */
   await goto(h, 'outage');
 
-  await check('Home has an Outage tab; the screen opens with the company-procedure line, says it is not the procedure, and that a supervisor review is still needed', () => {
+  await check('Outage is absent from current tabs but legacy controls and policy remain', () => {
     const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim());
-    assert.deepEqual(tabs, ['Home', 'Outage']);
+    assert.deepEqual(tabs, ['Home']);
     const panel = h.d.getElementById('outagePanel');
     assert.equal(panel.hidden, false); assert.equal(h.d.getElementById('safetyPanel'), null);
     const policy = panel.querySelector('.check-policy');
@@ -437,7 +437,7 @@ function fakeStorage(initial = {}) {
     assert.match(words(panel), /still writing its evidence-collection standard; this card does not implement it/);
     assert.deepEqual(h.json('Outage.list.groups'), ['Confirm the scope', 'Power', 'Node and optics', 'Actives, in order', 'Tell the right people', 'If damage or theft is suspected', 'Record the times']);
     assert.equal(h.d.querySelectorAll('#outagePanel [data-check]').length, h.json('Outage.ITEMS').length);
-    assert.equal(h.d.querySelector('#taskTabs [aria-selected="true"]')?.textContent.trim(), 'Outage');
+    assert.equal(h.d.querySelector('#taskTabs [data-task="outage"]'), null);
   });
 
   await check('No customer identifiers: the only entries are plant places, roles, times and what was found; no field asks for a name, address, phone or account', () => {

@@ -29,6 +29,7 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
 
   await check('Every card says what and why in its own words, links only to screens that exist, and none repeats an SCTE definition', async () => {
     assert.deepEqual(h.json('WhyCards.selfCheck()'), []);
+    for(const n of [9,12]) { const topic=h.json(`WhyCards.TOPICS.find(t=>t.n===${n})`); assert(topic.tools.some(t=>t.task==='limits' && t.label==='Tools → Limits'), 'card '+n+' links to the retained source registry'); assert(!topic.tools.some(t=>t.task==='leakage')); }
     for (const t of h.json('WhyCards.TOPICS')) {
       for (const tool of t.tools) { await goto(h, 'projects'); await goto(h, tool.task); assert.equal(h.ev('WorkflowUI.current()'), destination(tool.task), `card ${t.n} links to ${tool.task}`); comparisons++; }
     }
@@ -44,12 +45,13 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   await check('The screen is Test → Why cards after High split and shows only there; all fourteen cards are listed with their citation, and the tool buttons open their screens', async () => {
     await goto(h, 'projects'); assert.equal(h.d.getElementById('whyPanel').hidden, true);
     await goto(h, 'why');
-    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(8, 11), ['High split', 'Why cards', 'Proof of performance']);
+    const tabs = [...h.d.querySelectorAll('#taskTabs button[data-task]')].map(b => b.textContent.trim()); assert.deepEqual(tabs.slice(10, 13), ['High split', 'Why cards', 'Proof of performance']);
     assert.equal(h.d.getElementById('whyPanel').hidden, false); assert.match(h.d.getElementById('screenTitle').textContent, /Why cards: the basics in plain words/);
     const cards = [...h.d.querySelectorAll('#whyPanel details.why-card')]; assert.equal(cards.length, 14);
     cards.forEach((c, i) => { const n = reference.topics[i]; assert.match(c.querySelector('summary').textContent, new RegExp(`SCTE 293-${n.n} ${n.year}`)); assert(c.querySelector('.why-source').textContent.includes(n.title), 'source line names the title ' + n.n); });
     for (const n of [8, 11, 13]) assert.match(words(h.d.querySelector(`[data-why="${n}"]`)), /The app has no screen for this topic yet/);
     assert.equal(h.d.querySelectorAll('#whyPanel .why-go').length, h.json('WhyCards.TOPICS.reduce((a,t)=>a+t.tools.length,0)'));
+    for(const n of [9,12]) { const button=h.d.querySelector(`[data-why="${n}"] [data-why-go="limits"]`); assert(button); assert.match(button.textContent,/Tools → Limits/); button.click(); await flush(); assert.equal(h.ev('WorkflowUI.current()'),'limits'); await goto(h,'why'); }
     const unity = h.d.querySelector('[data-why="5"] [data-why-go="station"]'); assert(unity); unity.click(); await flush(); assert.equal(h.ev('WorkflowUI.current()'), 'station');
     await goto(h, 'why');
     const text = words(h.d.getElementById('whyPanel'));

@@ -24,11 +24,11 @@ let checks=0;async function check(name,fn){await fn();checks++;console.log('PASS
   assert.equal(d.querySelector('[data-task="safety"], [data-go="safety"], [data-training-feature="safety"]'),null);
   assert(!html.includes('<!--SAFETY-->'));assert(!/Job\s*→\s*Safety/.test(html));
  });
- await check('Study retains Outage under a remaining domain without Safety or invented replacement questions',()=>{
+ await check('Study excludes retired Outage and Safety questions',()=>{
   assert(!json('StudyMode.DOMAINS').some(x=>x.id==='safety'));
   const generators=json('StudyMode.GENERATORS');assert(!generators.some(x=>x.id==='safetysection'));
-  const outage=generators.find(x=>x.id==='outagesection');assert(outage);assert(json('StudyMode.DOMAINS').some(x=>x.id===outage.domain));
-  assert.equal(generators.length,18);
+  assert(!generators.some(x=>x.id==='outagesection')); assert(!generators.some(x=>x.tool.task==='outage'));
+  assert.equal(generators.length,15);
  });
  await check('Outage keeps the shared checklist and removes the arrival Safety group',()=>{
   assert.equal(ev('typeof Checklist.create'),'function');assert.equal(ev('typeof Outage.init'),'function');
