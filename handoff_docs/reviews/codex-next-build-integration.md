@@ -27,6 +27,7 @@ Use `qa/build2-source-harness.cjs` (`bootApp`, `assembleHtml`) for development s
 - `PortSweeps.replace(owner, portId, parsed, context)` returns a new collection for `owner.portSweeps`. The caller assigns it only after successful verification. The function never mutates `owner`.
 - `PortSweeps.validate(owner)` returns validation errors; absent legacy fields are accepted.
 - `PortSweeps.sample(record, frequencyMHz)` returns the exact supplied sample or `value:null`; there is no interpolation, correction or acceptance.
+- `PortSweeps.sourceIdentity(owner)` and `matchesSource(record, owner)` identify physical node/configuration independently of job naming/duplication. The immediately preceding identity format remains readable.
 - `parsed` is the existing `EvidenceUI.verifiedParse(evidenceId).parse`: `{status:'parsed', series:{unit:'dBmV'|'dB',points:[[MHz,value],...]}}`.
 - Context: `split:'42'|'204'`, `direction:'forward'|'reverse'`, `stage:'Before'|'After'|'Reference'`, `plane:'unknown'|'port'|'tp'`, `basis:'unknown'|'sc-qam'|'ofdm-plc'|'relative'`, optional positive `bandwidthMHz`, `evidenceId`, `sha256`, optional `stationIdentity`.
 - The UI stores the original with the existing evidence system, verifies it again, then replaces only the selected port. Failed or stale imports retain the old sweep. Every point is preserved, with existing 10,000-point/5–1800 MHz guards and explicit split-direction boundaries.
@@ -60,6 +61,25 @@ Read-only delegation: Astra/high for RF and PDF risk audits, Terra/high for navi
 
 2026-11-14T19:17:39Z: seven focused tests passed across `codex-next-navigation`, `codex-next-port-sweeps`, `codex-next-rf-context`, `codex-next-map-schedules`, and `codex-next-map-pdf`; `git diff --check` passed. The map importer retained its 26 existing pure checks. These are development-source results, not the final combined gate.
 
-Existing RF/UI suites exposed expected context-contract changes (older fixtures lack bandwidth/power basis/impedance). Preserve their numeric predicates and add explicit synthetic comparable metadata. Do not weaken refusal checks. Final suite registration, guide updates, browser geometry checks, Grok QA integration and the release gate are pending.
+Existing RF/UI suites exposed context-contract changes (older fixtures lack bandwidth/power basis/impedance). Their numeric predicates are retained with explicit synthetic comparable metadata and additional refusal checks.
 
-Grok QA SHA: pending handoff. Candidate freeze/hash/release results: pending. No APK, signing, deployment, merge or physical-phone claim.
+## Integrated scope and model continuity
+
+The user explicitly requested model switching for implementation as well as audits. At checkpoint `3f1b16df1f7f270d925c4281af148daa4936641b`, Codex assigned disjoint production work to Terra/high (navigation, training, guides and affected assertions) and Astra/high (RF, port/evidence context and focused tests). Root retained integration, map/PDF generation, vendor packaging and release ownership. These are actual configured model/effort delegations; no unsupported claim of changing the host's parent model is made.
+
+- Terra's integration is `f358b4bda7237db09a1033fb7ae3660fa947e585`. Source results: navigation 6, UI names 7, training 21 node:test entries, power 4 groups/40 comparisons, Study 8 groups/274 independent comparisons, layout 1,023 rendered checks. These were source checks before the final artifact freeze, not the combined gate.
+- Astra's RF/evidence integration is `ebdff3ee116e77b4a18f4901df92a80085a1feb2`. Focused source results included 15 test entries, route UI 97 checks, independent RF 58, independent RF UI 17, and the retained Wolfram 25 groups/39 numeric expectations. The additional actual UI and asynchronous port suites are registered.
+- Map, source registry and production-suite integration is `5e066777c068f63dfea4a981ca100eec779267d8`. Actual offline PDF raster checks cover 0/90/180/270-degree pages, nonzero CropBox, UserUnit 2, grouped active/EOL overlays, original annotations, unchanged source/job bytes, and byte-identical repeat export: 44 development checks passed.
+- A fresh Astra/high read-only review reproduced two P2 context defects. Correction `caed231faeb66f28c6bc7db5279b9443b21404be` preserves saved reading frequencies/model context in PDF tombstones and keeps physical-port identity stable through actual Save now, Duplicate and reopen. Focused correction checks passed; the full frozen gate remains a separate step.
+
+Current navigation has 26 destinations, 48 practice feature choices, and exercise lengths 21/14/22/8/9/7/10. Leakage and retired daily entries are excluded from new-work navigation/practice/Study, while legacy storage and APIs remain. Voltage drop is retained as a standalone tool; its old notebook is hidden. Current guide Markdown and paired README are synchronized, with rendered HTML/PDF regenerated centrally.
+
+## Grok QA integration and its limits
+
+Integrated QA commit: `a23fab9f0350746d1b356c68d72faf6d4829d6bb`, following initial `9b60b3a171a6ae414e18e6736df2170eaa0c48e9` and PDF follow-up `ee310c039ae637d04e9a92bf40e0e1d63c6fd8c0`. All were ordinary merges; no Grok branch/file was rewritten.
+
+Direct inspection does not support the handoff's claim of complete feature assertions: navigation reads source text and round-trips a hand-built object, RF compares literals (including `assert.equal(43,43)`), and PDF prints that the module exists without invoking plan/export. The PDF generator also does not substantiate its claimed page rotation/crop and temporary-output behavior. Those files are preserved but excluded from production gate counts. The five useful ONX parser/channel-kind checks are registered as such; their manual array replacement is not called proof of production replacement.
+
+Codex-owned executable suites fill those gaps using the actual assembled app, engine, per-leg context, IndexedDB originals, atomic physical-port replacement, real backup/restore/remapping, asynchronous job/node changes, saved-job compatibility, native cross-sheet schedules, and actual PDF parsing/writing/rasterization. `qa/run-pwa.py` registers these suites. Python browser/PDF QA versions are pinned in `qa/requirements.txt` and installed by the hosted gate.
+
+Final frozen source SHA, standalone HTML SHA-256, exact combined gate results, clean-checkout Grok script outcomes and evidence links are recorded in the single build3 candidate PR. Do not substitute the earlier scoped counts above for that gate. No APK, signing, deployment, merge, emulator or physical-phone acceptance is claimed. Spencer retains the original-key build and installed-phone upgrade test; Claude owns the final technical review of the exact candidate.
