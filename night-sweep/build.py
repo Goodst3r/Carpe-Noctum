@@ -44,7 +44,6 @@ MODULES = [
     ('<!--ALIGNMENT-->', 'alignment.js'),
     ('<!--FIELDCALCS-->', 'field-calcs.js'),
     ('<!--DOCSISHEALTH-->', 'docsis-health.js'),
-    ('<!--LEAKAGE-->', 'leakage.js'),
     ('<!--CHECKLIST-->', 'checklist.js'),
     ('<!--OUTAGE-->', 'outage.js'),
     ('<!--IMPAIRMENTS-->', 'impairments.js'),

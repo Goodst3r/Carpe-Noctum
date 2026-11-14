@@ -4,9 +4,9 @@ Current source: **Carpe Noctum 2.0 Alpha build 4**. This guide keeps its 1.8 fil
 
 **Technician README · Updated November 12, 2026**
 
-This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 35 task screens and 53 entries in the Practice library's feature index.
+This reference explains the working functions in NightSweep 1.8 Alpha build 2: where to find them, what to enter, how to interpret the result, and which bundled example lets you practice. For the current 2.0 Alpha build 3 source, it covers 34 task screens and 53 entries in the Practice library's feature index.
 
-**2.0 Alpha build 3 (Carpe Noctum, in development)** includes [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Leakage](#leakage), [Station worksheets](#station-worksheet), [Outage first response](#outage-first-response), [Night log and shift handoff](#night-log-and-shift-handoff), [Personal sweep reminders](#sweep-due), [Attached sweep grading](#build-3-attached-sweep-grading-aid), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split), [Why cards](#why-cards), [Proof of performance](#proof-of-performance), [Study mode](#study-mode) and [Supply PM](#supply-pm). The seven exercise lengths are complete 22, six-active 16, custom curves 21, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. The coverage index lists all 53 feature choices. Safety was removed by Spencer's decision on November 12, 2026; legacy saved data is left untouched.
+**2.0 Alpha build 3 (Carpe Noctum, in development)** includes [Field calculators](#field-calculators), [Limits and sources](#limits-and-sources), the [DOCSIS health card](#docsis-health-card), [Station worksheets](#station-worksheet), [Outage first response](#outage-first-response), [Night log and shift handoff](#night-log-and-shift-handoff), [Personal sweep reminders](#sweep-due), [Attached sweep grading](#build-3-attached-sweep-grading-aid), [Impairments](#impairments), [Fiber](#fiber), [High split](#high-split), [Why cards](#why-cards), [Proof of performance](#proof-of-performance), [Study mode](#study-mode) and [Supply PM](#supply-pm). The seven exercise lengths are complete 22, six-active 16, custom curves 20, OEM AGC 8, DSIM 9, manual/thermal 7 and GS7K 10. The coverage index lists all 52 feature choices. Safety was removed by Spencer's decision on November 12, 2026; legacy saved data is left untouched.
 
 For installation, use the separate [Android and iOS installation guide](NightSweep_1.8_Alpha_Android_iOS_Installation.md). This reference applies to the shared Android/browser application. Browser-only offline and update controls appear on Home; Android's native save/share/print dialogs appear when using the APK.
 
@@ -30,7 +30,6 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 16. [Field calculators](#field-calculators)
 17. [Limits and sources](#limits-and-sources)
 18. [DOCSIS health card](#docsis-health-card)
-19. [Leakage](#leakage)
 20. [Impairments](#impairments)
 21. [Fiber](#fiber)
 22. [High split](#high-split)
@@ -50,19 +49,19 @@ For installation, use the separate [Android and iOS installation guide](NightSwe
 35. [Station worksheet](#station-worksheet)
 36. [Night log and shift handoff](#night-log-and-shift-handoff)
 37. [Sweep due](#sweep-due)
-38. [53-feature coverage index](#53-feature-coverage-index)
+38. [52-feature coverage index](#52-feature-coverage-index)
 39. [Attached sweep grading aid](#build-3-attached-sweep-grading-aid)
 39. [Known limits and unresolved information](#known-limits-and-unresolved-information)
 
 ## Working rules and navigation
 
-Start a real job with **Plan → Details → + New blank job**. Identify the actual source output, enter launch readings, build the route, then use the calculations, setup guides and records you need. A single-span calculation does not require completion of the advanced acceptance forms.
+Start a real job with **Route & sweep → Details → + New blank job**. Identify the actual source output, enter launch readings, build the route, then use the calculations, setup guides and records you need. A single-span calculation does not require completion of the advanced acceptance forms.
 
 | Main work area | Task screens | Purpose |
 | --- | --- | --- |
 | Home | Home; Outage | Current job, task shortcuts, practice, backup, and the outage first-response card |
-| Plan | Details; Setup; Route & sweep; Amp / node setup; Predicted levels; Load & what-if; Supply PM; Sweep due | Job name, starting signal, RF topology, power planning and sweep reminders |
-| Field | Meter setup; Station records; TDR; ONX files; Leakage; Checklists; Night log | Meter setup, station records, measurements, evidence and shift notes |
+| Route & sweep | Route & sweep; Setup; Amp / node setup; Meter setup; TDR; ONX files; Predicted levels; Details; Station records; Checklists; Night log; Sweep due; Load & what-if; Supply PM | Route inputs, measurements, original files, saved records and power tools |
+
 | Tools | Calculators; Frequency; Limits; References; Catalog; DOCSIS health; Impairments; Fiber; High split; Why cards; Proof of performance; Study | Searchable references, calculators and reading cards |
 | Closeout | Acceptance; Run sheet | Measurements, acceptance and the run sheet |
 | Header / Home | Help & methods | Task help, methods, limits and build self-check |
@@ -76,7 +75,7 @@ Keep these distinctions while using every tool:
 - A dash or blank result means unavailable, missing, invalid or outside supported data. It is not zero. A deliberately entered zero is different.
 - Use the same frequency, measurement plane and signal-power convention when comparing readings. Apply only test-point correction the meter has not already applied.
 - **Vecima nodes / AOI actives:** local 204/258 MHz workflow, forward Sweepless Sweep and XPERTrak return sweep. **GS7K, GainMaker and the other fleet families:** local 42/54 MHz workflow, forward and Return Sweepless Sweep.
-- Existing non-high-split jobs and practice designs retain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. New company node references are an explicit separate choice in Plan → Setup. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
+- Existing non-high-split jobs and practice designs retain **31 dBmV at 54 MHz / 43 dBmV at 860 MHz**. New company node references are an explicit separate choice in Route & sweep → Setup. The separate **38 dBmV return TX reference** does not specify a receiver target, injection setting, channel or measurement plane.
 
 ## Header and Home controls
 
@@ -108,7 +107,7 @@ Browser Home also provides **Install app**, **Check for updates**, **Install upd
 | --- | --- | --- |
 | **Complete field workflow** | GS7K source, two GainMaker HGD actives, Scientific Atlanta / GigaXtend / Technetix passives, branched 42/54 route, power, readings and records | 22 steps; five synthetic CSV originals and one original-only SVG diagram |
 | **Six active devices in series** | Vecima EN9000 source and six serial AOI actives on 204/258 | 16 steps; no supplied meter captures |
-| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, leakage, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook | 21 steps; no supplied meter captures |
+| **Custom curves and reverse TDR** | Manual launch table, custom cable/passive tables, exact-frequency entries, reverse TDR, field calculators, limit sources, outage first response, impairment cards, the fiber color finder, the high-split reading aid, the why cards, the FCC proof-of-performance card, study mode and the supply PM notebook | 20 steps; no supplied meter captures |
 | **GainMaker OEM AGC** | Separate 42/54 conventional OEM detector/pilot path | 8 steps; no supplied meter captures |
 | **GainMaker / DSIM** | Separate 42/54 fitted DSIM identification, historical code lookup and incomplete verification | 9 steps; no supplied meter captures |
 | **GainMaker manual / thermal** | Separate 42/54 manual/thermal installed-control path | 7 steps; no supplied meter captures |
@@ -124,7 +123,7 @@ The complete workflow uses GS7K/GainMaker HGD, not the AOI six-active path. Its 
 
 ## Job details and named jobs
 
-**Where:** Plan → Details. **Practice:** Complete → Job details; any exercise's backup step.
+**Where:** Route & sweep → Details. **Practice:** Complete → Job details; any exercise's backup step.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -142,7 +141,7 @@ Autosave and named jobs use this app/browser's storage. APK, Chrome, another bro
 
 ## RF setup and launch source
 
-**Where:** Plan → Setup. **Practice:** Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.
+**Where:** Route & sweep → Setup. **Practice:** Complete → Launch; GS7K conventional node → Identity; Custom curves → Launch.
 
 Open **Company node-output design reference**, choose a preset, then **Apply company node design to this job**. The new low-split company reference is **32 @ 54 / 43 @ 753 MHz**, linear in MHz over 54–753 only; the high-split reference is **34 @ 261 / 49 @ 1215 MHz**, linear over 261–1215 only. Apply requires a node with the matching installed split and hardware band. It replaces launch design inputs, disables extrapolation and remaining test-point addback, and preserves Station readings, amplifier targets, hardware and available spectrum. Opening a saved job does not apply either preset. Legacy **31/43 @ 54/860** and **34/46 @ 261/993** jobs retain their saved behavior.
 
@@ -169,7 +168,7 @@ In Complete, **11/23 dBmV +20 dB** at **54/860 MHz** produces **31/43 dBmV** lau
 
 ## Cable route, branches and point tools
 
-**Where:** Plan → Route & sweep. **Practice:** Complete → Route / Drop; Custom curves → Custom / Arithmetic; Six actives → Route.
+**Where:** Route & sweep → Route & sweep. **Practice:** Complete → Route / Drop; Custom curves → Custom / Arithmetic; Six actives → Route.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -195,7 +194,7 @@ Complete uses Scientific Atlanta **SAT MM 4-23**, GigaXtend **XSC-2-959** and **
 
 ## Amplifier gain and test-point helper
 
-**Where:** Plan → Route & sweep. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
+**Where:** Route & sweep → Route & sweep. **Practice:** Complete → Gain; Six actives → Gain / Gain table.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -215,7 +214,7 @@ Complete's helper uses **7.1/16.1 dBmV +20 dB each** at 54 MHz: corrected 27.1/3
 
 ## Installed equipment, manuals and control paths
 
-**Where:** Plan → Amp / node setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
+**Where:** Route & sweep → Amp / node setup; also **Source setup & manual** from Setup. **Practice:** Complete; OEM AGC; DSIM; Manual/thermal; GS7K node; Six actives.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -262,7 +261,7 @@ Custom entries require actual input tables. Published references do not automati
 
 ## TDR distance locator
 
-**Where:** Field → TDR. **Practice:** Complete → TDR; Custom curves → reverse TDR; Six actives → reconnect after A6.
+**Where:** Route & sweep → TDR. **Practice:** Complete → TDR; Custom curves → reverse TDR; Six actives → reconnect after A6.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -280,7 +279,7 @@ Custom curves: reverse from the 200 ft endpoint; **100 × 0.88/0.80 − 25 = 85 
 
 ## Forward and return sweep setup
 
-**Where:** Field → Meter setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
+**Where:** Route & sweep → Meter setup. **Practice:** Complete for 42/54; Six actives for 204/258; focused equipment exercises for their matching procedures.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -301,7 +300,7 @@ For physical-output budgeting, full physical losses remain losses even if instru
 
 ## Predicted sweep and output table
 
-**Where:** Plan → Predicted levels. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
+**Where:** Route & sweep → Predicted levels. **Practice:** Complete → Predicted sweep; Six actives → six restored marker outputs.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -335,7 +334,7 @@ Complete at **860 MHz**: **200 ft ×2.2 dB/100 ft + 1.4 dB =5.8 dB** total; **43
 
 ## Meter readings and prediction error
 
-**Where:** Plan → Route & sweep. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
+**Where:** Route & sweep → Route & sweep. **Practice:** Complete → Meter readings; Six actives → A6 comparison.
 
 Choose a route point and actual output, then enter frequency, reading, test-point status and remaining coupling. The comparison shows raw reading, corrected reading, prediction and **measurement minus prediction**. A negative error means the entered measurement is below the model.
 
@@ -438,7 +437,7 @@ Compare a reading you already have, from a meter or a modem's status page, with 
 
 Each result says in words how far inside or outside the range the reading is, so it does not rely on color. The printed 6 MHz and 24 MHz OFDM figures differ by 0.02 dB (10·log10 of 4 is 6.02 dB, not 6); the card uses each as printed.
 
-**Company window.** Every card has a **Company window** box for the lowest and highest level your company wants. Leave a side blank for no limit on that side: blank is unknown, never zero. The OFDM window is in dBmV per 6 MHz, and the card restates your reading per 6 MHz to compare. Windows start unknown and are saved on this device only, in the browser's storage, so they are **not** part of a job or its full backup; **Clear company windows** removes them for both plants. If the browser will not store them, the card says so and keeps them until the page closes. Company windows are kept **separately for each plant**: the box follows the plant chosen in **Field → Meter setup** for the job, so a window typed for the 42/54 plant is never applied to the 204/258 plant, which stays unknown until you enter one (no plant chosen: the boxes stay locked until you choose). They are shared by every job on that plant, and they also appear in **Tools → Limits** under their own heading, one entry for each plant. A box holding text that is not a number (a lone minus sign, for example) is refused with a reason and never clears or replaces a saved window; for the upstream card it is refused instead of being read as a blank Pmax.
+**Company window.** Every card has a **Company window** box for the lowest and highest level your company wants. Leave a side blank for no limit on that side: blank is unknown, never zero. The OFDM window is in dBmV per 6 MHz, and the card restates your reading per 6 MHz to compare. Windows start unknown and are saved on this device only, in the browser's storage, so they are **not** part of a job or its full backup; **Clear company windows** removes them for both plants. If the browser will not store them, the card says so and keeps them until the page closes. Company windows are kept **separately for each plant**: the box follows the plant chosen in **Route & sweep → Meter setup** for the job, so a window typed for the 42/54 plant is never applied to the 204/258 plant, which stays unknown until you enter one (no plant chosen: the boxes stay locked until you choose). They are shared by every job on that plant, and they also appear in **Tools → Limits** under their own heading, one entry for each plant. A box holding text that is not a number (a lone minus sign, for example) is refused with a reason and never clears or replaces a saved window; for the upstream card it is refused instead of being read as a blank Pmax.
 
 **Confirm the physical basis before comparing.** A normalized/per-channel status-page reading is not a genuine simultaneous composite total at the CM F-connector. In applicable DOCSIS 3.1 operation channel powers use a 1.6 MHz convention; **Tools → Calculators → OFDM power** only restates a declared flat-PSD bandwidth basis. An OFDMA total also depends on the actual grant, pilots and pre-equalization. Unknown total, plane, mode or reference provenance leaves the comparison unavailable with a reason. Confirming the basis declares what you know; the app cannot infer or verify actual modem capability.
 
@@ -449,30 +448,6 @@ Each result says in words how far inside or outside the range the reading is, so
 Checked worked numbers: 16 dBmV on an SC-QAM channel is **1.0 dB above** the range, and 3.2 dBmV is inside, **11.8 dB** from the upper edge; −8 dBmV over 24 MHz is inside, **1.0 dB** from the lower edge; 40 dBmV total on a 3.1 modem is **at** the limit, not below it; with the upstream physical basis confirmed in the declared applicable 3.1 MTC mode, a genuine simultaneous total of 52 dBmV and blank Pmax gives **+13.0000 dB** to the assumed 65 dBmV minimum/default reference. Independent synthetic references H3–H5 use total 60 and applicable comparable reference 68 → **+8.00000 dB**; total 60 and assumed reference 65 → **+5.00000 dB**; total 66 and applicable comparable reference 65 → **−1.00000 dB**, over the reference. Total 65 and reference 65 gives **0.00000 dB**, neutral. These are synthetic calculations, not phone or field acceptance.
 
 What this card leaves out on purpose: MER and SNR, per-channel upstream power, the limit on level differences between channels, DOCSIS 4.0, and the EuroDOCSIS 8 MHz ranges, which differ from the North American ones used here.
-
-## Leakage
-
-**Where:** Field → Leakage. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Check and log signal leakage.
-
-Five tools for signal leakage on one screen. **This is your own notebook and calculator, not the company's official leak record, and none of its results is a filing.** Nothing is sent anywhere. The leak log, saved detector checks and company settings are kept in the browser on this device only, under their own storage key. They are **not** part of a job or its full backup, and only the log can be exported (CSV); the saved checks and company settings cannot.
-
-| Tool | Enter | What it does | Source tag |
-| --- | --- | --- | --- |
-| FCC leakage limit check | Test frequency (MHz), analog or digital, the field strength (µV/m) and the distance from the leak | Picks the limit for the band and compares your reading with it at the rule's distance. The limits as the rule prints them: analog 15 µV/m and digital 13.1 µV/m at 30 m at 54 MHz and below and over 216 MHz; analog 20 µV/m and digital 17.4 µV/m at 3 m over 54 MHz up to and including 216 MHz. A reading exactly at the limit is within it. A reading restated from another distance gets a neutral mark and the word approximate, not a green check. It also says when your distance is inside the near field at that frequency | Spec · 47 CFR 76.605(c), Table 1; a separate row records the § 76.614 expectation for the aeronautical bands |
-| Distance to 3 m | Field strength and distance in metres or feet | Restates the reading at 3 m and at 30 m: E at 3 m ≈ E measured × distance ÷ 3 m. In the far field the field strength falls in proportion to distance. Close to the leak it does not, and how close depends on the frequency: a common rule of thumb puts the edge of the near field at the wavelength ÷ 2π, about 0.4 m at 121 MHz and 4.8 m at 10 MHz. The card warns inside 3 m; the limit check, which knows the frequency, warns inside that edge. A restated reading is approximate | Expert · far-field relation; SCTE 221 2020 (R2026) for the far-field definition (secondary: read by a review agent). SCTE 293-12 2025 was identified from its catalog summary only |
-| Cumulative leakage index (CLI) | The field strength of each leak at 3 m, separated by spaces, new lines or semicolons (a comma followed by a space also works), and the fraction of the plant examined (or strand miles tested and total, not both) | 10·log10 of (1 ÷ fraction examined) × the sum of each leak's field strength squared, counting only leaks of 50 µV/m or more at 3 m, compared with the printed value of 64. If no leak counts the card says so instead of showing zero. The fraction runs from 0.001 to 1. Under 75% examined the result is marked as an estimate only, with no green check, because the rule asks for at least 75% of the strand. A comma with no space after it, as in 1,500 or 120,5, is refused: it could be a decimal comma or a thousands separator. Strengths must already be on the 108–137 MHz basis: the FCC's frequency correlation is not done here | Spec · 47 CFR 76.611(a)(1) and (b)(1) |
-| Detector check | The check method (a directly connected source, or a calibrated leak with a half-wave dipole), the expected and read values (µV/m) and the date (the box starts as today; a blank date is refused, never replaced by today) | The difference in dB and per cent, and whether it is within your company tolerance, which starts unknown. A saved check keeps the tolerance that was in force when it was saved, so changing the tolerance later does not change an old record | Expert · SCTE 289 2024r1 (secondary: only the SCTE catalog summary was read) |
-| Leak log | Date found, where (pole, tap or cross street), probable cause, date repaired (blank while open), and optionally field strength, distance, frequency and notes | A list of leaks with open ones marked, the 3 m equivalent and whether it counts in the CLI, a **Mark repaired** action (the date box starts as today and can be changed; if you clear it, Mark repaired is refused and the leak stays open), **Reopen** to undo a mistaken Mark repaired, **Delete** and an **Export log (CSV)**. A leak counts in the CLI only if it is at least 50 µV/m at 3 m with the test frequency in the 108–137 MHz band; otherwise the row says what is missing. A leak logged with a field strength but no distance says it was not restated, compared with your repair threshold or checked for the CLI. The fields follow 47 CFR 76.1706 (date and location found, date repaired, probable cause; operators keep the log for two years, and for five years in some systems under 1,000 subscribers, § 76.601(d)) | Spec · 47 CFR 76.1706 |
-
-**Company settings** (a box at the bottom): your repair threshold in µV/m at 3 m, which flags open leaks in the log at or above it, and your detector tolerance in ± dB. Both start unknown; blank is never zero, and editing one never changes the other. They are one set for the whole device and appear in **Tools → Limits** under their own heading. A box holding text that is not a number (a lone minus sign, for example) is refused with a reason and never clears a saved setting; the same goes for the number boxes of the log and the other cards, where a malformed entry is never read as "not given". The FCC limits are limits on the field a system may produce. For aeronautical-band leaks, § 76.614 separately expects an operator carrying signals there to note and repair, within a reasonable period, any leak of 20 µV/m or more at 3 m. The repair threshold is your company's own and starts unknown.
-
-**Keep the log free of customer information.** Describe a place by pole, tap or cross street. Do not enter customer names, addresses or account numbers: the place and notes text go into the exported CSV. **Clear everything on this device** asks first and clears the log, the saved detector checks and the company settings; only the log can be exported before that.
-
-**If this browser will not save.** A change this browser would not store stays on the screen until the page closes and is written with the next change that does save. If the saved notebook cannot be read, a copy of it is kept on this device and the screen says so before the next change replaces it. If a newer version of the app saved it, this version will not overwrite it.
-
-Checked worked numbers: 25 µV/m analog at 3 m and 121.2625 MHz is **5 µV/m over** the 20 µV/m limit; leaks of 100, 60 and 50 µV/m with 0.8 of the plant examined give a sum of squares of **16,100**, an index of 16,100 ÷ 0.8 = 20,125, which is **43.04 dB**, 21.0 dB at or below 64; leaks of 120, 85, 60, 250 and 50 µV/m at 0.8 give **50.52 dB**; 40 µV/m at 10 m is **133.3 µV/m** at 3 m.
-
-What this screen leaves out on purpose: the airspace measurement alternative, the correction for a test frequency outside 108–137 MHz, tracking of the quarterly aeronautical-band monitoring, the half-wave dipole voltage to field-strength conversion, per-job leak logs and live detector or GPS data.
 
 ## Impairments
 
@@ -537,7 +512,7 @@ What this screen leaves out on purpose: a Vecima commissioning checklist (no pub
 
 **Where:** Tools → Why cards. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Read a why card and follow its link.
 
-Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Field → Station records**, **Tools → Calculators**, **Field → TDR**, **Field → Leakage** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
+Fourteen short cards on the basics behind the numbers in this app, one for each "What is …?" monograph in SCTE's 293 series. **Each card is our own short summary, not a copy**, and names the monograph to read in full: SCTE 293-1 2024 (the decibel), 293-2 2024 (velocity of propagation), 293-3 2024 (return loss), 293-4 2024 (loss, or attenuation), 293-5 2024 (unity gain), 293-6 2024 (skin effect and skin depth), 293-7 2025 (long loop automatic level control), 293-8 2025 (S-parameters), 293-9 2025 (RF), 293-10 2025 (signal level), 293-11 2025 (noise figure), 293-12 2025 (signal leakage field strength), 293-13 2026 (carrier-to-noise ratio) and 293-14 2026 (impedance). SCTE makes its standards free to download. Tap a card's name to open it: it says what the topic is, why it matters in the field, and which screen of this app uses it. A **Route & sweep → Station records**, **Tools → Calculators**, **Route & sweep → TDR**, **Tools → High split** or other button under *In the app* takes you there. Topics with no screen in the app (S-parameters, noise figure, carrier-to-noise ratio) say so.
 
 The cards hold no figure that is not either a definition or a registered one (the 75 ohm nominal impedance is a labeled secondary value in **Tools → Limits**). Nothing is typed, stored or read from a meter. The titles and years are the ones in the SCTE Standards Catalog; for 293-7, 293-13 and 293-14 only the SCTE catalog or Standards Updates description was read, so check the monograph itself.
 
@@ -547,7 +522,7 @@ The cards hold no figure that is not either a definition or a registered one (th
 
 A reference for the technical requirements of the FCC's cable rules (47 CFR Part 76) and how an operator's proof-of-performance tests are measured against them. **It takes no input, stores nothing, makes or records no test and is not a filing. Official results belong to your engineering group.** The text is from the rules as read on the eCFR on November 11, 2026; every row names its rule section, the 16 rows that state a limit or a method also have a source tag (the three rows about QAM channels, test conditions and the test report name their rule section but have no tag), and the limits are registered in **Tools → Limits**.
 
-Four cards. **How often, where and on what** (76.601): tests at least twice each calendar year at intervals of no more than seven months; six widely separated test points for a system of 1,000 to 12,500 subscribers and one more for each further 12,500 or fraction, with at least a third at the most distant terminals; five channels below 550 MHz of activated capacity and ten at 550 MHz or more (the visual level, its variation and the aural level on every analog channel); systems under 1,000 subscribers are outside the performance-test paragraphs but, if they use spectrum beyond over-the-air TV and FM, must still do the leakage tests and monitoring, with the log kept five years. **The analog-channel limits** (76.605(b)): visual level not less than 0 dBmV at the terminal and +3 dBmV at the end of a 100 ft drop; level variation of at most 8 dB over six months with the adjacent-carrier and any-other-channel limits; aural carrier 4.5 MHz ± 5 kHz above the visual and 10 to 17 dB below it; frequency response within ± 2 dB; carrier to noise not less than 43 dB; coherent disturbances not less than 51 dB (47 dB); terminal isolation not less than 18 dB; hum at most 3 percent; and, every third year at the headend, chroma delay, differential gain and differential phase. **Digital channels and leakage:** QAM video follows ANSI/SCTE 40 2016, which is not read or listed here, and leakage is measured by the half-wave-dipole method of 76.609(h) against the table in 76.605(c) (see **Field → Leakage**). **How it is measured and kept** (76.609 and 76.1704): the system-noise method over a 4 MHz band, the test conditions, what the report must include and the five-year record.
+Four cards. **How often, where and on what** (76.601): tests at least twice each calendar year at intervals of no more than seven months; six widely separated test points for a system of 1,000 to 12,500 subscribers and one more for each further 12,500 or fraction, with at least a third at the most distant terminals; five channels below 550 MHz of activated capacity and ten at 550 MHz or more (the visual level, its variation and the aural level on every analog channel); systems under 1,000 subscribers are outside the performance-test paragraphs but, if they use spectrum beyond over-the-air TV and FM, must still do the leakage tests and monitoring, with the log kept five years. **The analog-channel limits** (76.605(b)): visual level not less than 0 dBmV at the terminal and +3 dBmV at the end of a 100 ft drop; level variation of at most 8 dB over six months with the adjacent-carrier and any-other-channel limits; aural carrier 4.5 MHz ± 5 kHz above the visual and 10 to 17 dB below it; frequency response within ± 2 dB; carrier to noise not less than 43 dB; coherent disturbances not less than 51 dB (47 dB); terminal isolation not less than 18 dB; hum at most 3 percent; and, every third year at the headend, chroma delay, differential gain and differential phase. **Digital channels and leakage:** QAM video follows ANSI/SCTE 40 2016, which is not read or listed here, and leakage is measured by the half-wave-dipole method of 76.609(h) against the table in 76.605(c) (see **Tools → High split**). **How it is measured and kept** (76.609 and 76.1704): the system-noise method over a 4 MHz band, the test conditions, what the report must include and the five-year record.
 
 These are the analog (NTSC or similar) limits. Many systems have little or no analog left, and what applies to yours and your franchise is for engineering to say. SCTE 204 2025, *FCC Proof-of-Performance Checklist for Analog and Digital Signals*, is the industry checklist for this and for how to carry out the tests; it was found in the SCTE catalog and **not read**.
 
@@ -557,17 +532,17 @@ These are the analog (NTSC or similar) limits. Many systems have little or no an
 
 Practice questions made from this app's own calculators and reference screens, grouped by four SCTE Broadband Distribution Specialist domains: **architectures; distribution components; signal types; maintenance and troubleshooting**. **They are original, not SCTE or NCTI questions, and not an exam.** Every number comes from a seed on a fixed grid, and the answer comes from the same function the app uses (the dB converter, the OFDM power, ripple-to-distance, the leakage restating and cumulative leakage index, the fiber budget and color finder, the DOCSIS range check, the high-split table, the impairment cards and the Outage checklist), so the question and the answer cannot disagree with the screen it practices.
 
-The 18 question generators cover the four domains. Choose a domain (or all four), read the question, type a number or pick an answer and tap **Check my answer**. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. **Next question** moves on and **New numbers** asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: **nothing is saved**, in the job or anywhere else, and a score here is not a test result.
+The 16 question generators cover the four domains. Choose a domain (or all four), read the question, type a number or pick an answer and tap **Check my answer**. A right answer says so; a wrong one shows the right answer, the working and a button to the screen that does the calculation. **Next question** moves on and **New numbers** asks the same kind of question with different values. A blank answer, a lone minus sign, text or an exponent is never taken as an answer: the screen asks for a plain number and does not score it. Numeric answers allow a small stated tolerance (for example 0.05 dB or 0.5 percent). A score is kept for this visit only: **nothing is saved**, in the job or anywhere else, and a score here is not a test result.
 
 The Outage question is grouped under maintenance and troubleshooting and asks which section of this app's own card a prompt belongs to. The questions do not follow any exam blueprint.
 
 ## Supply PM
 
-**Where:** Plan → Supply PM. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Record a supply check and a span drop.
+**Where:** Route & sweep → Supply PM. **Added in:** 2.0 Alpha build 3. **Practice:** Custom curves → Record a supply check and a span drop.
 
 A personal notebook of what you saw at one standby supply, and a span-by-span voltage drop. **It is not the company power record, it does not decide pass or fail, and it is not saved in the job or in a project backup.**
 
-The drop is span current times the cable catalog's published loop resistance, with the same temperature factor Plan → Load & what-if already uses. You type the coefficient. **0.004 per °C is not filled in**; it is the engineering approximation named on Plan → Load & what-if, and you type it only when you mean to use it. A cable with no published loop resistance is not calculated. The voltage at the end of the span is compared with the published minimum input of the active you pick from the catalog. If that model has no published minimum, the screen says so. **No company minimum is filled in.** Adding a span sets the next span's start to the previous end, so a chain walks span by span. SCTE 238 and the 2025 and 2026 SCTE powering projects named in the build list were not read.
+The drop is span current times the cable catalog's published loop resistance, with the same temperature factor Route & sweep → Load & what-if already uses. You type the coefficient. **0.004 per °C is not filled in**; it is the engineering approximation named on Route & sweep → Load & what-if, and you type it only when you mean to use it. A cable with no published loop resistance is not calculated. The voltage at the end of the span is compared with the published minimum input of the active you pick from the catalog. If that model has no published minimum, the screen says so. **No company minimum is filled in.** Adding a span sets the next span's start to the previous end, so a chain walks span by span. SCTE 238 and the 2025 and 2026 SCTE powering projects named in the build list were not read.
 
 The notebook records the date, input and output volts, load, an inverter observation (ran, did not run, not tested, or not recorded), chemistry as a label only (VRLA, lithium, other, or not recorded), alarms as you saw them, and battery-string volts. Two dates of the same string show the change in volts. There is no battery window and no inverter limit. Tap Save this visit to keep it on this device. Tap Delete this supply to remove that notebook. The job is not changed.
 
@@ -575,7 +550,7 @@ The notebook records the date, input and output volts, load, an inverter observa
 
 ## Power-supply load
 
-**Where:** Plan → Load & what-if. **Practice:** Complete → Power; Six actives → explicit power topology.
+**Where:** Route & sweep → Load & what-if. **Practice:** Complete → Power; Six actives → explicit power topology.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -598,17 +573,17 @@ Complete uses a **90 V / 15 A** supply; synthetic entered **0.75 A GS7K**, **0.6
 
 ## Power what-if
 
-**Where:** Plan → Load & what-if. **Practice:** Complete → Power what-if.
+**Where:** Route & sweep → Load & what-if. **Practice:** Complete → Power what-if.
 
 Choose the proposed power parent, cable, added length, current and minimum voltage. Read the trial's displayed **Predicted end voltage**, **Predicted voltage headroom** and status before applying it. The preview recalculates the copied circuit internally; it does not display total trial supply current. This calculation uses a copied circuit until you choose **Keep in power circuit**.
 
-Keep adds the proposed point to the working power plan. Open **Plan → Load & what-if** to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.
+Keep adds the proposed point to the working power plan. Open **Route & sweep → Load & what-if** to review the revised total supply current/loading and all section results, then export the revised job. Resetting the training exercise restores its baseline after preserving the edited copy; for real work, maintain a deliberately saved/exported baseline before keeping trials.
 
 Complete's trial adds **300 ft P3 .625 and 0.75 A after HGD A2**. The independent reference answer is **2.798 A** supply current, **18.65%** loading and **87.37 V** at the new load. These are planning estimates for this topology, not a general cable/device allowance.
 
 ## ONX files, original evidence and comparisons
 
-**Where:** Field → ONX files. **Practice:** Complete → Synthetic meter files; backup step.
+**Where:** Route & sweep → ONX files. **Practice:** Complete → Synthetic meter files; backup step.
 
 | Function | Inputs and use | Result and limit |
 | --- | --- | --- |
@@ -648,7 +623,7 @@ An oversized/unsupported preview can remain an original attachment within the or
 
 ## Field checklists and unit conversion
 
-**Where:** Field → Checklists. **Practice:** Complete → Field checklists.
+**Where:** Route & sweep → Checklists. **Practice:** Complete → Field checklists.
 
 | Function | Inputs and use | Output and limit |
 | --- | --- | --- |
@@ -736,10 +711,10 @@ Run sheet combines job/work-order context, selected frequency, source/model/spli
 | Export sheet CSV | Run sheet | Reviewable summary with context; not a full backup |
 | Export RF levels | Files | Route predictions at listed frequencies; unavailable results blank |
 | Export frequency results | Tools → Frequency | Single-path inputs, frequencies, units, flags and results |
-| Export power load | Plan → Load & what-if | Power topology, loads, per-section results and qualifications |
+| Export power load | Route & sweep → Load & what-if | Power topology, loads, per-section results and qualifications |
 | Record CSVs | Closeout → Acceptance | The selected section's entered rows and computed review fields |
-| Export setup notes | Field → Meter setup | Setup drafts, guide/context and saved station snapshots |
-| Save original | Field → ONX files | Exact original attachment bytes |
+| Export setup notes | Route & sweep → Meter setup | Setup drafts, guide/context and saved station snapshots |
+| Save original | Route & sweep → ONX files | Exact original attachment bytes |
 | Back up project | Files or Home | Full supported route, power, job, records, field/setup drafts, training state and original evidence |
 | Open project / recover backup | Files, Home or ONX project shortcut | Validates and restores the entire supported project; verify route and originals after opening |
 
@@ -793,17 +768,17 @@ The fresh independent complete-workflow audit compares actual application values
 
 ## Station worksheet
 
-Open **Field → Station records**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
+Open **Route & sweep → Station records**, choose the installed node or active and select **Before adjustments** or **After adjustments**. Each stage keeps its own forward pilots, targets, actual readings and settings. Company targets/tolerances start unknown. The same sourced solver used in Calculators provides GainMaker input-part advice, predicted remaining errors, limit warnings and the manufacturer procedure window; re-measure to confirm. Quantum18 uses its electronic procedure without plug-in part picks.
 
 The return worksheet keeps reference-point target plus applicable net insertion loss, actual physical injection and same-plane receiver reading/reference separate. Its reminders follow the selected plant and exact equipment; manufacturer recommendations and the editable company TX entry never fill injection/receiver fields. Record **Balanced** and **Swept** separately with their own dates. These are technician records, not automatic acceptance.
 
-Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Field → Station records restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
+Incomplete numeric or date edits are marked beside the field and do not replace the recorded entry. Finish the entry, or deliberately clear every part to record unknown. Leaving an incomplete field or returning to Route & sweep → Station records restores its recorded value; a completely cleared native date is committed when focus leaves the control. Viewing an imported invalid value does not erase its stored text. Balance and sweep remain separate records.
 
 Complete practice has **22 steps**, including the GainMaker station example; six-active practice has **16 steps**, including the separate electronic station example. Back up and restore the worksheets with the whole job. Older worksheets with incomplete binding metadata stay visible/read-only until explicit station confirmation; the original is retained in the backup. Catalog band corrections do not detach saved observations.
 
 ## Night log and shift handoff
 
-**Where:** Field → Night log. **Practice:** Six active devices in series → Five-station night handoff.
+**Where:** Route & sweep → Night log. **Practice:** Six active devices in series → Five-station night handoff.
 
 The **Unknown** source tag beside **Recorded entries** documents the existing **200 entries/job** application guard. General notes, Station captures and intermittent-ingress entries share that count. The manual-ingress text bounds are also labeled **Unknown**: conditions up to **2,000**, technician-observed time up to **200**, and weather up to **500 UTF-16 code units**. Their source sheets are available beside the fields and in **Tools → Limits** under **Night log application guards**. These are software storage/display bounds, not RF limits, equipment capabilities or company acceptance criteria; device storage can fill sooner.
 
@@ -811,7 +786,7 @@ Keep personal ticket/change, node/amp label, actions, ROC/dispatch updates, gas/
 
 Incomplete or invalid window text shows a named format message beside that field and is never saved over the previous value. Leaving the field or returning to Night log restores its saved value (blank means unknown) and explains the restoration beside the field. Enter a complete valid time to replace it, or clear the entire field deliberately to record unknown.
 
-**Entry type** starts at **General update / Station capture**; the separate **Saved Station worksheet** selector starts at **General update / no Station snapshot**. **Add entry** requires a meaningful note or an explicitly selected saved worksheet. Blank/whitespace-only drafts and an entry type alone create no entry and use no slot. To capture readings, save the worksheet under **Field → Station records**, explicitly select it and add the entry. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit notes; later Station edits never refresh that capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
+**Entry type** starts at **General update / Station capture**; the separate **Saved Station worksheet** selector starts at **General update / no Station snapshot**. **Add entry** requires a meaningful note or an explicitly selected saved worksheet. Blank/whitespace-only drafts and an entry type alone create no entry and use no slot. To capture readings, save the worksheet under **Route & sweep → Station records**, explicitly select it and add the entry. Both actual Before and After stages, raw inputs, measurement planes, frozen results and separate balance/sweep records are copied once. You can edit notes; later Station edits never refresh that capture. Add another entry for a new capture. Changed/removed equipment is labeled historical; read-only and unconfirmed legacy worksheets retain their warnings and old dates. Unknown targets, readings, planes or results remain unknown with reasons. Recorded work does not establish RF acceptance.
 
 **Remove entry** frees one slot. **Undo last removal** restores that entry’s exact ID, Added time, data, frozen Station capture and position; it also retains unadded draft notes. Only the latest removal is kept for Undo. Another removal replaces it, and changing jobs or reloading clears it. Undo refuses if a new Add has filled the shared 200-entry cap; removing another entry replaces the pending Undo rather than making the earlier one restorable. Back up before removing history. Use a separate new blank job when needed; there is no new-window/reset control.
 
@@ -824,7 +799,7 @@ For **Intermittent ingress**, type **Conditions (manual notes)**, **Technician-o
 
 ## Sweep due
 
-Open **Plan → Sweep due** for personal reminders from saved Station work dates across this device's jobs, including the current working job. It shows the installed launch node/active and route amplifiers, with separate sweep and balance dates, date validity and completed calendar-month ages. A missing worksheet stays visible as unknown. A uniquely matching saved job ID is overlaid with current unsaved dates; duplicates have independent job histories. Ambiguous IDs and unreadable sources produce visible diagnostics.
+Open **Route & sweep → Sweep due** for personal reminders from saved Station work dates across this device's jobs, including the current working job. It shows the installed launch node/active and route amplifiers, with separate sweep and balance dates, date validity and completed calendar-month ages. A missing worksheet stays visible as unknown. A uniquely matching saved job ID is overlaid with current unsaved dates; duplicates have independent job histories. Ambiguous IDs and unreadable sources produce visible diagnostics.
 
 | Control / result | Meaning |
 | --- | --- |
@@ -842,9 +817,9 @@ Dates use exact Gregorian `YYYY-MM-DD`, years 0001–9999. Future, invalid or un
 
 The interval belongs to the open job, including in an empty list. **Not saved** feedback appears directly below the interval if autosave fails; export a project backup before closing. Feedback belongs only to that job and raw interval.
 
-Edit actual dates in **Field → Station records** and manage jobs in **Plan → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
+Edit actual dates in **Route & sweep → Station records** and manage jobs in **Route & sweep → Details**; this view does not open a saved job or edit work dates. The six-active **Personal sweep reminders** step explicitly enters 18 for demonstration and clears it again. At explicit 2026-11-11 in the focused QA fixture, three named synthetic jobs swept 0/12/19 months before today show green/yellow/red. Practice provenance remains visible after edits, copies and JSON restore.
 
-## 53-feature coverage index
+## 52-feature coverage index
 
 This index follows the feature choices in the app. Choose the same label in Home's feature index to load the matching seeded practice. Sections above also cover controls that share one indexed feature, such as export buttons and station history.
 
@@ -867,7 +842,7 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 15 | Power what-if and Keep <!-- feature:trial --> | [What-if](#power-what-if) | Complete |
 | 16 | Named jobs and work-order details <!-- feature:projects --> | [Job details](#job-details-and-named-jobs) | Complete |
 | 17 | Original files and supported CSV <!-- feature:evidence --> | [Evidence](#onx-files-original-evidence-and-comparisons) | Complete |
-| 18 | Leakage, maintenance and conversion <!-- feature:checklists --> | [Checklists](#field-checklists-and-unit-conversion) | Complete |
+| 18 | Checklists, maintenance and conversion <!-- feature:checklists --> | [Checklists](#field-checklists-and-unit-conversion) | Complete |
 | 19 | Forward, return, punch and review <!-- feature:records --> | [Records](#project-records-and-closeout) | Complete |
 | 20 | Station balance, return worksheet and separate sweep dates <!-- feature:station --> | [Station worksheet](#station-worksheet) | Complete and six-active (2.0 Alpha build 3) |
 | 21 | Run sheet, share, print and CSV exports <!-- feature:runsheet --> | [Exports](#run-sheet-exports-and-full-backups) | Complete |
@@ -891,22 +866,21 @@ This index follows the feature choices in the app. Choose the same label in Home
 | 39 | Field calculators and source tags <!-- feature:calculators --> | [Field calculators](#field-calculators) | Custom curves (2.0 Alpha build 3) |
 | 40 | Limits, labels and sources <!-- feature:limits --> | [Limits and sources](#limits-and-sources) | Custom curves (2.0 Alpha build 3) |
 | 41 | DOCSIS health card <!-- feature:docsisHealth --> | [DOCSIS health card](#docsis-health-card) | Custom curves (2.0 Alpha build 3) |
-| 42 | Leakage limits, CLI and leak log <!-- feature:leakage --> | [Leakage](#leakage) | Custom curves (2.0 Alpha build 3) |
-| 43 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
-| 44 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
-| 45 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
-| 46 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
-| 47 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
-| 48 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
-| 49 | High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
-| 50 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
-| 51 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
-| 52 | Study mode: practice questions in four domains <!-- feature:study --> | [Study mode](#study-mode) | Custom curves (2.0 Alpha build 3) |
-| 53 | Supply PM notebook and span voltage drop <!-- feature:powerPm --> | [Supply PM](#supply-pm) | Custom curves (2.0 Alpha build 3) |
+| 42 | Outage first-response prompts <!-- feature:outage --> | [Outage first response](#outage-first-response) | Custom curves (2.0 Alpha build 3) |
+| 43 | Night log and shift handoff <!-- feature:nightLog --> | [Night log and shift handoff](#night-log-and-shift-handoff) | Six active devices in series (2.0 Alpha build 3) |
+| 44 | Personal sweep reminders and independent balance dates <!-- feature:sweepDue --> | [Sweep due](#sweep-due) | Six actives (2.0 Alpha build 3) |
+| 45 | Attached sweep grading aid <!-- feature:sweep-grading --> | [Sweep grading aid](#build-3-attached-sweep-grading-aid) | Custom curves (2.0 Alpha build 3) |
+| 46 | Impairment cards and standing-wave search <!-- feature:impairments --> | [Impairments](#impairments) | Custom curves (2.0 Alpha build 3) |
+| 47 | Fiber color finder and link loss budget <!-- feature:fiber --> | [Fiber](#fiber) | Custom curves (2.0 Alpha build 3) |
+| 48 | High split band plans, aeronautical band and Remote PHY bring-up <!-- feature:highSplit --> | [High split](#high-split) | Custom curves (2.0 Alpha build 3) |
+| 49 | Why cards: the SCTE 293 basics <!-- feature:why --> | [Why cards](#why-cards) | Custom curves (2.0 Alpha build 3) |
+| 50 | FCC proof-of-performance limits and test rules <!-- feature:pop --> | [Proof of performance](#proof-of-performance) | Custom curves (2.0 Alpha build 3) |
+| 51 | Study mode: practice questions in four domains <!-- feature:study --> | [Study mode](#study-mode) | Custom curves (2.0 Alpha build 3) |
+| 52 | Supply PM notebook and span voltage drop <!-- feature:powerPm --> | [Supply PM](#supply-pm) | Custom curves (2.0 Alpha build 3) |
 
 ## Build 3 attached sweep grading aid
 
-In **Field → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
+In **Route & sweep → ONX files → Grading aid**, select an attached **Sweep**, then explicitly choose **42 / 54** or **204 / 258 MHz** and **Forward** or **Reverse**. Each of the four company profiles starts entirely unknown. Selecting a profile does not edit an old job. Enter measured marker frequencies, a PTV limit, absolute level targets and tolerance, and a signed tilt target and tolerance as needed. Zero is an entered value; blank stays unknown. Both markers must exist exactly in the supplied samples; inspect the original preview for available frequencies. No interpolation or extrapolation occurs.
 
 Supported native previews cover the inspected VIAVI **TestGroup** and **CDM2** sweep JSON layouts, directly or inside gzip (including `.json-1.gz`) or a ZIP with one eligible JSON. Only one unambiguous explicit trace is decoded; unsupported or ambiguous files stay attached with a reason. These narrow adapters are not a general VIAVI decoder. Native direction and reference state are shown separately: unknown direction remains unknown, even when you explicitly select a grading direction. A known native direction conflict blocks grading. Native limits never become company criteria. The included interchange CSV practice traces are invented and are not native ONX captures.
 

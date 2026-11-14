@@ -57,28 +57,6 @@ FILL_DOCSIS = '''() => {
   document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
   set('[data-health-window="scqam"][data-field="min"]', '-7', 'change'); set('[data-health-window="scqam"][data-field="max"]', '7', 'change');
 }'''
-FILL_LEAK = '''() => {
-  const set = (sel, v, type = 'input') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
-  set('[data-leak="limit"][data-field="frequency"]', '121.2625'); set('[data-leak="limit"][data-field="kind"]', 'analog', 'change');
-  set('[data-leak="limit"][data-field="field"]', '2500.125'); set('[data-leak="limit"][data-field="distance"]', '33'); set('[data-leak="limit"][data-field="unit"]', 'ft', 'change');
-  set('[data-leak="normalize"][data-field="field"]', '4000000'); set('[data-leak="normalize"][data-field="distance"]', '0.5'); set('[data-leak="normalize"][data-field="unit"]', 'm', 'change');
-  set('[data-leak="cli"][data-field="leaks"]', '120 85 60 250 50 1000000 49 12'); set('[data-leak="cli"][data-field="theta"]', '0.5');
-  set('[data-leak="detector"][data-field="method"]', 'dipole', 'change'); set('[data-leak="detector"][data-field="expected"]', '20'); set('[data-leak="detector"][data-field="read"]', '31.5');
-  set('[data-leak="log"][data-field="found"]', '2026-11-10'); set('[data-leak="log"][data-field="location"]', 'Pole 14 at the corner of Elm Street and Third Avenue near the substation');
-  set('[data-leak="log"][data-field="cause"]', 'Loose drop connector at the tap port'); set('[data-leak="log"][data-field="field"]', '80'); set('[data-leak="log"][data-field="distance"]', '10'); set('[data-leak="log"][data-field="frequency"]', '121.2625');
-  document.getElementById('leakAdd').click();
-  // the worst cases for a narrow screen: a place and notes with no break to wrap at, a repaired leak, a leak with no distance, a flagged open leak, a saved check
-  set('[data-leak="log"][data-field="found"]', '2026-11-11'); set('[data-leak="log"][data-field="location"]', 'P'.repeat(120)); set('[data-leak="log"][data-field="cause"]', 'C'.repeat(120));
-  set('[data-leak="log"][data-field="field"]', '900'); set('[data-leak="log"][data-field="distance"]', ''); set('[data-leak="log"][data-field="frequency"]', ''); set('[data-leak="log"][data-field="notes"]', 'N'.repeat(300));
-  document.getElementById('leakAdd').click();
-  set('[data-leak="log"][data-field="found"]', '2026-11-09'); set('[data-leak="log"][data-field="location"]', 'Tap 9-' + 'A'.repeat(50)); set('[data-leak="log"][data-field="cause"]', ''); set('[data-leak="log"][data-field="field"]', '200'); set('[data-leak="log"][data-field="distance"]', '3'); set('[data-leak="log"][data-field="frequency"]', '750'); set('[data-leak="log"][data-field="notes"]', '');
-  document.getElementById('leakAdd').click();
-  document.querySelector('[data-leak-mark]').click();
-  document.querySelectorAll('.health-window').forEach(d => { d.open = true; });
-  set('[data-leak-company="repair"]', '25', 'change'); set('[data-leak-company="tolerance"]', '1', 'change');
-  set('[data-leak="detector"][data-field="date"]', '2026-11-11'); document.getElementById('leakCheckSave').click();
-  set('[data-leak="limit"][data-field="frequency"]', '10'); set('[data-leak="limit"][data-field="kind"]', 'digital', 'change'); set('[data-leak="limit"][data-field="field"]', '5'); set('[data-leak="limit"][data-field="distance"]', '3'); set('[data-leak="limit"][data-field="unit"]', 'm', 'change');
-}'''
 FILL_OUTAGE = '''() => {
   const set = (sel, v, type = 'change') => { const el = document.querySelector(sel); el.value = v; el.dispatchEvent(new Event(type, { bubbles: true })); };
   for (const id of ['scope-what', 'power-ac', 'node-lights', 'act-order', 'tell-roc']) { const el = document.querySelector(`[data-check="${id}"]`); el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
@@ -194,54 +172,6 @@ def ofdm_real_input_checks(browser):
         check(label + ' fits its card and controls without horizontal overflow', page.evaluate("""(()=>{const c=document.querySelector('[data-calc-card="ofdm"]');return document.documentElement.scrollWidth<=innerWidth+1&&[c,...c.querySelectorAll('input,select,.calc-result')].every(e=>{const r=e.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&e.scrollWidth<=e.clientWidth+1})})()"""))
         context.close()
 
-def leakage_real_input_checks(browser):
-    """A lone minus sign in a company-setting box must not clear what is saved, and a blank date must not become today.
-    Typing into a real number box is the only way to reach the empty-but-invalid state."""
-    port = server.server_port
-    context = browser.new_context(viewport={'width': 390, 'height': 900})
-    page = context.new_page()
-    page.on('pageerror', lambda e: errors.append(str(e)))
-    page.goto(f'http://127.0.0.1:{port}/index.html')
-    page.wait_for_function('typeof WorkflowUI!=="undefined" && typeof Leakage!=="undefined"')
-    page.evaluate("WorkflowUI.go('leakage')")
-    stored = lambda: page.evaluate("JSON.parse(localStorage.getItem('nightsweep-leakage-v1')||'null')")
-    text = lambda id: page.evaluate("id=>document.getElementById(id).textContent.replace(/\\s+/g,' ')", id)
-    page.evaluate("document.getElementById('leakCompany').open=true")
-    repair = page.locator('[data-leak-company="repair"]')
-    tol = page.locator('[data-leak-company="tolerance"]')
-    repair.click(); page.keyboard.type('25'); page.keyboard.press('Tab')
-    tol.click(); page.keyboard.type('1'); page.keyboard.press('Tab')
-    check('Leakage real keyboard: typed company settings are saved', stored()['company'] == {'repair': 25, 'tolerance': 1})
-    repair.click(); page.keyboard.press('Control+A'); page.keyboard.type('-')
-    check('Leakage real keyboard: a lone minus sign leaves the box empty and marked badInput', repair.evaluate('el=>el.value===""&&el.validity.badInput===true'))
-    page.keyboard.press('Tab')
-    check('Leakage real keyboard: that entry is refused and says what is still in use', 'Not saved.' in text('leak-company-note') and 'Still using repair threshold 25 µV/m and tolerance 1 dB' in text('leak-company-note'))
-    check('Leakage real keyboard: the saved settings are not cleared and the box shows the value in use', stored()['company'] == {'repair': 25, 'tolerance': 1} and repair.evaluate('el=>el.value==="25"&&el.validity.badInput===false'))
-    tol.click(); page.keyboard.press('Control+A'); page.keyboard.press('Backspace'); page.keyboard.press('Tab')
-    check('Leakage real keyboard: emptying a box on purpose still clears that one setting', stored()['company'] == {'repair': 25, 'tolerance': None})
-    # dates
-    today = page.evaluate("(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})()")
-    check('Leakage dates: the check date starts as today', page.locator('[data-leak="detector"][data-field="date"]').input_value() == today)
-    page.select_option('[data-leak="detector"][data-field="method"]', 'direct')
-    page.locator('[data-leak="detector"][data-field="expected"]').click(); page.keyboard.type('20')
-    page.locator('[data-leak="detector"][data-field="read"]').click(); page.keyboard.type('22')
-    date = page.locator('[data-leak="detector"][data-field="date"]')
-    date.click(); page.keyboard.press('Backspace'); page.keyboard.press('Tab'); page.keyboard.press('Backspace')
-    page.locator('[data-leak="detector"][data-field="date"]').fill('')
-    page.locator('#leakCheckSave').click()
-    check('Leakage dates: a blank check date is refused with a reason and no check is saved', 'Enter the date of the detector check' in text('leak-detector-result') and page.evaluate('Leakage.snapshot().checks.length') == 0)
-    page.locator('[data-leak="log"][data-field="found"]').fill('2026-11-05')
-    page.locator('[data-leak="log"][data-field="location"]').fill('Pole 14 at Elm and 3rd')
-    page.locator('#leakAdd').click()
-    leak = page.evaluate("Leakage.snapshot().leaks[0].id")
-    page.locator(f'[data-leak-repair="{leak}"]').fill('')
-    page.locator(f'[data-leak-mark="{leak}"]').click()
-    check('Leakage dates: Mark repaired with a cleared date is refused and the leak stays open', 'Enter the repair date' in text('leak-log-note') and stored()['leaks'][0]['repaired'] == '')
-    page.locator(f'[data-leak-repair="{leak}"]').fill('2026-11-09')
-    page.locator(f'[data-leak-mark="{leak}"]').click()
-    check('Leakage dates: the date that was chosen is the date kept', stored()['leaks'][0]['repaired'] == '2026-11-09')
-    context.close()
-
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=os.environ.get('NIGHTSWEEP_CHROMIUM') or None, headless=True, args=['--no-sandbox'])
@@ -259,12 +189,14 @@ try:
                 if theme == 'night' and width <= 430:
                     page.evaluate("WorkflowUI.go('projects')")
                     tabs = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task]')].map(b=>({task:b.dataset.task,label:b.textContent.trim(),controls:(b.getAttribute('aria-controls')||'').split(/\\s+/).filter(Boolean)}))")
-                    check(f'{label} Plan is an eight-screen list with panels and no Safety screen', len(tabs) == 8 and [t['task'] for t in tabs] == ['projects','setup','route','equipmentSetup','sweep','power','powerPm','sweepDue'] and all(t['label'] and t['controls'] for t in tabs) and page.evaluate("typeof Safety==='undefined'&&!document.getElementById('safetyPanel')&&!document.querySelector('[data-task=\"safety\"],[data-go=\"safety\"],[href=\"#safetyPanel\"]')"))
+                    check(f'{label} Route & sweep is a fourteen-screen list with panels and no Safety screen', len(tabs) == 14 and [t['task'] for t in tabs] == ['route','setup','equipmentSetup','sweepSetup','tdr','evidence','sweep','projects','station','checklists','nightLog','sweepDue','power','powerPm'] and all(t['label'] and t['controls'] for t in tabs) and page.evaluate("typeof Safety==='undefined'&&!document.getElementById('safetyPanel')&&!document.querySelector('[data-task=\"safety\"],[data-go=\"safety\"],[href=\"#safetyPanel\"]')"))
+                    page.locator('#taskTabs .task-picker').evaluate('(el)=>el.open=true')
                     heights = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task], #taskTabs [data-task-search]')].map(e=>e.getBoundingClientRect().height)")
-                    check(f'{label} Plan list controls are at least 44 px and the page does not scroll sideways', len(heights) == 9 and min(heights) >= 44 and page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
+                    check(f'{label} Route & sweep list controls are at least 44 px and the page does not scroll sideways', len(heights) == 15 and min(heights) >= 44 and page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
                     for tab in tabs:
+                        page.locator('#taskTabs .task-picker').evaluate('(el)=>el.open=true')
                         page.locator(f'#taskTabs [data-task="{tab["task"]}"]').click()
-                        check(f'{label} Plan → {tab["label"]} opens its existing content', page.evaluate("([task,ids])=>WorkflowUI.current()===task&&ids.every(id=>document.getElementById(id))&&ids.some(id=>{const e=document.getElementById(id);return !e.hidden&&getComputedStyle(e).display!=='none'&&e.textContent.trim().length>0})", [tab['task'], tab['controls']]))
+                        check(f'{label} Route & sweep → {tab["label"]} opens its existing content', page.evaluate("([task,ids])=>WorkflowUI.current()===task&&ids.every(id=>document.getElementById(id))&&ids.some(id=>{const e=document.getElementById(id);return !e.hidden&&getComputedStyle(e).display!=='none'&&e.textContent.trim().length>0})", [tab['task'], tab['controls']]))
                     check(f'{label} no rendered link points to Safety', page.evaluate("!Array.from(document.querySelectorAll('button,a')).some(e=>/Job\\s*→\\s*Safety|^Safety$/.test(e.textContent.trim()))"))
                     page.evaluate("WorkflowUI.go('home')")
                     home = page.evaluate("[...document.querySelectorAll('#taskTabs button[data-task]')].map(b=>b.textContent.trim())")
@@ -298,24 +230,6 @@ try:
                 check(f'{label} DOCSIS health shows the derived OFDM range with its long text inside the card', page.evaluate("(()=>{const r=document.getElementById('health-ofdm-result');return /Derived range, over 96 MHz/.test(r.textContent)&&r.scrollWidth<=r.clientWidth+1})()"))
                 page.evaluate("document.querySelector('[data-health=\"ofdm\"][data-field=\"basis\"]').value='6';document.querySelector('[data-health=\"ofdm\"][data-field=\"basis\"]').dispatchEvent(new Event('change',{bubbles:true}))")
                 check(f'{label} the occupied-bandwidth field is really hidden unless another bandwidth is chosen', page.evaluate("getComputedStyle(document.querySelector('[data-health-other]')).display==='none'"))
-                page.evaluate("WorkflowUI.go('leakage')")
-                page.evaluate(FILL_LEAK)
-                check(f'{label} Leakage fits without sideways scrolling', page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
-                cards = page.evaluate("[...document.querySelectorAll('.leak-card')].map(c=>{const r=c.getBoundingClientRect();return [r.left,r.right]})")
-                check(f'{label} every Leakage card stays inside the viewport', len(cards) == 5 and all(l >= -1 and r <= width + 1 for l, r in cards))
-                check(f'{label} Leakage results and log entries wrap inside their cards', page.evaluate("[...document.querySelectorAll('.leak-card .health-row strong, .leak-card .health-status, .leak-item strong, .leak-item .note')].filter(e=>e.offsetParent).every(s=>s.scrollWidth<=s.clientWidth+1)"))
-                check(f'{label} the FCC limits table scrolls inside its own region, not the page', page.evaluate("(()=>{const r=document.querySelector('.leak-card .table-scroll'),tb=r&&r.querySelector('table');return !!r&&r.getAttribute('tabindex')==='0'&&getComputedStyle(r).overflowX==='auto'&&r.getBoundingClientRect().right<=innerWidth+1&&tb.scrollWidth>=440&&(r.scrollWidth<=r.clientWidth+1||r.scrollWidth>r.clientWidth)&&document.documentElement.scrollWidth<=innerWidth+1})()"))
-                check(f'{label} a long place, cause and notes with no break wrap inside the log entry instead of widening the card', page.evaluate("(()=>{const items=[...document.querySelectorAll('.leak-item')];const wide=items.filter(i=>/P{100}/.test(i.textContent));return wide.length===1&&items.every(i=>{const r=i.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1&&[...i.querySelectorAll('strong,.note,.health-status')].every(s=>s.scrollWidth<=s.clientWidth+1)})})()"))
-                check(f'{label} the log shows a repaired leak, a flagged open leak, a leak with no distance and a saved check in words', page.evaluate("(()=>{const t=document.getElementById('leakagePanel').textContent;return /Reopen/.test(t)&&/still open/.test(t)&&/No distance was entered/.test(t)&&/you had set then/.test(t)&&document.querySelectorAll('[data-leak-reopen]').length===1&&/near field reaches about 4\\.8 m/.test(document.getElementById('leak-limit-result').textContent)})()"))
-                sizes = page.evaluate("[...document.querySelectorAll('#leakagePanel .source-tag')].filter(t=>t.offsetParent).map(t=>{const r=t.getBoundingClientRect();return [r.width,r.height]})")
-                check(f'{label} Leakage source tags are at least 24 px tap targets', len(sizes) >= 10 and all(w >= 24 and h >= 24 for w, h in sizes))
-                ratios = page.evaluate(CONTRAST)
-                check(f'{label} Leakage tag text contrast is at least 4.5:1', ratios and min(ratios) >= 4.5)
-                inputs = page.evaluate("[...document.querySelectorAll('#leakagePanel input,#leakagePanel select')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
-                check(f'{label} Leakage inputs keep field-sized controls', inputs and min(inputs) >= 40)
-                buttons = page.evaluate("[...document.querySelectorAll('#leakagePanel button:not(.source-tag)')].filter(e=>e.offsetParent).map(e=>e.getBoundingClientRect().height)")
-                check(f'{label} Leakage buttons are large controls', buttons and min(buttons) >= 40)
-                check(f'{label} Leakage marks an open leak and states results in words, not color alone', page.evaluate("document.querySelector('.leak-item.open')!==null&&[...document.querySelectorAll('#leakagePanel .health-status')].every(s=>/^(✓|⚠|•)/.test(s.textContent.trim()))"))
                 page.evaluate("WorkflowUI.go('outage')")
                 page.evaluate(FILL_OUTAGE)
                 check(f'{label} Outage tick boxes are at least 24 px and each row is a 44 px target', page.evaluate("(()=>{const rows=[...document.querySelectorAll('#outagePanel .check-item')].filter(e=>e.offsetParent);return rows.length>=20&&rows.every(r=>r.getBoundingClientRect().height>=44&&r.querySelector('input').getBoundingClientRect().width>=24&&r.querySelector('input').getBoundingClientRect().height>=24)})()"))
@@ -444,12 +358,11 @@ try:
                 page.wait_for_function("!document.querySelector('dialog.source-sheet')")
                 check(f'{label} Escape closes the sheet and returns focus to its tag', page.evaluate("document.activeElement?.dataset.threshold==='calc.preeq.tapDistance'"))
                 page.emulate_media(media='print')
-                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','leakagePanel','outagePanel','impairmentsPanel','fiberPanel','highSplitPanel','whyPanel','popPanel','studyPanel','powerPmPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
+                check(f'{label} print report leaves out calculators and the registry', page.evaluate("['calculatorPanel','limitsPanel','docsisHealthPanel','outagePanel','impairmentsPanel','fiberPanel','highSplitPanel','whyPanel','popPanel','studyPanel','powerPmPanel'].every(id=>getComputedStyle(document.getElementById(id)).display==='none')"))
                 page.emulate_media(media='screen')
                 context.close()
         docsis_real_input_checks(browser)
         ofdm_real_input_checks(browser)
-        leakage_real_input_checks(browser)
         check('No uncaught application errors', not errors)
         browser.close()
     OUT.write_text(json.dumps({'checks': len(checks), 'passed': True, 'cases': checks, 'standalone_sha256': hashlib.sha256(html.encode()).hexdigest(),

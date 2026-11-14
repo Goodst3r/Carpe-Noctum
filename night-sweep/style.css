@@ -363,3 +363,8 @@ html[data-theme=sun] .calc-stats>div{background:#f3f1e8}
 .study-feedback p,.study-feedback li{overflow-wrap:anywhere}
 .study-card .toolbar button,.study-go{min-height:44px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Keep the current calculation/route above the searchable screen inventory. */
+.task-picker{width:100%;padding:0;border:0}
+.task-picker>summary{min-height:44px;align-content:center;font-weight:700;color:var(--blue)}
+@media(max-width:430px){.training-library-group>summary{white-space:normal;overflow-wrap:anywhere}.training-library-group>summary>span{display:block;margin-left:0}}

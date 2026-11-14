@@ -11,11 +11,11 @@ def snapshot():
 tested_build=snapshot()
 logs=root/'qa/pwa-testlogs';logs.mkdir(exist_ok=True)
 suites=[
+ ('Calculator-first navigation, retired Leakage and legacy-data retention','next-navigation.test.cjs',r'Next navigation: (\d+) checks passed'),
  ('Build 3 threshold and source registry','build3-registry.test.cjs',r'Build3 registry: (\d+) checks passed'),
  ('Build 3 field calculators against independent references','build3-field-calcs.test.cjs',r'Build3 field calculators: (\d+) checks passed'),
  ('Build 3 tilt, EQ and pad solver against the recalculated spreadsheet','build3-alignment.test.cjs',r'Build3 alignment: (\d+) checks passed'),
  ('Build 3 DOCSIS health card against independent decimal references','build3-docsis-health.test.cjs',r'Build3 DOCSIS health: (\d+) checks passed'),
- ('Build 3 leakage tools against independent decimal references','build3-leakage.test.cjs',r'Build3 leakage: (\d+) checks passed'),
  ('Build 3 shared checklist engine and outage first-response card','build3-checklist.test.cjs',r'Build3 checklist: (\d+) checks passed'),
  ('Build 3 impairment cards and standing-wave candidate search against an independent reference','build3-impairments.test.cjs',r'Build3 impairments: (\d+) checks passed'),
  ('Build 3 fiber color code and link loss budget against an independent reference','build3-fiber.test.cjs',r'Build3 fiber: (\d+) checks passed'),

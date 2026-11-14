@@ -49,6 +49,7 @@ def open_page(browser, width):
 
 def run_case(page, width, start, query, target, label):
     page.evaluate('id => WorkflowUI.go(id)', start)
+    page.locator('#taskTabs .task-picker').evaluate('(el)=>el.open=true')
     box = page.locator('[data-task-search]')
     box.fill(query)
     visible = page.evaluate("""() => [...document.querySelectorAll('#taskTabs button')].filter(b => !b.hidden).map(b => b.textContent)""")
@@ -59,6 +60,8 @@ def run_case(page, width, start, query, target, label):
     check(f'{name}: Tab reaches the only visible result', reached == target and page.evaluate('WorkflowUI.current()') == start)
     page.keyboard.press('Enter')
     check(f'{name}: Enter on that result opens it', page.evaluate('WorkflowUI.current()') == target)
+    page.keyboard.press('Escape')
+    check(f'{name}: Escape closes the picker and focuses the chosen screen', page.evaluate("!document.querySelector('.task-picker').open && document.activeElement===document.querySelector('#screenTitle h2')"))
 
 try:
     with sync_playwright() as p:
@@ -73,6 +76,7 @@ try:
             context.close()
         context, page = open_page(browser, 390)
         page.evaluate("WorkflowUI.go('calculators')")
+        page.locator('#taskTabs .task-picker').evaluate('(el)=>el.open=true')
         box = page.locator('[data-task-search]')
         box.fill('fiber')
         box.press('Enter')

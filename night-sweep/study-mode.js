@@ -21,7 +21,7 @@ const StudyMode=(()=>{
  const round=(x,d=2)=>Number(x.toFixed(d));
  const shuffle=(r,list)=>{const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
  const app=()=>({
-  calc:typeof FieldCalc!=='undefined'?FieldCalc:null,leak:typeof Leakage!=='undefined'?Leakage:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
+  calc:typeof FieldCalc!=='undefined'?FieldCalc:null,fiber:typeof FiberTools!=='undefined'?FiberTools:null,
   docsis:typeof DocsisHealth!=='undefined'?DocsisHealth:null,split:typeof HighSplit!=='undefined'?HighSplit:null,imp:typeof Impairments!=='undefined'?Impairments:null,
   outage:typeof Outage!=='undefined'?Outage:null
  });
@@ -79,7 +79,7 @@ const StudyMode=(()=>{
    const c=choice(r,x.fiberColor,a.fiber.COLORS);
    return {kind:'choice',prompt:`Counting from 1 with 12 fibers in each tube, which color is fiber ${fiber}?`,choices:c.choices,correct:c.correct,params:{fiber},working:[`Fiber ${fiber} is position ${x.position} in tube ${x.tube}.`,`The TIA-598 order is ${a.fiber.COLORS.join(', ')}, so position ${x.position} is ${x.fiberColor}.`],source:'TIA-598 color code (see Tools → Fiber)'};
   }},
-  {id:'unity',domain:'components',tool:{task:'gain',label:'Plan → Route & sweep'},make:r=>{
+  {id:'unity',domain:'components',tool:{task:'gain',label:'Route & sweep → Route & sweep'},make:r=>{
    const cable=grid(r,10,30,0.5),passives=grid(r,1,8,0.5);
    const answer=cable+passives;
    return number({prompt:`A span has ${cable} dB of cable loss and ${passives} dB of passive loss at the highest operating frequency. For unity gain, how much operational gain should the amplifier after it have?`,unit:'dB',answer,tol:0.05,params:{cable,passives},working:['Unity gain: the amplifier’s gain equals the loss of the span ahead of it at the same frequency.',`${cable} + ${passives} = ${round(answer)} dB.`],source:'SCTE 293-5 2024, unity gain'});
@@ -108,16 +108,6 @@ const StudyMode=(()=>{
    const spacingR=round(spacing,1);
    const x=a.calc.rippleDistance(spacingR,vp);
    return number({prompt:`A sweep shows a standing-wave ripple whose peaks are ${spacingR} MHz apart, on cable with a velocity of propagation of ${vp}. How far apart, in feet, are the two mismatches?`,unit:'ft',answer:x.feet,tol:0.01,relative:true,params:{spacing:spacingR,vp},working:[`Distance (ft) = ${round(a.calc.C_FT_PER_US/2,1)} × VP ÷ ripple spacing (MHz), where ${round(a.calc.C_FT_PER_US/2,1)} ft·MHz is half the speed of light in feet per microsecond.`,`${round(a.calc.C_FT_PER_US/2,1)} × ${vp} ÷ ${spacingR} = ${round(x.feet,1)} ft.`],source:'SCTE 280 2022, standing waves (see Tools → Impairments)'});
-  }},
-  {id:'leak3m',domain:'troubleshooting',tool:{task:'leakage',label:'Field → Leakage'},make:r=>{
-   const field=grid(r,20,200,5),distance=pick(r,[10,30,100]),a=app();
-   const x=a.leak.normalize({field,distance,unit:'m'});
-   return number({prompt:`A leak reads ${field} µV/m at ${distance} m. What is that restated at 3 m?`,unit:'µV/m',answer:x.at3,tol:0.005,relative:true,params:{field,distance},working:['In the far field the field strength falls in proportion to distance: E at 3 m ≈ E × distance ÷ 3 m.',`${field} × ${distance} ÷ 3 = ${round(x.at3,1)} µV/m (an approximation; measure at 3 m when you can).`],source:'SCTE 221 2020 (R2026) and SCTE 293-12 2025'});
-  }},
-  {id:'cli',domain:'troubleshooting',tool:{task:'leakage',label:'Field → Leakage'},make:r=>{
-   const leaks=[grid(r,60,300,10),grid(r,60,300,10),grid(r,60,300,10)],theta=pick(r,[0.8,0.9,1]),a=app();
-   const x=a.leak.cli({leaks:leaks.join(' '),theta:String(theta)});
-   return number({prompt:`Three leaks of ${leaks.join(', ')} µV/m were found at 3 m on the 108–137 MHz basis, with ${Math.round(theta*100)}% of the plant examined. What is the cumulative leakage index in dB?`,unit:'dB',answer:x.cli,tol:0.05,params:{leaks,theta},working:['CLI = 10·log10( (1 ÷ fraction examined) × the sum of each leak’s field strength squared ), counting leaks of 50 µV/m or more.',`10·log10( (${leaks.map(v=>v+'²').join(' + ')}) ÷ ${theta} ) = ${round(x.cli)} dB. The limit is 64 dB.`],source:'47 CFR 76.611(a)(1)'});
   }},
   {id:'impairment',domain:'troubleshooting',tool:{task:'impairments',label:'Tools → Impairments'},make:r=>{
    const a=app(),ids=['ripple','notch','high-decline','slope','flat-drop','bursts'],shapeId=pick(r,ids),shape=a.imp.SHAPES.find(s=>s.id===shapeId);

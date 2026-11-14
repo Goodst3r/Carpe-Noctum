@@ -21,7 +21,7 @@ const PowerPM=(()=>{
   if(slack===null||slack<0)return fail('Enter slack of 0 or more feet, or leave it blank.');
   if(rate===null||rate<=0)return fail('This cable has no published loop resistance, so the drop is not calculated.');
   if(temp===null||temp<-40||temp>185)return fail('Enter a cable temperature from −40 to 185 °F.');
-  if(alpha===null||alpha<0||alpha>0.01)return fail('Enter a resistance coefficient from 0 to 0.01 per °C. 0.004 is the engineering approximation already used on Plan → Load & what-if; type it only if you mean to use it.');
+  if(alpha===null||alpha<0||alpha>0.01)return fail('Enter a resistance coefficient from 0 to 0.01 per °C. 0.004 is the engineering approximation already used on Route & sweep → Load & what-if; type it only if you mean to use it.');
   if(current===null||current<0)return fail('Enter a span current of 0 or more amps.');
   if(supply===null||supply<=0)return fail('Enter a positive voltage at the start of this span.');
   const spanFt=length+slack,factor=1+alpha*(temp-68)*5/9,resistance=rate*spanFt/1000*factor,drop=current*resistance,atActive=supply-drop;

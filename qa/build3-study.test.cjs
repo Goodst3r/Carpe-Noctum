@@ -25,18 +25,18 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     const ids = h.json('StudyMode.DOMAINS.map(d=>d.id)');
     assert.deepEqual(ids, ['architectures', 'components', 'signals', 'troubleshooting']);
     for (const d of ids) assert(gens.filter(g => g.domain === d).length >= 2, d + ' has at least two question types');
-    assert.equal(gens.length, 18); assert.equal(new Set(gens.map(g => g.id)).size, 18);
+    assert.equal(gens.length, 16); assert.equal(new Set(gens.map(g => g.id)).size, 16);
     for (const g of gens) { await goto(h, 'projects'); await goto(h, g.task); assert.equal(h.ev('WorkflowUI.current()'), destination(g.task), g.id + ' links to ' + g.task); comparisons++; }
   });
 
-  await check('Every numeric answer equals the independent Python decimal recomputation from the question’s own parameters (140 questions)', () => {
+  await check('Every numeric answer equals the independent Python decimal recomputation from the question’s own parameters (112 questions)', () => {
     const numeric = [];
     for (const g of gens) for (const seed of SEEDS) {
       const q = h.json(`StudyMode.question(${JSON.stringify(g.domain)},${JSON.stringify(h.json('StudyMode.list(' + JSON.stringify(g.domain) + ').map(x=>x.id)').indexOf(g.id))},${seed})`);
       assert.equal(q.id, g.id, 'the generator asked for is the one used'); assert(q.prompt && q.working.length >= 1 && q.source, g.id);
       if (q.kind === 'number') numeric.push({ gen: g.id, seed, params: q.params, answer: q.answer, tol: q.tol, relative: !!q.relative });
     }
-    assert(numeric.length >= 10 * SEEDS.length - 10, 'ten numeric generators: ' + numeric.length);
+    assert(numeric.length >= 8 * SEEDS.length - 8, 'eight numeric generators: ' + numeric.length);
     const file = path.join(os.tmpdir(), 'cn-study-cases-' + process.pid + '.json');
     fs.writeFileSync(file, JSON.stringify(numeric));
     const run = spawnSync('python3', ['-I', 'research/build3/study-reference.py', file], { encoding: 'utf8' });
@@ -67,7 +67,7 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
     assert.equal(fiber.choices[fiber.correct], h.json(`FiberTools.locate(${fiber.params.fiber})`).fiberColor);
     const aero = h.json('StudyMode.question("architectures",0,5)'); assert.equal(aero.id, 'aero');
     assert.equal(aero.choices[aero.correct].toLowerCase(), h.json(`HighSplit.aeroBandSide(HighSplit.PLANS.find(p=>p.id==="${aero.params.plan}"))`));
-    const cnr = h.json('StudyMode.question("troubleshooting",4,9)'); assert.equal(cnr.id, 'popcnr');
+    const cnr = h.json('StudyMode.question("troubleshooting",2,9)'); assert.equal(cnr.id, 'popcnr');
     assert.match(h.json('Thresholds.get("fcc.pop.cnr")').rangeText.replace(/^n/, 'N'), /^Not less than 43 dB$/); assert.equal(cnr.choices[cnr.correct], 'Not less than 43 dB');
     const outageIndex = h.json('StudyMode.list("troubleshooting").findIndex(g=>g.id==="outagesection")');
     assert(outageIndex >= 0, 'the Outage question remains in troubleshooting');
@@ -148,7 +148,7 @@ const SEEDS = Array.from({ length: 14 }, (_, i) => 1 + i * 37);
       const want = q.relative ? new RegExp('within ' + String(Number((q.tol * 100).toFixed(2))).replace('.', '\\.') + ' percent') : q.tol === 0 ? /exact whole number/ : new RegExp('within ' + String(q.tol).replace('.', '\\.'));
       assert.match(text, want, q.prompt.slice(0, 40)); seen++; comparisons++;
     }
-    assert(seen >= 10 && seen < 18, 'every number generator was checked (' + seen + ')'); assert.equal(seen, h.json("StudyMode.DOMAINS.reduce((n,d)=>n+StudyMode.list(d.id).filter((g,i)=>StudyMode.question(d.id,i,3).kind==='number').length,0)"));
+    assert(seen >= 8 && seen < 16, 'every number generator was checked (' + seen + ')'); assert.equal(seen, h.json("StudyMode.DOMAINS.reduce((n,d)=>n+StudyMode.list(d.id).filter((g,i)=>StudyMode.question(d.id,i,3).kind==='number').length,0)"));
     h.ev("StudyModeUI.render&&StudyModeUI.render()");
     const box = h.d.getElementById('studyNumber'); if (box) { assert.equal(box.getAttribute('aria-describedby'), 'studyTolerance'); assert.match(h.d.getElementById('studyTolerance').textContent, /Counts as right within|exact whole number/); }
   });
