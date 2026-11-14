@@ -1,6 +1,6 @@
-# Carpe Noctum workflow: three assistants, one integration branch
+# Carpe Noctum workflow history
 
-Written November 12, 2026 for Spencer; revised the same night. This is the only file that says who does what. It replaces `PARALLEL_TASKS.md`, `ROADMAP_PROMPTS.md`, `START_HERE_CODEX.md` and the old `codex-status.md` / `claude-status.md` lane files, which were deleted because they described a two-lane plan that has ended. If anything elsewhere in the repository disagrees with this file about roles, queues, review or merging, this file wins. Product decisions still come from `ROADMAP_DETERMINATION.md`, `docs/BUILD_LIST.md` and `AGENTS.md`.
+**Current workflow:** [PARALLEL_TASKS.md](PARALLEL_TASKS.md) governs roles, queues, review, gate reuse, merging and the original-key Android handoff. Use [PROMPTS.md](PROMPTS.md) to start sessions. The November 12, 2026 instructions below provide historical context and technical decisions where consistent with Spencer's current direction.
 
 **There is no deadline.** Spencer wants the work done correctly and completely, at a steady pace. Nobody stops at a clock time. A lane stops only when its queue is finished (see "Done") or every remaining item is recorded BLOCKED.
 

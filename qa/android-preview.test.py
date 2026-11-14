@@ -57,7 +57,7 @@ class BuildHarness:
                              " const TrainingJob= const marker='guided-1.5' initTraining(); const SweepSetup=")
         self.out = root / 'dist/preview'
         self.out.mkdir(parents=True)
-        self.apk_name = 'CarpeNoctum-2.0-build3-preview.apk'
+        self.apk_name = 'CarpeNoctum-2.0-build4-preview.apk'
         if prior:
             (self.out / self.apk_name).write_bytes(b'previous validated APK placeholder')
             (self.out / 'build-info.json').write_text('{"priorValidatedBuild":true}')
@@ -106,8 +106,8 @@ class AndroidPreviewTests(unittest.TestCase):
     def test_release_identity_and_offline_permissions(self):
         module = load_builder(ANDROID / 'build.py')
         manifest = ET.parse(ANDROID / 'app/src/main/AndroidManifest.xml').getroot()
-        self.assertEqual(module.VERSION_NAME, '2.0 Alpha build 3')
-        self.assertEqual(module.VERSION_CODE, 27)
+        self.assertEqual(module.VERSION_NAME, '2.0 Alpha build 4')
+        self.assertEqual(module.VERSION_CODE, 28)
         self.assertEqual(manifest.get(NS + 'versionName'), module.VERSION_NAME)
         self.assertEqual(manifest.get(NS + 'versionCode'), str(module.VERSION_CODE))
         self.assertFalse(manifest.findall('uses-permission'), 'Offline wrapper must not gain network or other permissions')
@@ -210,8 +210,8 @@ class AndroidPreviewTests(unittest.TestCase):
             apk = harness.out / receipt['file']
             self.assertEqual(receipt['sha256'], hashlib.sha256(apk.read_bytes()).hexdigest())
             self.assertEqual(receipt['html_sha256'], hashlib.sha256(harness.asset.read_bytes()).hexdigest())
-            self.assertEqual(receipt['version'], '2.0 Alpha build 3')
-            self.assertEqual(receipt['version_code'], 27)
+            self.assertEqual(receipt['version'], '2.0 Alpha build 4')
+            self.assertEqual(receipt['version_code'], 28)
             self.assertTrue(receipt['embedded_html_matches_input'])
             self.assertFalse(receipt['tested_on_device'])
             with zipfile.ZipFile(apk) as archive:

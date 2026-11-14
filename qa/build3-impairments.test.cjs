@@ -172,6 +172,6 @@ const title = h => h.d.getElementById('impCardTitle')?.textContent;
   });
 
   console.log(`Build3 impairments: ${cases.length} checks passed (${comparisons} comparisons with the independent reference)`);
-  fs.writeFileSync('qa/build3-impairments-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'Candidate search against the independent reference built by impairments-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering; synthetic practice symptoms. Nothing read from a meter.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-impairments-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'Candidate search against the independent reference built by impairments-reference.py in research/build3 (Python decimal, 50 digits); JSDOM rendering; synthetic practice symptoms. Nothing read from a meter.' }, null, 2) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

@@ -106,6 +106,6 @@ const file=(name,contents,type='text/csv')=>{const bytes=typeof contents==='stri
   d.getElementById('runSheetCsv').click();assert.match(app.downloads.at(-1).text,/"'=HYPERLINK\(1\)/);
  });
  await check('Both original and rebuilt apps complete integration without DOM runtime errors',()=>{assert.deepEqual(old.errors,[]);assert.deepEqual(app.errors,[]);});
- fs.writeFileSync('qa/upgrade01314-results.json',JSON.stringify({version:'2.0 Alpha build 3',source:'Supplied 0.13 APK assets/index.html generated the test backup at runtime',count:cases.length,cases,errors:app.errors,scope:'Synthetic DOM/IndexedDB migration tests; no physical Android or browser layout claim'},null,2)+'\n');
+ fs.writeFileSync('qa/upgrade01314-results.json',JSON.stringify({version:'2.0 Alpha build 4',source:'Supplied 0.13 APK assets/index.html generated the test backup at runtime',count:cases.length,cases,errors:app.errors,scope:'Synthetic DOM/IndexedDB migration tests; no physical Android or browser layout claim'},null,2)+'\n');
  console.log('0.13 to 1.5 upgrade: '+cases.length+' checks passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>instances.forEach(x=>x.window.close()));

@@ -23,7 +23,7 @@ def check(name, condition):
     print('PASS ' + name, flush=True)
 
 SEED = '''() => {
- loadState({version:1,setup:{...defaultSetup,sourceType:'active',sourceModel:'active_gm_hgd',sourceAsset:'SYNTHETIC SOURCE',sourcePort:'main'},rows:[{id:'r1',name:'SYNTHETIC ACTIVE',parent:'source',length:300,cable:'p3_625',device:'active_gm_gan_hgd',customLoss:'',customCable:'',terminal:false}]});
+ loadState({version:1,setup:{...defaultSetup,sourceType:'active',sourceModel:'active_gm_hgd',sourceAsset:'SYNTHETIC SOURCE',sourcePort:'main'},rows:[{id:'r1',name:'SYNTHETIC ACTIVE',parent:'source',length:300,cable:'p3_625',device:'active_gm_hgd',customLoss:'',customCable:'',terminal:false}]});
  WorkflowUI.go('station');const p=document.querySelector('[data-station-target]');p.value='r1';p.dispatchEvent(new Event('change',{bubbles:true}));
  for(const[k,v]of Object.entries({lowMHz:'54',highMHz:'860',targetLow:'39',targetHigh:'49',measuredLow:'36.4',measuredHigh:'49.6'})){const e=document.querySelector('[data-station-scope="forward"][data-station-field="'+k+'"]');e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}));}
  for(const[k,v]of [['balanced','2026-11-10'],['swept','2026-11-11']]){const e=document.querySelector('[data-station-scope="'+k+'"][data-station-field="date"]');e.value=v;e.dispatchEvent(new Event('change',{bubbles:true}));}

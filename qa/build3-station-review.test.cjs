@@ -26,7 +26,7 @@ test('Forward clamp results show solver limit notes, sourced procedure window an
 
 test('Catalog-only band corrections cannot hide a saved station or its sweep date',withApp(h=>{
  open(h);returns(h);set(h,'swept','date','2026-11-10','change');const done=control(h,'swept','done');done.checked=true;done.dispatchEvent(new h.w.Event('change',{bubbles:true}));const before=h.json('state'),identity=h.ev('state.rows[0].stationIdentity');
- h.ev('device("active_gm_gan_hgd").publishedGain.forwardBand[0]=55;device("active_gm_gan_hgd").publishedGain.reverseBand[1]=41;StationView.render()');assert.match(words(h,'[data-station-split]'),/41\/55/,'catalog correction refreshes informational banner');h.ev(`loadState(${JSON.stringify(before)});WorkflowUI.go('station')`);
+ h.ev('device("active_gm_hgd").publishedGain.forwardBand[0]=55;device("active_gm_hgd").publishedGain.reverseBand[1]=41;StationView.render()');assert.match(words(h,'[data-station-split]'),/41\/55/,'catalog correction refreshes informational banner');h.ev(`loadState(${JSON.stringify(before)});WorkflowUI.go('station')`);
  assert.equal(h.ev('StationView.records(state).length'),1);assert.equal(h.ev('StationView.currentRecord().swept.done'),true);assert.equal(h.ev('StationView.currentRecord().swept.date'),'2026-11-10');assert.equal(control(h,'returns','referencePointTarget').value,'19');assert.deepEqual(h.json(`state.stationView.stations[${JSON.stringify(identity)}]`),before.stationView.stations[identity]);
 }));
 
@@ -93,12 +93,12 @@ test('Station targets retain first catalog matches, unknown-model omission and e
 test('Station target lookup reads current catalog objects and owners without changing saved results',withApp(h=>{
  open(h);forward(h,{measuredLow:'36.4',measuredHigh:'49.6',targetLow:'39',targetHigh:'49',pad:'6'});returns(h);
  const original=h.json('({record:StationView.currentRecord(),results:StationView.results(),records:StationView.records(state)})');
- h.ev(`(()=>{const d=device('active_gm_gan_hgd');catalog.devices=[...catalog.devices,{...d,label:'SYNTH LATER DUPLICATE',retired:true,publishedGain:{...d.publishedGain,forwardBand:[258,1794],reverseBand:[5,204]}}];})()`);
+ h.ev(`(()=>{const d=device('active_gm_hgd');catalog.devices=[...catalog.devices,{...d,label:'SYNTH LATER DUPLICATE',retired:true,publishedGain:{...d.publishedGain,forwardBand:[258,1794],reverseBand:[5,204]}}];})()`);
  assert.deepEqual(h.json('({record:StationView.currentRecord(),results:StationView.results(),records:StationView.records(state)})'),original,'a later duplicate leaves saved outputs and binding unchanged');
  assert.equal(original.results.forward.catalog.eq.to,4.5);assert.equal(original.results.forward.catalog.pad.to,7);assert.equal(original.results.returns.requiredInjection.value,39);
- h.ev(`device('active_gm_gan_hgd').label='SYNTH IN-PLACE';device('active_gm_gan_hgd').publishedGain.forwardBand=[55,999]`);
+ h.ev(`device('active_gm_hgd').label='SYNTH IN-PLACE';device('active_gm_hgd').publishedGain.forwardBand=[55,999]`);
  let target=h.json('StationView.targets().find(t=>t.key==="r1")');assert.match(target.label,/SYNTH IN-PLACE/);assert.deepEqual(target.forwardBand,[55,999]);
- h.ev(`catalog.devices=catalog.devices.map(d=>d.id==='active_gm_gan_hgd'?{...d,label:'SYNTH REPLACEMENT',publishedGain:{...d.publishedGain,forwardBand:[54,1002]}}:d)`);
+ h.ev(`catalog.devices=catalog.devices.map(d=>d.id==='active_gm_hgd'?{...d,label:'SYNTH REPLACEMENT',publishedGain:{...d.publishedGain,forwardBand:[54,1002]}}:d)`);
  target=h.json('StationView.targets().find(t=>t.key==="r1")');assert.match(target.label,/SYNTH REPLACEMENT/);assert.deepEqual(target.forwardBand,[54,1002]);
  assert.deepEqual(h.json('StationView.results()'),original.results,'replacement catalog values restore identical math');
  const other=h.json(`(()=>{const owner=loadState({version:1,setup:{...defaultSetup,sourceType:'active',sourceModel:'active_aoi_hgd',sourceAsset:'SYNTH OTHER'},rows:[{id:'r1',name:'SYNTH OTHER ROUTE',parent:'source',device:'active_aoi_le'}]},false,true);return {targets:StationView.targets(owner).map(({holder,...t})=>t),record:StationView.currentRecord(owner)};})()`);

@@ -127,6 +127,6 @@ const eq = (a, b, label) => { assert.deepEqual(a, b, label); comparisons++; };
   });
 
   console.log(`Build3 high split: ${cases.length} checks passed (${comparisons} comparisons with the independent reference)`);
-  fs.writeFileSync('qa/build3-highsplit-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, comparisons, cases, scope: 'App data against the independent reference built by highsplit-reference.py in research/build3 (Python decimal), plus the rendered screen, the registry rows and the saved-job format. Synthetic nothing: no input, no storage.' }, null, 1) + '\n');
+  fs.writeFileSync('qa/build3-highsplit-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, comparisons, cases, scope: 'App data against the independent reference built by highsplit-reference.py in research/build3 (Python decimal), plus the rendered screen, the registry rows and the saved-job format. Synthetic nothing: no input, no storage.' }, null, 1) + '\n');
   h.close();
 })().catch(e => { console.error(e); process.exit(1); });

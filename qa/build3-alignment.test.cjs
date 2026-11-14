@@ -81,14 +81,14 @@ const base = { lowMHz: 54, highMHz: 1002, targetLow: 35, targetHigh: 46 };
     assert(json(`Alignment.checkProfile(${JSON.stringify({ ...SYNTH, pads: { values: [0, 2, 1] } })})`).includes('pads must be ascending nonnegative numbers'));
   });
 
-  await check('Every sourced profile passes its structure check, names real non-retired actives and keeps its provenance', () => {
+  await check('Every sourced profile passes its structure check, names real actives and keeps its provenance', () => {
     const profiles = json('Alignment.PROFILES'), actives = json('catalog.devices.filter(d=>d.active).map(d=>[d.id,!!d.retired])');
     for (const p of profiles) {
       assert.deepEqual(json(`Alignment.checkProfile(Alignment.PROFILES.find(p=>p.id===${JSON.stringify(p.id)}))`), [], p.id);
-      for (const id of p.equipmentIds) { const a = actives.find(x => x[0] === id); assert(a, p.id + ' names catalog active ' + id); assert.equal(a[1], false, id + ' is not retired'); }
+      for (const id of p.equipmentIds) { const a = actives.find(x => x[0] === id); assert(a, p.id + ' names catalog active ' + id); assert.equal(a[1], id==='active_gm_gan_hgd', id + ' has its expected legacy status'); }
       assert(/^(manufacturer-primary|manufacturer-mirror)$/.test(p.sourceStatus), p.id + ' source status');
     }
-    const ids = profiles.flatMap(p => p.equipmentIds); assert.equal(new Set(ids).size, ids.length, 'one profile per model');
+    const ids = profiles.flatMap(p => p.equipmentIds); assert.equal(new Set(ids).size, ids.length, 'one profile per model');assert(ids.includes('active_gm_gan_hgd'),'legacy GaN profile remains available for saved records');for(const id of ['active_gm_hgd','active_gm_hgbt','active_gm_le_manual','active_gm_le_thermal','active_gm_le_agc'])assert(actives.some(a=>a[0]===id&&!a[1]),id+' remains available for new work');
   });
 
   await check('GainMaker hand-worked cases match the LibreOffice-recalculated spreadsheet: balanced, high tilt and low level per family', () => {
@@ -206,6 +206,6 @@ const base = { lowMHz: 54, highMHz: 1002, targetLow: 35, targetHigh: 46 };
     assert.deepEqual(json('state'), before); assert.equal(w.localStorage.getItem('hfc-route-v1'), saved);
   });
 
-  fs.writeFileSync('qa/build3-alignment-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, cases, scope: 'Solver logic with a synthetic test fixture, sourced-profile structure and the calculator card in JSDOM. Not a field alignment.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-alignment-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, cases, scope: 'Solver logic with a synthetic test fixture, sourced-profile structure and the calculator card in JSDOM. Not a field alignment.' }, null, 2) + '\n');
   console.log(`Build3 alignment: ${cases.length} checks passed`);
 })().catch(error => { console.error(error); process.exit(1); });

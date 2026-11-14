@@ -126,7 +126,8 @@ const SweepSetup=(()=>{
   panel.innerHTML=`<div class="sectionhead"><div><h2>Sweep setup</h2><p class="note tight">Two field workflows. Each keeps its own settings and notes with this job.</p></div><button type="button" data-sweep-export>Export setup notes</button></div>
    ${owner.job?.training==='guided-1.5'?'<p class="status warning">SYNTHETIC TRAINING JOB: all readings, notes and snapshots are practice data, not field measurements or acceptance.</p>':''}
    <div class="sweep-split-switch" role="group" aria-label="Plant split">${splits.map(id=>`<button type="button" data-sweep-split="${id}" aria-pressed="${id===split}"><strong>${definitions[id].label}</strong><span>${escape(definitions[id].reverse)}</span></button>`).join('')}</div>
-   <div class="sweep-method-summary"><span class="eyebrow">${escape(g.title||definitions[split].label)}</span><p>${escape(g.summary||'')}</p><p class="note">${escape(definitions[split].forward)} · ${escape(definitions[split].reverse)}</p></div>
+   ${split==='42'&&typeof CompanyTargets!=='undefined'?CompanyTargets.txMarkup():''}<div class="sweep-method-summary"><span class="eyebrow">${escape(g.title||definitions[split].label)}</span><p>${escape(g.summary||'')}</p><p class="note">${escape(definitions[split].forward)} · ${escape(definitions[split].reverse)}</p></div>
+   <p class="note" data-gainmaker-sweep-reference>GainMaker standard return 42 / 204 MHz parts and forward 1 / 1.2 GHz cable EQs are documented in <button type="button" data-task="references">Tools → References: EQ catalog</button>. Standard 204 MHz has known endpoint losses only; intermediate response is unknown. This catalog does not establish installed module, split or slot compatibility, injection/receiver planes, or an automatic return part recommendation. AOI electronic adjustments use their installed-model procedure.</p>
    <details class="sweep-settings" data-sweep-section="profile"${open.has('profile')?' open':''}><summary>Plant, equipment and reference</summary><div class="sweep-fields">
     ${field('station',p)}${field('leg',p)}${field('equipment',p)}
     <label>Alignment procedure<select data-sweep-field="method">${Object.entries(methods).filter(([id])=>split==='204'||id!=='aoi').map(([id,label])=>selection(id,label,p.method)).join('')}</select></label>
@@ -184,7 +185,7 @@ const SweepSetup=(()=>{
  }
  function exportText(source=ownState(),split){
   const data=normalized(source.sweepSetup),id=splits.includes(split)?split:data.selected,p=data.profiles[id],g=guide(id);
-  return ['Carpe Noctum 2.0 Alpha build 3 · Sweep setup',...(source.job?.training==='guided-1.5'?['SYNTHETIC TRAINING JOB: all readings and findings are practice data, not field measurements or acceptance.']:[]),definitions[id].label,definitions[id].forward+' / '+definitions[id].reverse,'Technician-entered setup record. Checked steps are not RF acceptance.','',reportText(source),'','Selected procedure:',methodNote(p,id),'',...((g.steps||[]).flatMap((step,i)=>[(i+1)+'. '+step.title,plain(step.body),''])),'Sources:',...(g.sources||[]).map(s=>s.label+' — '+s.url),'','No ONX or XPERTrak connection is made by Carpe Noctum. Preserve original meter files with the job.'].join('\n');
+  return ['Carpe Noctum 2.0 Alpha build 4 · Sweep setup',...(source.job?.training==='guided-1.5'?['SYNTHETIC TRAINING JOB: all readings and findings are practice data, not field measurements or acceptance.']:[]),definitions[id].label,definitions[id].forward+' / '+definitions[id].reverse,'Technician-entered setup record. Checked steps are not RF acceptance.','',reportText(source),'','Selected procedure:',methodNote(p,id),'',...((g.steps||[]).flatMap((step,i)=>[(i+1)+'. '+step.title,plain(step.body),''])),'Sources:',...(g.sources||[]).map(s=>s.label+' — '+s.url),'','No ONX or XPERTrak connection is made by Carpe Noctum. Preserve original meter files with the job.'].join('\n');
  }
  function saveSnapshot(){
   const data=draft(),p=data.profiles[data.selected];
@@ -194,7 +195,7 @@ const SweepSetup=(()=>{
   const status=document.getElementById('sweepExportStatus');if(status)status.textContent=exportStatus;return false;
  }
  async function exportNotes(){
-  const data=draft(),filename='CarpeNoctum_2.0_Alpha_build_3_'+data.selected+'MHz_Setup.txt',body=exportText();
+  const data=draft(),filename='CarpeNoctum_2.0_Alpha_build_4_'+data.selected+'MHz_Setup.txt',body=exportText();
   try{if(!window.NightSweepAndroid?.saveFile&&window.BrowserFiles)await window.BrowserFiles.prepare(filename,body,'text/plain');else download(filename,body,'text/plain');exportStatus='Setup notes prepared. Complete the save / download action.';}catch(e){exportStatus='Could not prepare setup notes: '+e.message;}
   const status=document.getElementById('sweepExportStatus');if(status)status.textContent=exportStatus;
  }

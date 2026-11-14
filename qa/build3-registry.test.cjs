@@ -220,6 +220,6 @@ function assertResolves(tags) {
     assert.deepEqual(Object.keys(w.localStorage).sort(), keys, 'no new storage keys');
   });
 
-  fs.writeFileSync('qa/build3-registry-results.json', JSON.stringify({ version: '2.0 Alpha build 3', count: cases.length, rows: rows().length, cases, scope: 'JSDOM registry structure, tag resolution across rendered screens, source sheet and company-value resolution. No browser pixel or device claim.' }, null, 2) + '\n');
+  fs.writeFileSync('qa/build3-registry-results.json', JSON.stringify({ version: '2.0 Alpha build 4', count: cases.length, rows: rows().length, cases, scope: 'JSDOM registry structure, tag resolution across rendered screens, source sheet and company-value resolution. No browser pixel or device claim.' }, null, 2) + '\n');
   console.log(`Build3 registry: ${cases.length} checks passed`);
 })().catch(error => { console.error(error); process.exit(1); });
