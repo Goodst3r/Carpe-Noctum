@@ -185,6 +185,9 @@ function nearly(text, values) {
       const room = tomb.anchor.x + width + 18 * scale <= view.width;
       const beside = room ? tomb.anchor.x + 12 * scale : tomb.anchor.x - width - 12 * scale;
       eq(tomb.x, beside, tomb.symbolId + ' adjacent x');
+      const expectedY = Math.max(6 * scale,
+        Math.min(view.height - tomb.height - 6 * scale, tomb.anchor.y - tomb.height / 2));
+      eq(tomb.y, expectedY, tomb.symbolId + ' vertically centered on symbol (clamped)');
       if (tomb.y < 0 || tomb.x < 0 || tomb.x + tomb.width > view.width + 1e-6 || tomb.y + tomb.height > view.height + 1e-6) {
         throw new Error(tomb.symbolId + ' tombstone is outside the rotated crop viewport.');
       }

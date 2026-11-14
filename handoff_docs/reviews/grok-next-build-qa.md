@@ -26,7 +26,7 @@ Worktree `/tmp/carpe-candidate`, `NODE_OPTIONS=--max-old-space-size=4096`, `NIGH
 | `node qa/carpe-next-nav-legacy.test.cjs` | 0 | 45 |
 | `node qa/carpe-next-rf.test.cjs` | 0 | 67 |
 | `node qa/carpe-next-onx.test.cjs` | 0 | 34 |
-| `python3 qa/carpe-next-pdf.test.py` | 0 | 18 Python, plus 30 inside the bridge |
+| `python3 qa/carpe-next-pdf.test.py` | 0 | 18 Python, plus 32 inside the bridge |
 
 Logs:
 
@@ -48,8 +48,8 @@ PASS original markup text is on the page
 PASS source has one text annotation
 PASS annotation contents preserved on the source
 PASS generator did not write PDFs into the checkout
-PASS NightSweepMapPDF plan/export on frozen page (30 bridge checks)
-{"checks":30,"matrix":[0,1,-1,0,760,36],"marker":"SYNTHETIC ORIGINAL MARKUP","annotation":"Existing annotation"}
+PASS NightSweepMapPDF plan/export on frozen page (32 bridge checks)
+{"checks":32,"matrix":[0,1,-1,0,760,36],"marker":"SYNTHETIC ORIGINAL MARKUP","annotation":"Existing annotation"}
 PASS bridge executed frozen-page checks
 PASS exported page keeps /Rotate 90
 PASS exported page keeps the distinct nonzero CropBox
@@ -96,7 +96,11 @@ Not asserted: disappearance of the sample three-tap example route, screenshot la
 
 `qa/fixtures/carpe-next/generate_pdfs.py` uses public ReportLab only. `Canvas(..., invariant=1, pdfVersion=(1,4))`, `setPageRotation(90)`, and `setCropBox((36, 36, 760, 580))`. It writes only into a caller temp directory. `__main__` uses `tempfile` and does not leave a PDF in the checkout. Two directories hash equal. pypdf reads `/Rotate` 90, a CropBox distinct from the rotated MediaBox with a nonzero origin, the marker `SYNTHETIC ORIGINAL MARKUP`, and one annotation whose contents are `Existing annotation`.
 
-`qa/carpe-next-pdf-bridge.cjs` then calls frozen `NightSweepMapPDF.plan` and `exportPDF` twice. Confirmed active `ACT1` and terminal `EOL1` are tombstones on page 1. Proposed unconfirmed `SKIP` is skipped. The active tombstone includes both main and aux lines; the EOL tombstone says End of line and does not include the aux line. Adjacent x is the anchor plus `12 * scale` when the box fits. Repeat export bytes match. Original `Uint8Array` and owner JSON are unchanged. Exported page keeps rotation 90, the same CropBox, and the annotation text. The content stream contains `0 1 -1 0 760 36 cm`, the inverse of the PDF.js 5.4.624 viewport copied from `night-sweep/vendor/map/pdf.js` for CropBox viewBox, rotation 90, userUnit 1, scale 1.
+`qa/carpe-next-pdf-bridge.cjs` then calls frozen `NightSweepMapPDF.plan` and `exportPDF` twice. Confirmed active `ACT1` and terminal `EOL1` are tombstones on page 1. Proposed unconfirmed `SKIP` is skipped. The active tombstone includes both main and aux lines; the EOL tombstone says End of line and does not include the aux line. Adjacent x is the anchor plus `12 * scale` when the box fits. For each of those tombstones, y is compared with the unclamped centering formula computed in the test from its own viewport, not copied from `tomb.y`:
+
+`y = max(6*scale, min(view.height - tomb.height - 6*scale, tomb.anchor.y - tomb.height/2))`
+
+`eq` already counts the check and accepts a numeric difference of at most `1e-6`, so the follow-up does not add a second `checks += 1`. That is why the bridge reports 32 checks, two more than the previous 30. Repeat export bytes match. Original `Uint8Array` and owner JSON are unchanged. Exported page keeps rotation 90, the same CropBox, and the annotation text. The content stream contains `0 1 -1 0 760 36 cm`, the inverse of the PDF.js 5.4.624 viewport copied from `night-sweep/vendor/map/pdf.js` for CropBox viewBox, rotation 90, userUnit 1, scale 1.
 
 JSDOM has no `URL.createObjectURL`, so the bridge evals the page's packed `pdf-lib.js` onto `window.PDFLib`. Production `writer()` uses that global before it tries a blob URL. This is the packed asset, not a reimplementation of `plan` or `exportPDF`.
 
@@ -113,6 +117,18 @@ Production path, not a hand-built array swap: `EvidenceUI.importFiles`, `verifie
 - Autosave strips the cached OneCheck preview back to an attachment. `verifiedParse` rebuilds the three channel rows. Portable import keeps every replaced point, the other port's frequencies, and the original checksum.
 
 JSDOM 26 `Blob` has no `arrayBuffer`. The suite patches `Blob.prototype.arrayBuffer` from the jsdom buffer, then calls the production importer. Returned arrays are JSON-round-tripped before `node:assert` because JSDOM arrays fail `deepEqual` across realms.
+
+## Vertical placement follow-up
+
+Claude's review showed the bounds check still passed after shifting tombstone `y` by +30. The bridge now asserts the production centering formula from `night-sweep/map-pdf.js` (no saved position).
+
+Mutation, scratch copy of `outputs/Night_Sweep.html` only, then restored:
+
+- Replaced the one `tombstones.push({...,x,y,` with `x,y:y+30,`.
+- `python3 qa/carpe-next-pdf.test.py` exit **1**.
+- Failure: `ACT1 vertically centered on symbol (clamped) expected 76 got 106`.
+
+HTML SHA-256 before the mutation, after restore, and after the four unmutated suites: `063abc77c877365be40de796ff6a6d23e4522cb4056c53054d6c96085ede6594`. Unmutated exits on that restored file: nav 0 (45), RF 0 (67), ONX 0 (34), PDF 0 (18 Python + 32 bridge). No PDFs left under `qa/fixtures/carpe-next/`. `qa/fixtures/carpe-next/README.md` does not state check counts, so it was not edited. Production sources were not changed.
 
 ## Defects
 
