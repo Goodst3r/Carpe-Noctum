@@ -159,6 +159,16 @@ const EvidenceUI = (() => {
         const oldId=meta.id;meta.id=newId();mapping.set(oldId,meta.id);
         records.push({id:meta.id,bytes:bytes.buffer});
       }
+      if(clean.portSweeps!==undefined){
+        const errors=PortSweeps.validate(clean);if(errors.length)throw Error(errors.join(' '));
+        for(const record of Object.values(clean.portSweeps)){
+          const newId=mapping.get(record.evidenceId),meta=metadata.find(m=>m.id===newId);
+          if(!meta||meta.kind!=='Sweep'||meta.sha256.toLowerCase()!==record.sha256)throw Error('Port sweep original is missing or does not match its recorded checksum.');
+          const rebuilt=PortSweeps.prepare(meta.parse,{...record,evidenceId:newId,sha256:meta.sha256});
+          if(JSON.stringify(rebuilt.points)!==JSON.stringify(record.points))throw Error('Port sweep points do not match the verified original.');
+          record.evidenceId=newId;
+        }
+      }
       if(typeof SweepGradingUI!=='undefined')SweepGradingUI.remapEvidence(clean,mapping);
       delete clean.evidenceFiles;ensureOwner(owner);await putFiles(records);ensureOwner(owner);return clean;
     }finally{busy=false;render();}

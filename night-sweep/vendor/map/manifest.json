@@ -3,8 +3,8 @@
   "files": [
     {
       "name": "NOTICE.txt",
-      "bytes": 99262,
-      "sha256": "14919433b71de237a495978dbc150b52562624dae1afdda164fcc6fe7c8e8d49"
+      "bytes": 100382,
+      "sha256": "c594bd396cd47352a35c89c4e9aef1d068b7acb3c4495a84e36e7f895e2622e6"
     },
     {
       "name": "pdf.js",
@@ -30,6 +30,11 @@
       "name": "eng.traineddata.gz",
       "bytes": 2952873,
       "sha256": "45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91"
+    },
+    {
+      "name": "pdf-lib.js",
+      "bytes": 525099,
+      "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
     }
   ]
 }

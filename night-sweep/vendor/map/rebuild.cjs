@@ -38,7 +38,9 @@ fs.copyFileSync(
   path.join(nm, "@tesseract.js-data/eng/4.0.0_best_int/eng.traineddata.gz"),
   path.join(root, "eng.traineddata.gz"),
 );
+fs.copyFileSync(path.join(nm, "pdf-lib/dist/pdf-lib.min.js"), path.join(root,"pdf-lib.js"));
 for (const [src, out] of [
+  ["pdf-lib/LICENSE.md", "LICENSE-pdf-lib.txt"],
   ["pdfjs-dist/LICENSE", "LICENSE-pdfjs.txt"],
   ["tesseract.js/LICENSE.md", "LICENSE-tesseract.txt"],
   ["tesseract.js-core/LICENSE", "LICENSE-tesseract-core.txt"],
@@ -47,7 +49,7 @@ for (const [src, out] of [
 ])
   fs.copyFileSync(path.join(nm, src), path.join(root, out));
 const notices = [
-  "Offline map recognition: PDF.js 5.4.624; Tesseract.js/core 7.0.0; English data 1.0.0. Source URLs and checksums are in the source distribution.\n",
+  "Offline map recognition and update: pdf-lib 1.17.1; PDF.js 5.4.624; Tesseract.js/core 7.0.0; English data 1.0.0. Source URLs and checksums are in the source distribution.\n",
   ...fs
     .readdirSync(root)
     .filter((n) => n.startsWith("LICENSE-"))
@@ -60,6 +62,7 @@ fs.writeFileSync(path.join(root, "NOTICE.txt"), notices);
 const files = [
   "NOTICE.txt",
   "pdf.js",
+  "pdf-lib.js",
   "pdf-worker.js",
   "ocr.js",
   "ocr-worker.js",

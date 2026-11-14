@@ -114,7 +114,7 @@
     const candidates = document.candidates || [],
       launch = candidates.find((c) => c.id === selection.launchId);
     if (!launch) throw Error("Choose a recognized launch.");
-    if (launch.kind === "passive")
+    if (["passive","terminal"].includes(launch.kind))
       throw Error("Choose a node or active as the launch, not a passive.");
     if (launch.status === "absent")
       throw Error("An absent station cannot be the launch.");
@@ -317,12 +317,13 @@
         device: c.device || "none",
         customLoss: "",
         customCable: "",
-        terminal: false,
+        terminal: c.kind==='terminal',
         mapImport: {
           sourceId: document.source.id,
           page: c.page,
           tag: c.tag || "",
           kind: c.kind,
+          symbolId:c.symbolId||c.id,exactName:c.name,schedulePage:c.schedulePage||c.page,positionConfirmed:false,
           installedModel: c.installedModel || "",
           modelConfirmed: false,
           connectionConfirmed: false,
@@ -349,6 +350,7 @@
         status: launch.status || "draft",
         confirmed: false,
         sourceId: document.source.id,
+        page:launch.page,position:{x:launch.x,y:launch.y},symbolId:launch.symbolId||launch.id,exactName:launch.name,positionConfirmed:false,
       },
       source: document.source,
       reviewItems: rows.map((r) => ({
@@ -517,7 +519,7 @@
           tag,
           installedModel,
           device: model(installedModel),
-          kind: /SPLIT|TAP|COUPLER|PASSIVE|\d-WAY/i.test(
+          kind: /\bEOL\b|END[- ]OF[- ]LINE/i.test(installedModel + ' ' + name) ? 'terminal' : /SPLIT|TAP|COUPLER|PASSIVE|\d-WAY/i.test(
             installedModel + " " + name,
           )
             ? "passive"
@@ -531,6 +533,7 @@
         });
       }
     }
+    page.scheduleBounds = header ? {left:Math.min(...header.tokens.map(t=>t.x))-5,right:Math.max(...lines.filter(l=>l.y>=header.y&&l.y<=scheduleEnd).flatMap(l=>l.tokens.map(t=>t.x+t.w)))+5,top:header.y-5,bottom:scheduleEnd+5} : null;
     const usedTokens = new Set();
     for (const c of candidates) {
       const found = allLines.find(
@@ -655,6 +658,31 @@
     page.cableLabels = cableLabels;
     page.text = lines.map((l) => l.text).join("\n");
     return candidates;
+  }
+  function analyzeDocument(pages) {
+    // Schedules and diagram pages are independent. Native identity is exact;
+    // OCR and repeated symbol occurrences still require explicit confirmation.
+    const schedules=pages.flatMap(analyze),result=[],keys=new Set();
+    for(const scheduled of schedules){
+      const key=scheduled.name+'\u0000'+scheduled.tag+'\u0000'+scheduled.installedModel;
+      if(keys.has(key))continue;keys.add(key);
+      const matches=[];
+      for(const page of pages){
+        const tokens=(page.nativeTokens?.length?page.nativeTokens:page.ocrTokens)||[],b=page.scheduleBounds;
+        const outside=t=>!b||t.x+t.w<b.left||t.x>b.right||t.y+(t.h||0)<b.top||t.y>b.bottom;
+        for(const token of tokens.filter(t=>outside(t)&&(t.text===scheduled.tag||t.text===scheduled.name))){
+          const p={x:token.x+token.w/2,y:token.y+(token.h||12)/2};let at=p,gap=Infinity;
+          for(const segment of page.segments||[]){const q=projection(p,segment),d=distance(p,q);if(d<gap){gap=d;at=q;}}
+          // NAME and TAG beside the same symbol count as one occurrence.
+          if(matches.some(m=>m.page===page.number&&distance(m,at)<15))continue;
+          const id='p'+page.number+'s'+result.length+'m'+matches.length;
+          matches.push({...scheduled,id,symbolId:id,schedulePage:scheduled.page,page:page.number,x:at.x,y:at.y,positionReadable:gap<110,exactName:scheduled.name,positionConfirmed:false});
+        }
+      }
+      if(!matches.length)result.push({...scheduled,schedulePage:scheduled.page,exactName:scheduled.name,positionReadable:false,positionConfirmed:false,positionReason:'No exact diagram symbol match; confirm the map location before PDF updates.'});
+      else for(const m of matches)result.push({...m,...(matches.length>1?{positionReason:'Repeated diagram identity: confirm this physical symbol and page.'}:{})});
+    }
+    return result;
   }
   function rasterSegments(canvas, tokens) {
     const ctx = canvas.getContext("2d", { willReadFrequently: true }),
@@ -883,6 +911,7 @@
           const ocrTokens = await recognize(canvas, ocr.worker);
           pages.push({
             number,
+            pdf:{viewBox:Array.from(p.view),rotation:p.rotate,userUnit:p.userUnit,viewportTransform:Array.from(viewport.transform),width:viewport.width,height:viewport.height},
             width: canvas.width,
             height: canvas.height,
             nativeTokens,
@@ -934,7 +963,9 @@
         });
         canvas.width = canvas.height = 1;
       }
-      const candidates = pages.flatMap(analyze);
+      const candidates = analyzeDocument(pages);
+      source.type=ext==='pdf'?'application/pdf':'image/'+ext;
+      source.pages=pages.map(p=>({number:p.number,width:p.width,height:p.height,pdf:p.pdf||null}));
       if (candidates.length > LIMITS.candidates)
         throw Error(
           "Map has more than 200 recognized points. Split it into smaller sections.",
@@ -1090,7 +1121,7 @@
         destinations.append(legend);
         for (const c of current.candidates) {
           if (c.status === "absent") continue;
-          if (c.kind !== "passive" && c.status !== "proposed")
+          if (!["passive","terminal"].includes(c.kind) && c.status !== "proposed")
             launch.append(
               el("option", c.name + " · " + c.tag, { value: c.id }),
             );
@@ -1177,6 +1208,7 @@
   }
   root.NightSweepMapImport = Object.freeze({
     read,
+    analyzeDocument,
     buildDraft,
     mount,
     limits: LIMITS,

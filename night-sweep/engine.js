@@ -188,9 +188,12 @@ const HFC = (() => {
  // Gain feasibility is independent of a manufacturer's distortion/output rating.
  // Configured gains establish gain headroom; a published scalar is screening only.
  function gainBudget(state,catalog,options={}) {
-  const row=state?.rows?.find(r=>r.id===options.rowId),device=row&&catalog?.devices?.find(d=>d.id===row.device);
+  let row=state?.rows?.find(r=>r.id===options.rowId);const device=row&&catalog?.devices?.find(d=>d.id===row.device);
   const fail=error=>({status:'invalid',gainStatus:'invalid',assessmentStatus:'invalid',outputStatus:'unknown',error,low:null,high:null,publishedReference:null,referenceHighMargin:null});
   if(!row||!device?.active)return fail('Choose an active route point for the gain check.');
+  const legId=options.legId||'main',portId=legId==='main'?'through':legId;
+  if(!portsFor(device,row).some(p=>p.id===portId))return fail('Choose a supported physical output leg.');
+  if(portId!=='through'){const leg=row.workbench?.legGain?.[legId]||{};row={...row,activeMode:'anchors',gainLowF:leg.lowF,gainHighF:leg.highF,gainLow:leg.low,gainHigh:leg.high,outputLoss:leg.loss??0,targetLow:leg.targetLow??'',targetHigh:leg.targetHigh??'',outputLimitLow:leg.limitLow,outputLimitHigh:leg.limitHigh};}
   const reserve=number(options.reserve??row.reserve??3),outputLoss=number(row.outputLoss??0);
   if(reserve===null||reserve<0)return fail('Enter a nonnegative gain reserve.');
   if(outputLoss===null||outputLoss<0)return fail('Enter a nonnegative selected-output loss.');
@@ -228,7 +231,7 @@ const HFC = (() => {
   if(aboveTargetLimit)warnings.push('Desired output exceeds an entered output limit.');
   if(aboveConfiguredLimit)warnings.push('Output predicted from the entered gain exceeds an entered output limit; reduce the configured gain or output target.');
   if(!complete)warnings.push('Enter valid gain at both route frequencies to assess configured gain headroom. Published gain is reference screening only.');
-  return {status:gainStatus,gainStatus,assessmentStatus,outputStatus,error:'',rowId:row.id,reserve,minimumMargin,low:bands.low,high:bands.high,publishedReference,referenceHighMargin,aboveTargetLimit,aboveConfiguredLimit,warnings};
+  return {status:gainStatus,gainStatus,assessmentStatus,outputStatus,error:'',rowId:row.id,legId,reserve,minimumMargin,low:bands.low,high:bands.high,publishedReference,referenceHighMargin,aboveTargetLimit,aboveConfiguredLimit,warnings};
  }
  function grid(start,end,extra=[]){const a=number(start),b=number(end);if(a===null||b===null||a<5||b<=a||b>1800)return[];return [...new Set([a,b,...Array.from({length:121},(_,i)=>a+(b-a)*i/120),...extra.map(number).filter(x=>x!==null&&x>=a&&x<=b)])].sort((a,b)=>a-b);}
  function dcSegment(cable,row,temperatureF=68,resistanceAlpha=0.004){
