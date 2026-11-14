@@ -39,7 +39,7 @@ const WorkflowUI=(()=>{
   docsisHealth:['tools','Check DOCSIS levels','Compare a modem or meter reading with the DOCSIS requirements and your own window. Nothing is read from a modem.'],
   limits:['tools','Check a limit or its source','Limits, targets and formulas behind the field tools and job criteria, labeled spec, expert, company or unknown.'],
   power:['plan','Check the power load','Build the actual power circuit and review supply draw and equipment voltage.'],
-  powerPm:['plan','Record a supply PM check','Record what you saw at a standby supply and estimate span voltage drop from the cable catalog. A notebook on this device, not the company record and not part of the job.'],
+  powerPm:['tools','Calculate span voltage drop','Estimate span voltage drop from the cable catalog and entered current.'],
   trial:['plan','Try an added power load','Test extra cable and current before adding it to the power circuit.'],
   projects:['plan','Manage this job','Name the job and record its node. It saves to the job list on this device as you work.'],
   evidence:['plan','Attach meter files','Keep original meter files and grade eligible sweeps against explicitly entered company criteria.'],

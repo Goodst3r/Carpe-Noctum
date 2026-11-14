@@ -16,3 +16,15 @@ test('calculator starts without creating a job; route is directly reachable; Fie
   assert.deepEqual(app.errors,[]);
  }finally{app.close();}
 });
+test('voltage drop belongs to Tools and dB unit practice opens its standalone calculator',()=>{
+ const app=bootApp();try{
+  app.ev("WorkflowUI.go('powerPm')");
+  assert.equal(app.d.querySelector('[data-main-tab="tools"]').getAttribute('aria-current'),'page');
+  assert.equal(app.d.querySelector('#task-tab-powerPm').getAttribute('aria-selected'),'true');
+  assert.equal(app.d.querySelector('#powerPmCurrent').closest('[hidden]'),null, 'voltage calculator is available');
+  assert(app.d.querySelector('#powerPmBookTitle').closest('[hidden]'), 'retired notebook is hidden');
+  const feature=app.json('TrainingJob.features.find(f=>f.id==="db-units")');
+  assert.equal(feature.task,'calculators');
+  assert.equal(feature.control,'[data-calc="db"][data-field="value"]');
+ }finally{app.close();}
+});

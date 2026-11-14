@@ -31,7 +31,7 @@ An APK is accepted into the release only after real compilation and manifest, or
 
 Do this in the app, browser or icon that currently contains your work, before an update, phone change, browser change or transfer. Keep one NightSweep window open while editing a job.
 
-1. Open the job you need. Under **Plan → Details**, check its name and route. Review records and **Field → ONX files** for its original attachments.
+1. Open the job you need. Under **Route & sweep → Details**, check its name and route. Review records and **Route & sweep → ONX files** for its original attachments.
 2. Choose **Files → Back up project**. In the build 2 interface, **Home → Back up project** opens the same backup action. Export each important job separately; the current-job export is not an archive of every named job.
 3. If **Your file is ready** appears, tap **Save/share file** and finish the phone's save action. On iPhone/iPad, choose **Save to Files** when offered. Alternatively use **Download file** and locate the browser download. On an APK, finish Android's document-save picker.
 4. Find the resulting `.json` file outside NightSweep, in Files/My Files, Downloads or your selected folder. A build 2 export normally starts as `NightSweep_1.8_Alpha_build_2_Project.json`; older versions use their own filename. Give each job/date copy a recognizable name. A prepared file or sharing message alone does not prove that the file was saved.
@@ -73,10 +73,10 @@ The icon is added on that device; it does not automatically copy jobs to another
 1. Export the destination app's current work first. Keep the original app and external backup available during the transfer.
 2. Put the full project `.json` on the destination phone using an approved transfer method. Make the file locally available if its folder is cloud-backed.
 3. Open the destination NightSweep app/browser/icon and choose **Files → Open project**. In build 2, **Home → Open project backup** reaches the same picker. Select the JSON file and review any replacement confirmation.
-4. Verify the job name, route, readings, records and notes. Under **Field → ONX files**, confirm the expected original attachments. Use **Verify saved files**, then **Save original** on an attachment to check that original bytes remain available. A filename typed in a record alone does not attach its original file.
-5. Save the restored job under **Plan → Details → Save now**. Keep the external full project backup as a separate recovery copy.
+4. Verify the job name, route, readings, records and notes. Under **Route & sweep → ONX files**, confirm the expected original attachments. Use **Verify saved files**, then **Save original** on an attachment to check that original bytes remain available. A filename typed in a record alone does not attach its original file.
+5. Save the restored job under **Route & sweep → Details → Save now**. Keep the external full project backup as a separate recovery copy.
 
-**Open project** restores a NightSweep project JSON. To add meter files or photographs to an existing job, use **Field → ONX files → Add meter files or photos** instead. In build 2, limits are 8 MiB per attachment, 12 MiB of originals and 30 attachments per job, with a 20 MiB project-file limit. If a limit blocks an operation, retain the originals and export manageable jobs separately.
+**Open project** restores a NightSweep project JSON. To add meter files or photographs to an existing job, use **Route & sweep → ONX files → Add meter files or photos** instead. In build 2, limits are 8 MiB per attachment, 12 MiB of originals and 30 attachments per job, with a 20 MiB project-file limit. If a limit blocks an operation, retain the originals and export manageable jobs separately.
 
 Sharing/download cancellation does not save a backup. Return to the prepared-file panel and retry **Save/share file** or **Download file**; check the destination file yourself.
 

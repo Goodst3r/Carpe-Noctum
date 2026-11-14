@@ -28,7 +28,7 @@ Thread(target=server.serve_forever, daemon=True).start()
 checks, errors = [], []
 CASES = [
     ('projects', 'what-if', 'power', 'Load & what-if'),
-    ('sweepSetup', 'night log', 'nightLog', 'Night log'),
+    ('sweepSetup', 'station records', 'station', 'Station records'),
     ('calculators', 'fiber', 'fiber', 'Fiber'),
 ]
 

@@ -238,7 +238,7 @@ function screenLists(info, clean, label, failures) {
     if (!inventory) continue;
     if (!line.startsWith('|')) { inventory = false; continue; }
     if (/^\|\s*-+/.test(line)) continue;
-    const row = line.match(/^\|\s*(Home|Plan|Field|Tools|Closeout)\s*\|\s*([^|]+?)\s*\|/);
+    const row = line.match(/^\|\s*(Home|Route & sweep|Tools|Closeout)\s*\|\s*([^|]+?)\s*\|/);
     if (!row) continue;
     const tabs = info.subTabs.get(norm(row[1]));
     if (!tabs) { failures.push(`${label}: table row "${row[1]}" is not a main work area`); continue; }
@@ -277,12 +277,11 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     catch (error) { failed++; console.log('FAIL ' + name + '\n' + String(error.message).split('\n').slice(0, 80).join('\n')); }
   };
 
-  run('The app exposes the five main tabs and their sub-tabs the check relies on', () => {
-    assert.deepEqual([...info.mainLabels].sort(), ['closeout', 'field', 'home', 'plan', 'tools']);
-    assert.deepEqual([...info.subTabs.get('plan')], ['details', 'setup', 'route & sweep', 'amp / node setup', 'predicted levels', 'load & what-if', 'supply pm', 'sweep due']);
-    assert.deepEqual([...info.subTabs.get('field')], ['meter setup', 'station records', 'tdr', 'onx files', 'leakage', 'checklists', 'night log']);
-    assert.deepEqual([...info.subTabs.get('home')], ['home', 'outage']);
-    for (const [main, tab] of [['plan', 'amp / node setup'], ['field', 'meter setup'], ['plan', 'predicted levels'], ['closeout', 'acceptance'], ['tools', 'catalog']]) {
+  run('The app exposes the four main tabs and their sub-tabs the check relies on', () => {
+    assert.deepEqual([...info.mainLabels].sort(), ['closeout', 'home', 'route & sweep', 'tools']);
+    assert.deepEqual([...info.subTabs.get('route & sweep')], ['details', 'setup', 'route & sweep', 'amp / node setup', 'predicted levels', 'load & what-if', 'meter setup', 'station records', 'onx files']);
+    assert.deepEqual([...info.subTabs.get('home')], ['home']);
+    for (const [main, tab] of [['route & sweep', 'amp / node setup'], ['route & sweep', 'meter setup'], ['route & sweep', 'predicted levels'], ['closeout', 'acceptance'], ['tools', 'catalog']]) {
       assert(info.subTabs.get(main).has(tab), main + ' → ' + tab);
     }
     assert(info.universe.has('save now') && info.universe.has('back up project'));
@@ -310,7 +309,7 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     check('probe', info, 'In Named jobs on this device, practice Save now and Duplicate, then try the palette button in the header and Help & methods. You can tap Back up project.', lowerGood);
     assert.deepEqual(lowerGood, []);
     const good = [];
-    check('probe', info, 'Use Plan → Details → Save now, then Plan → Amp / node setup, then Files → Back up project.', good);
+    check('probe', info, 'Use Route & sweep → Details → Save now, then Route & sweep → Amp / node setup, then Files → Back up project.', good);
     assert.deepEqual(good, []);
   });
 
@@ -326,10 +325,10 @@ function check(label, info, text, failures, { verbs = true, allowed = new Map() 
     check('probe', info, header + '| Tools | Bogus | Synthetic |\n', bogus);
     assert(bogus.some(f => /bogus/.test(f)), bogus.join('\n'));
     const semi = [];
-    check('probe', info, header + '| Field | Night log; Not a screen | Synthetic |\n', semi);
-    assert(semi.some(f => /lists "not a screen"/.test(f)) && !semi.some(f => /lists "night log"/.test(f)), semi.join('\n'));
+    check('probe', info, header + '| Route & sweep | Station records; Not a screen | Synthetic |\n', semi);
+    assert(semi.some(f => /lists "not a screen"/.test(f)) && !semi.some(f => /lists "station records"/.test(f)), semi.join('\n'));
     const valid = [];
-    check('probe', info, header + '| Plan | Details; Amp / node setup; Load & what-if | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n| Field | Meter setup; Night log | ok |\n', valid);
+    check('probe', info, header + '| Route & sweep | Details; Amp / node setup; Meter setup | ok |\n| Tools | DOCSIS health; Proof of performance | ok |\n', valid);
     assert.deepEqual(valid, []);
     const form = [];
     check('probe', info, '| Field | What to enter |\n| --- | --- |\n| Source type | Node output, Amplifier / LE output, or Manual / other output |\n', form);

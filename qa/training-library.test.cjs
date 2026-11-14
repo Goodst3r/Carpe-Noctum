@@ -30,7 +30,8 @@ test('Practice library exposes seven identifiable loadable exercises and preserv
 
 test('Every task screen and important calculator subfeature has a seeded exercise and valid guide target',async()=>withApp(async h=>{
  const features=h.json('TrainingJob.features'),screenIds=h.json('Object.keys(WorkflowUI.screens)');
- for(const id of screenIds)assert(features.some(f=>f.id===id&&f.task===id),'Missing screen '+id);
+ for(const id of screenIds.filter(id=>!['leakage','checklists','nightLog','sweepDue','outage'].includes(id)))assert(features.some(f=>f.id===id&&f.task===id),'Missing screen '+id);
+ for(const id of ['leakage','checklists','nightLog','sweepDue','outage'])assert(!features.some(f=>f.task===id),'Retired practice '+id);
  for(const id of ['six-active-cascade','gain-table','gain-test-points','tap-drop','map-arithmetic','custom-tables','launch-table','reverse-tdr','available-carriers','oem-agc','dsim-pilot','manual-thermal','db-units','return-injection','evidence-comparison','backup-roundtrip'])assert(features.some(f=>f.id===id),'Missing subfeature '+id);
  assert.equal(new Set(features.map(f=>f.id)).size,features.length);
  assert.equal(h.d.querySelectorAll('#trainingFeatureSelect option').length,features.length);

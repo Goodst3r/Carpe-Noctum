@@ -238,7 +238,7 @@ const PowerPMUI=(()=>{
  function markup(){
   const cableOpts=['<option value="">Choose a cable</option>'].concat(cables().map(c=>`<option value="${escape(c.id)}">${escape(c.label)}${c.dc&&Number.isFinite(Number(c.dc.loop_ohm_per_1000ft))?'':' (no published loop resistance)'}</option>`)).join('');
   const activeOpts=['<option value="">No active picked</option>'].concat(actives().map(e=>`<option value="${escape(e.id)}">${escape(e.label)}</option>`)).join('');
-  return `<div class="sectionhead"><div><h2>Supply PM</h2><p class="note tight">A personal notebook of what you saw at a standby supply, plus a span-by-span voltage drop. It is not the company power record. Battery volts, inverter and alarms are what you type; this screen does not decide pass or fail. The drop is span current times the cable catalog’s published loop resistance. The comparison uses that active’s published minimum input and no company minimum. Nothing here is saved in the job.</p></div></div>
+  return `<div class="sectionhead"><div><h2>Voltage drop</h2><p class="note tight">Estimate span voltage drop using the entered current and the cable catalog’s published loop resistance. The optional comparison uses the selected active’s published minimum input, not a company minimum. Nothing here is saved in the job.</p></div></div>
 <section class="calc-card" aria-labelledby="powerPmSpanTitle"><div class="calc-card-head"><h3 id="powerPmSpanTitle">Span voltage drop</h3>${tag('power.span.drop')}</div>
 <div class="pm-fields"><label>Cable<select id="powerPmCable">${cableOpts}</select></label>
 <label>Length (ft)<input id="powerPmLength" type="number" min="0" step="any" inputmode="decimal"></label>
@@ -252,7 +252,7 @@ const PowerPMUI=(()=>{
 <div class="toolbar"><button type="button" id="powerPmAddSpan">Add this span</button><button type="button" id="powerPmClearSpans">Clear spans</button></div>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Spans added for this visit"><table class="hs-table"><thead><tr><th scope="col">Span</th><th scope="col">Drop and voltage</th><th scope="col">Published minimum</th></tr></thead><tbody id="powerPmChain"></tbody></table></div>
 </section>
-<section class="calc-card" aria-labelledby="powerPmBookTitle"><div class="calc-card-head"><h3 id="powerPmBookTitle">Supply notebook</h3></div>
+<section class="calc-card" aria-labelledby="powerPmBookTitle" hidden><div class="calc-card-head"><h3 id="powerPmBookTitle">Supply notebook</h3></div>
 <div class="pm-fields"><label>Supply on this device<select id="powerPmSupplyPick"></select></label>
 <label>Name<input id="powerPmName" type="text" maxlength="80" autocomplete="off"></label>
 <label>Date<input id="powerPmDate" type="date"></label>
