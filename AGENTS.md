@@ -8,7 +8,7 @@ Read these project files before each NightSweep development iteration:
 2. `NightSweep_Development_Instructions.txt` for development and engineering practices. The automatic plugin policy takes precedence if routing instructions differ.
 3. `NightSweep_Project_Status.md` for the latest verified baseline, field requirements, and outstanding checks. Follow any newer explicit user direction.
 4. `docs/DEVELOPER_BUILD.md` and, for Android work, `android-build/README.md` for commands and dependencies.
-5. For build 3 work: `handoff_docs/WORKFLOW.md` (who does what, the rules, the gate, and the review and merge steps; it is the only source for that), the status files `handoff_docs/lanes/grok-status.md` and `handoff_docs/lanes/chatgpt-status.md`, `handoff_docs/KNOWN_GAPS.md` and `handoff_docs/TOOLS_AND_SETUP.md`. `docs/BUILD_LIST.md` has each feature's sources, labels and acceptance tests; `handoff_docs/FINAL_HANDOFF.md` records what was delivered; `handoff_docs/APK_PLAN.md` says how the APK is built.
+5. For build 3 work, read `handoff_docs/PARALLEL_TASKS.md` for the active roles, gate, batch review and Spencer's original-key Android handoff. Use `handoff_docs/PROMPTS.md` to start sessions. `handoff_docs/WORKFLOW.md`, the lane status files and `handoff_docs/APK_PLAN.md` record the earlier workflow. `handoff_docs/KNOWN_GAPS.md`, `handoff_docs/TOOLS_AND_SETUP.md`, `docs/BUILD_LIST.md` and `handoff_docs/FINAL_HANDOFF.md` retain technical references and prior results.
 
 ## Baseline and scope
 
