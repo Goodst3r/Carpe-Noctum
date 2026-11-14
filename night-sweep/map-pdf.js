@@ -25,17 +25,21 @@
   return result;
  }
  function linesFor(row,owner,runs){
-  const w=row.workbench||{},lines=['NAME: '+(row.mapImport?.exactName||row.name||'Unknown'),'TAG: '+(row.mapImport?.tag||'Unknown'),row.terminal||row.mapImport?.kind==='terminal'?'End of line':'Active station'];
-  lines.push('Markers L/H: '+value(owner.setup?.lowF)+' / '+value(owner.setup?.highF)+' MHz');
+  const saved=row.workbench||{},historical=!!(saved.modelId&&row.device&&saved.modelId!==row.device),w=historical?{}:saved,lines=['NAME: '+(row.mapImport?.exactName||row.name||'Unknown'),'TAG: '+(row.mapImport?.tag||'Unknown'),row.terminal||row.mapImport?.kind==='terminal'?'End of line':'Active station'];
+  if(historical)lines.push('Historical model '+saved.modelId+' records remain in the job; not applied.');
+  lines.push('Current markers L/H: '+value(owner.setup?.lowF)+' / '+value(owner.setup?.highF)+' MHz');
   const expected=band=>runs[band]?.results?.find(r=>r.id===row.id),lo=expected('low'),hi=expected('high');
   lines.push('Expected input L/H: '+value(lo?.input?.level)+' / '+value(hi?.input?.level)+' dBmV');
   if(row.id!=='source')lines.push('Incoming cable loss L/H: '+value(lo?.cableLoss)+' / '+value(hi?.cableLoss)+' dB');
   const legs=Array.from(new Set(['main',...Object.keys(w.records||{}),...Object.keys(w.legGain||{})]));
   for(const leg of legs){const port=leg==='main'?'through':leg,out=band=>row.id==='source'?runs[band]?.source:expected(band)?.outputs?.find(p=>p.id===port)?.level;lines.push(leg+' expected OUT L/H: '+value(out('low'))+' / '+value(out('high'))+' dBmV');const target=leg==='main'?row:w.legGain?.[leg]||{};lines.push(leg+' target L/H: '+value(currentTarget(target,'targetLow',owner.setup?.lowF))+' / '+value(currentTarget(target,'targetHigh',owner.setup?.highF))+' dBmV');
-   for(const stage of ['before','after']){const r=w.records?.[leg]?.[stage]||{},lo=r.low||{},hi=r.high||{},il=w.commonInput?w.shared?.[stage]?.low||{}:lo,ih=w.commonInput?w.shared?.[stage]?.high||{}:hi;lines.push(leg+' '+stage+' raw IN '+value(il.input)+'/'+value(ih.input)+' OUT '+value(lo.output)+'/'+value(hi.output)+' dBmV');}
+   for(const stage of ['before','after']){const r=w.records?.[leg]?.[stage]||{},lo=r.low||{},hi=r.high||{},il=w.commonInput?w.shared?.[stage]?.low||{}:lo,ih=w.commonInput?w.shared?.[stage]?.high||{}:hi;lines.push(leg+' '+stage+' raw IN '+value(il.input)+'/'+value(ih.input)+' OUT '+value(lo.output)+'/'+value(hi.output)+' dBmV');
+    const supplied=[[il,'input','low'],[ih,'input','high'],[lo,'output','low'],[hi,'output','high']].filter(([r,key])=>n(r[key])!==null);
+    if(supplied.length){lines.push(leg+' '+stage+' recorded IN MHz L/H: '+value(il.inputFrequency)+' / '+value(ih.inputFrequency));lines.push(leg+' '+stage+' recorded OUT MHz L/H: '+value(lo.outputFrequency)+' / '+value(hi.outputFrequency));if(supplied.some(([r,key,band])=>n(r[key+'Frequency'])!==n(owner.setup?.[band+'F'])))lines.push('Saved frequencies differ or are Unknown; raw readings are not current-marker comparisons.');}
+   }
   }
   for(const [slot,p] of Object.entries(w.pads||{}))if(n(p.installed)!==null||n(p.changed)!==null)lines.push(slot+': '+value(p.installed)+' -> '+value(p.changed)+' dB');
-  if(row.id==='source')for(const [port,r] of Object.entries(owner.portSweeps||{})){if(typeof PortSweeps!=='undefined'&&r.stationIdentity!==PortSweeps.sourceIdentity(owner)){lines.push('ONX '+port+': historical node identity; not applied.');continue;}const at=f=>r.points?.find(p=>p[0]===n(f))?.[1];lines.push('ONX '+port+' '+r.stage+': '+value(at(owner.setup?.lowF))+' / '+value(at(owner.setup?.highF))+' '+(r.unit||'Unknown')+' '+r.basis+' '+value(r.bandwidthMHz)+' MHz');}
+  if(row.id==='source')for(const [port,r] of Object.entries(owner.portSweeps||{})){if(typeof PortSweeps!=='undefined'&&!PortSweeps.matchesSource(r,owner)){lines.push('ONX '+port+': historical node identity; not applied.');continue;}const at=f=>r.points?.find(p=>p[0]===n(f))?.[1];lines.push('ONX '+port+' '+r.stage+': '+value(at(owner.setup?.lowF))+' / '+value(at(owner.setup?.highF))+' '+(r.unit||'Unknown')+' '+r.basis+' '+value(r.bandwidthMHz)+' MHz');}
   lines.push('Raw readings; no RF acceptance.');return lines.flatMap(wrap);
  }
  function plan(owner){

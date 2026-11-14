@@ -5,7 +5,15 @@
  const n=x=>(typeof x==='number'||typeof x==='string')&&String(x).trim()!==''&&Number.isFinite(Number(x))?Number(x):null;
  const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
  const port=x=>typeof x==='string'&&x.trim()===x&&x.length>0&&x.length<=64&&!/[\u0000-\u001f\u007f]/.test(x)&&!['__proto__','prototype','constructor'].includes(x);
- const sourceIdentity=owner=>JSON.stringify([owner?.job?.id??'',...['stationIdentity','sourceType','sourceModel','sourceAsset','sourcePort'].map(k=>owner?.setup?.[k]??''),...['model','asset','band','port','module','operatingUpper'].map(k=>owner?.node?.[k]??'')]);
+ // Named-job IDs describe storage, not the physical node. Async imports use
+ // owner object identity separately to reject a switch to another working job.
+ const sourceIdentity=owner=>JSON.stringify([...['stationIdentity','sourceType','sourceModel','sourceAsset','sourcePort'].map(k=>owner?.setup?.[k]??''),...['model','asset','band','port','module','operatingUpper'].map(k=>owner?.node?.[k]??'')]);
+ function matchesSource(record,owner){
+  const current=sourceIdentity(owner);if(record?.stationIdentity===current)return true;
+  // Earlier candidates prepended a job ID. Ignore only that storage field;
+  // all recorded physical fields must still match, without rewriting history.
+  try{const old=JSON.parse(record?.stationIdentity);return Array.isArray(old)&&old.length===12&&typeof old[0]==='string'&&JSON.stringify(old.slice(1))===current;}catch(_){return false;}
+ }
  function prepare(parsed,context={}){
   if(parsed?.status!=='parsed'||!['dBmV','dB'].includes(parsed.series?.unit))throw Error('Choose one decoded sweep with explicit dBmV or dB units. Previous port sweep retained.');
   const {split,direction,stage,plane,basis}=context;
@@ -40,7 +48,7 @@
   return errors;
  }
  function sample(record,frequency){const f=n(frequency),point=f===null?null:record?.points?.find(p=>p[0]===f);return {value:point?.[1]??null,unit:record?.unit||null,basis:record?.basis||'unknown',bandwidthMHz:record?.bandwidthMHz??null,plane:record?.plane||'unknown'};}
- return Object.freeze({limits,sourceIdentity,prepare,replace,validate,sample});
+ return Object.freeze({limits,sourceIdentity,matchesSource,prepare,replace,validate,sample});
 });
 
 function initPortSweeps(){
@@ -67,6 +75,6 @@ function initPortSweeps(){
 function refreshPortSweeps(){
  if(!state)return;
  const el=$('portSweepsPanel')?.querySelector('[data-port-records]');if(!el)return;
- el.innerHTML=Object.entries(state.portSweeps||{}).map(([port,r])=>`<details><summary>Port ${esc(port)} · ${r.points?.length||0} points · ${esc(r.stage)} · ${esc(r.split)}/${r.split==='42'?'54':'258'} MHz</summary><p>${esc(r.direction)} · ${esc(r.unit)} · ${esc(r.basis)} · bandwidth ${esc(r.bandwidthMHz??'Unknown')} MHz · plane ${esc(r.plane)}</p><p class="note">All points are retained. Raw levels have no correction or company acceptance applied. ${r.stationIdentity!==PortSweeps.sourceIdentity(state)?'Historical node identity; verify before comparison.':''}</p><button type="button" data-port-original="${esc(r.evidenceId)}">Save original</button></details>`).join('')||'<p class="note">No port sweeps saved.</p>';
+ el.innerHTML=Object.entries(state.portSweeps||{}).map(([port,r])=>`<details><summary>Port ${esc(port)} · ${r.points?.length||0} points · ${esc(r.stage)} · ${esc(r.split)}/${r.split==='42'?'54':'258'} MHz</summary><p>${esc(r.direction)} · ${esc(r.unit)} · ${esc(r.basis)} · bandwidth ${esc(r.bandwidthMHz??'Unknown')} MHz · plane ${esc(r.plane)}</p><p class="note">All points are retained. Raw levels have no correction or company acceptance applied. ${!PortSweeps.matchesSource(r,state)?'Historical node identity; verify before comparison.':''}</p><button type="button" data-port-original="${esc(r.evidenceId)}">Save original</button></details>`).join('')||'<p class="note">No port sweeps saved.</p>';
  el.onclick=e=>{const id=e.target.dataset.portOriginal;if(id)EvidenceUI.downloadOriginal(id).catch(err=>{$('message').textContent=err.message;});};
 }

@@ -23,3 +23,19 @@ test('port UI rejects node/context changes, rolls back failed saves, and protect
   assert.deepEqual(a.errors,[]);
  }finally{a.close();}
 });
+test('naming, duplicating and reopening a job preserve the physical port sweep identity and original',async()=>{
+ const a=bootApp();try{
+  const {d,ev}=a,ui=ev('EvidenceUI'),ports=ev('PortSweeps'),jobs=ev('JobsUI');await waitFor(()=>!ui.isBusy());
+  ev("state.example=false;state.job={name:'Synthetic port identity job'};state.node={...NodeTools.defaults(),...NodeTools.choice(catalog.nodeProfiles.find(p=>p.bands.some(b=>b.returnCeiling===42)).id,catalog),asset:'Synthetic node',port:'A',module:'Synthetic module'};renderAll()");
+  const owner=ev('state'),csv='frequency_mhz,level_dbmv\n54,32\n303,36\n753,43\n',bytes=new TextEncoder().encode(csv);
+  const [meta]=await ui.importFiles([{name:'synthetic-named-port.csv',type:'text/csv',size:bytes.length,arrayBuffer:async()=>bytes.buffer.slice(0)}],{kind:'Sweep',stage:'Before',asset:'A',notes:'Synthetic'}),verified=await ui.verifiedParse(meta.id);
+  owner.portSweeps=ports.replace(owner,'A',verified.parse,{split:'42',direction:'forward',stage:'Before',plane:'port',basis:'sc-qam',bandwidthMHz:6,evidenceId:meta.id,sha256:meta.sha256,stationIdentity:ports.sourceIdentity(owner)});
+  const identity=owner.portSweeps.A.stationIdentity,node=JSON.stringify(owner.node),record=JSON.stringify(owner.portSweeps.A);
+  const checkCurrent=()=>{const current=ev('state');assert.equal(ports.sourceIdentity(current),identity);assert.equal(JSON.stringify(current.node),node);assert.equal(JSON.stringify(current.portSweeps.A),record);ev('refreshPortSweeps()');assert.doesNotMatch(d.querySelector('[data-port-records]').textContent,/Historical node identity/);};
+  assert.equal(owner.job.id,undefined);checkCurrent();const originalId=jobs.saveNamed();assert.equal(ev('state.job.id'),originalId);checkCurrent();
+  const copyId=jobs.duplicate(originalId);assert.notEqual(copyId,originalId);assert.equal(await jobs.open(copyId),true);assert.equal(ev('state.job.id'),copyId);checkCurrent();
+  assert.equal(await jobs.open(originalId),true);checkCurrent();await ui.downloadOriginal(ev('state.portSweeps.A.evidenceId'));assert.equal(Buffer.from(a.downloads.at(-1).base64,'base64').toString(),csv);
+  const current=ev('state');current.portSweeps.A.stationIdentity=JSON.stringify([copyId,...JSON.parse(identity)]);ev('refreshPortSweeps()');assert.doesNotMatch(d.querySelector('[data-port-records]').textContent,/Historical node identity/);
+  current.node.module='Different installed module';ev('refreshPortSweeps()');assert.match(d.querySelector('[data-port-records]').textContent,/Historical node identity/);assert.equal(current.portSweeps.A.points.length,3);assert.equal(current.portSweeps.A.evidenceId,meta.id);assert.deepEqual(a.errors,[]);
+ }finally{a.close();}
+});
