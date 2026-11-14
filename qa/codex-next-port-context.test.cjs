@@ -1,6 +1,28 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),{bootApp}=require('./build2-source-harness.cjs');
 const waitFor=async predicate=>{for(let i=0;i<300;i++){if(predicate())return;await new Promise(r=>setTimeout(r,5));}throw Error('Port import did not finish');};
+test('file picker intent rejects job, node and port changes before selection returns',async()=>{
+ const a=bootApp();try{
+  const {d,w,ev}=a,ui=ev('EvidenceUI');await waitFor(()=>!ui.isBusy());
+  ev("state.example=false;state.job={name:'Picker job A'};state.node={...NodeTools.defaults(),asset:'Node A',port:'A'};renderAll()");
+  const field=(key,value)=>{d.querySelector('[data-port="'+key+'"]').value=value;},input=d.querySelector('[data-port-file]'),status=()=>d.querySelector('[data-port-status]').textContent;
+  field('id','PORT-A');field('split','42');
+  const bytes=new TextEncoder().encode('frequency_mhz,level_dbmv\n54,32\n753,43\n');let reads=0;
+  const file={name:'synthetic-picker.csv',type:'text/csv',size:bytes.length,arrayBuffer:async()=>{reads++;return bytes.buffer.slice(0);}};
+  const choose=async files=>{Object.defineProperty(input,'files',{configurable:true,value:files});input.dispatchEvent(new w.Event('change',{bubbles:true}));await waitFor(()=>!input.disabled);};
+  await choose([file]);assert.equal(ev("state.portSweeps['PORT-A'].points.length"),2);
+  for(const mutation of [()=>ev("loadState({...JSON.parse(JSON.stringify(state)),job:{name:'Picker job B'}})"),()=>ev("state.node.asset='Node B'"),()=>field('id','PORT-B')]){
+   const originalOwner=ev('state'),beforePorts=JSON.stringify(originalOwner.portSweeps),beforeFiles=JSON.stringify(originalOwner.evidence),beforeReads=reads;
+   input.dispatchEvent(new w.MouseEvent('click',{bubbles:true,detail:0}));mutation();await choose([file]);
+   assert.match(status(),/changed.*picker/i);assert.equal(reads,beforeReads,'stale selection must be refused before reading or attaching bytes');assert.equal(JSON.stringify(ev('state.portSweeps')),beforePorts);assert.equal(JSON.stringify(ev('state.evidence')),beforeFiles);assert.equal(JSON.stringify(originalOwner.portSweeps),beforePorts);field('id','PORT-A');
+  }
+  // Rejected and canceled selections release their captured intent. A new click
+  // and an unchanged physical context remain valid even if the job is named.
+  input.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));ev('JobsUI.saveNamed()');await choose([file]);assert.match(status(),/^Saved 2 points/);
+  input.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));input.dispatchEvent(new w.Event('cancel',{bubbles:true}));ev("state.node.asset='Node C'");await choose([file]);assert.match(status(),/^Saved 2 points/);
+  input.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));await choose([]);ev("state.node.asset='Node D'");await choose([file]);assert.match(status(),/^Saved 2 points/);assert.deepEqual(a.errors,[]);
+ }finally{a.close();}
+});
 test('port UI rejects node/context changes, rolls back failed saves, and protects restorable originals',async()=>{
  const a=bootApp();try{
   const {d,w,ev}=a,ui=ev('EvidenceUI');await waitFor(()=>!ui.isBusy());

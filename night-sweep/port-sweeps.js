@@ -55,10 +55,16 @@ function initPortSweeps(){
  const host=document.createElement('details');host.id='portSweepsPanel';host.innerHTML='<summary>ONX sweep by physical node port</summary><p class="note">Retain every decoded point and its verified original. A valid replacement updates only the named port. Observed levels are measurements; they do not set company targets.</p><div class="fields"><label>Exact physical node port<input data-port="id" maxlength="64" placeholder="Port label on installed node"></label><label>Split<select data-port="split"><option value="">Choose split</option><option value="42">42/54 MHz</option><option value="204">204/258 MHz</option></select></label><label>Direction<select data-port="direction"><option value="forward">Forward</option><option value="reverse">Return</option></select></label><label>Stage<select data-port="stage"><option>Before</option><option>After</option><option>Reference</option></select></label><label>Reading plane<select data-port="plane"><option value="unknown">Unknown</option><option value="port">Port</option><option value="tp">Raw test point</option></select></label><label>Power basis<select data-port="basis"><option value="unknown">Unknown</option><option value="sc-qam">SC-QAM channel power</option><option value="ofdm-plc">OFDM PLC</option><option value="relative">Relative response</option></select></label><label>Measurement bandwidth (MHz)<input type="number" step="any" min="0" data-port="bandwidthMHz" placeholder="Unknown"></label></div><label class="filelabel">Import sweep for this port<input type="file" data-port-file accept=".json,.csv,.gz,.zip"></label><p data-port-status role="status" aria-live="polite"></p><div data-port-records></div>';
  $('mapLaunchSummary').after(host);
  const identity=()=>PortSweeps.sourceIdentity(state),fields=()=>Object.fromEntries([...host.querySelectorAll('[data-port]')].map(el=>[el.dataset.port,el.value]));
+ let pickerContext=null;
+ // A native chooser can outlive the working job. Capture intent at activation
+ // (including keyboard-generated clicks), before the eventual change event.
+ host.addEventListener('click',e=>{if(e.target.hasAttribute('data-port-file')&&!e.target.disabled)pickerContext={owner:state,source:identity(),values:fields()};});
+ host.addEventListener('cancel',e=>{if(e.target.hasAttribute('data-port-file'))pickerContext=null;},true);
  host.addEventListener('change',async e=>{
-  if(!e.target.hasAttribute('data-port-file'))return;const file=e.target.files?.[0];if(!file)return;
-  const owner=state,source=identity(),values=fields(),status=host.querySelector('[data-port-status]'),unchanged=()=>owner===state&&identity()===source&&JSON.stringify(fields())===JSON.stringify(values);e.target.disabled=true;
+  if(!e.target.hasAttribute('data-port-file'))return;const intent=pickerContext;pickerContext=null;const file=e.target.files?.[0];if(!file)return;
+  const {owner,source,values}=intent||{owner:state,source:identity(),values:fields()},status=host.querySelector('[data-port-status]'),unchanged=()=>owner===state&&identity()===source&&JSON.stringify(fields())===JSON.stringify(values);e.target.disabled=true;
   try{
+   if(!unchanged())throw Error('Job, node or port settings changed while the file picker was open; previous port data retained. Select the file again for the intended job and port.');
    if(!values.id||!values.split)throw Error('Enter a physical node port and choose its split first.');
    const files=await EvidenceUI.importFiles([file],{kind:'Sweep',stage:values.stage,asset:values.id,notes:'Physical node port sweep'});
    if(!unchanged())throw Error('Job, node or port settings changed during import; previous port data retained.');
