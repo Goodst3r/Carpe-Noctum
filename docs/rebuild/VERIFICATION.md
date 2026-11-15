@@ -4,9 +4,9 @@ Reviewed baseline:4b660c493010fa9f3a1eb64e6979aace863a4bfb (Claude's blocked rev
 
 ## Frozen artifacts
 
-- App2.0 Alpha build6; PWA `db40433f7669e922a0a9`.
-- Standalone SHA-256 `bad9f83ca6180dc8f34d67291572e940493abc0f452fb9cfb3bf6a587910088e`.
-- Unsigned Preview APK SHA-256 `62feb5654f57ef3a05fb642883036fcbde0588343b3a5be1d3c7fdc41d96d5ab` (76,225,940 bytes).
+- App2.0 Alpha build6; PWA `0164f02cd485582813da`.
+- Standalone SHA-256 `559b634997f844690f0c729ec4ffbf3a3b5f17b1f90a9a898f8f527597ecee22`.
+- Unsigned Preview APK SHA-256 `566a0b10b84e63f1bffefca5a6455bee01ec2558d4bb10ae453b9f17edd3aec1` (76,226,012 bytes).
 - Package `com.spencerwilliams.nightsweep.preview`, code30, min26/target35.
 - Embedded HTML byte parity and all5 ONNX graph hashes verified.
 
@@ -38,3 +38,5 @@ The APK is unsigned and non-installable. No signing key was accessed/replaced. N
 Manufacturer gain/tilt estimates, unavailable1GHz inverse loss curves and unknown output headroom remain declared. Meter compensation export semantics are operator-declared when the setting is nonzero; the VIAVI FAQ confirms template settings but does not define exported Absolute-array compensation. Missing/out-of-band values stay unknown. Heavy AI adapters remain experimental and unexecuted; this patch does not change their models.
 
 Private supplied files are packaged locally under ignored artifacts/private-review/ for handoff, not committed/published. The original model-engine four-pack9/9 inference evidence remains in the build5 record; the revised worker/UI integration ran13checks above.
+
+The first build6 CI run caught stale generated HTML for the final closeEdge focus-restoration change. Regenerated from the frozen source, reran all149passing automated tests and both36/13browser suites, and recompiled/rechecked the APK. The corrected PWA hash above replaces the initial build6 package. No parity check was weakened.

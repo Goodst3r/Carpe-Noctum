@@ -2884,6 +2884,13 @@
       render();
       root.querySelector("#edge-form [name=from]")?.focus();
     }
+    function closeEdge() {
+      const previous = edgeDraft;
+      edgeDraft = null;
+      render();
+      const trigger = previous?.existing ? [...root.querySelectorAll(".edge-row")].find((x) => x.dataset.edge === previous.id) : root.querySelector("[data-action=connect]");
+      trigger?.focus();
+    }
     async function renderLatestPage() {
       if (renderingPage) return;
       renderingPage = true;
@@ -3371,8 +3378,7 @@
         render();
       }
       if (a === "cancel-edge") {
-        edgeDraft = null;
-        render();
+        closeEdge();
         return;
       }
       if (a === "map-connect") {
@@ -3408,8 +3414,7 @@
       if (!edgeDraft) return;
       if (e.key === "Escape") {
         e.preventDefault();
-        edgeDraft = null;
-        render();
+        closeEdge();
         return;
       }
       if (e.key === "Tab") {
