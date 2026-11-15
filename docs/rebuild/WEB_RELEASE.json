@@ -1,13 +1,19 @@
 {
-  "checked_source_commit": "9348dbea5657df69d5154958a9fe4008782240b1",
-  "site_source_commit": "cb0166b76be93bc7a090bef3ddda88279666ed01",
-  "site_version": 12,
-  "saved_version_id": "appgprj_6af34e4b562881919893bde71985cee3~appgver_d5124b1315688191b5a1ad0ff105e557",
-  "deployment_id": "appgdep_6af90fcf90e08191a27d02a40c4525b4",
+  "checked_source_commit": "9023b270b070a93321496248c60a77d63a3ca32f",
+  "site_source_commit": "e95d50d4d046981d35a901c57376867dd2dcd87d",
+  "site_version": 14,
+  "saved_version_id": "appgprj_6af34e4b562881919893bde71985cee3~appgver_c07e5e59efb88191aa18c8bc4fea2bb0",
+  "deployment_id": "appgdep_6af9d6ba3a8081918c9d85104784d196",
   "status": "succeeded",
   "url": "https://nightsweep-field.goodst3r.chatgpt.site",
-  "pwa_version": "0435280d7ff18732da03",
+  "pwa_version": "0164f02cd485582813da",
+  "app_version": "2.0 Alpha build 6",
   "audience": "public, retained existing audience",
-  "archive_sha256": "sha256:0fdd3de3240caa150888ac874d3a6c41ac8f68ca95eb70bf749518e6a4954628",
-  "published_at": "2026-11-15T01:50:21.756932+00:00"
+  "archive_sha256": "sha256:07ac4334a628ed36080ad01dd3381b58054201bb5fc0ffda96944343f88c5efb",
+  "published_at": "2026-11-15T15:58:59.269739+00:00",
+  "supersedes": {
+    "site_version": 13,
+    "pwa_version": "db40433f7669e922a0a9",
+    "reason": "Refreshed final editor-focus generated artifact; no source behavior change."
+  }
 }
