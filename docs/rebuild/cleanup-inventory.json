@@ -12,25 +12,49 @@
     {
       "commit": "57dcde8649bfe4d5906ad734fc9fa852688a6efd",
       "subject": "Load self-contained data: resources inline in the Android WebView",
-      "files": ["android-build/README.md", "android-build/app/src/main/java/com/spencerwilliams/nightsweep/MainActivity.java", "qa/android-native-edge.test.py"],
+      "files": [
+        "android-build/README.md",
+        "android-build/app/src/main/java/com/spencerwilliams/nightsweep/MainActivity.java",
+        "qa/android-native-edge.test.py"
+      ],
       "preserve_because": "Android WebView resource-loading fix and regression; distinct from fresh app module work."
     },
     {
       "commit": "361afbb2f7dc5906ef1cae1836365a7553649823",
       "subject": "fix(pwa): cache every published guide through verified clean URLs",
-      "files": ["dist/index.html", "dist/release.json", "pwa/service-worker.js", "qa/pwa-worker.test.cjs"],
+      "files": [
+        "dist/index.html",
+        "dist/release.json",
+        "pwa/service-worker.js",
+        "qa/pwa-worker.test.cjs"
+      ],
       "preserve_because": "PWA guide offline-caching correction with regression coverage; assess/reapply if the rebuilt PWA retains published guides."
     },
     {
       "commit": "a46af600f20e9e9b709f88d834fee5f4892f6637",
       "subject": "Station: refuse a half-edited number or date box instead of saving a blank",
-      "files": ["night-sweep/station.css", "night-sweep/station.js", "qa/build3-station-real.test.py", "qa/run-pwa.py", "dist/functions-guide.html", "dist/index.html", "outputs/Night_Sweep.html"],
+      "files": [
+        "night-sweep/station.css",
+        "night-sweep/station.js",
+        "qa/build3-station-real.test.py",
+        "qa/run-pwa.py",
+        "dist/functions-guide.html",
+        "dist/index.html",
+        "outputs/Night_Sweep.html"
+      ],
       "preserve_because": "Protects partially edited field values and adds a regression; inspect the behavioral requirement before any Station implementation replaces it."
     },
     {
       "commit": "b6ad06248b6089984110ad2613997d93c29f4997",
       "subject": "Record signed build 4 Preview release facts and phone steps",
-      "files": ["AGENTS.md", "NightSweep_Project_Status.md", "android-build/README.md", "handoff_docs/APK_PLAN.md", "handoff_docs/APK_STEPS.md", "handoff_docs/reviews/build4-preview-release-2026-11-13.md"],
+      "files": [
+        "AGENTS.md",
+        "NightSweep_Project_Status.md",
+        "android-build/README.md",
+        "handoff_docs/APK_PLAN.md",
+        "handoff_docs/APK_STEPS.md",
+        "handoff_docs/reviews/build4-preview-release-2026-11-13.md"
+      ],
       "preserve_because": "Historical facts about separately signed build 4 Preview and phone steps. These describe an earlier release and must not be represented as fresh-rebuild signing or phone acceptance."
     }
   ],
@@ -176,5 +200,5 @@
     "For a remote branch: confirm no open PR, no downstream branch depends on it, and its useful commits are preserved; obtain repository-owner direction before pruning.",
     "Never include PR #1 or #2 in this build3 cleanup set without separate explicit review because they are independent open work on main."
   ],
-  "mutation_status": "read-only inventory; no remote mutation, PR closure, branch deletion, or file deletion performed"
+  "mutation_status": "Historical pre-execution inventory. Cleanup executed after fresh gates; authoritative results and exact recovery tags are in REMOTE_CLEANUP_RESULT.json."
 }

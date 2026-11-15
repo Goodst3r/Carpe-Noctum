@@ -1,0 +1,452 @@
+{
+  "executed_at_utc": "2026-11-15T01:50:21.349630+00:00",
+  "replacement_pr": "https://github.com/Goodst3r/Carpe-Noctum/pull/61",
+  "replacement_head": "9348dbea5657df69d5154958a9fe4008782240b1",
+  "recovery_tags_verified": 70,
+  "closed_prs": [
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60
+  ],
+  "deleted_branches": [
+    "ccr-026a9e4b-35w77r",
+    "ccr-5336ed33-oaatna",
+    "ccr-7abea525-rljsni",
+    "chatgpt/active-name-column-rule",
+    "chatgpt/b1-remove-safety",
+    "chatgpt/b2-composite-margin",
+    "chatgpt/b3-ripple-label",
+    "chatgpt/b4-night-log",
+    "chatgpt/b6-fc7e9c8-gate",
+    "chatgpt/batch-final",
+    "chatgpt/calculator-math-reviews",
+    "chatgpt/ios-web-handoff",
+    "chatgpt/local-map-import",
+    "chatgpt/math-review-pr34",
+    "chatgpt/next-build-plan-gainmaker",
+    "chatgpt/next-release",
+    "chatgpt/next-update-sweep-map-scope",
+    "chatgpt/pr40-batch-resolution",
+    "chatgpt/roadmap-critique",
+    "chatgpt/routes-offline-packaging",
+    "chatgpt/routes-sweep-integration",
+    "chatgpt/routes-sweep-ui",
+    "chatgpt/single-writer-workflow",
+    "chatgpt/web-offline-guide-redirects",
+    "claude/b0-build-registration",
+    "claude/b1-reliable-gate",
+    "claude/b11-impairments",
+    "claude/b15-fiber",
+    "claude/b17-highsplit",
+    "claude/b18-why-cards",
+    "claude/b19-study",
+    "claude/b2-ci",
+    "claude/b20-pop",
+    "claude/b3-paperwork",
+    "claude/b4-training-sync",
+    "claude/b5-docsis-health",
+    "claude/b6-leakage",
+    "claude/b7-safety",
+    "claude/b8-outage",
+    "claude/chatgpt-handoff",
+    "claude/finish-instructions",
+    "claude/finishing-build3",
+    "claude/leak-detector-arcom",
+    "claude/logbook",
+    "claude/perf-and-jobs-fix",
+    "claude/roadmap-determination",
+    "claude/station-typed-input",
+    "claude/workflow-batch",
+    "codex/core-closeout-status",
+    "codex/next-build-candidate",
+    "codex/next-carry-forward",
+    "codex/next-company-levels",
+    "codex/next-optimization-organization",
+    "codex/night-log",
+    "codex/station-input-retention",
+    "codex/station-view",
+    "codex/sweep-due",
+    "codex/sweep-grading",
+    "codex/work-logbook",
+    "grok/a1-power-sum",
+    "grok/a2-cascade",
+    "grok/a3-nav1",
+    "grok/a4-context",
+    "grok/a5-power-pm",
+    "grok/a7-final-gate",
+    "grok/a7-handoff",
+    "grok/b9-closeout",
+    "grok/next-build-qa",
+    "grok/recheck-9df4857",
+    "grok/session-2-handoff"
+  ],
+  "remaining_heads": {
+    "build3": "248e77802f333a1a461563dfb1973315a2043d67",
+    "claude/add-roadmap": "2b1ce40760a9caf8f8cbe25cd4a4007d42509223",
+    "claude/build-list": "271a3f6ccb50282aeb9edd1ccecb767b69cdce83",
+    "codex/fresh-calculator-rebuild": "9348dbea5657df69d5154958a9fe4008782240b1",
+    "main": "4bdd4fe7897c922d7e249aa6717b54b88cb54f56"
+  },
+  "recovery": [
+    {
+      "branch": "ccr-026a9e4b-35w77r",
+      "expected_head": "bfdb8ea5562f9305552fba2c2f759747919a0bbc",
+      "recovery_tag": "archive/2026-11-15/ccr-026a9e4b-35w77r"
+    },
+    {
+      "branch": "ccr-5336ed33-oaatna",
+      "expected_head": "b6ad06248b6089984110ad2613997d93c29f4997",
+      "recovery_tag": "archive/2026-11-15/ccr-5336ed33-oaatna"
+    },
+    {
+      "branch": "ccr-7abea525-rljsni",
+      "expected_head": "c0732cc41a44e813b0f00247a012b535d9820ac5",
+      "recovery_tag": "archive/2026-11-15/ccr-7abea525-rljsni"
+    },
+    {
+      "branch": "chatgpt/active-name-column-rule",
+      "expected_head": "3b1c33f93c861c534a40d9e33dea1c7c4f97e103",
+      "recovery_tag": "archive/2026-11-15/chatgpt/active-name-column-rule"
+    },
+    {
+      "branch": "chatgpt/b1-remove-safety",
+      "expected_head": "0488ea2c65e2c0d4a345172679b36f0465158cf0",
+      "recovery_tag": "archive/2026-11-15/chatgpt/b1-remove-safety"
+    },
+    {
+      "branch": "chatgpt/b2-composite-margin",
+      "expected_head": "f54d5c2bbcf0f97f42ef87c7233012fd1a4fccab",
+      "recovery_tag": "archive/2026-11-15/chatgpt/b2-composite-margin"
+    },
+    {
+      "branch": "chatgpt/b3-ripple-label",
+      "expected_head": "2cbd38f8ee5b67c3662c1a92ca0dba9a679704fb",
+      "recovery_tag": "archive/2026-11-15/chatgpt/b3-ripple-label"
+    },
+    {
+      "branch": "chatgpt/b4-night-log",
+      "expected_head": "92be1e7964aac11843f85e035738f0952403034f",
+      "recovery_tag": "archive/2026-11-15/chatgpt/b4-night-log"
+    },
+    {
+      "branch": "chatgpt/b6-fc7e9c8-gate",
+      "expected_head": "c7c75131f3c56dc7abe35662b648933a3c2768e5",
+      "recovery_tag": "archive/2026-11-15/chatgpt/b6-fc7e9c8-gate"
+    },
+    {
+      "branch": "chatgpt/batch-final",
+      "expected_head": "f82fb2c577417cd89292b6c6b1910f5e0b8f6039",
+      "recovery_tag": "archive/2026-11-15/chatgpt/batch-final"
+    },
+    {
+      "branch": "chatgpt/calculator-math-reviews",
+      "expected_head": "b9c6cc7e0e81a763b509f5390f2b183c93f861ca",
+      "recovery_tag": "archive/2026-11-15/chatgpt/calculator-math-reviews"
+    },
+    {
+      "branch": "chatgpt/ios-web-handoff",
+      "expected_head": "86857fbf4a670020d8b6c83e1559127977d2dce6",
+      "recovery_tag": "archive/2026-11-15/chatgpt/ios-web-handoff"
+    },
+    {
+      "branch": "chatgpt/local-map-import",
+      "expected_head": "a303a97dcb7795eda0139272bae3ce977b67aa15",
+      "recovery_tag": "archive/2026-11-15/chatgpt/local-map-import"
+    },
+    {
+      "branch": "chatgpt/math-review-pr34",
+      "expected_head": "0f55d28a693e5809cf072ee43fe73d649e6bf5ed",
+      "recovery_tag": "archive/2026-11-15/chatgpt/math-review-pr34"
+    },
+    {
+      "branch": "chatgpt/next-build-plan-gainmaker",
+      "expected_head": "9ac5953c171dc999e02f4c8ed5e319d74622a662",
+      "recovery_tag": "archive/2026-11-15/chatgpt/next-build-plan-gainmaker"
+    },
+    {
+      "branch": "chatgpt/next-release",
+      "expected_head": "334bf8442287dacefde8e592eb382674730c1b28",
+      "recovery_tag": "archive/2026-11-15/chatgpt/next-release"
+    },
+    {
+      "branch": "chatgpt/next-update-sweep-map-scope",
+      "expected_head": "4a23dcdfda6e803b1bcf391f1cdf32545b162877",
+      "recovery_tag": "archive/2026-11-15/chatgpt/next-update-sweep-map-scope"
+    },
+    {
+      "branch": "chatgpt/pr40-batch-resolution",
+      "expected_head": "87e83b6c72e2ae3103135e892b57e90c5e18ac8a",
+      "recovery_tag": "archive/2026-11-15/chatgpt/pr40-batch-resolution"
+    },
+    {
+      "branch": "chatgpt/roadmap-critique",
+      "expected_head": "ed2826c73865af6a887ba147ba8b3bf0ef3d98e0",
+      "recovery_tag": "archive/2026-11-15/chatgpt/roadmap-critique"
+    },
+    {
+      "branch": "chatgpt/routes-offline-packaging",
+      "expected_head": "4b06242991e501baacf059e6ca3a4707b832f8eb",
+      "recovery_tag": "archive/2026-11-15/chatgpt/routes-offline-packaging"
+    },
+    {
+      "branch": "chatgpt/routes-sweep-integration",
+      "expected_head": "18e7239d017882ee780864c5a2fe74e8d979ea7a",
+      "recovery_tag": "archive/2026-11-15/chatgpt/routes-sweep-integration"
+    },
+    {
+      "branch": "chatgpt/routes-sweep-ui",
+      "expected_head": "44cbd6da9797e580a6994fb54d35c0715e0b13fd",
+      "recovery_tag": "archive/2026-11-15/chatgpt/routes-sweep-ui"
+    },
+    {
+      "branch": "chatgpt/single-writer-workflow",
+      "expected_head": "0501a6198ee0a672b4aaf5f238384e3d7aa3f571",
+      "recovery_tag": "archive/2026-11-15/chatgpt/single-writer-workflow"
+    },
+    {
+      "branch": "chatgpt/web-offline-guide-redirects",
+      "expected_head": "361afbb2f7dc5906ef1cae1836365a7553649823",
+      "recovery_tag": "archive/2026-11-15/chatgpt/web-offline-guide-redirects"
+    },
+    {
+      "branch": "claude/b0-build-registration",
+      "expected_head": "320854c7be8fce58c0a5c425a4573212522377dd",
+      "recovery_tag": "archive/2026-11-15/claude/b0-build-registration"
+    },
+    {
+      "branch": "claude/b1-reliable-gate",
+      "expected_head": "8b71eddddf015eaba3e8be39b397a1b7e18641db",
+      "recovery_tag": "archive/2026-11-15/claude/b1-reliable-gate"
+    },
+    {
+      "branch": "claude/b11-impairments",
+      "expected_head": "a1bc16f1eea87ebe6802f1802d6c2256636c3085",
+      "recovery_tag": "archive/2026-11-15/claude/b11-impairments"
+    },
+    {
+      "branch": "claude/b15-fiber",
+      "expected_head": "b2d6f91c4bd43c18ea99b6cc8fda1b55e925ce64",
+      "recovery_tag": "archive/2026-11-15/claude/b15-fiber"
+    },
+    {
+      "branch": "claude/b17-highsplit",
+      "expected_head": "0436e9a1a94df2fcc78c1713b34f3a1cda5e7eed",
+      "recovery_tag": "archive/2026-11-15/claude/b17-highsplit"
+    },
+    {
+      "branch": "claude/b18-why-cards",
+      "expected_head": "7d18b9a4b9e1a73ad4fc2ae14658cdf17e42409a",
+      "recovery_tag": "archive/2026-11-15/claude/b18-why-cards"
+    },
+    {
+      "branch": "claude/b19-study",
+      "expected_head": "f2641a2c21d2614fa809a6b6ccd4d8109f13210d",
+      "recovery_tag": "archive/2026-11-15/claude/b19-study"
+    },
+    {
+      "branch": "claude/b2-ci",
+      "expected_head": "e77ef24affc9c4a6cf5281a93d2bd4551eccfdb8",
+      "recovery_tag": "archive/2026-11-15/claude/b2-ci"
+    },
+    {
+      "branch": "claude/b20-pop",
+      "expected_head": "b78868bf54b9329250c09066a936a3d8c4426385",
+      "recovery_tag": "archive/2026-11-15/claude/b20-pop"
+    },
+    {
+      "branch": "claude/b3-paperwork",
+      "expected_head": "554465129e9df0c625c838fc25771c3be34284eb",
+      "recovery_tag": "archive/2026-11-15/claude/b3-paperwork"
+    },
+    {
+      "branch": "claude/b4-training-sync",
+      "expected_head": "5a370c19c59d3f0f9f0c476317973a0a06009e8d",
+      "recovery_tag": "archive/2026-11-15/claude/b4-training-sync"
+    },
+    {
+      "branch": "claude/b5-docsis-health",
+      "expected_head": "1f239b60ae82b50821761c65e442f488f4b09b1d",
+      "recovery_tag": "archive/2026-11-15/claude/b5-docsis-health"
+    },
+    {
+      "branch": "claude/b6-leakage",
+      "expected_head": "418e086a2c111b517c22fe382023ef63c2801874",
+      "recovery_tag": "archive/2026-11-15/claude/b6-leakage"
+    },
+    {
+      "branch": "claude/b7-safety",
+      "expected_head": "1c9012b9ed938a0c4ebc2f91a8629689e9ad674c",
+      "recovery_tag": "archive/2026-11-15/claude/b7-safety"
+    },
+    {
+      "branch": "claude/b8-outage",
+      "expected_head": "77b9c2ba14259c8c8cb0759da5d42027e8a42e1b",
+      "recovery_tag": "archive/2026-11-15/claude/b8-outage"
+    },
+    {
+      "branch": "claude/chatgpt-handoff",
+      "expected_head": "c55a67ca4a5c0f79ec034a84a6810d90fc2bde52",
+      "recovery_tag": "archive/2026-11-15/claude/chatgpt-handoff"
+    },
+    {
+      "branch": "claude/finish-instructions",
+      "expected_head": "42af2d78e44b8d6dc02df2a051a6f154a600d83e",
+      "recovery_tag": "archive/2026-11-15/claude/finish-instructions"
+    },
+    {
+      "branch": "claude/finishing-build3",
+      "expected_head": "163afa55023e2b4b238446039fb40dccb764fbf5",
+      "recovery_tag": "archive/2026-11-15/claude/finishing-build3"
+    },
+    {
+      "branch": "claude/leak-detector-arcom",
+      "expected_head": "54d5beeafc0444d9a1c2fc27987b1c675320bc24",
+      "recovery_tag": "archive/2026-11-15/claude/leak-detector-arcom"
+    },
+    {
+      "branch": "claude/logbook",
+      "expected_head": "821650e577badacf12bd213b6493d1c6d0e07945",
+      "recovery_tag": "archive/2026-11-15/claude/logbook"
+    },
+    {
+      "branch": "claude/perf-and-jobs-fix",
+      "expected_head": "b4f592293ad34d103d84be7b48fb2ae16580fbc8",
+      "recovery_tag": "archive/2026-11-15/claude/perf-and-jobs-fix"
+    },
+    {
+      "branch": "claude/roadmap-determination",
+      "expected_head": "08f5a2a24456e9d37e9f5ee8ab01de58fce60faf",
+      "recovery_tag": "archive/2026-11-15/claude/roadmap-determination"
+    },
+    {
+      "branch": "claude/station-typed-input",
+      "expected_head": "34b831a98e0b68dcb2b2f4039c912784dbdfb4ec",
+      "recovery_tag": "archive/2026-11-15/claude/station-typed-input"
+    },
+    {
+      "branch": "claude/workflow-batch",
+      "expected_head": "f8e091b57ca08d2da10ae5fa6e882ff2f17fffab",
+      "recovery_tag": "archive/2026-11-15/claude/workflow-batch"
+    },
+    {
+      "branch": "codex/core-closeout-status",
+      "expected_head": "744245107807ca386029ee149c0ba98def62da70",
+      "recovery_tag": "archive/2026-11-15/codex/core-closeout-status"
+    },
+    {
+      "branch": "codex/next-build-candidate",
+      "expected_head": "22e43d196d132a4a3d89b34da7bbbdb9a9220370",
+      "recovery_tag": "archive/2026-11-15/codex/next-build-candidate"
+    },
+    {
+      "branch": "codex/next-carry-forward",
+      "expected_head": "d7c50c2a98c6a41144c2cfab142092d41085093a",
+      "recovery_tag": "archive/2026-11-15/codex/next-carry-forward"
+    },
+    {
+      "branch": "codex/next-company-levels",
+      "expected_head": "cd3a159c899efba3219073c6557bab020e8549a4",
+      "recovery_tag": "archive/2026-11-15/codex/next-company-levels"
+    },
+    {
+      "branch": "codex/next-optimization-organization",
+      "expected_head": "db25346dd1906b819dcdd8fcbe624215830e43d5",
+      "recovery_tag": "archive/2026-11-15/codex/next-optimization-organization"
+    },
+    {
+      "branch": "codex/night-log",
+      "expected_head": "3c3a25f57654d3597112d8c60d130ae5707dada3",
+      "recovery_tag": "archive/2026-11-15/codex/night-log"
+    },
+    {
+      "branch": "codex/station-input-retention",
+      "expected_head": "2c040da5dff805e2a5cda235a75a56203dbe8da3",
+      "recovery_tag": "archive/2026-11-15/codex/station-input-retention"
+    },
+    {
+      "branch": "codex/station-view",
+      "expected_head": "e83f51615fd980155441f8861a9e474b30ad6d65",
+      "recovery_tag": "archive/2026-11-15/codex/station-view"
+    },
+    {
+      "branch": "codex/sweep-due",
+      "expected_head": "0e930d13f1954191ac5b0a5498e6e1ad93c74d0d",
+      "recovery_tag": "archive/2026-11-15/codex/sweep-due"
+    },
+    {
+      "branch": "codex/sweep-grading",
+      "expected_head": "d95f08b184b9cc3cc33150e58736ecc03d9d42b8",
+      "recovery_tag": "archive/2026-11-15/codex/sweep-grading"
+    },
+    {
+      "branch": "codex/work-logbook",
+      "expected_head": "ea6b5ffcb823740290770e810ac526284efa62a0",
+      "recovery_tag": "archive/2026-11-15/codex/work-logbook"
+    },
+    {
+      "branch": "grok/a1-power-sum",
+      "expected_head": "73b6ab413eb2ac8aefdd60497d19a88a93d12b55",
+      "recovery_tag": "archive/2026-11-15/grok/a1-power-sum"
+    },
+    {
+      "branch": "grok/a2-cascade",
+      "expected_head": "223867e3d495a1375c4374c4ba4b008c0ef29112",
+      "recovery_tag": "archive/2026-11-15/grok/a2-cascade"
+    },
+    {
+      "branch": "grok/a3-nav1",
+      "expected_head": "b34b1db60571e758947ca5b592e14aeaf7f38d73",
+      "recovery_tag": "archive/2026-11-15/grok/a3-nav1"
+    },
+    {
+      "branch": "grok/a4-context",
+      "expected_head": "81e2e02400b179d77a0ad03533079631c59238be",
+      "recovery_tag": "archive/2026-11-15/grok/a4-context"
+    },
+    {
+      "branch": "grok/a5-power-pm",
+      "expected_head": "e83cafa30abf8c40800c228d7e47eb17f6343ab9",
+      "recovery_tag": "archive/2026-11-15/grok/a5-power-pm"
+    },
+    {
+      "branch": "grok/a7-final-gate",
+      "expected_head": "f19e664a8bed007280c00123aca681e3106061c4",
+      "recovery_tag": "archive/2026-11-15/grok/a7-final-gate"
+    },
+    {
+      "branch": "grok/a7-handoff",
+      "expected_head": "ac054a371dcf7616dbc85b2de25db4d0b3545e58",
+      "recovery_tag": "archive/2026-11-15/grok/a7-handoff"
+    },
+    {
+      "branch": "grok/b9-closeout",
+      "expected_head": "aadb61262b929466bdea73fcf8c357877a27302b",
+      "recovery_tag": "archive/2026-11-15/grok/b9-closeout"
+    },
+    {
+      "branch": "grok/next-build-qa",
+      "expected_head": "84c5b9f662fec2db575c2134883b8b154e456b7c",
+      "recovery_tag": "archive/2026-11-15/grok/next-build-qa"
+    },
+    {
+      "branch": "grok/recheck-9df4857",
+      "expected_head": "57effc4f91236e0e65096b0c330c8e09f9bec8df",
+      "recovery_tag": "archive/2026-11-15/grok/recheck-9df4857"
+    },
+    {
+      "branch": "grok/session-2-handoff",
+      "expected_head": "c98cf4d55d08c422d7456f193e2de5da89416613",
+      "recovery_tag": "archive/2026-11-15/grok/session-2-handoff"
+    }
+  ]
+}

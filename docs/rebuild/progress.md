@@ -7,3 +7,9 @@ Ruling: use an isolated external worktree and one branch; user approved this exe
 Ruling: historical startup/integration tests requiring retired UI are superseded by new executable behavior checks; numeric/source fixtures remain reference evidence, not fresh passing tests.
 
 Tasks: catalog/RF; graph/ONX/storage; PDF importer/exporter; interface; build/offline/Android; integrated verification; cleanup/review handoff.
+
+## Delivery
+
+Fresh implementation pushed to draft PR61. Final PWA0435280d7ff18732da03 published as Site version12 at https://nightsweep-field.goodst3r.chatgpt.site. Source commit9348dbea5657df69d5154958a9fe4008782240b1 maps to Site sourcecb0166b76be93bc7a090bef3ddda88279666ed01. See WEB_RELEASE.json for deployment IDs. Source-helper installation was unavailable, so ordinary Git fallback used a stdin-only short-lived credential and temporary process-local authorization headers; no credential persisted.
+
+All70 selected obsolete remote heads were archived with verified annotated recovery tags,13 superseded PRs48–60 closed, and70 branches deleted using exact-head leases. Five remote heads remain: main/build3, two independent branches, and the new implementation branch. Exact receipts are in REMOTE_CLEANUP_RESULT.json. Current source cleanup removes836 obsolete tracked files and retains licensed PDF/OCR assets. Claude review, original-key signing and phone/RF acceptance are pending; no merge was performed.
