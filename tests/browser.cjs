@@ -34,12 +34,14 @@ function startServer() {
 }
 
 async function syntheticOnxZip() {
+  const frequencies=Array.from({length:98},(_,i)=>57+696*i/97);
+  const levels=frequencies.map((_,i)=>11.4+11.9*i/97);
   const data = {
     testGroup: { id: 'synthetic', tests: [{ id: 'synthetic-test',
       setupGroups: [{ id: 'testPointTemplate', configs: [{ id: 'forwardTestPointCompensation', value: 0, units: 'dB' }] }],
       resultGroups: [{ id: 'synthetic-result', resultSeries: [{ id: 'levels',
-        independent: { label: 'Frequency', units: 'MHz', values: [57, 753] },
-        dependent: [{ label: 'Absolute', units: 'dBmV', values: [11.4, 23.3] }],
+        independent: { label: 'Frequency', units: 'MHz', values: frequencies },
+        dependent: [{ label: 'Absolute', units: 'dBmV', values: levels }],
       }] }],
     }] },
   };
@@ -120,8 +122,14 @@ async function main() {
     await page.waitForSelector('#station-form');
     check('manual station can be added', await page.locator('.station-row').count() === 2 && (await page.locator('.station-list').innerText()).includes('Amplifier A'));
 
-    dialogAnswers.push('node', 'Amplifier A', true, '1', 'commscope_rg6', '125');
     await page.locator('[data-action="connect"]').click();
+    await page.locator('#edge-form [name=from]').selectOption({label:'GS7K Node'});
+    await page.locator('#edge-form [name=to]').selectOption({label:'Amplifier A'});
+    await page.locator('#edge-form [name=port]').selectOption('1');
+    await page.locator('#edge-form [name=cableId]').selectOption('commscope_rg6');
+    await page.locator('#edge-form [name=length]').fill('125');
+    await page.locator('#edge-form [name=confirmed]').check();
+    await page.locator('#edge-form button[type=submit]').click();
     const edgeCount = await page.locator('.edge-row').count();
     check('manual physical edge can be created', edgeCount === 1);
     const edgeLine = edgeCount ? await page.locator('.edge-row').innerText() : await page.locator('.notice').innerText();
@@ -146,7 +154,7 @@ async function main() {
     await page.locator('#station-form [name="tag"]').fill('A1');
     await page.locator('#station-form [name="kind"]').selectOption('active');
     await page.locator('#station-form [name="modelId"]').selectOption('gm-hgd-42');
-    await page.locator('#station-form [name="mode"]').fill('agc');
+    await page.locator('#station-form [name="mode"]').selectOption('agc');
     await page.locator('#station-form [name="pilotMHz"]').fill('753');
     await page.locator('#station-form [name="director"]').selectOption('splitter');
     await page.locator('#station-form button.primary').click();
@@ -158,8 +166,8 @@ async function main() {
     check('measured node port 1 feeds HGD main and auxiliary targets', mainCard.includes('31.4 @ 57.0 MHz → 43.3 @ 753.0 MHz') && aux1Card.includes('27.9 @ 57.0 MHz → 39.8 @ 753.0 MHz') && aux2Card.includes('27.9 @ 57.0 MHz → 39.8 @ 753.0 MHz'), JSON.stringify({ mainCard,aux1Card,aux2Card }));
     check('HGD part recommendation includes the actual EQ part number and AGC pilot pad', /EQ 4007239/.test(recommendation) && /AGC pad 9\.5 dB/.test(recommendation), recommendation);
     await page.locator('#sweep-select').selectOption('target');
-    const traceGraph = await page.locator('.trace-summary').evaluate(el => ({ label:el.querySelector('span')?.textContent, charts:el.querySelectorAll('svg.sweep-chart').length, polylines:el.querySelectorAll('svg.sweep-chart polyline').length }));
-    check('HGD target graph displays one selected physical-port trace', traceGraph.label?.includes('TARGET SWEEP') && traceGraph.charts === 1 && traceGraph.polylines === 1, JSON.stringify(traceGraph));
+    const traceGraph = await page.locator('.trace-summary').evaluate(el => ({ label:el.querySelector('span')?.textContent, charts:el.querySelectorAll('svg.sweep-chart').length, polylines:el.querySelectorAll('svg.sweep-chart polyline').length, points:el.querySelector('svg.sweep-chart polyline')?.getAttribute('points')?.trim().split(/\s+/).length }));
+    check('HGD target graph displays one selected physical-port trace', traceGraph.label?.includes('TARGET SWEEP') && traceGraph.charts === 1 && traceGraph.polylines === 1 && traceGraph.points === 98, JSON.stringify(traceGraph));
 
     await page.locator('[data-action="save"]').click();
     await page.waitForFunction(() => document.body.innerText.includes('Job saved on this device'));
@@ -173,6 +181,7 @@ async function main() {
 
     const map = await syntheticMapPdf();
     dialogAnswers.push(false); // Decline unbound schedule candidates; bind the configured HGD to the visible A1 position explicitly.
+    const mapStart=Date.now();
     const mapChooser = page.waitForEvent('filechooser');
     await page.locator('[data-action="map-import"]').first().click();
     await (await mapChooser).setFiles({ name: 'synthetic-practice.pdf', mimeType: 'application/pdf', buffer: map });
@@ -180,6 +189,7 @@ async function main() {
     check('synthetic PDF map is read and imported after confirmation', await page.locator('.map-toolbar').count() === 1);
     await page.waitForFunction(() => document.querySelector('#map-canvas')?.width > 0);
     check('imported PDF map renders a page canvas', await page.locator('#map-canvas').evaluate(c => c.width > 0 && c.height > 0));
+    check('synthetic map renders in bounded time', Date.now()-mapStart < 30000, `${Date.now()-mapStart} ms`);
     check('embedded PDFLib UMD writer is available in the built PWA', await page.evaluate(() => typeof window.PDFLib?.PDFDocument?.load === 'function'));
     await page.locator('.station-row').filter({ hasText:'Amplifier A' }).click();
     await page.locator('[data-action="assign-map"]').click();
@@ -192,6 +202,20 @@ async function main() {
     await mapOverlay.click({position:{x:overlayBox.width*(170/612),y:overlayBox.height*a1Y}});
     await page.waitForFunction(() => document.body.innerText.includes('Station position assigned'));
     check('HGD station position is confirmed on the same page as source map label A1', await page.locator('.marker.selected').count() === 1 && await page.locator('.tombstone.selected').count() === 1 && await page.locator('.map-toolbar').innerText().then(t => /Page 1 \/ 1/.test(t)));
+    // Bind the source too, then verify that two map taps open an editable draft and cancel leaves the route unchanged.
+    await page.locator('.station-row').filter({hasText:'GS7K Node'}).click();
+    await page.locator('[data-action="assign-map"]').click();
+    await mapScroll.evaluate((el,f)=>{el.scrollTop=Math.max(0,el.scrollHeight*f-el.clientHeight*.5);},a1Y);
+    const sourceOverlay=await mapOverlay.boundingBox();
+    await mapOverlay.click({position:{x:sourceOverlay.width*.1,y:sourceOverlay.height*a1Y}});
+    const priorEdges=await page.locator('.edge-row').count();
+    await page.locator('[data-action="map-connect"]').click();
+    await page.locator('.marker[title="GS7K Node"]').click();
+    await page.locator('.marker[title="Amplifier A"]').click();
+    check('two map endpoint taps open connection editor',await page.locator('#edge-form').isVisible());
+    await page.locator('[data-action="cancel-edge"]').click();
+    check('cancelling map connection leaves route unchanged',await page.locator('.edge-row').count()===priorEdges);
+    await page.locator('.station-row').filter({hasText:'Amplifier A'}).click();
     const tombstone = page.locator('.tombstone.selected');
     const beforePosition = await tombstone.getAttribute('style');
     await page.locator('[data-action="place"]').click();

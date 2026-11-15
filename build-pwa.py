@@ -17,7 +17,7 @@ worker_template=(ROOT/'pwa/service-worker.js').read_text()
 digest=hashlib.sha256()
 for name,data in sorted([('app',app.encode()),('worker',worker_template.encode()),*files.items()]):digest.update(name.encode()+b'\0'+data+b'\0')
 version=digest.hexdigest()[:20]
-release={'version':version,'worker':f'sw.{version}.js','appVersion':'2.0 Alpha build 5'}
+release={'version':version,'worker':f'sw.{version}.js','appVersion':'2.0 Alpha build 6'}
 app=app.replace('</head>','<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"></head>')
 config='<script id="carpe-pwa-config" type="application/json">'+json.dumps(release)+'</script><script src="pwa.js"></script>'
 files['index.html']=app.replace('</body>',config+'</body>').encode()

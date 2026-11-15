@@ -130,6 +130,23 @@ test('shared tombstone layout clamps saved rectangles and groups every leg with 
   assert.ok(Math.abs(title.x-layout[0].x-layout[0].padding/r.pages[0].width)<.0001);
 });
 
+test('98-point HGD export keeps one compact grouped tombstone on its confirmed symbol page',async()=>{
+  const {recommendParts}=await import('../app/rf.mjs');
+  const bytes=await synthetic(),r=await importMap(bytes),node={...r.nodes[0],modelId:'gm-hgd-40',map:{...r.nodes[0].map,confirmed:true}};
+  const samples=Array.from({length:98},(_,i)=>[57+i*696/97,31+12*i/97]),input=samples.map(([f,v])=>[f,v-30]);
+  const recommendation=recommendParts(node.modelId,input,samples,{director:'splitter'});
+  const evaluation={stations:{[node.id]:{input,outputs:recommendation.outputs,targets:recommendation.targets,gainStatus:recommendation.gainStatus,shortfall:recommendation.shortfall,recommendation,issues:recommendation.issues}}};
+  const job={map:r,nodes:[node],placements:{[node.id]:{page:1,x:.25,y:.2}}},before=JSON.stringify(job);
+  const [layout]=layoutTombstones(job,evaluation),result=await importMap(await exportMap(bytes,job,evaluation));
+  const titles=result.pages.flatMap(p=>p.text.filter(t=>t.str.includes('Carpe Noctum | A1')).map(t=>({page:p.pageNumber,...t})));
+  assert.equal(titles.length,1);assert.equal(titles[0].page,1);
+  assert.ok(Math.abs(titles[0].x-layout.x-layout.padding/r.pages[0].width)<.0001);
+  const text=result.pages[0].text.map(t=>t.str).join(' ');
+  assert.match(text,/main.*aux1.*aux2/);assert.match(text,/Input pad/);assert.match(text,/98 pts/);
+  assert.doesNotMatch(text,/\{"|"sources"|"residuals"/);
+  assert.ok(layout.lines.length<=32);assert.equal(JSON.stringify(job),before);assert.equal(sha(bytes),r.sha256);
+});
+
 test('cancelling active local OCR releases the real worker and aborts the current render',async()=>{
   const {createWorker}=await import('tesseract.js'),c=createCanvas(200,200),ctx=c.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,200,200);ctx.fillStyle='black';ctx.font='32px Arial';ctx.fillText('E42',20,80);
   const d=await PDFDocument.create(),p=d.addPage([200,200]),image=await d.embedPng(c.toBuffer('image/png'));p.drawImage(image,{x:0,y:0,width:200,height:200});const bytes=await d.save(),controller=new AbortController();let terminated=false;

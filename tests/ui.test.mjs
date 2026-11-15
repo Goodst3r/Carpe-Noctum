@@ -92,17 +92,29 @@ test('blank calculator values do not produce a zero loss', () => {
   assert.match(root.querySelector('#result').textContent,/Check your inputs/);
 });
 
-test('cancelled cable length does not create a connection', async () => {
+test('connection editor cancels without mutation and converts metres to feet', async () => {
   const {CABLES}=await import('../app/catalog.mjs');
   const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
   globalThis.document=dom.window.document; globalThis.window=dom.window; globalThis.localStorage=dom.window.localStorage;
   const root=document.querySelector('#app'), app=mountApp(root);
   root.querySelector('[data-tab=route]').click(); root.querySelector('[data-split=low]').click();
-  let replies=['A1','active']; dom.window.prompt=()=>replies.shift(); dom.window.confirm=()=>true;
+  const replies=['A1','active']; dom.window.prompt=()=>replies.shift();
   root.querySelector('[data-action=add-node]').click();
-  replies=['GS7K Node','A1','1',Object.keys(CABLES)[0],null];
   root.querySelector('[data-action=connect]').click();
+  assert.ok(root.querySelector('[role=dialog]'));
+  root.querySelector('[data-action=cancel-edge]').click();
   assert.equal(app.getJob().edges.length,0);
+  root.querySelector('[data-action=connect]').click();
+  const form=root.querySelector('#edge-form');
+  form.querySelector('[name=from]').value='node'; form.querySelector('[name=from]').dispatchEvent(new dom.window.Event('change',{bubbles:true}));
+  form.querySelector('[name=to]').value=app.getJob().nodes.find(n=>n.name==='A1').id;
+  form.querySelector('[name=port]').value='1'; form.querySelector('[name=cableId]').value=Object.keys(CABLES)[0];
+  form.querySelector('[name=length]').value='10';form.querySelector('[name=unit]').value='m';form.querySelector('[name=confirmed]').checked=true;
+  form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));
+  assert.equal(app.getJob().edges.length,1); assert.ok(Math.abs(app.getJob().edges[0].lengthFt-32.80839895)<1e-6);
+  const before=structuredClone(app.getJob().edges[0]);root.querySelector('.edge-row').click();
+  const edited=root.querySelector('#edge-form');edited.querySelector('[name=length]').value='500';root.querySelector('[data-action=cancel-edge]').click();
+  assert.deepEqual(app.getJob().edges[0],before);
 });
 
 test('active editor accepts measured gain and installed part details', () => {
@@ -179,4 +191,44 @@ test('sample parser requires exactly two finite cells and increasing positive fr
   const {parseSamplePairs}=await import('../app/ui.mjs');
   for (const input of ['57,','57,,0','57,0,1','57,1e','0,1','57,1\n57,2','57,Infinity']) assert.throws(()=>parseSamplePairs(input), undefined, input);
   assert.deepEqual(parseSamplePairs('57,0\n753 -2.5'),[[57,0],[753,-2.5]]);
+});
+
+test('station mode choices follow equipment and start unknown', () => {
+  const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
+  globalThis.document=dom.window.document; globalThis.window=dom.window; globalThis.localStorage=dom.window.localStorage;
+  const root=document.querySelector('#app'); mountApp(root);root.querySelector('[data-tab=route]').click();root.querySelector('[data-split=low]').click();
+  const answers=['A1','active'];dom.window.prompt=()=>answers.shift();root.querySelector('[data-action=add-node]').click();
+  const model=root.querySelector('#station-form [name=modelId]'); model.value='gm-hgd-42';model.dispatchEvent(new dom.window.Event('change',{bubbles:true}));
+  const mode=root.querySelector('#station-form [name=mode]');assert.equal(mode.value,''); assert.deepEqual([...mode.options].map(o=>o.value),['','agc']);
+});
+
+test('selecting a map marker focuses its station editor', () => {
+  const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
+  globalThis.document=dom.window.document;globalThis.window=dom.window;globalThis.localStorage=dom.window.localStorage;
+  const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-tab=route]').click();root.querySelector('[data-split=low]').click();
+  const job=app.getJob();job.map={pages:[]};job.nodes[0].map={page:1,x:.3,y:.4,confirmed:true};
+  root.querySelector('[data-tab=route]').click();root.querySelector('.map-overlay .marker').click();
+  assert.equal(document.activeElement,root.querySelector('#station-settings summary'));
+});
+
+test('ambiguous meter compensation asks for confirmation and cancel preserves the sweep', async () => {
+  const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
+  globalThis.document=dom.window.document;globalThis.window=dom.window;globalThis.localStorage=dom.window.localStorage;
+  const root=document.querySelector('#app'), app=mountApp(root);root.querySelector('[data-tab=route]').click();root.querySelector('[data-split=low]').click();
+  dom.window.confirm=()=>true;dom.window.prompt=()=> '20';root.querySelector('[data-import-port="1"]').click();
+  const input=root.querySelector('#file-picker');const doc={testGroup:{tests:[{setupGroups:[{id:'testPointTemplate',configs:[{id:'forwardTestPointCompensation',value:3,units:'dB'}]}],resultGroups:[{resultSeries:[{independent:{label:'Frequency',units:'MHz',values:[57]},dependent:[{label:'Absolute',units:'dBmV',values:[11.4]}]}]}]}]}};
+  const bytes=new TextEncoder().encode(JSON.stringify(doc));Object.defineProperty(input,'files',{value:[{name:'meter.json',arrayBuffer:async()=>bytes.buffer}]});input.dispatchEvent(new dom.window.Event('change',{bubbles:true}));
+  for(let i=0;i<20&&!root.querySelector('[data-action=comp-cancel]');i++) await new Promise(r=>setTimeout(r,5));
+  assert.match(root.querySelector('[role=dialog]').textContent,/3 dB/);root.querySelector('[data-action=comp-cancel]').click();await new Promise(r=>setTimeout(r,0));
+  assert.deepEqual(app.getJob().portSweeps,{});
+});
+
+test('unknown equipment test-point loss is blank and cancellation does not import', async () => {
+  const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
+  globalThis.document=dom.window.document;globalThis.window=dom.window;globalThis.localStorage=dom.window.localStorage;
+  const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-tab=route]').click();root.querySelector('[data-split=high]').click();
+  let defaultLoss='unexpected';dom.window.confirm=()=>true;dom.window.prompt=(_message,value)=>{defaultLoss=value;return null;};
+  root.querySelector('[data-import-port="1"]').click();const picker=root.querySelector('#file-picker');
+  Object.defineProperty(picker,'files',{value:[{name:'sweep.json',arrayBuffer:async()=>new TextEncoder().encode('{}').buffer}]});picker.dispatchEvent(new dom.window.Event('change',{bubbles:true}));
+  await new Promise(r=>setTimeout(r,0));assert.equal(defaultLoss,'');assert.deepEqual(app.getJob().portSweeps,{});
 });

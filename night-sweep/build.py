@@ -14,4 +14,4 @@ shell=shell.replace('/*APP_SCRIPT*/',bundle.replace('</script','<\\/script'))
 out=ROOT/'outputs/Night_Sweep.html'
 out.parent.mkdir(exist_ok=True)
 out.write_text(shell)
-print('Built Carpe Noctum 2.0 Alpha build 5:',out)
+print('Built Carpe Noctum 2.0 Alpha build 6:',out)

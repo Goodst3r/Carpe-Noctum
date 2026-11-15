@@ -1,41 +1,40 @@
-# Fresh candidate verification — 2026-11-15
+# Build 6 review-fix verification — 2026-11-15
 
-This is the current verification record. Earlier snapshots in tool-checks.md are historical and are superseded by this record.
+Reviewed baseline:4b660c493010fa9f3a1eb64e6979aace863a4bfb (Claude's blocked review). This record supersedes the build5 verification, retained under releases/build5/.
 
 ## Frozen artifacts
 
-- App: 2.0 Alpha build 5; PWA `0435280d7ff18732da03`.
-- Standalone HTML SHA-256: `998b5354a8c11a6d13a55bdd299973bb09418d80ee7dcedf8ade724fd75ecb26`.
-- Unsigned Preview APK SHA-256: `cce71e9abaf7575963720e69d0bdeb1f060a53c0055c3f907c1b28e9475e8346` (76,221,250 bytes).
-- APK package `com.spencerwilliams.nightsweep.preview`, version code29, min26/target35.
-- Embedded HTML equals the frozen standalone; all5 ONNX graphs in the4 included packs matched manifest SHA-256 hashes.
+- App2.0 Alpha build6; PWA `db40433f7669e922a0a9`.
+- Standalone SHA-256 `bad9f83ca6180dc8f34d67291572e940493abc0f452fb9cfb3bf6a587910088e`.
+- Unsigned Preview APK SHA-256 `62feb5654f57ef3a05fb642883036fcbde0588343b3a5be1d3c7fdc41d96d5ab` (76,225,940 bytes).
+- Package `com.spencerwilliams.nightsweep.preview`, code30, min26/target35.
+- Embedded HTML byte parity and all5 ONNX graph hashes verified.
 
-## Executed checks
+## Checks executed on revised source
 
-| Command/check | Result |
+| Check | Result |
 |---|---|
-| npm test |130 total;127 passed;3 opt-in data/model tests skipped;0 failed |
-| Private supplied-PDF replay, maps suite with local environment paths |13/13 passed |
-| CARPE_AI_MODEL_DIR=verified-cache node --test tests/ai-engine.test.mjs |9/9 passed, including actual OCR/orientation/unwarp/table graphs |
-| npm run build |Standalone and26-file PWA built |
-| npm run test:browser |33/33 assertions passed |
-| npm run test:ai-browser |13/13 assertions passed; actual worker OCR, offline reload/inference, no external image/inference requests |
-| Java/ECJ production policy helper tests |2/2 passed in npm test |
-| Real Android SDK35 / ECJ / D8 / aapt2 compile |Passed, zip alignment and package/version/provider authority verified |
-| Wolfram evaluator reference vectors |Matched test-point correction, midpoint, gain/shortfall, AGC and synthetic minimax arithmetic; see MATH_CHECK.md |
+| npm test |152 total;149 passed;3 opt-in data/model skips;0 failed |
+| npm run build |Standalone and26-file PWA generated |
+| npm run test:browser |36/36 passed, including98-point ONX, map layout/export, two-endpoint connection dialog/cancel, widths360/768/1280 and offline persistence |
+| npm run test:ai-browser |13/13 passed, actual Tiny worker inference/offline reload, no external inference/image request |
+| Supplied-PDF replay suite, environment paths only |14/14 passed |
+| Actual supplied98-point ONX + supplied updated map, controlled test connection |76active/84EOL identities;2tombstones; max18rows; layout7.63ms; two original-source exports79.64ms; duplicate-free/source unchanged |
+| Real Android SDK35/ECJ/D8/aapt2 compile |Passed, alignment/package/code30/provider authority checked |
+| Native production policy/callback checks within npm test |3/3 Java/ECJ tests passed |
 
-Private PDFs and ONX were read locally and are excluded from Git. The supplied ONX ZIP has98 absolute samples57–753 MHz. Its0 dB recorded compensation plus the user's physical20 dB test-point offset gives31.4/43.3 dBmV. The node-port replacement path was exercised with that input. Tests use synthetic equivalents by default.
+H1 was reproduced before changes:98-point layout exceeded55seconds and was terminated. The equivalent fixed synthetic case took6.35ms (18rows);1,000points took1.22ms in the focused probe. Performance assertions use a generous2second bound and cap text size; these desktop timings are observations, not phone guarantees. The private-map integrated probe uses controlled synthetic connections, not an assertion of real plant topology.
 
-Updated-map import finds76 active and84 EOL identities; walkout finds50/78 schedule identities. The walkout's individual symbol identities are not reliably legible, so128 remain for manual placement/binding. Geometry and ports are provisional until confirmed. Full private-map export experiments confirmed same-page placement, source preservation and no repeated-label duplication; synthetic executable coverage additionally checks rotations/crop/UserUnit coordinates and grouping.
+## Test-count reconciliation (L6)
 
-## Independent review and remaining limits
+Build5 local run:130total/127pass/3skip. Claude:130total/125pass/5skip. The additional2skips were native helper tests requiring the separately provisioned ECJ/Java toolchain. No test failed. Build6 has3native checks, so an environment without ECJ may report6skips instead of3. All environments must report their own counts. Set CARPE_ECJ/JAVA or JAVA_HOME to use a private external toolchain; private PDF/model checks remain explicitly opt-in.
 
-Codex models Sol, Astra, Terra, GPT6Sol and Luna were used for bounded implementation/review/check tasks. An independent final Codex review found a blank sample becoming zero; the shared strict parser and executable UI regressions now reject it. A final map-OCR cleanup check also verifies worker termination releases pending inference. Claude has not reviewed this candidate; CLAUDE_REVIEW.md is the review handoff. Grok was excluded.
+## Review disposition and limits
 
-The exact math app tagged by the user reported not installed. The connected Wolfram evaluator supplied the independent results instead. Firecrawl and original manufacturer references, Octen, Hugging Face metadata/public model cards and Context7 were used where available. Plugin availability is not accuracy validation.
+REVIEW_RESPONSE.md maps H1, M1–M3 and L1–L6 to changes and evidence. Claude has not re-reviewed the revised source; approval is not claimed. The initial external review remains blocked until the reviewer accepts the fixes.
 
-This APK is unsigned, non-installable and not tested on a phone or emulator. No original signing key was accessed or replaced. Android WebView interception and picker UX need device testing. Desktop browser checks do not establish iOS Safari support or RF field acceptance. Amplifier gain shaping remains a labeled estimate where only gain/tilt specifications exist; maximum output headroom is unknown. Out-of-band or missing measurements remain blank. Digicomm's anomalous16.5 dB EQ row is quarantined.
+The APK is unsigned and non-installable. No signing key was accessed/replaced. Native prompt callback tests and compilation do not establish Android keyboard/dialog/lifecycle/picker UX. A signed original-key phone/emulator pass is requested in DEVICE_CHECK.md. iOS Safari and field RF acceptance remain unverified.
 
-Tiny OCR, orientation, UVDoc and table structure ran on synthetic desktop fixtures. PP-DocLayoutV3 and Florence adapters are experimental; large weights and real inference were not tested. No model has been accepted for unattended HFC topology or meter-level interpretation. AI outputs require review and cannot change numerical route state.
+Manufacturer gain/tilt estimates, unavailable1GHz inverse loss curves and unknown output headroom remain declared. Meter compensation export semantics are operator-declared when the setting is nonzero; the VIAVI FAQ confirms template settings but does not define exported Absolute-array compensation. Missing/out-of-band values stay unknown. Heavy AI adapters remain experimental and unexecuted; this patch does not change their models.
 
-The final AI bundle uses a Florence-only pinned SDK entry, omitting the unused global model registry. This removed a confirmed GitHub scanner false positive on an unused32-character model class name; no push-protection bypass was requested. The minimal Florence session-selection regression passes, but full heavy-model inference remains unverified.
+Private supplied files are packaged locally under ignored artifacts/private-review/ for handoff, not committed/published. The original model-engine four-pack9/9 inference evidence remains in the build5 record; the revised worker/UI integration ran13checks above.

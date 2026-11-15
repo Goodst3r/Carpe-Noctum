@@ -15,3 +15,7 @@ Check actual code and reproduce material concerns:
 7. Browser/Android source parity, same-origin native assets, file bounds, offline PWA update rules. Unsigned build is not phone acceptance.
 
 Run npm ci, npm test, npm run build, npm run test:browser and npm run test:ai-browser. Private example files and optional model caches are not in Git; state any unrun checks. Report severity, file/line, a minimal reproduction, expected/observed behavior and whether it blocks release. Distinguish intentional fresh-format decisions from defects. Return a concise verdict with exact tested SHA and commands; do not claim phone/field validation without evidence.
+
+## Build6 follow-up
+
+Read REVIEW_RESPONSE.md first. The prior reviewed baseline is4b660c493010fa9f3a1eb64e6979aace863a4bfb. Review only its diff to the new PR61 HEAD and rerun the affected checks. Private originals are supplied separately in Claude-private-review-inputs.zip; keep them outside Git. Confirm H1 with the full98-point original ONX and a confirmed active, not a few-point fixture. Confirm newest BEFORE replacement, feet/metres/cancel behavior and nonzero compensation declaration. M3 phone/emulator acceptance remains separate from Java callback/SDK compilation. Report the exact SHA and data/tool prerequisites actually present.

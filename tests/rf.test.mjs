@@ -40,3 +40,49 @@ test('Digicomm inverse EQ can correct excess positive tilt using sourced losses'
 test('Digicomm directors use actual unequal auxiliary loss curves',()=>{const r=recommendParts('gm-hgd-40',[[750,10]],[[750,43]],{director:'digicomm-splitter',componentCompatibilityConfirmed:true});assert.equal(r.targets.aux1[0][1],39.6);assert.equal(r.targets.aux2[0][1],39.8);assert.ok(Math.abs(r.outputs.main[0][1]-r.outputs.aux1[0][1]-3.4)<1e-9);});
 test('equal minimax andSSE candidates retain installed parts deterministically',()=>{const r=recommendParts('gm-le-agc',[[750,0]],[[750,38.5]],{gainSamples:[[750,40]],candidateEqIds:['forward-cable-1g/0','forward-cable-1g/3'],inputPadDb:0,eqPartId:'forward-cable-1g/3'});assert.equal(r.shared.eqPartId,'forward-cable-1g/3');assert.equal(r.shared.inputPadDb,0);});
 test('quarantinedDigicomm16.5 cannot enter optimizer even atother frequencies',()=>{const r=recommendParts('gm-hgd-40',[[750,10]],[[750,43]],{eqFamily:'digicomm-cable-1p2g',componentCompatibilityConfirmed:true,candidateEqIds:['digicomm-cable-1p2g/16.5']});assert.equal(r.gainStatus,'unknown');assert.equal(r.shared,null);});
+
+test('latest reading samples win over archived after when portSweeps is absent',()=>{
+ const latest=[[57,18],[405,19],[753,20]],prior=[[57,28],[405,29],[753,30]];
+ const a={...active,readings:{main:{samples:latest,stage:'before',before:{samples:latest},after:{samples:prior}}}};
+ const x=evaluateRoute(job([a,{id:'e',kind:'eol',modelId:'eol'}],[edge('n','a','1'),edge('a','e')]));
+ assert.deepEqual(x.stations.e.input,latest);
+});
+test('latest source reading controls the target without archived after precedence',()=>{
+ const latest=[[57,21],[405,22],[753,23]],j=job([active],[edge('n','a','1')],{});
+ j.nodes[0]={...source,readings:{'1':{samples:latest,after:{samples}}}};
+ const x=evaluateRoute(j);assert.deepEqual(x.stations.a.targets.main,latest);
+});
+test('explicit unknown LE mode remains unknown rather than using the model gain',()=>{
+ for(const mode of ['automatic','',null,false]) {
+  const result=recommendParts('gm-le-agc',[[753,10]],[[753,43]],{mode});
+  assert.equal(result.gainStatus,'unknown');assert.equal(result.shared,null);
+  assert.ok(result.outputs.main.every(p=>p[1]===null));assert.ok(result.issues.some(issue=>/mode/i.test(issue)));
+ }
+});
+test('valid LE modes retain distinct gain and factory EQ references',()=>{
+ const results=Object.fromEntries(['manual','thermal','agc'].map(mode=>[mode,recommendParts('gm-le-agc',[[1002,-20]],[[1002,50]],{mode,pilotMHz:1002,candidateEqIds:['forward-cable-1g/0']})]));
+ assert.equal(results.manual.outputs.main[0][1],20.5);
+ assert.equal(results.thermal.outputs.main[0][1],15);
+ assert.equal(results.agc.outputs.main[0][1],14);
+ assert.equal(results.thermal.shared.factoryEqDb,7.5);
+ assert.equal(results.manual.shared.factoryEqDb,9);
+ assert.equal(results.agc.shared.factoryEqDb,9);
+});
+test('latest reading gaps never borrow bins from the archived after measurement',()=>{
+ const latest=[[57,18],[405,null],[753,20]],a={...active,readings:{main:{samples:latest,after:{samples}}}};
+ const x=evaluateRoute(job([a,{id:'e',kind:'eol',modelId:'eol'}],[edge('n','a','1'),edge('a','e')]));
+ assert.equal(x.stations.e.input[1][1],null);
+});
+test('aux director loss persists through a passive section; next active retains the source target',()=>{
+ const a={...active,settings:{directorLosses:{aux1:6,aux2:8}}};
+ const passive={id:'p',kind:'passive',modelId:'cable-only',settings:{}};
+ const b={id:'b',kind:'active',modelId:'gm-le-agc',settings:{}};
+ const x=evaluateRoute(job([a,passive,b],[edge('n','a','1'),edge('a','p','aux1'),edge('p','b')]));
+ for(let i=0;i<samples.length;i++){
+  assert.equal(x.stations.a.targets.aux1[i][1],samples[i][1]-6);
+  assert.ok(Math.abs(x.stations.a.outputs.main[i][1]-x.stations.p.outputs.main[i][1]-6)<1e-9);
+ }
+ assert.deepEqual(x.stations.p.input,x.stations.a.outputs.aux1);
+ assert.deepEqual(x.stations.b.input,x.stations.p.outputs.main);
+ assert.deepEqual(x.stations.b.targets.main,samples);
+});

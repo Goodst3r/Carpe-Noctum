@@ -55,14 +55,14 @@ test('port sweep replacement is atomic and leaves other ports intact', () => {
   assert.throws(() => replaceSweep(original, 'node', '1', { samples: [[57, NaN]] }), /sample/i);
 });
 
-test('before and after readings stay separate while after drives the active port sweep', () => {
+test('newest before upload drives the active port while after remains a comparison', () => {
   const job = { nodes: [{ id: 'node' }], portSweeps: {} };
   const after = replaceSweep(job, 'node', '1', { stage: 'after', samples: [[57, 31.4]] });
   const both = replaceSweep(after, 'node', '1', { stage: 'before', samples: [[57, 28.2]] });
   assert.deepEqual(both.nodes[0].readings['1'].before.samples, [[57, 28.2]]);
   assert.deepEqual(both.nodes[0].readings['1'].after.samples, [[57, 31.4]]);
-  assert.deepEqual(both.nodes[0].readings['1'].samples, [[57, 31.4]]);
-  assert.deepEqual(both.portSweeps['node::1'].samples, [[57, 31.4]]);
+  assert.deepEqual(both.nodes[0].readings['1'].samples, [[57, 28.2]]);
+  assert.deepEqual(both.portSweeps['node::1'].samples, [[57, 28.2]]);
 });
 
 test('missing measured samples cannot become a zero level', () => {
@@ -77,4 +77,61 @@ test('sweep replacement requires a physical port supported by its known model', 
 test('sweep replacement refuses prototype property names as physical ports', () => {
   const job = { nodes: [{ id: 'draft', modelId: '' }], portSweeps: {} };
   assert.throws(() => replaceSweep(job, 'draft', '__proto__', { samples: [[57, 31]] }), /port/i);
+});
+
+
+test('nonzero compensation requests a structured declaration before correction', async () => {
+  await assert.rejects(parseONX(fixture(3),{connection:'tp'}),error=>error.code==='ONX_COMPENSATION_CONFIRMATION_REQUIRED' && error.meterCompensationDb===3);
+});
+test('explicit export compensation declarations preserve raw levels and correct TP/direct planes', async () => {
+  for(const connection of ['tp','direct']) for(const compensationApplied of [true,false]) {
+    const result=await parseONX(fixture(3),{connection,testPointLoss:20,compensationApplied});
+    const physical=connection==='tp'?20:0, meter=compensationApplied?3:0;
+    assert.deepEqual(result.rawSamples,[[57,11.4],[753,23.3]]);
+    assert.deepEqual(result.samples,[[57,11.4+physical-meter],[753,23.3+physical-meter]]);
+    assert.equal(result.metadata.meterCompensationDb,3);
+    assert.equal(result.metadata.setupGroups[0].configs[0].value,3);
+    assert.equal(result.correction.testPointLossDb,physical);
+    assert.equal(result.correction.meterAppliedDb,meter);
+    assert.equal(result.correction.appliedDb,physical-meter);
+    assert.equal(result.correction.compensationApplied,compensationApplied);
+    assert.equal(result.correction.compensationSource,'operator-declared');
+  }
+});
+test('nonboolean compensation declaration never implies a meter correction', async () => {
+  for(const compensationApplied of ['true','false',null,0,1])await assert.rejects(parseONX(fixture(3),{connection:'tp',compensationApplied}),/boolean/i);
+});
+test('zero meter compensation needs no declaration and remains zero-setting evidence', async () => {
+  const result=await parseONX(fixture(),{connection:'tp'});
+  assert.equal(result.correction.appliedDb,20);
+  assert.equal(result.correction.meterAppliedDb,0);
+  assert.equal(result.correction.compensationSource,'zero-setting');
+});
+test('unstaged newest sweep remains active without discarding stage comparisons', () => {
+  let job={nodes:[{id:'node'}],portSweeps:{}};
+  job=replaceSweep(job,'node','1',{stage:'before',samples:[[57,10]]});
+  job=replaceSweep(job,'node','1',{stage:'after',samples:[[57,20]]});
+  job=replaceSweep(job,'node','1',{samples:[[57,30]]});
+  assert.deepEqual(job.portSweeps['node::1'].samples,[[57,30]]);
+  assert.deepEqual(job.nodes[0].readings['1'].samples,[[57,30]]);
+  assert.deepEqual(job.nodes[0].readings['1'].before.samples,[[57,10]]);
+  assert.deepEqual(job.nodes[0].readings['1'].after.samples,[[57,20]]);
+});
+test('latest before upload survives storage with both stage comparisons', async () => {
+  const {createJob,saveJob,loadJob,deleteJob}=await import('../app/store.mjs');
+  let job=createJob('low');
+  job=replaceSweep(job,'node','1',{stage:'after',samples:[[57,31]]});
+  job=replaceSweep(job,'node','1',{stage:'before',samples:[[57,28]]});
+  try {
+    saveJob(job);const stored=loadJob(job.id);
+    assert.deepEqual(stored.portSweeps['node::1'].samples,[[57,28]]);
+    assert.deepEqual(stored.nodes[0].readings['1'].samples,[[57,28]]);
+    assert.deepEqual(stored.nodes[0].readings['1'].after.samples,[[57,31]]);
+  } finally {deleteJob(job.id);}
+});
+test('declared signed meter compensation is removed algebraically and invalid corrected levels fail',async()=>{
+  const result=await parseONX(fixture(-3),{connection:'tp',compensationApplied:true});
+  assert.deepEqual(result.samples,[[57,34.4],[753,46.3]]);
+  assert.equal(result.correction.meterAppliedDb,-3);
+  await assert.rejects(parseONX(fixture(1000),{connection:'direct',compensationApplied:true}),/sample/i);
 });

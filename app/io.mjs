@@ -18,7 +18,10 @@ function validateSamples(samples) {
 }
 
 export async function parseONX(bytes, options = {}) {
-  const { connection, testPointLoss = 20 } = options;
+  const { connection, testPointLoss = 20, compensationApplied } = options;
+  if (compensationApplied !== undefined && typeof compensationApplied !== 'boolean') {
+    throw new Error('compensationApplied must be an explicit boolean declaration');
+  }
   if (!['tp', 'direct'].includes(connection)) throw new Error('Choose TP or direct connection');
   if (connection === 'tp' && (!Number.isFinite(testPointLoss) || testPointLoss < 0 || testPointLoss > 50)) {
     throw new Error('Test point loss must be between 0 and 50 dB');
@@ -81,11 +84,21 @@ export async function parseONX(bytes, options = {}) {
     throw new Error('ONX forward test point compensation is missing or unknown');
   }
   const meterCompensationDb = tpcConfigs[0].value;
-  if (meterCompensationDb !== 0) throw new Error('Nonzero meter test point compensation semantics need verification');
+  // This setup value records the configured compensation, not whether the exported
+  // Absolute values include it. Never infer that export behavior from the setting.
+  if (meterCompensationDb !== 0 && compensationApplied === undefined) {
+    const error = new Error('Confirm whether exported levels already include the configured meter test point compensation');
+    error.code = 'ONX_COMPENSATION_CONFIRMATION_REQUIRED';
+    error.meterCompensationDb = meterCompensationDb;
+    throw error;
+  }
   const rawSamples = frequencies.values.map((frequency, index) => [frequency, absolute.values[index]]);
   validateSamples(rawSamples);
-  const appliedDb = connection === 'tp' ? testPointLoss : 0;
+  const physicalLossDb = connection === 'tp' ? testPointLoss : 0;
+  const meterAppliedDb = compensationApplied === true ? meterCompensationDb : 0;
+  const appliedDb = physicalLossDb - meterAppliedDb;
   const samples = rawSamples.map(([frequency, level]) => [frequency, Math.round((level + appliedDb) * 1e6) / 1e6]);
+  validateSamples(samples);
   return {
     samples,
     rawSamples,
@@ -95,8 +108,14 @@ export async function parseONX(bytes, options = {}) {
       setupGroups: measuredTest.setupGroups ?? [], meterCompensationDb,
       frequencyUnit: frequencies.units, levelUnit: absolute.units, sampleCount: samples.length,
     },
-    correction: { connection, testPointLossDb: appliedDb, meterCompensationDb, appliedDb,
-      explanation: connection === 'tp' ? 'Physical test point loss added once; meter compensation is zero' : 'Direct reading; no physical test point loss added' },
+    correction: {
+      connection, testPointLossDb: physicalLossDb, meterCompensationDb, meterAppliedDb, appliedDb,
+      compensationApplied: meterCompensationDb === 0 ? false : compensationApplied,
+      compensationSource: meterCompensationDb === 0 ? 'zero-setting' : 'operator-declared',
+      explanation: meterCompensationDb === 0
+        ? connection === 'tp' ? 'Physical test point loss added once; meter compensation is zero' : 'Direct reading; no physical test point loss added'
+        : `${compensationApplied ? 'Operator declared that exported levels include meter compensation; remove that offset' : 'Operator declared that exported levels do not include meter compensation; keep exported levels'}; ${connection === 'tp' ? 'add physical test point loss once' : 'direct connection adds no physical test point loss'}`,
+    },
   };
 }
 
@@ -113,17 +132,15 @@ export function replaceSweep(job, nodeId, port, sweep) {
   const key = `${nodeId}::${port}`;
   const incoming = structuredClone(sweep);
   const node = copy.nodes.find(item => item.id === nodeId);
-  if (stage) {
-    node.readings ??= {};
-    const prior = node.readings[port] ?? {};
-    const stages = { before: prior.before, after: prior.after, [stage]: incoming };
-    const active = stages.after ?? stages.before;
-    node.readings[port] = { ...active, ...stages };
-    copy.portSweeps = { ...(copy.portSweeps ?? {}), [key]: active };
-  } else {
-    node.readings ??= {};
-    node.readings[port] = incoming;
-    copy.portSweeps = { ...(copy.portSweeps ?? {}), [key]: incoming };
-  }
+  node.readings ??= {};
+  const prior = node.readings[port] ?? {};
+  const stages = {};
+  if (prior.before) stages.before = prior.before;
+  if (prior.after) stages.after = prior.after;
+  if (stage) stages[stage] = incoming;
+  // Stage names are comparison labels, not precedence. The last valid upload is
+  // authoritative both for propagation and for the top-level reading fallback.
+  node.readings[port] = { ...incoming, ...stages };
+  copy.portSweeps = { ...(copy.portSweeps ?? {}), [key]: incoming };
   return copy;
 }

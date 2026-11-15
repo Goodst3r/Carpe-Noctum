@@ -9,10 +9,10 @@ export const SOURCES=freeze({
  manual:{title:'1 GHz GainMaker Line Extender Installation and Operation Guide',url:'https://www.cisco.com/c/dam/en/us/td/docs/video/access_edge/Amplifiers/GainMaker/Installation_and_Operation/OL-31155-01.pdf',locator:'OL-31155-01: AGC procedure; pp.98–108 EQ loss and parts tables',status:'supplied manufacturer PDF text checked'},
  aoi:{title:'AOI Quantum18 HGD',url:'https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf',locator:'204/258 operational reference; not a measured gain curve',status:'manufacturer PDF independently retrieved; operational minimum49 dB, not output dBmV'}
 });
-const gm=(id,label,band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb=null)=>({id,label,kind:'active',family:'GainMaker',band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb,referenceInputPadDb:1,eqFamily:'forward-cable-1g',agcOffsetDb:ports.length===3?34:29,padRange:[0,20.5,.5],note:'Gain curve is an estimate from operational gain and fixed factory baseline; verify with measured transfer samples.'});
+const gm=(id,label,band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb=null)=>({id,label,kind:'active',family:'GainMaker',band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb,testPointLoss:20,testPointNote:ports.length===3?'HGD datasheet: RF test points -20 dB (±0.5 dB). Verify selected physical test point.':'GainMaker LE OL-31155-01: RF test points -20 dB. Verify selected physical test point.',referenceInputPadDb:1,eqFamily:'forward-cable-1g',agcOffsetDb:ports.length===3?34:29,padRange:[0,20.5,.5],note:'Gain curve is an estimate from operational gain and fixed factory baseline; verify with measured transfer samples.'});
 export const EQUIPMENT=freeze(Object.fromEntries([
- {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','3','4'],band:[5,1218],testPointLoss:20},
- {id:'vecima',label:'Vecima EN9000',kind:'node',ports:['1','2','3','4'],band:[5,1794],testPointLoss:20},
+ {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','3','4'],band:[5,1218],testPointLoss:20,testPointNote:'Operator-supplied HA0005 GS7K Port 4 offset: 20 dB. Verify other physical test points.'},
+ {id:'vecima',label:'Vecima EN9000',kind:'node',ports:['1','2','3','4'],band:[5,1794],testPointLoss:null,testPointNote:'No verified offset for this physical test point. Enter the equipment value.'},
  {id:'eol',label:'End of line',kind:'eol',ports:['main'],band:[5,1800]},
  {id:'cable-only',label:'Cable junction',kind:'passive',ports:['main'],band:[5,1800],losses:{main:{points:[[5,0],[1800,0]],basis:'Identity junction; no RF component'}}},
  gm('gm-hgd-40','GainMaker HGD · 40/52 · 1 GHz',[52,1002],['main','aux1','aux2'],43,10.5,'agc',SOURCES.hgd40,15.5),

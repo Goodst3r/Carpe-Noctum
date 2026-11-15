@@ -1,7 +1,7 @@
 {
   "name": "carpe-noctum",
   "private": true,
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory dist",
     "build": "python3 night-sweep/build.py && python3 build-pwa.py",

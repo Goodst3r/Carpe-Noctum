@@ -48,7 +48,8 @@ function gainAt(model,settings,f,sample=sampleAt){
  return model.gainDb-tilt*(model.band[1]-f)/(model.band[1]-model.band[0]);
 }
 function effectiveModel(model,settings){
- const mode=String(settings.mode||model?.mode||'').toLowerCase();
+ const mode=String(Object.hasOwn(settings,'mode')?settings.mode:model?.mode||'').trim().toLowerCase();
+ if(model?.id.startsWith('gm-le-')&&!['manual','thermal','agc'].includes(mode))return null;
  const suffix=model?.id.match(/-(40|55|65|85)$/)?.[0]||'';
  if(model?.id.startsWith('gm-le-')&&EQUIPMENT['gm-le-'+mode+suffix])return EQUIPMENT['gm-le-'+mode+suffix];
  return model;
@@ -65,7 +66,7 @@ export function recommendParts(modelId,inputSamples,targetSamples,settings={}){
  const targetByPort=Object.fromEntries(ports.map(p=>[p,settings.targets?.[p]?curve(settings.targets[p]):curve(targetSamples).map(([f,v])=>{const loss=model?directorLoss(model,settings,p,f,sampleAt):null;return [f,finite(v)&&finite(loss)?v-loss:null];})]));
  const fs=[...new Set(ports.flatMap(p=>frequenciesOf(targetByPort[p])))].sort((a,b)=>a-b);
  const result={modelId,frequencies:fs,shared:null,outputs:Object.fromEntries(ports.map(p=>[p,unknown(fs)])),residuals:{},gainStatus:'unknown',shortfall:null,issues,targets:targetByPort,maxOutputStatus:'unknown',maxOutputDb:null,sourceStatus:'estimated',sources:model?.source?[model.source]:[]};
- if(!model||model.kind!=='active'){issues.push('Unknown or non-active equipment model.');return result;}
+ if(!model||model.kind!=='active'){issues.push(EQUIPMENT[modelId]?.id.startsWith('gm-le-')?'Unknown GainMaker LE mode; select manual, thermal or AGC.':'Unknown or non-active equipment model.');return result;}
  const measured=Array.isArray(settings.gainSamples);
  issues.push('Maximum output capability is not established by the supplied gain reference; output headroom remains unknown.');
  if(model.family==='AOI')issues.push('Electronic adjustment range is unsupported; predicted values are an estimated gain ceiling, not a verified realizable gain setting.');
@@ -104,7 +105,7 @@ export function recommendParts(modelId,inputSamples,targetSamples,settings={}){
   }
  }
  if(!best){issues.push('Missing input, target, gain, equipment-band coverage or compatible component loss data.');return result;}
- const mode=String(settings.mode||model.mode||'').toLowerCase();
+ const mode=String(settings.mode||model.mode||'').trim().toLowerCase();
  let agcRaw=null,agcPad=null;
  if(mode==='agc'&&gm){
   const pilot=finite(settings.pilotMHz)?settings.pilotMHz:null;
@@ -145,7 +146,15 @@ export function evaluateRoute(job){
  const sampleAt=makeSampler(),exactAt=makeExactSampler();
  const nodes=Array.isArray(job?.nodes)?job.nodes:[],edges=Array.isArray(job?.edges)?job.edges:[];
  const issues=[],stations={},byId=new Map(nodes.map(n=>[n.id,n]));
- const sweepFor=(n,p)=>curve(job?.portSweeps?.[`${n.id}::${p}`]||n.readings?.[p]?.after||n.readings?.[p]?.before||n.readings?.[p]);
+ const sweepFor=(n,p)=>{
+  const reading=n.readings?.[p];
+  // Explicit latest samples outrank archived stage comparisons. A missing bin in
+  // that latest sweep stays missing; it must not revive an older measurement.
+  for(const candidate of [job?.portSweeps?.[`${n.id}::${p}`],reading,reading?.after,reading?.before]){
+   const samples=curve(candidate);if(samples.length)return samples;
+  }
+  return [];
+ };
  const sourceNodes=nodes.filter(n=>n.kind==='node');
  const fs=[...new Set(sourceNodes.flatMap(n=>{
   const ports=new Set([...(EQUIPMENT[n.modelId]?.ports||[]),...Object.keys(n.readings||{}),...Object.keys(job?.portSweeps||{}).filter(k=>k.startsWith(`${n.id}::`)).map(k=>k.slice(n.id.length+2))]);

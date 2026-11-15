@@ -375,48 +375,70 @@ export async function renderPage(bytes,pageNumber,canvas) {
     return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale};
   }finally{await pdf.destroy();}
 }
+// Tombstones are compact summaries, not serialized solver results. Bound text
+// before measuring it; the full evidence remains in the station and job views.
+const printable=s=>String(s??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e]/g,'?');
+const brief=(value,limit=96)=>{
+  const text=typeof value==='string'||typeof value==='number'?String(value):'';
+  return printable(text.length>limit?text.slice(0,limit-3)+'...':text);
+};
+const level=value=>finite(value)?Number(value.toFixed(2)).toString():'unknown';
 function sampleLines(samples) {
-  const sorted=(Array.isArray(samples)?samples:[]).filter(s=>Array.isArray(s)&&finite(s[0])).sort((a,b)=>a[0]-b[0]);
-  if(!sorted.length)return 'missing';
-  const format=s=>`${s[0]} MHz: ${finite(s[1])?Number(s[1].toFixed(2)):'missing'}`;
-  if(sorted.length<=8)return sorted.map(format).join(' | ');
-  const values=sorted.filter(s=>finite(s[1])).map(s=>s[1]);
-  return `${format(sorted[0])} | ${format(sorted.at(-1))} (${sorted.length} pts; ${values.length?`${Math.min(...values).toFixed(2)}..${Math.max(...values).toFixed(2)} dBmV`:'missing'}; endpoint/range summary)`;
+  let first,last,count=0,minimum=Infinity,maximum=-Infinity;
+  for(const sample of Array.isArray(samples)?samples:[]){
+    if(!Array.isArray(sample)||!finite(sample[0]))continue;
+    count++;if(!first||sample[0]<first[0])first=sample;if(!last||sample[0]>last[0])last=sample;
+    if(finite(sample[1])){minimum=Math.min(minimum,sample[1]);maximum=Math.max(maximum,sample[1]);}
+  }
+  if(!count)return 'missing';
+  const endpoint=sample=>`${level(sample[0])} MHz: ${level(sample[1])}`;
+  return `${endpoint(first)}${count>1?` | ${endpoint(last)}`:''} (${count} pts; ${finite(minimum)?`${level(minimum)}..${level(maximum)}`:'unknown'} range)`;
 }
-const printable=s=>String(s??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e\n]/g,'?');
 function tombstoneLines(node,evaluation) {
-  const station=evaluation?.stations?.[node.id],lines=[`Carpe Noctum | ${node.tag||node.name||node.id}`,`${node.name||node.tag||node.id} | ${node.modelId||'equipment unselected'}`];
-  if(node.map?.confirmed!==true)lines.push('PROVISIONAL SYMBOL');
+  const station=evaluation?.stations?.[node.id],recommendation=station?.recommendation,shared=recommendation?.shared;
+  const lines=[`Carpe Noctum | ${brief(node.tag||node.name||node.id,64)}`,`${brief(node.name||node.tag||node.id,64)} | ${brief(node.modelId||'equipment unselected',40)}`];
   lines.push(`Calculated input dBmV: ${sampleLines(station?.input)}`);
-  const ports=Object.entries(station?.outputs||{});
+  const ports=Object.entries(station?.outputs||{}).slice(0,3);
   if(ports.length)for(const [port,samples]of ports){
-    lines.push(`${port} output dBmV: ${sampleLines(samples)}`);
-    if(station.targets?.[port])lines.push(`${port} target dBmV: ${sampleLines(station.targets[port])}`);
+    lines.push(`${brief(port,12)} output dBmV: ${sampleLines(samples)}`);
+    if(station.targets?.[port])lines.push(`${brief(port,12)} target dBmV: ${sampleLines(station.targets[port])}`);
   }else if(node.kind!=='eol')lines.push('Outputs: missing sweep / route / equipment');
   if(node.kind==='eol')lines.push('EOL calculated level; confirm measurement separately');
-  const recommendation=station?.recommendation;
-  if(recommendation){
-    const describe=value=>typeof value==='string'||typeof value==='number'?String(value):JSON.stringify(value);
-    lines.push(`Recommendation: ${describe(recommendation)}`);
-  }
-  for(const issue of station?.issues||[])lines.push(`Check: ${typeof issue==='string'?issue:JSON.stringify(issue)}`);
-  return lines.map(printable);
+  lines.push(`Status: ${brief(station?.gainStatus||recommendation?.gainStatus||'unknown',24)}; shortfall ${level(station?.shortfall??recommendation?.shortfall)} dB; headroom unknown`);
+  if(shared){
+    lines.push(`Input pad: ${level(shared.inputPadDb)} dB | ${brief(shared.inputPadPartNumber||'part unknown',40)}`);
+    lines.push(`EQ: ${brief(shared.eqPartNumber||shared.eqPartId||'unknown',48)} (${level(shared.eqNominalDb)} dB)`);
+    lines.push(`Factory EQ ${level(shared.factoryEqDb)} dB; AGC pad ${level(shared.agcPadDb)} dB; director ${brief(shared.director||'unknown',28)}`);
+  }else if(recommendation)lines.push('Parts: no supported recommendation; see station details.');
+  const issues=station?.issues||[];
+  for(const issue of issues.slice(0,2))lines.push(`Check: ${brief(typeof issue==='string'?issue:'Additional station issue; see station details.',96)}`);
+  if(issues.length>2)lines.push(`${issues.length-2} more checks; see station details.`);
+  return lines;
 }
 function wrapLines(lines,font,size,maxWidth) {
-  const out=[];
-  for(const line of lines){
-    let current='';
-    for(const word of line.split(/\s+/)){
-      if(current&&font.widthOfTextAtSize(`${current} ${word}`,size)>maxWidth){out.push(current);current='';}
-      // Break very long identity/JSON tokens as well as ordinary prose.
-      let part=word;
-      while(font.widthOfTextAtSize(part,size)>maxWidth&&part.length>1){
-        let end=part.length-1;while(end>1&&font.widthOfTextAtSize(part.slice(0,end),size)>maxWidth)end--;
-        if(current){out.push(current);current='';}out.push(part.slice(0,end));part=part.slice(end);
+  const out=[],widths=new Map(),pairs=new Map(),width=Math.max(.1,maxWidth);
+  const charWidth=c=>{if(!widths.has(c))widths.set(c,font.widthOfTextAtSize(c,size));return widths.get(c);};
+  const addition=(previous,c)=>{
+    if(!previous)return charWidth(c);
+    const pair=previous+c;
+    if(!pairs.has(pair))pairs.set(pair,font.widthOfTextAtSize(pair,size)-charWidth(previous));
+    return pairs.get(pair);
+  };
+  // At most two display rows per summary line, and 32 rows overall. Each
+  // character is visited once; even a pasted megabyte-long name is clipped
+  // before entering this routine. Pair widths preserve Helvetica kerning.
+  for(const raw of lines.slice(0,16)){
+    const line=brief(raw,240);let current='',used=0,rows=0;
+    for(let i=0;i<line.length;i++){
+      const c=line[i],extra=addition(current.at(-1),c);
+      if(current&&used+extra>width){
+        if(rows===1){current=current.slice(0,-3)+'...';break;}
+        out.push(current.trimEnd());rows++;current='';used=0;
       }
-      current=current?`${current} ${part}`:part;
+      if(!current&&c===' ')continue;
+      used+=addition(current.at(-1),c);current+=c;
     }
-    out.push(current);
+    if(current)out.push(current.trimEnd());
   }
   return out;
 }

@@ -15,3 +15,9 @@ Published facts, measured inputs and estimated responses remain distinct. Privat
 Digicomm cable, linear, inverse and director rows retain their own citations in app/data/digicomm-reference.json. Operator-confirmed 1.2 GHz part/slot compatibility is explicit. The printed 53.8 dB anomaly is quarantined from optimization.
 
 Gain/tilt estimates and sparse-table interpolation are labeled. Exact measured sample frequencies are never filled from design defaults. Minimum operational gain is distinct from an absolute output capability.
+
+## Forward test-point defaults checked for build6
+
+Supplied HGD datasheet0900aecd806d3546, PDFp3: Test Points(±0.5dB),−20dB. Supplied LE OL-31155-01, PDFp19:−20dB RF test points; PDFp62 instructs adding20dB to measured input levels. Defaults are limited to the documented GainMaker family and require physical-point verification. GS7K20dB remains the user's HA0005Port4 declaration. No verified Vecima/AOI offset was established, so their import asks for one rather than silently using20dB.
+
+VIAVI's [ONX CATV Test Point Compensation FAQ](https://www.viavisolutions.com/en-uk/support/knowledge-base/faq/onx-catv-test-point-compensation), retrieved through Firecrawl2026-11-15, describes expert-mode template settings but does not define exported Absolute-array compensation. Nonzero imports therefore preserve the setting and require an explicit declaration about whether it is already included in the exported values.
