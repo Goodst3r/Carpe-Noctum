@@ -1,0 +1,180 @@
+{
+  "checked_at": "2026-11-15",
+  "repository": "https://github.com/Goodst3r/Carpe-Noctum",
+  "local_branch": {
+    "name": "codex/fresh-calculator-rebuild",
+    "head": "e136aba",
+    "tracks": "origin/codex/next-build-candidate",
+    "tracked_remote_head": "22e43d196d132a4a3d89b34da7bbbdb9a9220370",
+    "relation": "local head is one commit ahead of tracked remote"
+  },
+  "important_outside_fixes": [
+    {
+      "commit": "57dcde8649bfe4d5906ad734fc9fa852688a6efd",
+      "subject": "Load self-contained data: resources inline in the Android WebView",
+      "files": ["android-build/README.md", "android-build/app/src/main/java/com/spencerwilliams/nightsweep/MainActivity.java", "qa/android-native-edge.test.py"],
+      "preserve_because": "Android WebView resource-loading fix and regression; distinct from fresh app module work."
+    },
+    {
+      "commit": "361afbb2f7dc5906ef1cae1836365a7553649823",
+      "subject": "fix(pwa): cache every published guide through verified clean URLs",
+      "files": ["dist/index.html", "dist/release.json", "pwa/service-worker.js", "qa/pwa-worker.test.cjs"],
+      "preserve_because": "PWA guide offline-caching correction with regression coverage; assess/reapply if the rebuilt PWA retains published guides."
+    },
+    {
+      "commit": "a46af600f20e9e9b709f88d834fee5f4892f6637",
+      "subject": "Station: refuse a half-edited number or date box instead of saving a blank",
+      "files": ["night-sweep/station.css", "night-sweep/station.js", "qa/build3-station-real.test.py", "qa/run-pwa.py", "dist/functions-guide.html", "dist/index.html", "outputs/Night_Sweep.html"],
+      "preserve_because": "Protects partially edited field values and adds a regression; inspect the behavioral requirement before any Station implementation replaces it."
+    },
+    {
+      "commit": "b6ad06248b6089984110ad2613997d93c29f4997",
+      "subject": "Record signed build 4 Preview release facts and phone steps",
+      "files": ["AGENTS.md", "NightSweep_Project_Status.md", "android-build/README.md", "handoff_docs/APK_PLAN.md", "handoff_docs/APK_STEPS.md", "handoff_docs/reviews/build4-preview-release-2026-11-13.md"],
+      "preserve_because": "Historical facts about separately signed build 4 Preview and phone steps. These describe an earlier release and must not be represented as fresh-rebuild signing or phone acceptance."
+    }
+  ],
+  "independent_open_prs_excluded_from_supersession": [
+    {
+      "number": 1,
+      "title": "Add 1.8 to 2.0 beta roadmap",
+      "head": "claude/add-roadmap",
+      "head_oid": "2b1ce40760a9caf8f8cbe25cd4a4007d42509223",
+      "base": "main",
+      "state": "OPEN",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/1",
+      "reason_excluded": "Independent roadmap PR on main; not a route/build3 candidate PR."
+    },
+    {
+      "number": 2,
+      "title": "Add the NCTI/SCTE + Tech III build list",
+      "head": "claude/build-list",
+      "head_oid": "271a3f6ccb50282aeb9edd1ccecb767b69cdce83",
+      "base": "main",
+      "state": "OPEN",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/2",
+      "reason_excluded": "Independent build-list PR on main; not a route/build3 candidate PR."
+    }
+  ],
+  "open_build3_pr_review_candidates": [
+    {
+      "number": 55,
+      "title": "Integrate route-first sweep workflow and offline map drafts",
+      "head": "chatgpt/routes-sweep-integration",
+      "head_oid": "18e7239d017882ee780864c5a2fe74e8d979ea7a",
+      "base": "build3",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/55",
+      "state": "OPEN",
+      "disposition": "Potentially superseded integration candidate; retain until its diff is compared against the fresh rebuild and unique fixes are accounted for."
+    },
+    {
+      "number": 56,
+      "title": "Build the route-first gain and sweep workbench",
+      "head": "chatgpt/routes-sweep-ui",
+      "head_oid": "44cbd6da9797e580a6994fb54d35c0715e0b13fd",
+      "base": "chatgpt/next-release",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/56",
+      "state": "OPEN",
+      "disposition": "Potentially superseded implementation candidate; compare for unique behavior before closure or branch pruning."
+    },
+    {
+      "number": 57,
+      "title": "Recognize local PDF and image maps into editable route drafts",
+      "head": "chatgpt/local-map-import",
+      "head_oid": "a303a97dcb7795eda0139272bae3ce977b67aa15",
+      "base": "chatgpt/next-release",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/57",
+      "state": "OPEN",
+      "disposition": "Potentially superseded map-import candidate; preserve as a source of design/implementation history until map requirements and any unique fixes are reviewed."
+    },
+    {
+      "number": 58,
+      "title": "Package offline map recognition assets with the integrated route build",
+      "head": "chatgpt/routes-offline-packaging",
+      "head_oid": "4b06242991e501baacf059e6ca3a4707b832f8eb",
+      "base": "chatgpt/next-release",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/58",
+      "state": "OPEN",
+      "disposition": "Potentially superseded packaging candidate; compare offline asset/license and build behavior before closure or branch pruning."
+    },
+    {
+      "number": 60,
+      "title": "Build3 candidate: calculator-first routes, per-port ONX and verified PDF maps",
+      "head": "codex/next-build-candidate",
+      "head_oid": "22e43d196d132a4a3d89b34da7bbbdb9a9220370",
+      "base": "build3",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/60",
+      "state": "OPEN",
+      "disposition": "Prior build3 candidate; fresh rebuild contract supersedes its product direction, but retain until required behavior and fixes have been cross-checked."
+    },
+    {
+      "number": 59,
+      "title": "Document the single-writer Carpe Noctum workflow",
+      "head": "chatgpt/single-writer-workflow",
+      "head_oid": "0501a6198ee0a672b4aaf5f238384e3d7aa3f571",
+      "base": "build3",
+      "url": "https://github.com/Goodst3r/Carpe-Noctum/pull/59",
+      "state": "OPEN",
+      "disposition": "Workflow documentation is orthogonal; do not classify as superseded by app rebuild."
+    }
+  ],
+  "legacy_file_groups": [
+    {
+      "paths": [
+        "docs/NightSweep_1.6_*",
+        "docs/NightSweep_1.7_*",
+        "docs/NightSweep_1.8_*",
+        "docs/Android_Install.html",
+        "docs/iPhone_Install.html",
+        "docs/history/**"
+      ],
+      "classification": "legacy release guides, generated formats, and historical release records",
+      "criteria": "Candidate for removal from the fresh product documentation surface only after replacement guides are complete and every published/downloaded link is audited. Keep provenance and signed-release facts in an archive or history location; do not imply the old signed APK is the fresh build."
+    },
+    {
+      "paths": [
+        "handoff_docs/PROMPTS.md",
+        "handoff_docs/PARALLEL_TASKS.md",
+        "handoff_docs/WORKFLOW.md",
+        "handoff_docs/NEXT_BUILD_PROMPTS.md",
+        "handoff_docs/NEXT_UPDATE_SWEEP_MAP_SCOPE.md",
+        "handoff_docs/lanes/**"
+      ],
+      "classification": "old multi-agent/build3 operating prompts, lane ledgers, and helper scripts",
+      "criteria": "Retire as active instructions once the fresh rebuild workflow is authoritative; preserve useful evidence and unique technical fixes in current docs/tests first. Delete lane scripts only after checking whether any current workflow still invokes them."
+    },
+    {
+      "paths": [
+        "handoff_docs/FINAL_HANDOFF.md",
+        "handoff_docs/FINAL_CANDIDATE_HANDOFF.md",
+        "handoff_docs/APK_PLAN.md",
+        "handoff_docs/APK_STEPS.md",
+        "handoff_docs/BUILD_LOG.md",
+        "handoff_docs/KNOWN_GAPS.md",
+        "handoff_docs/TOOLS_AND_SETUP.md",
+        "handoff_docs/reviews/**",
+        "handoff_docs/NEXT_BUILD_P*_EVIDENCE.md"
+      ],
+      "classification": "historical build3/build4 handoffs, release steps, reviews, and evidence receipts",
+      "criteria": "Do not use as fresh-build acceptance evidence. Archive or remove from active onboarding only after important defects/fixes, signed release facts, unique source provenance, and known gaps have been reconciled into the fresh rebuild record. Preserve original audit receipts when needed to explain historical decisions."
+    },
+    {
+      "paths": [
+        "docs/superpowers/plans/**",
+        "docs/superpowers/specs/**",
+        "research/next-build/**",
+        "research/alpha18/**"
+      ],
+      "classification": "prior planning and research for legacy/current-next product iterations",
+      "criteria": "Review for reusable requirements and evidence, then mark historical or archive. Remove only after replacement evidence is recorded and no source/test/build references depend on these files."
+    }
+  ],
+  "deletion_gate": [
+    "No file or remote ref is deleted by this inventory.",
+    "For a file: identify all incoming links, build/package references, published URLs, and unique facts; migrate needed facts and retain historical provenance before removal.",
+    "For a PR: review its full diff and commits; confirm every unique fix is integrated or deliberately rejected with rationale; then close it explicitly.",
+    "For a remote branch: confirm no open PR, no downstream branch depends on it, and its useful commits are preserved; obtain repository-owner direction before pruning.",
+    "Never include PR #1 or #2 in this build3 cleanup set without separate explicit review because they are independent open work on main."
+  ],
+  "mutation_status": "read-only inventory; no remote mutation, PR closure, branch deletion, or file deletion performed"
+}

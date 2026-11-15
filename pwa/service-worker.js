@@ -7,7 +7,8 @@ const BASE = new URL('./', self.location.href);
 const CACHE_PREFIX = 'nightsweep-shell-' + encodeURIComponent(BASE.pathname) + '-';
 const CACHE_NAME = CACHE_PREFIX + VERSION;
 const URLS = ASSETS.map(path => new URL(path, BASE).href);
-const ALLOWED = new Set(URLS);
+const OPTIONAL_URLS = Object.keys(HASHES).filter(p=>p.startsWith('ai/')).map(p=>new URL(p,BASE).href);
+const ALLOWED = new Set([...URLS,...OPTIONAL_URLS]);
 const INDEX = new URL('index.html', BASE).href;
 // The production static host redirects these HTML filenames to clean paths.
 // Request the known clean path directly if the original request is rejected;
@@ -116,6 +117,14 @@ self.addEventListener('fetch', event => {
     const cached = await (await caches.open(CACHE_NAME)).match(key);
     if (cached) return cached;
     // This is a public asset fallback, not a dynamic/user-data cache.
-    return fetch(request);
+    const response=await fetch(request);
+    const asset=new URL(key).pathname.slice(BASE.pathname.length);
+    if(asset.startsWith('ai/') && response.ok){
+      const bytes=await response.clone().arrayBuffer();
+      const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+      if(hash!==HASHES[asset])throw Error('AI runtime asset hash mismatch');
+      await(await caches.open(CACHE_NAME)).put(key,response.clone());
+    }
+    return response;
   })());
 });

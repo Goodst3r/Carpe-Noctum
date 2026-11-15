@@ -1,9 +1,28 @@
 {
   "name": "carpe-noctum",
   "private": true,
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.5",
   "scripts": {
-    "dev": "python3 release/preview.py",
-    "build": "python3 night-sweep/build.py && python3 build-pwa.py"
+    "dev": "python3 -m http.server 4173 --directory dist",
+    "build": "python3 night-sweep/build.py && python3 build-pwa.py",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.cjs",
+    "test:ai-browser": "node tests/browser-ai.cjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2",
+    "fflate": "0.8.2",
+    "onnxruntime-web": "1.31.1",
+    "ppu-doc-correction": "1.0.1",
+    "ppu-paddle-ocr": "6.7.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "fake-indexeddb": "6.2.4",
+    "jsdom": "26.1.0",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "5.4.624",
+    "playwright": "1.62.0",
+    "tesseract.js": "7.0.0"
   }
 }
