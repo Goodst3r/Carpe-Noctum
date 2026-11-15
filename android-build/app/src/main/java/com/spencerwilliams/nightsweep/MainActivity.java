@@ -10,6 +10,7 @@ import android.provider.OpenableColumns;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CancellationSignal;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.print.PrintManager;
 import android.print.PrintDocumentAdapter;
@@ -17,6 +18,7 @@ import android.print.PrintAttributes;
 import android.print.PageRange;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
+import android.webkit.JsPromptResult;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -26,6 +28,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -49,9 +52,11 @@ public final class MainActivity extends Activity {
     private static final int MAX_EXPORT = 20 * 1024 * 1024;
     private static final int MAX_BINARY_EXPORT = 8 * 1024 * 1024;
     private static final int MAX_PICKED_FILES = 30;
-    private static final int MAX_PICKED_TOTAL = 24 * 1024 * 1024;
+    private static final int MAX_PICKED_TOTAL = 512 * 1024 * 1024;
+    private static final int MAX_PICKED_MODEL = 128 * 1024 * 1024;
     private static final int MAX_BINARY_BASE64 = 4 * ((MAX_BINARY_EXPORT + 2) / 3);
     private WebView web;
+    private AlertDialog promptDialog;
     private ValueCallback<Uri[]> fileCallback;
     private byte[] pendingExport;
 
@@ -86,6 +91,15 @@ public final class MainActivity extends Activity {
         WebView.setWebContentsDebuggingEnabled(false);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                if (loadsInline(request.getUrl().getScheme())) return null;
+                Uri uri = request.getUrl();
+                String path = uri.getPath();
+                if (servesAIAsset(uri.getScheme(), uri.getHost(), path)) {
+                    try {
+                        String mime = path.endsWith(".wasm") ? "application/wasm" : (path.endsWith(".js") || path.endsWith(".mjs")) ? "text/javascript" : path.endsWith(".json") ? "application/json" : "application/octet-stream";
+                        return new WebResourceResponse(mime, null, getAssets().open(path.substring(1)));
+                    } catch (IOException missing) { return new WebResourceResponse("text/plain", "UTF-8", new ByteArrayInputStream(new byte[0])); }
+                }
                 return new WebResourceResponse("text/plain","UTF-8",new ByteArrayInputStream(new byte[0]));
             }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -100,10 +114,39 @@ public final class MainActivity extends Activity {
         });
         web.setWebChromeClient(new WebChromeClient() {
             @Override public boolean onJsAlert(WebView view,String url,String message,JsResult result) {
-                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 3").setMessage(message).setPositiveButton("OK",(d,w)->result.confirm()).setOnCancelListener(d->result.cancel()).show(); return true;
+                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 6").setMessage(message).setPositiveButton("OK",(d,w)->result.confirm()).setOnCancelListener(d->result.cancel()).show(); return true;
             }
             @Override public boolean onJsConfirm(WebView view,String url,String message,JsResult result) {
-                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 3").setMessage(message).setPositiveButton("Continue",(d,w)->result.confirm()).setNegativeButton("Cancel",(d,w)->result.cancel()).setOnCancelListener(d->result.cancel()).show(); return true;
+                new AlertDialog.Builder(MainActivity.this).setTitle("Carpe Noctum 2.0 Alpha build 6").setMessage(message).setPositiveButton("Continue",(d,w)->result.confirm()).setNegativeButton("Cancel",(d,w)->result.cancel()).setOnCancelListener(d->result.cancel()).show(); return true;
+            }
+            @Override public boolean onJsPrompt(WebView view,String url,String message,String defaultValue,JsPromptResult result) {
+                PromptCompletion completion=new PromptCompletion(new PromptCompletion.Callbacks() {
+                    @Override public void confirm(String value){result.confirm(value);}
+                    @Override public void cancel(){result.cancel();}
+                });
+                Runnable show=()->{
+                    if(isFinishing() || isDestroyed() || web==null) {completion.cancel();return;}
+                    cancelJsPrompt();
+                    try {
+                        EditText input=new EditText(MainActivity.this);
+                        input.setSingleLine(true);
+                        input.setText(defaultValue==null?"":defaultValue);
+                        input.setSelection(input.length());
+                        AlertDialog dialog=new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Carpe Noctum 2.0 Alpha build 6")
+                            .setMessage(message)
+                            .setView(input)
+                            .setPositiveButton("OK",(d,w)->completion.confirm(input.getText().toString()))
+                            .setNegativeButton("Cancel",(d,w)->completion.cancel())
+                            .create();
+                        dialog.setOnCancelListener(d->completion.cancel());
+                        dialog.setOnDismissListener(d->{if(promptDialog==dialog)promptDialog=null;completion.cancel();});
+                        promptDialog=dialog;
+                        dialog.show();input.requestFocus();
+                    } catch(RuntimeException unavailable) {cancelJsPrompt();completion.cancel();}
+                };
+                if(Looper.myLooper()==Looper.getMainLooper())show.run();else runOnUiThread(show);
+                return true;
             }
             @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback,FileChooserParams params) {
                 if (fileCallback!=null || pendingExport!=null) {
@@ -155,6 +198,37 @@ public final class MainActivity extends Activity {
             }
         }
         return types.toArray(new String[0]);
+    }
+
+    static boolean loadsInline(String scheme) {
+        return "data".equalsIgnoreCase(scheme) || "blob".equalsIgnoreCase(scheme);
+    }
+
+    static final class PromptCompletion {
+        interface Callbacks { void confirm(String value); void cancel(); }
+        private final Callbacks callbacks;
+        private boolean finished;
+        PromptCompletion(Callbacks callbacks){this.callbacks=callbacks;}
+        private synchronized boolean markFinished(){if(finished)return false;finished=true;return true;}
+        void confirm(String value){if(markFinished())callbacks.confirm(value);}
+        void cancel(){if(markFinished())callbacks.cancel();}
+    }
+
+    static boolean servesAIAsset(String scheme,String host,String path) {
+        if(!"https".equalsIgnoreCase(scheme) || !"appassets.androidplatform.net".equalsIgnoreCase(host) || path==null || !path.startsWith("/ai/") || path.length()<=4) return false;
+        String relative=path.substring(1);
+        for(String part:relative.split("/",-1)) {
+            if(part.isEmpty() || ".".equals(part) || "..".equals(part)) return false;
+            for(int i=0;i<part.length();i++) {
+                char c=part.charAt(i);
+                if(!(c>='a'&&c<='z') && !(c>='A'&&c<='Z') && !(c>='0'&&c<='9') && c!='_' && c!='-' && c!='.') return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean allowsPickedFileSize(long size,long remaining) {
+        return size>=0 && remaining>=0 && size<=MAX_PICKED_MODEL && size<=remaining;
     }
 
     private static String exportName(String name,String fallback) {
@@ -219,7 +293,7 @@ public final class MainActivity extends Activity {
         }
         @JavascriptInterface public void shareText(String title,String text) {
             if(text==null || text.length()>1024*1024){status("The run sheet is empty or too large to share.");return;}
-            final String subject=title==null?"Carpe Noctum 2.0 Alpha build 3 run sheet":title.substring(0,Math.min(title.length(),200));
+            final String subject=title==null?"Carpe Noctum 2.0 Alpha build 6 run sheet":title.substring(0,Math.min(title.length(),200));
             runOnUiThread(()-> {
                 Intent intent=new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_SUBJECT,subject).putExtra(Intent.EXTRA_TEXT,text);
                 try{startActivity(Intent.createChooser(intent,"Share run sheet"));}
@@ -234,7 +308,7 @@ public final class MainActivity extends Activity {
                     if(web!=view || isFinishing() || isDestroyed())return;
                     if (!"true".equals(result)) {restorePrint();status("The print report could not be prepared.");return;}
                     try {
-                        final PrintDocumentAdapter delegate=view.createPrintDocumentAdapter("Carpe Noctum 2.0 Alpha build 3 field report");
+                        final PrintDocumentAdapter delegate=view.createPrintDocumentAdapter("Carpe Noctum 2.0 Alpha build 6 field report");
                         PrintDocumentAdapter adapter=new PrintDocumentAdapter() {
                             @Override public void onStart(){delegate.onStart();}
                             @Override public void onLayout(PrintAttributes oldAttributes,PrintAttributes newAttributes,CancellationSignal signal,LayoutResultCallback callback,Bundle extras){delegate.onLayout(oldAttributes,newAttributes,signal,callback,extras);}
@@ -242,7 +316,7 @@ public final class MainActivity extends Activity {
                             @Override public void onFinish(){delegate.onFinish();restorePrint();}
                         };
                         PrintManager manager=(PrintManager)getSystemService(PRINT_SERVICE);
-                        manager.print("Carpe Noctum 2.0 Alpha build 3 field report",adapter,null);
+                        manager.print("Carpe Noctum 2.0 Alpha build 6 field report",adapter,null);
                     } catch(Exception e) {restorePrint();status("Printing is not available on this device.");}
                 });
             });
@@ -292,7 +366,7 @@ public final class MainActivity extends Activity {
                     }catch(Exception e) {
                         for(Uri uri:copied)PickerFiles.delete(MainActivity.this,uri);
                         runOnUiThread(()-> {
-                            if(fileCallback==callback){finishFileCallback(null);status("Could not copy the selected files. Each file must be at most 20 MiB; selection total at most 24 MiB. Try another source.");}
+                            if(fileCallback==callback){finishFileCallback(null);status("Could not copy the selected files. Each file must be at most 128 MiB; selection total at most 512 MiB. Try another source.");}
                         });
                     }
                 }).start();
@@ -313,6 +387,12 @@ public final class MainActivity extends Activity {
         ValueCallback<Uri[]> callback=fileCallback;
         fileCallback=null; // Clear once before invoking; cancellation is always null.
         if(callback!=null)callback.onReceiveValue(value);
+    }
+
+    private void cancelJsPrompt() {
+        AlertDialog dialog=promptDialog;
+        promptDialog=null;
+        if(dialog!=null)dialog.cancel();
     }
 
     private Uri copyPickedDocument(Uri original,long remaining) throws IOException {
@@ -336,7 +416,7 @@ public final class MainActivity extends Activity {
             byte[] buffer=new byte[8192];int count;long size=0;
             while((count=input.read(buffer))!=-1) {
                 size+=count;
-                if(size>MAX_EXPORT || size>remaining)throw new IOException("Import too large");
+                        if(!allowsPickedFileSize(size,remaining))throw new IOException("Import too large");
                 output.write(buffer,0,count);
             }
             output.flush();complete=true;
@@ -352,6 +432,7 @@ public final class MainActivity extends Activity {
         super.onSaveInstanceState(state);
     }
     @Override protected void onDestroy() {
+        cancelJsPrompt();
         finishFileCallback(null);
         if(web!=null){web.removeJavascriptInterface("NightSweepAndroid");web.destroy();web=null;}
         super.onDestroy();

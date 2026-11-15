@@ -4,3 +4,14 @@ qa/*results.json
 qa/*testlogs/
 .openai/*.local.*
 qa/evidence-out/
+
+# Fresh build local verification and toolchains
+artifacts/
+android-build/build/
+android-build/dist/
+android-build/signing-private/
+android-build/toolchain/*.jar
+android-build/toolchain/*.zip
+android-build/toolchain/build-tools/
+android-build/toolchain/platform/
+.cache/

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "name": "NOTICE.txt",
+      "bytes": 100382,
+      "sha256": "c594bd396cd47352a35c89c4e9aef1d068b7acb3c4495a84e36e7f895e2622e6"
+    },
+    {
+      "name": "pdf.js",
+      "bytes": 400218,
+      "sha256": "e1da62aa893e4a78c291eb6143a792b811c746e61549281b874cd33519b66bfc"
+    },
+    {
+      "name": "pdf-lib.js",
+      "bytes": 525099,
+      "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
+    },
+    {
+      "name": "practice-map.pdf",
+      "bytes": 7082,
+      "sha256": "e6c92d1a05f913cc0e145473dad8e39257ea13a82967ba3714fef6d68e7589fa"
+    },
+    {
+      "name": "pdf-worker.js",
+      "bytes": 1024153,
+      "sha256": "e66c21cd8afdd344a6ce1bd2c1a906769c9c82e80ae0bb84d4a144b909fcfa1d"
+    },
+    {
+      "name": "ocr.js",
+      "bytes": 62961,
+      "sha256": "000c27d9cd0def655f77b36c72a389c0ab13793aa31cb4d7aab56d09c0afbc7e"
+    },
+    {
+      "name": "ocr-worker.js",
+      "bytes": 4007792,
+      "sha256": "01c983e3ab281ce765f96dc3aca485874bf6362a617213b3abfbb06aa781c5d7"
+    },
+    {
+      "name": "eng.traineddata.gz",
+      "bytes": 2952873,
+      "sha256": "45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91"
+    }
+  ]
+}

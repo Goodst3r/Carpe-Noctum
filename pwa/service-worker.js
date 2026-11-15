@@ -7,12 +7,13 @@ const BASE = new URL('./', self.location.href);
 const CACHE_PREFIX = 'nightsweep-shell-' + encodeURIComponent(BASE.pathname) + '-';
 const CACHE_NAME = CACHE_PREFIX + VERSION;
 const URLS = ASSETS.map(path => new URL(path, BASE).href);
-const ALLOWED = new Set(URLS);
+const OPTIONAL_URLS = Object.keys(HASHES).filter(p=>p.startsWith('ai/')).map(p=>new URL(p,BASE).href);
+const ALLOWED = new Set([...URLS,...OPTIONAL_URLS]);
 const INDEX = new URL('index.html', BASE).href;
 // The production static host redirects these HTML filenames to clean paths.
 // Request the known clean path directly if the original request is rejected;
 // never follow a redirect or accept an unverified redirected response.
-const CANONICAL_HTML = {'index.html':'./','guide.html':'guide','setup-guide.html':'setup-guide','math-audit.html':'math-audit','install.html':'install','android.html':'android','iphone.html':'iphone'};
+const CANONICAL_HTML = Object.fromEntries(ASSETS.filter(asset=>asset.endsWith('.html')).map(asset=>[asset,asset==='index.html'?'./':asset.slice(0,-5)]));
 const HTML_ALIASES = new Map(Object.entries(CANONICAL_HTML).map(([asset,path])=>[new URL(path,BASE).href,new URL(asset,BASE).href]));
 
 async function fetchPublicAsset(url, asset) {
@@ -116,6 +117,14 @@ self.addEventListener('fetch', event => {
     const cached = await (await caches.open(CACHE_NAME)).match(key);
     if (cached) return cached;
     // This is a public asset fallback, not a dynamic/user-data cache.
-    return fetch(request);
+    const response=await fetch(request);
+    const asset=new URL(key).pathname.slice(BASE.pathname.length);
+    if(asset.startsWith('ai/') && response.ok){
+      const bytes=await response.clone().arrayBuffer();
+      const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+      if(hash!==HASHES[asset])throw Error('AI runtime asset hash mismatch');
+      await(await caches.open(CACHE_NAME)).put(key,response.clone());
+    }
+    return response;
   })());
 });

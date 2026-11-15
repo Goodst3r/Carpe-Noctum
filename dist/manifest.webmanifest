@@ -2,16 +2,31 @@
   "id": "./",
   "name": "Carpe Noctum",
   "short_name": "Carpe Noctum",
-  "description": "Carpe Noctum 2.0 Alpha build 3 — field calculations, route planning and local job records.",
+  "description": "Carpe Noctum \u2014 offline RF calculators and editable sweep routes",
   "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#071014",
-  "theme_color": "#071014",
+  "background_color": "#101b20",
+  "theme_color": "#101b20",
   "icons": [
-    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
-    {"src":"icons/icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

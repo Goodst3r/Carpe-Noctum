@@ -11,8 +11,8 @@ ORIGINAL_CERTIFICATE_SHA256 = 'a7c2596c2ab550f3b403fcfc1e84ec271bf18408ec55267d5
 SUPPLIED_013_CERTIFICATE_SHA256 = '7998433ff49dc46b1157f69c917fb9b7e93936a5845140f054f9488ad7519e5b'
 STANDARD_PACKAGE = 'com.spencerwilliams.nightsweep'
 PREVIEW_PACKAGE = STANDARD_PACKAGE + '.preview'
-VERSION_NAME = '2.0 Alpha build 3'
-VERSION_CODE = 27
+VERSION_NAME = '2.0 Alpha build 6'
+VERSION_CODE = 30
 
 
 def publish_release(candidate, destination):
@@ -53,6 +53,23 @@ def prepare_sources(canonical, staged, asset, preview=False):
         shutil.rmtree(staged)
     shutil.copytree(canonical, staged)
     shutil.copy2(asset, staged / 'assets/index.html')
+    ai = canonical.resolve().parents[3] / 'artifacts/ai'
+    if ai.is_dir():
+        shutil.copytree(ai, staged / 'assets/ai', dirs_exist_ok=True)
+        model_root = Path(os.environ.get('CARPE_AI_MODEL_DIR', str(canonical.resolve().parents[3] / '.cache/ai-models')))
+        manifest = json.loads((ai / 'model-manifest.json').read_text())
+        for pack in manifest:
+            candidates = [(item, model_root / pack['id'] / item['name']) for item in pack['files']]
+            if not all(p.is_file() for _, p in candidates):
+                continue
+            for item, path in candidates:
+                data = path.read_bytes()
+                if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
+                    raise ValueError('AI model checksum mismatch: ' + item['name'])
+                destination = staged / 'assets/ai/models' / pack['id'] / item['name']
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes(data)
+
     package = PREVIEW_PACKAGE if preview else STANDARD_PACKAGE
     label = 'Carpe Noctum ' + VERSION_NAME.replace(' Alpha', ' Preview') if preview else 'Carpe Noctum ' + VERSION_NAME
     if preview:
@@ -80,7 +97,7 @@ def main():
     if not re.fullmatch(r'[0-9a-f]{64}', expected_certificate):
         parser.error('Expected certificate SHA-256 must contain exactly 64 hexadecimal digits.')
     root = Path(__file__).resolve().parent
-    sdk = root / 'toolchain'; bt = sdk / 'build-tools/android-15'; platform = sdk / 'platform/android-35/android.jar'; ecj = sdk / 'ecj.jar'
+    sdk = Path(os.environ.get('CARPE_ANDROID_TOOLCHAIN', str(root / 'toolchain'))); bt = sdk / 'build-tools/android-15'; platform = sdk / 'platform/android-35/android.jar'; ecj = sdk / 'ecj.jar'
     variant = 'preview' if args.preview else 'standard'
     canonical = root / 'app/src/main'; build = root / 'build' / (('unsigned-' if args.unsigned else '') + variant)
     release_out = root / 'dist' / ('unsigned-' + variant) if args.unsigned else root / 'dist' / 'preview' if args.preview else root / 'dist'
@@ -99,12 +116,10 @@ def main():
             parser.error('Expected HTML SHA-256 must contain exactly 64 hexadecimal digits.')
         if html_sha256 != frozen_hash:
             raise SystemExit('Standalone HTML differs from the frozen SHA-256; no APK was compiled or signed.')
-    training_job_included = all(marker in asset.read_text() for marker in ['const TrainingJob=', "const marker='guided-1.5'", 'initTraining();'])
-    if not training_job_included:
-        raise SystemExit('The 2.0 build 27 HTML must include the guided synthetic training job.')
-    sweep_setup_included = 'const SweepSetup=' in asset.read_text() or 'const SweepSetup =' in asset.read_text()
-    if not sweep_setup_included:
-        raise SystemExit('The 2.0 HTML must include the guided sweep setup module.')
+    training_job_included = False
+    sweep_setup_included = False
+    if '<div id="app"></div>' not in asset.read_text():
+        raise SystemExit('Input is not the fresh calculator application.')
     if 'Carpe Noctum ' + VERSION_NAME not in asset.read_text():
         raise SystemExit('Standalone HTML does not identify the intended 2.0 Alpha release.')
     # Failed compilation or validation must not publish an APK or partial receipts,
@@ -118,7 +133,7 @@ def main():
         def run(command, **kwargs):
             subprocess.run([str(value) for value in command], check=True, **kwargs)
         compiled = build / 'resources.zip'; unsigned = build / 'unsigned.apk'; aligned = build / 'aligned.apk'
-        apk = out / ('CarpeNoctum-2.0-build3-' + ('preview' if args.preview else 'alpha') + ('-unsigned' if args.unsigned else '') + '.apk')
+        apk = out / ('CarpeNoctum-' + VERSION_NAME.replace(' Alpha build ', '-build') + '-' + ('preview' if args.preview else 'alpha') + ('-unsigned' if args.unsigned else '') + '.apk')
         for path in [compiled, unsigned, aligned, apk]:
             path.unlink(missing_ok=True)
         classes = build / 'classes'; dex = build / 'dex'
@@ -166,11 +181,17 @@ def main():
                 raise SystemExit('Standalone HTML changed during the build; APK removed.')
             if archive.read('assets/index.html') != asset.read_bytes():
                 raise SystemExit('Packaged HTML does not match build input.')
-        info = {'file': apk.name, 'size_bytes': apk.stat().st_size, 'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'html_sha256': html_sha256, 'frozen_html_sha256': args.expected_html_sha256, 'version': VERSION_NAME, 'version_code': VERSION_CODE, 'package': package, 'label': label, 'min_sdk': 26, 'target_sdk': 35, 'tested_on_device': False, 'preview': args.preview, 'separate_storage_from_supplied_013': args.preview, 'can_update_14_preview': package == PREVIEW_PACKAGE and certificate == ORIGINAL_CERTIFICATE_SHA256, 'shares_storage_with_14_preview': package == PREVIEW_PACKAGE, 'can_update_prior_15_preview': package == PREVIEW_PACKAGE and certificate == ORIGINAL_CERTIFICATE_SHA256, 'can_update_prior_16_preview': package == PREVIEW_PACKAGE and certificate == ORIGINAL_CERTIFICATE_SHA256, 'training_job_included': training_job_included, 'sweep_setup_included': sweep_setup_included, 'can_coexist_with_supplied_013': args.preview, 'embedded_html_matches_input': True, 'certificate_sha256': certificate, 'matches_original_signing_identity': certificate == ORIGINAL_CERTIFICATE_SHA256, 'supplied_013_certificate_sha256': SUPPLIED_013_CERTIFICATE_SHA256, 'can_update_supplied_013_in_place': package == STANDARD_PACKAGE and certificate == SUPPLIED_013_CERTIFICATE_SHA256}
-        info.update(signed=not args.unsigned, installable=not args.unsigned,
-                    artifact_kind='unsigned candidate' if args.unsigned else 'signed release',
-                    shares_storage_with_14_preview=not args.unsigned and package == PREVIEW_PACKAGE,
-                    can_coexist_with_supplied_013=not args.unsigned and args.preview)
+        info = {'file': apk.name, 'size_bytes': apk.stat().st_size,
+                'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
+                'html_sha256': html_sha256, 'frozen_html_sha256': args.expected_html_sha256,
+                'version': VERSION_NAME, 'version_code': VERSION_CODE,
+                'package': package, 'label': label, 'min_sdk': 26, 'target_sdk': 35,
+                'tested_on_device': False, 'preview': args.preview,
+                'embedded_html_matches_input': True, 'certificate_sha256': certificate,
+                'matches_original_signing_identity': certificate == ORIGINAL_CERTIFICATE_SHA256,
+                'signed': not args.unsigned, 'installable': not args.unsigned,
+                'artifact_kind': 'unsigned candidate' if args.unsigned else 'signed release',
+                'storage_format': 'fresh Carpe Noctum; no legacy job compatibility'}
         (out / 'build-info.json').write_text(json.dumps(info, indent=2) + '\n')
         publish_release(out, release_out)
         print(json.dumps(info, indent=2))

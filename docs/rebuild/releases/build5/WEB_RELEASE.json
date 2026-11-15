@@ -1,0 +1,13 @@
+{
+  "checked_source_commit": "9348dbea5657df69d5154958a9fe4008782240b1",
+  "site_source_commit": "cb0166b76be93bc7a090bef3ddda88279666ed01",
+  "site_version": 12,
+  "saved_version_id": "appgprj_6af34e4b562881919893bde71985cee3~appgver_d5124b1315688191b5a1ad0ff105e557",
+  "deployment_id": "appgdep_6af90fcf90e08191a27d02a40c4525b4",
+  "status": "succeeded",
+  "url": "https://nightsweep-field.goodst3r.chatgpt.site",
+  "pwa_version": "0435280d7ff18732da03",
+  "audience": "public, retained existing audience",
+  "archive_sha256": "sha256:0fdd3de3240caa150888ac874d3a6c41ac8f68ca95eb70bf749518e6a4954628",
+  "published_at": "2026-11-15T01:50:21.756932+00:00"
+}

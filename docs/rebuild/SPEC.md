@@ -1,0 +1,25 @@
+# Fresh Carpe Noctum specification
+
+Approved by the user on 2026-11-15. Fresh structure and storage. No old-job compatibility, migrations or legacy import. Codex builds/tests; Claude checks; Grok excluded. Keep Tools as default with standalone calculators and Route & Sweep one tap away. Remove Field, Leakage, daily checklists, Night Log, Sweep Due and duplicate station/sweep screens.
+
+Route starts with Low/High split. Select source port, then all downstream branches or paths to selected amp/EOL destinations by map tap/search. Map above synchronized branch list. Edit active/passive/cable by tapping, add cable via two endpoints and immediate port/type/length prompt. Incomplete or ambiguous topology stays flagged. Starting mid-route still requires its upstream node path.
+
+Low design31dBmV@57MHz/43@753; high34@256/49@1800. Node/propagation blank until measured. Every corrected node sample is the unity target for its physical output branch. Actual frequencies/gaps remain; replacements replace one port, no blending or extrapolation. Default Test Point with verified physical offset; Direct Connection alternative. Raw, meter-applied compensation and physical correction are distinct; no double correction. Downstream measured output overrides its branch without changing node targets. Main unity equals node, Aux target accounts for director loss once. Gain shortfall propagates best-supported achievable output and alerts user.
+
+All supplied GainMaker models/configurations get distinct sources/slot topology/modes/splits. Digicomm first for exact matched parts, Cisco/Scientific Atlanta fill gaps. 870/1002/1218 EQ families distinct. Frequency-dependent loss and clearly labeled matched gain/tilt estimates allowed; unknowns remain unknown. Joint shared HGD parts solved across measured points. AGC HGD minus34dB, LE minus29dB; factory interstage restrictions observed. Main/Aux1/Aux2 cards side-by-side; compact markers plus input/output/target/gain/parts. Details before/after/partIDs. Full sweep ONE trace at a time.
+
+General PDF reader: supplied updated/walkout are independent examples, not one job. Native text/vectors/flattened marks first. Detect headings/continuations and TAG-before-NAME; active schedules contribute onlyTAG/NAME/DLA/powerSupply, EOL schedules onlytags. Never use scheduled D/A levels as measured/calculated inputs or auto compare. Flag conflicts/unreadable tags and unknown physical connections. Private files local only.
+
+Update PDF map writes copy, one grouped tombstone per confirmed active/EOL beside diagram symbol on same page. Touch move, preserve positions hash/page/symbol. Refresh from verified original, no duplicates, preserve content/annotations. Export doesn't change readings/route input. Keep original externally, verify reselected original on reopen.
+
+Supplied native ONX example98absolute points57..753MHz, raw11.4/23.3dBmV, meterTPC0, physicalTP20dB per user ->31.4/43.3. Empty referenced series not zero, 561..663 gap not interpolated. PDF updated actives2-3/EOL4-5; walkout EOLstarts3; no hardcoded universal pagination.
+
+Release evidence: focused and complete fresh automated tests, browser responsive and offline, private example replay kept out of Git, original-preserving PDF checks, nativecompile/sign/device separate. Old native inline-data preview/offline-guide/partial-number fixes must be behaviorally retained. Current product build5 Androidcode29, verify higher installed release before signing.
+
+## Optional local image assistance
+
+The authorized AI extension adds a separate worker, pinned/hash-verified model packs, explicit download/import/remove controls and review-only proposals. Tiny OCR is bundled for on-demand use; traditional map OCR remains the default. Orientation, UVDoc and table structure have synthetic desktop CPU verification. PP-DocLayoutV3 and Florence adapters are experimental; their large weights and phone inference are unverified. No private image upload, hosted inference or automatic RF/topology change is included. The hosted web and native wrapper carry the same app; native uses included/imported model files without network permission. Standalone HTML core remains self-contained; AI requires hosted web or native assets.
+
+## Build6 review clarifications
+
+Each valid incoming sweep is authoritative for its port regardless of optional comparison-stage label. Nonzero meter compensation requires an explicit declaration of whether exported Absolute levels already include it; preserve raw/configuration evidence and apply the physical test-point offset once. Cable spans are edited atomically in an in-app form with supported ports, catalog choices and feet/metres; cancellation never changes direction. Aux unity targets deduct their director once, passive/EOL rows are predicted levels without automatic node-profile grading, and the next active resets to its originating node-port profile. PDF tombstones use bounded human summaries; full arrays and source/issue objects never become label text.

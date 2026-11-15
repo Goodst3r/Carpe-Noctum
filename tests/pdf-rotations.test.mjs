@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { PDFDocument, StandardFonts, PDFName, PDFNumber, degrees } from 'pdf-lib';
+import { DOMMatrix, ImageData, Path2D } from '@napi-rs/canvas';
+Object.assign(globalThis,{DOMMatrix,ImageData,Path2D});
+globalThis.PDFLib=await import('pdf-lib');
+globalThis.pdfjsLib=await import('pdfjs-dist/legacy/build/pdf.mjs');
+const {importMap,exportMap}=await import('../app/maps.mjs');
+for(const rotation of [0,90,180,270]) test(`PDF labels preserve displayed position at rotation ${rotation} with cropped UserUnit2 page`,async()=>{
+ const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),p=d.addPage([700,900]);
+ p.setCropBox(25,35,600,800);p.setRotation(degrees(rotation));p.node.set(PDFName.of('UserUnit'),PDFNumber.of(2));p.drawText('Original marker',{x:100,y:300,size:12,font});
+ const bytes=await d.save(),digest=createHash('sha256').update(bytes).digest('hex'),parsed=await importMap(bytes);
+ const job={map:{sha256:digest,pages:parsed.pages},nodes:[{id:'amp',kind:'active',name:'AMPLIFIER',tag:'A1',map:{page:1,x:.2,y:.3,confirmed:true}}],placements:{amp:{page:1,x:.55,y:.4}}};
+ const result=await exportMap(bytes,job,{stations:{}}),out=await importMap(result);
+ const title=out.pages[0].text.find(x=>x.str.includes('Carpe Noctum | A1'));
+ assert.ok(title,'exported tombstone title is present');assert.ok(Math.abs(title.x-.55)<.03);assert.ok(Math.abs(title.y-.4)<.04);
+ assert.equal(out.pages[0].rotation,rotation);assert.equal(out.pages[0].userUnit,2);
+ assert.equal(createHash('sha256').update(bytes).digest('hex'),digest);
+ assert.ok(out.pages[0].text.some(x=>x.str==='Original marker'));
+});
