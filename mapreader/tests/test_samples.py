@@ -50,3 +50,13 @@ def test_five_reviewed_actives_are_line_extenders():
     dev = {x["tag"]: x["device"] for x in tags.link(mk, sy, tables.parse_tables(C[0]))}
     for k in ("A5", "A23", "A25", "A68", "A70"):
         assert dev[k] == "line_extender"   # empty triangle beside a directional coupler; no inner black triangles
+
+
+@pytest.mark.skipif(not C, reason="sample missing")
+def test_symbol_level_line_extenders_and_rotated_taps():
+    import pdfplumber
+    from mapreader import symbols, basemap
+    sy, _ = symbols.run(C[0], basemap.words(pdfplumber.open(C[0]).pages[0]))
+    assert sum(s["class"] == "line_extender" for s in sy) >= 44      # outline triangles rebuilt from split segments
+    four = [s for s in sy if s["class"] == "tap" and s.get("ports") == 4]
+    assert len(four) >= 95 and any(s["tap_shape"] == "rotated_square" for s in four)

@@ -59,6 +59,71 @@ def _inside(c, b, pad=.6):
     return b[0] - pad <= c[0] <= b[2] + pad and b[1] - pad <= c[1] <= b[3] + pad
 
 
+def find_triangles(P, tol=.35, lo=1.0, hi=14):
+    """3-cycles of short unfilled segments; endpoints closer than `tol` are the same vertex."""
+    segs = []
+    for p in P:
+        if p["fill"] or p["curves"] or len(p["pts"]) > 5:
+            continue
+        for a, b in zip(p["pts"], p["pts"][1:]):
+            if lo <= math.dist(a, b) <= hi:
+                segs.append((a, b))
+    pts = [q for sg in segs for q in sg]
+    parent = list(range(len(pts)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]; i = parent[i]
+        return i
+    grid = {}
+    for i, q in enumerate(pts):
+        grid.setdefault((int(q[0] // 1), int(q[1] // 1)), []).append(i)
+    for i, q in enumerate(pts):
+        gx, gy = int(q[0] // 1), int(q[1] // 1)
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for j in grid.get((gx + dx, gy + dy), []):
+                    if j > i and math.dist(q, pts[j]) <= tol:
+                        parent[find(j)] = find(i)
+    pos, adj = {}, {}
+    for k, (a, b) in enumerate(segs):
+        ra, rb = find(2 * k), find(2 * k + 1)
+        if ra == rb:
+            continue
+        pos[ra], pos[rb] = a, b
+        adj.setdefault(ra, set()).add(rb); adj.setdefault(rb, set()).add(ra)
+    # contract degree-2 vertices whose two edges are (nearly) collinear: sides are often split in two
+    changed = True
+    while changed:
+        changed = False
+        for v in list(adj):
+            if len(adj.get(v, ())) != 2:
+                continue
+            a, b = tuple(adj[v])
+            u1 = (pos[a][0] - pos[v][0], pos[a][1] - pos[v][1]); u2 = (pos[b][0] - pos[v][0], pos[b][1] - pos[v][1])
+            n1, n2 = math.hypot(*u1), math.hypot(*u2)
+            if n1 and n2 and (u1[0] * u2[0] + u1[1] * u2[1]) / (n1 * n2) < -.96 and b not in adj[a]:
+                adj[a].discard(v); adj[b].discard(v); adj[a].add(b); adj[b].add(a); del adj[v]; changed = True
+    tris, seen = [], set()
+    for a in adj:
+        for b in adj[a]:
+            if b <= a:
+                continue
+            for c in adj[b] & adj[a]:
+                if c <= b:
+                    continue
+                size = max(math.dist(pos[a], pos[b]), math.dist(pos[b], pos[c]), math.dist(pos[c], pos[a]))
+                area2 = abs((pos[b][0] - pos[a][0]) * (pos[c][1] - pos[a][1]) - (pos[c][0] - pos[a][0]) * (pos[b][1] - pos[a][1]))
+                if size < 2 or size > hi or area2 < .35 * size * size * .5:
+                    continue
+                cen = ((pos[a][0] + pos[b][0] + pos[c][0]) / 3, (pos[a][1] + pos[b][1] + pos[c][1]) / 3)
+                k = (round(cen[0]), round(cen[1]))
+                if k in seen:
+                    continue
+                seen.add(k); tris.append({"c": cen, "size": size})
+    return tris
+
+
 def run(pdf_path, words, page_index=0):
     P = prims.paths(pdf_path, page_index)
     seen, S = set(), []
@@ -123,9 +188,13 @@ def run(pdf_path, words, page_index=0):
     # 4. taps: any outline shape with a number 5..35 inside
     for s in S:
         if id(s) in used or s["fill"]: continue
-        t = s["inner"].strip()
-        if re.fullmatch(r"\d{1,2}", t) and 5 <= int(t) <= 35 and s["kind"] in ("circle", "square", "rect", "diamond", "hexagon", "pentagon", "octagon", "quad", "polygon"):
-            emit(s, "tap", KEY_BASIS, tap_value=int(t), tap_shape=s["kind"], ports=PORTS.get(s["kind"]), ports_confirmed=s["kind"] in PORTS)
+        toks = [x for x in s["inner"].split() if not (len(x) == 1 and x.isalpha())]   # drop street-name letters crossing the symbol
+        label = [x for x in toks if re.fullmatch(r"[A-Z]{3,5}-[A-Z]{2,4}", x)]
+        nums = [x for x in toks if re.fullmatch(r"\d{1,2}", x)]
+        t = nums[0] if len(nums) == 1 and len(nums) + len(label) == len(toks) else s["inner"].strip()
+        if re.fullmatch(r"\d{1,2}", t) and 5 <= int(t) <= 35 and s["kind"] in ("circle", "square", "rotated_square", "rect", "diamond", "hexagon", "pentagon", "octagon", "quad", "polygon"):
+            emit(s, "tap", KEY_BASIS, tap_value=int(t), tap_shape=s["kind"], ports=PORTS.get(s["kind"]), ports_confirmed=s["kind"] in PORTS,
+                 jumper_label=label[0] if label else None)
         elif t == "S":
             emit(s, "S_marker", "geometry (meaning not in any key found)")
     # 5. filled black polygons with a number are taps drawn solid; small filled triangles are leg arrows
@@ -138,14 +207,16 @@ def run(pdf_path, words, page_index=0):
             emit(s, "leg_arrow", "geometry")
         elif s["kind"] == "circle" and 1.0 <= s["wh"][0] <= 7:
             emit(s, "splitter_2way", KEY_BASIS, confidence="normal" if s["wh"][0] >= 1.8 else "low (tiny dot, may be a vertex marker)")
-    # 6. outline triangles: amplifier if small black triangles sit inside it, else line extender (user-confirmed key)
+    # 6. outline triangles, rebuilt from short line segments (they are drawn as separate 2-point strokes)
     legs_all = [o for o in out if o["class"] == "leg_arrow"]
-    for s in S:
-        if id(s) in used or s["fill"]:
-            continue
-        if s["kind"] == "triangle" and 2 < s["wh"][0] < 16:
-            n_in = sum(1 for l in legs_all if math.dist((l["cx"], l["cy"]), s["c"]) < 6)
-            emit(s, "amplifier" if n_in else "line_extender", KEY_BASIS + " (inner black triangles)", inner_black_triangles=n_in)
+    tris = find_triangles(P)
+    for s in S:   # closed triangle paths (drawn as one path) not already found from segments
+        if not s["fill"] and s["kind"] == "triangle" and 2 < s["wh"][0] < 16 and not any(math.dist(t["c"], s["c"]) < 3 for t in tris):
+            tris.append({"c": s["c"], "size": max(s["wh"])})
+    for tri in tris:
+        n_in = sum(1 for l in legs_all if math.dist((l["cx"], l["cy"]), tri["c"]) < 6)
+        out.append({"class": "amplifier" if n_in else "line_extender", "shape": "triangle", "filled": False, "cx": tri["c"][0], "cy": tri["c"][1],
+                    "w": tri["size"], "h": tri["size"], "basis": KEY_BASIS + " (inner black triangles)", "inner_black_triangles": n_in})
     ded, keep = [], []
     for o in out:
         if o["class"] == "tap" and any(k["class"] == "tap" and k["tap_value"] == o["tap_value"] and math.hypot(k["cx"] - o["cx"], k["cy"] - o["cy"]) < 1.5 for k in keep):

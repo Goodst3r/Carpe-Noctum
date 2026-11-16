@@ -43,6 +43,13 @@ def main(argv=None):
     bm["tap_shapes"] = dict(__import__("collections").Counter(x["tap_shape"] for x in sy if x["class"] == "tap"))
     bm["power_supplies"] = [x for x in sy if x["class"] == "power_supply_label"]
     res["tag_links"] = tags.link(mk, sy, res["tables"])
+    import math
+    for tl in res["tag_links"]:
+        if tl["kind"] == "active" and tl["device"] in ("amplifier", "line_extender") and not any(
+                x["class"] in ("amplifier", "line_extender") and math.hypot(x["cx"] - tl["x"], x["cy"] - tl["y"]) < 5 for x in sy):
+            sy.append({"class": tl["device"], "shape": "triangle", "filled": False, "cx": tl["x"], "cy": tl["y"], "w": 5, "h": 5,
+                       "basis": "A# tag (triangle outline not isolated in vectors)", "tag": tl["tag"]})
+    bm["symbol_classes"] = dict(__import__("collections").Counter(x["class"] for x in sy))
     res["basemap"] = {k: v for k, v in bm.items() if k != "symbols"}
     if mk and any(m["type"] != "FreeText" for m in mk):
         syms, _ = link.compose(mk)
