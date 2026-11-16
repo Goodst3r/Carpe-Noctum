@@ -1,6 +1,6 @@
 import { recognizePdfPages } from './map-ocr.mjs';
 import { EQUIPMENT, CABLES } from './catalog.mjs';
-import { recognizeSymbol, cablePathCandidates, contactDistance } from './map-geometry.mjs';
+import { recognizeSymbol, cablePathCandidates, contactDistance, pointInsideContour } from './map-geometry.mjs';
 /**
  * Immutable PDF adapter. PDF.js/PDFLib are supplied by the offline app shell.
  * Parsed pages use displayed (rotation/crop/UserUnit applied), top-left fractions:
@@ -274,11 +274,50 @@ function attachSymbols(pages,nodes,regions,issues) {
   }
   for(const n of nodes)if(!n.map)issues.push(`${n.tag}: schedule identity has no native map symbol; place it manually.`);
 }
+function discoverPassives(pages,nodes,regions,issues) {
+  const passiveKinds=new Set(['tap2','tap4','tap8','splitter2','coupler']);
+  for(const page of pages){
+    const paths=cablePathCandidates(page),endpoints=paths.flatMap(path=>[
+      {point:path.points[0],pathId:path.id},{point:path.points.at(-1),pathId:path.id}
+    ]),seen=[];
+    const excluded=point=>page.symbols.some(s=>pointInsideContour(point,s));
+    const add=(label,printedValue)=>{
+      const point=center(label);if(excluded(point)||seen.some(p=>distance([p[0]*page.width,p[1]*page.height],[point[0]*page.width,point[1]*page.height])<2.5))return;
+      const geometry=recognizeSymbol(page,label,{kind:'passive'});
+      if(!passiveKinds.has(geometry.symbolKind)||!geometry.symbolBounds)return;
+      const candidate={symbolBounds:geometry.symbolBounds,outlinePoints:geometry.outlinePoints,labelBounds:label};
+      const contacts=endpoints.filter(e=>contactDistance(e.point,candidate,page)<=.85);
+      if(new Set(contacts.map(e=>e.pathId)).size<2)return;
+      seen.push(point);
+      const id=`map-passive-p${page.pageNumber}-${seen.length}`,symbolId=`p${page.pageNumber}-passive-${seen.length}`;
+      const b=geometry.symbolBounds,c=center(b),labelBounds={x:label.x,y:label.y,width:label.width,height:label.height};
+      const symbol={id:symbolId,tag:'',nodeId:id,page:page.pageNumber,x:c[0],y:c[1],labelBounds,symbolBounds:b,
+        outlinePoints:geometry.outlinePoints,symbolKind:geometry.symbolKind,printedValue,vectorIds:geometry.vectorIds,
+        geometryConfidence:geometry.confidence,attachmentPoints:[],source:'native-geometry',scheduleMatched:false,confirmed:false};
+      const node={id,tag:'',name:'Passive candidate',kind:'passive',modelId:'',settings:{},needsIdentity:true,
+        evidence:{type:'native-passive-symbol',printedValue,vectorIds:geometry.vectorIds},
+        map:{page:page.pageNumber,x:c[0],y:c[1],symbolId,labelBounds,symbolBounds:b,symbolKind:geometry.symbolKind,
+          printedValue,geometryConfidence:geometry.confidence,attachmentPoints:[],source:'native-geometry',scheduleMatched:false,confirmed:false}};
+      page.symbols.push(symbol);nodes.push(node);
+    };
+    for(const t of page.text){
+      const value=clean(t.str);if(!/^\d{1,3}$/.test(value)||inSchedule(t,page.pageNumber,regions))continue;
+      add({x:t.x,y:t.y,width:t.width,height:t.height},value);
+    }
+    for(const v of page.vectors){
+      if(!v.fill||!v.closed||v.points.length<12)continue;
+      const w=v.bounds.width*page.width,h=v.bounds.height*page.height;if(w<1||h<1||w>15||h>15)continue;
+      const c=center(v.bounds),label={x:c[0]-.00005,y:c[1]-.00005,width:.0001,height:.0001};
+      add(label,null);
+    }
+    const count=seen.length;if(count)issues.push(`Page ${page.pageNumber}: ${count} native passive shapes need identity, model and physical contact review.`);
+  }
+}
 function proposeEdges(pages,nodes,issues) {
   const edges=[];
   for(const page of pages){
-    if(page.symbols.length<2)continue;
-    const paths=cablePathCandidates(page),tolerance=.55,cellSize=tolerance*2,vertices=[],grid=new Map(),segments=[];
+    if(!page.symbols.length)continue;
+    const paths=cablePathCandidates(page),tolerance=.08,cellSize=tolerance*2,vertices=[],grid=new Map(),segments=[];
     const px=p=>[p[0]*page.width,p[1]*page.height];
     function vertex(p){
       const gx=Math.floor(p[0]/cellSize),gy=Math.floor(p[1]/cellSize);
@@ -312,6 +351,37 @@ function proposeEdges(pages,nodes,issues) {
       symbol.lineworkBinding.candidates.push(id);
     }
     for(const symbol of page.symbols){const node=nodes.find(n=>n.id===symbol.nodeId);if(node?.map?.symbolId===symbol.id)node.map.attachmentPoints=symbol.attachmentPoints;}
+    // A degree-one endpoint connected to mapped equipment is review evidence.
+    // It is not assigned to an unplaced schedule E# or certified as an EOL.
+    const components=new Set(),border=Math.max(2,Math.min(page.width,page.height)*.003);let terminalCount=0,terminalTruncated=false;
+    for(let start=0;start<vertices.length;start++){
+      if(components.has(start))continue;
+      const queue=[start],component=[];components.add(start);
+      for(let i=0;i<queue.length;i++){
+        const id=queue[i];component.push(id);
+        for(const link of vertices[id].links)if(!components.has(link.to)){components.add(link.to);queue.push(link.to);}
+      }
+      const upstream=[...new Set(component.flatMap(id=>vertices[id].nodes))];if(!upstream.length)continue;
+      for(const id of component){
+        const v=vertices[id],p=v.p;
+        if(v.links.length!==1||v.nodes.length)continue;
+        if(p[0]<border||p[1]<border||p[0]>page.width-border||p[1]>page.height-border)continue;
+        if(page.symbols.some(s=>distance(px([s.x,s.y]),p)<2))continue;
+        if(terminalCount>=256){terminalTruncated=true;continue;}
+        terminalCount++;
+        const x=p[0]/page.width,y=p[1]/page.height,nodeId=`map-terminal-p${page.pageNumber}-${terminalCount}`;
+        const symbolId=`p${page.pageNumber}-terminal-${terminalCount}`,labelBounds={x,y,width:0,height:0};
+        const symbol={id:symbolId,tag:'',nodeId,page:page.pageNumber,x,y,labelBounds,symbolBounds:null,
+          symbolKind:'unknown-endpoint',vectorIds:[],attachmentPoints:[{x,y}],source:'native-cable-end',confirmed:false};
+        const node={id:nodeId,tag:'',name:'Unlabeled cable end',kind:'eol',modelId:'',settings:{},needsIdentity:true,
+          evidence:{type:'unlabeled-cable-end',classification:'terminal-or-continuation',upstreamCandidates:upstream},
+          map:{page:page.pageNumber,x,y,symbolId,symbolKind:'unknown-endpoint',labelBounds,symbolBounds:null,
+            attachmentPoints:[{x,y}],source:'native-cable-end',confirmed:false}};
+        page.symbols.push(symbol);nodes.push(node);v.nodes.push(nodeId);bindings.push({symbol,vertex:id});
+      }
+    }
+    if(terminalCount)issues.push(`Page ${page.pageNumber}: ${terminalCount} unlabeled connected cable ends need terminal/continuation and schedule identity review.`);
+    if(terminalTruncated)issues.push(`Page ${page.pageNumber}: the 256 connected-end review limit was reached; inspect remaining cable ends manually.`);
     const pairs=new Set();
     for(const binding of bindings){
       const queue=[{v:binding.vertex,path:[],length:0}],visited=new Set([binding.vertex]);let qi=0;
@@ -382,6 +452,7 @@ export async function importMap(bytes,{onProgress,ocr=false,signal}={}) {
     }
     issues.push(...schedule.issues);const nodes=schedule.nodes;
     attachSymbols(pages,nodes,schedule.regions,issues);
+    discoverPassives(pages,nodes,schedule.regions,issues);
     const edges=proposeEdges(pages,nodes,issues);attachCableEvidence(pages,edges,schedule.regions);
     if(!nodes.length)issues.push('No active/EOL identifiers found. Add identities and bind symbols manually.');
     if(nodes.length)issues.push('Imported identities and symbols are provisional. Select equipment and confirm every symbol; schedule models and RF design levels are not imported as equipment or readings.');

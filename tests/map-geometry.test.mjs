@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {recognizeSymbol,cablePathCandidates,contactDistance} from '../app/map-geometry.mjs';
-import {PDFDocument,StandardFonts,PDFName,PDFString,degrees,moveTo,lineTo,closePath,stroke,setLineWidth} from 'pdf-lib';
+import {PDFDocument,StandardFonts,PDFName,PDFString,degrees,moveTo,lineTo,closePath,stroke,fill,setLineWidth} from 'pdf-lib';
 import {DOMMatrix,ImageData,Path2D} from '@napi-rs/canvas';
 Object.assign(globalThis,{DOMMatrix,ImageData,Path2D});
 globalThis.pdfjsLib=await import('pdfjs-dist/legacy/build/pdf.mjs');
@@ -113,6 +113,92 @@ test('native PDF closePath supplies its implicit triangle side as a cable contac
   assert.ok(result.edges.some(e=>[e.from,e.to].sort().join('|')==='map-a1|map-e1'));
 });
 
+test('single labeled station discovers an anonymous cable end without assigning an unplaced E identity',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(250,200),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=d.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),terminal=result.nodes.find(n=>n.evidence?.type==='unlabeled-cable-end');
+  assert.ok(terminal);assert.equal(terminal.tag,'');assert.equal(terminal.modelId,'');assert.equal(terminal.map.confirmed,false);
+  assert.equal(terminal.map.symbolKind,'unknown-endpoint');assert.equal(terminal.needsIdentity,true);
+  assert.deepEqual(terminal.evidence.upstreamCandidates,['map-a1']);
+  assert.equal(result.nodes.find(n=>n.tag==='E1').map,undefined);
+  assert.ok(result.edges.some(e=>[e.from,e.to].includes(terminal.id)&&[e.from,e.to].includes('map-a1')));
+  assert.ok(result.edges.every(e=>!e.confirmed&&!e.port&&!e.cableId&&e.lengthFt===null));
+});
+
+test('page-border continuation and disconnected linework do not become anonymous terminals',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  map.pushOperators(setLineWidth(.01),moveTo(47,200),lineTo(0,200),stroke());
+  map.pushOperators(setLineWidth(.01),moveTo(150,100),lineTo(250,100),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save());
+  assert.equal(result.nodes.filter(n=>n.evidence?.type==='unlabeled-cable-end').length,0);
+});
+
+test('a visible gap between collinear cable paths is not an inferred connection',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(100,200),stroke());
+  map.pushOperators(setLineWidth(.01),moveTo(100.4,200),lineTo(250,200),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),ends=result.nodes.filter(n=>n.evidence?.type==='unlabeled-cable-end');
+  assert.equal(ends.length,1);assert.ok(Math.abs(ends[0].map.x-.25)<.001);
+  assert.ok(result.edges.some(e=>[e.from,e.to].includes(ends[0].id)&&[e.from,e.to].includes('map-a1')));
+});
+
+test('bare numbered tap with two cable contacts becomes a passive candidate, not an active director',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  nativePath(map,circle(200,200,5,24).slice(0,-1));map.drawText('23',{x:196,y:198,size:5,font});
+  nativePath(map,circle(50,200,2.2,16).slice(0,-1));map.drawText('8',{x:49.6,y:199.5,size:2,font});
+  map.drawText('E1',{x:346,y:197,size:10,font});
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(195,200),stroke());
+  map.pushOperators(setLineWidth(.01),moveTo(47,200),lineTo(10,200),stroke());
+  map.pushOperators(setLineWidth(.01),moveTo(205,200),lineTo(355,200),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=d.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),passives=result.nodes.filter(n=>n.evidence?.type==='native-passive-symbol');
+  const tap=passives.find(n=>n.evidence.printedValue==='23');
+  assert.ok(tap);assert.equal(tap.kind,'passive');assert.equal(tap.modelId,'');assert.equal(tap.map.symbolKind,'tap2');
+  assert.equal(tap.map.attachmentPoints.length,2);assert.equal(tap.map.confirmed,false);
+  assert.ok(!passives.some(n=>n.evidence.printedValue==='8'));
+  assert.ok(result.edges.some(e=>[e.from,e.to].includes(tap.id)&&[e.from,e.to].includes('map-a1')));
+  assert.ok(result.edges.some(e=>[e.from,e.to].includes(tap.id)&&[e.from,e.to].includes('map-e1')));
+});
+
+test('native square, octagon and solid circle passives are discovered without A/E labels',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  nativePath(map,[[125,195],[135,195],[135,205],[125,205]]);map.drawText('23',{x:126,y:198,size:5,font});
+  nativePath(map,circle(210,200,5,8).slice(0,-1));map.drawText('17',{x:206,y:198,size:5,font});
+  map.pushOperators(setLineWidth(.07),moveTo(295,200),...circle(290,200,5,20).slice(1,-1).map(p=>lineTo(...p)),closePath(),fill());
+  map.drawText('E1',{x:356,y:197,size:10,font});
+  for(const [a,b]of [[[53,200],[125,200]],[[135,200],[205,200]],[[215,200],[285,200]],[[295,200],[365,200]]])map.pushOperators(setLineWidth(.01),moveTo(...a),lineTo(...b),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=d.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),passives=result.nodes.filter(n=>n.evidence?.type==='native-passive-symbol');
+  assert.equal(passives.find(n=>n.evidence.printedValue==='23')?.map.symbolKind,'tap4');
+  assert.equal(passives.find(n=>n.evidence.printedValue==='17')?.map.symbolKind,'tap8');
+  assert.ok(passives.some(n=>n.evidence.printedValue===null&&n.map.symbolKind==='splitter2'));
+  assert.ok(passives.every(n=>n.modelId===''&&n.map.attachmentPoints.length>=2&&!n.map.confirmed));
+});
+
+test('native half-black numbered circle is a coupler candidate',async()=>{
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);
+  nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  nativePath(map,circle(200,200,5,24).slice(0,-1));
+  map.pushOperators(moveTo(200,195),lineTo(203.5,196.5),lineTo(205,200),lineTo(203.5,203.5),lineTo(200,205),closePath(),fill());
+  map.drawText('8',{x:197,y:198,size:5,font});map.drawText('E1',{x:346,y:197,size:10,font});
+  for(const [a,b]of [[[53,200],[195,200]],[[205,200],[355,200]]])map.pushOperators(setLineWidth(.01),moveTo(...a),lineTo(...b),stroke());
+  const active=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=d.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),coupler=result.nodes.find(n=>n.evidence?.type==='native-passive-symbol'&&n.evidence.printedValue==='8');
+  assert.ok(coupler);assert.equal(coupler.map.symbolKind,'coupler');assert.equal(coupler.map.attachmentPoints.length,2);
+});
+
 test('native PDF page rotations preserve compound node recognition',async()=>{
   for(const angle of [0,90,180,270]){
     const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);map.setRotation(degrees(angle));
@@ -142,10 +228,10 @@ test('E schedule annotations are placed provisionally while an unmarked cable cr
   const eol=d.addPage([1000,800]);
   for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680],['E2',10,640]])eol.drawText(text,{x,y,size:12,font});
   const result=await importMap(await d.save());
-  assert.equal(result.nodes.filter(n=>n.map).length,4);
+  assert.equal(result.nodes.filter(n=>n.map&&n.tag).length,4);
   for(const tag of ['E1','E2']){const n=result.nodes.find(n=>n.tag===tag);assert.equal(n.map.source,'annotation');assert.ok(n.map.annotationId);assert.ok(n.map.labelBounds);assert.equal(n.map.symbolKind,'eol');assert.equal(n.map.scheduleMatched,true);assert.equal(n.map.confirmed,false);}
   assert.ok(result.edges.some(e=>[e.from,e.to].sort().join('|')==='map-a1|map-e1'));
-  assert.ok(result.edges.every(e=>![e.from,e.to].includes('map-e2')));
+  assert.ok(!result.edges.some(e=>[e.from,e.to].includes('map-e2')&&[e.from,e.to].includes('map-a1')));
   assert.ok(result.edges.every(e=>!e.confirmed&&!e.port&&!e.cableId&&e.lengthFt===null));
   const orphan=result.nodes.find(n=>n.tag==='E999');
   assert.equal(orphan.kind,'eol');assert.equal(orphan.schedule,undefined);assert.equal(orphan.modelId,'');

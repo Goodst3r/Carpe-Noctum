@@ -164,3 +164,14 @@ export function contactDistance(endpoint,symbol,page) {
   const l=symbol.labelBounds;
   return dist(p,[(l.x+l.width/2)*page.width,(l.y+l.height/2)*page.height]);
 }
+
+/** Reject an interior director or numeral before proposing an independent passive. */
+export function pointInsideContour(point,symbol) {
+  const points=symbol.outlinePoints;if(!Array.isArray(points)||points.length<3)return false;
+  let inside=false;
+  for(let i=0,j=points.length-1;i<points.length;j=i++){
+    const a=points[i],b=points[j],crosses=(a[1]>point[1])!==(b[1]>point[1]);
+    if(crosses&&point[0]<(b[0]-a[0])*(point[1]-a[1])/(b[1]-a[1])+a[0])inside=!inside;
+  }
+  return inside;
+}

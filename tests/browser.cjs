@@ -3,7 +3,7 @@ const http = require('node:http');
 const path = require('node:path');
 const fs = require('node:fs');
 const { chromium } = require('playwright');
-const { PDFDocument, StandardFonts } = require('pdf-lib');
+const { PDFDocument, StandardFonts, PDFString, moveTo, lineTo, closePath, stroke, setLineWidth } = require('pdf-lib');
 const { zipSync, strToU8 } = require('fflate');
 
 const dist = path.resolve(__dirname, '..', 'dist');
@@ -61,6 +61,21 @@ async function syntheticMapPdf() {
   return Buffer.from(await pdf.save());
 }
 
+async function verifyAnonymousEndFlow(browser,url,check) {
+  const pdf=await PDFDocument.create(),font=await pdf.embedFont(StandardFonts.Helvetica),map=pdf.addPage([400,400]);
+  map.pushOperators(setLineWidth(.07),moveTo(47,197),lineTo(53,200),lineTo(47,203),closePath(),stroke());
+  map.node.addAnnot(pdf.context.register(pdf.context.obj({Type:'Annot',Subtype:'FreeText',Rect:[48,198,51,202],Contents:PDFString.of('A1'),DA:PDFString.of('/Helv 10 Tf 0 g')})));
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(250,200),stroke());
+  const active=pdf.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['Synthetic amplifier',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=pdf.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const context=await browser.newContext();try {const page=await context.newPage();await page.goto(url);await page.locator('[data-split=low]').click();const pick=page.waitForEvent('filechooser');await page.locator('[data-action=map-import]').click();await(await pick).setFiles({name:'synthetic-unlabeled-end.pdf',mimeType:'application/pdf',buffer:Buffer.from(await pdf.save())});await page.waitForSelector('#map-review-title');await page.locator('[data-action=review-import]').click();await page.waitForFunction(()=>document.querySelector('#map-canvas')?.dataset.ready);
+  check('native anonymous terminal and unplaced schedule entry both reach the review queue',/\(2\)/.test(await page.locator('.unplaced-queue summary').innerText()));
+  await page.locator('.unplaced-queue summary').click();await page.locator('.unplaced-list [data-select]').click();const id=await page.locator('#eol-identity option').filter({hasText:'E1'}).getAttribute('value');await page.locator('#eol-identity').selectOption(id);await page.locator('[data-action=assign-eol-identity]').click();
+  check('explicit end matching keeps the E1 identity and leaves position unconfirmed',await page.locator('#station-form [name=tag]').inputValue()==='E1'&&!await page.locator('#station-form [name=confirmed]').isChecked());
+  check('matched anonymous candidate is removed from the queue',/\(0\)/.test(await page.locator('.unplaced-queue summary').innerText()));
+  }finally{await context.close();}
+}
+
 async function main() {
   assert.ok(fs.existsSync(path.join(dist, 'index.html')), `Built PWA missing at ${dist}/index.html; run npm run build first`);
   const executable = process.env.PLAYWRIGHT_CHROMIUM || (fs.existsSync('/usr/bin/chromium') ? '/usr/bin/chromium' : undefined);
@@ -90,6 +105,7 @@ async function main() {
       await page.waitForSelector('#station-form');
     };
 
+    await verifyAnonymousEndFlow(browser,url,check);
     await page.goto(url, { waitUntil: 'networkidle' });
     check('map upload is the launch action',await page.locator('[data-action="start-map"]').count()===1);
     await page.locator('[data-tab="tools"]').click();

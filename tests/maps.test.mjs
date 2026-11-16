@@ -81,13 +81,15 @@ const privateFixtures=[
 ];
 for(const [path,activeCount,eolCount,eolStart,hasNativeLabels,label]of privateFixtures)test(`private local replay ${label} (opt-in)`,{skip:!path},async()=>{
   const bytes=new Uint8Array(await readFile(path)),r=await importMap(bytes);
-  assert.equal(r.nodes.filter(n=>n.kind==='active').length,activeCount);assert.equal(r.nodes.filter(n=>n.kind==='eol').length,eolCount);
+  assert.equal(r.nodes.filter(n=>/^A\d+$/.test(n.tag)&&n.kind==='active').length,activeCount);
+  assert.equal(r.nodes.filter(n=>/^E\d+$/.test(n.tag)&&n.kind==='eol').length,eolCount);
   assert.equal(r.nodes.find(n=>n.tag==='E1').schedule.page,eolStart);
   const actives=r.nodes.filter(n=>n.kind==='active');
   assert.ok(actives.every(n=>Number.isFinite(n.schedule.dla)));assert.ok(actives.every(n=>typeof n.schedule.powerSupply==='string'&&n.schedule.powerSupply.length>0));
   assert.equal(actives.filter(n=>n.schedule.dla===0).length,1);
-  if(hasNativeLabels)assert.equal(r.nodes.filter(n=>n.map).length,activeCount+eolCount);
-  else {assert.equal(r.nodes.filter(n=>n.map).length,0);assert.equal(r.edges.length,0);assert.ok(r.issues.some(s=>/no native map symbol/.test(s)));}
+  const labeled=r.nodes.filter(n=>/^[AE]\d+$/.test(n.tag));
+  if(hasNativeLabels)assert.equal(labeled.filter(n=>n.map).length,activeCount+eolCount);
+  else {assert.equal(labeled.filter(n=>n.map).length,0);assert.ok(r.issues.some(s=>/no native map symbol/.test(s)));}
   assert.ok(r.pages[0].vectors.length>100);assert.ok(r.nodes.every(n=>n.modelId===''&&!n.readings));
 });
 
