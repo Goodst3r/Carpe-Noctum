@@ -4,7 +4,7 @@ const path = require('node:path');
 const fs = require('node:fs');
 const { chromium } = require('playwright');
 const { PDFDocument, StandardFonts, PDFString, moveTo, lineTo, closePath, stroke, setLineWidth } = require('pdf-lib');
-const { zipSync, strToU8 } = require('fflate');
+const { zipSync, gzipSync, strToU8 } = require('fflate');
 
 const dist = path.resolve(__dirname, '..', 'dist');
 const mime = {
@@ -158,14 +158,38 @@ async function main() {
     check('station trace selector offers one selected trace at a time', (await page.locator('#sweep-select option').allTextContents()).join('|') === 'Target|Predicted|Measured');
 
     const onx = await syntheticOnxZip();
-    dialogAnswers.push(true, '20', true, true);
     const onxChooser = page.waitForEvent('filechooser');
     await page.locator('.station-row').filter({ hasText:'GS7K Node' }).click();
     await page.locator('[data-import-port="1"]').click();
     await (await onxChooser).setFiles({ name: 'synthetic.onx', mimeType: 'application/zip', buffer: Buffer.from(onx) });
-    await page.waitForTimeout(1200);
+    await page.waitForSelector('#onx-review-title');
+    check('ONX review uses explicit origin station and physical port despite filename', await page.locator('#onx-station').inputValue()==='node' && await page.locator('#onx-port').inputValue()==='1');
+    await page.locator('#onx-connection').selectOption('tp');
+    await page.locator('#onx-loss').fill('20');
+    await page.locator('#onx-review-form button[type=submit]').click();
+    await page.waitForSelector('#onx-review-title',{state:'detached'});
     const onxStatus = await page.locator('.notice').count() ? await page.locator('.notice').innerText() : '(no status message)';
     check('synthetic ONX ZIP import confirms and stores corrected node port 1 samples', /Saved after sweep for GS7K Node, port 1/i.test(onxStatus), onxStatus);
+
+    const getStoredNode = () => page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('carpe-noctum:jobs:v1')))[0].nodes.find(n=>n.id==='node'));
+    const beforeEvidence = await getStoredNode();
+    check('forward ONX saves corrected target and normalized report together', beforeEvidence.readings['1'].samples[0][1]===31.4 && beforeEvidence.measurementReports.length===1);
+    const diagnostic = kind => gzipSync(strToU8(JSON.stringify({cdmVersion:'2.0',tests:[{type:kind==='reverse'?'sweepmode_app':'onecheckexpert',label:kind==='reverse'?'Sweep - Reverse Sweepless':'OneCheck',results:{data:{chart:{Referenced:{units:['MHz',kind==='reverse'?'dB':'dBmV'],data:[[10,1],[20,2]]}},table:{label:'Diagnostic <img src=x onerror="globalThis.onxUnsafe=1">',tableColumnHeaders:['Status'],tableData:[[{value:'<script>globalThis.onxUnsafe=1</script>',status:'PASS'}]]}}}}]})));
+    for(const kind of ['reverse','onecheck']) {
+      const chooser=page.waitForEvent('filechooser');await page.locator('[data-import-port="1"]').click();
+      await (await chooser).setFiles({name:'advisory-c6.cdm.json.gz',mimeType:'application/gzip',buffer:Buffer.from(diagnostic(kind))});
+      await page.waitForSelector('#onx-review-title');
+      check(kind+' review offers evidence only with no correction',await page.locator('#onx-connection').count()===0 && await page.locator('#onx-review-form').innerText().then(t=>t.includes('evidence only')));
+      await page.locator('#onx-review-form button[type=submit]').click();await page.waitForSelector('#onx-review-title',{state:'detached'});
+      const after=await getStoredNode();
+      check(kind+' report leaves forward RF intact',JSON.stringify(after.readings)===JSON.stringify(beforeEvidence.readings));
+      check(kind+' diagnostic markup remains inert', await page.locator('.measurement-reports script,.measurement-reports img').count()===0 && await page.evaluate(()=>!globalThis.onxUnsafe));
+    }
+    check('reports display metadata, series units and diagnostic table text',await page.locator('.measurement-reports').innerText().then(t=>t.includes('Imported measurement reports')));
+    const reportsBeforeCancel=(await getStoredNode()).measurementReports.length;
+    const cancelChooser=page.waitForEvent('filechooser');await page.locator('[data-import-port="1"]').click();
+    await (await cancelChooser).setFiles({name:'cancel-synthetic.onx',mimeType:'application/zip',buffer:Buffer.from(onx)});await page.waitForSelector('#onx-review-title');await page.locator('[data-action=onx-cancel]').click();
+    check('cancel ONX review preserves existing measurements and report count',(await getStoredNode()).measurementReports.length===reportsBeforeCancel && await page.locator('#onx-review-title').count()===0);
 
     await page.locator('.station-row').filter({ hasText:'Amplifier A' }).click();
     await page.locator('#station-form [name="name"]').fill('Amplifier A');
