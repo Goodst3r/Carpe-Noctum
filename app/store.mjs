@@ -246,6 +246,7 @@ function fromBase64(value) {
 function originalHashes(job) {
   const hashes = new Set();
   if (job.map?.sha256) hashes.add(job.map.sha256);
+  if (job.map?.sourceOriginalHash) hashes.add(job.map.sourceOriginalHash);
   function addSweep(sweep) {
     if (!sweep) return;
     if (sweep.metadata?.originalHash) hashes.add(sweep.metadata.originalHash);
