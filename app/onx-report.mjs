@@ -45,6 +45,10 @@ function unzip(bytes) {
   if(p!==end) throw new Error('ONX ZIP directory invalid'); return entries;
 }
 function tableCell(cell) { const value=cell?.value; return {value: ['string','number','boolean'].includes(typeof value) ? value : null, ...(typeof cell?.status==='string'?{status:cell.status}:{})}; }
+function plotClosure(label,samples) {
+ const n=samples.length;
+ return /ofdm/i.test(label) && n>=4 && samples[0][1]===-150 && samples[n-1][1]===-150 && samples[0][0]===samples[1][0] && samples[n-1][0]===samples[n-2][0] ? [0,n-1] : undefined;
+}
 function cdm(document, metadata) {
   if(!Array.isArray(document.tests) || document.tests.length!==1) throw new Error('ONX multiple or missing measurement tests');
   const t=document.tests[0], type=String(t.type ?? '').toLowerCase(), reverse=type==='sweepmode_app' && /reverse/i.test(t.label ?? '');
@@ -59,30 +63,70 @@ function cdm(document, metadata) {
     for(const [name,item] of Object.entries(section)) {
       if(!item || !Array.isArray(item.data) || !Array.isArray(item.units) || item.units.length<2) continue;
       if(item.data.length>10000 || item.data.some(pair=>!Array.isArray(pair) || pair.length!==2 || !pair.every(Number.isFinite))) throw new Error('ONX invalid diagnostic series');
-      series.push({id:`${key}.${name}`,label:name,section:section.label ?? key,direction:reverse?'reverse':/upstream/i.test(key)?'reverse':'forward',frequencyUnit:item.units[0],levelUnit:item.units[1],samples:item.data.map(p=>[...p]),status:item.status});
+      series.push({id:`${key}.${name}`,label:name,section:section.label ?? key,direction:reverse?'reverse':/upstream/i.test(key)?'reverse':'forward',frequencyUnit:item.units[0],levelUnit:item.units[1],samples:item.data.map(p=>[...p]),status:item.status,...(plotClosure(name,item.data)?{plotClosureIndices:plotClosure(name,item.data)}:{})});
     }
   }
   Object.assign(metadata,{testName:t.label ?? t.type,testTime:t.results?.testTime ?? t.testTime ?? null,status:t.results?.status ?? t.status ?? null,meter:document.assetInfo ?? null,workOrder:document.workflow?.workOrderId ?? null,configuredCompensation:t.configuration?.networkConfig ?? null});
-  return {kind:reverse?'reverse-relative':'onecheck',direction:reverse?'reverse':'mixed',metadata,series,tables,warnings:['Diagnostic evidence is not a forward RF sweep.']};
+  return {kind:reverse?'reverse-relative':'onecheck',direction:reverse?'reverse':'mixed',metadata,series,tables,warnings:['Diagnostic evidence is not a forward RF sweep.',...(series.some(s=>s.plotClosureIndices)?['OFDM plot closure points are geometry, not measured minima.']:[])]};
 }
 function textContent(s) { return s.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi,'').replace(/<[^>]*>/g,' ').replace(/&(#x[\da-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi,(_,x)=>{const n=x[0]==='#'?(x[1].toLowerCase()==='x'?parseInt(x.slice(2),16):parseInt(x.slice(1),10)):null; return n!==null?(n>0 && n<=0x10ffff?String.fromCodePoint(n):'�'):({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' '}[x.toLowerCase()] ?? '');}).replace(/\s+/g,' ').trim(); }
+const metadataKeys = new Set(['date','meter','meter model','forward tpc','reverse tpc','test point template']);
+function isMetadataKey(value) { return metadataKeys.has(String(value).trim().toLowerCase()); }
+function htmlMetadata(metadata,cells) {
+ const key=String(cells[0].value).trim().toLowerCase(), value=String(cells[1].value).trim();
+ if(!value) return;
+ if(key==='date') metadata.testTime=value;
+ if(key==='meter' || key==='meter model') metadata.meter={...(metadata.meter ?? {}),model:value};
+ if(key==='test point template') metadata.testPoint=value;
+ if(key==='forward tpc' || key==='reverse tpc') {
+   const match=value.match(/^\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(dB)?\s*$/i);
+   if(match) { metadata.configuredCompensation ??= {}; metadata.configuredCompensation[key.startsWith('forward')?'forward':'reverse']={value:Number(match[1]),units:'dB'}; }
+ }
+}
+function htmlCharts(scripts) {
+ const series=[], allowed={channelData:['passingChannels','failingChannels','passingOfdmChannels','failingOfdmChannels'],spectrumData:['levels','maxLevels','minLevels']};
+ for(const script of scripts) {
+  for(const [object,keys] of Object.entries(allowed)) {
+   const assignments=[...script.matchAll(new RegExp('\\b'+object+'\\.('+keys.join('|')+')\\s*=\\s*([^;\\r\\n]+)','g'))];
+   if(!assignments.length) continue;
+   const field=name=>{const match=script.match(new RegExp('\\b'+object+'\\.'+name+'\\s*=\\s*["\\\']([^"\\\'\\r\\n]*)["\\\']'));return match?.[1];};
+   const section=field('chartTitle') ?? 'Diagnostic chart', frequencyUnit=field('freqLabel') ?? '', levelUnit=field('units') ?? '';
+   const seen=new Set();
+   for(const a of assignments) {
+    if(seen.has(a[1])) throw new Error('ONX ambiguous chart assignment'); seen.add(a[1]);
+    let samples; try {samples=JSON.parse(a[2].trim());} catch {throw new Error('ONX invalid chart literal');}
+    if(!Array.isArray(samples) || samples.length>10000 || samples.some(p=>!Array.isArray(p)||p.length!==2||!p.every(Number.isFinite))) throw new Error('ONX invalid chart literal samples');
+    if(!samples.length) continue;
+    if(!frequencyUnit || !levelUnit) throw new Error('ONX chart units are missing');
+    series.push({id:`html-${series.length+1}`,label:a[1],section,direction:/upstream/i.test(section)?'reverse':'forward',frequencyUnit,levelUnit,samples,measurementKind:'diagnostic',...(plotClosure(a[1],samples)?{plotClosureIndices:plotClosure(a[1],samples)}:{})});
+    if(series.length>512) throw new Error('ONX chart series limit');
+   }
+  }
+ }
+ return series;
+}
 function htmlReport(html,metadata) {
+  const scripts=[...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)].map(x=>x[1]);
+  const series=htmlCharts(scripts);
   const clean=html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi,''); const tables=[];
   for(const match of clean.matchAll(/<table\b[^>]*>([\s\S]*?)<\/table\s*>/gi)) {
     if(tables.length>=100) throw new Error('ONX HTML table count limit');
     const preceding=clean.slice(0,match.index); const headings=[...preceding.matchAll(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]\s*>/gi)];
     const heading=headings.length?textContent(headings.at(-1)[1]):'';
-    const body=match[1], caption=body.match(/<caption\b[^>]*>([\s\S]*?)<\/caption\s*>/i), rows=[];
+    const body=match[1], caption=body.match(/<caption\b[^>]*>([\s\S]*?)<\/caption\s*>/i), rows=[], rowColumns=[];
     for(const row of body.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr\s*>/gi)) {
-      const cells=[...row[1].matchAll(/<(th|td)\b([^>]*)>([\s\S]*?)<\/\1\s*>/gi)].map(c=>({value:textContent(c[3]),...(c[2].match(/\bclass\s*=\s*["']([^"']+)["']/i)?.[1]?{status:c[2].match(/\bclass\s*=\s*["']([^"']+)["']/i)[1]}:{})}));
+      const matches=[...row[1].matchAll(/<(th|td)\b([^>]*)>([\s\S]*?)<\/\1\s*>/gi)];
+      const cells=matches.map(c=>({value:textContent(c[3]),...(c[2].match(/\bclass\s*=\s*["']([^"']+)["']/i)?.[1]?{status:c[2].match(/\bclass\s*=\s*["']([^"']+)["']/i)[1]}:{})}));
+      if(cells.length>=2) htmlMetadata(metadata,cells);
+      if(cells.length && rows.length===0 && matches.every(c=>c[1].toLowerCase()==='th') && !isMetadataKey(cells[0].value)) { rowColumns.push(...cells.map(c=>c.value)); continue; }
       if(cells.length) rows.push(cells); if(rows.length>10000 || cells.length>100) throw new Error('ONX HTML table limit');
     }
     const header=body.slice(0,body.search(/<tr\b/i) < 0 ? body.length : body.search(/<tr\b/i));
-    const columns=[...header.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th\s*>/gi)].map(x=>textContent(x[1]));
+    const columns=[...header.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th\s*>/gi)].map(x=>textContent(x[1])); if(!columns.length) columns.push(...rowColumns);
     if(rows.length || columns.length) tables.push({id:`table-${tables.length+1}`,label:caption?textContent(caption[1]):heading || `Table ${tables.length+1}`,columns,rows});
   }
   if(!tables.length) throw new Error('ONX HTML report has no measurement tables');
-  return {kind:'onecheck',direction:'mixed',metadata,series:[],tables,warnings:['Diagnostic evidence is not a forward RF sweep.','Chart scripts were not executed.']};
+  return {kind:'onecheck',direction:'mixed',metadata,series,tables,warnings:['Diagnostic evidence is not a forward RF sweep.','Chart scripts were not executed.',...(series.some(s=>s.plotClosureIndices)?['OFDM plot closure points are geometry, not measured minima.']:[])]};
 }
 function native(document,metadata) {
  const group=document.testGroup, matches=[];
@@ -98,7 +142,13 @@ function native(document,metadata) {
  if(!f.values.length) throw new Error('ONX sweep needs measured samples');
  Object.assign(metadata,{testGroupId:group.id,testId:test.id,resultGroupId:result.id,seriesId:series.id,infoGroup:group.infoGroup ?? null,setupGroups:test.setupGroups ?? [],testName:group.id,testTime:group.infoGroup?.generalInfo?.date ?? null,status:test.status ?? result.status ?? null,meter:group.infoGroup?.assetInfo ?? null,workOrder:group.infoGroup?.generalInfo?.workOrder ?? null});
  const cfg=metadata.setupGroups.flatMap(x=>x.configs ?? []).find(x=>x.id==='forwardTestPointCompensation'); metadata.configuredCompensation=cfg ?? null; metadata.meterCompensationDb=cfg?.value;
- return {kind:'forward-sweep',direction:'forward',metadata,series:[{id:series.id ?? 'Levels',label:'Absolute',direction:'forward',frequencyUnit:'MHz',levelUnit:'dBmV',samples:f.values.map((x,i)=>[x,a.values[i]])}],tables:[],warnings:[]};
+ metadata.scalarResults=structuredClone(result.results ?? []);
+ metadata.reference=metadata.scalarResults.find(x=>x.id==='referenceTestName')?.value ?? null;
+ const normalized=[{id:series.id ?? 'Levels',label:'Absolute',direction:'forward',frequencyUnit:'MHz',levelUnit:'dBmV',samples:f.values.map((x,i)=>[x,a.values[i]])}];
+ const refs=(series.dependent ?? []).filter(x=>x.label==='Referenced' && x.units==='dB');
+ if(refs.length>1) throw new Error('ONX ambiguous referenced series');
+ if(refs.length) {const ref=refs[0]; if(!Array.isArray(ref.values) || ref.values.length!==f.values.length || !ref.values.every(Number.isFinite)) throw new Error('ONX referenced samples do not align'); normalized.push({id:`${series.id ?? 'Levels'}.Referenced`,label:'Referenced',direction:'forward',frequencyUnit:'MHz',levelUnit:'dB',samples:f.values.map((x,i)=>[x,ref.values[i]]),measurementKind:'relative'});}
+ return {kind:'forward-sweep',direction:'forward',metadata,series:normalized,tables:[],warnings:[]};
 }
 export async function inspectONX(bytes,{filename}={}) {
  const input=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes); if(input.length>INPUT) throw new Error('ONX input exceeds the 20 MiB size limit');
