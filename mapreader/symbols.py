@@ -148,7 +148,7 @@ def run(pdf_path, words, page_index=0):
     filled = [s for s in S if s["fill"]]
     # 1. power-supply labels (text cluster around an HA####X name): model, rated V, rated A, load A
     for w in words:
-        if not re.fullmatch(r"HA\d{4}[A-Z]", w["text"]) or w["size"] > 1.3:
+        if not re.fullmatch(r"[A-Z]{2}\d{4}[A-Z]", w["text"]) or w["size"] > 1.3:
             continue
         near = [v for v in words if math.hypot(v["x0"] - w["x0"], v["top"] - w["top"]) < 14 and v is not w]
         model = next((v["text"] for v in near if re.fullmatch(r"[A-Z]{2,4}_[A-Z0-9_]+", v["text"])), None)

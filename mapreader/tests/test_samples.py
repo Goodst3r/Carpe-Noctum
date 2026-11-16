@@ -74,3 +74,14 @@ def test_walkout_cable_labels():
     cl = link.cable_labels(mk)
     assert 380 <= len(cl) <= 390 and sum(x["printed"] == "RG11" for x in cl) == 8
     assert all(x["nearest_footage_candidate"] is None or x["nearest_footage_candidate"]["confirmed"] is False for x in cl)
+
+
+@pytest.mark.skipif(not (W and C), reason="samples missing")
+def test_walkout_registers_onto_coax_page():
+    import json, os, tempfile
+    from mapreader import merge
+    d = tempfile.mkdtemp()
+    merge.main([C[0], W[0], "--out", d])
+    s = json.load(open(os.path.join(d, "merged.json")))["summary"]
+    assert s["transform"]["rms_pt"] < 2 and abs(s["transform"]["rotation_deg"]) < 1
+    assert s["walkout_items"]["span_footage"] - s["inside_coax_extent"]["span_footage"] == 2   # two footages fall off the coax sheet
