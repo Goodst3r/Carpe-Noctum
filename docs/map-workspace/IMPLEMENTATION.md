@@ -24,3 +24,17 @@ Verification ledger is appended with actual commands/results. No live provider c
 - Native policy executes in Java source launcher. Full Android compilation, APK signing and physical device checks were not performed.
 
 Decisions: use the latest source branch rather than historical main. Keep inherited SA reference values confined to their explicit 750 MHz point and mark manufacturer revalidation pending; do not infer curves or substitute Cisco parts. The publicly described NCTI/SCTE courses were not enrolled/accessed. Claude is unavailable in the exposed models/tools; a fresh Astra review is requested and must not be represented as a Claude review. Do not merge/deploy on the strength of source/browser checks.
+
+## Independent review and correction pass
+
+Astra reviewed 150e7b3 against c70feee (not Claude), independently ran 33 targeted checks and reproduced two browser defects. All five important findings were addressed with regressions:
+
+- Earlier PDF reads superseding later choices: two asynchronous picker/staging tests failed before generation guards and now pass.
+- Mobile header actions clipped at 320/360 px: built browser action-bound assertions failed before mobile action-row fix; rerun passed at 320/360/390 px.
+- Native first completion preceding busy cleanup: actual bridge code runs against JVM Android/HTTPS fixtures; regression failed [false,false] before cleanup-before-callback and passes afterwards. This fixture is not an Android device test.
+- Provider errors displayed as empty success: explicit status tests failed before provider-stage reporting and now pass.
+- Hidden connection proposals: explicit provenance/endpoints/port-role test failed before review details and now passes. Physical confirmation remains manual.
+
+The stale native-permission statement in README was corrected.
+
+Subsequent user clarifications added four explicit node leg aliases (A/B top, C/D bottom), optional reviewed internal-director evidence, and selective removal of highlighted A# labels when confirmed active tombstones are generated. Annotation names were discovered to be absent from native text extraction, so default privacy masks now include all remaining annotation rectangles too. Incomplete annotation coverage forces manual review. Original uploaded bytes remain immutable. FreeText A# annotations supply provisional positions, and the matching original annotation reference is preserved for selective cleanup. A source-binding action preserves physical source measurements and marks remapped edges provisional.

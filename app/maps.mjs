@@ -240,7 +240,13 @@ function attachSymbols(pages,nodes,regions,issues) {
   const byTag=new Map(nodes.map(n=>[n.tag,n]));
   for(const page of pages){
     page.symbols=[];
-    for(const t of page.text){
+    // Highlighted A# identities may live entirely in PDF FreeText annotations.
+    // They establish provisional local label geometry, never equipment identity
+    // or a confirmed station. Notes and other annotation text stay untouched.
+    const annotationTags=(page.annotations||[]).filter(a=>a.subtype==='FreeText'&&tagOf(a.contents)?.startsWith('A')&&Array.isArray(a.rect)&&a.rect.length===4&&a.rect.every(finite)&&a.rect[2]>0&&a.rect[3]>0)
+      .filter(a=>!page.text.some(t=>tagOf(t.str)===tagOf(a.contents)&&center(t)[0]>=a.rect[0]&&center(t)[0]<=a.rect[0]+a.rect[2]&&center(t)[1]>=a.rect[1]&&center(t)[1]<=a.rect[1]+a.rect[3]))
+      .map(a=>({str:a.contents,x:a.rect[0],y:a.rect[1],width:a.rect[2],height:a.rect[3],source:'annotation',annotationId:a.id}));
+    for(const t of [...page.text,...annotationTags]){
       if(inSchedule(t,page.pageNumber,regions))continue;
       const part=passiveParts.get(clean(t.str).toUpperCase());
       const tag=tagOf(t.str)||(part?`P${page.pageNumber}-${page.symbols.length+1}`:null);if(!tag)continue;
@@ -249,10 +255,10 @@ function attachSymbols(pages,nodes,regions,issues) {
       if(!node){node={id:nodeId(tag),tag,name:tag,kind:tag[0]==='A'?'active':'eol',modelId:'',settings:{}};nodes.push(node);byTag.set(tag,node);issues.push(`${tag}: map label has no matching schedule row; confirm its identity.`);}
       const c=center(t),fontHeight=Math.max(t.height*page.height,t.width*page.width/Math.max(t.str.length,1)),radius=Math.max(fontHeight*5,.5);
       const candidates=page.vectors.filter(v=>v.closed&&v.bounds.width*page.width<=radius*2&&v.bounds.height*page.height<=radius*2).map(v=>({v,d:Math.hypot((v.bounds.x+v.bounds.width/2-c[0])*page.width,(v.bounds.y+v.bounds.height/2-c[1])*page.height)})).filter(v=>v.d<radius).sort((a,b)=>a.d-b.d);
-      const symbol={id:`p${page.pageNumber}-${tag}`,tag,nodeId:node.id,page:page.pageNumber,x:c[0],y:c[1],labelBounds:{x:t.x,y:t.y,width:t.width,height:t.height},vectorIds:candidates.slice(0,5).map(c=>c.v.id),source:t.source||'native',confidence:t.confidence??null,confirmed:false};
+      const symbol={id:`p${page.pageNumber}-${tag}`,tag,nodeId:node.id,page:page.pageNumber,x:c[0],y:c[1],labelBounds:{x:t.x,y:t.y,width:t.width,height:t.height},vectorIds:candidates.slice(0,5).map(c=>c.v.id),source:t.source||'native',confidence:t.confidence??null,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
       page.symbols.push(symbol);
       if(node.map){issues.push(`${tag}: multiple native map labels; confirm the symbol on page ${page.pageNumber}.`);node.map.ambiguous=true;}
-      else node.map={page:page.pageNumber,x:c[0],y:c[1],symbolId:symbol.id,source:symbol.source,confidence:symbol.confidence,confirmed:false};
+      else node.map={page:page.pageNumber,x:c[0],y:c[1],symbolId:symbol.id,source:symbol.source,confidence:symbol.confidence,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
     }
     page.scheduleRegions=regions.filter(r=>r.page===page.pageNumber);
   }
@@ -363,7 +369,7 @@ export async function importMap(bytes,{onProgress,ocr=false,signal}={}) {
     return {sha256,pages,nodes,edges,issues};
   }finally{await pdf.destroy();}
 }
-export async function renderPage(bytes,pageNumber,canvas) {
+export async function renderPage(bytes,pageNumber,canvas,{hideAnnotations=false}={}) {
   if(!canvas?.getContext)throw new TypeError('A canvas is required to render a PDF page.');
   const pdf=await open(bytes);
   try{
@@ -371,9 +377,21 @@ export async function renderPage(bytes,pageNumber,canvas) {
     const page=await pdf.getPage(pageNumber),base=page.getViewport({scale:1}),desired=canvas.clientWidth||canvas.width||1200;
     const pixelRatio=Math.min(globalThis.devicePixelRatio||1,2),scale=Math.min(3,Math.max(.1,desired/base.width*pixelRatio),Math.sqrt(16000000/(base.width*base.height)));
     const viewport=page.getViewport({scale});canvas.width=Math.max(1,Math.round(viewport.width));canvas.height=Math.max(1,Math.round(viewport.height));
-    await page.render({canvasContext:canvas.getContext('2d'),viewport,background:'rgb(255,255,255)'}).promise;
+    await page.render({canvasContext:canvas.getContext('2d'),viewport,background:'rgb(255,255,255)',...(hideAnnotations?{annotationMode:reader().AnnotationMode?.DISABLE??0}:{})}).promise;
     const content=await page.getTextContent();const textBounds=content.items.filter(t=>typeof t.str==='string'&&t.str.trim()).map(t=>normalizedText(t,base)).map(t=>({x:t.x*canvas.width,y:t.y*canvas.height,width:t.width*canvas.width,height:t.height*canvas.height}));
-    return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale,textBounds,textAvailable:textBounds.length>0};
+    const annotations=await page.getAnnotations({intent:'display'});
+    const annotationLabels=nativeAnnotations(annotations.filter(a=>['FreeText','Highlight','Stamp'].includes(a.subtype)&&typeof (a.contentsObj?.str??a.contents)==='string'&&clean(a.contentsObj?.str??a.contents)).slice(0,500),base)
+      .filter(a=>a.rect.every(Number.isFinite)&&a.rect[2]>0&&a.rect[3]>0)
+      .map((a,i)=>{const x=clamp(a.rect[0]),y=clamp(a.rect[1]);return {id:typeof a.id==='string'?a.id.slice(0,200):`annotation-${i}`,subtype:a.subtype,text:a.contents.slice(0,500),rect:[x,y,Math.min(clamp(a.rect[2]),1-x),Math.min(clamp(a.rect[3]),1-y)]};})
+      .filter(a=>a.rect[2]>0&&a.rect[3]>0);
+    // Annotation appearances can contain names even when Contents is empty.
+    // Mask every visible annotation rectangle, not just movable text labels.
+    const annotationBounds=nativeAnnotations(annotations.slice(0,500),base)
+      .filter(a=>a.rect.every(Number.isFinite)&&a.rect[2]>0&&a.rect[3]>0)
+      .map(a=>({x:a.rect[0]*canvas.width,y:a.rect[1]*canvas.height,width:a.rect[2]*canvas.width,height:a.rect[3]*canvas.height}));
+    if(!hideAnnotations)textBounds.push(...annotationBounds);
+    const annotationBoundsComplete=annotations.length<=500&&annotationBounds.length===annotations.length;
+    return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale,textBounds,textAvailable:textBounds.length>0&&annotationBoundsComplete,annotationLabels};
   }finally{await pdf.destroy();}
 }
 // Tombstones are compact summaries, not serialized solver results. Bound text
@@ -488,14 +506,70 @@ export function layoutTombstones(job,evaluation,{pageFrames}={}) {
   }
   return layout;
 }
-/** Reloading a verified original on every export prevents duplicate marks. */
-export async function exportMap(bytes,job,evaluation) {
+/** Remove only a replaceable A# annotation tied to a confirmed active's
+ * actual tombstone. This edits an in-memory copy, never the original attachment. */
+function removeReplacedActiveAnnotations(doc,job,layout,frames,lib) {
+  let removed=0;
+  for(let pageIndex=0;pageIndex<doc.getPageCount();pageIndex++){
+    const page=doc.getPage(pageIndex),array=page.node.Annots();if(!array)continue;
+    const frame=frames[pageIndex],stored=job.map?.pages?.find(p=>p.pageNumber===pageIndex+1),candidates=[];
+    const [a,b,c,d,e,f]=frame.inv,det=a*d-b*c;
+    for(let i=0;i<array.size();i++){
+      try{
+        const ref=array.get(i),dict=doc.context.lookup(ref,lib.PDFDict);
+        if(doc.context.lookup(dict.get(lib.PDFName.of('Subtype')))?.decodeText?.()!=='FreeText')continue;
+        const tag=tagOf(doc.context.lookup(dict.get(lib.PDFName.of('Contents')))?.decodeText?.());if(!tag?.startsWith('A'))continue;
+        const raw=doc.context.lookup(dict.get(lib.PDFName.of('Rect')),lib.PDFArray).asArray().map(v=>v.asNumber());
+        if(raw.length!==4||!raw.every(finite)||!det)continue;
+        const points=[[raw[0],raw[1]],[raw[0],raw[3]],[raw[2],raw[1]],[raw[2],raw[3]]].map(([x,y])=>[(d*(x-e)-c*(y-f))/det/frame.width,1-(-b*(x-e)+a*(y-f))/det/frame.height]);
+        const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),rect={x:Math.min(...xs),y:Math.min(...ys),width:Math.max(...xs)-Math.min(...xs),height:Math.max(...ys)-Math.min(...ys)};
+        if(rect.width<=0||rect.height<=0)continue;
+        const id=Number.isInteger(ref.objectNumber)?`${ref.objectNumber}R${ref.generationNumber||''}`:null;
+        const original=stored?.annotations?.find(annotation=>annotation.id===id);
+        if(original&&(original.subtype!=='FreeText'||tagOf(original.contents)!==tag))continue;
+        candidates.push({index:i,tag,rect,id});
+      }catch{/* Malformed or unrelated annotations are preserved. */}
+    }
+    const selected=new Set();
+    for(const box of layout.filter(box=>box.page===pageIndex+1)){
+      const node=job.nodes.find(n=>n.id===box.nodeId);
+      if(node?.kind!=='active'||node.map?.confirmed!==true)continue;
+      const tag=tagOf(node.tag);if(!tag?.startsWith('A'))continue;
+      const symbol=stored?.symbols?.find(s=>s.id===node.map.symbolId),bounds=node.map.labelBounds||symbol?.labelBounds;
+      const matching=candidates.filter(candidate=>{
+        if(candidate.tag!==tag||node.map.annotationId&&candidate.id!==node.map.annotationId)return false;
+        const r=candidate.rect;
+        if(bounds&&[bounds.x,bounds.y,bounds.width,bounds.height].every(finite))return Math.min(r.x+r.width,bounds.x+bounds.width)>Math.max(r.x,bounds.x)&&Math.min(r.y+r.height,bounds.y+bounds.height)>Math.max(r.y,bounds.y);
+        return finite(node.map.x)&&finite(node.map.y)&&node.map.x>=r.x&&node.map.x<=r.x+r.width&&node.map.y>=r.y&&node.map.y<=r.y+r.height;
+      });
+      // Duplicate or overlapping labels remain unresolved rather than deleting
+      // an unrelated annotation with the same printed identifier.
+      if(matching.length===1)selected.add(matching[0].index);
+    }
+    for(const index of [...selected].sort((a,b)=>b-a)){array.remove(index);removed++;}
+  }
+  return removed;
+}
+async function originalMapCopy(bytes,job,evaluation){
   const source=bytesOf(bytes),expected=job?.map?.sha256;
   if(!expected||await hash(source)!==expected)throw new Error('Original PDF hash does not match this job. Restore its verified original before exporting.');
   const lib=globalThis.PDFLib;if(!lib?.PDFDocument)throw new Error('The offline PDF writer is unavailable.');
-  const doc=await lib.PDFDocument.load(source,{updateMetadata:false}),font=await doc.embedFont(lib.StandardFonts.Helvetica);
+  const doc=await lib.PDFDocument.load(source,{updateMetadata:false});
   const frames=doc.getPages().map((p,i)=>({...pageFrame(p,lib),pageNumber:i+1}));
-  for(const box of layoutTombstones(job,evaluation,{pageFrames:frames})){
+  const layout=layoutTombstones(job,evaluation,{pageFrames:frames});
+  const removed=removeReplacedActiveAnnotations(doc,job,layout,frames,lib);
+  return {source,lib,doc,frames,layout,removed};
+}
+/** UI renders this derived copy, then places its shared tombstone overlays.
+ * Flattened labels cannot be removed; no pixels are painted over or invented. */
+export async function prepareMapPreview(bytes,job,evaluation){
+  const {source,doc,removed}=await originalMapCopy(bytes,job,evaluation);
+  return removed?doc.save({useObjectStreams:true}):source;
+}
+/** Reloading a verified original on every export prevents duplicate marks. */
+export async function exportMap(bytes,job,evaluation) {
+  const {lib,doc,frames,layout}=await originalMapCopy(bytes,job,evaluation),font=await doc.embedFont(lib.StandardFonts.Helvetica);
+  for(const box of layout){
     const page=doc.getPage(box.page-1),frame=frames[box.page-1],node=job.nodes.find(n=>n.id===box.nodeId),anchor=node.map;
     const {fontSize,padding,lines}=box,x=box.x*frame.width,y=box.y*frame.height,width=box.width*frame.width,height=box.height*frame.height;
     page.pushOperators(lib.pushGraphicsState(),lib.concatTransformationMatrix(...frame.inv));

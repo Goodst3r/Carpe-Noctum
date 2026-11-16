@@ -23,3 +23,7 @@ Deploy the Worker only after authorization, then enter its HTTPS origin and devi
 `POST /v1/map-scans` accepts only version, stage, a flattened PNG data URL, dimensions, generic revision, and (for crosscheck) the two validated generic findings. It rejects filenames, job metadata, original names and unknown protocol fields. PNG dimensions/signature and allowed chunks are checked; metadata/text chunks are rejected. A service cannot prove that visible text was masked: the user must review the flattened preview before consenting. CORS and bearer authorization apply. Payloads and provider response bodies are not logged or persisted by this service. Cloud/provider infrastructure policies are separate from application behavior.
 
 Symbols and connections are constrained to generic IDs, known classes, normalized coordinates, printed values and port roles. Findings cannot contain free-text equipment names. Disagreements, malformed responses and provider failures remain review states.
+
+### PDF annotation privacy bounds
+
+The local renderer adds every visible annotation rectangle to automatic preview masks, including appearances with empty text contents. Hiding annotations omits those rectangles so the revealed diagram can be inspected. Movable labels and annotation bounds are limited to 500 per page; exceeding the limit, or invalid annotation geometry, sets `textAvailable:false` and requires manual privacy inspection. Local overlay labels are outside the scanner canvas. Raster text and flattened labels still require careful manual review.

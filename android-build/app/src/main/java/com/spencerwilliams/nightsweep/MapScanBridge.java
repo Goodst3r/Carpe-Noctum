@@ -67,7 +67,7 @@ public final class MapScanBridge {
     private void run(String id,String origin,String token,String body) {
         if(closed){busy.set(false);return;}
         executor.execute(()->{
-            HttpsURLConnection conn=null;
+            HttpsURLConnection conn=null; boolean succeeded=false; String response="";
             try {
                 URL url=new URL(origin+"/v1/map-scans");
                 for(InetAddress address:InetAddress.getAllByName(url.getHost()))if(!MapScanPolicy.publicAddress(address))throw new Exception();
@@ -87,9 +87,10 @@ public final class MapScanBridge {
                     byte[] buffer=new byte[8192];int n;
                     while((n=input.read(buffer))!=-1){if(closed || result.size()+n>1024*1024)throw new Exception();result.write(buffer,0,n);}
                 }
-                deliver(id,true,new String(result.toByteArray(),StandardCharsets.UTF_8));
-            } catch(Exception e){deliver(id,false,"");}
+                response=new String(result.toByteArray(),StandardCharsets.UTF_8);succeeded=true;
+            } catch(Exception e){succeeded=false;}
             finally{if(conn!=null)conn.disconnect();connection=null;busy.set(false);}
+            deliver(id,succeeded,response);
         });
     }
     private void deliver(String id,boolean ok,String text){

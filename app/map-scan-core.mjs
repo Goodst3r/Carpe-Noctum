@@ -1,6 +1,7 @@
 /* Private masked-image protocol. Generic suggestions only; no equipment names or originals. */
  const symbols=Object.freeze({node:{label:'Node'},tap2:{label:'2-port tap',ports:2},tap4:{label:'4-port tap',ports:4},tap8:{label:'8-port tap',ports:8},amplifier:{label:'Amplifier'},lineExtender:{label:'Line extender'},splitter2:{label:'2-way splitter'},coupler:{label:'Directional coupler',black:'tap',white:'through'},unknown:{label:'Review symbol'}});
- const kinds=Object.freeze(Object.keys(symbols)),ports=['through','tap','output1','output2','output3','high','low1','low2'],idRE=/^s[0-9]+$/;
+ const kinds=Object.freeze(Object.keys(symbols)),ports=['through','tap','output1','output2','output3','high','low1','low2','A','B','C','D'],idRE=/^s[0-9]+$/;
+ const directorKinds=['splitter2','coupler','unknown'],tapSides=['left','right','top','bottom','upper-left','upper-right','lower-left','lower-right','unknown'];
  const fail=m=>{throw Error(m);};
  const record=x=>x&&typeof x==='object'&&!Array.isArray(x);
  const finite=(x,min,max)=>typeof x==='number'&&Number.isFinite(x)&&x>=min&&x<=max;
@@ -8,13 +9,14 @@
  function validateFinding(f){
   keys(f,['symbols','connections']);if(!Array.isArray(f.symbols)||f.symbols.length>200||!Array.isArray(f.connections)||f.connections.length>400)fail('Invalid scan result size.');
   const ids=new Set();
-  for(const s of f.symbols){keys(s,['id','kind','x','y','value']);if(!idRE.test(s.id)||ids.has(s.id))fail('Invalid or duplicate scan symbol ID.');ids.add(s.id);if(!kinds.includes(s.kind))fail('Invalid scan symbol kind.');if(!finite(s.x,0,1)||!finite(s.y,0,1))fail('Invalid scan coordinate.');if(s.value!==null&&!finite(s.value,0,60))fail('Invalid scan value.');}
+  for(const s of f.symbols){keys(s,['id','kind','x','y','value','director']);if(!idRE.test(s.id)||ids.has(s.id))fail('Invalid or duplicate scan symbol ID.');ids.add(s.id);if(!kinds.includes(s.kind))fail('Invalid scan symbol kind.');if(!finite(s.x,0,1)||!finite(s.y,0,1))fail('Invalid scan coordinate.');if(s.value!==null&&!finite(s.value,0,60))fail('Invalid scan value.');if(s.director!==undefined&&s.director!==null){if(!['node','amplifier','lineExtender'].includes(s.kind))fail('Director must be inside active equipment.');keys(s.director,['kind','value','tapSide']);if(!directorKinds.includes(s.director.kind)||!(s.director.value===null||finite(s.director.value,0,60))||!tapSides.includes(s.director.tapSide))fail('Invalid director.');}}
   for(const e of f.connections){keys(e,['from','to','port']);if(!ids.has(e.from)||!ids.has(e.to)||e.from===e.to||!ports.includes(e.port))fail('Invalid scan connection reference or port.');}
   return f;
  }
  function compare(a,b){
   if(a)validateFinding(a);if(b)validateFinding(b);const aa=a?.symbols||[],bb=b?.symbols||[],used=new Set(),items=[];
-  for(const s of aa){let best=-1,d=.025;bb.forEach((t,i)=>{const n=Math.hypot(s.x-t.x,s.y-t.y);if(!used.has(i)&&n<d){best=i;d=n;}});const other=best<0?null:bb[best];if(best>=0)used.add(best);items.push({a:s,b:other,status:!other?'unresolved':s.kind===other.kind&&s.value===other.value?'agreement':'disagreement',confirmed:false});}
+  const sameDirector=(left,right)=>{const x=left??null,y=right??null;return x===null||y===null?x===y:x.kind===y.kind&&x.value===y.value&&x.tapSide===y.tapSide;};
+  for(const s of aa){let best=-1,d=.025;bb.forEach((t,i)=>{const n=Math.hypot(s.x-t.x,s.y-t.y);if(!used.has(i)&&n<d){best=i;d=n;}});const other=best<0?null:bb[best];if(best>=0)used.add(best);items.push({a:s,b:other,status:!other?'unresolved':s.kind===other.kind&&s.value===other.value&&sameDirector(s.director,other.director)?'agreement':'disagreement',confirmed:false});}
   bb.forEach((s,i)=>{if(!used.has(i))items.push({a:null,b:s,status:'unresolved',confirmed:false});});
   // Provider IDs are local. Compare connectivity after mapping matched symbol centers.
   const mapping=new Map(items.filter(i=>i.a&&i.b).map(i=>[i.a.id,i.b.id]));
@@ -37,7 +39,7 @@
   if(stage==='crosscheck'){keys(findings,['openai','gemini']);result.findings={};for(const p of ['openai','gemini']){if(findings[p]===null)result.findings[p]=null;else result.findings[p]=validateFinding(findings[p]);}}
   return result;
  }
- const schema={type:'object',additionalProperties:false,required:['symbols','connections'],properties:{symbols:{type:'array',items:{type:'object',additionalProperties:false,required:['id','kind','x','y','value'],properties:{id:{type:'string'},kind:{type:'string',enum:kinds},x:{type:'number'},y:{type:'number'},value:{type:['number','null']}}}},connections:{type:'array',items:{type:'object',additionalProperties:false,required:['from','to','port'],properties:{from:{type:'string'},to:{type:'string'},port:{type:'string',enum:ports}}}}}};
+ const schema={type:'object',additionalProperties:false,required:['symbols','connections'],properties:{symbols:{type:'array',items:{type:'object',additionalProperties:false,required:['id','kind','x','y','value','director'],properties:{id:{type:'string'},kind:{type:'string',enum:kinds},x:{type:'number'},y:{type:'number'},value:{type:['number','null']},director:{anyOf:[{type:'null'},{type:'object',additionalProperties:false,required:['kind','value','tapSide'],properties:{kind:{type:'string',enum:directorKinds},value:{type:['number','null']},tapSide:{type:'string',enum:tapSides}}}]}}}},connections:{type:'array',items:{type:'object',additionalProperties:false,required:['from','to','port'],properties:{from:{type:'string'},to:{type:'string'},port:{type:'string',enum:ports}}}}}};
 
 export {symbols,kinds,ports,validateFinding,compare,scanRequest,schema};
 

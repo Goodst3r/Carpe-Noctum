@@ -67,12 +67,27 @@ export function mountMapScan(root,{getContext,onSuggestions,onClose,scan=runDual
   review.checked=false;update();results.replaceChildren();
   if(doc.defaultView?.NightSweepAndroid?.scanMap)payload.fetcher=nativeScanFetcher(doc.defaultView);
   try {const result=await scan(payload);if(!current()||generation!==serial){if(!destroyed&&!current())invalidate();return;}
-   status.textContent='Review each suggestion. Agreement is not confirmation. Connections are never applied automatically.';
-   if(!result.comparison.length)status.textContent+=' No symbol suggestions returned.';
+   const providerNames={openai:'OpenAI',gemini:'Gemini'};
+   const providerStatus=doc.createElement('div');providerStatus.dataset.role='provider-status';results.append(providerStatus);
+   let failures=0,completed=0;
+   for(const [stage,key] of [['Initial read','initial'],['Cross-check','crosscheck']])for(const provider of ['openai','gemini']){
+    const value=result[key]?.providers?.[provider];if(!value)continue;
+    const line=doc.createElement('p');line.textContent=providerNames[provider]+' · '+stage+': '+(value.status==='ok'?'completed':value.code==='not_configured'?'not configured':'failed');providerStatus.append(line);if(value.status==='ok'&&key==='crosscheck')completed++;else if(value.status!=='ok')failures++;
+   }
+   status.textContent=failures?(completed?'Partial scan: a provider stage failed. Review the available suggestions.':'Scan failed: no completed cross-check findings. Review the provider status before retrying.'):'Review each suggestion. Agreement is not confirmation.';
+   status.textContent+=' Connections require manual physical confirmation.';
+   if(!result.comparison.length&&!failures)status.textContent+=' No symbol suggestions returned.';
+   const connections=doc.createElement('details');connections.dataset.role='connections';const connectionTitle=doc.createElement('summary');connectionTitle.textContent='Proposed connections · manual review';connections.append(connectionTitle);results.append(connections);
+   for(const provider of ['openai','gemini']){const finding=result.crosscheck?.providers?.[provider]?.finding;if(!finding)continue;
+    const heading=doc.createElement('h4');heading.textContent=providerNames[provider];connections.append(heading);
+    const label=id=>{const symbol=finding.symbols.find(s=>s.id===id);return symbol?symbol.id+' '+(symbols[symbol.kind]?.label||'symbol')+' at '+Math.round(symbol.x*100)+'%, '+Math.round(symbol.y*100)+'%':id;};
+    for(const edge of finding.connections){const line=doc.createElement('p');line.textContent=label(edge.from)+' → '+label(edge.to)+' · '+edge.port+' leg · unconfirmed';connections.append(line);}
+    if(!finding.connections.length){const line=doc.createElement('p');line.textContent='No connection proposals.';connections.append(line);}
+   }
    for(const item of result.comparison){const row=doc.createElement('div'),label=doc.createElement('p');label.textContent=item.status;row.append(label);
-    const choices=item.status==='agreement'?[item.a||item.b]:[item.a,item.b].filter(Boolean);
-    for(const [index,s] of choices.entries()){const button=doc.createElement('button');button.type='button';button.dataset.action='accept';button.textContent=`Accept ${symbols[s.kind]?.label||'symbol'}${s.value===null?'':` (${s.value})`} at ${Math.round(s.x*100)}%, ${Math.round(s.y*100)}%${choices.length>1?` — option ${index+1}`:''}`;
-     button.onclick=()=>{if(!current()||generation!==serial){invalidate();return;}for(const b of row.querySelectorAll('button'))b.disabled=true;onSuggestions([{kind:s.kind,x:s.x,y:s.y,value:s.value}],revision);};row.append(button);
+    const choices=item.status==='agreement'?[{symbol:item.a||item.b,provider:item.a?'openai':'gemini'}]:[{symbol:item.a,provider:'openai'},{symbol:item.b,provider:'gemini'}].filter(x=>x.symbol);
+    for(const [index,choice] of choices.entries()){const s=choice.symbol;const director=s.director?{kind:s.director.kind,value:s.director.value,tapSide:s.director.tapSide}:null;const directorLabel=director?` · internal director: ${director.kind==='splitter2'?'2-way splitter':director.kind==='coupler'?'directional coupler':'unknown'}${director.value===null?' · value unknown':` · ${director.value} dB`} · tap side ${director.tapSide} · requires physical confirmation`:'';const button=doc.createElement('button');button.type='button';button.dataset.action='accept';button.textContent=`Accept ${symbols[s.kind]?.label||'symbol'}${s.value===null?'':` (${s.value})`} at ${Math.round(s.x*100)}%, ${Math.round(s.y*100)}%${choices.length>1?` — option ${index+1}`:''}${directorLabel}`;
+     button.onclick=()=>{if(!current()||generation!==serial){invalidate();return;}for(const b of row.querySelectorAll('button'))b.disabled=true;onSuggestions([{kind:s.kind,x:s.x,y:s.y,value:s.value,...(director?{director}:{})}],revision,{provider:choice.provider,symbolId:s.id,scanRevision:payload.revision,providers:result.crosscheck?.providers});};row.append(button);
     }results.append(row);
    }
   }catch(error){if(!destroyed&&generation===serial){if(!current())invalidate();else status.textContent=error.name==='AbortError'?'Scan cancelled.':'Scan failed. Check your HTTPS service and device token, then review the image to retry.';}}

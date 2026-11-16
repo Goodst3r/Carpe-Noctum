@@ -194,6 +194,9 @@ async function main() {
     check('synthetic map renders in bounded time', Date.now()-mapStart < 30000, `${Date.now()-mapStart} ms`);
     check('embedded PDFLib UMD writer is available in the built PWA', await page.evaluate(() => typeof window.PDFLib?.PDFDocument?.load === 'function'));
     check('map opens as full-page workspace',await page.locator('.map-focus').count()===1);
+    for(const width of [320,360,390]) { await page.setViewportSize({width,height:844});const bounds=await page.locator('.map-focus .map-panel>.section-head button').evaluateAll(buttons=>buttons.map(b=>{const r=b.getBoundingClientRect();return {text:b.textContent,left:r.left,right:r.right};}));check(`all map header actions accessible at ${width}px`,bounds.every(b=>b.left>=0&&b.right<=width),JSON.stringify(bounds)); }
+    await page.setViewportSize({width:1280,height:900});
+
     await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
     const beforeZoom=await page.locator('[data-zoom-label]').innerText();
     await page.locator('[data-action="zoom-in"]').click();

@@ -246,3 +246,28 @@ test('unknown equipment test-point loss is blank and cancellation does not impor
  root.querySelector('[data-action=map-undo]').click();assert.equal(app.getJob().nodes[0].name,'GS7K Node');root.querySelector('[data-action=map-redo]').click();assert.equal(app.getJob().nodes[0].name,'Edited node');
  app.getJob().map.sha256='def';root.querySelector('[data-tab=route]').click();assert.equal(root.querySelector('[data-action=map-undo]').disabled,true);
  });
+
+test('a slow earlier PDF selection cannot replace the latest selected map',async()=>{
+ const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});Object.assign(globalThis,{document:dom.window.document,window:dom.window,localStorage:dom.window.localStorage});dom.window.confirm=()=>true;
+ const previous=globalThis.pdfjsLib;globalThis.pdfjsLib={getDocument:()=>({promise:Promise.resolve({numPages:0,destroy:async()=>{}})})};
+ try{
+  const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-split=low]').click();
+  let release;const slow=new Promise(r=>release=r);const pick=buffer=>{root.querySelector('[data-action=map-import]').click();const input=root.querySelector('#file-picker');Object.defineProperty(input,'files',{value:[{arrayBuffer:()=>buffer}],configurable:true});input.dispatchEvent(new dom.window.Event('change',{bubbles:true}));};
+  pick(slow);pick(Promise.resolve(new Uint8Array([2]).buffer));await new Promise(r=>setTimeout(r,35));const latest=app.getJob().map?.sha256;assert.ok(latest);
+  release(new Uint8Array([1]).buffer);await new Promise(r=>setTimeout(r,35));assert.equal(app.getJob().map.sha256,latest);
+ }finally{globalThis.pdfjsLib=previous;}
+});
+
+test('map-first staging keeps the latest PDF when file reads finish out of order',async()=>{
+ const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});Object.assign(globalThis,{document:dom.window.document,window:dom.window,localStorage:dom.window.localStorage});dom.window.confirm=()=>true;
+ const previous=globalThis.pdfjsLib;globalThis.pdfjsLib={getDocument:()=>({promise:Promise.resolve({numPages:0,destroy:async()=>{}})})};
+ try{
+  const root=document.querySelector('#app'),app=mountApp(root);let release;const slow=new Promise(r=>release=r);const pick=buffer=>{root.querySelector('[data-action=start-map]').click();const input=root.querySelector('#file-picker');Object.defineProperty(input,'files',{value:[{arrayBuffer:()=>buffer}],configurable:true});input.dispatchEvent(new dom.window.Event('change',{bubbles:true}));};
+  pick(slow);pick(Promise.resolve(new Uint8Array([2]).buffer));await new Promise(r=>setTimeout(r,10));release(new Uint8Array([1]).buffer);await new Promise(r=>setTimeout(r,10));root.querySelector('[data-split=low]').click();await new Promise(r=>setTimeout(r,35));
+  const hash=await crypto.subtle.digest('SHA-256',new Uint8Array([2]));const expected=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');assert.equal(app.getJob().map.sha256,expected);
+ }finally{globalThis.pdfjsLib=previous;}
+});
+
+test('node map legs persist explicit physical port assignments and label route controls',()=>{const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});Object.assign(globalThis,{document:dom.window.document,window:dom.window,localStorage:dom.window.localStorage});const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-split=low]').click();for(const [leg,port]of [['A','4'],['B','3'],['C','2'],['D','1']]){const input=root.querySelector('[name=leg'+leg+']');assert.ok(input);input.value=port;}root.querySelector('#station-form').dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));assert.deepEqual(app.getJob().nodes[0].settings.mapLegPorts,{A:'4',B:'3',C:'2',D:'1'});assert.match(root.querySelector('#source-port').textContent,/Leg A.*physical port 4/);});
+
+test('using a map symbol as the source keeps physical source measurements and makes rewired ports provisional',async()=>{const {bindMapSource}=await import('../app/ui.mjs');const job={nodes:[{id:'node',kind:'node',modelId:'gs7k',name:'Measured source',tag:'',settings:{}},{id:'candidate',kind:'active',name:'Map node',tag:'A2',map:{page:1,x:.2,y:.3,confirmed:false},settings:{}},{id:'other',kind:'active'}],edges:[{id:'self',from:'node',to:'candidate',port:'1',confirmed:false},{id:'out',from:'candidate',to:'other',port:'main',confirmed:true}],portSweeps:{'node::4':{samples:[[57,31]]}},placements:{}};bindMapSource(job,'candidate');assert.equal(job.nodes.length,2);assert.equal(job.nodes[0].modelId,'gs7k');assert.equal(job.nodes[0].tag,'A2');assert.deepEqual(job.portSweeps['node::4'].samples,[[57,31]]);assert.deepEqual(job.edges,[{id:'out',from:'node',to:'other',port:'',confirmed:false}]);});
