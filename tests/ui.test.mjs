@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
 import { mountApp } from '../app/ui.mjs';
 
-test('opens tools first and requires a split before creating a route', () => {
+test('opens map upload first and requires a split before creating a route', () => {
   const dom = new JSDOM('<div id="app"></div>', {url:'https://example.test'});
   globalThis.document = dom.window.document;
   globalThis.window = dom.window;
@@ -11,7 +11,8 @@ test('opens tools first and requires a split before creating a route', () => {
   const root = document.querySelector('#app');
   mountApp(root);
   assert.match(root.textContent, /Tools/);
-  assert.match(root.textContent, /Cable loss/i);
+  assert.ok(root.querySelector('[data-action=start-map]'));
+  assert.equal(root.querySelector('#calc'),null);
   [...root.querySelectorAll('button')].find(b => b.textContent.includes('Route & Sweep')).click();
   assert.match(root.textContent, /Low split/i);
   assert.match(root.textContent, /High split/i);
@@ -24,6 +25,7 @@ test('calculates a specified cable loss without a job', () => {
   globalThis.localStorage = dom.window.localStorage;
   const root = document.querySelector('#app');
   mountApp(root);
+  root.querySelector('[data-tab=tools]').click();
   root.querySelector('[name=loss]').value = '2';
   root.querySelector('[name=length]').value = '250';
   root.querySelector('#calc').dispatchEvent(new dom.window.Event('submit', {bubbles:true,cancelable:true}));
@@ -87,6 +89,7 @@ test('blank calculator values do not produce a zero loss', () => {
   const dom = new JSDOM('<div id="app"></div>', {url:'https://example.test'});
   globalThis.document = dom.window.document; globalThis.window = dom.window; globalThis.localStorage = dom.window.localStorage;
   const root=document.querySelector('#app'); mountApp(root);
+  root.querySelector('[data-tab=tools]').click();
   root.querySelector('[name=loss]').value='';
   root.querySelector('#calc').dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));
   assert.match(root.querySelector('#result').textContent,/Check your inputs/);
@@ -202,13 +205,16 @@ test('station mode choices follow equipment and start unknown', () => {
   const mode=root.querySelector('#station-form [name=mode]');assert.equal(mode.value,''); assert.deepEqual([...mode.options].map(o=>o.value),['','agc']);
 });
 
-test('selecting a map marker focuses its station editor', () => {
+test('selecting a map marker keeps a compact sheet and opens the editor on demand', () => {
   const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});
   globalThis.document=dom.window.document;globalThis.window=dom.window;globalThis.localStorage=dom.window.localStorage;
   const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-tab=route]').click();root.querySelector('[data-split=low]').click();
   const job=app.getJob();job.map={pages:[]};job.nodes[0].map={page:1,x:.3,y:.4,confirmed:true};
   root.querySelector('[data-tab=route]').click();root.querySelector('.map-overlay .marker').click();
-  assert.equal(document.activeElement,root.querySelector('#station-settings summary'));
+  assert.ok(root.querySelector('.map-focus .selected-sheet'));
+  root.querySelector('[data-action=edit-selected]').click();
+  assert.equal(root.querySelector('.map-focus'),null);
+  assert.equal(root.querySelector('#station-settings').open,true);
 });
 
 test('ambiguous meter compensation asks for confirmation and cancel preserves the sweep', async () => {
@@ -232,3 +238,11 @@ test('unknown equipment test-point loss is blank and cancellation does not impor
   Object.defineProperty(picker,'files',{value:[{name:'sweep.json',arrayBuffer:async()=>new TextEncoder().encode('{}').buffer}]});picker.dispatchEvent(new dom.window.Event('change',{bubbles:true}));
   await new Promise(r=>setTimeout(r,0));assert.equal(defaultLoss,'');assert.deepEqual(app.getJob().portSweeps,{});
 });
+
+ test('map edits undo and redo within the same job without restoring a different PDF',()=>{
+ const dom=new JSDOM('<div id="app"></div>',{url:'https://example.test'});globalThis.document=dom.window.document;globalThis.window=dom.window;globalThis.localStorage=dom.window.localStorage;
+ const root=document.querySelector('#app'),app=mountApp(root);root.querySelector('[data-split=low]').click();const job=app.getJob();job.map={sha256:'abc',pages:[]};root.querySelector('[data-tab=route]').click();
+ job.nodes[0].name='Edited node';root.querySelector('[data-tab=route]').click();assert.equal(root.querySelector('[data-action=map-undo]').disabled,false);
+ root.querySelector('[data-action=map-undo]').click();assert.equal(app.getJob().nodes[0].name,'GS7K Node');root.querySelector('[data-action=map-redo]').click();assert.equal(app.getJob().nodes[0].name,'Edited node');
+ app.getJob().map.sha256='def';root.querySelector('[data-tab=route]').click();assert.equal(root.querySelector('[data-action=map-undo]').disabled,true);
+ });

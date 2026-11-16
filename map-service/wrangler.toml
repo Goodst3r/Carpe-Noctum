@@ -1,0 +1,21 @@
+name = "carpe-noctum-map-scanner"
+main = "worker.mjs"
+compatibility_date = "2026-11-16"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://example.invalid"
+OPENAI_MODEL = ""
+GEMINI_MODEL = ""
+MAX_REQUESTS_PER_DAY = "20"
+
+[[durable_objects.bindings]]
+name = "SCAN_GATE"
+class_name = "ScanGate"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ScanGate"]
+
+[observability]
+enabled = false

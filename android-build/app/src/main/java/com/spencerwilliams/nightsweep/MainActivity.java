@@ -56,6 +56,7 @@ public final class MainActivity extends Activity {
     private static final int MAX_PICKED_MODEL = 128 * 1024 * 1024;
     private static final int MAX_BINARY_BASE64 = 4 * ((MAX_BINARY_EXPORT + 2) / 3);
     private WebView web;
+    private MapScanBridge mapScanner;
     private AlertDialog promptDialog;
     private ValueCallback<Uri[]> fileCallback;
     private byte[] pendingExport;
@@ -164,6 +165,7 @@ public final class MainActivity extends Activity {
                 return true;
             }
         });
+        mapScanner=new MapScanBridge(this,web);
         web.addJavascriptInterface(new NativeBridge(),"NightSweepAndroid");
         try (InputStream input=getAssets().open("index.html")) {
             ByteArrayOutputStream output=new ByteArrayOutputStream(); byte[] buffer=new byte[8192]; int n;
@@ -278,6 +280,10 @@ public final class MainActivity extends Activity {
         });
     }
     public final class NativeBridge {
+        @JavascriptInterface public void scanMap(String id,String service,String token,String body) {
+            MapScanBridge scanner=mapScanner;
+            if(scanner!=null)scanner.scan(id,service,token,body);
+        }
         @JavascriptInterface public void saveFile(String name,String text,String mime) {
             if(text==null || text.length()>MAX_EXPORT) {status("Export is empty or exceeds the 20 MB limit.");return;}
             final byte[] bytes=text.getBytes(StandardCharsets.UTF_8);
@@ -434,6 +440,7 @@ public final class MainActivity extends Activity {
     @Override protected void onDestroy() {
         cancelJsPrompt();
         finishFileCallback(null);
+        if(mapScanner!=null){mapScanner.close();mapScanner=null;}
         if(web!=null){web.removeJavascriptInterface("NightSweepAndroid");web.destroy();web=null;}
         super.onDestroy();
     }

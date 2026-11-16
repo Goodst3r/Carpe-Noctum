@@ -91,6 +91,8 @@ async function main() {
     };
 
     await page.goto(url, { waitUntil: 'networkidle' });
+    check('map upload is the launch action',await page.locator('[data-action="start-map"]').count()===1);
+    await page.locator('[data-tab="tools"]').click();
     await page.locator('#calc [name="loss"]').fill('2');
     await page.locator('#calc [name="length"]').fill('250');
     const wholeDbValid = await page.locator('#calc').evaluate(form => form.checkValidity());
@@ -191,6 +193,18 @@ async function main() {
     check('imported PDF map renders a page canvas', await page.locator('#map-canvas').evaluate(c => c.width > 0 && c.height > 0));
     check('synthetic map renders in bounded time', Date.now()-mapStart < 30000, `${Date.now()-mapStart} ms`);
     check('embedded PDFLib UMD writer is available in the built PWA', await page.evaluate(() => typeof window.PDFLib?.PDFDocument?.load === 'function'));
+    check('map opens as full-page workspace',await page.locator('.map-focus').count()===1);
+    await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
+    const beforeZoom=await page.locator('[data-zoom-label]').innerText();
+    await page.locator('[data-action="zoom-in"]').click();
+    check('zoom updates the viewport without replacing the canvas',await page.locator('[data-zoom-label]').innerText()!==beforeZoom);
+    await page.locator('[data-action="fit-map"]').click();
+    await page.locator('[data-action="scan-open"]').click();
+    await page.waitForSelector('.map-scan-panel canvas');
+    check('online scan requires reviewing the flattened preview',await page.locator('[data-action="review-send"]').isDisabled());
+    await page.locator('.map-scan-panel [data-action="close"]').click();
+    await page.locator('[data-action="map-focus"]').click();
+    await page.locator('[data-action="map-edit"]').click();
     await page.locator('.station-row').filter({ hasText:'Amplifier A' }).click();
     await page.locator('[data-action="assign-map"]').click();
     const mapOverlay = page.locator('.map-overlay');
@@ -209,7 +223,7 @@ async function main() {
     const sourceOverlay=await mapOverlay.boundingBox();
     await mapOverlay.click({position:{x:sourceOverlay.width*.1,y:sourceOverlay.height*a1Y}});
     const priorEdges=await page.locator('.edge-row').count();
-    await page.locator('[data-action="map-connect"]').click();
+    await page.locator('[data-action="map-connect"]').first().click();
     await page.locator('.marker[title="GS7K Node"]').click();
     await page.locator('.marker[title="Amplifier A"]').click();
     check('two map endpoint taps open connection editor',await page.locator('#edge-form').isVisible());
@@ -219,6 +233,9 @@ async function main() {
     const tombstone = page.locator('.tombstone.selected');
     const beforePosition = await tombstone.getAttribute('style');
     await page.locator('[data-action="place"]').click();
+    await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
+    await page.locator('[data-action="fit-selected"]').click();
+    await mapScroll.scrollIntoViewIfNeeded();
     await page.evaluate(() => { window.__tombstonePointerLog=[]; for(const type of ['pointerdown','pointermove','pointerup']) document.addEventListener(type,e=>window.__tombstonePointerLog.push({type,target:e.target?.closest?.('[data-drag-marker]')?.dataset?.dragMarker||e.target?.className||e.target?.tagName,x:e.clientX,y:e.clientY}),true); });
     await page.locator('.map-scroll').evaluate((el,f)=>{el.scrollTop=Math.max(0,el.scrollHeight*f-el.clientHeight*.5);},a1Y);
     await page.waitForTimeout(80);

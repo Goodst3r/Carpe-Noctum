@@ -372,7 +372,8 @@ export async function renderPage(bytes,pageNumber,canvas) {
     const pixelRatio=Math.min(globalThis.devicePixelRatio||1,2),scale=Math.min(3,Math.max(.1,desired/base.width*pixelRatio),Math.sqrt(16000000/(base.width*base.height)));
     const viewport=page.getViewport({scale});canvas.width=Math.max(1,Math.round(viewport.width));canvas.height=Math.max(1,Math.round(viewport.height));
     await page.render({canvasContext:canvas.getContext('2d'),viewport,background:'rgb(255,255,255)'}).promise;
-    return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale};
+    const content=await page.getTextContent();const textBounds=content.items.filter(t=>typeof t.str==='string'&&t.str.trim()).map(t=>normalizedText(t,base)).map(t=>({x:t.x*canvas.width,y:t.y*canvas.height,width:t.width*canvas.width,height:t.height*canvas.height}));
+    return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale,textBounds,textAvailable:textBounds.length>0};
   }finally{await pdf.destroy();}
 }
 // Tombstones are compact summaries, not serialized solver results. Bound text
