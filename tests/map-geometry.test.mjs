@@ -239,3 +239,16 @@ test('E schedule annotations are placed provisionally while an unmarked cable cr
   assert.equal(orphan.evidence.type,'unmatched-map-label');
   assert.ok(result.issues.some(issue=>issue.includes('E999')&&issue.includes('no matching schedule row')));
 });
+
+test('native Bezier black circles are discovered as splitters while white knockout circles are not',async()=>{
+ const {rgb}=await import('pdf-lib');
+ for(const black of [true,false]){
+  const d=await PDFDocument.create(),font=await d.embedFont(StandardFonts.Helvetica),map=d.addPage([400,400]);nativePath(map,[[47,197],[53,200],[47,203]]);nativeAnnotation(d,map,'A1',[48,198,51,202]);
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(98,200),stroke(),moveTo(102,200),lineTo(150,200),stroke());
+  map.drawCircle({x:100,y:200,size:2,color:black?rgb(0,0,0):rgb(1,1,1),borderColor:rgb(0,0,0),borderWidth:.07});
+  const schedule=d.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['SYNTHETIC',110,680]])schedule.drawText(text,{x,y,size:12,font});
+  const result=await importMap(await d.save()),splitter=result.nodes.find(n=>n.evidence?.type==='native-passive-symbol'&&n.map.symbolKind==='splitter2');
+  if(black){assert.ok(splitter,'normal native curved circles must reach passive discovery');assert.equal(splitter.modelId,'');assert.ok(result.edges.some(e=>[e.from,e.to].includes(splitter.id)));}
+  else assert.equal(splitter,undefined,'white background fill is not a solid black splitter');
+ }
+});

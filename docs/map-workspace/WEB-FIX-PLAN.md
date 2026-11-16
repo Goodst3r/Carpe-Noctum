@@ -16,12 +16,12 @@ Local-only PDFs and training; no private fixtures or training text/images in Git
 
 ## Tasks / ownership
 
-- [ ] Viewport/selection/fullpage UI: Terra implementer owns map-viewport, new map-display/marker helper, ui/style, focused tests. Primary coordinates APIs.
-- [ ] Port resolver/compatibility: primary owns catalog, graph, store, RF integration and tests; UI calls resolver.
-- [ ] Compact PDF tombstones/detail pages: primary owns maps tombstone/export section and tests, keeps importer section isolated while UI work proceeds.
-- [ ] Symbol/contact/topology recognition: subsequent implementer owns importer sections/new geometry helper and synthetic/private tests after first task report.
-- [ ] Import summary/queue integration: primary with scoped helper as needed, after importer output settled.
-- [ ] Review, correction pass, full suites, private browser replay and update PR62.
+- [x] Viewport/selection/fullpage UI: Terra implementer owns map-viewport, new map-display/marker helper, ui/style, focused tests. Primary coordinates APIs.
+- [x] Port resolver/compatibility: primary owns catalog, graph, store, RF integration and tests; UI calls resolver.
+- [x] Compact PDF tombstones/detail pages: primary owns maps tombstone/export section and tests, keeps importer section isolated while UI work proceeds.
+- [x] Symbol/contact/topology recognition: subsequent implementer owns importer sections/new geometry helper and synthetic/private tests after first task report.
+- [x] Import summary/queue integration: primary with scoped helper as needed, after importer output settled.
+- [x] Review, correction pass, full suites, private browser replay and update PR62.
 
 ## Acceptance / checks
 
@@ -50,3 +50,14 @@ Astra's independent whole-branch review of3cb5c17 identified one remaining Impor
 UI integration remaps upstream evidence through imported UUIDs/source binding, separates anonymous ends from unplaced named EOLs, protects candidate measurements from deletion, retains the named station's data during explicit matching, and keeps unknown branches visible. A native-importer-flag mismatch found in the private browser check received a failing UI boundary regression and was fixed. A complete synthetic browser import→review queue→explicit E1 matching regression now covers the actual producer/consumer boundary. Export captures a consistent cloned job and matching evaluation at click time and discards output after job/map replacement.
 
 The private map retains all160 labeled identities and additionally yields106 generic passive-symbol candidates and164 possible cable-end/continuation candidates, with281 unconfirmed connection proposals. These are review workload, not a claim of430 verified pieces of equipment or complete/correct topology. All proposed directions, physical ports, cable types and lengths still require review. Source files and private QA artifacts remain outside Git.
+
+The scoped final-review follow-up found one additional native PDF representation defect: ordinary filled Bezier circles have repeated endpoints without the explicit closed flag or a many-point polygon. Discovery now accepts geometrically closed curved circles through the existing contour/contact checks. A native PDF regression failed before the fix and passes for a black-circle splitter; a white knockout circle is explicitly not treated as a solid black splitter. Fill classification distinguishes dark ink from white background.
+
+
+### Frozen-candidate verification
+
+After the Bezier fix, the private map has160 labeled positions,119 generic passive candidates,140 possible endpoints and288 unconfirmed connections (419 station candidates total). This supersedes the intermediate counts above; newly recognized passives split cable paths and absorb endpoints. All connections remain unconfirmed. Astra scoped re-review found no remaining Critical/Important issue; Claude was unavailable and no Claude review is claimed.
+
+Commands on the frozen authored candidate: npm ci succeeded; npm test reported243 tests,237 passed,6 skipped,0 failed; npm run build succeeded (PWA51373455d6ddefe217da); npm run test:browser passed46 checks; npm run test:ai-browser passed13 checks. Private Chromium replay verified source selection/port5, overlapping station chooser, >=12px selected card,16px markers, endpoint review queue, original5 map pages plus1 linked detail page, unchanged original upload, zero browser errors and zero external requests. Synthetic PDF checks cover minimum8pt cards, selective annotation removal and rotated/cropped link destinations.
+
+Only authored source, synthetic tests and documentation are committed. Generated web artifacts are rebuilt locally and excluded from commits under app/CONTRACT.md. No deployment, merge, signed APK, physical-device validation or complete verified field topology is claimed.

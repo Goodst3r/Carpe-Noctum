@@ -11,6 +11,23 @@ const loop = v => v.closed||(v.points.length>2&&dist(v.points[0],v.points.at(-1)
 const triangle = v => loop(v)&&uniqueCorners(v.points)===3;
 const rectangle = v => loop(v)&&uniqueCorners(v.points)===4&&!v.curved;
 const round = (v,b) => loop(v)&&(v.curved||v.points.length>=12)&&b.width>1&&b.height>1&&b.width/b.height>.55&&b.width/b.height<1.6;
+const darkFill = fill => {
+  if(typeof fill!=='string')return false;
+  const text=fill.toLowerCase().trim();
+  if(text==='black')return true;
+  if(/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/.test(text)){
+    const hex=text.length===4?text.slice(1).split('').map(c=>c+c).join(''):text.slice(1);
+    return [0,2,4].every(i=>parseInt(hex.slice(i,i+2),16)<=50);
+  }
+  const values=text.split(',').map(Number);if(!values.length||values.some(v=>!Number.isFinite(v)))return false;
+  if(values.length===1)return values[0]>=0&&values[0]<=.2;
+  if(values.length===3){const max=Math.max(...values);return values.every(v=>v>=0&&v<=(max>1?50:.2));}
+  if(values.length===4)return values[3]>=.8||values.slice(0,3).every(v=>v>=.8);
+  return false;
+};
+
+/** PDF close operators and repeated-endpoint Beziers both describe closed circles. */
+export function solidRoundContour(v,page) {return darkFill(v.fill)&&round(v,pxBounds(v,page));}
 function elongatedRectangle(v,page) {
   if(!rectangle(v))return false;
   const corners=[];for(const p of v.points)if(!corners.some(q=>dist(p,q)<.00005))corners.push(p);
@@ -107,7 +124,7 @@ export function recognizeSymbol(page,label,{kind='active'}={}) {
     if(node)symbolKind='node';
     else if(rounds.length&&(!outer||!triangle(outer.v))){
       const ring=rounds.sort((a,b)=>b.b.width*b.b.height-a.b.width*a.b.height)[0];
-      const innerFill=selected.filter(({v,b})=>!!v.fill&&intersects(ring.b,b));
+      const innerFill=selected.filter(({v,b})=>darkFill(v.fill)&&intersects(ring.b,b));
       const area=ring.b.width*ring.b.height;
       const largeFill=innerFill.some(({b})=>b.width*b.height>area*.7);
       const halfFill=innerFill.some(({b})=>b.width*b.height>area*.12);
@@ -116,7 +133,7 @@ export function recognizeSymbol(page,label,{kind='active'}={}) {
       else symbolKind='tap2';
     }else if(triangles.length){
       const outerTri=triangles.filter(({v})=>!v.fill).sort((a,b)=>b.b.width*b.b.height-a.b.width*a.b.height)[0];
-      const innerBlack=triangles.some(({v,b})=>!!v.fill&&(!outerTri||(
+      const innerBlack=triangles.some(({v,b})=>darkFill(v.fill)&&(!outerTri||(
         insideTriangle(center(b),outerTri,page)&&
         b.width*b.height<=outerTri.b.width*outerTri.b.height*1.1)));
       symbolKind=innerBlack?'amplifier':'lineExtender';

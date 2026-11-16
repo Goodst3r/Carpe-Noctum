@@ -1,6 +1,6 @@
 import { recognizePdfPages } from './map-ocr.mjs';
 import { EQUIPMENT, CABLES } from './catalog.mjs';
-import { recognizeSymbol, cablePathCandidates, contactDistance, pointInsideContour } from './map-geometry.mjs';
+import { recognizeSymbol, cablePathCandidates, contactDistance, pointInsideContour, solidRoundContour } from './map-geometry.mjs';
 /**
  * Immutable PDF adapter. PDF.js/PDFLib are supplied by the offline app shell.
  * Parsed pages use displayed (rotation/crop/UserUnit applied), top-left fractions:
@@ -305,7 +305,7 @@ function discoverPassives(pages,nodes,regions,issues) {
       add({x:t.x,y:t.y,width:t.width,height:t.height},value);
     }
     for(const v of page.vectors){
-      if(!v.fill||!v.closed||v.points.length<12)continue;
+      if(!solidRoundContour(v,page))continue;
       const w=v.bounds.width*page.width,h=v.bounds.height*page.height;if(w<1||h<1||w>15||h>15)continue;
       const c=center(v.bounds),label={x:c[0]-.00005,y:c[1]-.00005,width:.0001,height:.0001};
       add(label,null);
