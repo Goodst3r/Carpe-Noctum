@@ -39,9 +39,9 @@ Interfaces:
 - metadata includes filename,memberName,sourceFormat,testName,testTime,status,meter/workOrder/testPoint/reference/configured compensation when available; old infoGroup/setupGroups/test IDs remain available for forward compatibility.
 - correctONXSweep(report,options) -> prior parseONX return {samples,rawSamples,metadata,correction}; refuses all non-forward-sweep reports and requires exactly one Absolute MHz/dBmV source.
 - parseONX(bytes,options) stays compatible as inspect+correct entry point. replaceSweep rejects reports marked non-forward; manual untyped samples remain supported.
-- [ ] Add synthetic regressions and observe failure: gzip CDM reverse, CDM OneCheck, HTML+channel plan ZIP, two forward native ZIPs, configured-vs-measured distinction, malicious HTML inertness, malformed/oversized/ambiguous archives.
-- [ ] Implement magic detection, bounded decompression and schema-specific normalization. HTML uses pure text parsing, never executes or loads resources. Native forward samples maintain exact current correction semantics. Preserve OneCheck table categories and all useful reported diagnostic tables; plot closures must not become RF.
-- [ ] Run focused tests and private in-memory replay of all five uploads (summaries only, no private fixtures in Git); commit authored parser/tests only.
+- [x] Add synthetic regressions and observe failure: gzip CDM reverse, CDM OneCheck, HTML+channel plan ZIP, two forward native ZIPs, configured-vs-measured distinction, malicious HTML inertness, malformed/oversized/ambiguous archives.
+- [x] Implement magic detection, bounded decompression and schema-specific normalization. HTML uses pure text parsing, never executes or loads resources. Native forward samples maintain exact current correction semantics. Preserve OneCheck table categories and all useful reported diagnostic tables; plot closures must not become RF.
+- [x] Run focused tests and private in-memory replay of all five uploads (summaries only, no private fixtures in Git); commit authored parser/tests only.
 
 ### Task 2: Separate evidence persistence
 
@@ -50,18 +50,18 @@ Files: app/measurements.mjs, app/store.mjs, tests/measurements.test.mjs, tests/s
 Interfaces:
 - saveMeasurementReport(job,nodeId,port,report,{id,stage,originalHash}) -> cloned job. Adds/replaces node.measurementReports record {id,port,stage,originalHash,report}. Does not touch readings/portSweeps. Validate destination known physical port, report kind/series/table shape and bounds.
 - Store validation and original hash collection include measurementReports and survive local backup/import.
-- [ ] Prove reverse/OneCheck evidence leaves RF state unchanged, valid report persists, invalid report fails atomically, backup original roundtrip retained.
-- [ ] Implement helper/shared validation, storage traversal and focused tests; commit authored files only.
+- [x] Prove reverse/OneCheck evidence leaves RF state unchanged, valid report persists, invalid report fails atomically, backup original roundtrip retained.
+- [x] Implement helper/shared validation, storage traversal and focused tests; commit authored files only.
 
 ### Task 3: Preview/autofill integration
 
 Files: app/ui.mjs, new app/onx-import-ui.mjs if useful, app/style.css, tests/ui.test.mjs, tests/browser.cjs or separate synthetic built-browser helper.
 
-- [ ] Replace onx browser-confirm chain with in-app review showing detected type, filename/source label, date, meter, configured TPC, sample range, available series/tables and warnings. File picker accepts .gz/.cdm.json.gz in addition to existing types.
-- [ ] Destination station and known physical port are explicit, default to import origin. Filename is advisory only. No equipment model/tag or physical port silently overwritten.
-- [ ] Forward import asks direct vs verified TP loss, before/after and nonzero compensation declaration; saves corrected sweep and report atomically. Reverse/OneCheck/channel-plan save typed evidence only with explanatory copy.
-- [ ] Show imported reports on station details with populated metadata, separately labeled curves/tables/units, no raw HTML. Permit viewing prior report after reload. One trace at a time remains.
-- [ ] Guard context with generation plus job and station snapshot checks, including after putOriginal. Cancel/supersede must not save. Add synthetic UI/browser cancellation and success coverage; commit authored files only.
+- [x] Replace onx browser-confirm chain with in-app review showing detected type, filename/source label, date, meter, configured TPC, sample range, available series/tables and warnings. File picker accepts .gz/.cdm.json.gz in addition to existing types.
+- [x] Destination station and known physical port are explicit, default to import origin. Filename is advisory only. No equipment model/tag or physical port silently overwritten.
+- [x] Forward import asks direct vs verified TP loss, before/after and nonzero compensation declaration; saves corrected sweep and report atomically. Reverse/OneCheck/channel-plan save typed evidence only with explanatory copy.
+- [x] Show imported reports on station details with populated metadata, separately labeled curves/tables/units, no raw HTML. Permit viewing prior report after reload. One trace at a time remains.
+- [x] Guard context with generation plus job and station snapshot checks, including after putOriginal. Cancel/supersede must not save. Add synthetic UI/browser cancellation and success coverage; commit authored files only.
 
 ### Task 4: Review and acceptance
 
@@ -74,3 +74,12 @@ Files: app/ui.mjs, new app/onx-import-ui.mjs if useful, app/style.css, tests/ui.
 - Implementation proceeds under the user's explicit request to add unpack/autofill, keeping their existing import workflow and adding a reversible review. OneCheck is evidence-only because exported channel/OFDM/DOCSIS contexts differ from a calibrated forward sweep; cost: no automatic forward-target change from diagnostic reports.
 - Multiple forward candidates or measurement documents fail with an explicit ambiguity message rather than choosing the first. Originals remain available for future expanded support.
 - Metadata is autofilled into the imported report; plant equipment identity and installed settings require separate confirmation and are not inferred from meter metadata.
+
+
+### Implementation and scoped review record
+
+- Task1: Terra implemented archive/schema inspection (7d8bc29), retained missing charts/scalar fields/HTML metadata after Sol6 review (22f9be4), then preserved explicitly unavailable empty referenced curves under the binding RF specification (d8413f6). All five private examples inspect and validate locally. Native forward files retain two series each, reverse has1,028 relative points, and both OneCheck representations retain ten exactly matching chart datasets plus their source tables. Source plot boundary points are preserved and marked. Focused parser/io tests28passed.
+- Task2: primary implemented separate evidence storage and original backup traversal (a241d46). Sol6.1 review found unknown-model ports were too permissive; a failing regression led to known-port validation and clean scoped re-review. Evidence/store/port tests27passed.
+- Task3: Sol6.1 implemented in-app review and escaped station report viewer (1136e04). Terra review found inherited physical-plane settings after destination changes;9a29e62 now requires explicit new-port selection and fresh connection/loss after station or port changes. Focused UI tests50passed; scoped review clean.
+- Recon/design/safety involved Sol6, Sol6.1, Luna and Astra. Claude was unavailable; no Claude review is claimed.
+- Preliminary built-browser replay of all five originals: five saved reports, two authoritative forward ports, reload retention, original bytes unchanged, no390px horizontal overflow, zero page errors and zero external requests. Each import completed in under600ms on this local Chromium test; this does not establish device/field performance. Alternate OneCheck exports match all ten numeric series exactly. Example filenames are absent from public web artifacts. Final whole-branch review and frozen checks are recorded below when complete.

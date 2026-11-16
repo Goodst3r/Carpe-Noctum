@@ -55,7 +55,7 @@ export function saveMeasurementReport(job,nodeId,port,report,{id,stage,originalH
   const node=job?.nodes?.find(n=>n.id===nodeId);if(!node)throw new Error('Unknown measurement station');
   validateMeasurementReport(report);
   const copy=structuredClone(job),destination=copy.nodes.find(n=>n.id===nodeId);
-  const records=destination.measurementReports??=[];
+  const records = destination.measurementReports ??= [];
   const duplicate=records.findIndex(x=>x.port===port&&x.stage===stage&&x.originalHash===originalHash);
   const incoming={id:duplicate>=0?records[duplicate].id:id,port,...(stage?{stage}:{}),originalHash,report:structuredClone(report)};
   if(duplicate>=0)records[duplicate]=incoming;else records.push(incoming);
