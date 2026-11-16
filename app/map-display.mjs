@@ -28,3 +28,17 @@ export function relocateMapStation(node,{page,x,y}) {
  const prior=node.map?.page===page?node.map:{};
  return {...prior,page,x,y,confirmed:true,manualPosition:true,symbolBounds:null,equipmentBounds:null,attachmentPoints:[]};
 }
+
+/** Render only geometry bound to the current, unchanged endpoint positions. */
+export function edgeOverlayMarkup(edge, a, b, page, traced = false) {
+ if(a?.page!==page || b?.page!==page)return '';
+ const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const attributes=`class="${traced?'traced':''}" data-edge="${esc(edge.id)}"`;
+ const route=edge.mapRoute,points=route?.points;
+ const valid=route?.page===page && Array.isArray(points) && points.length>=2 && points.length<=5000 &&
+   points.every(p=>Array.isArray(p) && p.length===2 && p.every(v=>typeof v==='number' && Number.isFinite(v) && v>=0 && v<=1));
+ const close=(point,position)=>Math.abs(point[0]-position.x)<=1e-6 && Math.abs(point[1]-position.y)<=1e-6;
+ if(valid && ((close(points[0],a)&&close(points.at(-1),b))||(close(points[0],b)&&close(points.at(-1),a))))
+   return `<polyline points="${points.map(([x,y])=>`${x*1000},${y*1000}`).join(' ')}" ${attributes}/>`;
+ return `<line x1="${a.x*1000}" y1="${a.y*1000}" x2="${b.x*1000}" y2="${b.y*1000}" ${attributes}/>`;
+}
