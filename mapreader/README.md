@@ -14,3 +14,6 @@ Uses pdfplumber, pypdf, Pillow and `pdftoppm`; no GPU or trained model.
 tap (value + shape), amplifier_triangle, power_supply_symbol (half-filled circle), power_supply_label (model, V, rated/load A),
 node_or_hub_dot, leg_arrow, filled_dot. Coax-only yellow A#/E# tags are linked to the actives/EOL table rows (`tags.py`).
 Each symbol has a `basis` field; none of this is from a verified legend.
+
+## Reviewed on the coax-only map
+A5, A23, A25, A68, A70: empty outline triangle next to a half-black coupler, no filled triangle inside (checked in the vector data and visually). Under the confirmed key they are line extenders, matching their LE table models. A draft job that lists them as amplifiers is likely reacting to the adjacent coupler.

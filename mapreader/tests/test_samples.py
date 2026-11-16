@@ -39,3 +39,14 @@ def test_coax_symbols_and_tags():
     mk, _ = markup.load_markup(C[0])
     tl = tags.link(mk, sy, tables.parse_tables(C[0]))
     assert len(tl) == 160 and all(x["table_row"] for x in tl)
+
+
+@pytest.mark.skipif(not C, reason="sample missing")
+def test_five_reviewed_actives_are_line_extenders():
+    import pdfplumber
+    from mapreader import symbols, basemap, tags
+    sy, _ = symbols.run(C[0], basemap.words(pdfplumber.open(C[0]).pages[0]))
+    mk, _ = markup.load_markup(C[0])
+    dev = {x["tag"]: x["device"] for x in tags.link(mk, sy, tables.parse_tables(C[0]))}
+    for k in ("A5", "A23", "A25", "A68", "A70"):
+        assert dev[k] == "line_extender"   # empty triangle beside a directional coupler; no inner black triangles
