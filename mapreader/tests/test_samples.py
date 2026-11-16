@@ -60,3 +60,17 @@ def test_symbol_level_line_extenders_and_rotated_taps():
     assert sum(s["class"] == "line_extender" for s in sy) >= 44      # outline triangles rebuilt from split segments
     four = [s for s in sy if s["class"] == "tap" and s.get("ports") == 4]
     assert len(four) >= 95 and any(s["tap_shape"] == "rotated_square" for s in four)
+
+
+def test_rg11_is_cable_type():
+    gl = markup.load_glossary()
+    assert markup.classify_text("RG11", gl) == ("cable_type_other", "RG11")
+
+
+@pytest.mark.skipif(not W, reason="sample missing")
+def test_walkout_cable_labels():
+    from mapreader import link
+    mk, _ = markup.load_markup(W[0])
+    cl = link.cable_labels(mk)
+    assert 380 <= len(cl) <= 390 and sum(x["printed"] == "RG11" for x in cl) == 8
+    assert all(x["nearest_footage_candidate"] is None or x["nearest_footage_candidate"]["confirmed"] is False for x in cl)

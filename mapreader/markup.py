@@ -38,6 +38,8 @@ def classify_text(t, gl):
         return "span_footage", int(t[:-1])
     if re.fullmatch(r"\d+", t) and int(t) in gl["cable_sizes"]:
         return "cable_size", int(t)
+    if re.fullmatch(r"RG-?\d{1,2}", t, re.I):
+        return "cable_type_other", t.upper().replace("-", "")
     if re.fullmatch(r"[A-Z]-\d+[A-Z]?(-\d)?", t):
         return "address_tagged", t
     if re.fullmatch(r"\d{1,2}", t):

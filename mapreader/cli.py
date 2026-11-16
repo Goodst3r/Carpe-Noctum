@@ -56,6 +56,10 @@ def main(argv=None):
         res["walkout"] = {"title_block": link.title_block(mk), "summary": link.summarize(mk, syms)}
         json.dump(mk, open(os.path.join(a.out, "markup.json"), "w"))
         json.dump(syms, open(os.path.join(a.out, "walkout_symbols.json"), "w"))
+        cl = link.cable_labels(mk)
+        res["walkout"]["cable_labels"] = {"total": len(cl), "by_printed": dict(__import__("collections").Counter(x["printed"] for x in cl)),
+                                          "with_footage_candidate": sum(1 for x in cl if x["nearest_footage_candidate"])}
+        json.dump(cl, open(os.path.join(a.out, "cable_labels.json"), "w"))
     json.dump(bm["symbols"], open(os.path.join(a.out, "basemap_symbols.json"), "w"))
     json.dump(res, open(os.path.join(a.out, "recognition.json"), "w"), indent=1, default=str)
     report.write(res, os.path.join(a.out, 'report.md'))

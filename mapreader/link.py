@@ -50,6 +50,7 @@ def summarize(markup, symbols):
         "text_categories": dict(c(m["text_category"] for m in texts)),
         "tokens": dict(c(m["value"] for m in texts if m["text_category"] == "token")),
         "cable_sizes": dict(c(m["value"] for m in texts if m["text_category"] == "cable_size")),
+        "cable_type_other": dict(c(m["value"] for m in texts if m["text_category"] == "cable_type_other")),
         "symbol_roles": dict(c((s["shape"], s["color"], s["role"]) .__str__() for s in symbols)),
         "highlights": dict(c(m["color"] for m in markup if m["type"] == "Ink")),
         "photos": sum(1 for m in markup if m["subj"] == "Image"),
@@ -72,4 +73,26 @@ def title_block(markup):
             out["node"] = m["text"].split(":", 1)[1].strip()
         if m["text"].startswith("DATE") and "date" not in out:
             out["date"] = m["text"].split(":", 1)[1].strip()
+    return out
+
+
+def cable_labels(markup):
+    """All printed cable-type labels with footage candidates. Nearest-label pairing is a CANDIDATE only (never confirmed)."""
+    foot = [m for m in markup if m["text_category"] == "span_footage"]
+    out, seen = [], set()
+    for m in markup:
+        if m["text_category"] not in ("cable_size", "cable_type_other"):
+            continue
+        k = (m["text"], round(m["cx"]), round(m["cy"]))
+        if k in seen:
+            continue                      # identical label stacked on the same spot
+        seen.add(k)
+        near = min(foot, key=lambda f: (f["cx"] - m["cx"]) ** 2 + (f["cy"] - m["cy"]) ** 2, default=None)
+        d = ((near["cx"] - m["cx"]) ** 2 + (near["cy"] - m["cy"]) ** 2) ** .5 if near else None
+        rec = {"printed": m["text"].strip(), "family": "hardline_size" if m["text_category"] == "cable_size" else "other_coax",
+               "x": m["cx"], "y": m["cy"], "color": m["color"], "id": m["id"],
+               "nearest_footage_candidate": {"feet": near["value"], "dist_pt": round(d, 1), "confirmed": False} if near and d < 40 else None}
+        if m["text"].strip() == "412":
+            rec["catalog_assumption"] = "mc2_500 (user-stated assumption; printed .412 kept)"
+        out.append(rec)
     return out
