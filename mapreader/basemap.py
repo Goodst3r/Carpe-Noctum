@@ -18,8 +18,8 @@ def words(page):
     page2 = page.filter(lambda o: o.get("object_type") != "char")
     # rebuild words from deduped chars
     ws, cur = [], None
-    for c in sorted(ch, key=lambda c: (round(c["top"] / 2), c["x0"])):
-        if cur and abs(c["top"] - cur["top"]) < 1.0 and 0 <= c["x0"] - cur["x1"] < max(c["size"] * .6, .4):
+    for c in sorted(ch, key=lambda c: (round(c["top"] / max(c["size"], 1)), round(c["top"], 1), c["x0"])):
+        if cur and abs(c["top"] - cur["top"]) < 1.0 and -c["size"] * .4 <= c["x0"] - cur["x1"] < max(c["size"] * .5, .3):
             cur["text"] += c["text"]; cur["x1"] = c["x1"]
         else:
             cur = {"text": c["text"], "x0": c["x0"], "x1": c["x1"], "top": c["top"], "bottom": c["bottom"], "size": c["size"],

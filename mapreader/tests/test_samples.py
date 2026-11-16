@@ -25,3 +25,17 @@ def test_walkout():
 def test_coax():
     t = tables.parse_tables(C[0])
     assert len(t["actives"]) == 76 and t["headers"]["freqs"][0] == "1002"
+
+
+@pytest.mark.skipif(not C, reason="sample missing")
+def test_coax_symbols_and_tags():
+    import pdfplumber
+    from mapreader import symbols, basemap, tags
+    ws = basemap.words(pdfplumber.open(C[0]).pages[0])
+    sy, _ = symbols.run(C[0], ws)
+    taps = [s for s in sy if s["class"] == "tap"]
+    assert 150 < len(taps) < 260 and {11, 14, 17, 20, 23} <= {t["tap_value"] for t in taps}
+    assert sum(s["class"] == "power_supply_label" for s in sy) >= 5
+    mk, _ = markup.load_markup(C[0])
+    tl = tags.link(mk, sy, tables.parse_tables(C[0]))
+    assert len(tl) == 160 and all(x["table_row"] for x in tl)

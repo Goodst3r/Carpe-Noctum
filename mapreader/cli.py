@@ -1,7 +1,7 @@
 """python3 -m mapreader.cli <pdf> --out DIR  : full recognition run."""
 import argparse, json, os, subprocess, sys
 from PIL import Image, ImageDraw
-from . import tables, markup, link, basemap, report
+from . import tables, markup, link, basemap, report, symbols, tags
 
 COL = {"red": (220, 0, 0), "blue": (0, 60, 255), "green": (0, 170, 0), "magenta": (230, 0, 230),
        "yellow": (230, 180, 0)}
@@ -12,7 +12,8 @@ def overlay(pdf, out, syms, mk, scale=0.6):
     subprocess.run(["pdftoppm", "-r", str(72 * scale), "-f", "1", "-l", "1", "-png", "-singlefile", pdf, base], check=True)
     im = Image.open(base + ".png").convert("RGB"); d = ImageDraw.Draw(im)
     for s in syms:
-        c = {"tap": (0, 150, 0), "yellow_marker(pole/amp/power)": (255, 140, 0)}.get(s["class"], (120, 120, 120))
+        c = {"tap": (0, 150, 0), "amplifier_triangle": (255, 120, 0), "power_supply_symbol": (200, 0, 200), "node_or_hub_dot": (0, 0, 255),
+             "leg_arrow": (160, 160, 160), "filled_dot": (100, 100, 100)}.get(s["class"], (120, 120, 120))
         r = max(s["w"], 3) * scale
         x, y = s["cx"] * scale, s["cy"] * scale
         d.rectangle([x - r, y - r, x + r, y + r], outline=c, width=1)
@@ -33,10 +34,18 @@ def main(argv=None):
     mk, H = markup.load_markup(a.pdf)
     res["markup_count"] = len(mk)
     bm = basemap.run(a.pdf)
+    import pdfplumber
+    sy, _ = symbols.run(a.pdf, basemap.words(pdfplumber.open(a.pdf).pages[0]))
+    bm["symbols"] = sy
+    bm["symbol_classes"] = dict(__import__("collections").Counter(x["class"] for x in sy))
+    bm["tap_values"] = dict(sorted(__import__("collections").Counter(x["tap_value"] for x in sy if x["class"] == "tap").items()))
+    bm["tap_shapes"] = dict(__import__("collections").Counter(x["tap_shape"] for x in sy if x["class"] == "tap"))
+    bm["power_supplies"] = [x for x in sy if x["class"] == "power_supply_label"]
+    res["tag_links"] = tags.link(mk, sy, res["tables"])
     res["basemap"] = {k: v for k, v in bm.items() if k != "symbols"}
     if mk and any(m["type"] != "FreeText" for m in mk):
         syms, _ = link.compose(mk)
-        res["walkout"] = {"title_block": link.title_block(mk), "summary": link.summary if False else link.summarize(mk, syms)}
+        res["walkout"] = {"title_block": link.title_block(mk), "summary": link.summarize(mk, syms)}
         json.dump(mk, open(os.path.join(a.out, "markup.json"), "w"))
         json.dump(syms, open(os.path.join(a.out, "walkout_symbols.json"), "w"))
     json.dump(bm["symbols"], open(os.path.join(a.out, "basemap_symbols.json"), "w"))
