@@ -1,3 +1,4 @@
+import {assertForwardSweep,validateMeasurementRecords} from './measurements.mjs';
 import { EQUIPMENT } from './catalog.mjs';
 import {portInfo} from './ports.mjs';
 
@@ -83,12 +84,14 @@ function validateJob(job) {
     if (node.map != null) validatePosition(node.map, node.id);
     ids.add(node.id);
     modelPorts.set(node.id, EQUIPMENT[node.modelId]?portInfo(node).known:undefined);
+    validateMeasurementRecords(node);
     if (node.readings != null) {
       if (!record(node.readings)) throw new Error('Invalid node readings');
       for (const [port, reading] of Object.entries(node.readings)) {
         if (!validId(port) || !reading || typeof reading !== 'object') throw new Error('Invalid port reading');
         if (modelPorts.get(node.id) && !modelPorts.get(node.id).includes(port)) throw new Error(`Unsupported physical port ${node.id}::${port}`);
         const sweeps = reading.before || reading.after ? [reading, reading.before, reading.after].filter(Boolean) : [reading];
+        sweeps.forEach(assertForwardSweep);
         if (!sweeps.length || sweeps.some(sweep => !validSamples(sweep.samples))) throw new Error(`Invalid reading samples at ${node.id}::${port}`);
       }
     }
@@ -117,6 +120,7 @@ function validateJob(job) {
     edgeIds.add(edge.id);
   }
   for (const [key, sweep] of Object.entries(job.portSweeps)) {
+    assertForwardSweep(sweep);
     const parts = key.split('::');
     if (parts.length !== 2 || !ids.has(parts[0]) || !validId(parts[1]) || !validSamples(sweep?.samples)) {
       throw new Error(`Invalid sweep reference or samples: ${key}`);
@@ -238,6 +242,7 @@ function originalHashes(job) {
     if (sweep.originalHash) hashes.add(sweep.originalHash);
   }
   for (const sweep of Object.values(job.portSweeps)) addSweep(sweep);
+  for (const node of job.nodes) for (const entry of node.measurementReports ?? []) hashes.add(entry.originalHash);
   for (const node of job.nodes) for (const reading of Object.values(node.readings ?? {})) {
     addSweep(reading);
     addSweep(reading.before);
