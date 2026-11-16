@@ -40,6 +40,6 @@ test('graph validation detects loops, multiple feeds, and islands', () => {
 
 test('edge leaving a known model must name an actual physical output port', () => {
   const invalid = { nodes: [{ id: 'node', modelId: 'gs7k' }, { id: 'end', modelId: 'eol' }],
-    edges: [{ id: 'e', from: 'node', port: '5', to: 'end' }] };
+    edges: [{ id: 'e', from: 'node', port: '9', to: 'end' }] };
   assert.match(validateGraph(invalid).join(' | '), /port/i);
 });

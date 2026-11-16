@@ -1,4 +1,6 @@
+import {assertForwardSweep,validateMeasurementRecords} from './measurements.mjs';
 import { EQUIPMENT } from './catalog.mjs';
+import {portInfo} from './ports.mjs';
 
 const JOBS_KEY = 'carpe-noctum:jobs:v1';
 const ORIGINAL_DB = 'carpe-noctum:originals:v1';
@@ -81,13 +83,15 @@ function validateJob(job) {
     }
     if (node.map != null) validatePosition(node.map, node.id);
     ids.add(node.id);
-    modelPorts.set(node.id, EQUIPMENT[node.modelId]?.ports);
+    modelPorts.set(node.id, EQUIPMENT[node.modelId]?portInfo(node).known:undefined);
+    validateMeasurementRecords(node);
     if (node.readings != null) {
       if (!record(node.readings)) throw new Error('Invalid node readings');
       for (const [port, reading] of Object.entries(node.readings)) {
         if (!validId(port) || !reading || typeof reading !== 'object') throw new Error('Invalid port reading');
         if (modelPorts.get(node.id) && !modelPorts.get(node.id).includes(port)) throw new Error(`Unsupported physical port ${node.id}::${port}`);
         const sweeps = reading.before || reading.after ? [reading, reading.before, reading.after].filter(Boolean) : [reading];
+        sweeps.forEach(assertForwardSweep);
         if (!sweeps.length || sweeps.some(sweep => !validSamples(sweep.samples))) throw new Error(`Invalid reading samples at ${node.id}::${port}`);
       }
     }
@@ -116,6 +120,7 @@ function validateJob(job) {
     edgeIds.add(edge.id);
   }
   for (const [key, sweep] of Object.entries(job.portSweeps)) {
+    assertForwardSweep(sweep);
     const parts = key.split('::');
     if (parts.length !== 2 || !ids.has(parts[0]) || !validId(parts[1]) || !validSamples(sweep?.samples)) {
       throw new Error(`Invalid sweep reference or samples: ${key}`);
@@ -224,19 +229,31 @@ function toBase64(bytes) {
 }
 
 function fromBase64(value) {
-  if (typeof value !== 'string' || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value)) throw new Error('Invalid original encoding');
-  return Uint8Array.from(atob(value), character => character.charCodeAt(0));
+  const invalid = () => { throw new Error('Invalid original encoding'); };
+  if (typeof value !== 'string' || value.length > MAX_BACKUP_CHARS || value.length % 4) invalid();
+  const digit = code => code >= 65 && code <= 90 ? code - 65 :
+    code >= 97 && code <= 122 ? code - 71 : code >= 48 && code <= 57 ? code + 4 :
+    code === 43 ? 62 : code === 47 ? 63 : -1;
+  const padding = value.endsWith('==') ? 2 : value.endsWith('=') ? 1 : 0;
+  const end = value.length - padding;
+  for (let i = 0; i < end; i++) if (digit(value.charCodeAt(i)) < 0) invalid();
+  if (padding && (end < 2 || (digit(value.charCodeAt(end - 1)) & (padding === 2 ? 15 : 3)))) invalid();
+  const binary = atob(value), bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
 }
 
 function originalHashes(job) {
   const hashes = new Set();
   if (job.map?.sha256) hashes.add(job.map.sha256);
+  if (job.map?.sourceOriginalHash) hashes.add(job.map.sourceOriginalHash);
   function addSweep(sweep) {
     if (!sweep) return;
     if (sweep.metadata?.originalHash) hashes.add(sweep.metadata.originalHash);
     if (sweep.originalHash) hashes.add(sweep.originalHash);
   }
   for (const sweep of Object.values(job.portSweeps)) addSweep(sweep);
+  for (const node of job.nodes) for (const entry of node.measurementReports ?? []) hashes.add(entry.originalHash);
   for (const node of job.nodes) for (const reading of Object.values(node.readings ?? {})) {
     addSweep(reading);
     addSweep(reading.before);

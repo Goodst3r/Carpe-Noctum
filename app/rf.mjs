@@ -1,3 +1,4 @@
+import {portInfo,enabledPorts} from './ports.mjs';
 import {EQUIPMENT,CABLES,PARTS,PADS,DIRECTORS,sampleAt,lookupPartLoss} from './catalog.mjs';
 const finite=Number.isFinite;
 const unknown=(fs)=>fs.map(f=>[f,null]);
@@ -157,19 +158,20 @@ export function evaluateRoute(job){
  };
  const sourceNodes=nodes.filter(n=>n.kind==='node');
  const fs=[...new Set(sourceNodes.flatMap(n=>{
-  const ports=new Set([...(EQUIPMENT[n.modelId]?.ports||[]),...Object.keys(n.readings||{}),...Object.keys(job?.portSweeps||{}).filter(k=>k.startsWith(`${n.id}::`)).map(k=>k.slice(n.id.length+2))]);
+  const ports=new Set(enabledPorts(n));
   return [...ports].flatMap(p=>frequenciesOf(sweepFor(n,p)));
  }))].sort((a,b)=>a-b);
  const pending=new Set(),finished=new Set(),baselines={};
  function visit(id){
   if(finished.has(id))return stations[id];
   const n=byId.get(id);if(!n)return null;
-  const model=EQUIPMENT[n.modelId],ports=model?.ports||['main'];
+  const model=EQUIPMENT[n.modelId],ports=model?enabledPorts(n):['main'];
   if(pending.has(id)){issues.push(`Cycle at ${id}; feed unresolved.`);return null;}
   pending.add(id);
   const s={input:unknown(fs),outputs:Object.fromEntries(ports.map(p=>[p,unknown(fs)])),targets:Object.fromEntries(ports.map(p=>[p,unknown(fs)])),gainStatus:'unknown',shortfall:null,recommendation:null,issues:[]};
   stations[id]=s;
   if(n.kind==='node'){
+   for(const p of portInfo(n).unverified)if(sweepFor(n,p).length||edges.some(e=>e.from===id&&e.port===p))s.issues.push(`Physical port ${p} retained; installed-hardware verification required before use.`);
    for(const p of ports){
     const samples=sweepFor(n,p);
     s.outputs[p]=fs.map(f=>[f,exactAt(samples,f)]);

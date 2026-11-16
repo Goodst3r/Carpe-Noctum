@@ -3,8 +3,8 @@ const http = require('node:http');
 const path = require('node:path');
 const fs = require('node:fs');
 const { chromium } = require('playwright');
-const { PDFDocument, StandardFonts } = require('pdf-lib');
-const { zipSync, strToU8 } = require('fflate');
+const { PDFDocument, StandardFonts, PDFString, moveTo, lineTo, closePath, stroke, setLineWidth } = require('pdf-lib');
+const { zipSync, gzipSync, strToU8 } = require('fflate');
 
 const dist = path.resolve(__dirname, '..', 'dist');
 const mime = {
@@ -61,6 +61,21 @@ async function syntheticMapPdf() {
   return Buffer.from(await pdf.save());
 }
 
+async function verifyAnonymousEndFlow(browser,url,check) {
+  const pdf=await PDFDocument.create(),font=await pdf.embedFont(StandardFonts.Helvetica),map=pdf.addPage([400,400]);
+  map.pushOperators(setLineWidth(.07),moveTo(47,197),lineTo(53,200),lineTo(47,203),closePath(),stroke());
+  map.node.addAnnot(pdf.context.register(pdf.context.obj({Type:'Annot',Subtype:'FreeText',Rect:[48,198,51,202],Contents:PDFString.of('A1'),DA:PDFString.of('/Helv 10 Tf 0 g')})));
+  map.pushOperators(setLineWidth(.01),moveTo(53,200),lineTo(250,200),stroke());
+  const active=pdf.addPage([1000,800]);for(const [text,x,y]of [['ACTIVES - 1',10,760],['TAG',10,720],['NAME',120,720],['A1',10,680],['Synthetic amplifier',110,680]])active.drawText(text,{x,y,size:12,font});
+  const eol=pdf.addPage([1000,800]);for(const [text,x,y]of [['EOL - 1',10,760],['TAG',10,720],['E1',10,680]])eol.drawText(text,{x,y,size:12,font});
+  const context=await browser.newContext();try {const page=await context.newPage();await page.goto(url);await page.locator('[data-split=low]').click();const [pick]=await Promise.all([page.waitForEvent('filechooser'),page.locator('[data-action=map-import]').first().click()]);await pick.setFiles({name:'synthetic-unlabeled-end.pdf',mimeType:'application/pdf',buffer:Buffer.from(await pdf.save())});await page.waitForSelector('#map-review-title');await page.locator('[data-action=review-import]').click();await page.waitForFunction(()=>document.querySelector('#map-canvas')?.dataset.ready);
+  check('native anonymous terminal and unplaced schedule entry both reach the review queue',/\(2\)/.test(await page.locator('.unplaced-queue summary').innerText()));
+  await page.locator('.unplaced-queue summary').click();await page.locator('.unplaced-list [data-select]').click();const id=await page.locator('#eol-identity option').filter({hasText:'E1'}).getAttribute('value');await page.locator('#eol-identity').selectOption(id);await page.locator('[data-action=assign-eol-identity]').click();
+  check('explicit end matching keeps the E1 identity and leaves position unconfirmed',await page.locator('#station-form [name=tag]').inputValue()==='E1'&&!await page.locator('#station-form [name=confirmed]').isChecked());
+  check('matched anonymous candidate is removed from the queue',/\(0\)/.test(await page.locator('.unplaced-queue summary').innerText()));
+  }finally{await context.close();}
+}
+
 async function main() {
   assert.ok(fs.existsSync(path.join(dist, 'index.html')), `Built PWA missing at ${dist}/index.html; run npm run build first`);
   const executable = process.env.PLAYWRIGHT_CHROMIUM || (fs.existsSync('/usr/bin/chromium') ? '/usr/bin/chromium' : undefined);
@@ -90,7 +105,10 @@ async function main() {
       await page.waitForSelector('#station-form');
     };
 
+    await verifyAnonymousEndFlow(browser,url,check);
     await page.goto(url, { waitUntil: 'networkidle' });
+    check('map upload is the launch action',await page.locator('[data-action="start-map"]').count()===1);
+    await page.locator('[data-tab="tools"]').click();
     await page.locator('#calc [name="loss"]').fill('2');
     await page.locator('#calc [name="length"]').fill('250');
     const wholeDbValid = await page.locator('#calc').evaluate(form => form.checkValidity());
@@ -140,14 +158,38 @@ async function main() {
     check('station trace selector offers one selected trace at a time', (await page.locator('#sweep-select option').allTextContents()).join('|') === 'Target|Predicted|Measured');
 
     const onx = await syntheticOnxZip();
-    dialogAnswers.push(true, '20', true, true);
     const onxChooser = page.waitForEvent('filechooser');
     await page.locator('.station-row').filter({ hasText:'GS7K Node' }).click();
     await page.locator('[data-import-port="1"]').click();
     await (await onxChooser).setFiles({ name: 'synthetic.onx', mimeType: 'application/zip', buffer: Buffer.from(onx) });
-    await page.waitForTimeout(1200);
+    await page.waitForSelector('#onx-review-title');
+    check('ONX review uses explicit origin station and physical port despite filename', await page.locator('#onx-station').inputValue()==='node' && await page.locator('#onx-port').inputValue()==='1');
+    await page.locator('#onx-connection').selectOption('tp');
+    await page.locator('#onx-loss').fill('20');
+    await page.locator('#onx-review-form button[type=submit]').click();
+    await page.waitForSelector('#onx-review-title',{state:'detached'});
     const onxStatus = await page.locator('.notice').count() ? await page.locator('.notice').innerText() : '(no status message)';
     check('synthetic ONX ZIP import confirms and stores corrected node port 1 samples', /Saved after sweep for GS7K Node, port 1/i.test(onxStatus), onxStatus);
+
+    const getStoredNode = () => page.evaluate(() => Object.values(JSON.parse(localStorage.getItem('carpe-noctum:jobs:v1')))[0].nodes.find(n=>n.id==='node'));
+    const beforeEvidence = await getStoredNode();
+    check('forward ONX saves corrected target and normalized report together', beforeEvidence.readings['1'].samples[0][1]===31.4 && beforeEvidence.measurementReports.length===1);
+    const diagnostic = kind => gzipSync(strToU8(JSON.stringify({cdmVersion:'2.0',tests:[{type:kind==='reverse'?'sweepmode_app':'onecheckexpert',label:kind==='reverse'?'Sweep - Reverse Sweepless':'OneCheck',results:{data:{chart:{Referenced:{units:['MHz',kind==='reverse'?'dB':'dBmV'],data:[[10,1],[20,2]]}},table:{label:'Diagnostic <img src=x onerror="globalThis.onxUnsafe=1">',tableColumnHeaders:['Status'],tableData:[[{value:'<script>globalThis.onxUnsafe=1</script>',status:'PASS'}]]}}}}]})));
+    for(const kind of ['reverse','onecheck']) {
+      const chooser=page.waitForEvent('filechooser');await page.locator('[data-import-port="1"]').click();
+      await (await chooser).setFiles({name:'advisory-c6.cdm.json.gz',mimeType:'application/gzip',buffer:Buffer.from(diagnostic(kind))});
+      await page.waitForSelector('#onx-review-title');
+      check(kind+' review offers evidence only with no correction',await page.locator('#onx-connection').count()===0 && await page.locator('#onx-review-form').innerText().then(t=>t.includes('evidence only')));
+      await page.locator('#onx-review-form button[type=submit]').click();await page.waitForSelector('#onx-review-title',{state:'detached'});
+      const after=await getStoredNode();
+      check(kind+' report leaves forward RF intact',JSON.stringify(after.readings)===JSON.stringify(beforeEvidence.readings));
+      check(kind+' diagnostic markup remains inert', await page.locator('.measurement-reports script,.measurement-reports img').count()===0 && await page.evaluate(()=>!globalThis.onxUnsafe));
+    }
+    check('reports display metadata, series units and diagnostic table text',await page.locator('.measurement-reports').innerText().then(t=>t.includes('Imported measurement reports')));
+    const reportsBeforeCancel=(await getStoredNode()).measurementReports.length;
+    const cancelChooser=page.waitForEvent('filechooser');await page.locator('[data-import-port="1"]').click();
+    await (await cancelChooser).setFiles({name:'cancel-synthetic.onx',mimeType:'application/zip',buffer:Buffer.from(onx)});await page.waitForSelector('#onx-review-title');await page.locator('[data-action=onx-cancel]').click();
+    check('cancel ONX review preserves existing measurements and report count',(await getStoredNode()).measurementReports.length===reportsBeforeCancel && await page.locator('#onx-review-title').count()===0);
 
     await page.locator('.station-row').filter({ hasText:'Amplifier A' }).click();
     await page.locator('#station-form [name="name"]').fill('Amplifier A');
@@ -180,17 +222,34 @@ async function main() {
     check('saved route and node measurement reopen from the job library', await page.locator('.edge-row').count() === 1 && await page.locator('#reading-stage option').count() >= 1);
 
     const map = await syntheticMapPdf();
-    dialogAnswers.push(false); // Decline unbound schedule candidates; bind the configured HGD to the visible A1 position explicitly.
+    // Import the map only, retaining this configured HGD for explicit physical placement.
     const mapStart=Date.now();
     const mapChooser = page.waitForEvent('filechooser');
     await page.locator('[data-action="map-import"]').first().click();
     await (await mapChooser).setFiles({ name: 'synthetic-practice.pdf', mimeType: 'application/pdf', buffer: map });
+    await page.waitForSelector('#map-review-title');
+    await page.locator('[data-action="review-map-only"]').click();
     await page.waitForFunction(() => document.body.innerText.includes('Map imported'));
     check('synthetic PDF map is read and imported after confirmation', await page.locator('.map-toolbar').count() === 1);
     await page.waitForFunction(() => document.querySelector('#map-canvas')?.width > 0);
     check('imported PDF map renders a page canvas', await page.locator('#map-canvas').evaluate(c => c.width > 0 && c.height > 0));
     check('synthetic map renders in bounded time', Date.now()-mapStart < 30000, `${Date.now()-mapStart} ms`);
     check('embedded PDFLib UMD writer is available in the built PWA', await page.evaluate(() => typeof window.PDFLib?.PDFDocument?.load === 'function'));
+    check('map opens as full-page workspace',await page.locator('.map-focus').count()===1);
+    for(const width of [320,360,390]) { await page.setViewportSize({width,height:844});const bounds=await page.locator('.map-focus .map-panel>.section-head button').evaluateAll(buttons=>buttons.map(b=>{const r=b.getBoundingClientRect();return {text:b.textContent,left:r.left,right:r.right};}));check(`all map header actions accessible at ${width}px`,bounds.every(b=>b.left>=0&&b.right<=width),JSON.stringify(bounds)); }
+    await page.setViewportSize({width:1280,height:900});
+
+    await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
+    const beforeZoom=await page.locator('[data-zoom-label]').innerText();
+    await page.locator('[data-action="zoom-in"]').click();
+    check('zoom updates the viewport without replacing the canvas',await page.locator('[data-zoom-label]').innerText()!==beforeZoom);
+    await page.locator('[data-action="fit-map"]').click();
+    await page.locator('[data-action="scan-open"]').click();
+    await page.waitForSelector('.map-scan-panel canvas');
+    check('online scan requires reviewing the flattened preview',await page.locator('[data-action="review-send"]').isDisabled());
+    await page.locator('.map-scan-panel [data-action="close"]').click();
+    await page.locator('[data-action="map-focus"]').click();
+    await page.locator('[data-action="map-edit"]').click();
     await page.locator('.station-row').filter({ hasText:'Amplifier A' }).click();
     await page.locator('[data-action="assign-map"]').click();
     const mapOverlay = page.locator('.map-overlay');
@@ -201,7 +260,7 @@ async function main() {
     assert.ok(overlayBox, 'PDF page overlay must render before confirming HGD map position');
     await mapOverlay.click({position:{x:overlayBox.width*(170/612),y:overlayBox.height*a1Y}});
     await page.waitForFunction(() => document.body.innerText.includes('Station position assigned'));
-    check('HGD station position is confirmed on the same page as source map label A1', await page.locator('.marker.selected').count() === 1 && await page.locator('.tombstone.selected').count() === 1 && await page.locator('.map-toolbar').innerText().then(t => /Page 1 \/ 1/.test(t)));
+    check('HGD station position is confirmed on the same page as source map label A1', await page.locator('.screen-marker.selected').count() === 1 && await page.locator('.tombstone.selected').count() === 1 && await page.locator('.map-toolbar').innerText().then(t => /Page 1 \/ 1/.test(t)));
     // Bind the source too, then verify that two map taps open an editable draft and cancel leaves the route unchanged.
     await page.locator('.station-row').filter({hasText:'GS7K Node'}).click();
     await page.locator('[data-action="assign-map"]').click();
@@ -209,9 +268,12 @@ async function main() {
     const sourceOverlay=await mapOverlay.boundingBox();
     await mapOverlay.click({position:{x:sourceOverlay.width*.1,y:sourceOverlay.height*a1Y}});
     const priorEdges=await page.locator('.edge-row').count();
-    await page.locator('[data-action="map-connect"]').click();
-    await page.locator('.marker[title="GS7K Node"]').click();
-    await page.locator('.marker[title="Amplifier A"]').click();
+    await page.locator('[data-action="map-connect"]').first().click();
+    for(const station of ['GS7K Node','Amplifier A']) {
+      const direct=page.locator('.screen-marker[aria-label="'+station+'"]');
+      if(await direct.count())await direct.click();
+      else {await page.locator('.screen-marker.cluster').first().click();await page.locator('.marker-chooser button').filter({hasText:station}).click();}
+    }
     check('two map endpoint taps open connection editor',await page.locator('#edge-form').isVisible());
     await page.locator('[data-action="cancel-edge"]').click();
     check('cancelling map connection leaves route unchanged',await page.locator('.edge-row').count()===priorEdges);
@@ -219,6 +281,9 @@ async function main() {
     const tombstone = page.locator('.tombstone.selected');
     const beforePosition = await tombstone.getAttribute('style');
     await page.locator('[data-action="place"]').click();
+    await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
+    await page.locator('[data-action="fit-map"]').click();
+    await mapScroll.scrollIntoViewIfNeeded();
     await page.evaluate(() => { window.__tombstonePointerLog=[]; for(const type of ['pointerdown','pointermove','pointerup']) document.addEventListener(type,e=>window.__tombstonePointerLog.push({type,target:e.target?.closest?.('[data-drag-marker]')?.dataset?.dragMarker||e.target?.className||e.target?.tagName,x:e.clientX,y:e.clientY}),true); });
     await page.locator('.map-scroll').evaluate((el,f)=>{el.scrollTop=Math.max(0,el.scrollHeight*f-el.clientHeight*.5);},a1Y);
     await page.waitForTimeout(80);
@@ -260,8 +325,8 @@ async function main() {
       return {nativePages:native.getPageCount(),readerPages:pdf.numPages,pages};
     },exportedBytes.toString('base64'));
     const pdfText=pdfSummary.pages[0]?.text||'';
-    check('UMD PDF writer and reader parse the exported HGD map', pdfSummary.nativePages===1&&pdfSummary.readerPages===1, JSON.stringify({nativePages:pdfSummary.nativePages,readerPages:pdfSummary.readerPages}));
-    check('exported same-page PDF contains exactly one confirmed HGD tombstone', (pdfText.match(/Carpe Noctum \| A1/g)||[]).length===1&&/gm-hgd-42/.test(pdfText)&&/57 MHz: 31\.4/.test(pdfText)&&/753 MHz: 43\.3/.test(pdfText), pdfText);
+    check('UMD PDF writer and reader parse the exported HGD map', pdfSummary.nativePages>=2&&pdfSummary.readerPages===pdfSummary.nativePages, JSON.stringify({nativePages:pdfSummary.nativePages,readerPages:pdfSummary.readerPages}));
+    check('exported same-page PDF contains exactly one confirmed HGD tombstone', (pdfText.match(/Carpe Noctum \| A1/g)||[]).length===1&&/gm-hgd-42/.test(pdfText)&&/57 MHz: 31\.4/.test(pdfSummary.pages.map(p=>p.text).join(' '))&&/753 MHz: 43\.3/.test(pdfSummary.pages.map(p=>p.text).join(' ')), pdfText);
     const symbolItem=pdfSummary.pages[0]?.items.find(item=>item.text==='A1');
     const tombstoneItem=pdfSummary.pages[0]?.items.find(item=>item.text.includes('Carpe Noctum | A1'));
     check('exported HGD tombstone is displaced from its symbol after drag', !!symbolItem&&!!tombstoneItem&&Math.hypot(symbolItem.x-tombstoneItem.x,symbolItem.y-tombstoneItem.y)>40, JSON.stringify({symbolItem,tombstoneItem}));

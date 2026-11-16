@@ -18,7 +18,7 @@ test('tombstones summarize parts and status without serializing recommendation i
   const {job,evaluation}=fixture(2);
   const [box]=layoutTombstones(job,evaluation),text=box.lines.join(' ');
   assert.doesNotMatch(text,/\{"|"sources"|"residuals"|"outputs"|https:\/\//);
-  assert.match(text,/Input pad/);assert.match(text,/EQ/);assert.match(text,/Status/);assert.match(text,/shortfall/i);
+  assert.doesNotMatch(text,/Input pad|Factory EQ/);assert.match(text,/Status/);assert.match(text,/shortfall/i);
   assert.match(text,/main.*aux1.*aux2/);
   assert.ok(box.lines.length<=32);
 });
@@ -28,7 +28,7 @@ for(const count of [98,1000])test(`${count}-point HGD layout stays bounded and r
   const start=performance.now(),[box]=layoutTombstones(job,evaluation),elapsed=performance.now()-start;
   assert.ok(elapsed<2000,`Layout took ${elapsed.toFixed(1)} ms; expected less than 2 seconds`);
   assert.ok(box.lines.length<=32);assert.ok(box.lines.join('').length<2500);
-  assert.match(box.lines.join(' '),new RegExp(`${count} pts`));
+  assert.match(box.lines.join(' '),/57 MHz.*753 MHz/);assert.ok(box.fontSize>=8);
   assert.doesNotMatch(box.lines.join(' '),/\{"|"sources"|"residuals"|https:\/\//);
   assert.equal(box.page,1);assert.ok(box.x+box.width<=1);assert.ok(box.y+box.height<=1);
 });

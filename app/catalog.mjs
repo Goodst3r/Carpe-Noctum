@@ -10,8 +10,15 @@ export const SOURCES=freeze({
  aoi:{title:'AOI Quantum18 HGD',url:'https://ao-inc.com/assets/resources-element-files/Spanish/QB18-HGD-SA-Datasheet_ES.pdf',locator:'204/258 operational reference; not a measured gain curve',status:'manufacturer PDF independently retrieved; operational minimum49 dB, not output dBmV'}
 });
 const gm=(id,label,band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb=null)=>({id,label,kind:'active',family:'GainMaker',band,ports,gainDb,factoryEqDb,mode,source,internalTiltDb,testPointLoss:20,testPointNote:ports.length===3?'HGD datasheet: RF test points -20 dB (±0.5 dB). Verify selected physical test point.':'GainMaker LE OL-31155-01: RF test points -20 dB. Verify selected physical test point.',referenceInputPadDb:1,eqFamily:'forward-cable-1g',agcOffsetDb:ports.length===3?34:29,padRange:[0,20.5,.5],note:'Gain curve is an estimate from operational gain and fixed factory baseline; verify with measured transfer samples.'});
+const saSurgeGapSource='https://manuals.plus/m/264e77f66cf8fb6b48ff531ca9c08c07b1568d2ca121f265dbf3d25350f130f3.pdf';
+const saPoint=(value,page='6-2')=>({basis:'Maximum',verification:'Inherited reference; original table revalidation pending',min:750,max:750,source:saSurgeGapSource,page,points:[[750,value]],note:'Scientific Atlanta 1 GHz Surge-Gap original model. Only the 750 MHz maximum-loss point is retained; no curve is inferred. Do not substitute Cisco SG-PASSIVES 1.25 GHz data.'});
+const saSurgeGap={
+ 'scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712968':{band:[750,750],losses:{main:saPoint(2.2),branch:saPoint(9.3)}},
+ 'scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712969':{band:[750,750],losses:{main:saPoint(1.5),branch:saPoint(13.2)}},
+ 'scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712971':{band:[750,750],losses:{'each-output':saPoint(4.5,'6-1')}}
+};
 export const EQUIPMENT=freeze(Object.fromEntries([
- {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','3','4'],band:[5,1218],testPointLoss:20,testPointNote:'Operator-supplied HA0005 GS7K Port 4 offset: 20 dB. Verify other physical test points.'},
+ {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','4','5'],knownPhysicalPorts:['1','2','3','4','5','6'],optionalPhysicalPorts:['3','6'],band:[5,1218],testPointLoss:20,testPointNote:'Operator-supplied HA0005 GS7K Port 4 offset: 20 dB. Verify other physical test points.'},
  {id:'vecima',label:'Vecima EN9000',kind:'node',ports:['1','2','3','4'],band:[5,1794],testPointLoss:null,testPointNote:'No verified offset for this physical test point. Enter the equipment value.'},
  {id:'eol',label:'End of line',kind:'eol',ports:['main'],band:[5,1800]},
  {id:'cable-only',label:'Cable junction',kind:'passive',ports:['main'],band:[5,1800],losses:{main:{points:[[5,0],[1800,0]],basis:'Identity junction; no RF component'}}},
@@ -23,7 +30,7 @@ export const EQUIPMENT=freeze(Object.fromEntries([
  {id:'aoi-hgd',label:'AOI Quantum18 HGD · 204/258',kind:'active',family:'AOI',band:[258,1794],ports:['main','aux1','aux2'],gainDb:49,source:SOURCES.aoi,note:'Electronic alignment: no GainMaker plug-in compatibility. Gain curve requires measured samples.'},
  {id:'aoi-le',label:'AOI Quantum18 LE · 204/258',kind:'active',family:'AOI',band:[258,1794],ports:['main'],gainDb:46,source:{...SOURCES.aoi,url:'https://ao-inc.com/assets/resources-element-files/Spanish/QB18-LE-Datasheet_ES.pdf'},note:'Electronic alignment; no GainMaker plug-in compatibility.'},
  ...[[40,52],[55,70],[65,86],[85,102]].flatMap(([split,floor])=>['manual','thermal','agc'].map(mode=>({...gm(`gm-le-${mode}-${split}`,`GainMaker LE · ${mode} · ${split}/${floor}`,[floor,1002],['main'],null,mode==='thermal'?7.5:9,mode,{...SOURCES.manual,locator:'p.3 documented split and mode availability; gain for this split not established'}),note:'Documented installed split. Enter measured gain samples; 42/54 gain is not silently reused.'}))),
- ...reference.passives
+ ...reference.passives.map(x=>saSurgeGap[x.id]?{...x,...saSurgeGap[x.id],source:saSurgeGapSource,note:'Scientific Atlanta original 1 GHz Surge-Gap part; only the 750 MHz maximum-loss values are retained.'}:x)
 ].map(x=>[x.id,x])));
 export const CABLES=freeze(Object.fromEntries(reference.cables.map(x=>[x.id,x])));
 const inverse=[1.6,3.3,4.9,6.5,8.1,9.8,11.4,13,14.6,16.2].map((v,i)=>({id:`forward-inverse-1g/${v}`,familyId:'forward-inverse-1g',partNumber:`GM-EQINV-${v}-1G=`,identifiers:[String(4007486+i)],nominalDb:v,orderingValue:v,band:[52,1002],direction:'forward',points:[],source:{...SOURCES.manual,locator:'p.106 inverse EQ part numbers'},notes:'Cable-equivalent nominal only. No insertion-loss curve supplied; excluded from numeric optimization.'}));

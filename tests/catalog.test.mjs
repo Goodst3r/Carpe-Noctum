@@ -9,3 +9,18 @@ test('all five documented LE splits use actual bandwidth filters',()=>{for(const
 test('manual reverse55 and65 table points are exact sourced facts',()=>{assert.equal(lookupPartLoss('standard-return-55/12',5).value,9.5);assert.equal(lookupPartLoss('standard-return-65/12',5).value,9.8);assert.equal(lookupPartLoss('standard-return-65/12',60).value,1.5);});
 test('870MHz EQ and85MHz reverse parts stay distinct from1GHz/42MHz families',()=>{assert.equal(lookupPartLoss('forward-cable-870/12',52).value,10.4);assert.equal(lookupPartLoss('forward-cable-870/12',1002).value,null);assert.equal(PARTS['standard-return-85/12'].partNumber,'GM-EQREV-12-85M=');assert.equal(lookupPartLoss('standard-return-85/12',85).value,null);});
 test('manufacturer-specific Digicomm cable/linear/inverse curves are separate and anomaly is quarantined',()=>{assert.equal(lookupPartLoss('digicomm-cable-1p2g/12',750).value,3.8);assert.equal(lookupPartLoss('digicomm-linear-1p2g/12',750).value,5.7);assert.equal(lookupPartLoss('digicomm-inverse-1p2g/12',750).value,7.9);assert.equal(lookupPartLoss('digicomm-cable-1p2g/16.5',1218).value,null);assert.equal(PARTS['digicomm-cable-1p2g/16.5'].solverCandidate,false);assert.equal(lookupPartLoss('digicomm-cable-1p2g/0',750).value,0);});
+test('Scientific Atlanta Surge-Gap 712968 and 712969 retain sourced 750MHz maxima without inventing curves',()=>{
+ const a=EQUIPMENT['scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712968'];
+ const b=EQUIPMENT['scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712969'];
+ assert.deepEqual(a.band,[750,750]);assert.deepEqual(b.band,[750,750]);
+ assert.deepEqual(a.losses.main.points,[[750,2.2]]);assert.deepEqual(a.losses.branch.points,[[750,9.3]]);
+ assert.deepEqual(b.losses.main.points,[[750,1.5]]);assert.deepEqual(b.losses.branch.points,[[750,13.2]]);
+ assert.equal(a.losses.main.basis,'Maximum');assert.equal(a.losses.main.source,EQUIPMENT['scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712969'].source);
+ assert.notEqual(a.losses.main.points.find(x=>x[0]===750)[1],EQUIPMENT['cisco-surge-gap-1-25ghz--sg-passives-dc-08'].losses.main.points.find(x=>x[0]===750)[1]);
+});
+test('Scientific Atlanta 712971 exposes only its sourced 750MHz maximum-loss point',()=>{
+ const m=EQUIPMENT['scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712971'];
+ assert.deepEqual(m.band,[750,750]);assert.equal(m.losses['each-output'].basis,'Maximum');
+ assert.equal(m.losses['each-output'].min,750);assert.equal(m.losses['each-output'].max,750);
+ assert.deepEqual(m.losses['each-output'].points,[[750,4.5]]);assert.equal(m.losses['each-output'].source,m.source);
+});

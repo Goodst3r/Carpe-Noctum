@@ -32,14 +32,14 @@ test('backup restore rejects sweeps whose node no longer exists', async () => {
 
 test('backup restore rejects sweeps on nonexistent physical model ports', async () => {
   const job = createJob('low');
-  job.portSweeps['node::5'] = { samples: [[57, 31]] };
+  job.portSweeps['node::9'] = { samples: [[57, 31]] };
   await assert.rejects(importBackup(JSON.stringify({ schema: 1, jobs: [job] })), /port/i);
 });
 
 test('backup restore rejects edges leaving nonexistent physical model ports', async () => {
   const job = createJob('low');
   job.nodes.push({ id: 'end', name: 'End', tag: 'EOL', kind: 'eol', modelId: 'eol', settings: {} });
-  job.edges.push({ id: 'wire', from: 'node', port: '5', to: 'end' });
+  job.edges.push({ id: 'wire', from: 'node', port: '9', to: 'end' });
   await assert.rejects(importBackup(JSON.stringify({ schema: 1, jobs: [job] })), /port/i);
 });
 
@@ -173,4 +173,51 @@ test('backup includes originals for both staged readings on one physical port', 
     assert.deepEqual(await getOriginal(afterHash), afterBytes);
     deleteJob(job.id);
   } finally { delete globalThis.indexedDB; }
+});
+
+test('large original restores from backup without overflowing validation', async () => {
+  globalThis.indexedDB = fakeIndexedDB;
+  const job = createJob('low');
+  try {
+    const original = new Uint8Array(6_852_960);
+    for (let i = 0; i < original.length; i++) original[i] = i % 251;
+    const hash = await putOriginal(original);
+    job.map = { sha256: hash, pages: [] };
+    saveJob(job);
+    const backup = await exportBackup();
+    deleteJob(job.id);
+    assert.equal(await importBackup(backup), 1);
+    assert.deepEqual(await getOriginal(hash), original);
+    assert.equal(loadJob(job.id).map.sha256, hash);
+  } finally { deleteJob(job.id); delete globalThis.indexedDB; }
+});
+
+test('backup rejects malformed and noncanonical base64 originals', async () => {
+  const hash = '0'.repeat(64);
+  for (const encoded of ['A', 'AAA', 'AAAA=', '=AAA', 'AA=A', 'AA==AAAA', 'AAAA\n', 'AA-_', 'AB==', 'AAB=']) {
+    await assert.rejects(importBackup({ schema: 1, jobs: [], originals: { [hash]: encoded } }), /Invalid original encoding/, encoded);
+  }
+});
+
+test('backup preserves both a derived map and its unchanged source original', async () => {
+  globalThis.indexedDB = fakeIndexedDB;
+  const job = createJob('low');
+  try {
+    const original = new Uint8Array([7, 11, 13, 17]);
+    const derived = new Uint8Array([3, 5, 8, 12, 20]);
+    const sourceOriginalHash = await putOriginal(original);
+    const sha256 = await putOriginal(derived);
+    job.map = { sha256, sourceOriginalHash, pages: [] };
+    saveJob(job);
+    const backup = JSON.parse(await exportBackup());
+    assert.ok(backup.originals[sourceOriginalHash]);
+    assert.ok(backup.originals[sha256]);
+    deleteJob(job.id);
+    await new Promise((resolve, reject) => { const request = fakeIndexedDB.deleteDatabase('carpe-noctum:originals:v1'); request.onsuccess = resolve; request.onerror = () => reject(request.error); });
+    assert.equal(await getOriginal(sourceOriginalHash), null);
+    assert.equal(await importBackup(backup), 1);
+    assert.deepEqual(await getOriginal(sourceOriginalHash), original);
+    assert.deepEqual(await getOriginal(sha256), derived);
+    assert.equal(loadJob(job.id).map.sourceOriginalHash, sourceOriginalHash);
+  } finally { deleteJob(job.id); delete globalThis.indexedDB; }
 });

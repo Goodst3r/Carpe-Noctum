@@ -1,5 +1,6 @@
-import { unzipSync, strFromU8 } from 'fflate';
 import { EQUIPMENT } from './catalog.mjs';
+import {portInfo} from './ports.mjs';
+import {assertForwardSweep} from './measurements.mjs';
 
 const MAX_INPUT_BYTES = 20 * 1024 * 1024;
 const MAX_JSON_BYTES = 10 * 1024 * 1024;
@@ -17,66 +18,23 @@ function validateSamples(samples) {
   }
 }
 
+export { inspectONX } from './onx-report.mjs';
+import { inspectONX } from './onx-report.mjs';
+
 export async function parseONX(bytes, options = {}) {
+  return correctONXSweep(await inspectONX(bytes, { filename: options.filename }), options);
+}
+
+export function correctONXSweep(report, options = {}) {
   const { connection, testPointLoss = 20, compensationApplied } = options;
-  if (compensationApplied !== undefined && typeof compensationApplied !== 'boolean') {
-    throw new Error('compensationApplied must be an explicit boolean declaration');
-  }
-  if (!['tp', 'direct'].includes(connection)) throw new Error('Choose TP or direct connection');
-  if (connection === 'tp' && (!Number.isFinite(testPointLoss) || testPointLoss < 0 || testPointLoss > 50)) {
-    throw new Error('Test point loss must be between 0 and 50 dB');
-  }
-  const input = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
-  if (input.length > MAX_INPUT_BYTES) throw new Error('ONX input exceeds the 20 MiB size limit');
-  let payload, filename;
-  if (input[0] === 0x50 && input[1] === 0x4b) {
-    let files, entries = 0;
-    try {
-      files = unzipSync(input, { filter: file => {
-        if (++entries > 1) throw new Error('ONX ZIP must contain exactly one JSON result');
-        if (!file.name.toLowerCase().endsWith('.json')) throw new Error('ONX ZIP entry must be JSON');
-        if (file.originalSize > MAX_JSON_BYTES || file.size > MAX_INPUT_BYTES) throw new Error('ONX ZIP entry exceeds the size limit');
-        return true;
-      } });
-    } catch (error) {
-      if (error.message.startsWith('ONX')) throw error;
-      throw new Error('ONX must be a valid ZIP archive');
-    }
-    const names = Object.keys(files);
-    if (names.length !== 1 || entries !== 1) throw new Error('ONX ZIP must contain exactly one JSON result');
-    filename = names[0];
-    payload = files[filename];
-  } else {
-    if (input.length > MAX_JSON_BYTES) throw new Error('ONX JSON exceeds the size limit');
-    filename = null;
-    payload = input;
-  }
-  if (payload.length > MAX_JSON_BYTES) throw new Error('ONX JSON exceeds the size limit');
-  let document;
-  try { document = JSON.parse(strFromU8(payload)); }
-  catch { throw new Error('ONX JSON result is invalid'); }
-  const group = document?.testGroup;
-  const tests = group?.tests;
-  if (!Array.isArray(tests)) throw new Error('ONX testGroup.tests is missing');
-  const matches = [];
-  for (const measuredTest of tests) {
-    for (const resultGroup of measuredTest.resultGroups ?? []) {
-      for (const series of resultGroup.resultSeries ?? []) {
-        const frequencies = series.independent;
-        const absolute = series.dependent?.filter(item => item.label === 'Absolute' && item.units === 'dBmV') ?? [];
-        if (frequencies?.label === 'Frequency' && frequencies.units === 'MHz' && absolute.length === 1) {
-          matches.push({ measuredTest, resultGroup, series, frequencies, absolute: absolute[0] });
-        }
-      }
-    }
-  }
+  if (report?.kind !== 'forward-sweep' || report.direction !== 'forward') throw new Error('Only a forward sweep can be corrected');
+  const matches = report.series?.filter(s => s.direction === 'forward' && s.label === 'Absolute' && s.frequencyUnit === 'MHz' && s.levelUnit === 'dBmV') ?? [];
   if (matches.length !== 1) throw new Error('ONX needs one Frequency MHz / Absolute dBmV result series');
-  const { measuredTest, resultGroup, series, frequencies, absolute } = matches[0];
-  if (!Array.isArray(frequencies.values) || !Array.isArray(absolute.values) || frequencies.values.length !== absolute.values.length) {
-    throw new Error('ONX frequency and absolute level samples do not align');
-  }
-  if (frequencies.values.length > MAX_SAMPLES) throw new Error('ONX sample count exceeds the limit');
-  const tpcConfigs = (measuredTest.setupGroups ?? [])
+  const source = matches[0];
+  if (compensationApplied !== undefined && typeof compensationApplied !== 'boolean') throw new Error('compensationApplied must be an explicit boolean declaration');
+  if (!['tp', 'direct'].includes(connection)) throw new Error('Choose TP or direct connection');
+  if (connection === 'tp' && (!Number.isFinite(testPointLoss) || testPointLoss < 0 || testPointLoss > 50)) throw new Error('Test point loss must be between 0 and 50 dB');
+  const tpcConfigs = (report.metadata.setupGroups ?? [])
     .filter(item => item.id === 'testPointTemplate')
     .flatMap(item => item.configs ?? [])
     .filter(item => item.id === 'forwardTestPointCompensation');
@@ -92,7 +50,7 @@ export async function parseONX(bytes, options = {}) {
     error.meterCompensationDb = meterCompensationDb;
     throw error;
   }
-  const rawSamples = frequencies.values.map((frequency, index) => [frequency, absolute.values[index]]);
+  const rawSamples = source.samples.map(sample => [...sample]);
   validateSamples(rawSamples);
   const physicalLossDb = connection === 'tp' ? testPointLoss : 0;
   const meterAppliedDb = compensationApplied === true ? meterCompensationDb : 0;
@@ -103,10 +61,10 @@ export async function parseONX(bytes, options = {}) {
     samples,
     rawSamples,
     metadata: {
-      format: 'ONX', filename, testGroupId: group.id, testId: measuredTest.id,
-      resultGroupId: resultGroup.id, seriesId: series.id, infoGroup: group.infoGroup ?? null,
-      setupGroups: measuredTest.setupGroups ?? [], meterCompensationDb,
-      frequencyUnit: frequencies.units, levelUnit: absolute.units, sampleCount: samples.length,
+      ...report.metadata, format: 'ONX', filename: report.metadata.memberName ?? null, testGroupId: report.metadata.testGroupId, testId: report.metadata.testId,
+      resultGroupId: report.metadata.resultGroupId, seriesId: report.metadata.seriesId, infoGroup: report.metadata.infoGroup ?? null,
+      setupGroups: report.metadata.setupGroups ?? [], meterCompensationDb,
+      frequencyUnit: source.frequencyUnit, levelUnit: source.levelUnit, sampleCount: samples.length,
     },
     correction: {
       connection, testPointLossDb: physicalLossDb, meterCompensationDb, meterAppliedDb, appliedDb,
@@ -123,8 +81,10 @@ export function replaceSweep(job, nodeId, port, sweep) {
   if (!job || !Array.isArray(job.nodes) || !job.nodes.some(node => node.id === nodeId)) throw new Error(`Unknown node ${nodeId}`);
   if (typeof port !== 'string' || !/^[A-Za-z0-9_-]+$/.test(port) ||
       ['__proto__', 'constructor', 'prototype'].includes(port)) throw new Error('Invalid physical port');
-  const modelPorts = EQUIPMENT[job.nodes.find(node => node.id === nodeId)?.modelId]?.ports;
+  const destination=job.nodes.find(node=>node.id===nodeId);
+  const modelPorts=EQUIPMENT[destination?.modelId]?portInfo(destination).known:undefined;
   if (modelPorts && !modelPorts.includes(port)) throw new Error(`Unsupported physical port ${port} for node ${nodeId}`);
+  assertForwardSweep(sweep);
   validateSamples(sweep?.samples);
   const stage = sweep.stage;
   if (stage != null && !['before', 'after'].includes(stage)) throw new Error('Sweep stage must be before or after');

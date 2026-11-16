@@ -16,7 +16,9 @@ An unsigned candidate proves compilation/artifact assembly, not installation or 
 
 ## Native interface
 
-`NightSweepAndroid.saveFile(name,text,mime)` opens the save picker for text/JSON up to20MiB. `saveBinary(name,base64,mime)` saves PDFs/original files up to8MiB; the app rejects larger native exports explicitly. File inputs use the system document picker. `printReport()` opens native printing. Local data/blob resources are permitted; remote resources remain blocked and no INTERNET permission is requested.
+`NightSweepAndroid.saveFile(name,text,mime)` opens the save picker for text/JSON up to20MiB. `saveBinary(name,base64,mime)` saves PDFs/original files up to8MiB; the app rejects larger native exports explicitly. File inputs use the system document picker. `printReport()` opens native printing. Local data/blob resources are permitted; WebView network loads remain blocked.
+
+Optional map scanning calls `NightSweepAndroid.scanMap(id,serviceOrigin,token,bodyJson)` with a UUID callback ID, public HTTPS scanner origin, ephemeral service token, and reviewed PNG request. The native bridge asks the user to trust a new origin, then POSTs only to `/v1/map-scans`. It refuses redirects, non-public resolved addresses, malformed requests, and payloads over 7 MiB. Responses are limited to 1 MiB and delivered through `window.MapNativeCallbacks[id](ok,responseText)`. The INTERNET permission supports this native request only; the WebView still blocks remote resources and navigation. No vendor API key is stored in the APK.
 
 JavaScript `prompt()` uses a native editable dialog prefilled with the supplied default value. **OK** returns the entered string, including an empty string; **Cancel**, Back, outside dismissal, dialog failure, or activity teardown cancels the JavaScript prompt once. This callback contract is unit-checked from the production helper, but native dialog layout, keyboard behavior, and lifecycle handling still need phone verification.
 
