@@ -47,6 +47,14 @@ Because the sheets are the same map: fit a similarity transform (scale, rotation
 - Result: 293 of 363 devices hooked, 538 links (29 colocated), 96 of 160 tagged stations have at least one link. Against a separately made draft job's connection proposals: 84 of its 132 mappable edges reproduced as a direct link. Over-linking is expected at junction clusters (more links than a tree needs); orphan devices remain (about 70).
 - NOT done: pt-to-feet scale (footage labels use offset leader lines, so midpoint pairing only matched 8 spans), direction/port assignment, cable type per span, node leg A-D mapping. Nothing here is verified RF connectivity.
 
+## 4d. Cable vs strand (important correction from the user)
+- **Cable** carries the signal and passes IN and OUT of passives (taps, couplers, splitters) and actives. Cable-size labels (.412/.500/.625/.875, RG11) are printed next to the cable in the walkout.
+- **Strand** is the support wire; it runs pole to pole and ONLY touches poles. It is not signal path and must never be used to link devices or to carry a cable type.
+- The coax-only sheet draws cable only (no strand), so the traced cable graph is cable. Poles and strand exist only on the walkout (poles are the walkout's yellow/magenta highlights and pole-ID labels). The reader therefore never builds cable links from poles/strand.
+- Evidence: after registration, 321 of 384 walkout cable-size labels land within 6 pt of a cable segment of the coax sheet (355 within 10 pt), i.e. they sit by the cable.
+- `merged.json` now has `cable_label_candidates`: each cable label with its distance to any cable segment and its 2 nearest cable-link candidates (unconfirmed). Footage labels are deliberately NOT attached to cable links: a printed footage may be a pole span (strand) or a cable length between passives, which cannot be told apart from position alone.
+- An earlier attempt to estimate a feet-per-point scale from footage vs pole spacing gave an inconsistent 0.7-2.0 ft/pt spread, so no scale is claimed.
+
 ## 5. Results on the coax-only sheet (consistency check against a separately made draft job, not ground truth)
 Taps 248 (4-port 47/47 matched, 2-port 52/53), line extenders 44/44 matched (50 incl. tag-derived), amplifiers 20 (the draft says 25; five reviewed as line extenders), splitters 36 (draft 18, tiny dots unresolved), couplers 9 (draft 4, unreviewed). All 76 A# and 84 E# tags link to table rows.
 

@@ -85,6 +85,8 @@ def test_walkout_registers_onto_coax_page():
     s = json.load(open(os.path.join(d, "merged.json")))["summary"]
     assert s["transform"]["rms_pt"] < 2 and abs(s["transform"]["rotation_deg"]) < 1
     assert s["walkout_items"]["span_footage"] - s["inside_coax_extent"]["span_footage"] == 2   # two footages fall off the coax sheet
+    c = s["cable_labels_on_links"]    # cable-size labels sit by the CABLE (not strand): most are within 6 pt of traced cable
+    assert c["within_6pt_of_any_cable_segment"] >= 300
 
 
 @pytest.mark.skipif(not C, reason="sample missing")
