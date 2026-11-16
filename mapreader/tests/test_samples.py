@@ -85,3 +85,14 @@ def test_walkout_registers_onto_coax_page():
     s = json.load(open(os.path.join(d, "merged.json")))["summary"]
     assert s["transform"]["rms_pt"] < 2 and abs(s["transform"]["rotation_deg"]) < 1
     assert s["walkout_items"]["span_footage"] - s["inside_coax_extent"]["span_footage"] == 2   # two footages fall off the coax sheet
+
+
+@pytest.mark.skipif(not C, reason="sample missing")
+def test_cable_graph_v1():
+    import pdfplumber
+    from mapreader import symbols, basemap, graph, prims
+    sy, _ = symbols.run(C[0], basemap.words(pdfplumber.open(C[0]).pages[0]))
+    dev = [s for s in sy if s["class"] in graph.DEVICE_CLASSES]
+    G = graph.build(prims.paths(C[0]), dev)
+    L = graph.device_links(G, dev)
+    assert sum(1 for d in G["devices"] if G["adj"][d]) >= 280 and 300 < len(L) < 700

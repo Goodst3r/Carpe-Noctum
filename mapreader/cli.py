@@ -1,5 +1,5 @@
 """python3 -m mapreader.cli <pdf> --out DIR  : full recognition run."""
-import argparse, json, os, subprocess, sys
+import argparse, json, math, os, subprocess, sys
 from PIL import Image, ImageDraw
 from . import tables, markup, link, basemap, report, symbols, tags
 
@@ -61,6 +61,25 @@ def main(argv=None):
                                           "with_footage_candidate": sum(1 for x in cl if x["nearest_footage_candidate"])}
         json.dump(cl, open(os.path.join(a.out, "cable_labels.json"), "w"))
     json.dump(bm["symbols"], open(os.path.join(a.out, "basemap_symbols.json"), "w"))
+    if not any(m["type"] != "FreeText" for m in mk):      # coax-only sheet: trace cable runs
+        from . import graph, prims
+        P = prims.paths(a.pdf)
+        dev = [x for x in sy if x["class"] in graph.DEVICE_CLASSES]
+        G = graph.build(P, dev)
+        L = graph.device_links(G, dev)
+        stn = {}
+        for tl in res["tag_links"]:
+            k = min(range(len(dev)), key=lambda i: math.hypot(dev[i]["cx"] - tl["x"], dev[i]["cy"] - tl["y"]), default=None)
+            if k is not None and math.hypot(dev[k]["cx"] - tl["x"], dev[k]["cy"] - tl["y"]) < 6:
+                stn.setdefault(k, []).append(tl["tag"])
+        gj = {"units": "PDF points (no scale to feet established)", "status": "PROPOSED geometric adjacency, not verified RF connectivity",
+              "devices": [{"i": i, "class": d["class"], "x": d["cx"], "y": d["cy"], "station_tags": stn.get(i, []), "on_cable": bool(G["adj"][("dev", i)])} for i, d in enumerate(dev)],
+              "links": [{"a": k[0], "b": k[1], "length_pt": round(v["length_pt"], 1), "colocated": v["length_pt"] < 4,
+                         "path": [[round(x, 1), round(y, 1)] for x, y in v["path"]]} for k, v in L.items()]}
+        json.dump(gj, open(os.path.join(a.out, "cable_graph.json"), "w"))
+        res["cable_graph"] = {"devices": len(dev), "devices_on_cable": sum(1 for d in gj["devices"] if d["on_cable"]), "links": len(L),
+                              "links_colocated": sum(1 for l in gj["links"] if l["colocated"]),
+                              "stations_with_links": sum(1 for i, t in stn.items() if any(l["a"] == i or l["b"] == i for l in gj["links"]))}
     json.dump(res, open(os.path.join(a.out, "recognition.json"), "w"), indent=1, default=str)
     report.write(res, os.path.join(a.out, 'report.md'))
     if not a.no_overlay:

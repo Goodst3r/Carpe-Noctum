@@ -32,8 +32,10 @@ def paths(pdf_path, page_index=0):
             if raw.FPDFPathSegment_GetClose(s):
                 closed = True
             pts.append((m.a * x.value + m.c * y.value + m.e, H - (m.b * x.value + m.d * y.value + m.f)))
+        sw = ctypes.c_float()
+        raw.FPDFPageObj_GetStrokeWidth(o, sw)
         l, b, r, t = o.get_bounds()
         out.append({"bbox": (l, H - t, r, H - b), "fill": _col(raw.FPDFPageObj_GetFillColor, o) if mode.value else None,
                     "stroke": _col(raw.FPDFPageObj_GetStrokeColor, o) if stroke.value else None,
-                    "pts": pts, "curves": curve, "closed": closed})
+                    "width": sw.value * (abs(m.a) + abs(m.d)) / 2, "pts": pts, "curves": curve, "closed": closed})
     return out

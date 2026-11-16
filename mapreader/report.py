@@ -33,6 +33,9 @@ def write(res, path):
         L.append(f"- Yellow tags linked: {sum(1 for x in tl if x['kind']=='active')} actives, {sum(1 for x in tl if x['kind']=='eol_point')} EOL points (table has {len(t['actives'])} / {len(t['eol'])}); "
                  f"{sum(1 for x in tl if x['table_row'])} matched to a table row")
     L.append("")
+    cg = res.get("cable_graph")
+    if cg:
+        L += ["## Cable runs (proposed, geometric)", f"- {cg}", "- Lengths are in PDF points; no pt-to-feet scale is established. Over-linking is likely at junction clusters (colocated links flagged)."]
     w = res.get("walkout")
     if w:
         s = w["summary"]

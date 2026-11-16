@@ -40,6 +40,13 @@ Hugging Face searches for engineering-drawing/symbol detectors returned nothing 
 ## 4b. Two-sheet registration (new)
 Because the sheets are the same map: fit a similarity transform (scale, rotation, translation) from walkout coordinates to coax coordinates by RANSAC over tap symbols with equal printed values, then a least-squares refit on the inliers. Result: scale 0.709, rotation ~0 deg, 48 inlier taps, RMS 0.86 pt. Check: of 275 walkout footage labels, 273 land inside the coax sheet; of 377 sized cable labels, 376 do. That matches the earlier independent count (two footages and one cable type off the sheet), which is strong evidence the registration is right. Each coax station then lists nearby walkout items (cable, footage, pole, note) as unconfirmed candidates.
 
+## 4c. Cable-run tracing (`graph.py`, v1, PROPOSED only)
+- Cable linework on the coax sheet is unfilled strokes in a medium width class (about 0.004-0.03); hairlines are parcel lines and label leaders. Some cable spans are drawn as hairlines, so hairline segments are added only if BOTH endpoints land on an existing cable vertex or a device symbol (iterated 4 rounds), which bridges gaps without importing parcels.
+- Endpoints are snapped (0.4 pt) into a graph. Components under 25 pt total length are dropped. Each device (tap, coupler, splitter, amplifier, line extender, node candidate) is hooked in if a cable endpoint lies within its radius + 3 pt, or a passing segment is split at the symbol.
+- Device links come from Dijkstra from every device that stops at the next device (never walks through one). Output `cable_graph.json`: devices (with A#/E# tags), links with polyline path and length in PDF points, `colocated` flag for links under 4 pt.
+- Result: 293 of 363 devices hooked, 538 links (29 colocated), 96 of 160 tagged stations have at least one link. Against a separately made draft job's connection proposals: 84 of its 132 mappable edges reproduced as a direct link. Over-linking is expected at junction clusters (more links than a tree needs); orphan devices remain (about 70).
+- NOT done: pt-to-feet scale (footage labels use offset leader lines, so midpoint pairing only matched 8 spans), direction/port assignment, cable type per span, node leg A-D mapping. Nothing here is verified RF connectivity.
+
 ## 5. Results on the coax-only sheet (consistency check against a separately made draft job, not ground truth)
 Taps 248 (4-port 47/47 matched, 2-port 52/53), line extenders 44/44 matched (50 incl. tag-derived), amplifiers 20 (the draft says 25; five reviewed as line extenders), splitters 36 (draft 18, tiny dots unresolved), couplers 9 (draft 4, unreviewed). All 76 A# and 84 E# tags link to table rows.
 
