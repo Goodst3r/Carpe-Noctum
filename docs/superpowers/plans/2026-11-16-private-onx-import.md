@@ -65,9 +65,9 @@ Files: app/ui.mjs, new app/onx-import-ui.mjs if useful, app/style.css, tests/ui.
 
 ### Task 4: Review and acceptance
 
-- [ ] Independent task-scoped and Astra final review; resolve Important findings with focused regression coverage.
-- [ ] Run npm ci, npm test, npm run build, npm run test:browser and npm run test:ai-browser; private browser import all five examples without external requests. Record actual counts.
-- [ ] Confirm private filenames/identities/content absent from tracked changes/public artifacts, update docs and existing draft PR62.
+- [x] Independent task-scoped and Astra final review; resolve Important findings with focused regression coverage.
+- [x] Run npm ci, npm test, npm run build, npm run test:browser and npm run test:ai-browser; private browser import all five examples without external requests. Record actual counts.
+- [x] Confirm private filenames/identities/content absent from tracked changes/public artifacts, update docs and existing draft PR62.
 
 ## Rulings and ledger
 
@@ -83,3 +83,8 @@ Files: app/ui.mjs, new app/onx-import-ui.mjs if useful, app/style.css, tests/ui.
 - Task3: Sol6.1 implemented in-app review and escaped station report viewer (1136e04). Terra review found inherited physical-plane settings after destination changes;9a29e62 now requires explicit new-port selection and fresh connection/loss after station or port changes. Focused UI tests50passed; scoped review clean.
 - Recon/design/safety involved Sol6, Sol6.1, Luna and Astra. Claude was unavailable; no Claude review is claimed.
 - Preliminary built-browser replay of all five originals: five saved reports, two authoritative forward ports, reload retention, original bytes unchanged, no390px horizontal overflow, zero page errors and zero external requests. Each import completed in under600ms on this local Chromium test; this does not establish device/field performance. Alternate OneCheck exports match all ten numeric series exactly. Example filenames are absent from public web artifacts. Final whole-branch review and frozen checks are recorded below when complete.
+
+
+### Final acceptance
+
+Astra final whole-feature review is clean with no Critical/Important findings; all task-scoped corrections also passed re-review. Final commands: npm ci succeeded, npm test271total/265passed/6skipped/0failed, npm run build succeeded (PWA232b877485123780804d), built browser56checks and local AI13checks passed. All five originals were replayed in Chromium and in-memory; reports reload, original bytes/hash backups roundtrip, only two forward imports activate RF, and no private data is requested over the network. Source/example-name and full-series checks against both public web artifacts passed. See docs/rebuild/ONX_IMPORT_VERIFICATION.md. No example content or generated artifact is included in the source commits.
