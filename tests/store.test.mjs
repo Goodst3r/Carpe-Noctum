@@ -174,3 +174,27 @@ test('backup includes originals for both staged readings on one physical port', 
     deleteJob(job.id);
   } finally { delete globalThis.indexedDB; }
 });
+
+test('large original restores from backup without overflowing validation', async () => {
+  globalThis.indexedDB = fakeIndexedDB;
+  const job = createJob('low');
+  try {
+    const original = new Uint8Array(6_852_960);
+    for (let i = 0; i < original.length; i++) original[i] = i % 251;
+    const hash = await putOriginal(original);
+    job.map = { sha256: hash, pages: [] };
+    saveJob(job);
+    const backup = await exportBackup();
+    deleteJob(job.id);
+    assert.equal(await importBackup(backup), 1);
+    assert.deepEqual(await getOriginal(hash), original);
+    assert.equal(loadJob(job.id).map.sha256, hash);
+  } finally { deleteJob(job.id); delete globalThis.indexedDB; }
+});
+
+test('backup rejects malformed and noncanonical base64 originals', async () => {
+  const hash = '0'.repeat(64);
+  for (const encoded of ['A', 'AAA', 'AAAA=', '=AAA', 'AA=A', 'AA==AAAA', 'AAAA\n', 'AA-_', 'AB==', 'AAB=']) {
+    await assert.rejects(importBackup({ schema: 1, jobs: [], originals: { [hash]: encoded } }), /Invalid original encoding/, encoded);
+  }
+});

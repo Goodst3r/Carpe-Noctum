@@ -229,8 +229,18 @@ function toBase64(bytes) {
 }
 
 function fromBase64(value) {
-  if (typeof value !== 'string' || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value)) throw new Error('Invalid original encoding');
-  return Uint8Array.from(atob(value), character => character.charCodeAt(0));
+  const invalid = () => { throw new Error('Invalid original encoding'); };
+  if (typeof value !== 'string' || value.length > MAX_BACKUP_CHARS || value.length % 4) invalid();
+  const digit = code => code >= 65 && code <= 90 ? code - 65 :
+    code >= 97 && code <= 122 ? code - 71 : code >= 48 && code <= 57 ? code + 4 :
+    code === 43 ? 62 : code === 47 ? 63 : -1;
+  const padding = value.endsWith('==') ? 2 : value.endsWith('=') ? 1 : 0;
+  const end = value.length - padding;
+  for (let i = 0; i < end; i++) if (digit(value.charCodeAt(i)) < 0) invalid();
+  if (padding && (end < 2 || (digit(value.charCodeAt(end - 1)) & (padding === 2 ? 15 : 3)))) invalid();
+  const binary = atob(value), bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
 }
 
 function originalHashes(job) {
