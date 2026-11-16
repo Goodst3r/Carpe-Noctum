@@ -191,7 +191,7 @@ export function mountApp(root) {
   });
   root.addEventListener('change', async e => {
     const t=e.target;
-    if(t.closest('#edge-form') && t.name==='from') { const port=root.querySelector('#edge-form [name=port]'); const source=job.nodes.find(n=>n.id===t.value); port.innerHTML=options([['','Select port'],...(EQUIPMENT[source?.modelId]?.ports||[]).map(p=>[p,p.toUpperCase()])],''); }
+    if(t.closest('#edge-form') && t.name==='from') { const port=root.querySelector('#edge-form [name=port]'); const source=job.nodes.find(n=>n.id===t.value); port.innerHTML=options([['','Select port'],...(EQUIPMENT[source?.modelId]?.ports||[]).map(p=>[p,portLabel(source,p)])],''); }
     if(t.closest('#station-form') && t.name==='modelId') { const modeSelect=root.querySelector('#station-form [name=mode]'); modeSelect.innerHTML=options(modesFor(t.value),''); }
     if(t.id==='scan-ocr') { scanOCR=t.checked; render(); }
     if(t.id==='ocr-engine') { ocrEngine=t.value; }
