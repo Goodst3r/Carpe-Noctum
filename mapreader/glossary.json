@@ -1,0 +1,28 @@
+{
+  "_note": "Meanings marked verified=false are INFERRED from the sample maps. Edit this file to correct them; the recognizer reads it at run time.",
+  "tokens": {
+    "CSC": {"meaning": null, "verified": false},
+    "NT":  {"meaning": null, "verified": false},
+    "SA":  {"meaning": null, "verified": false},
+    "REG": {"meaning": null, "verified": false},
+    "CR":  {"meaning": null, "verified": false},
+    "ATX": {"meaning": null, "verified": false},
+    "CF":  {"meaning": null, "verified": false},
+    "MIL": {"meaning": null, "verified": false},
+    "R":   {"meaning": null, "verified": false},
+    "S":   {"meaning": null, "verified": false},
+    "VL":  {"meaning": "vacant lot (inferred from title-block 'VI/VL')", "verified": false}
+  },
+  "address_prefix": {
+    "C": {"meaning": "commercial (matches title block COMMERCIAL)", "verified": false},
+    "G": {"meaning": "government (matches title block GOV)", "verified": false}
+  },
+  "cable_sizes": [412, 500, 625, 750, 875, 1000],
+  "color_roles": {
+    "red":     "field redline / walkout annotation",
+    "blue":    "design-drawn or verified element",
+    "green":   "special markers (e.g. node / power / tower)",
+    "magenta": "highlight (poles flagged)",
+    "yellow":  "highlight (pole walked)"
+  }
+}
