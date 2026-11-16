@@ -12,8 +12,8 @@ def overlay(pdf, out, syms, mk, scale=0.6):
     subprocess.run(["pdftoppm", "-r", str(72 * scale), "-f", "1", "-l", "1", "-png", "-singlefile", pdf, base], check=True)
     im = Image.open(base + ".png").convert("RGB"); d = ImageDraw.Draw(im)
     for s in syms:
-        c = {"tap": (0, 150, 0), "amplifier_triangle": (255, 120, 0), "power_supply_symbol": (200, 0, 200), "node_or_hub_dot": (0, 0, 255),
-             "leg_arrow": (160, 160, 160), "filled_dot": (100, 100, 100)}.get(s["class"], (120, 120, 120))
+        c = {"tap": (0, 150, 0), "amplifier": (255, 120, 0), "line_extender": (200, 160, 0), "directional_coupler": (200, 0, 200),
+             "splitter_2way": (0, 0, 255), "node_symbol_candidate": (0, 0, 120), "leg_arrow": (190, 190, 190)}.get(s["class"], (120, 120, 120))
         r = max(s["w"], 3) * scale
         x, y = s["cx"] * scale, s["cy"] * scale
         d.rectangle([x - r, y - r, x + r, y + r], outline=c, width=1)
@@ -39,6 +39,7 @@ def main(argv=None):
     bm["symbols"] = sy
     bm["symbol_classes"] = dict(__import__("collections").Counter(x["class"] for x in sy))
     bm["tap_values"] = dict(sorted(__import__("collections").Counter(x["tap_value"] for x in sy if x["class"] == "tap").items()))
+    bm["tap_ports"] = dict(__import__("collections").Counter(str(x.get("ports")) for x in sy if x["class"] == "tap"))
     bm["tap_shapes"] = dict(__import__("collections").Counter(x["tap_shape"] for x in sy if x["class"] == "tap"))
     bm["power_supplies"] = [x for x in sy if x["class"] == "power_supply_label"]
     res["tag_links"] = tags.link(mk, sy, res["tables"])

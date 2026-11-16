@@ -7,6 +7,8 @@ import math, re, collections
 from . import prims
 
 SIZE_MAX = 16
+KEY_BASIS = "user-confirmed map key"
+PORTS = {"circle": 2, "square": 4, "rotated_square": 4, "diamond": 4, "octagon": 8}
 
 
 def _c(p):
@@ -98,7 +100,10 @@ def run(pdf_path, words, page_index=0):
                 key=lambda u: math.dist(u["c"], f["c"]), default=None)
         if m:
             tv = re.fullmatch(r"\d{1,2}", (f["inner"] + " " + m["inner"]).strip()) or re.search(r"\d{1,2}", f["inner"] + m["inner"])
-            emit(f, "power_supply_symbol", "standard(power supply / AC power block) + geometry", label_number=int(tv.group(0)) if tv else None)
+            ux = m["c"][0] - f["c"][0]; uy = m["c"][1] - f["c"][1]
+            emit(f, "directional_coupler", "user-confirmed map key (half black/half white circle)",
+                 coupling_db=int(tv.group(0)) if tv else None,
+                 tap_leg_dir_deg=round(math.degrees(math.atan2(-uy, -ux)) % 360), through_leg_dir_deg=round(math.degrees(math.atan2(uy, ux)) % 360))
             used.add(id(m))
             for o in S:
                 if math.dist(o["c"], f["c"]) < 1.5 and o["curves"] == 6:
@@ -109,13 +114,18 @@ def run(pdf_path, words, page_index=0):
         if id(s) in used: continue
         if s["kind"] == "circle" and s["wh"][0] >= 6:
             near = sum(1 for l in legs if math.dist(l["c"], s["c"]) < 8)
-            emit(s, "node_or_hub_dot", "geometry", legs=near)
+            if s["wh"][0] > 7:
+                continue
+            if near >= 3:
+                emit(s, "node_symbol_candidate", "geometry (solid circle with >=3 leg arrows; node is A2 per the coax design)", legs=near)
+            else:
+                emit(s, "splitter_2way", KEY_BASIS, legs=near)
     # 4. taps: any outline shape with a number 5..35 inside
     for s in S:
         if id(s) in used or s["fill"]: continue
         t = s["inner"].strip()
         if re.fullmatch(r"\d{1,2}", t) and 5 <= int(t) <= 35 and s["kind"] in ("circle", "square", "rect", "diamond", "hexagon", "pentagon", "octagon", "quad", "polygon"):
-            emit(s, "tap", "standard(tap symbol shows value) + geometry", tap_value=int(t), tap_shape=s["kind"])
+            emit(s, "tap", KEY_BASIS, tap_value=int(t), tap_shape=s["kind"], ports=PORTS.get(s["kind"]), ports_confirmed=s["kind"] in PORTS)
         elif t == "S":
             emit(s, "S_marker", "geometry (meaning not in any key found)")
     # 5. filled black polygons with a number are taps drawn solid; small filled triangles are leg arrows
@@ -123,16 +133,19 @@ def run(pdf_path, words, page_index=0):
         if id(s) in used: continue
         t = s["inner"].strip()
         if re.fullmatch(r"\d{1,2}", t) and 5 <= int(t) <= 35:
-            emit(s, "tap", "geometry", tap_value=int(t), tap_shape=s["kind"] + "_solid")
+            emit(s, "tap", "geometry", tap_value=int(t), tap_shape=s["kind"] + "_solid", ports=None, ports_confirmed=False)
         elif s["kind"] in ("triangle", "quad") and s["wh"][0] < 6:
             emit(s, "leg_arrow", "geometry")
-        elif s["kind"] == "circle":
-            emit(s, "filled_dot", "geometry")
-    # 6. amplifier triangles (outline), medium size
+        elif s["kind"] == "circle" and 1.0 <= s["wh"][0] <= 7:
+            emit(s, "splitter_2way", KEY_BASIS, confidence="normal" if s["wh"][0] >= 1.8 else "low (tiny dot, may be a vertex marker)")
+    # 6. outline triangles: amplifier if small black triangles sit inside it, else line extender (user-confirmed key)
+    legs_all = [o for o in out if o["class"] == "leg_arrow"]
     for s in S:
-        if id(s) in used or s["fill"]: continue
+        if id(s) in used or s["fill"]:
+            continue
         if s["kind"] == "triangle" and 2 < s["wh"][0] < 16:
-            emit(s, "amplifier_triangle", "standard(amplifier symbol is a triangle) + geometry")
+            n_in = sum(1 for l in legs_all if math.dist((l["cx"], l["cy"]), s["c"]) < 6)
+            emit(s, "amplifier" if n_in else "line_extender", KEY_BASIS + " (inner black triangles)", inner_black_triangles=n_in)
     ded, keep = [], []
     for o in out:
         if o["class"] == "tap" and any(k["class"] == "tap" and k["tap_value"] == o["tap_value"] and math.hypot(k["cx"] - o["cx"], k["cy"] - o["cy"]) < 1.5 for k in keep):

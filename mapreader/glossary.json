@@ -80,5 +80,20 @@
       "url": "https://communicationsengineering.files.wordpress.com/2007/07/osp-symbols-for-hfc-hyberid-fiber-coax.pdf",
       "note": "SCTE graphic symbols (15 pages) is image-only, text not extractable; ANSI/SCTE 87 full standard is behind SCTE login."
     }
-  ]
+  ],
+  "confirmed_map_key": {
+    "verified": true,
+    "source": "user-confirmed MAP-KEY.pdf / handoff",
+    "notes": "numbers inside taps and couplers are dB values, not port counts",
+    "numbered_circle": "2-port tap",
+    "numbered_square": "4-port tap",
+    "numbered_octagon": "8-port tap",
+    "large_triangle_with_small_black_triangles": "amplifier",
+    "small_empty_triangle": "line extender",
+    "solid_black_circle": "2-way splitter",
+    "half_black_half_white_circle": "directional coupler (number = coupling dB; black half = tap leg, white half = through leg)",
+    "node_legs": "A upper-left, B upper-right, C lower-left, D lower-right (aliases only; hardware ports unconfirmed)",
+    "station_ids": "A# station (A2 = node in coax map), E# endpoint; not tap values or cable types",
+    "cable": "printed .412 treated as MC2 .500 (user assumption); walkout used for cable types/footage only"
+  }
 }
