@@ -1,3 +1,4 @@
+import {portInfo} from './ports.mjs';
 import { EQUIPMENT } from './catalog.mjs';
 
 // Edges name the physical output port at their upstream node.
@@ -20,8 +21,9 @@ export function validateGraph(job) {
     }
     if (!edge.port) issues.push(`Edge ${edge.id} has no physical port`);
     else {
-      const ports = EQUIPMENT[byId.get(edge.from)?.modelId]?.ports;
-      if (ports && !ports.includes(edge.port)) issues.push(`Edge ${edge.id} uses unsupported physical port ${edge.port}`);
+      const source=byId.get(edge.from),info=portInfo(source);
+      if(EQUIPMENT[source?.modelId]&&!info.known.includes(edge.port))issues.push(`Edge ${edge.id} uses unsupported physical port ${edge.port}`);
+      else if(info.unverified.includes(edge.port))issues.push(`Physical port ${edge.port} requires installed-hardware verification on ${edge.from}.`);
     }
     outgoing.get(edge.from).push(edge);
     feeds.set(edge.to, (feeds.get(edge.to) ?? 0) + 1);
@@ -53,6 +55,7 @@ export function validateGraph(job) {
 export function traceRoute(job, { startId, port, mode = 'all', destinations = [] } = {}) {
   const ids = new Set((job?.nodes ?? []).map(node => node.id));
   if (!ids.has(startId)) return { nodeIds: [], edgeIds: [], issues: [`Unknown start node ${startId ?? ''}`] };
+  if(portInfo(job.nodes.find(n=>n.id===startId)).unverified.includes(port))return {nodeIds:[startId],edgeIds:[],issues:[`Physical port ${port} requires installed-hardware verification.`]};
   if (!port) return { nodeIds: [startId], edgeIds: [], issues: ['Select a physical start port'] };
   if (!['all', 'destinations'].includes(mode)) throw new Error(`Unknown trace mode ${mode}`);
   const outgoing = new Map([...ids].map(id => [id, []]));

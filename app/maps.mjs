@@ -1,5 +1,6 @@
 import { recognizePdfPages } from './map-ocr.mjs';
 import { EQUIPMENT, CABLES } from './catalog.mjs';
+import { recognizeSymbol, cablePathCandidates, contactDistance } from './map-geometry.mjs';
 /**
  * Immutable PDF adapter. PDF.js/PDFLib are supplied by the offline app shell.
  * Parsed pages use displayed (rotation/crop/UserUnit applied), top-left fractions:
@@ -7,6 +8,8 @@ import { EQUIPMENT, CABLES } from './catalog.mjs';
  *  text:[{str,x,y,width,height,baseline:[x,y],source:'native'}],
  *  vectors:[{id,points:[[x,y]],closed,curved,stroke,fill,lineWidth,bounds}],
  *  annotations:[{id,subtype,contents,rect:[x,y,w,h]}],scheduleRegions:[],symbols:[]}.
+ * A/E identity label bounds, equipment bounds and cable attachment points are
+ * distinct and remain unconfirmed until reviewed.
  * The native linework is evidence, not a confirmed physical network. Crossings
  * never become junctions, and imported edges never acquire physical port bindings.
  */
@@ -37,7 +40,7 @@ function reader() {
 }
 async function open(bytes) {
   const pdf=await reader().getDocument({data:bytesOf(bytes),verbosity:0,isEvalSupported:false,useSystemFonts:true}).promise;
-  if(pdf.numPages>20){await pdf.destroy();throw new Error('PDF exceeds the local limit of 20 pages.');}
+  if(pdf.numPages>200){await pdf.destroy();throw new Error('PDF exceeds the local limit of 200 pages, including station reports.');}
   return pdf;
 }
 function sectionType(s) {
@@ -240,10 +243,9 @@ function attachSymbols(pages,nodes,regions,issues) {
   const byTag=new Map(nodes.map(n=>[n.tag,n]));
   for(const page of pages){
     page.symbols=[];
-    // Highlighted A# identities may live entirely in PDF FreeText annotations.
-    // They establish provisional local label geometry, never equipment identity
-    // or a confirmed station. Notes and other annotation text stay untouched.
-    const annotationTags=(page.annotations||[]).filter(a=>a.subtype==='FreeText'&&tagOf(a.contents)?.startsWith('A')&&Array.isArray(a.rect)&&a.rect.length===4&&a.rect.every(finite)&&a.rect[2]>0&&a.rect[3]>0)
+    // Highlighted map identities may live entirely in PDF FreeText annotations.
+    // Missing schedule rows remain visible as provisional review identities.
+    const annotationTags=(page.annotations||[]).filter(a=>a.subtype==='FreeText'&&tagOf(a.contents)&&Array.isArray(a.rect)&&a.rect.length===4&&a.rect.every(finite)&&a.rect[2]>0&&a.rect[3]>0)
       .filter(a=>!page.text.some(t=>tagOf(t.str)===tagOf(a.contents)&&center(t)[0]>=a.rect[0]&&center(t)[0]<=a.rect[0]+a.rect[2]&&center(t)[1]>=a.rect[1]&&center(t)[1]<=a.rect[1]+a.rect[3]))
       .map(a=>({str:a.contents,x:a.rect[0],y:a.rect[1],width:a.rect[2],height:a.rect[3],source:'annotation',annotationId:a.id}));
     for(const t of [...page.text,...annotationTags]){
@@ -252,14 +254,22 @@ function attachSymbols(pages,nodes,regions,issues) {
       const tag=tagOf(t.str)||(part?`P${page.pageNumber}-${page.symbols.length+1}`:null);if(!tag)continue;
       let node=byTag.get(tag);
       if(part){node={id:nodeId(tag),tag,name:clean(t.str),kind:'passive',modelId:'',settings:{},evidence:{type:'native-part-label',text:clean(t.str),candidateModelIds:part}};nodes.push(node);}
-      if(!node){node={id:nodeId(tag),tag,name:tag,kind:tag[0]==='A'?'active':'eol',modelId:'',settings:{}};nodes.push(node);byTag.set(tag,node);issues.push(`${tag}: map label has no matching schedule row; confirm its identity.`);}
-      const c=center(t),fontHeight=Math.max(t.height*page.height,t.width*page.width/Math.max(t.str.length,1)),radius=Math.max(fontHeight*5,.5);
-      const candidates=page.vectors.filter(v=>v.closed&&v.bounds.width*page.width<=radius*2&&v.bounds.height*page.height<=radius*2).map(v=>({v,d:Math.hypot((v.bounds.x+v.bounds.width/2-c[0])*page.width,(v.bounds.y+v.bounds.height/2-c[1])*page.height)})).filter(v=>v.d<radius).sort((a,b)=>a.d-b.d);
-      const symbol={id:`p${page.pageNumber}-${tag}`,tag,nodeId:node.id,page:page.pageNumber,x:c[0],y:c[1],labelBounds:{x:t.x,y:t.y,width:t.width,height:t.height},vectorIds:candidates.slice(0,5).map(c=>c.v.id),source:t.source||'native',confidence:t.confidence??null,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
+      if(!node){node={id:nodeId(tag),tag,name:tag,kind:tag[0]==='A'?'active':'eol',modelId:'',settings:{},evidence:{type:'unmatched-map-label',scheduleMatched:false}};nodes.push(node);byTag.set(tag,node);issues.push(`${tag}: map label has no matching schedule row; confirm its identity.`);}
+      const labelBounds={x:t.x,y:t.y,width:t.width,height:t.height};
+      const geometry=recognizeSymbol(page,labelBounds,{kind:node.kind});
+      if(geometry.symbolKind==='unknown')issues.push(`${tag}: equipment shape unresolved; confirm the actual symbol rather than its label position.`);
+      const b=geometry.symbolBounds,c=b?center(b):center(t);
+      const symbol={id:`p${page.pageNumber}-${tag}`,tag,nodeId:node.id,page:page.pageNumber,x:c[0],y:c[1],labelBounds,
+        symbolBounds:b,outlinePoints:geometry.outlinePoints,symbolKind:geometry.symbolKind,geometryConfidence:geometry.confidence,attachmentPoints:[],
+        vectorIds:geometry.vectorIds,source:t.source||'native',scheduleMatched:!!node.schedule,confidence:t.confidence??null,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
       page.symbols.push(symbol);
       if(node.map){issues.push(`${tag}: multiple native map labels; confirm the symbol on page ${page.pageNumber}.`);node.map.ambiguous=true;}
-      else node.map={page:page.pageNumber,x:c[0],y:c[1],symbolId:symbol.id,source:symbol.source,confidence:symbol.confidence,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
+      else node.map={page:page.pageNumber,x:c[0],y:c[1],symbolId:symbol.id,labelBounds,symbolBounds:b,
+        symbolKind:symbol.symbolKind,geometryConfidence:symbol.geometryConfidence,attachmentPoints:[],
+        source:symbol.source,scheduleMatched:symbol.scheduleMatched,confidence:symbol.confidence,confirmed:false,...(t.annotationId?{annotationId:t.annotationId}:{})};
     }
+    const unresolved=page.symbols.filter(s=>s.tag.startsWith('A')&&s.symbolKind==='unknown'&&s.source==='annotation').length;
+    if(unresolved)issues.push(`Page ${page.pageNumber}: ${unresolved} active annotation placements have no compatible equipment contour; review their symbol bounds and cable contacts.`);
     page.scheduleRegions=regions.filter(r=>r.page===page.pageNumber);
   }
   for(const n of nodes)if(!n.map)issues.push(`${n.tag}: schedule identity has no native map symbol; place it manually.`);
@@ -268,31 +278,40 @@ function proposeEdges(pages,nodes,issues) {
   const edges=[];
   for(const page of pages){
     if(page.symbols.length<2)continue;
-    const heights=page.symbols.map(s=>s.labelBounds.height*page.height).sort((a,b)=>a-b),font=heights[Math.floor(heights.length/2)]||2;
-    const tolerance=Math.max(.02,font*.15),cellSize=tolerance*2,vertices=[],grid=new Map(),segments=[];
+    const paths=cablePathCandidates(page),tolerance=.55,cellSize=tolerance*2,vertices=[],grid=new Map(),segments=[];
     const px=p=>[p[0]*page.width,p[1]*page.height];
     function vertex(p){
       const gx=Math.floor(p[0]/cellSize),gy=Math.floor(p[1]/cellSize);
       for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)for(const id of grid.get(`${gx+dx},${gy+dy}`)||[])if(distance(vertices[id].p,p)<=tolerance)return id;
       const id=vertices.length;vertices.push({p,links:[],nodes:[]});const key=`${gx},${gy}`;if(!grid.has(key))grid.set(key,[]);grid.get(key).push(id);return id;
     }
-    for(const path of page.vectors){
-      if(!path.stroke||path.closed||path.fill||path.lineWidth>font*2.5)continue;
+    for(const path of paths){
+      const a=vertex(px(path.points[0])),b=vertex(px(path.points.at(-1)));
+      const length=path.points.reduce((sum,p,i)=>i?sum+distance(px(path.points[i-1]),px(p)):0,0);
+      if(a!==b){vertices[a].links.push({to:b,pathId:path.id,length});vertices[b].links.push({to:a,pathId:path.id,length});}
       for(let k=1;k<path.points.length;k++){
-        const p=px(path.points[k-1]),q=px(path.points[k]),len=distance(p,q);
-        if(len<tolerance||len>Math.max(page.width,page.height)*.85)continue;
-        const a=vertex(p),b=vertex(q),segment={a,b,pathId:path.id,length:len,curved:path.curved};
-        segments.push(segment);vertices[a].links.push({to:b,segment});vertices[b].links.push({to:a,segment});
+        const p=px(path.points[k-1]),q=px(path.points[k]);
+        if(distance(p,q)>.001)segments.push({a:p,b:q,pathId:path.id,curved:path.curved});
       }
     }
-    const bindings=[];
+    const bindings=[],claimed=new Map();
     for(const symbol of page.symbols){
-      const p=px([symbol.x,symbol.y]),radius=Math.max(font*4,1);
-      const nearby=vertices.map((v,id)=>({id,d:distance(v.p,p)})).filter(v=>v.d<=radius).sort((a,b)=>a.d-b.d);
-      if(!nearby.length)continue;
-      const closest=nearby[0];vertices[closest.id].nodes.push(symbol.nodeId);bindings.push({symbol,vertex:closest.id});
-      symbol.lineworkBinding={vertex:closest.id,distance:closest.d,candidates:nearby.slice(0,4).map(v=>v.id),confirmed:false};
+      if(symbol.tag.startsWith('A')&&symbol.symbolKind==='unknown'&&symbol.source==='annotation')continue;
+      const labelHeight=symbol.labelBounds.height*page.height;
+      const radius=symbol.symbolBounds?.width?Math.max(.85,Math.min(1.5,labelHeight*.6)):Math.max(8,labelHeight*3);
+      const nearby=vertices.map((v,id)=>({id,d:contactDistance([v.p[0]/page.width,v.p[1]/page.height],symbol,page)}))
+        .filter(v=>v.d<=radius).sort((a,b)=>a.d-b.d).slice(0,12);
+      for(const hit of nearby){const old=claimed.get(hit.id);if(!old||hit.d<old.d)claimed.set(hit.id,{symbol,d:hit.d});}
     }
+    for(const [id,{symbol,d}] of claimed){
+      vertices[id].nodes.push(symbol.nodeId);
+      bindings.push({symbol,vertex:id});
+      const point={x:vertices[id].p[0]/page.width,y:vertices[id].p[1]/page.height};
+      symbol.attachmentPoints.push(point);
+      symbol.lineworkBinding??={vertex:id,distance:d,candidates:[],confirmed:false};
+      symbol.lineworkBinding.candidates.push(id);
+    }
+    for(const symbol of page.symbols){const node=nodes.find(n=>n.id===symbol.nodeId);if(node?.map?.symbolId===symbol.id)node.map.attachmentPoints=symbol.attachmentPoints;}
     const pairs=new Set();
     for(const binding of bindings){
       const queue=[{v:binding.vertex,path:[],length:0}],visited=new Set([binding.vertex]);let qi=0;
@@ -309,22 +328,23 @@ function proposeEdges(pages,nodes,issues) {
           }
           continue;
         }
-        for(const link of v.links)if(!visited.has(link.to)){visited.add(link.to);queue.push({v:link.to,path:[...item.path,link.segment.pathId],length:item.length+link.segment.length});}
+        for(const link of v.links)if(!visited.has(link.to)){visited.add(link.to);queue.push({v:link.to,path:[...item.path,link.pathId],length:item.length+link.length});}
       }
     }
     // Proper interior crossings are recorded without connecting their segments.
     // Spatial bins keep the native CAD page check bounded on mobile hardware.
     const bins=new Map(),checked=new Set(),crossings=[];const size=Math.max(page.width,page.height)/70;let checks=0;
     for(let i=0;i<segments.length;i++){
-      const s=segments[i],a=vertices[s.a].p,b=vertices[s.b].p;
+      const s=segments[i],a=s.a,b=s.b;
       const x0=Math.floor(Math.min(a[0],b[0])/size),x1=Math.floor(Math.max(a[0],b[0])/size),y0=Math.floor(Math.min(a[1],b[1])/size),y1=Math.floor(Math.max(a[1],b[1])/size);
       if((x1-x0+1)*(y1-y0+1)>500)continue;
       for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++){
         const key=`${x},${y}`,prior=bins.get(key)||[];
         if(checks<200000&&crossings.length<100)for(const j of prior){
           const pair=`${j}:${i}`;if(checked.has(pair))continue;checked.add(pair);checks++;
-          const t=segments[j];if(s.pathId===t.pathId||s.a===t.a||s.a===t.b||s.b===t.a||s.b===t.b||s.curved||t.curved)continue;
-          const c=vertices[t.a].p,d=vertices[t.b].p,ab=[b[0]-a[0],b[1]-a[1]],cd=[d[0]-c[0],d[1]-c[1]],den=ab[0]*cd[1]-ab[1]*cd[0];if(Math.abs(den)<1e-8)continue;
+          const t=segments[j];if(s.pathId===t.pathId||s.curved||t.curved)continue;
+          const c=t.a,d=t.b;if([a,b].some(p=>[c,d].some(q=>distance(p,q)<tolerance)))continue;
+          const ab=[b[0]-a[0],b[1]-a[1]],cd=[d[0]-c[0],d[1]-c[1]],den=ab[0]*cd[1]-ab[1]*cd[0];if(Math.abs(den)<1e-8)continue;
           const ac=[c[0]-a[0],c[1]-a[1]],u=(ac[0]*cd[1]-ac[1]*cd[0])/den,v=(ac[0]*ab[1]-ac[1]*ab[0])/den;
           if(u>.001&&u<.999&&v>.001&&v<.999)crossings.push({x:(a[0]+u*ab[0])/page.width,y:(a[1]+u*ab[1])/page.height,vectorIds:[s.pathId,t.pathId],confirmed:false});
         }
@@ -394,6 +414,23 @@ export async function renderPage(bytes,pageNumber,canvas,{hideAnnotations=false}
     return {pageNumber,width:base.width,height:base.height,rotation:page.rotate,userUnit:page.userUnit||1,scale,textBounds,textAvailable:textBounds.length>0&&annotationBoundsComplete,annotationLabels};
   }finally{await pdf.destroy();}
 }
+/** Render only the visible PDF region. No names or cropped coordinates enter scan transport. */
+export async function renderMapViewport(bytes,pageNumber,canvas,{view,signal}={}) {
+  const aborted=()=>{if(signal?.aborted)throw new DOMException('Map render cancelled.','AbortError');};aborted();
+  if(!view||!['x','y','scale','mapWidth','mapHeight','width','height'].every(k=>Number.isFinite(view[k]))||view.scale<=0||view.mapWidth<=0||view.mapHeight<=0||view.width<=0||view.height<=0)throw new TypeError('Invalid map viewport.');
+  const pdf=await open(bytes);let task;const cancel=()=>task?.cancel();
+  try {
+    aborted();if(!Number.isInteger(pageNumber)||pageNumber<1||pageNumber>pdf.numPages)throw new RangeError('PDF page is out of range.');
+    const page=await pdf.getPage(pageNumber),base=page.getViewport({scale:1});aborted();
+    const deviceScale=Math.min(globalThis.devicePixelRatio||1,2,Math.sqrt(4000000/(view.width*view.height)));
+    canvas.width=Math.max(1,Math.round(view.width*deviceScale));canvas.height=Math.max(1,Math.round(view.height*deviceScale));
+    const viewport=page.getViewport({scale:view.mapWidth/base.width*view.scale});
+    signal?.addEventListener('abort',cancel,{once:true});aborted();
+    task=page.render({canvasContext:canvas.getContext('2d'),viewport,transform:[deviceScale,0,0,deviceScale,view.x*deviceScale,view.y*deviceScale],background:'rgb(255,255,255)'});
+    try {await task.promise;}catch(error){aborted();throw error;}aborted();
+    return {width:view.width,height:view.height,deviceScale};
+  }finally{signal?.removeEventListener('abort',cancel);await pdf.destroy();}
+}
 // Tombstones are compact summaries, not serialized solver results. Bound text
 // before measuring it; the full evidence remains in the station and job views.
 const printable=s=>String(s??'').replace(/[\u2010-\u2015]/g,'-').replace(/[^\x20-\x7e]/g,'?');
@@ -432,6 +469,22 @@ function tombstoneLines(node,evaluation) {
   const issues=station?.issues||[];
   for(const issue of issues.slice(0,2))lines.push(`Check: ${brief(typeof issue==='string'?issue:'Additional station issue; see station details.',96)}`);
   if(issues.length>2)lines.push(`${issues.length-2} more checks; see station details.`);
+  return lines;
+}
+function endpointLevels(samples) {
+  const values=(Array.isArray(samples)?samples:[]).filter(p=>Array.isArray(p)&&finite(p[0])).slice().sort((a,b)=>a[0]-b[0]);
+  if(!values.length)return 'unknown';
+  const value=p=>`${level(p[0])} MHz: ${level(p[1])}`;
+  return value(values[0])+(values.length>1?` | ${value(values.at(-1))}`:'');
+}
+/** On-map summaries retain all physical legs; complete alignment evidence goes in reports. */
+export function compactTombstoneLines(node,evaluation) {
+  const station=evaluation?.stations?.[node.id],model=EQUIPMENT[node.modelId];
+  const lines=[`Carpe Noctum | ${brief(node.tag||node.name||node.id,64)}`,brief(node.modelId||'equipment unselected',80),`Input dBmV: ${endpointLevels(station?.input)}`];
+  const outputs=Object.keys(station?.outputs||{}),ports=outputs.length?outputs:model?.ports||[];
+  for(const port of ports)lines.push(`${brief(port,12)} output dBmV: ${endpointLevels(station?.outputs?.[port])}`);
+  if(!ports.length)lines.push('Outputs: unknown');
+  lines.push(`Status: ${brief(station?.gainStatus||'unknown',32)}${finite(station?.shortfall)?`; shortfall ${level(station.shortfall)} dB`:''}`,'Full details: linked station report');
   return lines;
 }
 function wrapLines(lines,font,size,maxWidth) {
@@ -483,12 +536,11 @@ export function layoutTombstones(job,evaluation,{pageFrames}={}) {
     const frame=pages.find(p=>p.pageNumber===pageNumber)||pages[pageNumber-1];
     if(!frame||!finite(frame.width)||!finite(frame.height)||frame.width<=0||frame.height<=0)throw new Error(`Invalid PDF placement page for ${node.tag||node.id}.`);
     const symbol=job.map?.pages?.find(p=>p.pageNumber===pageNumber)?.symbols?.find(s=>s.id===anchor.symbolId);
-    const labelHeight=(anchor.labelBounds||symbol?.labelBounds)?.height*frame.height;
-    let fontSize=finite(labelHeight)?clamp(labelHeight*.85,.7,8):5.5;
-    const padding=Math.max(.7,fontSize*.7),defaultWidth=finite(labelHeight)?Math.max(24,labelHeight*42):240;
-    const width=finite(placement.width)?clamp(placement.width,.05,1)*frame.width:Math.min(defaultWidth,frame.width*.32);
-    let lines=wrapLines(tombstoneLines(node,evaluation),font,fontSize,width-padding*2),height=lines.length*(fontSize*1.25)+padding*2;
-    if(height>frame.height*.95){fontSize*=frame.height*.95/height;lines=wrapLines(tombstoneLines(node,evaluation),font,fontSize,width-padding*2);height=lines.length*fontSize*1.25+padding*2;}
+    const fontSize=8,padding=5;
+    const minimumWidth=Math.min(180,frame.width),defaultWidth=Math.min(240,frame.width);
+    const width=finite(placement.width)?clamp(placement.width*frame.width,minimumWidth,frame.width):defaultWidth;
+    const lines=wrapLines(compactTombstoneLines(node,evaluation),font,fontSize,width-padding*2),height=lines.length*(fontSize*1.25)+padding*2;
+    if(height>frame.height)throw new Error(`Page is too small for a readable tombstone for ${node.tag||node.id}. Use a larger map page.`);
     let x=clamp(finite(placement.x)?placement.x:0)*frame.width,y=clamp(finite(placement.y)?placement.y:0)*frame.height;
     if(!saved)x+=Math.max(fontSize,frame.width*.002);
     x=clamp(x,0,Math.max(0,frame.width-width));y=clamp(y,0,Math.max(0,frame.height-height));
@@ -566,9 +618,50 @@ export async function prepareMapPreview(bytes,job,evaluation){
   const {source,doc,removed}=await originalMapCopy(bytes,job,evaluation);
   return removed?doc.save({useObjectStreams:true}):source;
 }
+function internalLink(doc,page,rect,destination,lib) {
+  const link=doc.context.obj({Type:'Annot',Subtype:'Link',Rect:rect,Border:[0,0,0],Dest:destination});
+  page.node.addAnnot(doc.context.register(link));
+}
+function pdfRectangle(frame,box) {
+  const {x,y,width,height}=box,a=frame.inv;
+  const top=frame.height-y*frame.height,bottom=top-height*frame.height,left=x*frame.width,right=left+width*frame.width;
+  const points=[[left,bottom],[left,top],[right,bottom],[right,top]].map(([px,py])=>[a[0]*px+a[2]*py+a[4],a[1]*px+a[3]*py+a[5]]);
+  return [Math.min(...points.map(p=>p[0])),Math.min(...points.map(p=>p[1])),Math.max(...points.map(p=>p[0])),Math.max(...points.map(p=>p[1]))];
+}
+function stationReportLines(node,evaluation) {
+  const station=evaluation?.stations?.[node.id],lines=tombstoneLines(node,evaluation).slice(1);
+  lines.push('Installed settings (operator supplied):');
+  for(const key of ['mode','director','directorReversed','inputPadDb','eqPartId','eqFamily','pilotMHz','availableGainDb','componentCompatibilityConfirmed']) {
+    const value=node.settings?.[key];if(value!==undefined&&value!==null)lines.push(`${key}: ${brief(String(value),120)}`);
+  }
+  if(!node.settings||!Object.keys(node.settings).length)lines.push('Installed settings unknown.');
+  for(const [port,reading] of Object.entries(node.readings||{}))for(const stage of ['before','after'])if(reading?.[stage]?.samples)lines.push(`Measured ${brief(port,12)} ${stage}: ${sampleLines(reading[stage].samples)}`);
+  for(const [port,samples] of Object.entries(station?.targets||{}))lines.push(`${brief(port,12)} target dBmV: ${sampleLines(samples)}`);
+  const issues=station?.issues||[];if(issues.length)lines.push('Checks and limitations:',...issues.slice(0,200).map(issue=>brief(typeof issue==='string'?issue:'Review station details.',240)));
+  if(issues.length>200)lines.push(`${issues.length-200} additional checks remain in the app.`);
+  lines.push('Unknown values require equipment, physical route or measured sweep confirmation.');
+  return lines;
+}
+function appendStationReports(doc,job,evaluation,layout,frames,font,lib) {
+  const reports=new Map();
+  const newPage=()=>{if(doc.getPageCount()>=200)throw new Error('Export exceeds the 200-page local PDF limit, including station reports. Split the job into smaller map files.');return doc.addPage([612,792]);};
+  for(const box of layout) {
+    const node=job.nodes.find(n=>n.id===box.nodeId),sourcePage=doc.getPage(box.page-1),frame=frames[box.page-1];
+    const returnRect=pdfRectangle(frame,box),returnDestination=[sourcePage.ref,lib.PDFName.of('FitR'),...returnRect];
+    let report=newPage(),y=720;reports.set(node.id,report);
+    const header=()=>{report.drawText(brief(`Station report | ${node.tag||node.name||node.id}`,96),{x:36,y:754,size:14,font});report.drawText(`Back to map page ${box.page}`,{x:36,y:735,size:9,font,color:lib.rgb(.1,.3,.6)});internalLink(doc,report,[34,731,220,747],returnDestination,lib);y=712;};
+    header();
+    for(const raw of stationReportLines(node,evaluation))for(const line of wrapLines([raw],font,9,540)) {
+      if(y<40){report=newPage();header();}
+      report.drawText(line,{x:36,y,size:9,font});y-=13;
+    }
+  }
+  return reports;
+}
 /** Reloading a verified original on every export prevents duplicate marks. */
 export async function exportMap(bytes,job,evaluation) {
   const {lib,doc,frames,layout}=await originalMapCopy(bytes,job,evaluation),font=await doc.embedFont(lib.StandardFonts.Helvetica);
+  const reports=appendStationReports(doc,job,evaluation,layout,frames,font,lib);
   for(const box of layout){
     const page=doc.getPage(box.page-1),frame=frames[box.page-1],node=job.nodes.find(n=>n.id===box.nodeId),anchor=node.map;
     const {fontSize,padding,lines}=box,x=box.x*frame.width,y=box.y*frame.height,width=box.width*frame.width,height=box.height*frame.height;
@@ -579,6 +672,7 @@ export async function exportMap(bytes,job,evaluation) {
     const ax=anchor.x*frame.width,ay=(1-anchor.y)*frame.height,bx=clamp(ax,x,x+width),by=clamp(ay,bottom,bottom+height);
     if(Math.hypot(ax-bx,ay-by)>fontSize)page.drawLine({start:{x:ax,y:ay},end:{x:bx,y:by},thickness:Math.max(.1,fontSize*.07),color:lib.rgb(.1,.23,.33)});
     page.pushOperators(lib.popGraphicsState());
+    internalLink(doc,page,pdfRectangle(frame,box),[reports.get(node.id).ref,lib.PDFName.of('Fit')],lib);
   }
   return doc.save({useObjectStreams:true});
 }

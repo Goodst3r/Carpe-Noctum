@@ -66,7 +66,7 @@ test('tombstones remove only their confirmed active annotation in preview and ex
  assert.deepEqual(Array.from(canvas.getContext('2d').getImageData(100,100,1,1).data),[0,0,0,255]);
  const exported=await exportMap(bytes,job,{}),read=await pdfjsLib.getDocument({data:new Uint8Array(exported),verbosity:0,useSystemFonts:true}).promise;
  const resultPage=await read.getPage(1),annotations=await resultPage.getAnnotations();
- assert.deepEqual(annotations.map(a=>a.contentsObj.str).sort(),['A1','A2','Local note']);
+ assert.deepEqual(annotations.filter(a=>a.subtype==='FreeText').map(a=>a.contentsObj.str).sort(),['A1','A2','Local note']);
  assert.match((await resultPage.getTextContent()).items.map(t=>t.str).join('').replace(/\s+/g,''),/CarpeNoctum\|A1/);
  await read.destroy();assert.equal(sha(bytes),before);
  const unconfirmed={...job,nodes:job.nodes.map(n=>({...n,map:{...n.map,confirmed:false}}))};

@@ -32,14 +32,14 @@ test('backup restore rejects sweeps whose node no longer exists', async () => {
 
 test('backup restore rejects sweeps on nonexistent physical model ports', async () => {
   const job = createJob('low');
-  job.portSweeps['node::5'] = { samples: [[57, 31]] };
+  job.portSweeps['node::9'] = { samples: [[57, 31]] };
   await assert.rejects(importBackup(JSON.stringify({ schema: 1, jobs: [job] })), /port/i);
 });
 
 test('backup restore rejects edges leaving nonexistent physical model ports', async () => {
   const job = createJob('low');
   job.nodes.push({ id: 'end', name: 'End', tag: 'EOL', kind: 'eol', modelId: 'eol', settings: {} });
-  job.edges.push({ id: 'wire', from: 'node', port: '5', to: 'end' });
+  job.edges.push({ id: 'wire', from: 'node', port: '9', to: 'end' });
   await assert.rejects(importBackup(JSON.stringify({ schema: 1, jobs: [job] })), /port/i);
 });
 

@@ -71,7 +71,7 @@ test('missing measured samples cannot become a zero level', () => {
 
 test('sweep replacement requires a physical port supported by its known model', () => {
   const job = { nodes: [{ id: 'node', modelId: 'gs7k' }], portSweeps: {} };
-  assert.throws(() => replaceSweep(job, 'node', '5', { samples: [[57, 31]] }), /port/i);
+  assert.throws(() => replaceSweep(job, 'node', '9', { samples: [[57, 31]] }), /port/i);
 });
 
 test('sweep replacement refuses prototype property names as physical ports', () => {

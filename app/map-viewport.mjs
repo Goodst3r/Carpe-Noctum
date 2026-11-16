@@ -1,6 +1,6 @@
 // Coordinates are in untransformed surface pixels; scale is relative to its layout size.
 const MIN_SCALE = 0.1;
-const MAX_SCALE = 8;
+const MAX_SCALE = 128;
 const clamp = (n, low, high) => Math.max(low, Math.min(high, n));
 
 export function zoomAt(state, scale, focal) {
@@ -16,10 +16,10 @@ export function fitBounds(view, map, points = [], padding = 24) {
   const left = Math.min(...xs) * map.width, right = Math.max(...xs) * map.width;
   const top = Math.min(...ys) * map.height, bottom = Math.max(...ys) * map.height;
   // A small route should remain useful, rather than zooming infinitely into one point.
-  const width = Math.max(right - left, map.width * 0.1, 1);
-  const height = Math.max(bottom - top, map.height * 0.1, 1);
+  const width = Math.max(right - left, 1);
+  const height = Math.max(bottom - top, 1);
   const scale = clamp(Math.min(Math.max(1, view.width - 2 * padding) / width,
-    Math.max(1, view.height - 2 * padding) / height), MIN_SCALE, valid.length ? 4 : MAX_SCALE);
+    Math.max(1, view.height - 2 * padding) / height), MIN_SCALE, MAX_SCALE);
   return {scale, x: view.width / 2 - (left + right) / 2 * scale,
     y: view.height / 2 - (top + bottom) / 2 * scale};
 }
@@ -32,6 +32,8 @@ export function normalizedPoint(point, state, map) {
 export function mountMapViewport(element, {onChange = () => {}, initialState, isEditing = () => false} = {}) {
   const surface = element.querySelector('.map-surface');
   if (!surface) throw new Error('Map viewport requires a .map-surface');
+  const annotations = element.querySelector('.map-annotation-layer');
+  const originalAnnotationsStyle = annotations?.getAttribute('style');
   const originalElementStyle = element.getAttribute('style');
   const originalSurfaceStyle = surface.getAttribute('style');
   element.style.overflow = 'hidden';
@@ -48,7 +50,9 @@ export function mountMapViewport(element, {onChange = () => {}, initialState, is
   const local = e => { const r = element.getBoundingClientRect(); return {x: e.clientX - r.left, y: e.clientY - r.top}; };
   function apply(next) {
     state = next;
+    element.style.setProperty('--map-scale',String(state.scale));
     surface.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+    if (annotations) { annotations.style.width = `${size().width}px`; annotations.style.height = `${size().height}px`; annotations.style.transform = surface.style.transform; }
     onChange({...state});
   }
   function fitMap() { apply(fitBounds(view(), size(), [], 0)); }
@@ -119,6 +123,7 @@ export function mountMapViewport(element, {onChange = () => {}, initialState, is
       element.removeEventListener('pointerdown', down); element.removeEventListener('pointermove', move);
       element.removeEventListener('pointerup', up); element.removeEventListener('pointercancel', up);
       element.removeEventListener('click', click, true); element.removeEventListener('wheel', wheel);
+      if (annotations) { if (originalAnnotationsStyle === null) annotations.removeAttribute('style'); else annotations.setAttribute('style', originalAnnotationsStyle); }
       if (originalElementStyle === null) element.removeAttribute('style'); else element.setAttribute('style', originalElementStyle);
       if (originalSurfaceStyle === null) surface.removeAttribute('style'); else surface.setAttribute('style', originalSurfaceStyle);
     }

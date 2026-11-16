@@ -64,7 +64,7 @@ test('PDF export verifies original hash, retains original contents and annotatio
   const job={schema:1,map:{sha256:r.sha256,pages:r.pages},nodes:[n],edges:[],placements:{amp:{page:3,x:.25,y:.2}}};
   const evaluation={frequencies:[57,753],stations:{amp:{input:[[57,10],[753,20]],outputs:{main:[[57,31],[753,43]],aux1:[[57,29],[753,41]],aux2:[[57,28],[753,40]]},targets:{main:[[57,31],[753,43]]},issues:[]}}};
   const out=await exportMap(bytes,job,evaluation),out2=await exportMap(bytes,job,evaluation),d=await PDFDocument.load(out);
-  assert.equal(d.getPageCount(),3);assert.equal(d.getPage(0).node.Annots().size(),1);assert.equal(d.getPage(2).getRotation().angle,90);assert.deepEqual(d.getPage(2).getCropBox(),{x:25,y:35,width:400,height:600});assert.equal(d.getPage(2).node.get(PDFName.of('UserUnit')).asNumber(),2);
+  assert.equal(d.getPageCount(),4);assert.equal(d.getPage(0).node.Annots().size(),1);assert.equal(d.getPage(2).getRotation().angle,90);assert.deepEqual(d.getPage(2).getCropBox(),{x:25,y:35,width:400,height:600});assert.equal(d.getPage(2).node.get(PDFName.of('UserUnit')).asNumber(),2);
   const parsed=await importMap(out),text=parsed.pages.map(p=>p.text.map(t=>t.str).join(' '));
   assert.match(text[0],/Original flattened field note/);assert.equal(text.filter(t=>t.includes('Carpe Noctum | A1')).length,1);
   assert.match(text[2],/main/);assert.match(text[2],/aux1/);assert.match(text[2],/aux2/);
@@ -142,7 +142,7 @@ test('98-point HGD export keeps one compact grouped tombstone on its confirmed s
   assert.equal(titles.length,1);assert.equal(titles[0].page,1);
   assert.ok(Math.abs(titles[0].x-layout.x-layout.padding/r.pages[0].width)<.0001);
   const text=result.pages[0].text.map(t=>t.str).join(' ');
-  assert.match(text,/main.*aux1.*aux2/);assert.match(text,/Input pad/);assert.match(text,/98 pts/);
+  assert.match(text,/main.*aux1.*aux2/);assert.doesNotMatch(text,/Input pad/);const details=result.pages.slice(3).flatMap(p=>p.text.map(t=>t.str)).join(' ');assert.match(details,/Input pad/);assert.match(details,/98 pts/);
   assert.doesNotMatch(text,/\{"|"sources"|"residuals"/);
   assert.ok(layout.lines.length<=32);assert.equal(JSON.stringify(job),before);assert.equal(sha(bytes),r.sha256);
 });
@@ -158,8 +158,8 @@ test('cancelling active local OCR releases the real worker and aborts the curren
 
 test('oversized sources and excessive page counts are rejected before analysis',async()=>{
   await assert.rejects(()=>importMap(new Uint8Array(20*1024*1024+1)),/20 MiB/);
-  const d=await PDFDocument.create();for(let i=0;i<21;i++)d.addPage([100,100]);
-  const bytes=await d.save();await assert.rejects(()=>importMap(bytes),/20 pages/);
+  const d=await PDFDocument.create();for(let i=0;i<201;i++)d.addPage([100,100]);
+  const bytes=await d.save();await assert.rejects(()=>importMap(bytes),/200 pages/);
 });
 
 test('explicit nearby cable labels and exact native passive parts remain evidence until confirmed',async()=>{

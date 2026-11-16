@@ -56,8 +56,8 @@ test('pointer pinch can transition to one finger without a jump and suppresses d
   view.dispatchEvent(new dom.window.MouseEvent('click', {bubbles: true, cancelable: true}));
   assert.equal(clicks, 0);
   assert.equal(viewport.setState({x: NaN, y: 0, scale: 1}), false);
-  assert.equal(viewport.setState({x: 1, y: 2, scale: 100}), true);
-  assert.deepEqual(viewport.getState(), {x: 1, y: 2, scale: 8});
+  assert.equal(viewport.setState({x: 1, y: 2, scale: 1000}), true);
+  assert.deepEqual(viewport.getState(), {x: 1, y: 2, scale: 128});
   viewport.destroy();
 });
 
@@ -83,4 +83,14 @@ test('editing disables single finger pan but allows pinch', async () => {
   pointer('pointerdown', 2, 250); pointer('pointermove', 2, 350);
   assert.equal(viewport.getState().scale, 2);
   viewport.destroy();
+});
+
+test('annotation layer stays above detail raster and tracks viewport transform',async()=>{
+ const {JSDOM}=await import('jsdom'); const {mountMapViewport}=await import('../app/map-viewport.mjs');
+ const dom=new JSDOM('<div id="view"><div class="map-surface"></div><canvas id="map-detail-canvas"></canvas><div class="map-annotation-layer"><div class="map-overlay"></div></div></div>');
+ const view=dom.window.document.querySelector('#view'),surface=view.querySelector('.map-surface'),annotations=view.querySelector('.map-annotation-layer');
+ Object.defineProperties(view,{clientWidth:{value:300},clientHeight:{value:200}});Object.defineProperties(surface,{offsetWidth:{value:600},offsetHeight:{value:400}});
+ const viewport=mountMapViewport(view,{initialState:{x:10,y:-20,scale:2}});
+ assert.equal(annotations.style.transform,surface.style.transform);assert.equal(annotations.style.width,'600px');assert.equal(annotations.style.height,'400px');
+ viewport.zoomIn();assert.equal(annotations.style.transform,surface.style.transform);viewport.destroy();
 });

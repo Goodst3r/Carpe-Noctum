@@ -1,5 +1,6 @@
 import { unzipSync, strFromU8 } from 'fflate';
 import { EQUIPMENT } from './catalog.mjs';
+import {portInfo} from './ports.mjs';
 
 const MAX_INPUT_BYTES = 20 * 1024 * 1024;
 const MAX_JSON_BYTES = 10 * 1024 * 1024;
@@ -123,7 +124,8 @@ export function replaceSweep(job, nodeId, port, sweep) {
   if (!job || !Array.isArray(job.nodes) || !job.nodes.some(node => node.id === nodeId)) throw new Error(`Unknown node ${nodeId}`);
   if (typeof port !== 'string' || !/^[A-Za-z0-9_-]+$/.test(port) ||
       ['__proto__', 'constructor', 'prototype'].includes(port)) throw new Error('Invalid physical port');
-  const modelPorts = EQUIPMENT[job.nodes.find(node => node.id === nodeId)?.modelId]?.ports;
+  const destination=job.nodes.find(node=>node.id===nodeId);
+  const modelPorts=EQUIPMENT[destination?.modelId]?portInfo(destination).known:undefined;
   if (modelPorts && !modelPorts.includes(port)) throw new Error(`Unsupported physical port ${port} for node ${nodeId}`);
   validateSamples(sweep?.samples);
   const stage = sweep.stage;

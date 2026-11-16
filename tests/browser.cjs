@@ -182,11 +182,13 @@ async function main() {
     check('saved route and node measurement reopen from the job library', await page.locator('.edge-row').count() === 1 && await page.locator('#reading-stage option').count() >= 1);
 
     const map = await syntheticMapPdf();
-    dialogAnswers.push(false); // Decline unbound schedule candidates; bind the configured HGD to the visible A1 position explicitly.
+    // Import the map only, retaining this configured HGD for explicit physical placement.
     const mapStart=Date.now();
     const mapChooser = page.waitForEvent('filechooser');
     await page.locator('[data-action="map-import"]').first().click();
     await (await mapChooser).setFiles({ name: 'synthetic-practice.pdf', mimeType: 'application/pdf', buffer: map });
+    await page.waitForSelector('#map-review-title');
+    await page.locator('[data-action="review-map-only"]').click();
     await page.waitForFunction(() => document.body.innerText.includes('Map imported'));
     check('synthetic PDF map is read and imported after confirmation', await page.locator('.map-toolbar').count() === 1);
     await page.waitForFunction(() => document.querySelector('#map-canvas')?.width > 0);
@@ -218,7 +220,7 @@ async function main() {
     assert.ok(overlayBox, 'PDF page overlay must render before confirming HGD map position');
     await mapOverlay.click({position:{x:overlayBox.width*(170/612),y:overlayBox.height*a1Y}});
     await page.waitForFunction(() => document.body.innerText.includes('Station position assigned'));
-    check('HGD station position is confirmed on the same page as source map label A1', await page.locator('.marker.selected').count() === 1 && await page.locator('.tombstone.selected').count() === 1 && await page.locator('.map-toolbar').innerText().then(t => /Page 1 \/ 1/.test(t)));
+    check('HGD station position is confirmed on the same page as source map label A1', await page.locator('.screen-marker.selected').count() === 1 && await page.locator('.tombstone.selected').count() === 1 && await page.locator('.map-toolbar').innerText().then(t => /Page 1 \/ 1/.test(t)));
     // Bind the source too, then verify that two map taps open an editable draft and cancel leaves the route unchanged.
     await page.locator('.station-row').filter({hasText:'GS7K Node'}).click();
     await page.locator('[data-action="assign-map"]').click();
@@ -227,8 +229,11 @@ async function main() {
     await mapOverlay.click({position:{x:sourceOverlay.width*.1,y:sourceOverlay.height*a1Y}});
     const priorEdges=await page.locator('.edge-row').count();
     await page.locator('[data-action="map-connect"]').first().click();
-    await page.locator('.marker[title="GS7K Node"]').click();
-    await page.locator('.marker[title="Amplifier A"]').click();
+    for(const station of ['GS7K Node','Amplifier A']) {
+      const direct=page.locator('.screen-marker[aria-label="'+station+'"]');
+      if(await direct.count())await direct.click();
+      else {await page.locator('.screen-marker.cluster').first().click();await page.locator('.marker-chooser button').filter({hasText:station}).click();}
+    }
     check('two map endpoint taps open connection editor',await page.locator('#edge-form').isVisible());
     await page.locator('[data-action="cancel-edge"]').click();
     check('cancelling map connection leaves route unchanged',await page.locator('.edge-row').count()===priorEdges);
@@ -237,7 +242,7 @@ async function main() {
     const beforePosition = await tombstone.getAttribute('style');
     await page.locator('[data-action="place"]').click();
     await page.waitForFunction(()=>!!document.querySelector('#map-canvas')?.dataset.ready);
-    await page.locator('[data-action="fit-selected"]').click();
+    await page.locator('[data-action="fit-map"]').click();
     await mapScroll.scrollIntoViewIfNeeded();
     await page.evaluate(() => { window.__tombstonePointerLog=[]; for(const type of ['pointerdown','pointermove','pointerup']) document.addEventListener(type,e=>window.__tombstonePointerLog.push({type,target:e.target?.closest?.('[data-drag-marker]')?.dataset?.dragMarker||e.target?.className||e.target?.tagName,x:e.clientX,y:e.clientY}),true); });
     await page.locator('.map-scroll').evaluate((el,f)=>{el.scrollTop=Math.max(0,el.scrollHeight*f-el.clientHeight*.5);},a1Y);
@@ -280,8 +285,8 @@ async function main() {
       return {nativePages:native.getPageCount(),readerPages:pdf.numPages,pages};
     },exportedBytes.toString('base64'));
     const pdfText=pdfSummary.pages[0]?.text||'';
-    check('UMD PDF writer and reader parse the exported HGD map', pdfSummary.nativePages===1&&pdfSummary.readerPages===1, JSON.stringify({nativePages:pdfSummary.nativePages,readerPages:pdfSummary.readerPages}));
-    check('exported same-page PDF contains exactly one confirmed HGD tombstone', (pdfText.match(/Carpe Noctum \| A1/g)||[]).length===1&&/gm-hgd-42/.test(pdfText)&&/57 MHz: 31\.4/.test(pdfText)&&/753 MHz: 43\.3/.test(pdfText), pdfText);
+    check('UMD PDF writer and reader parse the exported HGD map', pdfSummary.nativePages>=2&&pdfSummary.readerPages===pdfSummary.nativePages, JSON.stringify({nativePages:pdfSummary.nativePages,readerPages:pdfSummary.readerPages}));
+    check('exported same-page PDF contains exactly one confirmed HGD tombstone', (pdfText.match(/Carpe Noctum \| A1/g)||[]).length===1&&/gm-hgd-42/.test(pdfText)&&/57 MHz: 31\.4/.test(pdfSummary.pages.map(p=>p.text).join(' '))&&/753 MHz: 43\.3/.test(pdfSummary.pages.map(p=>p.text).join(' ')), pdfText);
     const symbolItem=pdfSummary.pages[0]?.items.find(item=>item.text==='A1');
     const tombstoneItem=pdfSummary.pages[0]?.items.find(item=>item.text.includes('Carpe Noctum | A1'));
     check('exported HGD tombstone is displaced from its symbol after drag', !!symbolItem&&!!tombstoneItem&&Math.hypot(symbolItem.x-tombstoneItem.x,symbolItem.y-tombstoneItem.y)>40, JSON.stringify({symbolItem,tombstoneItem}));

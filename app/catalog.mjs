@@ -18,7 +18,7 @@ const saSurgeGap={
  'scientific-atlanta-surge-gap-1ghz--sa-surge-gap-712971':{band:[750,750],losses:{'each-output':saPoint(4.5,'6-1')}}
 };
 export const EQUIPMENT=freeze(Object.fromEntries([
- {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','3','4'],band:[5,1218],testPointLoss:20,testPointNote:'Operator-supplied HA0005 GS7K Port 4 offset: 20 dB. Verify other physical test points.'},
+ {id:'gs7k',label:'Cisco GS7000',kind:'node',ports:['1','2','4','5'],knownPhysicalPorts:['1','2','3','4','5','6'],optionalPhysicalPorts:['3','6'],band:[5,1218],testPointLoss:20,testPointNote:'Operator-supplied HA0005 GS7K Port 4 offset: 20 dB. Verify other physical test points.'},
  {id:'vecima',label:'Vecima EN9000',kind:'node',ports:['1','2','3','4'],band:[5,1794],testPointLoss:null,testPointNote:'No verified offset for this physical test point. Enter the equipment value.'},
  {id:'eol',label:'End of line',kind:'eol',ports:['main'],band:[5,1800]},
  {id:'cable-only',label:'Cable junction',kind:'passive',ports:['main'],band:[5,1800],losses:{main:{points:[[5,0],[1800,0]],basis:'Identity junction; no RF component'}}},

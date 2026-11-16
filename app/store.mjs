@@ -1,4 +1,5 @@
 import { EQUIPMENT } from './catalog.mjs';
+import {portInfo} from './ports.mjs';
 
 const JOBS_KEY = 'carpe-noctum:jobs:v1';
 const ORIGINAL_DB = 'carpe-noctum:originals:v1';
@@ -81,7 +82,7 @@ function validateJob(job) {
     }
     if (node.map != null) validatePosition(node.map, node.id);
     ids.add(node.id);
-    modelPorts.set(node.id, EQUIPMENT[node.modelId]?.ports);
+    modelPorts.set(node.id, EQUIPMENT[node.modelId]?portInfo(node).known:undefined);
     if (node.readings != null) {
       if (!record(node.readings)) throw new Error('Invalid node readings');
       for (const [port, reading] of Object.entries(node.readings)) {
