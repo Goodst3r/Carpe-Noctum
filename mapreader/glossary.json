@@ -1,28 +1,84 @@
 {
   "_note": "Meanings marked verified=false are INFERRED from the sample maps. Edit this file to correct them; the recognizer reads it at run time.",
   "tokens": {
-    "CSC": {"meaning": null, "verified": false},
-    "NT":  {"meaning": null, "verified": false},
-    "SA":  {"meaning": null, "verified": false},
-    "REG": {"meaning": null, "verified": false},
-    "CR":  {"meaning": null, "verified": false},
-    "ATX": {"meaning": null, "verified": false},
-    "CF":  {"meaning": null, "verified": false},
-    "MIL": {"meaning": null, "verified": false},
-    "R":   {"meaning": null, "verified": false},
-    "S":   {"meaning": null, "verified": false},
-    "VL":  {"meaning": "vacant lot (inferred from title-block 'VI/VL')", "verified": false}
+    "CSC": {
+      "meaning": null,
+      "verified": false
+    },
+    "NT": {
+      "meaning": null,
+      "verified": false
+    },
+    "SA": {
+      "meaning": null,
+      "verified": false
+    },
+    "REG": {
+      "meaning": null,
+      "verified": false
+    },
+    "CR": {
+      "meaning": null,
+      "verified": false
+    },
+    "ATX": {
+      "meaning": null,
+      "verified": false
+    },
+    "CF": {
+      "meaning": null,
+      "verified": false
+    },
+    "MIL": {
+      "meaning": null,
+      "verified": false
+    },
+    "R": {
+      "meaning": null,
+      "verified": false
+    },
+    "S": {
+      "meaning": null,
+      "verified": false
+    },
+    "VL": {
+      "meaning": "vacant lot (inferred from title-block 'VI/VL')",
+      "verified": false
+    }
   },
   "address_prefix": {
-    "C": {"meaning": "commercial (matches title block COMMERCIAL)", "verified": false},
-    "G": {"meaning": "government (matches title block GOV)", "verified": false}
+    "C": {
+      "meaning": "commercial (matches title block COMMERCIAL)",
+      "verified": false
+    },
+    "G": {
+      "meaning": "government (matches title block GOV)",
+      "verified": false
+    }
   },
-  "cable_sizes": [412, 500, 625, 750, 875, 1000],
+  "cable_sizes": [
+    412,
+    500,
+    625,
+    750,
+    875,
+    1000
+  ],
   "color_roles": {
-    "red":     "field redline / walkout annotation",
-    "blue":    "design-drawn or verified element",
-    "green":   "special markers (e.g. node / power / tower)",
+    "red": "field redline / walkout annotation",
+    "blue": "design-drawn or verified element",
+    "green": "special markers (e.g. node / power / tower)",
     "magenta": "highlight (poles flagged)",
-    "yellow":  "highlight (pole walked)"
-  }
+    "yellow": "highlight (pole walked)"
+  },
+  "references": [
+    {
+      "url": "https://www.tonercable.com/wp-content/uploads/2021/07/commoncatv.pdf",
+      "note": "Common CATV symbol NAMES (amp, splitters, taps by output count 1/2/4/6/8, cable 0.412/0.500/0.750/1.000, power supply, standby, EQ/attenuator). Shapes are graphics only; no abbreviations like CSC/NT/SA."
+    },
+    {
+      "url": "https://communicationsengineering.files.wordpress.com/2007/07/osp-symbols-for-hfc-hyberid-fiber-coax.pdf",
+      "note": "SCTE graphic symbols (15 pages) is image-only, text not extractable; ANSI/SCTE 87 full standard is behind SCTE login."
+    }
+  ]
 }
