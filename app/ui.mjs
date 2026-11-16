@@ -274,7 +274,12 @@ export function mountApp(root, {onxServices={}}={}) {
     if(t.closest('#onx-review-form') && onxPending) {
       if(onxPending.saving) return;
       const pending=onxPending; readONXForm(t.closest('form'),pending);
-      if(t.id==='onx-station') {pending.port=reportPorts(job.nodes.find(n=>n.id===pending.nodeId))[0]||'';pending.error='';render();return;}
+      if(t.id==='onx-station' || t.id==='onx-port') {
+        if(t.id==='onx-station') pending.port='';
+        // A different physical measurement plane needs a fresh connection/loss declaration.
+        Object.assign(pending,{connection:'',loss:'',correctionText:'Choose the physical connection for this station and port to preview correction.',error:''});
+        render(); return;
+      }
       if(pending.report.kind==='forward-sweep') {try {const parsed=correctedONX(pending);pending.correctionText=`Net correction ${fmt(parsed.correction.appliedDb)} dB. ${parsed.correction.explanation}`;} catch(error) {pending.correctionText=error.message;} const text=root.querySelector('#onx-correction');if(text)text.textContent=pending.correctionText;}
       return;
     }
