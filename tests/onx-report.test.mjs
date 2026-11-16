@@ -60,3 +60,14 @@ test('HTML rejects executable chart expressions and malformed literal data',asyn
  await assert.rejects(inspectONX(zipSync({'report.html':strToU8(html),'plan.json':json({channels:[]})})),/chart|literal|invalid/i);
  assert.equal(globalThis.unsafeExecuted,undefined);
 });
+test('empty referenced values do not block a valid absolute sweep or become zero',async()=>{
+ const doc={testGroup:{tests:[{setupGroups:[{id:'testPointTemplate',configs:[{id:'forwardTestPointCompensation',units:'dB',value:0}]}],resultGroups:[{resultSeries:[{id:'Levels',independent:{label:'Frequency',units:'MHz',values:[100,200]},dependent:[{label:'Absolute',units:'dBmV',values:[5,6]},{label:'Referenced',units:'dB',values:[]}]}]}]}]}};
+ const report=await inspectONX(json(doc));
+ assert.deepEqual(correctONXSweep(report,{connection:'direct'}).rawSamples,[[100,5],[200,6]]);
+ const referenced=report.series.find(s=>s.label==='Referenced');
+ assert.ok(!referenced || referenced.samples.length===0);
+ doc.testGroup.tests[0].resultGroups[0].resultSeries[0].dependent[1].values=[1];
+ await assert.rejects(inspectONX(json(doc)),/referenced.*align/i);
+ doc.testGroup.tests[0].resultGroups[0].resultSeries[0].dependent[1].values=[1,NaN];
+ await assert.rejects(inspectONX(json(doc)),/referenced.*align/i);
+});

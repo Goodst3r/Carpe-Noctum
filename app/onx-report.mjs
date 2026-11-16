@@ -147,8 +147,8 @@ function native(document,metadata) {
  const normalized=[{id:series.id ?? 'Levels',label:'Absolute',direction:'forward',frequencyUnit:'MHz',levelUnit:'dBmV',samples:f.values.map((x,i)=>[x,a.values[i]])}];
  const refs=(series.dependent ?? []).filter(x=>x.label==='Referenced' && x.units==='dB');
  if(refs.length>1) throw new Error('ONX ambiguous referenced series');
- if(refs.length) {const ref=refs[0]; if(!Array.isArray(ref.values) || ref.values.length!==f.values.length || !ref.values.every(Number.isFinite)) throw new Error('ONX referenced samples do not align'); normalized.push({id:`${series.id ?? 'Levels'}.Referenced`,label:'Referenced',direction:'forward',frequencyUnit:'MHz',levelUnit:'dB',samples:f.values.map((x,i)=>[x,ref.values[i]]),measurementKind:'relative'});}
- return {kind:'forward-sweep',direction:'forward',metadata,series:normalized,tables:[],warnings:[]};
+ if(refs.length) {const ref=refs[0]; if(!Array.isArray(ref.values) || (ref.values.length!==0 && ref.values.length!==f.values.length) || !ref.values.every(Number.isFinite)) throw new Error('ONX referenced samples do not align'); normalized.push({id:`${series.id ?? 'Levels'}.Referenced`,label:'Referenced',direction:'forward',frequencyUnit:'MHz',levelUnit:'dB',samples:ref.values.length ? f.values.map((x,i)=>[x,ref.values[i]]) : [],measurementKind:'relative'});}
+ return {kind:'forward-sweep',direction:'forward',metadata,series:normalized,tables:[],warnings:refs.length && !refs[0].values.length ? ['Referenced curve is unavailable.'] : []};
 }
 export async function inspectONX(bytes,{filename}={}) {
  const input=bytes instanceof Uint8Array?bytes:new Uint8Array(bytes); if(input.length>INPUT) throw new Error('ONX input exceeds the 20 MiB size limit');
