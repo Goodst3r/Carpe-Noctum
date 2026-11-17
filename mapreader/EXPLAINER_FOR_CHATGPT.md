@@ -61,6 +61,9 @@ Because the sheets are the same map: fit a similarity transform (scale, rotation
 - A feet-per-point scale could NOT be established: pairing footage labels to pole pairs by position gave no tight cluster (ratio 0.6-2.0 ft/pt across 262 labels; unique-candidate labels 2.8-5.3). Total plant footage on the title block divided by cable length on the coax sheet suggests roughly 5-5.4 ft per coax-sheet point, but that mixes strand/cable/underground totals, so it is only a sanity range. No conversion to feet is applied anywhere.
 - Red footage labels sum to 49,833 ft over 275 labels; the title block totals are larger, so the red labels are only part of the plant (the rest are black base labels and changes).
 
+## 4f. Footage sits between adjacent poles
+Each footage label is paired only with POLE PAIRS that bracket it: the label projects to 15-85% along the segment, within 10 pt of it, and no third pole lies on that span. 256 of 275 labels have such a pair, 68 have exactly one. Among those 68 the ft-per-point ratio is centered near 4.6 on the walkout sheet but the spread is wide (pole highlight dots are only approximately on the pole), so it is reported as an estimate and never applied. All pairings stay unconfirmed.
+
 ## 5. Results on the coax-only sheet (consistency check against a separately made draft job, not ground truth)
 Taps 248 (4-port 47/47 matched, 2-port 52/53), line extenders 44/44 matched (50 incl. tag-derived), amplifiers 20 (the draft says 25; five reviewed as line extenders), splitters 36 (draft 18, tiny dots unresolved), couplers 9 (draft 4, unreviewed). All 76 A# and 84 E# tags link to table rows.
 

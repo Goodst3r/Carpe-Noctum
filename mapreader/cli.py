@@ -62,7 +62,8 @@ def main(argv=None):
         from . import prims as _pr
         sl = link.strand_layer(mk, _pr.paths(a.pdf))
         json.dump(sl, open(os.path.join(a.out, "strand.json"), "w"))
-        res["walkout"]["strand"] = {k: (len(v) if isinstance(v, list) else v) for k, v in sl.items()}
+        res["walkout"]["strand"] = {k: (len(v) if isinstance(v, list) else v) for k, v in sl.items() if k != "between_poles"}
+        res["walkout"]["strand"]["between_poles"] = sl["between_poles"]
         res["walkout"]["cable_labels"].pop("with_footage_candidate", None)
     json.dump(bm["symbols"], open(os.path.join(a.out, "basemap_symbols.json"), "w"))
     if not any(m["type"] != "FreeText" for m in mk):      # coax-only sheet: trace cable runs
