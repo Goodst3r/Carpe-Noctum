@@ -3,3 +3,6 @@ __pycache__/
 qa/*results.json
 qa/*testlogs/
 .openai/*.local.*
+
+# private running record (not for the repository)
+mapreader/private/
