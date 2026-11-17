@@ -41,9 +41,10 @@ def write(res, path):
         s = w["summary"]
         L += ["## Walkout redlines", f"- Title block: {w['title_block']}", f"- Annotations by type: {s['annotations_by_type']}",
               f"- Cable sizes: {s['cable_sizes']}; other cable types: {s.get('cable_type_other')}",
-              f"- Cable labels (deduped): {w.get('cable_labels')}  (footage pairing is a candidate only; printed .412 is assumed MC2 .500 by the user, printed value kept)", f"- Tokens (meaning unverified, see glossary.json): {s['tokens']}",
+              f"- Cable labels (deduped): {w.get('cable_labels')}  (printed .412 is assumed MC2 .500 by the user, printed value kept)", f"- Tokens (meaning unverified, see glossary.json): {s['tokens']}",
               f"- Unique pole IDs: {s['pole_ids']}; pole highlights: {s['highlights']}",
               f"- Address-tagged (C=commercial, G=government, inferred): {s['address_tagged']}", f"- Photos: {s['photos']}",
+              f"- Strand layer (pole to pole; footage = strand span length, NOT cable): {w.get('strand')}",
               "", "### Free-text field notes"] + [f"- {n}" for n in s["notes"]]
         L += ["", "### Reconciliation vs title block",
               "Title block says POLES 398, GOV 9, COMMERCIAL 40. Detected: "

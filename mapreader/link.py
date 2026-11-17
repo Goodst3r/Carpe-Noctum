@@ -77,8 +77,7 @@ def title_block(markup):
 
 
 def cable_labels(markup):
-    """All printed cable-type labels with footage candidates. Nearest-label pairing is a CANDIDATE only (never confirmed)."""
-    foot = [m for m in markup if m["text_category"] == "span_footage"]
+    """Printed cable-type labels (deduplicated). Footage is a STRAND span length (user-confirmed), so it is never paired with cable here."""
     out, seen = [], set()
     for m in markup:
         if m["text_category"] not in ("cable_size", "cable_type_other"):
@@ -87,12 +86,27 @@ def cable_labels(markup):
         if k in seen:
             continue                      # identical label stacked on the same spot
         seen.add(k)
-        near = min(foot, key=lambda f: (f["cx"] - m["cx"]) ** 2 + (f["cy"] - m["cy"]) ** 2, default=None)
-        d = ((near["cx"] - m["cx"]) ** 2 + (near["cy"] - m["cy"]) ** 2) ** .5 if near else None
         rec = {"printed": m["text"].strip(), "family": "hardline_size" if m["text_category"] == "cable_size" else "other_coax",
-               "x": m["cx"], "y": m["cy"], "color": m["color"], "id": m["id"],
-               "nearest_footage_candidate": {"feet": near["value"], "dist_pt": round(d, 1), "confirmed": False} if near and d < 40 else None}
+               "x": m["cx"], "y": m["cy"], "color": m["color"], "id": m["id"]}
         if m["text"].strip() == "412":
             rec["catalog_assumption"] = "mc2_500 (user-stated assumption; printed .412 kept)"
         out.append(rec)
     return out
+
+
+def strand_layer(markup, P):
+    """Poles (walkout highlights) and strand spans (pole to pole). Footage labels are strand span lengths; pairing is a candidate only."""
+    import math
+    from . import strand
+    from .graph import _pt_seg
+    poles = [{"x": m["cx"], "y": m["cy"], "color": m["color"]} for m in markup if m["type"] == "Ink"]
+    sp, pn = strand.spans(P, [(p["x"], p["y"]) for p in poles])
+    foot = [m for m in markup if m["text_category"] == "span_footage"]
+    spans = []
+    for (i, j), v in sp.items():
+        cands = [f for f in foot if len(v["path"]) > 1 and min(_pt_seg((f["cx"], f["cy"]), a, b)[0] for a, b in zip(v["path"], v["path"][1:])) <= 10]
+        spans.append({"pole_a": i, "pole_b": j, "length_pt": round(v["length_pt"], 1),
+                      "footage_candidates": [{"feet": f["value"], "confirmed": False} for f in cands[:3]]})
+    return {"poles": poles, "spans": spans, "poles_on_strand": len(pn),
+            "footage_total_ft_red_labels": sum(f["value"] for f in foot), "footage_labels": len(foot),
+            "meaning": "printed footage = strand span length (pole to pole), user-confirmed; not cable length"}

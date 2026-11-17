@@ -73,7 +73,7 @@ def test_walkout_cable_labels():
     mk, _ = markup.load_markup(W[0])
     cl = link.cable_labels(mk)
     assert 380 <= len(cl) <= 390 and sum(x["printed"] == "RG11" for x in cl) == 8
-    assert all(x["nearest_footage_candidate"] is None or x["nearest_footage_candidate"]["confirmed"] is False for x in cl)
+    assert all("nearest_footage_candidate" not in x for x in cl)    # footage is strand length, never paired with cable
 
 
 @pytest.mark.skipif(not (W and C), reason="samples missing")

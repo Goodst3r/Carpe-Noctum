@@ -57,9 +57,13 @@ def main(argv=None):
         json.dump(mk, open(os.path.join(a.out, "markup.json"), "w"))
         json.dump(syms, open(os.path.join(a.out, "walkout_symbols.json"), "w"))
         cl = link.cable_labels(mk)
-        res["walkout"]["cable_labels"] = {"total": len(cl), "by_printed": dict(__import__("collections").Counter(x["printed"] for x in cl)),
-                                          "with_footage_candidate": sum(1 for x in cl if x["nearest_footage_candidate"])}
+        res["walkout"]["cable_labels"] = {"total": len(cl), "by_printed": dict(__import__("collections").Counter(x["printed"] for x in cl))}
         json.dump(cl, open(os.path.join(a.out, "cable_labels.json"), "w"))
+        from . import prims as _pr
+        sl = link.strand_layer(mk, _pr.paths(a.pdf))
+        json.dump(sl, open(os.path.join(a.out, "strand.json"), "w"))
+        res["walkout"]["strand"] = {k: (len(v) if isinstance(v, list) else v) for k, v in sl.items()}
+        res["walkout"]["cable_labels"].pop("with_footage_candidate", None)
     json.dump(bm["symbols"], open(os.path.join(a.out, "basemap_symbols.json"), "w"))
     if not any(m["type"] != "FreeText" for m in mk):      # coax-only sheet: trace cable runs
         from . import graph, prims

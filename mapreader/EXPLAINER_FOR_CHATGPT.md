@@ -55,6 +55,12 @@ Because the sheets are the same map: fit a similarity transform (scale, rotation
 - `merged.json` now has `cable_label_candidates`: each cable label with its distance to any cable segment and its 2 nearest cable-link candidates (unconfirmed). Footage labels are deliberately NOT attached to cable links: a printed footage may be a pole span (strand) or a cable length between passives, which cannot be told apart from position alone.
 - An earlier attempt to estimate a feet-per-point scale from footage vs pole spacing gave an inconsistent 0.7-2.0 ft/pt spread, so no scale is claimed.
 
+## 4e. Footage = strand span length (user-confirmed)
+- A printed footage such as 192' is the length of a STRAND span between two poles, not a cable length. So footage is removed from every cable record (`cable_labels.json` no longer carries footage candidates) and lives only in `strand.json` (walkout): poles (highlight dots), pole-to-pole strand spans, and footage candidates per span (unconfirmed).
+- Strand detection: on the walkout, strand is the 0.02-0.03 stroke-width class; 360 of its 387 segments touch a pole (93%), unlike any other class. Poles are the walkout highlight dots (445).
+- A feet-per-point scale could NOT be established: pairing footage labels to pole pairs by position gave no tight cluster (ratio 0.6-2.0 ft/pt across 262 labels; unique-candidate labels 2.8-5.3). Total plant footage on the title block divided by cable length on the coax sheet suggests roughly 5-5.4 ft per coax-sheet point, but that mixes strand/cable/underground totals, so it is only a sanity range. No conversion to feet is applied anywhere.
+- Red footage labels sum to 49,833 ft over 275 labels; the title block totals are larger, so the red labels are only part of the plant (the rest are black base labels and changes).
+
 ## 5. Results on the coax-only sheet (consistency check against a separately made draft job, not ground truth)
 Taps 248 (4-port 47/47 matched, 2-port 52/53), line extenders 44/44 matched (50 incl. tag-derived), amplifiers 20 (the draft says 25; five reviewed as line extenders), splitters 36 (draft 18, tiny dots unresolved), couplers 9 (draft 4, unreviewed). All 76 A# and 84 E# tags link to table rows.
 
