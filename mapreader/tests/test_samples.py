@@ -98,3 +98,12 @@ def test_cable_graph_v1():
     G = graph.build(prims.paths(C[0]), dev)
     L = graph.device_links(G, dev)
     assert sum(1 for d in G["devices"] if G["adj"][d]) >= 280 and 300 < len(L) < 700
+
+
+def test_link_length_apportions_span_footage():
+    from mapreader import length
+    span = {"a": (0, 0), "b": (100, 0), "feet": 200, "id": "s"}
+    r = length.link_length([(0, 1), (50, 1)], [span])            # cable follows the first half of the span
+    assert abs(r["est_ft"] - 100) < 3 and r["coverage"] > .9
+    r2 = length.link_length([(0, 1), (100, 1)], [span]); r3 = length.link_length([(0, -1), (60, -1)], [span])
+    assert abs(length.plant_total([r2, r3])[0] - 200) < 4        # overlapping links are not double counted

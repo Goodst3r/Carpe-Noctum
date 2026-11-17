@@ -6,7 +6,7 @@ CANDIDATES (never confirmed associations).
 """
 import argparse, json, math, os, collections
 import pdfplumber
-from . import symbols, basemap, markup, tables, tags, link, align, graph, prims
+from . import symbols, basemap, markup, tables, tags, link, align, graph, prims, length
 
 
 def _taps(pdf):
@@ -17,6 +17,7 @@ def _taps(pdf):
 def main(argv=None):
     ap = argparse.ArgumentParser(); ap.add_argument("coax"); ap.add_argument("walkout"); ap.add_argument("--out", required=True)
     ap.add_argument("--radius", type=float, default=25.0); ap.add_argument("--iters", type=int, default=4000)
+    ap.add_argument("--include-ambiguous", action="store_true", help="also use footage labels whose best pole pair is not unique")
     a = ap.parse_args(argv); os.makedirs(a.out, exist_ok=True)
     csy, ctaps = _taps(a.coax); _, wtaps = _taps(a.walkout)
     reg = align.register(wtaps, ctaps, iters=a.iters)
@@ -71,6 +72,35 @@ def main(argv=None):
         label_links.append({"printed": i["text"].strip(), "x": round(i["x"], 1), "y": round(i["y"], 1), "dist_to_any_cable_pt": round(sdists[-1], 1),
                             "candidates": [{"link": list(k), "dist_pt": round(d, 1), "confirmed": False} for d, k in ranked if d <= 15]})
     poles = [{"x": round(x, 1), "y": round(y, 1)} for x, y in align.apply(T, [(m["cx"], m["cy"]) for m in wm if m["type"] == "Ink"])]
+    # ---- cable length from strand footage (footage = strand length between two adjacent poles)
+    sl = link.strand_layer(wm, prims.paths(a.walkout))
+    pid = {}
+    for m in wm:
+        if m["text_category"] == "pole_id":
+            pid.setdefault(m["value"], (m["cx"], m["cy"]))
+    pole_pts = [(m["cx"], m["cy"]) for m in wm if m["type"] == "Ink"]
+
+    def pole_pos(label_xy):                       # nearest highlighted pole within 20 pt of the ID label, else the label itself
+        best = min(pole_pts, key=lambda q: math.dist(q, label_xy), default=None)
+        return best if best and math.dist(best, label_xy) <= 20 else label_xy
+    spans_c = []
+    for k, pr in enumerate(sl["between_poles"]["pairs"]):
+        if not pr["unique"] and not a.include_ambiguous:
+            continue
+        A, B = pid.get(pr["pole_id_pair"][0]), pid.get(pr["pole_id_pair"][1])
+        if not A or not B:
+            continue
+        pa, pb = align.apply(T, [pole_pos(A), pole_pos(B)])
+        spans_c.append({"a": pa, "b": pb, "feet": pr["feet"], "id": f"{pr['pole_id_pair'][0]}~{pr['pole_id_pair'][1]}"})
+    est = []
+    for k in keys:
+        r = length.link_length(LK[k]["path"], spans_c)
+        est.append({"link": list(k), "length_pt": round(LK[k]["length_pt"], 1), **r})
+    cov = [e for e in est if e["coverage"] >= .5]
+    tot_ft, n_sp = length.plant_total(est)
+    rep_len = {"unique_cable_feet_along_footaged_spans": tot_ft, "spans_with_cable": n_sp, "links": len(est), "links_with_coverage_ge_50pct": len(cov), "estimated_feet_in_those_links": round(sum(e["est_ft"] for e in cov)),
+               "unique_spans_used": len(spans_c),
+               "note": "ESTIMATE: strand footage apportioned by fraction of each span the cable link follows; excludes slack, risers, underground, drops and spans without footage"}
     out = []
     for st in stations:
         near = sorted((i for i in items if math.hypot(i["x"] - st["x"], i["y"] - st["y"]) <= a.radius),
@@ -86,7 +116,8 @@ def main(argv=None):
                                      "within_15pt": sum(1 for d in dists if d <= 15), "cable_links": len(keys),
                                      "within_6pt_of_any_cable_segment": sum(1 for d in sdists if d <= 6), "within_10pt_of_any_cable_segment": sum(1 for d in sdists if d <= 10)}
     rep["strand_note"] = "Poles/strand are walkout-only and are NOT used to build cable links. footage labels are left unattached (pole span vs cable length unresolved)."
-    json.dump({"summary": rep, "stations": out, "cable_label_candidates": label_links, "poles_projected": poles}, open(os.path.join(a.out, "merged.json"), "w"), indent=1, default=dict)
+    rep["cable_length"] = rep_len
+    json.dump({"summary": rep, "stations": out, "cable_label_candidates": label_links, "poles_projected": poles, "cable_length_estimates": est}, open(os.path.join(a.out, "merged.json"), "w"), indent=1, default=dict)
     print(json.dumps(rep, default=dict, indent=1))
 
 

@@ -66,6 +66,10 @@ Because the sheets are the same map: fit a similarity transform (scale, rotation
 - NO feet-per-point scale is derived or used. Field footage is measured along the strand in the field; the drawing is not to scale along strand (two adjacent spans drawn the same length are printed 192' and 101'; red-drawn field poles are placed schematically). Earlier attempts to fit a ratio (0.6-9.6 ft/pt, no cluster) were abandoned for this reason. Printed footage is authoritative; drawn length is not.
 - Strand is never used for cable connectivity, and footage is never attached to cable.
 
+## 4g. Cable length from strand footage (`length.py`, estimate)
+Cable runs along strand, so a traced cable link that follows a pole-to-pole span uses footage x (fraction of the drawn span it covers). Only within-span proportions are used (never a global feet-per-point scale, because the drawing is not to scale along strand). Pole positions come from the walkout pole highlights nearest each pole-ID label, projected to the coax sheet by the registration. Per link: est_ft, coverage (share of the link explained by footaged spans), spans used. `plant_total` takes the union of covered intervals per span, so links that share cable at junctions are not double counted.
+Result (unique pole pairs only): 132 of 524 links have at least 50% coverage; 11,972 ft of cable lies along 75 footaged spans. With `--include-ambiguous` (best pair even when not unique): 235 links, 16,216 ft over 125 spans. This is a partial, conservative figure: only footages with a pole pair are used, and slack, risers, underground cable, drops and spans without footage are excluded. The title block's total plant footage is about 80,762 ft, so this covers a minority of the plant.
+
 ## 5. Results on the coax-only sheet (consistency check against a separately made draft job, not ground truth)
 Taps 248 (4-port 47/47 matched, 2-port 52/53), line extenders 44/44 matched (50 incl. tag-derived), amplifiers 20 (the draft says 25; five reviewed as line extenders), splitters 36 (draft 18, tiny dots unresolved), couplers 9 (draft 4, unreviewed). All 76 A# and 84 E# tags link to table rows.
 
