@@ -107,35 +107,32 @@ def strand_layer(markup, P):
         cands = [f for f in foot if len(v["path"]) > 1 and min(_pt_seg((f["cx"], f["cy"]), a, b)[0] for a, b in zip(v["path"], v["path"][1:])) <= 10]
         spans.append({"pole_a": i, "pole_b": j, "length_pt": round(v["length_pt"], 1),
                       "footage_candidates": [{"feet": f["value"], "confirmed": False} for f in cands[:3]]})
-    # footage sits BETWEEN two adjacent poles: candidate pole pairs with no other pole on the span
-    import statistics
-    pp = [(q["x"], q["y"]) for q in poles]
+    # footage sits BETWEEN two adjacent poles (user-confirmed). Poles are identified by their printed pole-ID labels.
+    ids = {}
+    for m in markup:
+        if m["text_category"] == "pole_id":
+            ids.setdefault(m["value"], (m["cx"], m["cy"]))
+    idl = list(ids.items())
 
     def adjacent(a, b):
-        return not any(p not in (a, b) and .1 < _pt_seg(p, a, b)[1] < .9 and _pt_seg(p, a, b)[0] < 6 for p in pp)
-    between, ratios = [], []
+        return not any(i not in (a[0], b[0]) and .1 < _pt_seg(q, a[1], b[1])[1] < .9 and _pt_seg(q, a[1], b[1])[0] < 8 for i, q in idl)
+    between = []
     for f in foot:
-        c = (f["cx"], f["cy"]); near = sorted(pp, key=lambda p: math.dist(p, c))[:8]
+        c = (f["cx"], f["cy"]); near = sorted(idl, key=lambda kv: math.dist(kv[1], c))[:7]
         cands = []
         for i, a in enumerate(near):
             for b in near[i + 1:]:
-                L = math.dist(a, b)
-                if 8 < L < 300:
-                    d, t, _ = _pt_seg(c, a, b)
-                    if d < 10 and .15 < t < .85 and adjacent(a, b):
-                        cands.append((d, L, a, b))
+                L = math.dist(a[1], b[1])
+                if 12 < L < 120:
+                    d, t, _ = _pt_seg(c, a[1], b[1])
+                    if d < 12 and .2 < t < .8 and adjacent(a, b):
+                        cands.append((d, a[0], b[0]))
         cands.sort()
         if cands:
-            between.append({"feet": f["value"], "candidate_pole_pairs": len(cands), "unique": len(cands) == 1,
-                            "best_pair_length_pt": round(cands[0][1], 1), "confirmed": False})
-            if len(cands) == 1:
-                ratios.append(f["value"] / cands[0][1])
-    est = None
-    if len(ratios) >= 10:
-        q = statistics.quantiles(ratios, n=4)
-        est = {"ft_per_pt_walkout_sheet_median": round(statistics.median(ratios), 2), "q1": round(q[0], 2), "q3": round(q[2], 2),
-               "n_unique": len(ratios), "note": "spread is wide; estimate only, not used for any conversion"}
-    return {"between_poles": {"labels_with_adjacent_pole_pair": len(between), "unique_pair": sum(1 for b in between if b["unique"]), "scale_estimate": est},
+            between.append({"feet": f["value"], "pole_id_pair": [cands[0][1], cands[0][2]], "n_candidates": len(cands), "unique": len(cands) == 1,
+                            "confirmed": False})
+    return {"between_poles": {"labels_with_adjacent_pole_id_pair": len(between), "unique_pair": sum(1 for b in between if b["unique"]), "pairs": between,
+                       "scale_note": "No feet-per-point scale is derived: field footage is measured on the strand and the drawing is not to scale along strand (e.g. adjacent spans drawn the same length are printed 192' and 101')."},
             "poles": poles, "spans": spans, "poles_on_strand": len(pn),
             "footage_total_ft_red_labels": sum(f["value"] for f in foot), "footage_labels": len(foot),
             "meaning": "printed footage = strand span length (pole to pole), user-confirmed; not cable length"}
